@@ -1,0 +1,57 @@
+{
+ "_README": [
+  "Which equipment types a class can actually hold, and per-item fixes to the",
+  "job sentence the site ships.",
+  "",
+  "This file is maintained by hand and is NOT generated. It exists because the",
+  "site's item payload carries only a job sentence per item ('All except",
+  "Bouncer, Judge, ...'), and that sentence is the only restriction data there",
+  "is -- no payload lists what a class may hold. Where the sentence is broad",
+  "the planner ends up offering a class gear it cannot equip: a Satsujin gets",
+  "Heavy Shields and Colossal Shields because no shield's sentence excludes",
+  "Satsujin by name.",
+  "",
+  "Two sections, both optional:",
+  "",
+  "'classes' -- keyed by class name exactly as data/classes.json spells it.",
+  "  'weapons'     the item types allowed in the weapon hand (one- and",
+  "                two-handed both; a Colossal Shield is a two-handed weapon",
+  "                as far as the slot is concerned).",
+  "  'off_hand'    the item types allowed in the off hand.",
+  "  'ammunition'  the item types allowed in the ammunition slot.",
+  "  A key that is absent leaves that slot unconstrained for the class, so a",
+  "  partly-filled entry never hides gear nobody has checked. A class absent",
+  "  from this file keeps the job-sentence behaviour on every slot. Filling it",
+  "  in one class at a time is the intended way to use this.",
+  "",
+  "'items' -- keyed by exact item name, correcting the job sentence itself.",
+  "  'usable_by' is written in the site's own grammar ('Prowler', or",
+  "  'All except Judge, Peacekeeper'), so it runs through the same reader as",
+  "  the real sentences. Use this where the sentence is wrong about one item",
+  "  rather than wrong about a whole class.",
+  "",
+  "'status' is either 'verified' (checked in game) or 'unverified' (a best",
+  "reading, not yet confirmed), as in overrides.json. Both are applied; the",
+  "difference is what the build reports.",
+  "",
+  "A class name, item name or type that matches nothing is reported as stale",
+  "rather than ignored -- otherwise a data update would silently drop a rule."
+ ],
+ "classes": {
+  "Satsujin": {
+   "status": "unverified",
+   "reason": "Project owner, from play: a Satsujin holds a dagger, and a one-handed shield in the off hand. The shipped sentences let it through to 36 Heavy Shields, 4 Colossal Shields (which sit in the two-handed weapon slot), the 4 general Armguards, to Fleinn (a bow), and to Abomination's Scythe, Sigrsverd and Maladeilan, which ship with no job sentence at all.",
+   "weapons": [
+    "Dagger"
+   ],
+   "off_hand": [
+    "Shield",
+    "Round Shield",
+    "Square Shield",
+    "Arm Shield",
+    "Medium Shield"
+   ]
+  }
+ },
+ "items": {}
+}

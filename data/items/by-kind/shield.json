@@ -1,0 +1,9595 @@
+[
+ {
+  "id": 2118,
+  "name": "Arm Guard",
+  "kind": "Shield",
+  "type": "Armguard",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 1\n\nFlee +10\nPerfect Dodge +2\nAGI+1",
+  "required_level": 5,
+  "weight": 50,
+  "atk": 0,
+  "matk": 0,
+  "def": 2,
+  "mdef": 2,
+  "card_slots": 1,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2118.png",
+   "art": "images/art/2118.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1012,
+    "mob": "Roda Frog",
+    "mob_level": 6,
+    "zone": "Prontera Field",
+    "chance_percent": 3.0,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2118",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 1",
+    "stat": "Auto Guard Lv",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "Flee +10",
+    "stat": "Flee",
+    "value": 10,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     26
+    ],
+    "stat_keys": [
+     "flee"
+    ]
+   },
+   {
+    "text": "Perfect Dodge +2",
+    "stat": "Perfect Dodge",
+    "value": 2,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     27
+    ],
+    "stat_keys": [
+     "perfect_dodge"
+    ]
+   },
+   {
+    "text": "AGI+1",
+    "stat": "AGI",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     1
+    ],
+    "stat_keys": [
+     "agi"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2117,
+  "name": "Arm Guard",
+  "kind": "Shield",
+  "type": "Armguard",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 1\n\nFlee +10\nPerfect Dodge +2\nAGI+1",
+  "required_level": 5,
+  "weight": 50,
+  "atk": 0,
+  "matk": 0,
+  "def": 2,
+  "mdef": 2,
+  "card_slots": 0,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2117.png",
+   "art": "images/art/2117.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2117",
+  "raw": {
+   "how": [
+    "Armor Dealer · Inside Alberta",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    3
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 1",
+    "stat": "Auto Guard Lv",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "Flee +10",
+    "stat": "Flee",
+    "value": 10,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     26
+    ],
+    "stat_keys": [
+     "flee"
+    ]
+   },
+   {
+    "text": "Perfect Dodge +2",
+    "stat": "Perfect Dodge",
+    "value": 2,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     27
+    ],
+    "stat_keys": [
+     "perfect_dodge"
+    ]
+   },
+   {
+    "text": "AGI+1",
+    "stat": "AGI",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     1
+    ],
+    "stat_keys": [
+     "agi"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2178,
+  "name": "Asgard's Broken Wall",
+  "kind": "Shield",
+  "type": "Colossal Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Weapon (two-handed)"
+  ],
+  "description": "Reflect Melee Damage: 15%\n\nIncrease resistance to all elements except neutral by 2% per refine\nSP+2% per refine\nDrains whole SP when unequipped",
+  "required_level": 130,
+  "weight": 250,
+  "atk": 0,
+  "matk": 0,
+  "def": 50,
+  "mdef": 15,
+  "card_slots": 1,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Judge, Peacekeeper, Prowler, Shadowseer",
+  "images": {
+   "icon": "images/icons/2178.png",
+   "art": "images/art/2178.png"
+  },
+  "drops": [
+   {
+    "mob_id": 3096,
+    "mob": "Vision of Surt",
+    "mob_level": 146,
+    "zone": "Sograt Desert - Dimensional Rift",
+    "chance_percent": 1,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": "Asgard BrokenWall",
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2178",
+  "raw": {
+   "how": [
+    "Armor Dealer · Inside Niflheim",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    4
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Reflect Melee Damage: 15%",
+    "stat": "Reflect Melee Damage",
+    "value": 15,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     31
+    ],
+    "stat_keys": [
+     "reflect_melee"
+    ]
+   },
+   {
+    "text": "Drains whole SP when unequipped",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [
+    {
+     "per": 1,
+     "effects": [
+      {
+       "text": "Increase resistance to all elements except neutral by 2% per refine",
+       "parsed": false
+      },
+      {
+       "text": "SP+2% per refine",
+       "stat": "SP",
+       "value": 2,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        7
+       ],
+       "stat_keys": [
+        "max_sp"
+       ]
+      }
+     ]
+    }
+   ],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2133,
+  "name": "Atlas Shield",
+  "kind": "Shield",
+  "type": "Heavy Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 5\n\nASPD-50\nCritical Defense Rate +50%\n\nAtlas Set:\nWeapon and Shield\nSet Bonus:\nAll Stats +3",
+  "required_level": 80,
+  "weight": 300,
+  "atk": 0,
+  "matk": 0,
+  "def": 25,
+  "mdef": 0,
+  "card_slots": 1,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2133.png",
+   "art": "images/art/2133.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1395,
+    "mob": "Miguel",
+    "mob_level": 95,
+    "zone": "Beach of Tears",
+    "chance_percent": 15,
+    "mvp_reward": true
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2133",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 1,
+   "source_normal": 0
+  },
+  "sets": [
+   19
+  ],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 5",
+    "stat": "Auto Guard Lv",
+    "value": 5,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "ASPD-50",
+    "stat": "ASPD",
+    "value": -50,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     16
+    ],
+    "stat_keys": [
+     "aspd"
+    ]
+   },
+   {
+    "text": "Critical Defense Rate +50%",
+    "stat": "Critical Defense Rate",
+    "value": 50,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": []
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2151,
+  "name": "Backwak",
+  "kind": "Shield",
+  "type": "Arm Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 2\n\nFlee +7\nWater Element Resist. +10%\nEvery 9 base AGI gives you 2 extra flat DEF and 1 Perfect Dodge",
+  "required_level": 70,
+  "weight": 50,
+  "atk": 0,
+  "matk": 0,
+  "def": 6,
+  "mdef": 4,
+  "card_slots": 1,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2151.png",
+   "art": "images/art/2151.png"
+  },
+  "drops": [
+   {
+    "mob_id": 2013,
+    "mob": "Draco",
+    "mob_level": 76,
+    "zone": "Dragon Nest",
+    "chance_percent": 1,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2151",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 2",
+    "stat": "Auto Guard Lv",
+    "value": 2,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "Flee +7",
+    "stat": "Flee",
+    "value": 7,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     26
+    ],
+    "stat_keys": [
+     "flee"
+    ]
+   },
+   {
+    "text": "Water Element Resist. +10%",
+    "stat": "Water Element Resist.",
+    "value": 10,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     58
+    ],
+    "stat_keys": [
+     "res_water"
+    ]
+   },
+   {
+    "text": "Every 9 base AGI gives you 2 extra flat DEF and 1 Perfect Dodge",
+    "stat": "DEF",
+    "value": 2,
+    "unit": null,
+    "parsed": true,
+    "per_base_stat": {
+     "per": 9,
+     "stat": "AGI"
+    },
+    "stat_ids": [
+     24
+    ],
+    "stat_keys": [
+     "def"
+    ]
+   },
+   {
+    "text": "Every 9 base AGI gives you 2 extra flat DEF and 1 Perfect Dodge",
+    "stat": "Perfect Dodge",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "per_base_stat": {
+     "per": 9,
+     "stat": "AGI"
+    },
+    "stat_ids": [
+     27
+    ],
+    "stat_keys": [
+     "perfect_dodge"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2179,
+  "name": "Bash Shield",
+  "kind": "Shield",
+  "type": "Heavy Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 2\n\nAfter Cast Delay -10%\nShield Boomerange Damage +20%",
+  "required_level": 80,
+  "weight": 120,
+  "atk": 0,
+  "matk": 0,
+  "def": 25,
+  "mdef": 9,
+  "card_slots": 1,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2179.png",
+   "art": "images/art/2179.png"
+  },
+  "drops": [
+   {
+    "mob_id": 3087,
+    "mob": "Old Phoenix",
+    "mob_level": 114,
+    "zone": "Veins Field",
+    "chance_percent": 3,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2179",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 2",
+    "stat": "Auto Guard Lv",
+    "value": 2,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "After Cast Delay -10%",
+    "stat": "After Cast Delay",
+    "value": -10,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     35
+    ],
+    "stat_keys": [
+     "after_cast_delay"
+    ]
+   },
+   {
+    "text": "Shield Boomerange Damage +20%",
+    "stat": "Shield Boomerange Damage",
+    "value": 20,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Shield Boomerange",
+    "skill_metric": "damage",
+    "skills": [
+     "Shield Boomerange"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2112,
+  "name": "Battle Glory Shield",
+  "kind": "Shield",
+  "type": "Heavy Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 1\n\nKing's Chains DMG+25%\nATK+1% per 2 refines\nSP Consumption +20%",
+  "required_level": 100,
+  "weight": 350,
+  "atk": 0,
+  "matk": 0,
+  "def": 10,
+  "mdef": 10,
+  "card_slots": 1,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2112.png",
+   "art": "images/art/2112.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1708,
+    "mob": "Memory of Thanatos",
+    "mob_level": 100,
+    "zone": "Thanatos Tower - Unknown Place",
+    "chance_percent": 15,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1704,
+    "mob": "Thanatos Odium",
+    "mob_level": 90,
+    "zone": "Thanatos Tower Upper Level",
+    "chance_percent": 0.25,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": "B Glory Shield",
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2112",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 1,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 1",
+    "stat": "Auto Guard Lv",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "King's Chains DMG+25%",
+    "stat": "King's Chains DMG",
+    "value": 25,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "King's Chains",
+    "skill_metric": "damage",
+    "skills": [
+     "King's Chains"
+    ]
+   },
+   {
+    "text": "SP Consumption +20%",
+    "stat": "SP Consumption",
+    "value": 20,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     37
+    ],
+    "stat_keys": [
+     "sp_cost"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [
+    {
+     "per": 2,
+     "effects": [
+      {
+       "text": "ATK+1% per 2 refines",
+       "stat": "ATK",
+       "value": 1,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        10
+       ],
+       "stat_keys": [
+        "atk"
+       ]
+      }
+     ]
+    }
+   ],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2136,
+  "name": "Black Buckler",
+  "kind": "Shield",
+  "type": "Round Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 5\n\nSP +5%\nDark Resistance +5%",
+  "required_level": 15,
+  "weight": 80,
+  "atk": 0,
+  "matk": 0,
+  "def": 8,
+  "mdef": 5,
+  "card_slots": 0,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2136.png",
+   "art": "images/art/2136.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1229,
+    "mob": "Giga Sandworm",
+    "mob_level": 20,
+    "zone": "Sograt Desert",
+    "chance_percent": 3,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2136",
+  "raw": {
+   "how": [
+    "Armor Dealer · Inside Alberta",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    3
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 5",
+    "stat": "Auto Guard Lv",
+    "value": 5,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "SP +5%",
+    "stat": "SP",
+    "value": 5,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     7
+    ],
+    "stat_keys": [
+     "max_sp"
+    ]
+   },
+   {
+    "text": "Dark Resistance +5%",
+    "stat": "Dark Resistance",
+    "value": 5,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     76
+    ],
+    "stat_keys": [
+     "res_dark"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 1004934,
+  "name": "Bucket Buckler",
+  "kind": "Shield",
+  "type": "Round Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 2\n\nHP Regen +50%\nMove Speed +10%\nPer refine:\nMelee physical damage\ntaken -1%\n\nIt's the bottom of a metal\nbucket. That's it. But it\nworks.",
+  "required_level": 110,
+  "weight": 30,
+  "atk": 0,
+  "matk": 0,
+  "def": 10,
+  "mdef": 10,
+  "card_slots": 1,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/1004934.png",
+   "art": "images/art/1004934.png"
+  },
+  "drops": [
+   {
+    "mob_id": 21621,
+    "mob": "Buckethead",
+    "mob_level": 127,
+    "zone": "Mad Drinker",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": "new",
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=1004934",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 2",
+    "stat": "Auto Guard Lv",
+    "value": 2,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "HP Regen +50%",
+    "stat": "HP Regen",
+    "value": 50,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     8
+    ],
+    "stat_keys": [
+     "hp_regen"
+    ]
+   },
+   {
+    "text": "Move Speed +10%",
+    "stat": "Move Speed",
+    "value": 10,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     39
+    ],
+    "stat_keys": [
+     "move_speed"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [
+    {
+     "per": 1,
+     "effects": [
+      {
+       "text": "Melee physical damage taken -1%",
+       "stat": "Resistance vs Melee",
+       "value": 1,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        152
+       ],
+       "stat_keys": [
+        "res_melee"
+       ]
+      }
+     ]
+    }
+   ],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": "It's the bottom of a metal bucket. That's it. But it works.",
+  "override": null
+ },
+ {
+  "id": 2104,
+  "name": "Buckler",
+  "kind": "Shield",
+  "type": "Round Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 5\n\nSP +3%\nVIT+1",
+  "required_level": 5,
+  "weight": 80,
+  "atk": 0,
+  "matk": 0,
+  "def": 5,
+  "mdef": 3,
+  "card_slots": 1,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2104.png",
+   "art": "images/art/2104.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1077,
+    "mob": "Poison Spore",
+    "mob_level": 5,
+    "zone": "Faceworm's Forest",
+    "chance_percent": 3.0,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2104",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 5",
+    "stat": "Auto Guard Lv",
+    "value": 5,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "SP +3%",
+    "stat": "SP",
+    "value": 3,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     7
+    ],
+    "stat_keys": [
+     "max_sp"
+    ]
+   },
+   {
+    "text": "VIT+1",
+    "stat": "VIT",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     2
+    ],
+    "stat_keys": [
+     "vit"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2103,
+  "name": "Buckler",
+  "kind": "Shield",
+  "type": "Round Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 5\n\nSP +3%\nVIT+1",
+  "required_level": 5,
+  "weight": 80,
+  "atk": 0,
+  "matk": 0,
+  "def": 5,
+  "mdef": 3,
+  "card_slots": 0,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2103.png",
+   "art": "images/art/2103.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2103",
+  "raw": {
+   "how": [
+    "Armor Dealer · Inside Alberta",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    3
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 5",
+    "stat": "Auto Guard Lv",
+    "value": 5,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "SP +3%",
+    "stat": "SP",
+    "value": 3,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     7
+    ],
+    "stat_keys": [
+     "max_sp"
+    ]
+   },
+   {
+    "text": "VIT+1",
+    "stat": "VIT",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     2
+    ],
+    "stat_keys": [
+     "vit"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2195,
+  "name": "Castle Armguard",
+  "kind": "Shield",
+  "type": "Armguard",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 0\n\nPerfect Dodge +7\nPerfect Dodge +1 per refine\nHP+2% per refine\nBackstab Autocasts Kaupe\nBackstab SP Cost+50%\n\nProwler Only",
+  "required_level": 120,
+  "weight": 50,
+  "atk": 0,
+  "matk": 0,
+  "def": 12,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "Prowler",
+  "images": {
+   "icon": "images/icons/2195.png",
+   "art": "images/art/2195.png"
+  },
+  "drops": [
+   {
+    "mob_id": 2987,
+    "mob": "Guillotine",
+    "mob_level": 137,
+    "zone": "Death Castle Entrance",
+    "chance_percent": 1,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [
+   {
+    "skill": "Kaupe",
+    "trigger": "hit",
+    "raw": [
+     26,
+     1,
+     100.0,
+     0,
+     12
+    ]
+   },
+   {
+    "skill": "Phantom Thrust",
+    "trigger": "hit",
+    "raw": [
+     27,
+     1,
+     100.0,
+     0,
+     7
+    ]
+   }
+  ],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2195",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Perfect Dodge +7",
+    "stat": "Perfect Dodge",
+    "value": 7,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     27
+    ],
+    "stat_keys": [
+     "perfect_dodge"
+    ]
+   },
+   {
+    "text": "Backstab Autocasts Kaupe Backstab SP Cost+50%",
+    "stat": "Backstab Autocasts Kaupe Backstab SP Cost",
+    "value": 50,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Backstab Autocasts Kaupe Backstab",
+    "skill_metric": "sp cost",
+    "skills": []
+   },
+   {
+    "text": "Prowler Only",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [
+    {
+     "per": 1,
+     "effects": [
+      {
+       "text": "Perfect Dodge +1 per refine",
+       "stat": "Perfect Dodge",
+       "value": 1,
+       "unit": null,
+       "parsed": true,
+       "stat_ids": [
+        27
+       ],
+       "stat_keys": [
+        "perfect_dodge"
+       ]
+      },
+      {
+       "text": "HP+2% per refine",
+       "stat": "HP",
+       "value": 2,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        6
+       ],
+       "stat_keys": [
+        "max_hp"
+       ]
+      }
+     ]
+    }
+   ],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2126,
+  "name": "Clock Shield",
+  "kind": "Shield",
+  "type": "Round Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 4\n\nMove Speed +10%\nASPD Limit +1\nFlee +15",
+  "required_level": 40,
+  "weight": 80,
+  "atk": 0,
+  "matk": 0,
+  "def": 15,
+  "mdef": 5,
+  "card_slots": 1,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2126.png",
+   "art": "images/art/2126.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1102,
+    "mob": "Bathory",
+    "mob_level": 66,
+    "zone": "Clock Tower",
+    "chance_percent": 1,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1269,
+    "mob": "Clock",
+    "mob_level": 65,
+    "zone": "Clock Tower",
+    "chance_percent": 1,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2126",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 4",
+    "stat": "Auto Guard Lv",
+    "value": 4,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "Move Speed +10%",
+    "stat": "Move Speed",
+    "value": 10,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     39
+    ],
+    "stat_keys": [
+     "move_speed"
+    ]
+   },
+   {
+    "text": "ASPD Limit +1",
+    "stat": "ASPD Limit",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     17
+    ],
+    "stat_keys": [
+     "aspd_limit"
+    ]
+   },
+   {
+    "text": "Flee +15",
+    "stat": "Flee",
+    "value": 15,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     26
+    ],
+    "stat_keys": [
+     "flee"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2127,
+  "name": "Core Shield",
+  "kind": "Shield",
+  "type": "Heavy Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 2\n\n3% per refine chance to autocast Lv1 Heal when hit\nHP+1% per refine",
+  "required_level": 120,
+  "weight": 100,
+  "atk": 0,
+  "matk": 0,
+  "def": 10,
+  "mdef": 15,
+  "card_slots": 1,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2127.png",
+   "art": "images/art/2127.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1634,
+    "mob": "Rekember Core",
+    "mob_level": 142,
+    "zone": "Regenschutz Secret Laboratory",
+    "chance_percent": 2,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [
+   {
+    "skill": "Heal",
+    "trigger": "hit",
+    "raw": [
+     28,
+     1,
+     0,
+     1,
+     -1
+    ]
+   }
+  ],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": "reworked",
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2127",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 2",
+    "stat": "Auto Guard Lv",
+    "value": 2,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [
+    {
+     "per": 1,
+     "effects": [
+      {
+       "text": "3% per refine chance to autocast Lv1 Heal when hit",
+       "parsed": false
+      },
+      {
+       "text": "HP+1% per refine",
+       "stat": "HP",
+       "value": 1,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        6
+       ],
+       "stat_keys": [
+        "max_hp"
+       ]
+      }
+     ]
+    }
+   ],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 1004951,
+  "name": "Corroded Armguard",
+  "kind": "Shield",
+  "type": "Armguard",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 0\n\nFlying Knife Cooldown -3\nseconds\nFlying Knife applies poison\nto targets\nPerfect Dodge +10\nPerfect Dodge +2 per Refine\nWhirling Kunai DMG +4%\nper Refine\n\nAn armguard, swallowed\nand digested by a creature.\nFungi grew within its\nwooden frame, granting it\ncorrosive properties.",
+  "required_level": 110,
+  "weight": 100,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "Prowler",
+  "images": {
+   "icon": "images/icons/1004951.png",
+   "art": "images/art/1004951.png"
+  },
+  "drops": [
+   {
+    "mob_id": 21624,
+    "mob": "Moldy Man",
+    "mob_level": 134,
+    "zone": "Mad Drinker",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": "new",
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=1004951",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Flying Knife Cooldown -3 seconds",
+    "stat": "Flying Knife Cooldown",
+    "value": -3,
+    "unit": "s",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Flying Knife",
+    "skill_metric": "cooldown",
+    "skills": [
+     "Flying Knife"
+    ]
+   },
+   {
+    "text": "Flying Knife applies poison to targets",
+    "parsed": false
+   },
+   {
+    "text": "Perfect Dodge +10",
+    "stat": "Perfect Dodge",
+    "value": 10,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     27
+    ],
+    "stat_keys": [
+     "perfect_dodge"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [
+    {
+     "per": 1,
+     "effects": [
+      {
+       "text": "Perfect Dodge +2 per Refine",
+       "stat": "Perfect Dodge",
+       "value": 2,
+       "unit": null,
+       "parsed": true,
+       "stat_ids": [
+        27
+       ],
+       "stat_keys": [
+        "perfect_dodge"
+       ]
+      },
+      {
+       "text": "Whirling Kunai DMG +4% per Refine",
+       "stat": "Whirling Kunai DMG",
+       "value": 4,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [],
+       "stat_keys": [],
+       "skill": "Whirling Kunai",
+       "skill_metric": "damage",
+       "skills": [
+        "Whirling Kunai"
+       ]
+      }
+     ]
+    }
+   ],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": "An armguard, swallowed and digested by a creature. Fungi grew within its wooden frame, granting it corrosive properties.",
+  "override": null
+ },
+ {
+  "id": 28942,
+  "name": "Cursed Knight's Shield",
+  "kind": "Shield",
+  "type": "Heavy Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 6\n\nHP +1% per refine\nShield Boomerang and King's Chains knockbacks +2 cells\n8% chance to drain 3% damage dealt with physical attacks\nMove Speed -20%",
+  "required_level": 70,
+  "weight": 350,
+  "atk": 0,
+  "matk": 0,
+  "def": 30,
+  "mdef": 1,
+  "card_slots": 1,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin",
+  "images": {
+   "icon": "images/icons/28942.png",
+   "art": "images/art/28942.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1268,
+    "mob": "Bloody Knight",
+    "mob_level": 94,
+    "zone": "Glastheim",
+    "chance_percent": 1.5,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1302,
+    "mob": "Dark Illusion",
+    "mob_level": 93,
+    "zone": "Glastheim Monastery",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": "reworked",
+  "renamed_from": "BlKnight Shield",
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=28942",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 6",
+    "stat": "Auto Guard Lv",
+    "value": 6,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "Shield Boomerang and King's Chains knockbacks +2 cells",
+    "parsed": false
+   },
+   {
+    "text": "8% chance to drain 3% damage dealt with physical attacks",
+    "stat": "HP Leech Rate",
+    "value": 8.0,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     44
+    ],
+    "stat_keys": [
+     "leech_hp_rate"
+    ]
+   },
+   {
+    "text": "8% chance to drain 3% damage dealt with physical attacks",
+    "stat": "HP Leech Power",
+    "value": 3.0,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     45
+    ],
+    "stat_keys": [
+     "leech_hp_power"
+    ]
+   },
+   {
+    "text": "Move Speed -20%",
+    "stat": "Move Speed",
+    "value": -20,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     39
+    ],
+    "stat_keys": [
+     "move_speed"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [
+    {
+     "per": 1,
+     "effects": [
+      {
+       "text": "HP +1% per refine",
+       "stat": "HP",
+       "value": 1,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        6
+       ],
+       "stat_keys": [
+        "max_hp"
+       ]
+      }
+     ]
+    }
+   ],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 22007,
+  "name": "Darkness Armguard",
+  "kind": "Shield",
+  "type": "Armguard",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 2\n\nTotal Flee +10%\nPerfect Dodge +10\nPerfect Hit +10%",
+  "required_level": 100,
+  "weight": 50,
+  "atk": 0,
+  "matk": 0,
+  "def": 5,
+  "mdef": 10,
+  "card_slots": 1,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin",
+  "images": {
+   "icon": "images/icons/22007.png",
+   "art": "images/art/22007.png"
+  },
+  "drops": [
+   {
+    "mob_id": 2052,
+    "mob": "Abyss Lord",
+    "mob_level": 125,
+    "zone": "Abyss Glastheim Castle",
+    "chance_percent": 5,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1490,
+    "mob": "Abyss Wanderer",
+    "mob_level": 123,
+    "zone": "Abyss Glastheim Castle",
+    "chance_percent": 2,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=22007",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 2",
+    "stat": "Auto Guard Lv",
+    "value": 2,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "Total Flee +10%",
+    "stat": "Total Flee",
+    "value": 10,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     26
+    ],
+    "stat_keys": [
+     "flee"
+    ],
+    "scope": "total"
+   },
+   {
+    "text": "Perfect Dodge +10",
+    "stat": "Perfect Dodge",
+    "value": 10,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     27
+    ],
+    "stat_keys": [
+     "perfect_dodge"
+    ]
+   },
+   {
+    "text": "Perfect Hit +10%",
+    "stat": "Perfect Hit",
+    "value": 10,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     13
+    ],
+    "stat_keys": [
+     "perfect_hit"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2184,
+  "name": "Death Ward Shield",
+  "kind": "Shield",
+  "type": "Heavy Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 10\n\nEvery Refine:\nHP +3%\nSP +3%\nATK -5%\nMATK -5%",
+  "required_level": 85,
+  "weight": 150,
+  "atk": 0,
+  "matk": 0,
+  "def": 50,
+  "mdef": 25,
+  "card_slots": 1,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2184.png",
+   "art": "images/art/2184.png"
+  },
+  "drops": [
+   {
+    "mob_id": 2059,
+    "mob": "Great Shadow",
+    "mob_level": 139,
+    "zone": "Death Castle Entrance",
+    "chance_percent": 2.0,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2184",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 10",
+    "stat": "Auto Guard Lv",
+    "value": 10,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [
+    {
+     "per": 1,
+     "effects": [
+      {
+       "text": "HP +3%",
+       "stat": "HP",
+       "value": 3,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        6
+       ],
+       "stat_keys": [
+        "max_hp"
+       ]
+      },
+      {
+       "text": "SP +3%",
+       "stat": "SP",
+       "value": 3,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        7
+       ],
+       "stat_keys": [
+        "max_sp"
+       ]
+      },
+      {
+       "text": "ATK -5%",
+       "stat": "ATK",
+       "value": -5,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        10
+       ],
+       "stat_keys": [
+        "atk"
+       ]
+      },
+      {
+       "text": "MATK -5%",
+       "stat": "MATK",
+       "value": -5,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        11
+       ],
+       "stat_keys": [
+        "matk"
+       ]
+      }
+     ]
+    }
+   ],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2183,
+  "name": "Death Ward Shield",
+  "kind": "Shield",
+  "type": "Heavy Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 10\n\nEvery Refine:\nHP +3%\nSP +3%\nATK -5%\nMATK -5%",
+  "required_level": 85,
+  "weight": 150,
+  "atk": 0,
+  "matk": 0,
+  "def": 50,
+  "mdef": 25,
+  "card_slots": 0,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2183.png",
+   "art": "images/art/2183.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2183",
+  "raw": {
+   "how": [
+    "Armor Dealer · Inside Niflheim",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    4
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 10",
+    "stat": "Auto Guard Lv",
+    "value": 10,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [
+    {
+     "per": 1,
+     "effects": [
+      {
+       "text": "HP +3%",
+       "stat": "HP",
+       "value": 3,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        6
+       ],
+       "stat_keys": [
+        "max_hp"
+       ]
+      },
+      {
+       "text": "SP +3%",
+       "stat": "SP",
+       "value": 3,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        7
+       ],
+       "stat_keys": [
+        "max_sp"
+       ]
+      },
+      {
+       "text": "ATK -5%",
+       "stat": "ATK",
+       "value": -5,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        10
+       ],
+       "stat_keys": [
+        "atk"
+       ]
+      },
+      {
+       "text": "MATK -5%",
+       "stat": "MATK",
+       "value": -5,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        11
+       ],
+       "stat_keys": [
+        "matk"
+       ]
+      }
+     ]
+    }
+   ],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2196,
+  "name": "Demon God Armguard",
+  "kind": "Shield",
+  "type": "Armguard",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 0\n\nPerfect Dodge +15\nPerfect Dodge +1 per refine\nShadow Stab SP Cost-25%\nASPD +1 per refine\nAll Stats +1 per refine\nHP/SP+2% per refine\n\nProwler Only",
+  "required_level": 130,
+  "weight": 50,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "Prowler",
+  "images": {
+   "icon": "images/icons/2196.png",
+   "art": "images/art/2196.png"
+  },
+  "drops": [
+   {
+    "mob_id": 3097,
+    "mob": "Emperor Morroc",
+    "mob_level": 150,
+    "zone": "Sograt Desert - Dimensional Rift",
+    "chance_percent": 10,
+    "mvp_reward": true
+   }
+  ],
+  "containers": [],
+  "on_cast": [
+   {
+    "skill": "Phantom Thrust",
+    "trigger": "hit",
+    "raw": [
+     27,
+     1,
+     100.0,
+     0,
+     7
+    ]
+   }
+  ],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2196",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 1,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Perfect Dodge +15",
+    "stat": "Perfect Dodge",
+    "value": 15,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     27
+    ],
+    "stat_keys": [
+     "perfect_dodge"
+    ]
+   },
+   {
+    "text": "Shadow Stab SP Cost-25%",
+    "stat": "Shadow Stab SP Cost",
+    "value": -25,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Shadow Stab",
+    "skill_metric": "sp cost",
+    "skills": [
+     "Shadow Stab"
+    ]
+   },
+   {
+    "text": "Prowler Only",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [
+    {
+     "per": 1,
+     "effects": [
+      {
+       "text": "Perfect Dodge +1 per refine",
+       "stat": "Perfect Dodge",
+       "value": 1,
+       "unit": null,
+       "parsed": true,
+       "stat_ids": [
+        27
+       ],
+       "stat_keys": [
+        "perfect_dodge"
+       ]
+      },
+      {
+       "text": "ASPD +1 per refine",
+       "stat": "ASPD",
+       "value": 1,
+       "unit": null,
+       "parsed": true,
+       "stat_ids": [
+        16
+       ],
+       "stat_keys": [
+        "aspd"
+       ]
+      },
+      {
+       "text": "All Stats +1 per refine",
+       "stat": "All Stats",
+       "value": 1,
+       "unit": null,
+       "parsed": true,
+       "stat_ids": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+       ],
+       "stat_keys": [
+        "str",
+        "agi",
+        "vit",
+        "int",
+        "dex",
+        "luk"
+       ]
+      },
+      {
+       "text": "HP/SP+2% per refine",
+       "stat": "HP/SP",
+       "value": 2,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        6,
+        7
+       ],
+       "stat_keys": [
+        "max_hp",
+        "max_sp"
+       ]
+      }
+     ]
+    }
+   ],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2159,
+  "name": "Diamond Shield",
+  "kind": "Shield",
+  "type": "Colossal Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Weapon (two-handed)"
+  ],
+  "description": "Reflect Melee Damage: 15%\n\n30% chance to reflect targeted magic\nEnables Elusive Feint Lv1",
+  "required_level": 80,
+  "weight": 350,
+  "atk": 0,
+  "matk": 0,
+  "def": 10,
+  "mdef": 30,
+  "card_slots": 1,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Judge, Peacekeeper, Prowler, Shadowseer",
+  "images": {
+   "icon": "images/icons/2159.png",
+   "art": "images/art/2159.png"
+  },
+  "drops": [
+   {
+    "mob_id": 3504,
+    "mob": "Unstable Crystal",
+    "mob_level": 91,
+    "zone": "Crystal Caves",
+    "chance_percent": 1,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2159",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Reflect Melee Damage: 15%",
+    "stat": "Reflect Melee Damage",
+    "value": 15,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     31
+    ],
+    "stat_keys": [
+     "reflect_melee"
+    ]
+   },
+   {
+    "text": "30% chance to reflect targeted magic",
+    "parsed": false
+   },
+   {
+    "text": "Enables Elusive Feint Lv1",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2162,
+  "name": "Dragon Soul Armguard",
+  "kind": "Shield",
+  "type": "Armguard",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 0\n\nBackstab DMG+50%\nBackstab DMG+5% per refine\nBackstab SP Cost +100%\nTotal Hit+10%\nPerfect Dodge +2 +1 per refine\n\nProwler Only",
+  "required_level": 70,
+  "weight": 50,
+  "atk": 0,
+  "matk": 0,
+  "def": 10,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "Prowler",
+  "images": {
+   "icon": "images/icons/2162.png",
+   "art": "images/art/2162.png"
+  },
+  "drops": [
+   {
+    "mob_id": 2321,
+    "mob": "Sky Draco",
+    "mob_level": 78,
+    "zone": "Dragon Nest",
+    "chance_percent": 1,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [
+   {
+    "skill": "Phantom Thrust",
+    "trigger": "hit",
+    "raw": [
+     27,
+     1,
+     100.0,
+     0,
+     7
+    ]
+   }
+  ],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": "DragonSoul Armg",
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2162",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Backstab DMG+50%",
+    "stat": "Backstab DMG",
+    "value": 50,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Backstab",
+    "skill_metric": "damage",
+    "skills": [
+     "Backstab"
+    ]
+   },
+   {
+    "text": "Backstab SP Cost +100%",
+    "stat": "Backstab SP Cost",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Backstab",
+    "skill_metric": "sp cost",
+    "skills": [
+     "Backstab"
+    ]
+   },
+   {
+    "text": "Total Hit+10%",
+    "stat": "Total Hit",
+    "value": 10,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     12
+    ],
+    "stat_keys": [
+     "hit"
+    ],
+    "scope": "total"
+   },
+   {
+    "text": "Prowler Only",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [
+    {
+     "per": 1,
+     "effects": [
+      {
+       "text": "Backstab DMG+5% per refine",
+       "stat": "Backstab DMG",
+       "value": 5,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [],
+       "stat_keys": [],
+       "skill": "Backstab",
+       "skill_metric": "damage",
+       "skills": [
+        "Backstab"
+       ]
+      },
+      {
+       "text": "Perfect Dodge +2 +1 per refine",
+       "stat": "Perfect Dodge +2",
+       "value": 1,
+       "unit": null,
+       "parsed": true,
+       "stat_ids": [],
+       "stat_keys": []
+      }
+     ]
+    }
+   ],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2128,
+  "name": "Electro Buckler",
+  "kind": "Shield",
+  "type": "Round Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 4\n\nShield Boomerang has 5% per refine chance to autocast Lightning Bolt\nWind Resistance +15%, +2% per refine\nShield Boomerang Cooldown +1s",
+  "required_level": 90,
+  "weight": 80,
+  "atk": 0,
+  "matk": 0,
+  "def": 1,
+  "mdef": 10,
+  "card_slots": 1,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2128.png",
+   "art": "images/art/2128.png"
+  },
+  "drops": [
+   {
+    "mob_id": 2833,
+    "mob": "Red Hover",
+    "mob_level": 106,
+    "zone": "Kiel Hyre University",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 2834,
+    "mob": "Red Machina",
+    "mob_level": 107,
+    "zone": "Kiel Hyre University",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [
+   {
+    "skill": "Lightning Bolt",
+    "trigger": "hit",
+    "raw": [
+     11,
+     1,
+     0,
+     0,
+     47
+    ]
+   }
+  ],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2128",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 4",
+    "stat": "Auto Guard Lv",
+    "value": 4,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "Wind Resistance +15%",
+    "stat": "Wind Resistance",
+    "value": 15,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     67
+    ],
+    "stat_keys": [
+     "res_wind"
+    ]
+   },
+   {
+    "text": "Shield Boomerang Cooldown +1s",
+    "stat": "Shield Boomerang Cooldown",
+    "value": 1,
+    "unit": "s",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Shield Boomerang",
+    "skill_metric": "cooldown",
+    "skills": [
+     "Shield Boomerang"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [
+    {
+     "per": 1,
+     "effects": [
+      {
+       "text": "Shield Boomerang has 5% per refine chance to autocast Lightning Bolt",
+       "parsed": false
+      },
+      {
+       "text": "+2% per refine",
+       "stat": "Wind Resistance",
+       "value": 2,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        67
+       ],
+       "stat_keys": [
+        "res_wind"
+       ],
+       "stat_inherited": true
+      }
+     ]
+    }
+   ],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 1407,
+  "name": "Eternal Glacier Shield",
+  "kind": "Shield",
+  "type": "Medium Shield",
+  "category": "Medium Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 9\n\nHP +7%\n5% chance to freeze when hit\nChance improves 1% per refine",
+  "required_level": 80,
+  "weight": 150,
+  "atk": 15,
+  "matk": 15,
+  "def": 5,
+  "mdef": 15,
+  "card_slots": 1,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/1407.png",
+   "art": "images/art/1407.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=1407",
+  "raw": {
+   "how": [
+    "Eternal Sage · Inside Dicastes Diel",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    6
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 9",
+    "stat": "Auto Guard Lv",
+    "value": 9,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "HP +7%",
+    "stat": "HP",
+    "value": 7,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     6
+    ],
+    "stat_keys": [
+     "max_hp"
+    ]
+   },
+   {
+    "text": "5% chance to freeze when hit",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [
+    {
+     "per": 1,
+     "effects": [
+      {
+       "text": "Chance improves 1% per refine",
+       "parsed": false
+      }
+     ]
+    }
+   ],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 28941,
+  "name": "Excelion Shield",
+  "kind": "Shield",
+  "type": "Heavy Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 10\n\nDEF+5 per refine\nIf Refine is +9:\nTotal DEF+5%\n\nExcelion Set:\nSuit, Wings, Legs, Gloves, Shield and Visor\nSet Bonus:\nAll Stats +4\nAll Damage taken -5%\nHeal Cooldown -0.5s\nHP/SP Regen +20%",
+  "required_level": 100,
+  "weight": 75,
+  "atk": 0,
+  "matk": 0,
+  "def": 25,
+  "mdef": 3,
+  "card_slots": 1,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin",
+  "images": {
+   "icon": "images/icons/28941.png",
+   "art": "images/art/28941.png"
+  },
+  "drops": [
+   {
+    "mob_id": 3155,
+    "mob": "Repair Robot",
+    "mob_level": 108,
+    "zone": "Research Building-WISH",
+    "chance_percent": 2,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=28941",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [
+   76
+  ],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 10",
+    "stat": "Auto Guard Lv",
+    "value": 10,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [
+    {
+     "per": 1,
+     "effects": [
+      {
+       "text": "DEF+5 per refine",
+       "stat": "DEF",
+       "value": 5,
+       "unit": null,
+       "parsed": true,
+       "stat_ids": [
+        24
+       ],
+       "stat_keys": [
+        "def"
+       ]
+      }
+     ]
+    }
+   ],
+   "thresholds": [
+    {
+     "kind": "refine_threshold",
+     "at": [
+      9
+     ],
+     "effects": [
+      {
+       "text": "Total DEF+5%",
+       "stat": "Total DEF",
+       "value": 5,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        24
+       ],
+       "stat_keys": [
+        "def"
+       ],
+       "scope": "total"
+      }
+     ]
+    }
+   ]
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2174,
+  "name": "Fox Armguard",
+  "kind": "Shield",
+  "type": "Armguard",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 3\n\nFlee +20\nMATK +3%",
+  "required_level": 65,
+  "weight": 50,
+  "atk": 0,
+  "matk": 0,
+  "def": 10,
+  "mdef": 7,
+  "card_slots": 1,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2174.png",
+   "art": "images/art/2174.png"
+  },
+  "drops": [
+   {
+    "mob_id": 2153,
+    "mob": "Cendrawasih",
+    "mob_level": 82,
+    "zone": "Dewata Field (Tribal Village)",
+    "chance_percent": 3,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2174",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 3",
+    "stat": "Auto Guard Lv",
+    "value": 3,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "Flee +20",
+    "stat": "Flee",
+    "value": 20,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     26
+    ],
+    "stat_keys": [
+     "flee"
+    ]
+   },
+   {
+    "text": "MATK +3%",
+    "stat": "MATK",
+    "value": 3,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     11
+    ],
+    "stat_keys": [
+     "matk"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2160,
+  "name": "Giant Shield",
+  "kind": "Shield",
+  "type": "Heavy Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 1\n\nImmune to Knockback.\nHP+150",
+  "required_level": 45,
+  "weight": 300,
+  "atk": 0,
+  "matk": 0,
+  "def": 10,
+  "mdef": 1,
+  "card_slots": 1,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2160.png",
+   "art": "images/art/2160.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1312,
+    "mob": "Turtle General",
+    "mob_level": 60,
+    "zone": "Turtle Palace",
+    "chance_percent": 15,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1316,
+    "mob": "Solider",
+    "mob_level": 56,
+    "zone": "Turtle Island Dungeon",
+    "chance_percent": 2,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2160",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 1,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 1",
+    "stat": "Auto Guard Lv",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "Immune to Knockback.",
+    "parsed": false
+   },
+   {
+    "text": "HP+150",
+    "stat": "HP",
+    "value": 150,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     6
+    ],
+    "stat_keys": [
+     "max_hp"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2150,
+  "name": "Golden Buckler",
+  "kind": "Shield",
+  "type": "Round Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 6\n\nHP Regen +60%\nVIT+2",
+  "required_level": 10,
+  "weight": 80,
+  "atk": 0,
+  "matk": 0,
+  "def": 10,
+  "mdef": 10,
+  "card_slots": 1,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2150.png",
+   "art": "images/art/2150.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1086,
+    "mob": "Golden Thief Bug",
+    "mob_level": 30,
+    "zone": "Prontera Culvert",
+    "chance_percent": 15,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1054,
+    "mob": "Toxic Thief Bug",
+    "mob_level": 25,
+    "zone": "Prontera Culvert",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2150",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 1,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 6",
+    "stat": "Auto Guard Lv",
+    "value": 6,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "HP Regen +60%",
+    "stat": "HP Regen",
+    "value": 60,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     8
+    ],
+    "stat_keys": [
+     "hp_regen"
+    ]
+   },
+   {
+    "text": "VIT+2",
+    "stat": "VIT",
+    "value": 2,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     2
+    ],
+    "stat_keys": [
+     "vit"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2167,
+  "name": "Golden Glory Shield",
+  "kind": "Shield",
+  "type": "Round Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 10\n\nRanged Damage Taken -10%\nMDEF+2 per refine",
+  "required_level": 110,
+  "weight": 80,
+  "atk": 0,
+  "matk": 0,
+  "def": 25,
+  "mdef": 0,
+  "card_slots": 1,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2167.png",
+   "art": "images/art/2167.png"
+  },
+  "drops": [
+   {
+    "mob_id": 3450,
+    "mob": "Bijou",
+    "mob_level": 120,
+    "zone": "Invaded Prontera",
+    "chance_percent": 5,
+    "mvp_reward": true
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": "Golden G Shield",
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2167",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 1,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 10",
+    "stat": "Auto Guard Lv",
+    "value": 10,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "Ranged Damage Taken -10%",
+    "stat": "Resistance vs Ranged",
+    "value": 10,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     153
+    ],
+    "stat_keys": [
+     "res_ranged"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [
+    {
+     "per": 1,
+     "effects": [
+      {
+       "text": "MDEF+2 per refine",
+       "stat": "MDEF",
+       "value": 2,
+       "unit": null,
+       "parsed": true,
+       "stat_ids": [
+        25
+       ],
+       "stat_keys": [
+        "mdef"
+       ]
+      }
+     ]
+    }
+   ],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2102,
+  "name": "Guard",
+  "kind": "Shield",
+  "type": "Heavy Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 2\n\nHP +3%\nVIT+1",
+  "required_level": 1,
+  "weight": 100,
+  "atk": 0,
+  "matk": 0,
+  "def": 10,
+  "mdef": 5,
+  "card_slots": 1,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2102.png",
+   "art": "images/art/2102.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1008,
+    "mob": "Pupa",
+    "mob_level": 2,
+    "zone": "Prontera Field",
+    "chance_percent": 3.0,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2102",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 2",
+    "stat": "Auto Guard Lv",
+    "value": 2,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "HP +3%",
+    "stat": "HP",
+    "value": 3,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     6
+    ],
+    "stat_keys": [
+     "max_hp"
+    ]
+   },
+   {
+    "text": "VIT+1",
+    "stat": "VIT",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     2
+    ],
+    "stat_keys": [
+     "vit"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2101,
+  "name": "Guard",
+  "kind": "Shield",
+  "type": "Heavy Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 2\n\nHP +3%\nVIT+1",
+  "required_level": 0,
+  "weight": 100,
+  "atk": 0,
+  "matk": 0,
+  "def": 10,
+  "mdef": 5,
+  "card_slots": 0,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2101.png",
+   "art": "images/art/2101.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2101",
+  "raw": {
+   "how": [
+    "Armor Dealer · Inside Alberta",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    3
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 2",
+    "stat": "Auto Guard Lv",
+    "value": 2,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "HP +3%",
+    "stat": "HP",
+    "value": 3,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     6
+    ],
+    "stat_keys": [
+     "max_hp"
+    ]
+   },
+   {
+    "text": "VIT+1",
+    "stat": "VIT",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     2
+    ],
+    "stat_keys": [
+     "vit"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2182,
+  "name": "Hervor Alvitr",
+  "kind": "Shield",
+  "type": "Heavy Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 10\n\nDream Enchants available\n\nPermanent Endure effect.\nHP +5%\nFinal Damage Reduction +1% per refine.",
+  "required_level": 100,
+  "weight": 100,
+  "atk": 0,
+  "matk": 0,
+  "def": 23,
+  "mdef": 7,
+  "card_slots": 0,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2182.png",
+   "art": "images/art/2182.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2182",
+  "raw": {
+   "how": [
+    "Wish Maiden · Sky Garden Okolnir",
+    "skydun3",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    3
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 10",
+    "stat": "Auto Guard Lv",
+    "value": 10,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "Permanent Endure effect.",
+    "parsed": false
+   },
+   {
+    "text": "HP +5%",
+    "stat": "HP",
+    "value": 5,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     6
+    ],
+    "stat_keys": [
+     "max_hp"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [
+    {
+     "per": 1,
+     "effects": [
+      {
+       "text": "Final Damage Reduction +1% per refine.",
+       "stat": "Final Damage Reduction",
+       "value": 1,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        30
+       ],
+       "stat_keys": [
+        "damage_reduction"
+       ]
+      }
+     ]
+    }
+   ],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": {
+   "system": "Dream",
+   "refining": false,
+   "text": "Dream Enchants available"
+  },
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2111,
+  "name": "Holy Guard",
+  "kind": "Shield",
+  "type": "Heavy Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 3\n\nHP +5%\nHoly Resistance +5%",
+  "required_level": 15,
+  "weight": 100,
+  "atk": 0,
+  "matk": 0,
+  "def": 15,
+  "mdef": 7,
+  "card_slots": 1,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2111.png",
+   "art": "images/art/2111.png"
+  },
+  "drops": [
+   {
+    "mob_id": 2576,
+    "mob": "Fire Papila",
+    "mob_level": 17,
+    "zone": "Prontera Field",
+    "chance_percent": 3.0,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2111",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 3",
+    "stat": "Auto Guard Lv",
+    "value": 3,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "HP +5%",
+    "stat": "HP",
+    "value": 5,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     6
+    ],
+    "stat_keys": [
+     "max_hp"
+    ]
+   },
+   {
+    "text": "Holy Resistance +5%",
+    "stat": "Holy Resistance",
+    "value": 5,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     73
+    ],
+    "stat_keys": [
+     "res_holy"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2110,
+  "name": "Holy Guard",
+  "kind": "Shield",
+  "type": "Heavy Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 3\n\nHP +5%\nHoly Resistance +5%",
+  "required_level": 15,
+  "weight": 100,
+  "atk": 0,
+  "matk": 0,
+  "def": 15,
+  "mdef": 7,
+  "card_slots": 0,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2110.png",
+   "art": "images/art/2110.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2110",
+  "raw": {
+   "how": [
+    "Armor Dealer · Inside Alberta",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    3
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 3",
+    "stat": "Auto Guard Lv",
+    "value": 3,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "HP +5%",
+    "stat": "HP",
+    "value": 5,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     6
+    ],
+    "stat_keys": [
+     "max_hp"
+    ]
+   },
+   {
+    "text": "Holy Resistance +5%",
+    "stat": "Holy Resistance",
+    "value": 5,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     73
+    ],
+    "stat_keys": [
+     "res_holy"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2197,
+  "name": "Iron Shield",
+  "kind": "Shield",
+  "type": "Heavy Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 8\n\nShield Boomerand DMG+25%\nDEF+4%",
+  "required_level": 25,
+  "weight": 150,
+  "atk": 0,
+  "matk": 0,
+  "def": 30,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2197.png",
+   "art": "images/art/2197.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1067,
+    "mob": "Cornutus",
+    "mob_level": 34,
+    "zone": "Byalan Upper Cave",
+    "chance_percent": 1,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2197",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 8",
+    "stat": "Auto Guard Lv",
+    "value": 8,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "Shield Boomerand DMG+25%",
+    "stat": "Shield Boomerand DMG",
+    "value": 25,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Shield Boomerand",
+    "skill_metric": "damage",
+    "skills": [
+     "Shield Boomerand"
+    ]
+   },
+   {
+    "text": "DEF+4%",
+    "stat": "DEF",
+    "value": 4,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     24
+    ],
+    "stat_keys": [
+     "def"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2169,
+  "name": "Kalasag",
+  "kind": "Shield",
+  "type": "Round Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 9\n\nHealing Power +11%\nSP+3%",
+  "required_level": 70,
+  "weight": 80,
+  "atk": 0,
+  "matk": 0,
+  "def": 15,
+  "mdef": 6,
+  "card_slots": 1,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2169.png",
+   "art": "images/art/2169.png"
+  },
+  "drops": [
+   {
+    "mob_id": 2317,
+    "mob": "Bangungot",
+    "mob_level": 99,
+    "zone": "Malaya Hospital",
+    "chance_percent": 5,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 2319,
+    "mob": "Buwaya",
+    "mob_level": 84,
+    "zone": "Forest",
+    "chance_percent": 5,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2169",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 9",
+    "stat": "Auto Guard Lv",
+    "value": 9,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "Healing Power +11%",
+    "stat": "Healing Power",
+    "value": 11,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     42
+    ],
+    "stat_keys": [
+     "healing_power"
+    ]
+   },
+   {
+    "text": "SP+3%",
+    "stat": "SP",
+    "value": 3,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     7
+    ],
+    "stat_keys": [
+     "max_sp"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2106,
+  "name": "Knight Shield",
+  "kind": "Shield",
+  "type": "Heavy Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 5\n\nHP +10%\nCover SP Cost -25%",
+  "required_level": 45,
+  "weight": 100,
+  "atk": 0,
+  "matk": 0,
+  "def": 30,
+  "mdef": 10,
+  "card_slots": 1,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2106.png",
+   "art": "images/art/2106.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1271,
+    "mob": "Alligator",
+    "mob_level": 46,
+    "zone": "Papuchicha Forest",
+    "chance_percent": 3.0,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2106",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 5",
+    "stat": "Auto Guard Lv",
+    "value": 5,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "HP +10%",
+    "stat": "HP",
+    "value": 10,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     6
+    ],
+    "stat_keys": [
+     "max_hp"
+    ]
+   },
+   {
+    "text": "Cover SP Cost -25%",
+    "stat": "Cover SP Cost",
+    "value": -25,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Cover",
+    "skill_metric": "sp cost",
+    "skills": [
+     "Cover"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2105,
+  "name": "Knight Shield",
+  "kind": "Shield",
+  "type": "Heavy Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 5\n\nHP +10%\nCover SP Cost -25%",
+  "required_level": 45,
+  "weight": 100,
+  "atk": 0,
+  "matk": 0,
+  "def": 30,
+  "mdef": 10,
+  "card_slots": 0,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2105.png",
+   "art": "images/art/2105.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2105",
+  "raw": {
+   "how": [
+    "Armor Dealer · Inside Rachel",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    8
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 5",
+    "stat": "Auto Guard Lv",
+    "value": 5,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "HP +10%",
+    "stat": "HP",
+    "value": 10,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     6
+    ],
+    "stat_keys": [
+     "max_hp"
+    ]
+   },
+   {
+    "text": "Cover SP Cost -25%",
+    "stat": "Cover SP Cost",
+    "value": -25,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Cover",
+    "skill_metric": "sp cost",
+    "skills": [
+     "Cover"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 28901,
+  "name": "Mad Bunny",
+  "kind": "Shield",
+  "type": "Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 4\n\nAll Stats +1",
+  "required_level": 15,
+  "weight": 50,
+  "atk": 0,
+  "matk": 0,
+  "def": 15,
+  "mdef": 5,
+  "card_slots": 0,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/28901.png",
+   "art": "images/art/28901.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1930,
+    "mob": "Orphan Piamette",
+    "mob_level": 15,
+    "zone": "Inside Pyramid",
+    "chance_percent": 15,
+    "mvp_reward": true
+   }
+  ],
+  "containers": [
+   {
+    "container_id": 14717,
+    "container": "Lost Orphan Coffer"
+   }
+  ],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=28901",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 1,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 4",
+    "stat": "Auto Guard Lv",
+    "value": 4,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "All Stats +1",
+    "stat": "All Stats",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5
+    ],
+    "stat_keys": [
+     "str",
+     "agi",
+     "vit",
+     "int",
+     "dex",
+     "luk"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2158,
+  "name": "Memento of Families",
+  "kind": "Shield",
+  "type": "Heavy Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 8\n\nEnables Coluceo Heal Lv2\nAll Stats +3 when worn along with one of Mother's Scarf",
+  "required_level": 95,
+  "weight": 200,
+  "atk": 0,
+  "matk": 0,
+  "def": 20,
+  "mdef": 5,
+  "card_slots": 1,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2158.png",
+   "art": "images/art/2158.png"
+  },
+  "drops": [
+   {
+    "mob_id": 2031,
+    "mob": "Dandelion Master",
+    "mob_level": 104,
+    "zone": "Morroc Castle",
+    "chance_percent": 1,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": "Memento Families",
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2158",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 8",
+    "stat": "Auto Guard Lv",
+    "value": 8,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "Enables Coluceo Heal Lv2",
+    "parsed": false
+   },
+   {
+    "text": "All Stats +3 when worn along with one of Mother's Scarf",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2108,
+  "name": "Mirror Shield",
+  "kind": "Shield",
+  "type": "Heavy Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 4\n\nHP +7%\nHP Regen +10%",
+  "required_level": 30,
+  "weight": 100,
+  "atk": 0,
+  "matk": 0,
+  "def": 20,
+  "mdef": 15,
+  "card_slots": 1,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2108.png",
+   "art": "images/art/2108.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1040,
+    "mob": "Golem",
+    "mob_level": 30,
+    "zone": "Sograt Desert",
+    "chance_percent": 3.0,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1587,
+    "mob": "Kraben",
+    "mob_level": 84,
+    "zone": "Ayothaya Field",
+    "chance_percent": 1.5,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2108",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 4",
+    "stat": "Auto Guard Lv",
+    "value": 4,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "HP +7%",
+    "stat": "HP",
+    "value": 7,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     6
+    ],
+    "stat_keys": [
+     "max_hp"
+    ]
+   },
+   {
+    "text": "HP Regen +10%",
+    "stat": "HP Regen",
+    "value": 10,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     8
+    ],
+    "stat_keys": [
+     "hp_regen"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2107,
+  "name": "Mirror Shield",
+  "kind": "Shield",
+  "type": "Heavy Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 4\n\nHP +7%\nHP Regen +10%",
+  "required_level": 30,
+  "weight": 100,
+  "atk": 0,
+  "matk": 0,
+  "def": 20,
+  "mdef": 15,
+  "card_slots": 0,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2107.png",
+   "art": "images/art/2107.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2107",
+  "raw": {
+   "how": [
+    "Armor Dealer · Inside Einbroch",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    1
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 4",
+    "stat": "Auto Guard Lv",
+    "value": 4,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "HP +7%",
+    "stat": "HP",
+    "value": 7,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     6
+    ],
+    "stat_keys": [
+     "max_hp"
+    ]
+   },
+   {
+    "text": "HP Regen +10%",
+    "stat": "HP Regen",
+    "value": 10,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     8
+    ],
+    "stat_keys": [
+     "hp_regen"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2161,
+  "name": "Missing Armguard",
+  "kind": "Shield",
+  "type": "Armguard",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 0\n\nATK+1% per 100 flee\nBackstab DMG +15% per Refine\n\nProwler Only",
+  "required_level": 55,
+  "weight": 50,
+  "atk": 0,
+  "matk": 0,
+  "def": 10,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "Prowler",
+  "images": {
+   "icon": "images/icons/2161.png",
+   "art": "images/art/2161.png"
+  },
+  "drops": [
+   {
+    "mob_id": 2924,
+    "mob": "Missing Body",
+    "mob_level": 69,
+    "zone": "Crash Site Cave",
+    "chance_percent": 1,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [
+   {
+    "skill": "Phantom Thrust",
+    "trigger": "hit",
+    "raw": [
+     27,
+     1,
+     100.0,
+     0,
+     7
+    ]
+   }
+  ],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2161",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "ATK+1% per 100 flee",
+    "stat": "ATK",
+    "value": 1,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     10
+    ],
+    "stat_keys": [
+     "atk"
+    ],
+    "per_stat": {
+     "per": 100,
+     "stat": "flee"
+    }
+   },
+   {
+    "text": "Prowler Only",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [
+    {
+     "per": 1,
+     "effects": [
+      {
+       "text": "Backstab DMG +15% per Refine",
+       "stat": "Backstab DMG",
+       "value": 15,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [],
+       "stat_keys": [],
+       "skill": "Backstab",
+       "skill_metric": "damage",
+       "skills": [
+        "Backstab"
+       ]
+      }
+     ]
+    }
+   ],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2176,
+  "name": "Moon Armguard",
+  "kind": "Shield",
+  "type": "Armguard",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 3\n\nFlee +20\nASPD +4",
+  "required_level": 65,
+  "weight": 50,
+  "atk": 0,
+  "matk": 0,
+  "def": 10,
+  "mdef": 7,
+  "card_slots": 1,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2176.png",
+   "art": "images/art/2176.png"
+  },
+  "drops": [
+   {
+    "mob_id": 2151,
+    "mob": "Alnoldi",
+    "mob_level": 80,
+    "zone": "Dewata Field (Tribal Village)",
+    "chance_percent": 3,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2176",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 3",
+    "stat": "Auto Guard Lv",
+    "value": 3,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "Flee +20",
+    "stat": "Flee",
+    "value": 20,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     26
+    ],
+    "stat_keys": [
+     "flee"
+    ]
+   },
+   {
+    "text": "ASPD +4",
+    "stat": "ASPD",
+    "value": 4,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     16
+    ],
+    "stat_keys": [
+     "aspd"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2123,
+  "name": "Orlean's Server",
+  "kind": "Shield",
+  "type": "Round Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 5\n\nVariable Cast Time -20%\n\nOrleans Set:\nShield, Armor, Glove, Necklace.\nSet Bonus:\nDEX+10",
+  "required_level": 80,
+  "weight": 80,
+  "atk": 0,
+  "matk": 0,
+  "def": 5,
+  "mdef": 5,
+  "card_slots": 1,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2123.png",
+   "art": "images/art/2123.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1737,
+    "mob": "Aliza",
+    "mob_level": 100,
+    "zone": "Robot Factory",
+    "chance_percent": 2,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": "Orleans's Server",
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2123",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [
+   168
+  ],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 5",
+    "stat": "Auto Guard Lv",
+    "value": 5,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "Variable Cast Time -20%",
+    "stat": "Variable Cast Time",
+    "value": -20,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     33
+    ],
+    "stat_keys": [
+     "variable_cast"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2120,
+  "name": "Plated Arm Guard",
+  "kind": "Shield",
+  "type": "Armguard",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 2\n\nFlee +15\nPerfect Dodge +5\nMove Speed +5%",
+  "required_level": 30,
+  "weight": 50,
+  "atk": 0,
+  "matk": 0,
+  "def": 5,
+  "mdef": 5,
+  "card_slots": 1,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2120.png",
+   "art": "images/art/2120.png"
+  },
+  "drops": [
+   {
+    "mob_id": 2289,
+    "mob": "Strange Man",
+    "mob_level": 35,
+    "zone": "Sograt Desert",
+    "chance_percent": 3.0,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2120",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 2",
+    "stat": "Auto Guard Lv",
+    "value": 2,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "Flee +15",
+    "stat": "Flee",
+    "value": 15,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     26
+    ],
+    "stat_keys": [
+     "flee"
+    ]
+   },
+   {
+    "text": "Perfect Dodge +5",
+    "stat": "Perfect Dodge",
+    "value": 5,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     27
+    ],
+    "stat_keys": [
+     "perfect_dodge"
+    ]
+   },
+   {
+    "text": "Move Speed +5%",
+    "stat": "Move Speed",
+    "value": 5,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     39
+    ],
+    "stat_keys": [
+     "move_speed"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2119,
+  "name": "Plated Arm Guard",
+  "kind": "Shield",
+  "type": "Armguard",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 2\n\nFlee +15\nPerfect Dodge +5\nMove Speed +5%",
+  "required_level": 30,
+  "weight": 50,
+  "atk": 0,
+  "matk": 0,
+  "def": 5,
+  "mdef": 5,
+  "card_slots": 0,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2119.png",
+   "art": "images/art/2119.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2119",
+  "raw": {
+   "how": [
+    "Armor Dealer · Inside Einbroch",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    1
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 2",
+    "stat": "Auto Guard Lv",
+    "value": 2,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "Flee +15",
+    "stat": "Flee",
+    "value": 15,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     26
+    ],
+    "stat_keys": [
+     "flee"
+    ]
+   },
+   {
+    "text": "Perfect Dodge +5",
+    "stat": "Perfect Dodge",
+    "value": 5,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     27
+    ],
+    "stat_keys": [
+     "perfect_dodge"
+    ]
+   },
+   {
+    "text": "Move Speed +5%",
+    "stat": "Move Speed",
+    "value": 5,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     39
+    ],
+    "stat_keys": [
+     "move_speed"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2188,
+  "name": "Powerstab Armguard",
+  "kind": "Shield",
+  "type": "Armguard",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 0\n\nPerfect Dodge +4\nPerfect Dodge +1 per Refine\nBackstab DMG +6% per Refine\nBackstab Knockbacks 5 cells\n\nProwler Only",
+  "required_level": 70,
+  "weight": 50,
+  "atk": 0,
+  "matk": 0,
+  "def": 10,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "Prowler",
+  "images": {
+   "icon": "images/icons/2188.png",
+   "art": "images/art/2188.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1132,
+    "mob": "Khalitzburg",
+    "mob_level": 93,
+    "zone": "Inside Glastheim Chivalry",
+    "chance_percent": 1.5,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [
+   {
+    "skill": "Phantom Thrust",
+    "trigger": "hit",
+    "raw": [
+     27,
+     1,
+     100.0,
+     0,
+     7
+    ]
+   }
+  ],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2188",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Perfect Dodge +4",
+    "stat": "Perfect Dodge",
+    "value": 4,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     27
+    ],
+    "stat_keys": [
+     "perfect_dodge"
+    ]
+   },
+   {
+    "text": "Backstab Knockbacks 5 cells",
+    "parsed": false
+   },
+   {
+    "text": "Prowler Only",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [
+    {
+     "per": 1,
+     "effects": [
+      {
+       "text": "Perfect Dodge +1 per Refine",
+       "stat": "Perfect Dodge",
+       "value": 1,
+       "unit": null,
+       "parsed": true,
+       "stat_ids": [
+        27
+       ],
+       "stat_keys": [
+        "perfect_dodge"
+       ]
+      },
+      {
+       "text": "Backstab DMG +6% per Refine",
+       "stat": "Backstab DMG",
+       "value": 6,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [],
+       "stat_keys": [],
+       "skill": "Backstab",
+       "skill_metric": "damage",
+       "skills": [
+        "Backstab"
+       ]
+      }
+     ]
+    }
+   ],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2109,
+  "name": "Pride of the Underworld",
+  "kind": "Shield",
+  "type": "Heavy Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 8\n\nConflagration DMG+20%\nPhantom Spear DMG+20%\nMATK+10\nINT+2",
+  "required_level": 105,
+  "weight": 100,
+  "atk": 0,
+  "matk": 0,
+  "def": 5,
+  "mdef": 12,
+  "card_slots": 1,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2109.png",
+   "art": "images/art/2109.png"
+  },
+  "drops": [
+   {
+    "mob_id": 2928,
+    "mob": "Gan Ceann",
+    "mob_level": 117,
+    "zone": "Niflheim",
+    "chance_percent": 2,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": "Pride Underworld",
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2109",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 8",
+    "stat": "Auto Guard Lv",
+    "value": 8,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "Conflagration DMG+20%",
+    "stat": "Conflagration DMG",
+    "value": 20,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Conflagration",
+    "skill_metric": "damage",
+    "skills": [
+     "Conflagration"
+    ]
+   },
+   {
+    "text": "Phantom Spear DMG+20%",
+    "stat": "Phantom Spear DMG",
+    "value": 20,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Phantom Spear",
+    "skill_metric": "damage",
+    "skills": [
+     "Phantom Spear"
+    ]
+   },
+   {
+    "text": "MATK+10",
+    "stat": "MATK",
+    "value": 10,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     11
+    ],
+    "stat_keys": [
+     "matk"
+    ]
+   },
+   {
+    "text": "INT+2",
+    "stat": "INT",
+    "value": 2,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     3
+    ],
+    "stat_keys": [
+     "int"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2185,
+  "name": "Prototype Armguard",
+  "kind": "Shield",
+  "type": "Armguard",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 0\n\nBackstab DMG +500%\nEXP Received -95%\nAllows extracting information from Orphan Hunters...\n\nSub Lv80-Thief Only",
+  "required_level": 1,
+  "weight": 50,
+  "atk": 0,
+  "matk": 0,
+  "def": 1,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "Thief",
+  "images": {
+   "icon": "images/icons/2185.png",
+   "art": "images/art/2185.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [
+   "notrade",
+   "nodrop",
+   "nosell",
+   "nostorage",
+   "nocart"
+  ],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2185",
+  "raw": {
+   "how": [
+    "Edmond · Lighthalzen, the City-State of Prosperity",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "",
+    null,
+    null,
+    9
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 1,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Backstab DMG +500%",
+    "stat": "Backstab DMG",
+    "value": 500,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Backstab",
+    "skill_metric": "damage",
+    "skills": [
+     "Backstab"
+    ]
+   },
+   {
+    "text": "EXP Received -95%",
+    "stat": "EXP Received",
+    "value": -95,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     41
+    ],
+    "stat_keys": [
+     "exp_gain"
+    ]
+   },
+   {
+    "text": "Allows extracting information from Orphan Hunters...",
+    "parsed": false
+   },
+   {
+    "text": "Sub Lv80-Thief Only",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2186,
+  "name": "Prowler's Armguard",
+  "kind": "Shield",
+  "type": "Armguard",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 0\n\nFlee+10\nPerfect Dodge +5\nPerfect Dodge +1 per Refine\nBackstab DMG +5% per Refine\n\nProwler Only",
+  "required_level": 1,
+  "weight": 50,
+  "atk": 0,
+  "matk": 0,
+  "def": 10,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "Prowler",
+  "images": {
+   "icon": "images/icons/2186.png",
+   "art": "images/art/2186.png"
+  },
+  "drops": [
+   {
+    "mob_id": 2577,
+    "mob": "Desert Nomad",
+    "mob_level": 39,
+    "zone": "Sograt Desert",
+    "chance_percent": 3,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [
+   {
+    "skill": "Phantom Thrust",
+    "trigger": "hit",
+    "raw": [
+     27,
+     1,
+     100.0,
+     0,
+     7
+    ]
+   }
+  ],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": "Prowler Armguard",
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2186",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Flee+10",
+    "stat": "Flee",
+    "value": 10,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     26
+    ],
+    "stat_keys": [
+     "flee"
+    ]
+   },
+   {
+    "text": "Perfect Dodge +5",
+    "stat": "Perfect Dodge",
+    "value": 5,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     27
+    ],
+    "stat_keys": [
+     "perfect_dodge"
+    ]
+   },
+   {
+    "text": "Prowler Only",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [
+    {
+     "per": 1,
+     "effects": [
+      {
+       "text": "Perfect Dodge +1 per Refine",
+       "stat": "Perfect Dodge",
+       "value": 1,
+       "unit": null,
+       "parsed": true,
+       "stat_ids": [
+        27
+       ],
+       "stat_keys": [
+        "perfect_dodge"
+       ]
+      },
+      {
+       "text": "Backstab DMG +5% per Refine",
+       "stat": "Backstab DMG",
+       "value": 5,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [],
+       "stat_keys": [],
+       "skill": "Backstab",
+       "skill_metric": "damage",
+       "skills": [
+        "Backstab"
+       ]
+      }
+     ]
+    }
+   ],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2144,
+  "name": "Quake Shield",
+  "kind": "Shield",
+  "type": "Heavy Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 2\n\nEarth Resistance +3% per Refine",
+  "required_level": 70,
+  "weight": 100,
+  "atk": 0,
+  "matk": 0,
+  "def": 10,
+  "mdef": 20,
+  "card_slots": 1,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2144.png",
+   "art": "images/art/2144.png"
+  },
+  "drops": [
+   {
+    "mob_id": 2926,
+    "mob": "Amitera",
+    "mob_level": 82,
+    "zone": "Veins Field",
+    "chance_percent": 3.0,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2144",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 2",
+    "stat": "Auto Guard Lv",
+    "value": 2,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [
+    {
+     "per": 1,
+     "effects": [
+      {
+       "text": "Earth Resistance +3% per Refine",
+       "stat": "Earth Resistance",
+       "value": 3,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        61
+       ],
+       "stat_keys": [
+        "res_earth"
+       ]
+      }
+     ]
+    }
+   ],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2143,
+  "name": "Quake Shield",
+  "kind": "Shield",
+  "type": "Heavy Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 2\n\nEarth Resistance +3% per Refine",
+  "required_level": 70,
+  "weight": 100,
+  "atk": 0,
+  "matk": 0,
+  "def": 10,
+  "mdef": 20,
+  "card_slots": 0,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2143.png",
+   "art": "images/art/2143.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2143",
+  "raw": {
+   "how": [
+    "Armor Dealer · Nomad Village",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    5
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 2",
+    "stat": "Auto Guard Lv",
+    "value": 2,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [
+    {
+     "per": 1,
+     "effects": [
+      {
+       "text": "Earth Resistance +3% per Refine",
+       "stat": "Earth Resistance",
+       "value": 3,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        61
+       ],
+       "stat_keys": [
+        "res_earth"
+       ]
+      }
+     ]
+    }
+   ],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2170,
+  "name": "Ram Shield",
+  "kind": "Shield",
+  "type": "Colossal Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Weapon (two-handed)"
+  ],
+  "description": "Reflect Melee Damage: 10%\n\nHP+2% per refine\nVIT+3\nASPD-10",
+  "required_level": 50,
+  "weight": 450,
+  "atk": 0,
+  "matk": 0,
+  "def": 35,
+  "mdef": 0,
+  "card_slots": 1,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Judge, Peacekeeper, Prowler, Shadowseer",
+  "images": {
+   "icon": "images/icons/2170.png",
+   "art": "images/art/2170.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1623,
+    "mob": "RSX 0806",
+    "mob_level": 75,
+    "zone": "Einbech Mine",
+    "chance_percent": 5,
+    "mvp_reward": true
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2170",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 1,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Reflect Melee Damage: 10%",
+    "stat": "Reflect Melee Damage",
+    "value": 10,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     31
+    ],
+    "stat_keys": [
+     "reflect_melee"
+    ]
+   },
+   {
+    "text": "VIT+3",
+    "stat": "VIT",
+    "value": 3,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     2
+    ],
+    "stat_keys": [
+     "vit"
+    ]
+   },
+   {
+    "text": "ASPD-10",
+    "stat": "ASPD",
+    "value": -10,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     16
+    ],
+    "stat_keys": [
+     "aspd"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [
+    {
+     "per": 1,
+     "effects": [
+      {
+       "text": "HP+2% per refine",
+       "stat": "HP",
+       "value": 2,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        6
+       ],
+       "stat_keys": [
+        "max_hp"
+       ]
+      }
+     ]
+    }
+   ],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2129,
+  "name": "Reginleif's Ward",
+  "kind": "Shield",
+  "type": "Heavy Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 9\n\nShield Boomerang DMG+200%\nShield Boomerang Knockback 10 cells\nHP+5%\nShield Boomerang Cooldown +8s",
+  "required_level": 110,
+  "weight": 250,
+  "atk": 0,
+  "matk": 0,
+  "def": 30,
+  "mdef": 1,
+  "card_slots": 1,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2129.png",
+   "art": "images/art/2129.png"
+  },
+  "drops": [
+   {
+    "mob_id": 2037,
+    "mob": "Valkyrie Reginleif",
+    "mob_level": 125,
+    "zone": "Odin Shrine Past",
+    "chance_percent": 15,
+    "mvp_reward": true
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": "Reginleif Ward",
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2129",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 1,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 9",
+    "stat": "Auto Guard Lv",
+    "value": 9,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "Shield Boomerang DMG+200%",
+    "stat": "Shield Boomerang DMG",
+    "value": 200,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Shield Boomerang",
+    "skill_metric": "damage",
+    "skills": [
+     "Shield Boomerang"
+    ]
+   },
+   {
+    "text": "Shield Boomerang Knockback 10 cells",
+    "parsed": false
+   },
+   {
+    "text": "HP+5%",
+    "stat": "HP",
+    "value": 5,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     6
+    ],
+    "stat_keys": [
+     "max_hp"
+    ]
+   },
+   {
+    "text": "Shield Boomerang Cooldown +8s",
+    "stat": "Shield Boomerang Cooldown",
+    "value": 8,
+    "unit": "s",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Shield Boomerang",
+    "skill_metric": "cooldown",
+    "skills": [
+     "Shield Boomerang"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2163,
+  "name": "Robotic Armguard",
+  "kind": "Shield",
+  "type": "Armguard",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 0\n\nShadowstab Scaling+ 1% per 2 Base INT\nShadowstab autocasts Fireball\nPerfect Dodge +3 +1 per refine\nBackstab DMG +2%per refine\n\nProwler Only",
+  "required_level": 80,
+  "weight": 50,
+  "atk": 0,
+  "matk": 0,
+  "def": 10,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "Prowler",
+  "images": {
+   "icon": "images/icons/2163.png",
+   "art": "images/art/2163.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1736,
+    "mob": "Aliot",
+    "mob_level": 103,
+    "zone": "Robot Factory",
+    "chance_percent": 1,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [
+   {
+    "skill": "Fire Ball",
+    "trigger": "hit",
+    "raw": [
+     79,
+     1,
+     100.0,
+     0,
+     20
+    ]
+   },
+   {
+    "skill": "Phantom Thrust",
+    "trigger": "hit",
+    "raw": [
+     27,
+     1,
+     100.0,
+     0,
+     7
+    ]
+   }
+  ],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2163",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Shadowstab Scaling+ 1% per 2 Base INT",
+    "per_base_stat": {
+     "per": 2,
+     "stat": "INT"
+    },
+    "stat": "Shadowstab Scaling",
+    "value": 1,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": []
+   },
+   {
+    "text": "Shadowstab autocasts Fireball",
+    "parsed": false
+   },
+   {
+    "text": "Prowler Only",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [
+    {
+     "per": 1,
+     "effects": [
+      {
+       "text": "Perfect Dodge +3 +1 per refine",
+       "stat": "Perfect Dodge +3",
+       "value": 1,
+       "unit": null,
+       "parsed": true,
+       "stat_ids": [],
+       "stat_keys": []
+      },
+      {
+       "text": "Backstab DMG +2%per refine",
+       "stat": "Backstab DMG",
+       "value": 2,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [],
+       "stat_keys": [],
+       "skill": "Backstab",
+       "skill_metric": "damage",
+       "skills": [
+        "Backstab"
+       ]
+      }
+     ]
+    }
+   ],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2192,
+  "name": "Rose of Eden",
+  "kind": "Shield",
+  "type": "Round Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 2\n\nSP Regeneration +50%",
+  "required_level": 80,
+  "weight": 80,
+  "atk": 0,
+  "matk": 0,
+  "def": 5,
+  "mdef": 20,
+  "card_slots": 1,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2192.png",
+   "art": "images/art/2192.png"
+  },
+  "drops": [
+   {
+    "mob_id": 3740,
+    "mob": "Dark Rose Dragon",
+    "mob_level": 105,
+    "zone": "Grey Forest",
+    "chance_percent": 10,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 3743,
+    "mob": "Ghost Tree",
+    "mob_level": 103,
+    "zone": "Grey Forest",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2192",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 1,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 2",
+    "stat": "Auto Guard Lv",
+    "value": 2,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "SP Regeneration +50%",
+    "stat": "SP Regeneration",
+    "value": 50,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     9
+    ],
+    "stat_keys": [
+     "sp_regen"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2149,
+  "name": "Round Buckler",
+  "kind": "Shield",
+  "type": "Round Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 7\n\nSP +10%\nShield Boomerang SP Cost-25%",
+  "required_level": 45,
+  "weight": 80,
+  "atk": 0,
+  "matk": 0,
+  "def": 20,
+  "mdef": 10,
+  "card_slots": 1,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2149.png",
+   "art": "images/art/2149.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1499,
+    "mob": "Wootan Fighter",
+    "mob_level": 61,
+    "zone": "Luluka Forest",
+    "chance_percent": 3.0,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2149",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 7",
+    "stat": "Auto Guard Lv",
+    "value": 7,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "SP +10%",
+    "stat": "SP",
+    "value": 10,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     7
+    ],
+    "stat_keys": [
+     "max_sp"
+    ]
+   },
+   {
+    "text": "Shield Boomerang SP Cost-25%",
+    "stat": "Shield Boomerang SP Cost",
+    "value": -25,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Shield Boomerang",
+    "skill_metric": "sp cost",
+    "skills": [
+     "Shield Boomerang"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2147,
+  "name": "Round Buckler",
+  "kind": "Shield",
+  "type": "Round Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 7\n\nSP +10%\nShield Boomerang SP Cost-25%",
+  "required_level": 45,
+  "weight": 80,
+  "atk": 0,
+  "matk": 0,
+  "def": 20,
+  "mdef": 10,
+  "card_slots": 0,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2147.png",
+   "art": "images/art/2147.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2147",
+  "raw": {
+   "how": [
+    "Armor Dealer · Inside Rachel",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    8
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 7",
+    "stat": "Auto Guard Lv",
+    "value": 7,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "SP +10%",
+    "stat": "SP",
+    "value": 10,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     7
+    ],
+    "stat_keys": [
+     "max_sp"
+    ]
+   },
+   {
+    "text": "Shield Boomerang SP Cost-25%",
+    "stat": "Shield Boomerang SP Cost",
+    "value": -25,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Shield Boomerang",
+    "skill_metric": "sp cost",
+    "skills": [
+     "Shield Boomerang"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2145,
+  "name": "Royal Shield",
+  "kind": "Shield",
+  "type": "Heavy Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 9\n\nHP+6%\nKing's Chain DMG+4% per refine",
+  "required_level": 130,
+  "weight": 120,
+  "atk": 0,
+  "matk": 0,
+  "def": 15,
+  "mdef": 5,
+  "card_slots": 1,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2145.png",
+   "art": "images/art/2145.png"
+  },
+  "drops": [
+   {
+    "mob_id": 2800,
+    "mob": "Tidal Knight",
+    "mob_level": 144,
+    "zone": "Lost island Tomb",
+    "chance_percent": 2,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2145",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 9",
+    "stat": "Auto Guard Lv",
+    "value": 9,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "HP+6%",
+    "stat": "HP",
+    "value": 6,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     6
+    ],
+    "stat_keys": [
+     "max_hp"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [
+    {
+     "per": 1,
+     "effects": [
+      {
+       "text": "King's Chain DMG+4% per refine",
+       "stat": "King's Chain DMG",
+       "value": 4,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [],
+       "stat_keys": [],
+       "skill": "King's Chain",
+       "skill_metric": "damage",
+       "skills": [
+        "King's Chain"
+       ]
+      }
+     ]
+    }
+   ],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2157,
+  "name": "Scaraba Tower",
+  "kind": "Shield",
+  "type": "Heavy Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 10\n\nFlat Defense +10\nHP Regen +20%",
+  "required_level": 15,
+  "weight": 150,
+  "atk": 0,
+  "matk": 0,
+  "def": 20,
+  "mdef": 0,
+  "card_slots": 1,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2157.png",
+   "art": "images/art/2157.png"
+  },
+  "drops": [
+   {
+    "mob_id": 2084,
+    "mob": "Horned Scaraba",
+    "mob_level": 17,
+    "zone": "Ant Hell",
+    "chance_percent": 1,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2157",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 10",
+    "stat": "Auto Guard Lv",
+    "value": 10,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "Flat Defense +10",
+    "stat": "Flat Defense",
+    "value": 10,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     24
+    ],
+    "stat_keys": [
+     "def"
+    ]
+   },
+   {
+    "text": "HP Regen +20%",
+    "stat": "HP Regen",
+    "value": 20,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     8
+    ],
+    "stat_keys": [
+     "hp_regen"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2190,
+  "name": "Scorpion Armguard",
+  "kind": "Shield",
+  "type": "Armguard",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 0\n\nPerfect Dodge +6\nPerfect Dodge +1 per Refine\nBackstab DMG +4% per Refine\nFlying Knife DMG +5% per Refine\nFlying Knife has regular cooldown with Rope Kunai\n\nProwler Only",
+  "required_level": 110,
+  "weight": 50,
+  "atk": 0,
+  "matk": 0,
+  "def": 10,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "Prowler",
+  "images": {
+   "icon": "images/icons/2190.png",
+   "art": "images/art/2190.png"
+  },
+  "drops": [
+   {
+    "mob_id": 2952,
+    "mob": "Lost Codex",
+    "mob_level": 134,
+    "zone": "Mansion Hidden Garden",
+    "chance_percent": 1.5,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [
+   {
+    "skill": "Phantom Thrust",
+    "trigger": "hit",
+    "raw": [
+     27,
+     1,
+     100.0,
+     0,
+     7
+    ]
+   }
+  ],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2190",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Perfect Dodge +6",
+    "stat": "Perfect Dodge",
+    "value": 6,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     27
+    ],
+    "stat_keys": [
+     "perfect_dodge"
+    ]
+   },
+   {
+    "text": "Flying Knife has regular cooldown with Rope Kunai",
+    "parsed": false
+   },
+   {
+    "text": "Prowler Only",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [
+    {
+     "per": 1,
+     "effects": [
+      {
+       "text": "Perfect Dodge +1 per Refine",
+       "stat": "Perfect Dodge",
+       "value": 1,
+       "unit": null,
+       "parsed": true,
+       "stat_ids": [
+        27
+       ],
+       "stat_keys": [
+        "perfect_dodge"
+       ]
+      },
+      {
+       "text": "Backstab DMG +4% per Refine",
+       "stat": "Backstab DMG",
+       "value": 4,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [],
+       "stat_keys": [],
+       "skill": "Backstab",
+       "skill_metric": "damage",
+       "skills": [
+        "Backstab"
+       ]
+      },
+      {
+       "text": "Flying Knife DMG +5% per Refine",
+       "stat": "Flying Knife DMG",
+       "value": 5,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [],
+       "stat_keys": [],
+       "skill": "Flying Knife",
+       "skill_metric": "damage",
+       "skills": [
+        "Flying Knife"
+       ]
+      }
+     ]
+    }
+   ],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2177,
+  "name": "Shield of Death",
+  "kind": "Shield",
+  "type": "Colossal Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Weapon (two-handed)"
+  ],
+  "description": "Reflect Melee Damage: 13%\n\nHealing Received +100%\nHealing Done -50%",
+  "required_level": 120,
+  "weight": 230,
+  "atk": 0,
+  "matk": 0,
+  "def": 50,
+  "mdef": 20,
+  "card_slots": 1,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Judge, Peacekeeper, Prowler, Shadowseer",
+  "images": {
+   "icon": "images/icons/2177.png",
+   "art": "images/art/2177.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1373,
+    "mob": "Lord of Death",
+    "mob_level": 140,
+    "zone": "Death Castle Grandhall",
+    "chance_percent": 5,
+    "mvp_reward": true
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": "Wall of Souls",
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2177",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 1,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Reflect Melee Damage: 13%",
+    "stat": "Reflect Melee Damage",
+    "value": 13,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     31
+    ],
+    "stat_keys": [
+     "reflect_melee"
+    ]
+   },
+   {
+    "text": "Healing Received +100%",
+    "stat": "Healing Received",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     43
+    ],
+    "stat_keys": [
+     "healing_received"
+    ]
+   },
+   {
+    "text": "Healing Done -50%",
+    "stat": "Healing Done",
+    "value": -50,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     42
+    ],
+    "stat_keys": [
+     "healing_power"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 28906,
+  "name": "Shield of Living Flame",
+  "kind": "Shield",
+  "type": "Heavy Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 8\n\nASPD+3\n(Shields have a small ASPD penalty)",
+  "required_level": 50,
+  "weight": 100,
+  "atk": 0,
+  "matk": 0,
+  "def": 5,
+  "mdef": 5,
+  "card_slots": 1,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin",
+  "images": {
+   "icon": "images/icons/28906.png",
+   "art": "images/art/28906.png"
+  },
+  "drops": [
+   {
+    "mob_id": 3200,
+    "mob": "Scylla",
+    "mob_level": 90,
+    "zone": "Volcanic Island of Krakatoa",
+    "chance_percent": 15,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 3197,
+    "mob": "Lavaring",
+    "mob_level": 86,
+    "zone": "Volcanic Island of Krakatoa",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": "Living Flame",
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=28906",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 1,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 8",
+    "stat": "Auto Guard Lv",
+    "value": 8,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "ASPD+3",
+    "stat": "ASPD",
+    "value": 3,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     16
+    ],
+    "stat_keys": [
+     "aspd"
+    ]
+   },
+   {
+    "text": "(Shields have a small ASPD penalty)",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2154,
+  "name": "Shield of the Orphan",
+  "kind": "Shield",
+  "type": "Round Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 3\n\nCannot be Refined\nHP+50\nEXP Received +10%\nSP Regen+20%\nCannot be Worn past Lv30\n\nIllusionist Only",
+  "required_level": 1,
+  "weight": 50,
+  "atk": 0,
+  "matk": 0,
+  "def": 10,
+  "mdef": 3,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "Illusionist",
+  "images": {
+   "icon": "images/icons/2154.png",
+   "art": "images/art/2154.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [
+   "notrade",
+   "nodrop",
+   "nocart"
+  ],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2154",
+  "raw": {
+   "how": [
+    "Ornstein · Varmundt's Orphanage",
+    "",
+    "",
+    [
+     [
+      1,
+      "Weapon Voucher",
+      0
+     ]
+    ],
+    "",
+    "",
+    "",
+    null,
+    null,
+    4
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 1,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 3",
+    "stat": "Auto Guard Lv",
+    "value": 3,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "Cannot be Refined",
+    "parsed": false
+   },
+   {
+    "text": "HP+50",
+    "stat": "HP",
+    "value": 50,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     6
+    ],
+    "stat_keys": [
+     "max_hp"
+    ]
+   },
+   {
+    "text": "EXP Received +10%",
+    "stat": "EXP Received",
+    "value": 10,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     41
+    ],
+    "stat_keys": [
+     "exp_gain"
+    ]
+   },
+   {
+    "text": "SP Regen+20%",
+    "stat": "SP Regen",
+    "value": 20,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     9
+    ],
+    "stat_keys": [
+     "sp_regen"
+    ]
+   },
+   {
+    "text": "Cannot be Worn past Lv30",
+    "parsed": false
+   },
+   {
+    "text": "Illusionist Only",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2146,
+  "name": "Silver Guard",
+  "kind": "Shield",
+  "type": "Square Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 10\n\nFlat Defense +10%\nHP+100\nSP+10",
+  "required_level": 40,
+  "weight": 80,
+  "atk": 0,
+  "matk": 0,
+  "def": 10,
+  "mdef": 2,
+  "card_slots": 1,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2146.png",
+   "art": "images/art/2146.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1296,
+    "mob": "Kobold Leader",
+    "mob_level": 61,
+    "zone": "Fortress Saint Darmain (South)",
+    "chance_percent": 15,
+    "mvp_reward": true
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": "Siver Guard",
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2146",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 1,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 10",
+    "stat": "Auto Guard Lv",
+    "value": 10,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "Flat Defense +10%",
+    "stat": "Flat Defense",
+    "value": 10,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     24
+    ],
+    "stat_keys": [
+     "def"
+    ]
+   },
+   {
+    "text": "HP+100",
+    "stat": "HP",
+    "value": 100,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     6
+    ],
+    "stat_keys": [
+     "max_hp"
+    ]
+   },
+   {
+    "text": "SP+10",
+    "stat": "SP",
+    "value": 10,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     7
+    ],
+    "stat_keys": [
+     "max_sp"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2189,
+  "name": "Slider Armguard",
+  "kind": "Shield",
+  "type": "Armguard",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 0\n\nPerfect Dodge +10\nPerfect Dodge +2 per Refine\nBackstab DMG +2% per Refine\nEnables Backslide with a reduced cooldown of 1 second.\n\nProwler Only",
+  "required_level": 90,
+  "weight": 50,
+  "atk": 0,
+  "matk": 0,
+  "def": 10,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "Prowler",
+  "images": {
+   "icon": "images/icons/2189.png",
+   "art": "images/art/2189.png"
+  },
+  "drops": [
+   {
+    "mob_id": 3502,
+    "mob": "Consumed Kafra",
+    "mob_level": 104,
+    "zone": "Abandoned Kafra Warehouse",
+    "chance_percent": 2,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [
+   {
+    "skill": "Phantom Thrust",
+    "trigger": "hit",
+    "raw": [
+     27,
+     1,
+     100.0,
+     0,
+     7
+    ]
+   }
+  ],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": "Slide Armguard",
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2189",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Perfect Dodge +10",
+    "stat": "Perfect Dodge",
+    "value": 10,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     27
+    ],
+    "stat_keys": [
+     "perfect_dodge"
+    ]
+   },
+   {
+    "text": "Enables Backslide with a reduced cooldown of 1 second.",
+    "parsed": false
+   },
+   {
+    "text": "Prowler Only",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [
+    {
+     "per": 1,
+     "effects": [
+      {
+       "text": "Perfect Dodge +2 per Refine",
+       "stat": "Perfect Dodge",
+       "value": 2,
+       "unit": null,
+       "parsed": true,
+       "stat_ids": [
+        27
+       ],
+       "stat_keys": [
+        "perfect_dodge"
+       ]
+      },
+      {
+       "text": "Backstab DMG +2% per Refine",
+       "stat": "Backstab DMG",
+       "value": 2,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [],
+       "stat_keys": [],
+       "skill": "Backstab",
+       "skill_metric": "damage",
+       "skills": [
+        "Backstab"
+       ]
+      }
+     ]
+    }
+   ],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2121,
+  "name": "Star Scale Shield",
+  "kind": "Shield",
+  "type": "Round Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 8\n\nShield Boomerang Splashes in a 5x5 area\nShield Boomerang Autocasts Wind Blade Lv3\nMATK +2%",
+  "required_level": 80,
+  "weight": 80,
+  "atk": 0,
+  "matk": 0,
+  "def": 15,
+  "mdef": 0,
+  "card_slots": 1,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2121.png",
+   "art": "images/art/2121.png"
+  },
+  "drops": [
+   {
+    "mob_id": 2669,
+    "mob": "Sun Guardian",
+    "mob_level": 104,
+    "zone": "Observatorium Study",
+    "chance_percent": 1,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [
+   {
+    "skill": "Wind Blade",
+    "trigger": null,
+    "raw": [
+     16,
+     3,
+     100.0,
+     0,
+     47
+    ]
+   }
+  ],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": "Star Scale Sh",
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2121",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 8",
+    "stat": "Auto Guard Lv",
+    "value": 8,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "Shield Boomerang Splashes in a 5x5 area",
+    "parsed": false
+   },
+   {
+    "text": "Shield Boomerang Autocasts Wind Blade Lv3",
+    "parsed": false
+   },
+   {
+    "text": "MATK +2%",
+    "stat": "MATK",
+    "value": 2,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     11
+    ],
+    "stat_keys": [
+     "matk"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2114,
+  "name": "Stone Buckler",
+  "kind": "Shield",
+  "type": "Round Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 6\n\nSP +7%\nSP Regen +10%",
+  "required_level": 30,
+  "weight": 80,
+  "atk": 0,
+  "matk": 0,
+  "def": 13,
+  "mdef": 7,
+  "card_slots": 1,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2114.png",
+   "art": "images/art/2114.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1232,
+    "mob": "Granite Warrior",
+    "mob_level": 33,
+    "zone": "Sograt Desert",
+    "chance_percent": 1.5,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2114",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 6",
+    "stat": "Auto Guard Lv",
+    "value": 6,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "SP +7%",
+    "stat": "SP",
+    "value": 7,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     7
+    ],
+    "stat_keys": [
+     "max_sp"
+    ]
+   },
+   {
+    "text": "SP Regen +10%",
+    "stat": "SP Regen",
+    "value": 10,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     9
+    ],
+    "stat_keys": [
+     "sp_regen"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2113,
+  "name": "Stone Buckler",
+  "kind": "Shield",
+  "type": "Round Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 6\n\nSP +7%\nSP Regen +10%",
+  "required_level": 30,
+  "weight": 80,
+  "atk": 0,
+  "matk": 0,
+  "def": 13,
+  "mdef": 7,
+  "card_slots": 0,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2113.png",
+   "art": "images/art/2113.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2113",
+  "raw": {
+   "how": [
+    "Armor Dealer · Inside Einbroch",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    1
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 6",
+    "stat": "Auto Guard Lv",
+    "value": 6,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "SP +7%",
+    "stat": "SP",
+    "value": 7,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     7
+    ],
+    "stat_keys": [
+     "max_sp"
+    ]
+   },
+   {
+    "text": "SP Regen +10%",
+    "stat": "SP Regen",
+    "value": 10,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     9
+    ],
+    "stat_keys": [
+     "sp_regen"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2187,
+  "name": "Subterfuge Armguard",
+  "kind": "Shield",
+  "type": "Armguard",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 0\n\nPerfect Dodge +3\nPerfect Dodge +1 per Refine\nBackstab DMG +3% per Refine\nWhen Using \"Whirling Kunai\", automatically backslides\n\nProwler Only",
+  "required_level": 50,
+  "weight": 50,
+  "atk": 0,
+  "matk": 0,
+  "def": 10,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "Prowler",
+  "images": {
+   "icon": "images/icons/2187.png",
+   "art": "images/art/2187.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1710,
+    "mob": "Despero",
+    "mob_level": 65,
+    "zone": "Thanatos Tower Lower Level",
+    "chance_percent": 1.5,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [
+   {
+    "skill": "Phantom Thrust",
+    "trigger": "hit",
+    "raw": [
+     27,
+     1,
+     100.0,
+     0,
+     7
+    ]
+   },
+   {
+    "skill": "Back Slide",
+    "trigger": "hit",
+    "raw": [
+     6,
+     1,
+     100.0,
+     0,
+     93
+    ]
+   }
+  ],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": "Subter Armguard",
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2187",
+  "raw": {
+   "how": [
+    "Black Market · Alberta",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    7
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Perfect Dodge +3",
+    "stat": "Perfect Dodge",
+    "value": 3,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     27
+    ],
+    "stat_keys": [
+     "perfect_dodge"
+    ]
+   },
+   {
+    "text": "When Using \"Whirling Kunai\", automatically backslides",
+    "parsed": false
+   },
+   {
+    "text": "Prowler Only",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [
+    {
+     "per": 1,
+     "effects": [
+      {
+       "text": "Perfect Dodge +1 per Refine",
+       "stat": "Perfect Dodge",
+       "value": 1,
+       "unit": null,
+       "parsed": true,
+       "stat_ids": [
+        27
+       ],
+       "stat_keys": [
+        "perfect_dodge"
+       ]
+      },
+      {
+       "text": "Backstab DMG +3% per Refine",
+       "stat": "Backstab DMG",
+       "value": 3,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [],
+       "stat_keys": [],
+       "skill": "Backstab",
+       "skill_metric": "damage",
+       "skills": [
+        "Backstab"
+       ]
+      }
+     ]
+    }
+   ],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2124,
+  "name": "Thorny Shield",
+  "kind": "Shield",
+  "type": "Heavy Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 5\n\nReflects 10% short-range physical damage\nHP/SP+3%\nATK/MATK+1",
+  "required_level": 50,
+  "weight": 100,
+  "atk": 0,
+  "matk": 0,
+  "def": 20,
+  "mdef": 0,
+  "card_slots": 1,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2124.png",
+   "art": "images/art/2124.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1574,
+    "mob": "Vine Willow",
+    "mob_level": 68,
+    "zone": "Airship Crash Site",
+    "chance_percent": 1.5,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": "Thorn Shield",
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2124",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 5",
+    "stat": "Auto Guard Lv",
+    "value": 5,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "Reflects 10% short-range physical damage",
+    "stat": "Reflect Melee Damage",
+    "value": 10,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     31
+    ],
+    "stat_keys": [
+     "reflect_melee"
+    ]
+   },
+   {
+    "text": "HP/SP+3%",
+    "stat": "HP/SP",
+    "value": 3,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     6,
+     7
+    ],
+    "stat_keys": [
+     "max_hp",
+     "max_sp"
+    ]
+   },
+   {
+    "text": "ATK/MATK+1",
+    "stat": "ATK/MATK",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     10,
+     11
+    ],
+    "stat_keys": [
+     "atk",
+     "matk"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2140,
+  "name": "Tidal Shield",
+  "kind": "Shield",
+  "type": "Heavy Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 2\n\nWater Resistance +3% per Refine",
+  "required_level": 70,
+  "weight": 100,
+  "atk": 0,
+  "matk": 0,
+  "def": 10,
+  "mdef": 20,
+  "card_slots": 1,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2140.png",
+   "art": "images/art/2140.png"
+  },
+  "drops": [
+   {
+    "mob_id": 3790,
+    "mob": "Hallucigenia",
+    "mob_level": 75,
+    "zone": "Hunting Ground",
+    "chance_percent": 3.0,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2140",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 2",
+    "stat": "Auto Guard Lv",
+    "value": 2,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [
+    {
+     "per": 1,
+     "effects": [
+      {
+       "text": "Water Resistance +3% per Refine",
+       "stat": "Water Resistance",
+       "value": 3,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        58
+       ],
+       "stat_keys": [
+        "res_water"
+       ]
+      }
+     ]
+    }
+   ],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2139,
+  "name": "Tidal Shield",
+  "kind": "Shield",
+  "type": "Heavy Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 2\n\nWater Resistance +3% per Refine",
+  "required_level": 70,
+  "weight": 100,
+  "atk": 0,
+  "matk": 0,
+  "def": 10,
+  "mdef": 20,
+  "card_slots": 0,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2139.png",
+   "art": "images/art/2139.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2139",
+  "raw": {
+   "how": [
+    "Armor Dealer · Nomad Village",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    5
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 2",
+    "stat": "Auto Guard Lv",
+    "value": 2,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [
+    {
+     "per": 1,
+     "effects": [
+      {
+       "text": "Water Resistance +3% per Refine",
+       "stat": "Water Resistance",
+       "value": 3,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        58
+       ],
+       "stat_keys": [
+        "res_water"
+       ]
+      }
+     ]
+    }
+   ],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2142,
+  "name": "Tornado Shield",
+  "kind": "Shield",
+  "type": "Heavy Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 2\n\nWind Resistance +3% per Refine",
+  "required_level": 70,
+  "weight": 100,
+  "atk": 0,
+  "matk": 0,
+  "def": 10,
+  "mdef": 20,
+  "card_slots": 1,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2142.png",
+   "art": "images/art/2142.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1997,
+    "mob": "Frost Flower",
+    "mob_level": 79,
+    "zone": "Frozen Fields, Southwest",
+    "chance_percent": 3.0,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2142",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 2",
+    "stat": "Auto Guard Lv",
+    "value": 2,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [
+    {
+     "per": 1,
+     "effects": [
+      {
+       "text": "Wind Resistance +3% per Refine",
+       "stat": "Wind Resistance",
+       "value": 3,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        67
+       ],
+       "stat_keys": [
+        "res_wind"
+       ]
+      }
+     ]
+    }
+   ],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2141,
+  "name": "Tornado Shield",
+  "kind": "Shield",
+  "type": "Heavy Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 2\n\nWind Resistance +3% per Refine",
+  "required_level": 70,
+  "weight": 100,
+  "atk": 0,
+  "matk": 0,
+  "def": 10,
+  "mdef": 20,
+  "card_slots": 0,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2141.png",
+   "art": "images/art/2141.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2141",
+  "raw": {
+   "how": [
+    "Armor Dealer · Nomad Village",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    5
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 2",
+    "stat": "Auto Guard Lv",
+    "value": 2,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [
+    {
+     "per": 1,
+     "effects": [
+      {
+       "text": "Wind Resistance +3% per Refine",
+       "stat": "Wind Resistance",
+       "value": 3,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        67
+       ],
+       "stat_keys": [
+        "res_wind"
+       ]
+      }
+     ]
+    }
+   ],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2115,
+  "name": "Valkyrie Shield",
+  "kind": "Shield",
+  "type": "Heavy Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 9\n\nFinal Damage Taken -5%\nFlat DEF+15",
+  "required_level": 100,
+  "weight": 100,
+  "atk": 0,
+  "matk": 0,
+  "def": 25,
+  "mdef": 10,
+  "card_slots": 0,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2115.png",
+   "art": "images/art/2115.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1751,
+    "mob": "Valkyrie Randgris",
+    "mob_level": 115,
+    "zone": "Odin Shrine",
+    "chance_percent": 100,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1765,
+    "mob": "Shadow of Valkyries",
+    "mob_level": 114,
+    "zone": "Odin Shrine",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2115",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 1,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 9",
+    "stat": "Auto Guard Lv",
+    "value": 9,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "Final Damage Taken -5%",
+    "stat": "Final Damage Taken",
+    "value": -5,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": []
+   },
+   {
+    "text": "Flat DEF+15",
+    "stat": "Flat DEF",
+    "value": 15,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     24
+    ],
+    "stat_keys": [
+     "def"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2130,
+  "name": "Veil of Light",
+  "kind": "Shield",
+  "type": "Arm Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 7\n\nHoly Element Armor\nHP Regen+100%\nSP Cost-5%",
+  "required_level": 125,
+  "weight": 30,
+  "atk": 0,
+  "matk": 0,
+  "def": 10,
+  "mdef": 20,
+  "card_slots": 1,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2130.png",
+   "art": "images/art/2130.png"
+  },
+  "drops": [
+   {
+    "mob_id": 3621,
+    "mob": "Ascended Follower",
+    "mob_level": 144,
+    "zone": "Rachel Hidden Temple",
+    "chance_percent": 1,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2130",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 7",
+    "stat": "Auto Guard Lv",
+    "value": 7,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "Holy Element Armor HP Regen+100%",
+    "stat": "Holy Element Armor HP Regen",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": []
+   },
+   {
+    "text": "SP Cost-5%",
+    "stat": "SP Cost",
+    "value": -5,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     37
+    ],
+    "stat_keys": [
+     "sp_cost"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 30149,
+  "name": "Veldismagn",
+  "kind": "Shield",
+  "type": "Heavy Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "VIT +3\nDamage taken from Boss monsters -1% per refine\nVeldismagn Set:\nSword and Shield\nSet Bonus:\nCannot be knocked back\nTotal DEF +10%\nMDEF +5",
+  "required_level": 130,
+  "weight": 130,
+  "atk": 0,
+  "matk": 0,
+  "def": 50,
+  "mdef": 0,
+  "card_slots": 1,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/30149.png",
+   "art": "images/art/30149.png"
+  },
+  "drops": [
+   {
+    "mob_id": 2681,
+    "mob": "Frigg Avatar",
+    "mob_level": 150,
+    "zone": "Valhalla",
+    "chance_percent": 0.75,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=30149",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [
+   239
+  ],
+  "effects": [
+   {
+    "text": "VIT +3",
+    "stat": "VIT",
+    "value": 3,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     2
+    ],
+    "stat_keys": [
+     "vit"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [
+    {
+     "per": 1,
+     "effects": [
+      {
+       "text": "Damage taken from Boss monsters -1% per refine",
+       "stat": "Resistance vs Boss monsters",
+       "value": 1,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        105
+       ],
+       "stat_keys": [
+        "res_race_boss"
+       ]
+      }
+     ]
+    }
+   ],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2138,
+  "name": "Volcano Shield",
+  "kind": "Shield",
+  "type": "Heavy Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 2\n\nFire Resistance +3% per Refine",
+  "required_level": 70,
+  "weight": 100,
+  "atk": 0,
+  "matk": 0,
+  "def": 10,
+  "mdef": 20,
+  "card_slots": 1,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2138.png",
+   "art": "images/art/2138.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1422,
+    "mob": "Firewind",
+    "mob_level": 84,
+    "zone": "Veins Field",
+    "chance_percent": 3.0,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2138",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 2",
+    "stat": "Auto Guard Lv",
+    "value": 2,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [
+    {
+     "per": 1,
+     "effects": [
+      {
+       "text": "Fire Resistance +3% per Refine",
+       "stat": "Fire Resistance",
+       "value": 3,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        64
+       ],
+       "stat_keys": [
+        "res_fire"
+       ]
+      }
+     ]
+    }
+   ],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2137,
+  "name": "Volcano Shield",
+  "kind": "Shield",
+  "type": "Heavy Shield",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 2\n\nFire Resistance +3% per Refine",
+  "required_level": 70,
+  "weight": 100,
+  "atk": 0,
+  "matk": 0,
+  "def": 10,
+  "mdef": 20,
+  "card_slots": 0,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2137.png",
+   "art": "images/art/2137.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2137",
+  "raw": {
+   "how": [
+    "Armor Dealer · Nomad Village",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    5
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 2",
+    "stat": "Auto Guard Lv",
+    "value": 2,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [
+    {
+     "per": 1,
+     "effects": [
+      {
+       "text": "Fire Resistance +3% per Refine",
+       "stat": "Fire Resistance",
+       "value": 3,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        64
+       ],
+       "stat_keys": [
+        "res_fire"
+       ]
+      }
+     ]
+    }
+   ],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 2175,
+  "name": "Wolf Armguard",
+  "kind": "Shield",
+  "type": "Armguard",
+  "category": "Shield",
+  "equip_slots": [
+   "Off-hand"
+  ],
+  "description": "Auto Guard Lv: 3\n\nFlee +20\nATK +3%",
+  "required_level": 65,
+  "weight": 50,
+  "atk": 0,
+  "matk": 0,
+  "def": 10,
+  "mdef": 7,
+  "card_slots": 1,
+  "refineable": true,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": "All except Bouncer, Judge, Mimic, Peacekeeper, Pit Boss, Prowler, Ronin, Shadowseer",
+  "images": {
+   "icon": "images/icons/2175.png",
+   "art": "images/art/2175.png"
+  },
+  "drops": [
+   {
+    "mob_id": 2152,
+    "mob": "Comodo",
+    "mob_level": 85,
+    "zone": "Dewata Field (Tribal Village)",
+    "chance_percent": 3,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Shield&id=2175",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Auto Guard Lv: 3",
+    "stat": "Auto Guard Lv",
+    "value": 3,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Auto Guard",
+    "skill_metric": "level",
+    "skills": [
+     "Auto Guard"
+    ]
+   },
+   {
+    "text": "Flee +20",
+    "stat": "Flee",
+    "value": 20,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     26
+    ],
+    "stat_keys": [
+     "flee"
+    ]
+   },
+   {
+    "text": "ATK +3%",
+    "stat": "ATK",
+    "value": 3,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     10
+    ],
+    "stat_keys": [
+     "atk"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ }
+]

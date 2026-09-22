@@ -1,0 +1,610 @@
+:root {
+  --bg: #0c0a12;
+  --bg-raised: #14111d;
+  --bg-input: #1b1726;
+  --border: #2a2338;
+  --border-strong: #3b3150;
+  --text: #e6e1f0;
+  --text-dim: #9a91ae;
+  --text-faint: #6d6483;
+  --accent: #a882ff;
+  --accent-dim: #6f56b0;
+  --good: #63d69b;
+  --warn: #e8b563;
+  --bad: #e8697d;
+  --radius: 4px;
+  --mono: ui-monospace, "JetBrains Mono", "Cascadia Mono", Menlo, monospace;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 14px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+button, input, select { font: inherit; color: inherit; }
+
+button {
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 6px 10px;
+  cursor: pointer;
+}
+button:hover:not(:disabled) { border-color: var(--border-strong); background: #221c30; }
+button:disabled { opacity: .4; cursor: not-allowed; }
+
+input, select {
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 7px 10px;
+  width: 100%;
+}
+input:focus, select:focus, button:focus-visible {
+  outline: 2px solid var(--accent-dim);
+  outline-offset: 1px;
+}
+
+/* ---- layout ------------------------------------------------------------ */
+
+.app { max-width: 1400px; margin: 0 auto; padding: 20px; }
+
+.topbar {
+  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+  padding-bottom: 16px; margin-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+.topbar h1 {
+  margin: 0; font-size: 17px; font-weight: 600; letter-spacing: .3px;
+}
+.topbar h1 span { color: var(--accent); }
+.spacer { flex: 1; }
+
+.columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 400px);
+  gap: 20px;
+  align-items: start;
+}
+@media (max-width: 960px) { .columns { grid-template-columns: 1fr; } }
+
+.panel {
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 16px;
+}
+.panel + .panel { margin-top: 16px; }
+.panel > h2 {
+  margin: 0 0 12px;
+  font-size: 11px; text-transform: uppercase; letter-spacing: .1em;
+  color: var(--text-faint); font-weight: 600;
+}
+
+/* ---- slots ------------------------------------------------------------- */
+
+.slot-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+@media (max-width: 560px) { .slot-grid { grid-template-columns: 1fr; } }
+
+.slot {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-input);
+  padding: 8px;
+  display: flex; flex-direction: column; gap: 6px;
+  min-height: 62px;
+}
+.slot.filled { border-color: var(--border-strong); }
+.slot.disabled { opacity: .45; }
+
+.slot-head { display: flex; align-items: center; gap: 4px; }
+.slot-label {
+  font-size: 10px; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--text-faint);
+}
+/* Sized down to sit on the label's line without shouting over it. */
+.slot-head .x { font-size: 12px; padding: 0 3px; }
+/* Natural height, so a filled slot stacks from the top. Grid rows stretch to
+   the tallest card in the row -- an armour with three roll dropdowns next to
+   a headgear with none -- and anything set to flex: 1 here would swallow that
+   spare height and centre the item in it instead. */
+.slot-main { display: flex; align-items: center; gap: 8px; text-align: left; flex: none; }
+/* An empty slot is nothing but its button, so there it fills the card and
+   the whole area stays clickable. */
+.slot:not(.filled) .slot-main { flex: 1; }
+.slot-main button { all: unset; cursor: pointer; flex: 1; display: flex;
+  align-items: center; gap: 8px; min-width: 0; }
+.slot-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis;
+  white-space: nowrap; }
+.slot-name.empty { color: var(--text-faint); font-style: italic; }
+
+/* Settled: suggestions leave this slot alone. Faint until locked or hovered,
+   so fourteen of them do not compete with the gear for attention. */
+.slot-head .lock {
+  padding: 2px; line-height: 0; background: none; border: 0;
+  color: var(--text-faint); opacity: .5;
+}
+.slot-head .lock:hover { opacity: 1; color: var(--text); }
+.slot-head .lock.on { opacity: 1; color: var(--accent); }
+/* The whole slot reads as held: dimmer border, and the label says why. */
+.slot.locked { border-color: var(--accent); }
+.slot.locked .slot-label { color: var(--accent); }
+
+.icon {
+  width: 28px; height: 28px; flex: none;
+  image-rendering: pixelated;
+  border-radius: 2px; background: #0e0b15;
+}
+.icon.ph { display: grid; place-items: center; color: var(--text-faint); font-size: 11px; }
+
+.slot-controls { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.refine {
+  display: flex; align-items: center; gap: 4px;
+  font-family: var(--mono); font-size: 12px; color: var(--accent);
+}
+.refine input { width: 52px; padding: 2px 6px; text-align: center;
+  font-family: var(--mono); }
+
+.card-slot {
+  display: flex; align-items: center; gap: 4px;
+  border: 1px dashed var(--border-strong); border-radius: 3px;
+  padding: 2px 6px; font-size: 11px; color: var(--text-dim);
+  cursor: pointer; background: none; max-width: 180px;
+}
+/* The reset lives here rather than inline: `all: unset` from a style
+   attribute outranks this rule and takes white-space with it, which is what
+   made long card names wrap instead of ellipsing. */
+.card-slot .t {
+  all: unset;
+  cursor: pointer; min-width: 0;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.card-slot.set { border-style: solid; color: var(--text); }
+/* Only shown from two copies up -- a lone card needs no "×1". */
+.card-count {
+  font-style: normal; font-family: var(--mono);
+  color: var(--accent); margin-left: 4px;
+}
+/* Another of the same card, without going back through the picker. */
+.card-slot .plus {
+  all: unset; cursor: pointer; color: var(--text-faint);
+  padding: 0 3px; font-size: 13px; line-height: 1; flex: none;
+}
+.card-slot .plus:hover { color: var(--accent); }
+
+/* ---- random rolls ------------------------------------------------------ */
+/* Kept visually quieter than the item itself: these are what one copy
+   happened to drop with, not what the item is. */
+
+.rolls {
+  display: grid; gap: 4px; margin-top: 6px;
+  padding-top: 6px; border-top: 1px dashed var(--border);
+}
+.roll { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+.roll-option {
+  flex: 1 1 110px; min-width: 0;
+  font-size: 11px; padding: 2px 4px; color: var(--text-dim);
+}
+/* Fixed overall width, and fixed parts within it: the sign and the unit each
+   hold their space whether or not they have anything to show, so a "%" roll
+   and a flat one leave the dropdown in the same place. */
+.roll-value {
+  flex: 0 0 auto;
+  display: flex; align-items: center; gap: 2px;
+  font-family: var(--mono); font-size: 11px; color: var(--accent);
+}
+.roll-value input { width: 46px; padding: 2px 4px; text-align: center;
+  font-family: var(--mono); font-size: 11px; }
+.roll-sign { width: 7px; text-align: right; }
+.roll-unit { width: 8px; }
+/* The placeholder for a roll nobody has filled in: 7 + 2 + 46 + 2 + 8. */
+.roll-value.ph { width: 65px; height: 1px; }
+.roll-skill { flex: 0 1 84px; min-width: 0; padding: 2px 4px; font-size: 11px; }
+/* Why a slot that normally rolls is showing nothing. */
+.rolls-barred {
+  margin-top: 6px; padding-top: 6px; border-top: 1px dashed var(--border);
+  font-size: 10px; color: var(--text-faint); font-style: italic;
+}
+
+.x {
+  all: unset; cursor: pointer; color: var(--text-faint);
+  padding: 0 4px; font-size: 14px; line-height: 1;
+}
+.x:hover { color: var(--bad); }
+
+/* ---- stats ------------------------------------------------------------- */
+
+/* ---- base stats -------------------------------------------------------- */
+
+.base-grid { display: grid; gap: 4px; }
+
+.base-row {
+  display: grid;
+  grid-template-columns: 42px 76px 1fr auto;
+  align-items: center; gap: 8px;
+}
+.base-name {
+  font-family: var(--mono); font-size: 12px; color: var(--text-dim);
+  letter-spacing: .04em;
+}
+.base-row input { padding: 4px 8px; text-align: center; font-family: var(--mono); }
+.base-bonus {
+  font-family: var(--mono); font-size: 12px; color: var(--good);
+}
+.base-total {
+  font-family: var(--mono); font-size: 13px; text-align: right; min-width: 56px;
+}
+.base-total em { color: var(--accent); font-style: normal; font-size: 11px; }
+.base-bonus.bad, .base-total em.bad { color: var(--bad); }
+.derived-base {
+  font-family: var(--mono); font-size: 12px; text-align: center;
+  color: var(--text-dim); cursor: help;
+}
+/* A formula nobody has checked against the game should not read as data. */
+.derived-base.unverified { color: var(--warn); border-bottom: 1px dotted var(--warn); }
+
+/* ---- element ----------------------------------------------------------- */
+
+.element-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 6px 10px; margin-bottom: 12px;
+  background: var(--bg-input); border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.element-row .n { color: var(--text-faint); font-size: 11px;
+  text-transform: uppercase; letter-spacing: .08em; }
+.elem {
+  font-family: var(--mono); font-size: 13px; font-weight: 600;
+  margin-left: auto; color: var(--text);
+}
+.elem--holy { color: #ffd98a; }
+.elem--dark, .elem--shadow { color: #b48cff; }
+.elem--fire { color: #ff9466; }
+.elem--water { color: #6ec8ff; }
+.elem--wind { color: #8ef0d0; }
+.elem--earth { color: #d2b183; }
+.elem--poison { color: #c78cff; }
+.elem--undead { color: #9aa87f; }
+.elem--ghost { color: #a9c7ff; }
+.elem-lost {
+  font-size: 10px; color: var(--warn); cursor: help;
+  border-bottom: 1px dotted var(--warn);
+}
+
+.stat-cat {
+  margin-top: 14px; font-size: 10px; text-transform: uppercase;
+  letter-spacing: .1em; color: var(--text-faint);
+}
+.stat-cat:first-child { margin-top: 0; }
+
+.stat-row {
+  display: grid; grid-template-columns: 1fr auto auto; gap: 10px;
+  padding: 3px 0; border-bottom: 1px solid #1c1727;
+  align-items: baseline;
+}
+.stat-row .n { color: var(--text-dim); }
+.stat-row .v { font-family: var(--mono); font-size: 13px; min-width: 62px;
+  text-align: right; }
+.v.flat { color: var(--text); }
+.v.pct { color: var(--accent); }
+.v.zero { color: var(--text-faint); }
+/* A total that works against the wearer: "All Stats -5", "Cast Time +10%". */
+.v.bad { color: var(--bad); }
+/* A flag has no number, so it spans both value columns rather than leaving
+   an empty one that reads as a missing figure. */
+.v.flag { grid-column: 2 / span 2; color: var(--good, var(--accent)); }
+
+/* Narrower than a stat input and placeholder-labelled, so an empty one reads
+   as "nothing entered" rather than as a zero the planner worked out. */
+.derived-manual::placeholder { font-style: italic; font-size: 10px; }
+
+.level-range {
+  display: flex; align-items: center; gap: 4px;
+  font-size: 11px; color: var(--text-faint);
+}
+.level-range input { width: 58px; padding: 4px 6px; font-size: 12px; }
+
+.empty-note { color: var(--text-faint); font-style: italic; }
+
+.set-row {
+  display: flex; align-items: center; gap: 8px;
+  padding: 5px 0; border-bottom: 1px solid #1c1727;
+  cursor: help;
+}
+.set-row:hover { color: var(--text); }
+.pill {
+  font-family: var(--mono); font-size: 11px; padding: 1px 7px;
+  border-radius: 99px; border: 1px solid var(--border-strong);
+  color: var(--text-dim);
+}
+.pill.done { color: var(--good); border-color: #2c5b44; background: #12261d; }
+.pill.unverified {
+  color: var(--warn); border-color: #5b4a2c; background: #261f12; cursor: help;
+}
+
+.uncounted { max-height: 220px; overflow: auto; }
+.uncounted div {
+  padding: 4px 0; border-bottom: 1px solid #1c1727;
+  font-size: 12px; color: var(--text-dim);
+}
+.uncounted .why { color: var(--text-faint); font-size: 11px; }
+
+/* ---- picker overlay ---------------------------------------------------- */
+
+.overlay {
+  position: fixed; inset: 0; background: rgba(6, 4, 10, .78);
+  display: grid; place-items: center; padding: 20px; z-index: 50;
+  backdrop-filter: blur(3px);
+}
+.picker {
+  background: var(--bg-raised); border: 1px solid var(--border-strong);
+  border-radius: 6px; width: min(880px, 100%); max-height: 86vh;
+  display: flex; flex-direction: column; overflow: hidden;
+}
+.picker-head {
+  padding: 14px 16px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 12px;
+}
+.picker-head h3 { margin: 0; font-size: 15px; }
+.picker-filters {
+  padding: 12px 16px; border-bottom: 1px solid var(--border);
+  display: grid; gap: 8px; grid-template-columns: 2fr 1fr 1fr auto auto 1fr;
+}
+@media (max-width: 720px) { .picker-filters { grid-template-columns: 1fr 1fr; } }
+.check { display: flex; align-items: center; gap: 6px; font-size: 12px;
+  color: var(--text-dim); white-space: nowrap; }
+.check input { width: auto; }
+
+.picker-list { overflow: auto; padding: 6px; }
+.picker-row {
+  display: flex; align-items: center; gap: 10px; width: 100%;
+  padding: 7px 10px; border-radius: var(--radius);
+  border: 1px solid transparent; background: none; cursor: pointer;
+  text-align: left;
+}
+.picker-row:hover { background: var(--bg-input); border-color: var(--border); }
+.picker-row .meta { font-size: 11px; color: var(--text-faint); }
+.picker-row .stats { font-family: var(--mono); font-size: 11px;
+  color: var(--text-dim); margin-left: auto; white-space: nowrap; }
+.picker-foot {
+  padding: 8px 16px; border-top: 1px solid var(--border);
+  font-size: 11px; color: var(--text-faint);
+  display: flex; justify-content: space-between; gap: 10px;
+}
+
+/* Ways to get more of one goal. Narrower than the item picker: every row is
+   one suggestion rather than a table of items to scan across. */
+.picker.focus { width: min(680px, 100%); }
+.focus-sub { font-family: var(--mono); font-size: 11px; color: var(--text-faint); }
+.focus-list { margin: 4px 0; padding-left: 26px; gap: 10px; }
+.focus-list li { padding-right: 6px; }
+.picker.focus .picker-foot span:last-child { text-align: right; max-width: 60%; }
+
+/* ---- item tooltip ------------------------------------------------------ */
+
+.tip {
+  position: fixed; z-index: 100;
+  width: 320px; max-height: 80vh; overflow: hidden;
+  /* Never take the pointer: the tooltip sits next to the thing being
+     hovered, and eating the hover would make it flicker itself away. */
+  pointer-events: none;
+  background: #17131f;
+  border: 1px solid var(--border-strong);
+  border-radius: 5px;
+  padding: 12px;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, .6);
+  font-size: 12px; line-height: 1.45;
+}
+
+.tip-head { display: flex; gap: 10px; align-items: center; }
+.tip-art {
+  width: 40px; height: 40px; flex: none;
+  image-rendering: pixelated; border-radius: 3px; background: #0e0b15;
+}
+.tip-art.ph { display: grid; place-items: center; color: var(--text-faint); }
+.tip-name { font-size: 14px; font-weight: 600; line-height: 1.3; }
+.tip-name em { color: var(--accent); font-style: normal; }
+.tip-sub { color: var(--text-faint); font-size: 11px; }
+
+.tip-nums {
+  display: flex; flex-wrap: wrap; gap: 4px 12px;
+  margin-top: 10px; font-family: var(--mono); font-size: 11px;
+  color: var(--text-dim);
+}
+.tip-nums b { color: var(--text); font-weight: 600; }
+
+.tip-req { margin-top: 6px; color: var(--text-faint); font-size: 11px; }
+
+.tip-sec { margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--border); }
+.tip-sec.cond { color: var(--text-dim); }
+.tip-sec-title {
+  font-size: 10px; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--text-faint); margin-bottom: 3px;
+}
+.tip-sec-title.met { color: var(--good); }
+.tip-sec-title.unmet { color: var(--text-faint); opacity: .7; }
+
+.tip-line { color: var(--good); }
+.tip-sec.cond .tip-line { color: var(--warn); }
+/* A penalty reads as one, conditional or not -- "All Stats -5" in green
+   looks like a bonus. Direction comes from effectTone, so "SP Cost -10%"
+   stays green. */
+.tip-line.bad, .tip-sec.cond .tip-line.bad { color: var(--bad); }
+.tip-dim { color: var(--text-faint); font-size: 11px; }
+
+/* Cards compounded into a piece. The line goes *between* cards, so each
+   card reads as one block; inside a card, its per-refine and conditional
+   parts are indented under its name rather than ruled off, which made a
+   card's own condition look like a separate section of the item. */
+.tip-card + .tip-card {
+  margin-top: 7px; padding-top: 7px; border-top: 1px solid var(--border);
+}
+.tip-card-name { color: var(--text); }
+.tip-card .tip-sec {
+  margin-top: 3px; padding-top: 0; border-top: none;
+  padding-left: 10px; border-left: 2px solid var(--border);
+}
+.tip-card .tip-sec-title { margin-bottom: 1px; }
+
+.tip-member { color: var(--text-faint); }
+.tip-member.on { color: var(--text); }
+.tip-tick {
+  display: inline-block; width: 12px;
+  font-family: var(--mono); color: var(--text-faint);
+}
+.tip-member.on .tip-tick { color: var(--good); }
+
+/* A bonus the build has not earned yet: readable, so it can be weighed up,
+   but plainly not one of the numbers already in the totals. */
+.tip-sec.off .tip-line, .tip-sec.off .tip-dim { color: var(--text-faint); }
+.tip-sec.off .tip-line.bad { color: var(--bad); opacity: .55; }
+.tip-note { color: var(--text-faint); font-weight: 400; }
+.tip-sec-title.met .tip-note { color: var(--good); }
+
+.tip-classes {
+  margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--border);
+  color: var(--text-faint); font-size: 11px;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.tip-lore {
+  margin-top: 8px; color: var(--text-faint); font-style: italic; font-size: 11px;
+}
+
+.loading { padding: 60px; text-align: center; color: var(--text-dim); }
+.error { color: var(--bad); }
+
+/* Screenshot import */
+.import .dropzone {
+  margin: 12px;
+  padding: 18px;
+  border: 1px dashed var(--line, #3a3f4b);
+  border-radius: 3px;
+  text-align: center;
+}
+.import .dropzone input[type='file'] { display: block; margin: 10px auto 0; }
+.import .picker-row.skipped { opacity: 0.65; }
+
+/* Panel heading with an action on the right */
+.panel-head { display: flex; align-items: center; gap: 10px; }
+.panel-head h2 { flex: 1; }
+.panel-head .swap-hands { font-size: 12px; padding: 3px 8px; }
+
+/* Read a slot's rolls from a screenshot: sits beside the slot's clear button */
+.slot-head .shot {
+  all: unset; cursor: pointer; color: var(--text-faint);
+  padding: 0 2px; line-height: 0;
+}
+.slot-head .shot:hover { color: var(--text); }
+
+/* ---- goals ------------------------------------------------------------- */
+
+.goal-row {
+  display: grid; grid-template-columns: minmax(0, 1fr) 13px 26px 76px 60px auto;
+  align-items: center; gap: 6px; padding: 4px 0 6px;
+}
+/* Priority: both arrows stacked in one 13px column. */
+.goal-rank { display: grid; gap: 1px; }
+.goal-rank button {
+  padding: 0; line-height: 1; font-size: 7px; height: 9px;
+  color: var(--text-faint); background: none; border: 0;
+}
+.goal-rank button:hover:not(:disabled) { color: var(--accent); }
+.goal-rank button:disabled { opacity: .25; }
+/* A button, because clicking it asks for the ways to get more of this one
+   goal. Styled as the label it replaced, with the underline as the only hint
+   that it does something. */
+.goal-name { color: var(--text-dim); font-size: 12px; text-align: left; padding: 0;
+  background: none; border: 0; border-bottom: 1px dotted transparent;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.goal-name:hover { color: var(--text); border-bottom-color: var(--border-strong); }
+.goal-row.focused .goal-name { color: var(--accent); border-bottom-color: var(--accent); }
+.goal-dir { padding: 2px 0; font-family: var(--mono); font-size: 12px; color: var(--accent); }
+.goal-target { padding: 3px 6px; font-family: var(--mono); font-size: 12px; text-align: right; }
+.goal-now { font-family: var(--mono); font-size: 12px; text-align: right; color: var(--warn); }
+.goal-row.met .goal-now { color: var(--good); }
+/* Progress towards the target, full once it is met. */
+.goal-bar { grid-column: 1 / -1; height: 3px; border-radius: 2px; background: var(--bg-input); }
+.goal-bar span { display: block; height: 100%; border-radius: 2px; background: var(--warn); }
+.goal-row.met .goal-bar span { background: var(--good); }
+.goal-add { margin-top: 6px; font-size: 12px; padding: 5px 8px; }
+.goal-opts { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: 10px; }
+.goal-opts select { width: auto; padding: 2px 6px; font-size: 12px; }
+.goal-actions { display: flex; gap: 8px; margin-top: 10px; }
+
+.plan { margin: 10px 0 0; padding-left: 18px; display: grid; gap: 6px; }
+.plan li::marker { color: var(--text-faint); font-family: var(--mono); font-size: 11px; }
+
+.move { display: flex; align-items: center; gap: 10px; width: 100%; }
+.move-main { flex: 1; min-width: 0; }
+/* What the suggestion puts on, so a recommendation reads like the picker
+   rather than like a paragraph. */
+.move-icons { display: flex; gap: 3px; flex: none; }
+.move-icons .icon { width: 24px; height: 24px; cursor: help; }
+/* A piece the suggestion puts on: hover for its full tooltip. */
+.move-piece, .move-label { cursor: help; }
+.move-piece { border-bottom: 1px dotted var(--border-strong); }
+/* Everything a suggestion does, behind a hover. */
+.fx-btn {
+  padding: 0 6px; font-family: var(--mono); font-size: 11px;
+  border-style: dashed; color: var(--text-dim); cursor: help;
+}
+.fx-btn .up { color: var(--good); }
+.fx-btn .down { color: var(--bad); }
+.fx-none { font-size: 11px; color: var(--text-faint); font-style: italic; }
+.fx-pop {
+  width: auto; max-width: 480px; pointer-events: none;
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 18px;
+}
+.fx-col { min-width: 0; }
+.fx-col .delta { white-space: nowrap; }
+/* The +10 version of the suggestion above it: tucked under its parent so the
+   two read as one choice at two refine levels. */
+.picker-row.rec:has(.move.maxed) { margin-top: -4px; padding-top: 2px; }
+.move.maxed { padding-left: 14px; border-left: 2px solid var(--border-strong); }
+.move.maxed .move-label { font-size: 12px; }
+/* A trade rather than an upgrade: still there to read, visibly second. */
+.move.side .move-label { color: var(--text-dim); }
+.move-label { font-size: 13px; }
+.move-slots { font-size: 11px; color: var(--text-faint); }
+.move > button { flex: none; font-size: 12px; padding: 3px 9px; }
+
+.deltas { display: flex; flex-wrap: wrap; gap: 3px 8px; margin-top: 2px; }
+.delta { font-family: var(--mono); font-size: 11px; }
+.delta.up { color: var(--good); }
+.delta.down { color: var(--bad); }
+/* Not merely a loss: this one ends up short of the target that was set. */
+.delta.below { border-bottom: 1px dotted var(--bad); }
+.below { color: var(--bad); }
+
+.more {
+  margin-top: 6px; padding: 2px 8px; font-size: 11px; color: var(--text-dim);
+}
+
+.rec-head {
+  padding: 8px 10px 2px; font-size: 10px; text-transform: uppercase;
+  letter-spacing: .1em; color: var(--text-faint);
+}
+.rec-head:not(:first-child) { margin-top: 8px; border-top: 1px solid var(--border); padding-top: 10px; }
+
+/* ---- picker tabs ------------------------------------------------------- */
+
+.picker-tabs {
+  display: flex; gap: 2px; padding: 0 16px;
+  border-bottom: 1px solid var(--border);
+}
+.picker-tabs button {
+  border: none; border-bottom: 2px solid transparent; border-radius: 0;
+  background: none; padding: 8px 12px; font-size: 12px; color: var(--text-dim);
+}
+.picker-tabs button.on { color: var(--text); border-bottom-color: var(--accent); }
+.picker-tabs button:hover:not(:disabled) { background: none; color: var(--text); }
+/* A recommendation is read and then acted on with its own button, so the
+   row itself is not a click target the way an item row is. */
+.picker-row.rec { cursor: default; }

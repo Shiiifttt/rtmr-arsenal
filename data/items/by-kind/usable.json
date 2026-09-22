@@ -1,0 +1,9282 @@
+[
+ {
+  "id": 512,
+  "name": "Apple",
+  "kind": "Usable",
+  "type": "Healing",
+  "category": "Healing",
+  "equip_slots": [],
+  "description": "Heals 25 Base HP",
+  "required_level": 0,
+  "weight": 2,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/512.png",
+   "art": "images/art/512.png"
+  },
+  "drops": [
+   {
+    "mob_id": 2313,
+    "mob": "Tikbalang",
+    "mob_level": 82,
+    "zone": "Forest",
+    "chance_percent": 25,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1002,
+    "mob": "Poring",
+    "mob_level": 1,
+    "zone": "Payon Forest",
+    "chance_percent": 10,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=512",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Heals 25 Base HP",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 14726,
+  "name": "Ascended Zodiac Box",
+  "kind": "Usable",
+  "type": "Usable",
+  "category": "Usable",
+  "equip_slots": [],
+  "description": "Contains a random upper headgear from zodiac items, but it's a SLOTTED CROWN variation. The box has a strange sound from space when it's shaken.",
+  "required_level": 0,
+  "weight": 50,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/14726.png",
+   "art": "images/art/14726.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=14726",
+  "raw": {
+   "how": [
+    "Happy Girl · Varmundt's Orphanage",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    8
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Contains a random upper headgear from zodiac items, but it's a SLOTTED CROWN variation. The box has a strange sound from space when it's shaken.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 656,
+  "name": "Awakening Potion",
+  "kind": "Usable",
+  "type": "Speed Potion",
+  "category": "Speed Potion",
+  "equip_slots": [],
+  "description": "Increases Attack Speed moderately for 20 minutes.",
+  "required_level": 0,
+  "weight": 20,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/656.png",
+   "art": "images/art/656.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=656",
+  "raw": {
+   "how": [
+    "Kafra Express · Geffen Field F10",
+    "gef_fild10",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    7
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Increases Attack Speed moderately for 20 minutes.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 513,
+  "name": "Banana",
+  "kind": "Usable",
+  "type": "Healing",
+  "category": "Healing",
+  "equip_slots": [],
+  "description": "Heals 125 Base HP",
+  "required_level": 0,
+  "weight": 10,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/513.png",
+   "art": "images/art/513.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1057,
+    "mob": "Yoyo",
+    "mob_level": 35,
+    "zone": "Prontera Field",
+    "chance_percent": 7,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=513",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Heals 125 Base HP",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 12581,
+  "name": "Bargain Hunter's Catalogue",
+  "kind": "Usable",
+  "type": "Usable",
+  "category": "Usable",
+  "equip_slots": [],
+  "description": "Advanced product from the Geffen Magic Academy!\nA magical scroll which is able to 'search what items are on sale and what items are being purchased'. Able to sell or buy items from the searched link!\nAble to search open vendors only in the same map you're located.\nUp to 10 valid searches can be conducted per use.",
+  "required_level": 0,
+  "weight": 1,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/12581.png",
+   "art": "images/art/12581.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [
+   [
+    "2026-09-10",
+    "Refuge: Patch 14 (Hotfix)",
+    "Bargain Hunter's Catalogue no longer crashes with \"hide searches\" on. Typing filters the list already loaded, \"Items: N\" follows the filter, Next respects the filtered pages, and the \"Searches left\" text no longer shows in that mode."
+   ],
+   [
+    "2026-09-09",
+    "Refuge: Patch 13",
+    "Bargain Hunter's Catalogue now list every vending shop in Alberta at once and filter as you type. The list refreshes every 2 seconds and everyone reads from the same snapshot, so it stays light on the server."
+   ]
+  ],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=12581",
+  "raw": {
+   "how": [
+    "Black Market · Alberta",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    7
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Advanced product from the Geffen Magic Academy!",
+    "parsed": false
+   },
+   {
+    "text": "A magical scroll which is able to 'search what items are on sale and what items are being purchased'. Able to sell or buy items from the searched link!",
+    "parsed": false
+   },
+   {
+    "text": "Able to search open vendors only in the same map you're located.",
+    "parsed": false
+   },
+   {
+    "text": "Up to 10 valid searches can be conducted per use.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 657,
+  "name": "Berserk Potion",
+  "kind": "Usable",
+  "type": "Speed Potion",
+  "category": "Speed Potion",
+  "equip_slots": [],
+  "description": "Increases Attack Speed massively for 10 minutes.",
+  "required_level": 0,
+  "weight": 25,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/657.png",
+   "art": "images/art/657.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=657",
+  "raw": {
+   "how": [
+    "Kafra Express · Geffen Field F10",
+    "gef_fild10",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    7
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Increases Attack Speed massively for 10 minutes.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 7024,
+  "name": "Bloody Edge",
+  "kind": "Usable",
+  "type": "Special",
+  "category": "Special",
+  "equip_slots": [],
+  "description": "A blade stained with blood that can't be cleansed.",
+  "required_level": 0,
+  "weight": 1,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/7024.png",
+   "art": "images/art/7024.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1245,
+    "mob": "Knight Sakray",
+    "mob_level": 125,
+    "zone": "Prontera Dungeon",
+    "chance_percent": 100,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1203,
+    "mob": "Mysteltainn",
+    "mob_level": 120,
+    "zone": "Prontera Dungeon",
+    "chance_percent": 10,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1204,
+    "mob": "Ogretooth",
+    "mob_level": 120,
+    "zone": "Prontera Dungeon",
+    "chance_percent": 10,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1205,
+    "mob": "Executioner",
+    "mob_level": 120,
+    "zone": "Prontera Dungeon",
+    "chance_percent": 10,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=7024",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 1,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "A blade stained with blood that can't be cleansed.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 505,
+  "name": "Blue Potion",
+  "kind": "Usable",
+  "type": "Healing",
+  "category": "Healing",
+  "equip_slots": [],
+  "description": "Heals 150 Base SP\n\n15 Seconds Cooldown",
+  "required_level": 0,
+  "weight": 50,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/505.png",
+   "art": "images/art/505.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=505",
+  "raw": {
+   "how": [
+    "Tool Dealer · Sograt Desert F7",
+    "moc_fild07",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    8
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Heals 150 Base SP",
+    "parsed": false
+   },
+   {
+    "text": "15 Seconds Cooldown",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 602,
+  "name": "Butterfly Wing",
+  "kind": "Usable",
+  "type": "Support",
+  "category": "Support",
+  "equip_slots": [],
+  "description": "Teleports back to the save point. 1 minute re-use cooldown.",
+  "required_level": 0,
+  "weight": 10,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/602.png",
+   "art": "images/art/602.png"
+  },
+  "drops": [
+   {
+    "mob_id": 2363,
+    "mob": "Menblatt",
+    "mob_level": 97,
+    "zone": "Veins Field",
+    "chance_percent": 2,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=602",
+  "raw": {
+   "how": [
+    "Kafra Express · Geffen Field F10",
+    "gef_fild10",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    7
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Teleports back to the save point. 1 minute re-use cooldown.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 645,
+  "name": "Concentration Potion",
+  "kind": "Usable",
+  "type": "Speed Potion",
+  "category": "Speed Potion",
+  "equip_slots": [],
+  "description": "Increases Attack Speed slightly for 30 minutes.",
+  "required_level": 0,
+  "weight": 15,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/645.png",
+   "art": "images/art/645.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1161,
+    "mob": "Plankton",
+    "mob_level": 40,
+    "zone": "Bra",
+    "chance_percent": 0.25,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 2404,
+    "mob": "Dead Plankton",
+    "mob_level": 9,
+    "zone": "Treasure Room",
+    "chance_percent": 0.1,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=645",
+  "raw": {
+   "how": [
+    "Kafra Express · Geffen Field F10",
+    "gef_fild10",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    7
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Increases Attack Speed slightly for 30 minutes.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 664,
+  "name": "Costume Gift Box",
+  "kind": "Usable",
+  "type": "Usable",
+  "category": "Usable",
+  "equip_slots": [],
+  "description": "Contains a Random Costume from the list below:\nSanta Poring Hat\nHome Cherry Blossom\nGhost Holiday\nYellow Cherry Blossom\nSilver Tiara\nMay Also Contain a Costume Cool Gift Box",
+  "required_level": 0,
+  "weight": 50,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/664.png",
+   "art": "images/art/664.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1251,
+    "mob": "Stormy Knight",
+    "mob_level": 75,
+    "zone": "Toy Monitoring Room",
+    "chance_percent": 100,
+    "mvp_reward": true
+   }
+  ],
+  "containers": [
+   {
+    "container_id": 644,
+    "container": "Gift Box"
+   }
+  ],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": "Gift Box2",
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=664",
+  "raw": {
+   "how": [
+    "Master Raffle · Mora Village",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    8
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 1,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [
+   {
+    "condition": "Contains a Random Costume from the list below",
+    "effects": [
+     {
+      "text": "Santa Poring Hat",
+      "parsed": false
+     },
+     {
+      "text": "Home Cherry Blossom",
+      "parsed": false
+     },
+     {
+      "text": "Ghost Holiday",
+      "parsed": false
+     },
+     {
+      "text": "Yellow Cherry Blossom",
+      "parsed": false
+     },
+     {
+      "text": "Silver Tiara",
+      "parsed": false
+     },
+     {
+      "text": "May Also Contain a Costume Cool Gift Box",
+      "parsed": false
+     }
+    ]
+   }
+  ],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 12698,
+  "name": "Dangerous Card Album",
+  "kind": "Usable",
+  "type": "Container",
+  "category": "Container",
+  "equip_slots": [],
+  "description": "A cool card album that has many cards owned by a collector. He died to complete it.\nRewards a random Lv1 to Lv50 Dungeon MVP Card.\n\nEffect: Gives 1 random card",
+  "required_level": 0,
+  "weight": 5,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/12698.png",
+   "art": "images/art/12698.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=12698",
+  "raw": {
+   "how": [
+    "War Helper · Varmundt's Orphanage",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    8
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "A cool card album that has many cards owned by a collector. He died to complete it.",
+    "parsed": false
+   },
+   {
+    "text": "Rewards a random Lv1 to Lv50 Dungeon MVP Card.",
+    "parsed": false
+   },
+   {
+    "text": "Effect: Gives 1 random card",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 630,
+  "name": "Dew Laden Moss",
+  "kind": "Usable",
+  "type": "Taming Item",
+  "category": "Taming Item",
+  "equip_slots": [],
+  "description": "A dewy, green moss that grows in cool places.\nMonster: Spore",
+  "required_level": 0,
+  "weight": 5,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/630.png",
+   "art": "images/art/630.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1084,
+    "mob": "Black Mushroom",
+    "mob_level": 1,
+    "zone": "Inside Jawaii",
+    "chance_percent": 0.2,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1085,
+    "mob": "Red Mushroom",
+    "mob_level": 1,
+    "zone": "Inside Jawaii",
+    "chance_percent": 0.2,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1161,
+    "mob": "Plankton",
+    "mob_level": 40,
+    "zone": "Bra",
+    "chance_percent": 0.1,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 2404,
+    "mob": "Dead Plankton",
+    "mob_level": 9,
+    "zone": "Treasure Room",
+    "chance_percent": 0.05,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=630",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "A dewy, green moss that grows in cool places.",
+    "parsed": false
+   },
+   {
+    "text": "Monster: Spore",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 7365,
+  "name": "Dream Pouch",
+  "kind": "Usable",
+  "type": "Usable",
+  "category": "Usable",
+  "equip_slots": [],
+  "description": "A pouch filled with pieces of lost dreams by orphans. When someone attempts to touch it, most of the pouch contents vanish.",
+  "required_level": 0,
+  "weight": 10,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/7365.png",
+   "art": "images/art/7365.png"
+  },
+  "drops": [
+   {
+    "mob_id": 21610,
+    "mob": "Desperate Njord",
+    "mob_level": 140,
+    "zone": "Rachel SS",
+    "chance_percent": 100,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 21606,
+    "mob": "Njord Zealot",
+    "mob_level": 134,
+    "zone": "Rachel SS",
+    "chance_percent": 1,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 21607,
+    "mob": "Converted Zealot",
+    "mob_level": 131,
+    "zone": "Rachel SS",
+    "chance_percent": 1,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [
+   "notrade",
+   "nodrop",
+   "nosell",
+   "nocart"
+  ],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=7365",
+  "raw": {
+   "how": [
+    "Dream Box · Varmundt's Orphanage",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    8
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 1,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "A pouch filled with pieces of lost dreams by orphans. When someone attempts to touch it, most of the pouch contents vanish.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 623,
+  "name": "Earthworm the Dude",
+  "kind": "Usable",
+  "type": "Taming Item",
+  "category": "Taming Item",
+  "equip_slots": [],
+  "description": "A rather suave looking Earthworm gifted with womanizing debonairness.\nMonster: Picky",
+  "required_level": 0,
+  "weight": 5,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/623.png",
+   "art": "images/art/623.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1070,
+    "mob": "Kukre",
+    "mob_level": 42,
+    "zone": "Bra",
+    "chance_percent": 0.1,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=623",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "A rather suave looking Earthworm gifted with womanizing debonairness.",
+    "parsed": false
+   },
+   {
+    "text": "Monster: Picky",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 574,
+  "name": "Egg",
+  "kind": "Usable",
+  "type": "Restorative",
+  "category": "Restorative",
+  "equip_slots": [],
+  "description": "An egg from a bird. It's full of nutrition, making it an ideal food for growing children.\n\nHeal: 33 ~ 42 HP",
+  "required_level": 0,
+  "weight": 3,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/574.png",
+   "art": "images/art/574.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=574",
+  "raw": {
+   "how": [
+    "Bartender · Inside Morocc",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "",
+    null,
+    null,
+    6
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 1,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "An egg from a bird. It's full of nutrition, making it an ideal food for growing children.",
+    "parsed": false
+   },
+   {
+    "text": "Heal: 33 ~ 42 HP",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 12209,
+  "name": "Emergency Insurance Kit",
+  "kind": "Usable",
+  "type": "Support",
+  "category": "Support",
+  "equip_slots": [],
+  "description": "Prevents EXP Loss from death for 30 minutes after use.",
+  "required_level": 0,
+  "weight": 500,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/12209.png",
+   "art": "images/art/12209.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=12209",
+  "raw": {
+   "how": [
+    "Kafra · Prontera, Capital of Rune Midgarts",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    5
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Prevents EXP Loss from death for 30 minutes after use.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 713,
+  "name": "Empty Bottle",
+  "kind": "Usable",
+  "type": "Potion Crafting",
+  "category": "Potion Crafting",
+  "equip_slots": [],
+  "description": "Crafting Material for multiple recipes.",
+  "required_level": 0,
+  "weight": 5,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/713.png",
+   "art": "images/art/713.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=713",
+  "raw": {
+   "how": [
+    "Black Market · Alberta",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    7
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Crafting Material for multiple recipes.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 14706,
+  "name": "Fallen Tribe Coffer",
+  "kind": "Usable",
+  "type": "Usable",
+  "category": "Usable",
+  "equip_slots": [],
+  "description": "Contains a Random Equipment from:\n\nOrc Village\n\nImmortal Gloves\nImmortal Armor\nImmortal Shoes\nImmortal Pendant\nOrc Helm\nOrc Armor\nOrc Ring\nOrc Sword\nOrc Axe\nOrc Bow\nAcrobatic Boots",
+  "required_level": 0,
+  "weight": 100,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/14706.png",
+   "art": "images/art/14706.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1087,
+    "mob": "Fallen Orc Hero",
+    "mob_level": 55,
+    "zone": "West Orc Village",
+    "chance_percent": 30,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1190,
+    "mob": "Orc Lord Zombie",
+    "mob_level": 55,
+    "zone": "Orc Dungeon",
+    "chance_percent": 30,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1686,
+    "mob": "Orc Baby",
+    "mob_level": 50,
+    "zone": "Geffen Field",
+    "chance_percent": 2,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1971,
+    "mob": "Grafted Zenorc",
+    "mob_level": 54,
+    "zone": "Orc Dungeon",
+    "chance_percent": 2,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=14706",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 1,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [
+   {
+    "condition": "Contains a Random Equipment from",
+    "effects": [
+     {
+      "text": "Orc Village",
+      "parsed": false
+     },
+     {
+      "text": "Immortal Gloves",
+      "parsed": false
+     },
+     {
+      "text": "Immortal Armor",
+      "parsed": false
+     },
+     {
+      "text": "Immortal Shoes",
+      "parsed": false
+     },
+     {
+      "text": "Immortal Pendant",
+      "parsed": false
+     },
+     {
+      "text": "Orc Helm",
+      "parsed": false
+     },
+     {
+      "text": "Orc Armor",
+      "parsed": false
+     },
+     {
+      "text": "Orc Ring",
+      "parsed": false
+     },
+     {
+      "text": "Orc Sword",
+      "parsed": false
+     },
+     {
+      "text": "Orc Axe",
+      "parsed": false
+     },
+     {
+      "text": "Orc Bow",
+      "parsed": false
+     },
+     {
+      "text": "Acrobatic Boots",
+      "parsed": false
+     }
+    ]
+   }
+  ],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 14729,
+  "name": "First Rune Coffer",
+  "kind": "Usable",
+  "type": "Usable",
+  "category": "Usable",
+  "equip_slots": [],
+  "description": "Contains a Random White Rune.\nWhite runes provide fixed bonuses but cannot be refined.",
+  "required_level": 0,
+  "weight": 50,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/14729.png",
+   "art": "images/art/14729.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1090,
+    "mob": "Mastering",
+    "mob_level": 18,
+    "zone": "Payon Forest",
+    "chance_percent": 10,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 2619,
+    "mob": "Tomb Skeleton Leader",
+    "mob_level": 10,
+    "zone": "Inside Pyramid",
+    "chance_percent": 5,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1005,
+    "mob": "Familiar",
+    "mob_level": 8,
+    "zone": "Inside Pyramid",
+    "chance_percent": 3,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1032,
+    "mob": "Verit",
+    "mob_level": 5,
+    "zone": "Inside Pyramid",
+    "chance_percent": 3,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1025,
+    "mob": "Snake",
+    "mob_level": 3,
+    "zone": "Inside Pyramid",
+    "chance_percent": 2,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 2405,
+    "mob": "Tomb Skeleton",
+    "mob_level": 7,
+    "zone": "Inside Pyramid",
+    "chance_percent": 1,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=14729",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Contains a Random White Rune.",
+    "parsed": false
+   },
+   {
+    "text": "White runes provide fixed bonuses but cannot be refined.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 601,
+  "name": "Fly Wing",
+  "kind": "Usable",
+  "type": "Support",
+  "category": "Support",
+  "equip_slots": [],
+  "description": "Teleports to a random cell on the map. Can't be used in some cases. 1 minute re-use cooldown.",
+  "required_level": 0,
+  "weight": 5,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/601.png",
+   "art": "images/art/601.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1161,
+    "mob": "Plankton",
+    "mob_level": 40,
+    "zone": "Bra",
+    "chance_percent": 5,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=601",
+  "raw": {
+   "how": [
+    "Kafra Express · Geffen Field F10",
+    "gef_fild10",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    7
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Teleports to a random cell on the map. Can't be used in some cases. 1 minute re-use cooldown.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 644,
+  "name": "Gift Box",
+  "kind": "Usable",
+  "type": "Usable",
+  "category": "Usable",
+  "equip_slots": [],
+  "description": "Contains a Random Gift from the Toy Factory:\nZephyrus\nMeteor Hammer\nZeny Knife\nSanta Coat\nCookie Hat\nCandy Cane in Mouth\nWinter Light Shadow Pieces\nCostume Gift Box\nItems don't have random bonuses.",
+  "required_level": 0,
+  "weight": 50,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/644.png",
+   "art": "images/art/644.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1246,
+    "mob": "Christmas Cookie",
+    "mob_level": 70,
+    "zone": "Toy Factory Warehouse",
+    "chance_percent": 10,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1247,
+    "mob": "Antonio",
+    "mob_level": 74,
+    "zone": "Toy Factory Warehouse",
+    "chance_percent": 5,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1250,
+    "mob": "Chepet",
+    "mob_level": 74,
+    "zone": "Toy Factory Warehouse",
+    "chance_percent": 5,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1248,
+    "mob": "Cruiser",
+    "mob_level": 71,
+    "zone": "Toy Factory Warehouse",
+    "chance_percent": 3,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1249,
+    "mob": "Myst Case",
+    "mob_level": 72,
+    "zone": "Toy Factory Warehouse",
+    "chance_percent": 3,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1622,
+    "mob": "Chocolate Bear",
+    "mob_level": 73,
+    "zone": "Toy Factory Warehouse",
+    "chance_percent": 3,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1699,
+    "mob": "Ancient Mimic",
+    "mob_level": 94,
+    "zone": "Abyss Lakes Underground Cave",
+    "chance_percent": 1.5,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=644",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [
+   {
+    "condition": "Contains a Random Gift from the Toy Factory",
+    "effects": [
+     {
+      "text": "Zephyrus",
+      "parsed": false
+     },
+     {
+      "text": "Meteor Hammer",
+      "parsed": false
+     },
+     {
+      "text": "Zeny Knife",
+      "parsed": false
+     },
+     {
+      "text": "Santa Coat",
+      "parsed": false
+     },
+     {
+      "text": "Cookie Hat",
+      "parsed": false
+     },
+     {
+      "text": "Candy Cane in Mouth",
+      "parsed": false
+     },
+     {
+      "text": "Winter Light Shadow Pieces",
+      "parsed": false
+     },
+     {
+      "text": "Costume Gift Box",
+      "parsed": false
+     },
+     {
+      "text": "Items don't have random bonuses.",
+      "parsed": false
+     }
+    ]
+   }
+  ],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 514,
+  "name": "Grape",
+  "kind": "Usable",
+  "type": "Healing",
+  "category": "Healing",
+  "equip_slots": [],
+  "description": "Heals 10 Base SP",
+  "required_level": 0,
+  "weight": 2,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/514.png",
+   "art": "images/art/514.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1242,
+    "mob": "Marin",
+    "mob_level": 15,
+    "zone": "Payon Forest",
+    "chance_percent": 10,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=514",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Heals 10 Base SP",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 511,
+  "name": "Green Herb",
+  "kind": "Usable",
+  "type": "Healing",
+  "category": "Healing",
+  "equip_slots": [],
+  "description": "Heals Poison Status",
+  "required_level": 0,
+  "weight": 5,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/511.png",
+   "art": "images/art/511.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=511",
+  "raw": {
+   "how": [
+    "Black Market · Alberta",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    7
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Heals Poison Status",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 506,
+  "name": "Green Potion",
+  "kind": "Usable",
+  "type": "Healing",
+  "category": "Healing",
+  "equip_slots": [],
+  "description": "Heals Poison,Bleeding Silence, Blind, Burning and Confusion\n\n10 Seconds Cooldown",
+  "required_level": 0,
+  "weight": 10,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/506.png",
+   "art": "images/art/506.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=506",
+  "raw": {
+   "how": [
+    "Kafra Express · Geffen Field F10",
+    "gef_fild10",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    7
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Heals Poison,Bleeding Silence, Blind, Burning and Confusion",
+    "parsed": false
+   },
+   {
+    "text": "10 Seconds Cooldown",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 14735,
+  "name": "Growth Shadow Coffer",
+  "kind": "Usable",
+  "type": "Usable",
+  "category": "Usable",
+  "equip_slots": [],
+  "description": "Contains a Random Shadow piece from a Golden Shadow set among the following:\nLegacy of Heroes\nLaughing Chaos\nOrder Soul\nIllusion Soul\nDragon Soul\nLucky 7\nTower\nMaster Thief\nDesert Shadow\nDesert Raider\nSchool of Cats\nUnreal World\nAria of Harmony\nBlade Study\nThe Shadow Item has a random +1 to +3 stat bonus.",
+  "required_level": 0,
+  "weight": 25,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/14735.png",
+   "art": "images/art/14735.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1395,
+    "mob": "Miguel",
+    "mob_level": 95,
+    "zone": "Beach of Tears",
+    "chance_percent": 100,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1785,
+    "mob": "Atroce",
+    "mob_level": 115,
+    "zone": "Veins Field",
+    "chance_percent": 100,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1916,
+    "mob": "Satan Morocc",
+    "mob_level": 100,
+    "zone": "Morroc Town",
+    "chance_percent": 100,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 2102,
+    "mob": "Dream of Kings",
+    "mob_level": 110,
+    "zone": "Inside Glastheim Chivalry",
+    "chance_percent": 100,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 3503,
+    "mob": "Kafra Manager Jenni",
+    "mob_level": 105,
+    "zone": "Abandoned Kafra Warehouse",
+    "chance_percent": 50,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1038,
+    "mob": "Osiris",
+    "mob_level": 25,
+    "zone": "Inside Pyramid",
+    "chance_percent": 25,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1039,
+    "mob": "Baphomet",
+    "mob_level": 50,
+    "zone": "Labyrinth Forest",
+    "chance_percent": 25,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1059,
+    "mob": "Mistress",
+    "mob_level": 60,
+    "zone": "Mt.Mjolnir North Area",
+    "chance_percent": 25,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1086,
+    "mob": "Golden Thief Bug",
+    "mob_level": 30,
+    "zone": "Prontera Culvert",
+    "chance_percent": 25,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1150,
+    "mob": "Moonlight Flower",
+    "mob_level": 25,
+    "zone": "Payon Cave",
+    "chance_percent": 25,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1157,
+    "mob": "Pharaoh",
+    "mob_level": 35,
+    "zone": "Morocc Sphinx",
+    "chance_percent": 25,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1159,
+    "mob": "Phreeoni",
+    "mob_level": 40,
+    "zone": "Sograt Desert",
+    "chance_percent": 25,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1296,
+    "mob": "Kobold Leader",
+    "mob_level": 61,
+    "zone": "Fortress Saint Darmain (South)",
+    "chance_percent": 25,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1312,
+    "mob": "Turtle General",
+    "mob_level": 60,
+    "zone": "Turtle Palace",
+    "chance_percent": 25,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1389,
+    "mob": "Dracula",
+    "mob_level": 40,
+    "zone": "Geffen Dungeon",
+    "chance_percent": 25,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1658,
+    "mob": "Forgotten Egnigem",
+    "mob_level": 80,
+    "zone": "Somatology Laboratory",
+    "chance_percent": 25,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1688,
+    "mob": "Lady Tanee",
+    "mob_level": 40,
+    "zone": "Prontera Field",
+    "chance_percent": 25,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 2022,
+    "mob": "Nydhogg",
+    "mob_level": 80,
+    "zone": "Dragon Nest",
+    "chance_percent": 25,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 2186,
+    "mob": "Coelacanth",
+    "mob_level": 45,
+    "zone": "Byalan Deep Cave",
+    "chance_percent": 25,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 2249,
+    "mob": "Angry Pyuriel",
+    "mob_level": 50,
+    "zone": "Noble Bathhouse",
+    "chance_percent": 25,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 2253,
+    "mob": "General Daehyon",
+    "mob_level": 70,
+    "zone": "Payon Hall of Memories",
+    "chance_percent": 25,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 2529,
+    "mob": "Faceworm Queen",
+    "mob_level": 70,
+    "zone": "Faceworm's Dark Nest",
+    "chance_percent": 25,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 2925,
+    "mob": "Serpens",
+    "mob_level": 70,
+    "zone": "Crash Site Cave",
+    "chance_percent": 25,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 3074,
+    "mob": "Time Holder",
+    "mob_level": 70,
+    "zone": "Clock Tower",
+    "chance_percent": 25,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 3092,
+    "mob": "Muspelskoll",
+    "mob_level": 65,
+    "zone": "Nogg Road",
+    "chance_percent": 25,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1272,
+    "mob": "Dark Lord",
+    "mob_level": 95,
+    "zone": "Glastheim Underground Churchyard",
+    "chance_percent": 5.0,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1201,
+    "mob": "Rybio",
+    "mob_level": 88,
+    "zone": "Glastheim Underground Prison",
+    "chance_percent": 5,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1202,
+    "mob": "Phendark",
+    "mob_level": 89,
+    "zone": "Glastheim Underground Prison",
+    "chance_percent": 5,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1313,
+    "mob": "Mobster",
+    "mob_level": 75,
+    "zone": "Somatology Laboratory",
+    "chance_percent": 5,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1682,
+    "mob": "Remover",
+    "mob_level": 72,
+    "zone": "Somatology Laboratory",
+    "chance_percent": 5,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1518,
+    "mob": "Oracle Spirit",
+    "mob_level": 69,
+    "zone": "Payon Sunken Temple",
+    "chance_percent": 1,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1681,
+    "mob": "Gemini-S58",
+    "mob_level": 78,
+    "zone": "Somatology Laboratory",
+    "chance_percent": 1,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 2557,
+    "mob": "Shadow Chaser",
+    "mob_level": 80,
+    "zone": "Loki's Maze",
+    "chance_percent": 1,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 2567,
+    "mob": "Guillotine Cross",
+    "mob_level": 85,
+    "zone": "Loki's Maze",
+    "chance_percent": 1,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 3497,
+    "mob": "Old Blue Bag",
+    "mob_level": 100,
+    "zone": "Abandoned Kafra Warehouse",
+    "chance_percent": 1,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1040,
+    "mob": "Golem",
+    "mob_level": 30,
+    "zone": "Sograt Desert",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1057,
+    "mob": "Yoyo",
+    "mob_level": 35,
+    "zone": "Prontera Field",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1214,
+    "mob": "Choco",
+    "mob_level": 38,
+    "zone": "Prontera Field",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1232,
+    "mob": "Granite Warrior",
+    "mob_level": 33,
+    "zone": "Sograt Desert",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1410,
+    "mob": "Enchanted Peach Tree",
+    "mob_level": 39,
+    "zone": "Prontera Field",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1413,
+    "mob": "Hermit Plant",
+    "mob_level": 47,
+    "zone": "Mt.Mjolnir South Area",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1932,
+    "mob": "Garden Boy",
+    "mob_level": 46,
+    "zone": "Mt.Mjolnir South Area",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1988,
+    "mob": "Nepenthes",
+    "mob_level": 49,
+    "zone": "Mt.Mjolnir South Area",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1995,
+    "mob": "Pinguicula",
+    "mob_level": 48,
+    "zone": "Mt.Mjolnir South Area",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 2289,
+    "mob": "Strange Man",
+    "mob_level": 35,
+    "zone": "Sograt Desert",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1971,
+    "mob": "Grafted Zenorc",
+    "mob_level": 54,
+    "zone": "Orc Dungeon",
+    "chance_percent": 0.25,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [
+   {
+    "container_id": 14704,
+    "container": "MVP Prize Box"
+   }
+  ],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": "reworked",
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=14735",
+  "raw": {
+   "how": [
+    "Master Raffle · Mora Village",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    8
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 1,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [
+   {
+    "condition": "Contains a Random Shadow piece from a Golden Shadow set among the following",
+    "effects": [
+     {
+      "text": "Legacy of Heroes",
+      "parsed": false
+     },
+     {
+      "text": "Laughing Chaos",
+      "parsed": false
+     },
+     {
+      "text": "Order Soul",
+      "parsed": false
+     },
+     {
+      "text": "Illusion Soul",
+      "parsed": false
+     },
+     {
+      "text": "Dragon Soul",
+      "parsed": false
+     },
+     {
+      "text": "Lucky 7",
+      "parsed": false
+     },
+     {
+      "text": "Tower",
+      "parsed": false
+     },
+     {
+      "text": "Master Thief",
+      "parsed": false
+     },
+     {
+      "text": "Desert Shadow",
+      "parsed": false
+     },
+     {
+      "text": "Desert Raider",
+      "parsed": false
+     },
+     {
+      "text": "School of Cats",
+      "parsed": false
+     },
+     {
+      "text": "Unreal World",
+      "parsed": false
+     },
+     {
+      "text": "Aria of Harmony",
+      "parsed": false
+     },
+     {
+      "text": "Blade Study",
+      "parsed": false
+     },
+     {
+      "text": "The Shadow Item has a random +1 to +3 stat bonus.",
+      "parsed": false
+     }
+    ]
+   }
+  ],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 12694,
+  "name": "Hidden Card Album",
+  "kind": "Usable",
+  "type": "Container",
+  "category": "Container",
+  "equip_slots": [],
+  "description": "A cool card album that has many cards owned by a collector. He actually tried to keep it hidden for a long time.\nRewards a random Field MVP Card.\n\nEffect: Gives 1 random card",
+  "required_level": 0,
+  "weight": 5,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/12694.png",
+   "art": "images/art/12694.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=12694",
+  "raw": {
+   "how": [
+    "Card Artist · Varmundt's Mansion - Interior",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    9
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "A cool card album that has many cards owned by a collector. He actually tried to keep it hidden for a long time.",
+    "parsed": false
+   },
+   {
+    "text": "Rewards a random Field MVP Card.",
+    "parsed": false
+   },
+   {
+    "text": "Effect: Gives 1 random card",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 518,
+  "name": "Honey",
+  "kind": "Usable",
+  "type": "Healing",
+  "category": "Healing",
+  "equip_slots": [],
+  "description": "Heals 50~500 Base HP and 10~50 Base SP\n\n10 Seconds Cooldown",
+  "required_level": 0,
+  "weight": 50,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/518.png",
+   "art": "images/art/518.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1994,
+    "mob": "Luciola Vespa",
+    "mob_level": 58,
+    "zone": "Mt.Mjolnir North Area",
+    "chance_percent": 1,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1314,
+    "mob": "Permeter",
+    "mob_level": 55,
+    "zone": "Turtle Island Dungeon",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1004,
+    "mob": "Hornet",
+    "mob_level": 56,
+    "zone": "Mt.Mjolnir North Area",
+    "chance_percent": 0.25,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=518",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Heals 50~500 Base HP and 10~50 Base SP",
+    "parsed": false
+   },
+   {
+    "text": "10 Seconds Cooldown",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 12324,
+  "name": "Initiate Butterfly Wing",
+  "kind": "Usable",
+  "type": "Support",
+  "category": "Support",
+  "equip_slots": [],
+  "description": "Teleports back to the save point. 1 minute re-use cooldown.\n\nCan't be traded or Stored.",
+  "required_level": 0,
+  "weight": 10,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/12324.png",
+   "art": "images/art/12324.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [
+   "notrade",
+   "nodrop",
+   "nostorage",
+   "nocart"
+  ],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=12324",
+  "raw": {
+   "how": [
+    "Nanny · Varmundt's Orphanage",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "",
+    null,
+    null,
+    1
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 1,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Teleports back to the save point. 1 minute re-use cooldown.",
+    "parsed": false
+   },
+   {
+    "text": "Can't be traded or Stored.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 12325,
+  "name": "Initiate Magnifier",
+  "kind": "Usable",
+  "type": "Support",
+  "category": "Support",
+  "equip_slots": [],
+  "description": "Identifies an item obtained.Use [Ctrl +Right Click] directly on an unknown item to identify it without prompts.\n\nCan't be traded or stored.",
+  "required_level": 0,
+  "weight": 5,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/12325.png",
+   "art": "images/art/12325.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [
+   "notrade",
+   "nodrop",
+   "nostorage",
+   "nocart"
+  ],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=12325",
+  "raw": {
+   "how": [
+    "Nanny · Varmundt's Orphanage",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "",
+    null,
+    null,
+    1
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 1,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Identifies an item obtained.Use [Ctrl +Right Click] directly on an unknown item to identify it without prompts.",
+    "parsed": false
+   },
+   {
+    "text": "Can't be traded or stored.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 569,
+  "name": "Initiate Potion",
+  "kind": "Usable",
+  "type": "Healing",
+  "category": "Healing",
+  "equip_slots": [],
+  "description": "Heals 50 Base HP\n\nCan't be dropped or stored.",
+  "required_level": 0,
+  "weight": 10,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/569.png",
+   "art": "images/art/569.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [
+   "notrade",
+   "nodrop",
+   "nostorage",
+   "nocart"
+  ],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=569",
+  "raw": {
+   "how": [
+    "Little Sister · Orphan Memory",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "",
+    null,
+    null,
+    5
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 1,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Heals 50 Base HP",
+    "parsed": false
+   },
+   {
+    "text": "Can't be dropped or stored.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 12700,
+  "name": "Inside-out Shirt",
+  "kind": "Usable",
+  "type": "Usable",
+  "category": "Usable",
+  "equip_slots": [],
+  "description": "Common shirt turned inside out. Used to break Tikbalang's curse that makes people get lost.\nCan warp back to the 'Port Malaya' village when used directly.\nCan also be exchanged for something...",
+  "required_level": 0,
+  "weight": 1,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/12700.png",
+   "art": "images/art/12700.png"
+  },
+  "drops": [
+   {
+    "mob_id": 2319,
+    "mob": "Buwaya",
+    "mob_level": 84,
+    "zone": "Forest",
+    "chance_percent": 100,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 2313,
+    "mob": "Tikbalang",
+    "mob_level": 82,
+    "zone": "Forest",
+    "chance_percent": 3,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=12700",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Common shirt turned inside out. Used to break Tikbalang's curse that makes people get lost.",
+    "parsed": false
+   },
+   {
+    "text": "Can warp back to the 'Port Malaya' village when used directly.",
+    "parsed": false
+   },
+   {
+    "text": "Can also be exchanged for something...",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 14503,
+  "name": "Jack Gift Box",
+  "kind": "Usable",
+  "type": "Usable",
+  "category": "Usable",
+  "equip_slots": [],
+  "description": "A gift box set for the celebration of Halloween! Contains cool stuff inside!\nContains a Refining Materials or a Battle Manual!",
+  "required_level": 0,
+  "weight": 10,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/14503.png",
+   "art": "images/art/14503.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=14503",
+  "raw": {
+   "how": [
+    "Honored Founders · Varmundt's Orphanage",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    9
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "A gift box set for the celebration of Halloween! Contains cool stuff inside!",
+    "parsed": false
+   },
+   {
+    "text": "Contains a Refining Materials or a Battle Manual!",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 14714,
+  "name": "Kafra Abandoned Coffer",
+  "kind": "Usable",
+  "type": "Usable",
+  "category": "Usable",
+  "equip_slots": [],
+  "description": "Contains 2 random Shadow pieces from the Lv100+ Shadow sets.\nAll classes can equip these sets.\nRequires at least 2 free inventory slots.\nItems don't have random bonuses.",
+  "required_level": 0,
+  "weight": 100,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/14714.png",
+   "art": "images/art/14714.png"
+  },
+  "drops": [
+   {
+    "mob_id": 3503,
+    "mob": "Kafra Manager Jenni",
+    "mob_level": 105,
+    "zone": "Abandoned Kafra Warehouse",
+    "chance_percent": 30,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 3497,
+    "mob": "Old Blue Bag",
+    "mob_level": 100,
+    "zone": "Abandoned Kafra Warehouse",
+    "chance_percent": 1,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 3501,
+    "mob": "Mutated Kafra",
+    "mob_level": 104,
+    "zone": "Abandoned Kafra Warehouse",
+    "chance_percent": 0.75,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 3502,
+    "mob": "Consumed Kafra",
+    "mob_level": 104,
+    "zone": "Abandoned Kafra Warehouse",
+    "chance_percent": 0.75,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 3496,
+    "mob": "Ashring",
+    "mob_level": 100,
+    "zone": "Abandoned Kafra Warehouse",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 3498,
+    "mob": "Save Assistant",
+    "mob_level": 101,
+    "zone": "Abandoned Kafra Warehouse",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 3499,
+    "mob": "Storage Assistant",
+    "mob_level": 102,
+    "zone": "Abandoned Kafra Warehouse",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 3500,
+    "mob": "Warp Assistant",
+    "mob_level": 103,
+    "zone": "Abandoned Kafra Warehouse",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": "reworked",
+  "renamed_from": "Kafra Coffer",
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=14714",
+  "raw": {
+   "how": [
+    "Master Raffle · Mora Village",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    8
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 1,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Contains 2 random Shadow pieces from the Lv100+ Shadow sets.",
+    "parsed": false
+   },
+   {
+    "text": "All classes can equip these sets.",
+    "parsed": false
+   },
+   {
+    "text": "Requires at least 2 free inventory slots.",
+    "parsed": false
+   },
+   {
+    "text": "Items don't have random bonuses.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 520,
+  "name": "Kafra Elixir",
+  "kind": "Usable",
+  "type": "Special Healing",
+  "category": "Special Healing",
+  "equip_slots": [],
+  "description": "Recover 50% HP and SP.\nCooldown is 5 seconds.",
+  "required_level": 0,
+  "weight": 0,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/520.png",
+   "art": "images/art/520.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [
+   "notrade",
+   "nodrop",
+   "nosell",
+   "nostorage",
+   "nocart"
+  ],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=520",
+  "raw": {
+   "how": [
+    "",
+    "",
+    "",
+    [],
+    "",
+    "",
+    ""
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 1,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Recover 50% HP and SP.",
+    "parsed": false
+   },
+   {
+    "text": "Cooldown is 5 seconds.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 14705,
+  "name": "Last Alchemist Coffer",
+  "kind": "Usable",
+  "type": "Usable",
+  "category": "Usable",
+  "equip_slots": [],
+  "description": "Contains a Random Equipment from:\n\nAlchemist Fortress\n\nBurden of Creation Gloves\nBurden of Creation Armor\nBurden of Creation Shoes\nBurden of Creation Pendant\nCostume Vanilmirth\nCostume Amistr\nCostume Lif\nCostume Filir\nBelena\nBlood Drinker\nCrescendo",
+  "required_level": 0,
+  "weight": 100,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/14705.png",
+   "art": "images/art/14705.png"
+  },
+  "drops": [
+   {
+    "mob_id": 3021,
+    "mob": "Failed Abomination",
+    "mob_level": 100,
+    "zone": "Alchemist Fortress",
+    "chance_percent": 15,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 3018,
+    "mob": "Broken Homunculus",
+    "mob_level": 98,
+    "zone": "Alchemist Fortress",
+    "chance_percent": 2,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 3020,
+    "mob": "Weird Alchemist",
+    "mob_level": 99,
+    "zone": "Alchemist Fortress",
+    "chance_percent": 2,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=14705",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 1,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [
+   {
+    "condition": "Contains a Random Equipment from",
+    "effects": [
+     {
+      "text": "Alchemist Fortress",
+      "parsed": false
+     },
+     {
+      "text": "Burden of Creation Gloves",
+      "parsed": false
+     },
+     {
+      "text": "Burden of Creation Armor",
+      "parsed": false
+     },
+     {
+      "text": "Burden of Creation Shoes",
+      "parsed": false
+     },
+     {
+      "text": "Burden of Creation Pendant",
+      "parsed": false
+     },
+     {
+      "text": "Costume Vanilmirth",
+      "parsed": false
+     },
+     {
+      "text": "Costume Amistr",
+      "parsed": false
+     },
+     {
+      "text": "Costume Lif",
+      "parsed": false
+     },
+     {
+      "text": "Costume Filir",
+      "parsed": false
+     },
+     {
+      "text": "Belena",
+      "parsed": false
+     },
+     {
+      "text": "Blood Drinker",
+      "parsed": false
+     },
+     {
+      "text": "Crescendo",
+      "parsed": false
+     }
+    ]
+   }
+  ],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 14727,
+  "name": "Last Samurai Coffer",
+  "kind": "Usable",
+  "type": "Usable",
+  "category": "Usable",
+  "equip_slots": [],
+  "description": "Contains a Random Equipment from:\n\nAmatsu Dungeon\n\nBushido Gloves\nBushido Armor\nBushido Shoes\nBushido Pendant\nTsukuyomi Robes\nTsukuyomi Shoes\nTsukuyomi Muffler\nMuramasa\nMasamune\nSeifu\nKochi\nMonokage\nShadow Mist\nCrescent Helm",
+  "required_level": 0,
+  "weight": 100,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/14727.png",
+   "art": "images/art/14727.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1492,
+    "mob": "Incantation Samurai",
+    "mob_level": 95,
+    "zone": "Amatsu Underground Shrine",
+    "chance_percent": 30,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 2254,
+    "mob": "Silent Ronin",
+    "mob_level": 95,
+    "zone": "Tatami Maze",
+    "chance_percent": 2,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1405,
+    "mob": "Tengu",
+    "mob_level": 93,
+    "zone": "Battle Field in the Underground Forest",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": "Last Sam Coffer",
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=14727",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 1,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [
+   {
+    "condition": "Contains a Random Equipment from",
+    "effects": [
+     {
+      "text": "Amatsu Dungeon",
+      "parsed": false
+     },
+     {
+      "text": "Bushido Gloves",
+      "parsed": false
+     },
+     {
+      "text": "Bushido Armor",
+      "parsed": false
+     },
+     {
+      "text": "Bushido Shoes",
+      "parsed": false
+     },
+     {
+      "text": "Bushido Pendant",
+      "parsed": false
+     },
+     {
+      "text": "Tsukuyomi Robes",
+      "parsed": false
+     },
+     {
+      "text": "Tsukuyomi Shoes",
+      "parsed": false
+     },
+     {
+      "text": "Tsukuyomi Muffler",
+      "parsed": false
+     },
+     {
+      "text": "Muramasa",
+      "parsed": false
+     },
+     {
+      "text": "Masamune",
+      "parsed": false
+     },
+     {
+      "text": "Seifu",
+      "parsed": false
+     },
+     {
+      "text": "Kochi",
+      "parsed": false
+     },
+     {
+      "text": "Monokage",
+      "parsed": false
+     },
+     {
+      "text": "Shadow Mist",
+      "parsed": false
+     },
+     {
+      "text": "Crescent Helm",
+      "parsed": false
+     }
+    ]
+   }
+  ],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 14713,
+  "name": "Legacy Adventurer Coffer",
+  "kind": "Usable",
+  "type": "Usable",
+  "category": "Usable",
+  "equip_slots": [],
+  "description": "Contains a Random Item from:\n\nLegacy Sets\n\nLegacy of Arrows Shadow Set\nLegacy of Steel Shadow Set\nLegacy of Coins Shadow Set\nLegacy of Magic Shadow Set\nLegacy of Blessing Shadow Set\nLegacy of Heroes Shadow Set",
+  "required_level": 0,
+  "weight": 100,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/14713.png",
+   "art": "images/art/14713.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1038,
+    "mob": "Osiris",
+    "mob_level": 25,
+    "zone": "Inside Pyramid",
+    "chance_percent": 30,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1086,
+    "mob": "Golden Thief Bug",
+    "mob_level": 30,
+    "zone": "Prontera Culvert",
+    "chance_percent": 30,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1150,
+    "mob": "Moonlight Flower",
+    "mob_level": 25,
+    "zone": "Payon Cave",
+    "chance_percent": 30,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1389,
+    "mob": "Dracula",
+    "mob_level": 40,
+    "zone": "Geffen Dungeon",
+    "chance_percent": 30,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1652,
+    "mob": "Decayed Egnigem",
+    "mob_level": 50,
+    "zone": "Lighthalzen Field",
+    "chance_percent": 1.5,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1653,
+    "mob": "Decayed Wickebine",
+    "mob_level": 50,
+    "zone": "Somatology Laboratory",
+    "chance_percent": 1.5,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1654,
+    "mob": "Decayed Armeyer",
+    "mob_level": 50,
+    "zone": "Somatology Laboratory",
+    "chance_percent": 1.5,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1655,
+    "mob": "Decayed Errende",
+    "mob_level": 50,
+    "zone": "Somatology Laboratory",
+    "chance_percent": 1.5,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1656,
+    "mob": "Decayed Kavach",
+    "mob_level": 50,
+    "zone": "Somatology Laboratory",
+    "chance_percent": 1.5,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1657,
+    "mob": "Decayed Laurell",
+    "mob_level": 50,
+    "zone": "Somatology Laboratory",
+    "chance_percent": 1.5,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1297,
+    "mob": "Ancient Mummy",
+    "mob_level": 24,
+    "zone": "Inside Pyramid",
+    "chance_percent": 1,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1307,
+    "mob": "Cat o' Nine Tails",
+    "mob_level": 24,
+    "zone": "Payon Cave",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1315,
+    "mob": "Assaulter",
+    "mob_level": 59,
+    "zone": "Turtle Village",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1471,
+    "mob": "Fire Fox",
+    "mob_level": 23,
+    "zone": "Payon Cave",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 2550,
+    "mob": "Blood Mage",
+    "mob_level": 39,
+    "zone": "Geffen Dungeon",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 3027,
+    "mob": "Fulbuk",
+    "mob_level": 29,
+    "zone": "Prontera Culvert",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": "Legacy Adv Coffer",
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=14713",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 1,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [
+   {
+    "condition": "Contains a Random Item from",
+    "effects": [
+     {
+      "text": "Legacy Sets",
+      "parsed": false
+     },
+     {
+      "text": "Legacy of Arrows Shadow Set",
+      "parsed": false
+     },
+     {
+      "text": "Legacy of Steel Shadow Set",
+      "parsed": false
+     },
+     {
+      "text": "Legacy of Coins Shadow Set",
+      "parsed": false
+     },
+     {
+      "text": "Legacy of Magic Shadow Set",
+      "parsed": false
+     },
+     {
+      "text": "Legacy of Blessing Shadow Set",
+      "parsed": false
+     },
+     {
+      "text": "Legacy of Heroes Shadow Set",
+      "parsed": false
+     }
+    ]
+   }
+  ],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 12695,
+  "name": "Lost Card Album",
+  "kind": "Usable",
+  "type": "Container",
+  "category": "Container",
+  "equip_slots": [],
+  "description": "A cool card album that has many cards owned by a collector. He lost it on one of his last expeditions.\nRewards a random Lv1 to Lv40 Dungeon Monster Card.\n\nEffect: Gives 1 random card",
+  "required_level": 0,
+  "weight": 5,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/12695.png",
+   "art": "images/art/12695.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=12695",
+  "raw": {
+   "how": [
+    "Card Artist · Varmundt's Mansion - Interior",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    9
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "A cool card album that has many cards owned by a collector. He lost it on one of his last expeditions.",
+    "parsed": false
+   },
+   {
+    "text": "Rewards a random Lv1 to Lv40 Dungeon Monster Card.",
+    "parsed": false
+   },
+   {
+    "text": "Effect: Gives 1 random card",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 14717,
+  "name": "Lost Orphan Coffer",
+  "kind": "Usable",
+  "type": "Usable",
+  "category": "Usable",
+  "equip_slots": [],
+  "description": "Contains a Random Item from:\n\nPyramid Basement Equipment\n\nLost Attire Gloves\nLost Attire Armor\nLost Attire Shoes\nLost Attire Pendant\nLost Sword\nLost Dagger\nLost Bow\nMad Bunny\nLost Bunny",
+  "required_level": 0,
+  "weight": 100,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/14717.png",
+   "art": "images/art/14717.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1930,
+    "mob": "Orphan Piamette",
+    "mob_level": 15,
+    "zone": "Inside Pyramid",
+    "chance_percent": 30,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1854,
+    "mob": "MukaMuka",
+    "mob_level": 1,
+    "zone": "Sograt Desert",
+    "chance_percent": 25,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 2619,
+    "mob": "Tomb Skeleton Leader",
+    "mob_level": 10,
+    "zone": "Inside Pyramid",
+    "chance_percent": 5,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=14717",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 1,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [
+   {
+    "condition": "Contains a Random Item from",
+    "effects": [
+     {
+      "text": "Pyramid Basement Equipment",
+      "parsed": false
+     },
+     {
+      "text": "Lost Attire Gloves",
+      "parsed": false
+     },
+     {
+      "text": "Lost Attire Armor",
+      "parsed": false
+     },
+     {
+      "text": "Lost Attire Shoes",
+      "parsed": false
+     },
+     {
+      "text": "Lost Attire Pendant",
+      "parsed": false
+     },
+     {
+      "text": "Lost Sword",
+      "parsed": false
+     },
+     {
+      "text": "Lost Dagger",
+      "parsed": false
+     },
+     {
+      "text": "Lost Bow",
+      "parsed": false
+     },
+     {
+      "text": "Mad Bunny",
+      "parsed": false
+     },
+     {
+      "text": "Lost Bunny",
+      "parsed": false
+     }
+    ]
+   }
+  ],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 14728,
+  "name": "Lost Rune Coffer",
+  "kind": "Usable",
+  "type": "Usable",
+  "category": "Usable",
+  "equip_slots": [],
+  "description": "Contains a Random Job Rune.\nJob runes enchance a basic skill from a job and improve their color palette.\n\nThe Rune Item has a random +1 to +2 stat bonus.",
+  "required_level": 0,
+  "weight": 50,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/14728.png",
+   "art": "images/art/14728.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1708,
+    "mob": "Memory of Thanatos",
+    "mob_level": 100,
+    "zone": "Thanatos Tower - Unknown Place",
+    "chance_percent": 25,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 2255,
+    "mob": "Soul Cage Azrael",
+    "mob_level": 100,
+    "zone": "Malaya Hospital",
+    "chance_percent": 25,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1871,
+    "mob": "Fallen Bishop",
+    "mob_level": 105,
+    "zone": "Cursed Abbey Dungeon",
+    "chance_percent": 15,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1870,
+    "mob": "Necromancer",
+    "mob_level": 105,
+    "zone": "Cursed Abbey Dungeon",
+    "chance_percent": 4,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1864,
+    "mob": "Zombie Slaughter",
+    "mob_level": 103,
+    "zone": "Cursed Abbey Dungeon",
+    "chance_percent": 2,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1865,
+    "mob": "Ragged Zombie",
+    "mob_level": 102,
+    "zone": "Cursed Abbey Dungeon",
+    "chance_percent": 2,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1866,
+    "mob": "Hell Poodle",
+    "mob_level": 104,
+    "zone": "Cursed Abbey Dungeon",
+    "chance_percent": 2,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1867,
+    "mob": "Banshee",
+    "mob_level": 101,
+    "zone": "Cursed Abbey Dungeon",
+    "chance_percent": 2,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1869,
+    "mob": "Flame Skull",
+    "mob_level": 101,
+    "zone": "Cursed Abbey Dungeon",
+    "chance_percent": 2,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": "JobRune Coffer",
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=14728",
+  "raw": {
+   "how": [
+    "Master Raffle · Mora Village",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    8
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 1,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Contains a Random Job Rune.",
+    "parsed": false
+   },
+   {
+    "text": "Job runes enchance a basic skill from a job and improve their color palette.",
+    "parsed": false
+   },
+   {
+    "text": "The Rune Item has a random +1 to +2 stat bonus.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 611,
+  "name": "Magnifier",
+  "kind": "Usable",
+  "type": "Support",
+  "category": "Support",
+  "equip_slots": [],
+  "description": "Identifies an item obtained.Use [Ctrl +Right Click] directly on an unknown item to identify it without prompts.",
+  "required_level": 0,
+  "weight": 20,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/611.png",
+   "art": "images/art/611.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=611",
+  "raw": {
+   "how": [
+    "Kafra Express · Geffen Field F10",
+    "gef_fild10",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    7
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Identifies an item obtained.Use [Ctrl +Right Click] directly on an unknown item to identify it without prompts.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 517,
+  "name": "Meat",
+  "kind": "Usable",
+  "type": "Restorative",
+  "category": "Restorative",
+  "equip_slots": [],
+  "description": "A leg of meat that's been cooked to near perfection.\nHeal: 70 ~ 100 HP",
+  "required_level": 0,
+  "weight": 15,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/517.png",
+   "art": "images/art/517.png"
+  },
+  "drops": [
+   {
+    "mob_id": 3788,
+    "mob": "Brown Rat",
+    "mob_level": 101,
+    "zone": "Harboro",
+    "chance_percent": 5,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1068,
+    "mob": "Hydra",
+    "mob_level": 34,
+    "zone": "Bra",
+    "chance_percent": 3.5,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=517",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "A leg of meat that's been cooked to near perfection.",
+    "parsed": false
+   },
+   {
+    "text": "Heal: 70 ~ 100 HP",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 613,
+  "name": "Memory Mirror",
+  "kind": "Usable",
+  "type": "Special",
+  "category": "Special",
+  "equip_slots": [],
+  "description": "A fragile mirror that can break just by looking at it.\n\nThe Nanny asked you to take good care of it and give it back when you're Base Level 15.",
+  "required_level": 0,
+  "weight": 10,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/613.png",
+   "art": "images/art/613.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [
+   "notrade",
+   "nodrop",
+   "nosell",
+   "nostorage",
+   "nocart"
+  ],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=613",
+  "raw": {
+   "how": [
+    "Nanny · Varmundt's Orphanage",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "",
+    null,
+    null,
+    1
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 1,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "A fragile mirror that can break just by looking at it.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": "The Nanny asked you to take good care of it and give it back when you're Base Level 15.",
+  "override": null
+ },
+ {
+  "id": 519,
+  "name": "Milk",
+  "kind": "Usable",
+  "type": "Restorative",
+  "category": "Restorative",
+  "equip_slots": [],
+  "description": "Pasteurized and bottled cow milk that is chock full of bovine goodness.\n\nHeal: 27 ~ 37 HP",
+  "required_level": 0,
+  "weight": 3,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/519.png",
+   "art": "images/art/519.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=519",
+  "raw": {
+   "how": [
+    "Milk Vendor · Prontera, Capital of Rune Midgarts",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "",
+    null,
+    null,
+    4
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 1,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Pasteurized and bottled cow milk that is chock full of bovine goodness.",
+    "parsed": false
+   },
+   {
+    "text": "Heal: 27 ~ 37 HP",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 528,
+  "name": "Monster's Feed",
+  "kind": "Usable",
+  "type": "Restorative",
+  "category": "Restorative",
+  "equip_slots": [],
+  "description": "Processed food that is normally fed to monsters.\nHeal: 72 ~ 108 HP",
+  "required_level": 0,
+  "weight": 15,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/528.png",
+   "art": "images/art/528.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1070,
+    "mob": "Kukre",
+    "mob_level": 42,
+    "zone": "Bra",
+    "chance_percent": 2.5,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 3788,
+    "mob": "Brown Rat",
+    "mob_level": 101,
+    "zone": "Harboro",
+    "chance_percent": 1,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=528",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Processed food that is normally fed to monsters.",
+    "parsed": false
+   },
+   {
+    "text": "Heal: 72 ~ 108 HP",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 14704,
+  "name": "MVP Prize Box",
+  "kind": "Usable",
+  "type": "Usable",
+  "category": "Usable",
+  "equip_slots": [],
+  "description": "Contains a Random Item:\n\nRegular Refine Material\nHD Refine Material\nEnriched Refine Material\nRune Refine Material\nShadow Refine Material\nGrowth Shadow Coffer\n\nYggdrasil Berry\nMVP Shard",
+  "required_level": 0,
+  "weight": 25,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/14704.png",
+   "art": "images/art/14704.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1083,
+    "mob": "Shining Plant",
+    "mob_level": 1,
+    "zone": "Yggdrasil Dungeon",
+    "chance_percent": 100,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1854,
+    "mob": "MukaMuka",
+    "mob_level": 1,
+    "zone": "Sograt Desert",
+    "chance_percent": 100,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 2802,
+    "mob": "King Schmidt",
+    "mob_level": 145,
+    "zone": "Lost island Tomb",
+    "chance_percent": 100,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 3097,
+    "mob": "Emperor Morroc",
+    "mob_level": 150,
+    "zone": "Sograt Desert - Dimensional Rift",
+    "chance_percent": 100,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 3225,
+    "mob": "Absolute Seyren",
+    "mob_level": 140,
+    "zone": "Regenschutz Secret Laboratory",
+    "chance_percent": 100,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 3626,
+    "mob": "Goddess Freya",
+    "mob_level": 140,
+    "zone": "Rachel Freya Chambers",
+    "chance_percent": 100,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 21610,
+    "mob": "Desperate Njord",
+    "mob_level": 140,
+    "zone": "Rachel SS",
+    "chance_percent": 100,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 2649,
+    "mob": "Broken Thanatos",
+    "mob_level": 150,
+    "zone": "Thanatos Paradise Summit",
+    "chance_percent": 75,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1373,
+    "mob": "Lord of Death",
+    "mob_level": 140,
+    "zone": "Death Castle Grandhall",
+    "chance_percent": 70,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 2958,
+    "mob": "Paradox Amdarais",
+    "mob_level": 135,
+    "zone": "Mansion Lost Area",
+    "chance_percent": 65.75,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1626,
+    "mob": "Himelmez",
+    "mob_level": 130,
+    "zone": "Abyss Glastheim Castle",
+    "chance_percent": 65,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 3124,
+    "mob": "Charleston",
+    "mob_level": 130,
+    "zone": "Charleston Factory",
+    "chance_percent": 65,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1245,
+    "mob": "Knight Sakray",
+    "mob_level": 125,
+    "zone": "Prontera Dungeon",
+    "chance_percent": 62.5,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1832,
+    "mob": "Ifrit",
+    "mob_level": 125,
+    "zone": "Thor Volcano Dungeon",
+    "chance_percent": 62.5,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 2037,
+    "mob": "Valkyrie Reginleif",
+    "mob_level": 125,
+    "zone": "Odin Shrine Past",
+    "chance_percent": 62.5,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 2996,
+    "mob": "Celine Kimi",
+    "mob_level": 125,
+    "zone": "Nightmare Toy Factory",
+    "chance_percent": 62.5,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1927,
+    "mob": "Baroness of Sorrow",
+    "mob_level": 120,
+    "zone": "Niflheim",
+    "chance_percent": 60,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 2476,
+    "mob": "Amdarais",
+    "mob_level": 120,
+    "zone": "Old Glast Heim",
+    "chance_percent": 60,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 3450,
+    "mob": "Bijou",
+    "mob_level": 120,
+    "zone": "Invaded Prontera",
+    "chance_percent": 60,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1395,
+    "mob": "Miguel",
+    "mob_level": 95,
+    "zone": "Beach of Tears",
+    "chance_percent": 57.5,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1751,
+    "mob": "Valkyrie Randgris",
+    "mob_level": 115,
+    "zone": "Odin Shrine",
+    "chance_percent": 57.5,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1785,
+    "mob": "Atroce",
+    "mob_level": 115,
+    "zone": "Veins Field",
+    "chance_percent": 57.5,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 2202,
+    "mob": "Kraken",
+    "mob_level": 115,
+    "zone": "Ancient Shrine of Byalan",
+    "chance_percent": 57.5,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 2895,
+    "mob": "Bone Detardeurus",
+    "mob_level": 115,
+    "zone": "Abyss Lakes Underground Cave",
+    "chance_percent": 57.5,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1734,
+    "mob": "Kiel DX-03",
+    "mob_level": 110,
+    "zone": "Kiel Hyre University",
+    "chance_percent": 55,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1768,
+    "mob": "Gloom Under Night",
+    "mob_level": 110,
+    "zone": "Freya's Sacred Precinct",
+    "chance_percent": 55,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 2102,
+    "mob": "Dream of Kings",
+    "mob_level": 110,
+    "zone": "Inside Glastheim Chivalry",
+    "chance_percent": 55,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 2672,
+    "mob": "Star Scourge",
+    "mob_level": 110,
+    "zone": "Observatorium Frozen Tide",
+    "chance_percent": 55,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1733,
+    "mob": "Kiel D-01",
+    "mob_level": 105,
+    "zone": "Robot Factory",
+    "chance_percent": 52.5,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1779,
+    "mob": "Ktullanux",
+    "mob_level": 105,
+    "zone": "Rachel Ice Cave",
+    "chance_percent": 52.5,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1871,
+    "mob": "Fallen Bishop",
+    "mob_level": 105,
+    "zone": "Cursed Abbey Dungeon",
+    "chance_percent": 52.5,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 2942,
+    "mob": "Evil Fanatic",
+    "mob_level": 105,
+    "zone": "Morroc Ritual Basement",
+    "chance_percent": 52.5,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 3001,
+    "mob": "First Revenant",
+    "mob_level": 105,
+    "zone": "Geffenia, City of the Mystic",
+    "chance_percent": 52.5,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 3485,
+    "mob": "Sarah Irine",
+    "mob_level": 105,
+    "zone": "Sky Garden Okolnir",
+    "chance_percent": 52.5,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 3503,
+    "mob": "Kafra Manager Jenni",
+    "mob_level": 105,
+    "zone": "Abandoned Kafra Warehouse",
+    "chance_percent": 52.5,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 3740,
+    "mob": "Dark Rose Dragon",
+    "mob_level": 105,
+    "zone": "Grey Forest",
+    "chance_percent": 52.5,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 2808,
+    "mob": "Mark Bearer",
+    "mob_level": 101,
+    "zone": "Einbroch Deadlands",
+    "chance_percent": 50.05,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1708,
+    "mob": "Memory of Thanatos",
+    "mob_level": 100,
+    "zone": "Thanatos Tower - Unknown Place",
+    "chance_percent": 50,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1719,
+    "mob": "Detardeurus",
+    "mob_level": 100,
+    "zone": "Abyss Lakes Underground Cave",
+    "chance_percent": 50,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1916,
+    "mob": "Satan Morocc",
+    "mob_level": 100,
+    "zone": "Morroc Town",
+    "chance_percent": 50,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 2255,
+    "mob": "Soul Cage Azrael",
+    "mob_level": 100,
+    "zone": "Malaya Hospital",
+    "chance_percent": 50,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 3021,
+    "mob": "Failed Abomination",
+    "mob_level": 100,
+    "zone": "Alchemist Fortress",
+    "chance_percent": 50,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 3449,
+    "mob": "Bestia",
+    "mob_level": 100,
+    "zone": "Geffenia",
+    "chance_percent": 50,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1272,
+    "mob": "Dark Lord",
+    "mob_level": 95,
+    "zone": "Glastheim Underground Churchyard",
+    "chance_percent": 47.5,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1685,
+    "mob": "Vesper",
+    "mob_level": 95,
+    "zone": "Center of Juperos",
+    "chance_percent": 47.5,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 2937,
+    "mob": "Master Loki",
+    "mob_level": 99,
+    "zone": "Loki's Tomb",
+    "chance_percent": 47.5,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 3091,
+    "mob": "Brinaranea",
+    "mob_level": 95,
+    "zone": "Crystal Caves",
+    "chance_percent": 47.5,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 3483,
+    "mob": "Baroness of Despair",
+    "mob_level": 95,
+    "zone": "Dark Caves Waterfall",
+    "chance_percent": 47.5,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1511,
+    "mob": "Amon Ra",
+    "mob_level": 90,
+    "zone": "Inside Ancient Shrine",
+    "chance_percent": 45,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1957,
+    "mob": "Entweihen Crothen",
+    "mob_level": 90,
+    "zone": "Clock Tower",
+    "chance_percent": 45,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 3200,
+    "mob": "Scylla",
+    "mob_level": 90,
+    "zone": "Volcanic Island of Krakatoa",
+    "chance_percent": 45,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1252,
+    "mob": "Hatii",
+    "mob_level": 85,
+    "zone": "Frozen Fields, Northeast",
+    "chance_percent": 42.5,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1658,
+    "mob": "Forgotten Egnigem",
+    "mob_level": 80,
+    "zone": "Somatology Laboratory",
+    "chance_percent": 40,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1251,
+    "mob": "Stormy Knight",
+    "mob_level": 75,
+    "zone": "Toy Monitoring Room",
+    "chance_percent": 37.5,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1623,
+    "mob": "RSX 0806",
+    "mob_level": 75,
+    "zone": "Einbech Mine",
+    "chance_percent": 37.5,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1991,
+    "mob": "Black Tendrillion",
+    "mob_level": 75,
+    "zone": "Splendide Field",
+    "chance_percent": 37.5,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 2253,
+    "mob": "General Daehyon",
+    "mob_level": 70,
+    "zone": "Payon Hall of Memories",
+    "chance_percent": 35,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 2529,
+    "mob": "Faceworm Queen",
+    "mob_level": 70,
+    "zone": "Faceworm's Dark Nest",
+    "chance_percent": 35,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 2925,
+    "mob": "Serpens",
+    "mob_level": 70,
+    "zone": "Crash Site Cave",
+    "chance_percent": 35,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 3074,
+    "mob": "Time Holder",
+    "mob_level": 70,
+    "zone": "Clock Tower",
+    "chance_percent": 35,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 3092,
+    "mob": "Muspelskoll",
+    "mob_level": 65,
+    "zone": "Nogg Road",
+    "chance_percent": 32.5,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1059,
+    "mob": "Mistress",
+    "mob_level": 60,
+    "zone": "Mt.Mjolnir North Area",
+    "chance_percent": 30,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1296,
+    "mob": "Kobold Leader",
+    "mob_level": 61,
+    "zone": "Fortress Saint Darmain (South)",
+    "chance_percent": 30,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1312,
+    "mob": "Turtle General",
+    "mob_level": 60,
+    "zone": "Turtle Palace",
+    "chance_percent": 30,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 2583,
+    "mob": "Noble Devourer",
+    "mob_level": 60,
+    "zone": "Hidden Coal Mines",
+    "chance_percent": 30,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 2667,
+    "mob": "Rockullanux",
+    "mob_level": 60,
+    "zone": "Frontier Rocky Road",
+    "chance_percent": 30,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1087,
+    "mob": "Fallen Orc Hero",
+    "mob_level": 55,
+    "zone": "West Orc Village",
+    "chance_percent": 27.5,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1190,
+    "mob": "Orc Lord Zombie",
+    "mob_level": 55,
+    "zone": "Orc Dungeon",
+    "chance_percent": 27.5,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1039,
+    "mob": "Baphomet",
+    "mob_level": 50,
+    "zone": "Labyrinth Forest",
+    "chance_percent": 25,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 2249,
+    "mob": "Angry Pyuriel",
+    "mob_level": 50,
+    "zone": "Noble Bathhouse",
+    "chance_percent": 25,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1112,
+    "mob": "Drake",
+    "mob_level": 45,
+    "zone": "Sunken Ship",
+    "chance_percent": 22.5,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1583,
+    "mob": "Tao Gunka",
+    "mob_level": 45,
+    "zone": "Karu, the West Cave",
+    "chance_percent": 22.5,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 2186,
+    "mob": "Coelacanth",
+    "mob_level": 45,
+    "zone": "Byalan Deep Cave",
+    "chance_percent": 22.5,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1159,
+    "mob": "Phreeoni",
+    "mob_level": 40,
+    "zone": "Sograt Desert",
+    "chance_percent": 20,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1389,
+    "mob": "Dracula",
+    "mob_level": 40,
+    "zone": "Geffen Dungeon",
+    "chance_percent": 20,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1688,
+    "mob": "Lady Tanee",
+    "mob_level": 40,
+    "zone": "Prontera Field",
+    "chance_percent": 20,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1157,
+    "mob": "Pharaoh",
+    "mob_level": 35,
+    "zone": "Morocc Sphinx",
+    "chance_percent": 17.5,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1299,
+    "mob": "Goblin King",
+    "mob_level": 36,
+    "zone": "Geffen Field",
+    "chance_percent": 17.5,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1086,
+    "mob": "Golden Thief Bug",
+    "mob_level": 30,
+    "zone": "Prontera Culvert",
+    "chance_percent": 15,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1038,
+    "mob": "Osiris",
+    "mob_level": 25,
+    "zone": "Inside Pyramid",
+    "chance_percent": 12.5,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1150,
+    "mob": "Moonlight Flower",
+    "mob_level": 25,
+    "zone": "Payon Cave",
+    "chance_percent": 12.5,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1147,
+    "mob": "Queen Maya",
+    "mob_level": 20,
+    "zone": "Ant Hell",
+    "chance_percent": 10,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1937,
+    "mob": "King Poring",
+    "mob_level": 20,
+    "zone": "Payon Forest",
+    "chance_percent": 10,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 2087,
+    "mob": "Queen Scaraba",
+    "mob_level": 20,
+    "zone": "Ant Hell",
+    "chance_percent": 10,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 2549,
+    "mob": "Expert Novice",
+    "mob_level": 20,
+    "zone": "Prontera Field",
+    "chance_percent": 10,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1115,
+    "mob": "Eddga",
+    "mob_level": 15,
+    "zone": "Payon Forest",
+    "chance_percent": 7.5,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1930,
+    "mob": "Orphan Piamette",
+    "mob_level": 15,
+    "zone": "Inside Pyramid",
+    "chance_percent": 7.5,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 2022,
+    "mob": "Nydhogg",
+    "mob_level": 80,
+    "zone": "Dragon Nest",
+    "chance_percent": 4,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1289,
+    "mob": "Maya Purple",
+    "mob_level": 20,
+    "zone": "Ant Hell",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": "MVP Reward Box",
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=14704",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 1,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [
+   {
+    "condition": "Contains a Random Item",
+    "effects": [
+     {
+      "text": "Regular Refine Material",
+      "parsed": false
+     },
+     {
+      "text": "HD Refine Material",
+      "parsed": false
+     },
+     {
+      "text": "Enriched Refine Material",
+      "parsed": false
+     },
+     {
+      "text": "Rune Refine Material",
+      "parsed": false
+     },
+     {
+      "text": "Shadow Refine Material",
+      "parsed": false
+     },
+     {
+      "text": "Growth Shadow Coffer",
+      "parsed": false
+     },
+     {
+      "text": "Yggdrasil Berry",
+      "parsed": false
+     },
+     {
+      "text": "MVP Shard",
+      "parsed": false
+     }
+    ]
+   }
+  ],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 616,
+  "name": "My First Card Album",
+  "kind": "Usable",
+  "type": "Container",
+  "category": "Container",
+  "equip_slots": [],
+  "description": "A cool card album that contains easy to find cards.\nRewards a random sub-Lv10 field card when opened.\nEffect: Gives 1 random card",
+  "required_level": 0,
+  "weight": 5,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/616.png",
+   "art": "images/art/616.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1937,
+    "mob": "King Poring",
+    "mob_level": 20,
+    "zone": "Payon Forest",
+    "chance_percent": 50,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 2549,
+    "mob": "Expert Novice",
+    "mob_level": 20,
+    "zone": "Prontera Field",
+    "chance_percent": 50,
+    "mvp_reward": true
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": "Old Card Album",
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=616",
+  "raw": {
+   "how": [
+    "Card Artist · Varmundt's Mansion - Interior",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    9
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 1,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "A cool card album that contains easy to find cards.",
+    "parsed": false
+   },
+   {
+    "text": "Rewards a random sub-Lv10 field card when opened.",
+    "parsed": false
+   },
+   {
+    "text": "Effect: Gives 1 random card",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 12790,
+  "name": "Name Change Coupon",
+  "kind": "Usable",
+  "type": "Usable",
+  "category": "Usable",
+  "equip_slots": [],
+  "description": "Use this item to change your character's name on the Character Select menu.\nAfter using this item you must logout to the Character Select menu and Right-Click on your character and choose 'Change Name'\nYou can then enter a new name as long as it is not already taken.\nYou must leave your current guild and/or party before changing your name.\nYou can use this item once.",
+  "required_level": 0,
+  "weight": 0,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/12790.png",
+   "art": "images/art/12790.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=12790",
+  "raw": {
+   "how": [
+    "Mr Kim · Varmundt's Orphanage",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    9
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Use this item to change your character's name on the Character Select menu.",
+    "parsed": false
+   },
+   {
+    "text": "After using this item you must logout to the Character Select menu and Right-Click on your character and choose 'Change Name'",
+    "parsed": false
+   },
+   {
+    "text": "You can then enter a new name as long as it is not already taken.",
+    "parsed": false
+   },
+   {
+    "text": "You must leave your current guild and/or party before changing your name.",
+    "parsed": false
+   },
+   {
+    "text": "You can use this item once.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 12693,
+  "name": "Nomad Card Album",
+  "kind": "Usable",
+  "type": "Container",
+  "category": "Container",
+  "equip_slots": [],
+  "description": "A cool card album that has many cards owned by a collector.\nRewards a random Level 100 to 120 Field Card.\n\nEffect: Gives 1 random card",
+  "required_level": 0,
+  "weight": 5,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/12693.png",
+   "art": "images/art/12693.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=12693",
+  "raw": {
+   "how": [
+    "Card Artist · Varmundt's Mansion - Interior",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    9
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "A cool card album that has many cards owned by a collector.",
+    "parsed": false
+   },
+   {
+    "text": "Rewards a random Level 100 to 120 Field Card.",
+    "parsed": false
+   },
+   {
+    "text": "Effect: Gives 1 random card",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 12439,
+  "name": "Old Battle Manual",
+  "kind": "Usable",
+  "type": "Usable",
+  "category": "Usable",
+  "equip_slots": [],
+  "description": "This well written, detailed manual explains effective battle methods.\nEXP rate increases to\n150% for 30 minutes.",
+  "required_level": 0,
+  "weight": 1,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/12439.png",
+   "art": "images/art/12439.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=12439",
+  "raw": {
+   "how": [
+    "War Helper · Varmundt's Orphanage",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    8
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "This well written, detailed manual explains effective battle methods.",
+    "parsed": false
+   },
+   {
+    "text": "EXP rate increases to 150% for 30 minutes.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 582,
+  "name": "Orange",
+  "kind": "Usable",
+  "type": "Healing",
+  "category": "Healing",
+  "equip_slots": [],
+  "description": "Heals 35 Base HP",
+  "required_level": 0,
+  "weight": 2,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/582.png",
+   "art": "images/art/582.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1113,
+    "mob": "Drops",
+    "mob_level": 5,
+    "zone": "Payon Forest",
+    "chance_percent": 10,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=582",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Heals 35 Base HP",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 502,
+  "name": "Orange Potion",
+  "kind": "Usable",
+  "type": "Healing",
+  "category": "Healing",
+  "equip_slots": [],
+  "description": "Heals 300 Base HP\n\n15 Seconds Cooldown",
+  "required_level": 0,
+  "weight": 20,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/502.png",
+   "art": "images/art/502.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=502",
+  "raw": {
+   "how": [
+    "Tool Dealer · Sograt Desert F7",
+    "moc_fild07",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    8
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Heals 300 Base HP",
+    "parsed": false
+   },
+   {
+    "text": "15 Seconds Cooldown",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 14724,
+  "name": "Orphanage Costume Box",
+  "kind": "Usable",
+  "type": "Usable",
+  "category": "Usable",
+  "equip_slots": [],
+  "description": "Contains a random costume headgear from the orphanage. The box has the signature of multiple children thanking the purchase.",
+  "required_level": 0,
+  "weight": 50,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/14724.png",
+   "art": "images/art/14724.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=14724",
+  "raw": {
+   "how": [
+    "Happy Girl · Varmundt's Orphanage",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    8
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Contains a random costume headgear from the orphanage. The box has the signature of multiple children thanking the purchase.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 14718,
+  "name": "Orphanage Gift Box",
+  "kind": "Usable",
+  "type": "Usable",
+  "category": "Usable",
+  "equip_slots": [],
+  "description": "Contains a random upper headgear sold at the orphanage, but it's a SLOTTED variation. The box has the signature of multiple children thanking the purchase.",
+  "required_level": 0,
+  "weight": 50,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/14718.png",
+   "art": "images/art/14718.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=14718",
+  "raw": {
+   "how": [
+    "Happy Girl · Varmundt's Orphanage",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    8
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Contains a random upper headgear sold at the orphanage, but it's a SLOTTED variation. The box has the signature of multiple children thanking the purchase.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 14723,
+  "name": "Orphanage Special Box",
+  "kind": "Usable",
+  "type": "Usable",
+  "category": "Usable",
+  "equip_slots": [],
+  "description": "Contains a random middle headgear sold at the orphanage, but it's a SLOTTED variation. The box has the signature of multiple children thanking the purchase.",
+  "required_level": 0,
+  "weight": 50,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/14723.png",
+   "art": "images/art/14723.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=14723",
+  "raw": {
+   "how": [
+    "Happy Girl · Varmundt's Orphanage",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    8
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Contains a random middle headgear sold at the orphanage, but it's a SLOTTED variation. The box has the signature of multiple children thanking the purchase.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 525,
+  "name": "Panacea",
+  "kind": "Usable",
+  "type": "Restorative",
+  "category": "Restorative",
+  "equip_slots": [],
+  "description": "A mystic remedy for all illnesses.\nCure: Poison, Curse, Silence, Confuse, Blind, Hallucination",
+  "required_level": 0,
+  "weight": 10,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/525.png",
+   "art": "images/art/525.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1068,
+    "mob": "Hydra",
+    "mob_level": 34,
+    "zone": "Bra",
+    "chance_percent": 0.03,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=525",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "A mystic remedy for all illnesses.",
+    "parsed": false
+   },
+   {
+    "text": "Cure: Poison, Curse, Silence, Confuse, Blind, Hallucination",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 540,
+  "name": "Pet Food",
+  "kind": "Usable",
+  "type": "Restorative",
+  "category": "Restorative",
+  "equip_slots": [],
+  "description": "Food intended for Pets, but it's actually tasty enough for humans to eat.\n\nHeal: 25 HP",
+  "required_level": 0,
+  "weight": 5,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/540.png",
+   "art": "images/art/540.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=540",
+  "raw": {
+   "how": [
+    "Kafra · Prontera, Capital of Rune Midgarts",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    5
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Food intended for Pets, but it's actually tasty enough for humans to eat.",
+    "parsed": false
+   },
+   {
+    "text": "Heal: 25 HP",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 12848,
+  "name": "Raven Plume",
+  "kind": "Usable",
+  "type": "DelayConsume",
+  "category": "DelayConsume",
+  "equip_slots": [],
+  "description": "Plumes of a dark raven, used to summon a raven for attacks.",
+  "required_level": 0,
+  "weight": 1,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/12848.png",
+   "art": "images/art/12848.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1422,
+    "mob": "Firewind",
+    "mob_level": 84,
+    "zone": "Veins Field",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=12848",
+  "raw": {
+   "how": [
+    "Black Market · Alberta",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    7
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Plumes of a dark raven, used to summon a raven for attacks.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 501,
+  "name": "Red Potion",
+  "kind": "Usable",
+  "type": "Healing",
+  "category": "Healing",
+  "equip_slots": [],
+  "description": "Heals 150 Base HP\n\n15 Seconds Cooldown",
+  "required_level": 0,
+  "weight": 10,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/501.png",
+   "art": "images/art/501.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=501",
+  "raw": {
+   "how": [
+    "Tool Dealer · Sograt Desert F7",
+    "moc_fild07",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    8
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Heals 150 Base HP",
+    "parsed": false
+   },
+   {
+    "text": "15 Seconds Cooldown",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 545,
+  "name": "Red Slim Potion",
+  "kind": "Usable",
+  "type": "Healing",
+  "category": "Healing",
+  "equip_slots": [],
+  "description": "Heals 150 Base HP",
+  "required_level": 0,
+  "weight": 5,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/545.png",
+   "art": "images/art/545.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=545",
+  "raw": {
+   "how": [
+    "Kafra · Prontera, Capital of Rune Midgarts",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    5
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Heals 150 Base HP",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 526,
+  "name": "Royal Jelly",
+  "kind": "Usable",
+  "type": "Healing",
+  "category": "Healing",
+  "equip_slots": [],
+  "description": "Heals 500 Base HP and 50 Base SP, neutralizes poison and other effects.\n\n10 Seconds Cooldown",
+  "required_level": 0,
+  "weight": 90,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/526.png",
+   "art": "images/art/526.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1281,
+    "mob": "Sage Worm",
+    "mob_level": 81,
+    "zone": "Glastheim",
+    "chance_percent": 1.5,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1404,
+    "mob": "Miyabi Doll",
+    "mob_level": 91,
+    "zone": "Tatami Maze",
+    "chance_percent": 1,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 2310,
+    "mob": "Forest Nymph",
+    "mob_level": 101,
+    "zone": "Geffenia Antitower",
+    "chance_percent": 1,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1495,
+    "mob": "Stone Shooter",
+    "mob_level": 63,
+    "zone": "Luluka Forest",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=526",
+  "raw": {
+   "how": [
+    "Black Market · Alberta",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    [
+     "Im Important",
+     "Dark Market · Nameless Island Entrance"
+    ],
+    7,
+    6
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Heals 500 Base HP and 50 Base SP, neutralizes poison and other effects.",
+    "parsed": false
+   },
+   {
+    "text": "10 Seconds Cooldown",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 903106,
+  "name": "Shadow Gem Coffer 1",
+  "kind": "Usable",
+  "type": "Usable",
+  "category": "Usable",
+  "equip_slots": [],
+  "description": "Contains a gem from a failed experiment at the Rekenber Somatology Lab.\nOne random Lv100 Class Gem:\nAbyss Gem of Voices\nAnarchy Gem of Crowns\nBackstab Gem of Turned Backs\nBullseye Gem of Never Missing\nCalamity Gem of Falling Fire\nChakra Gem of Inner Flow\nChip Gem of Small Change\nDune Gem of First Sands\nEclipse Gem of Covered Skies\nEquilibrium Gem of Both Halves\nGambit Gem of Sure Bets\nHidden Gem of Silence\nIgnition Gem of Experiments\nLoki Gem of the Traitor's Path\nMire Gem of Rot\nMuse Gem of Invention\nPilfer Gem of Stolen Spells\nPlummet Gem of Heights\nReaper Gem of Passage\nShackle Gem of Endless Links\nStrider Gem of Distant Lands\nVerdict Gem of Destiny\nComes with three lines of random option, one stat each:\n1: STR or INT\n2: AGI or VIT\n3: DEX or LUK\nEach line can be negative: -3, -2, -1 or +1.",
+  "required_level": 0,
+  "weight": 25,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/903106.png",
+   "art": "images/art/903106.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=903106",
+  "raw": {
+   "how": [
+    "Kafra Warehouse, Kiel Hyre Factory, Rachel Sanctuary, Cursed Monastery, Sky Garden, Geffenia Antitower (Distortion), Morroc Castle (Distortion)",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "roams",
+    [
+     [
+      "Kafra Warehouse",
+      "abandoned-kafra-warehouse"
+     ],
+     [
+      "Kiel Hyre Factory",
+      "robot-factory"
+     ],
+     [
+      "Rachel Sanctuary",
+      "freyas-sacred-precinct"
+     ],
+     [
+      "Cursed Monastery",
+      "cursed-abbey-dungeon"
+     ],
+     [
+      "Sky Garden",
+      "sky-garden-village"
+     ],
+     [
+      "Geffenia Antitower (Distortion)",
+      "geffenia-antitower"
+     ],
+     [
+      "Morroc Castle (Distortion)",
+      "morroc-castle-distortion"
+     ]
+    ]
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 1,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Contains a gem from a failed experiment at the Rekenber Somatology Lab.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [
+   {
+    "condition": "One random Lv100 Class Gem",
+    "effects": [
+     {
+      "text": "Abyss Gem of Voices",
+      "parsed": false
+     },
+     {
+      "text": "Anarchy Gem of Crowns",
+      "parsed": false
+     },
+     {
+      "text": "Backstab Gem of Turned Backs",
+      "parsed": false
+     },
+     {
+      "text": "Bullseye Gem of Never Missing",
+      "parsed": false
+     },
+     {
+      "text": "Calamity Gem of Falling Fire",
+      "parsed": false
+     },
+     {
+      "text": "Chakra Gem of Inner Flow",
+      "parsed": false
+     },
+     {
+      "text": "Chip Gem of Small Change",
+      "parsed": false
+     },
+     {
+      "text": "Dune Gem of First Sands",
+      "parsed": false
+     },
+     {
+      "text": "Eclipse Gem of Covered Skies",
+      "parsed": false
+     },
+     {
+      "text": "Equilibrium Gem of Both Halves",
+      "parsed": false
+     },
+     {
+      "text": "Gambit Gem of Sure Bets",
+      "parsed": false
+     },
+     {
+      "text": "Hidden Gem of Silence",
+      "parsed": false
+     },
+     {
+      "text": "Ignition Gem of Experiments",
+      "parsed": false
+     },
+     {
+      "text": "Loki Gem of the Traitor's Path",
+      "parsed": false
+     },
+     {
+      "text": "Mire Gem of Rot",
+      "parsed": false
+     },
+     {
+      "text": "Muse Gem of Invention",
+      "parsed": false
+     },
+     {
+      "text": "Pilfer Gem of Stolen Spells",
+      "parsed": false
+     },
+     {
+      "text": "Plummet Gem of Heights",
+      "parsed": false
+     },
+     {
+      "text": "Reaper Gem of Passage",
+      "parsed": false
+     },
+     {
+      "text": "Shackle Gem of Endless Links",
+      "parsed": false
+     },
+     {
+      "text": "Strider Gem of Distant Lands",
+      "parsed": false
+     },
+     {
+      "text": "Verdict Gem of Destiny",
+      "parsed": false
+     }
+    ]
+   },
+   {
+    "condition": "Comes with three lines of random option, one stat each",
+    "effects": [
+     {
+      "text": "1: STR or INT 2: AGI or VIT 3: DEX or LUK Each line can be negative: -3",
+      "stat": "1: STR or INT 2: AGI or VIT 3: DEX or LUK Each line can be negative",
+      "value": -3,
+      "unit": null,
+      "parsed": true,
+      "stat_ids": [],
+      "stat_keys": []
+     },
+     {
+      "text": "-2",
+      "stat": "1: STR or INT 2: AGI or VIT 3: DEX or LUK Each line can be negative",
+      "value": -2,
+      "unit": null,
+      "parsed": true,
+      "stat_ids": [],
+      "stat_keys": [],
+      "stat_inherited": true
+     },
+     {
+      "text": "-1 or +1",
+      "stat": "-1 or",
+      "value": 1,
+      "unit": null,
+      "parsed": true,
+      "stat_ids": [],
+      "stat_keys": []
+     }
+    ]
+   }
+  ],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 903107,
+  "name": "Shadow Gem Coffer 2",
+  "kind": "Usable",
+  "type": "Usable",
+  "category": "Usable",
+  "equip_slots": [],
+  "description": "Contains a gem from a failed experiment at the Rekenber Somatology Lab.\nOne random Lv105 Class Gem:\nAmbush Gem of Surprises\nBombast Gem of Spectacle\nClarion Gem of Endurance\nCountless Gem of Instants\nDelirium Gem of Haste\nElven Gem of Enchanted Arrows\nInverse Gem of Sacrifice\nLeviathan Gem of the Deep\nMarker Gem of Open Tabs\nMeteor Gem of Impact\nMirage Gem of Avoidance\nMirror Gem of Borrowed Shapes\nOmen Gem of a Thousand Blades\nPatriot Gem of Devotion\nPolymath Gem of All Schools\nRelentless Gem of No Rest\nSludge Gem of Bombs\nStarfall Gem of Made Matter\nUndying Gem of Unfinished Paths\nWayward Gem of Laid Traps\nWonder Gem of Transmutation\nZantetsu Gem of the Clean Cut\nComes with three lines of random option, one stat each:\n1: STR or INT\n2: AGI or VIT\n3: DEX or LUK\nEach line can be negative: -3, -2, -1 or +1.",
+  "required_level": 0,
+  "weight": 25,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/903107.png",
+   "art": "images/art/903107.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=903107",
+  "raw": {
+   "how": [
+    "Observatorium Study, Observatorium Window, Observatorium Frozen Tide",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "roams",
+    [
+     [
+      "Observatorium Study",
+      "observatorium-study"
+     ],
+     [
+      "Observatorium Window",
+      "observatorium-window"
+     ],
+     [
+      "Observatorium Frozen Tide",
+      "observatorium-frozen-tide"
+     ]
+    ]
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 1,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Contains a gem from a failed experiment at the Rekenber Somatology Lab.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [
+   {
+    "condition": "One random Lv105 Class Gem",
+    "effects": [
+     {
+      "text": "Ambush Gem of Surprises",
+      "parsed": false
+     },
+     {
+      "text": "Bombast Gem of Spectacle",
+      "parsed": false
+     },
+     {
+      "text": "Clarion Gem of Endurance",
+      "parsed": false
+     },
+     {
+      "text": "Countless Gem of Instants",
+      "parsed": false
+     },
+     {
+      "text": "Delirium Gem of Haste",
+      "parsed": false
+     },
+     {
+      "text": "Elven Gem of Enchanted Arrows",
+      "parsed": false
+     },
+     {
+      "text": "Inverse Gem of Sacrifice",
+      "parsed": false
+     },
+     {
+      "text": "Leviathan Gem of the Deep",
+      "parsed": false
+     },
+     {
+      "text": "Marker Gem of Open Tabs",
+      "parsed": false
+     },
+     {
+      "text": "Meteor Gem of Impact",
+      "parsed": false
+     },
+     {
+      "text": "Mirage Gem of Avoidance",
+      "parsed": false
+     },
+     {
+      "text": "Mirror Gem of Borrowed Shapes",
+      "parsed": false
+     },
+     {
+      "text": "Omen Gem of a Thousand Blades",
+      "parsed": false
+     },
+     {
+      "text": "Patriot Gem of Devotion",
+      "parsed": false
+     },
+     {
+      "text": "Polymath Gem of All Schools",
+      "parsed": false
+     },
+     {
+      "text": "Relentless Gem of No Rest",
+      "parsed": false
+     },
+     {
+      "text": "Sludge Gem of Bombs",
+      "parsed": false
+     },
+     {
+      "text": "Starfall Gem of Made Matter",
+      "parsed": false
+     },
+     {
+      "text": "Undying Gem of Unfinished Paths",
+      "parsed": false
+     },
+     {
+      "text": "Wayward Gem of Laid Traps",
+      "parsed": false
+     },
+     {
+      "text": "Wonder Gem of Transmutation",
+      "parsed": false
+     },
+     {
+      "text": "Zantetsu Gem of the Clean Cut",
+      "parsed": false
+     }
+    ]
+   },
+   {
+    "condition": "Comes with three lines of random option, one stat each",
+    "effects": [
+     {
+      "text": "1: STR or INT 2: AGI or VIT 3: DEX or LUK Each line can be negative: -3",
+      "stat": "1: STR or INT 2: AGI or VIT 3: DEX or LUK Each line can be negative",
+      "value": -3,
+      "unit": null,
+      "parsed": true,
+      "stat_ids": [],
+      "stat_keys": []
+     },
+     {
+      "text": "-2",
+      "stat": "1: STR or INT 2: AGI or VIT 3: DEX or LUK Each line can be negative",
+      "value": -2,
+      "unit": null,
+      "parsed": true,
+      "stat_ids": [],
+      "stat_keys": [],
+      "stat_inherited": true
+     },
+     {
+      "text": "-1 or +1",
+      "stat": "-1 or",
+      "value": 1,
+      "unit": null,
+      "parsed": true,
+      "stat_ids": [],
+      "stat_keys": []
+     }
+    ]
+   }
+  ],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 903108,
+  "name": "Shadow Gem Coffer 3",
+  "kind": "Usable",
+  "type": "Usable",
+  "category": "Usable",
+  "equip_slots": [],
+  "description": "Contains a gem from a failed experiment at the Rekenber Somatology Lab.\nOne random Lv110 Class Gem:\nAegis Gem of Interception\nAncestor Gem of Rites\nArmory Gem of Mastery\nCooler Gem of Broken Streaks\nCrimson Gem of Stained Cloth\nDeft Gem of Precision\nFrostbound Gem of Embrace\nGuillotine Gem of Finality\nIvory Gem of Redemption\nLimelight Gem of Attention\nLineage Gem of Generations\nMarionette Gem of Strings\nMist Gem of Sound\nMoonless Gem of Darkness\nQuickdraw Gem of First Shots\nRavenous Gem of Bloodshed\nStalker Gem of Paranoia\nTriage Gem of Field Care\nTrial Gem of Preparation\nUmbral Gem of Unbroken Focus\nUnbound Gem of Full Power\nComes with three lines of random option, one stat each:\n1: STR or INT\n2: AGI or VIT\n3: DEX or LUK\nEach line can be negative: -3, -2, -1 or +1.",
+  "required_level": 0,
+  "weight": 25,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/903108.png",
+   "art": "images/art/903108.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=903108",
+  "raw": {
+   "how": [
+    "Odin Temple, Kiel Hyre University (Distortion), Abyss Lake (Distortion), Ancient Temple (Distortion), Horror Toy Factory (Distortion), Old Glast Heim (Distortion), Invaded Prontera (Distortion)",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "roams",
+    [
+     [
+      "Odin Temple",
+      "odin-shrine"
+     ],
+     [
+      "Kiel Hyre University (Distortion)",
+      "kiel-hyre-university-distortion"
+     ],
+     [
+      "Abyss Lake (Distortion)",
+      "abyss-lakes-underground-cave-distortion"
+     ],
+     [
+      "Ancient Temple (Distortion)",
+      "ancient-shrine-of-byalan-distortion"
+     ],
+     [
+      "Horror Toy Factory (Distortion)",
+      "nightmare-toy-factory-distortion"
+     ],
+     [
+      "Old Glast Heim (Distortion)",
+      "old-glast-heim-distortion"
+     ],
+     [
+      "Invaded Prontera (Distortion)",
+      "invaded-prontera-distortion"
+     ]
+    ]
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 1,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Contains a gem from a failed experiment at the Rekenber Somatology Lab.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [
+   {
+    "condition": "One random Lv110 Class Gem",
+    "effects": [
+     {
+      "text": "Aegis Gem of Interception",
+      "parsed": false
+     },
+     {
+      "text": "Ancestor Gem of Rites",
+      "parsed": false
+     },
+     {
+      "text": "Armory Gem of Mastery",
+      "parsed": false
+     },
+     {
+      "text": "Cooler Gem of Broken Streaks",
+      "parsed": false
+     },
+     {
+      "text": "Crimson Gem of Stained Cloth",
+      "parsed": false
+     },
+     {
+      "text": "Deft Gem of Precision",
+      "parsed": false
+     },
+     {
+      "text": "Frostbound Gem of Embrace",
+      "parsed": false
+     },
+     {
+      "text": "Guillotine Gem of Finality",
+      "parsed": false
+     },
+     {
+      "text": "Ivory Gem of Redemption",
+      "parsed": false
+     },
+     {
+      "text": "Limelight Gem of Attention",
+      "parsed": false
+     },
+     {
+      "text": "Lineage Gem of Generations",
+      "parsed": false
+     },
+     {
+      "text": "Marionette Gem of Strings",
+      "parsed": false
+     },
+     {
+      "text": "Mist Gem of Sound",
+      "parsed": false
+     },
+     {
+      "text": "Moonless Gem of Darkness",
+      "parsed": false
+     },
+     {
+      "text": "Quickdraw Gem of First Shots",
+      "parsed": false
+     },
+     {
+      "text": "Ravenous Gem of Bloodshed",
+      "parsed": false
+     },
+     {
+      "text": "Stalker Gem of Paranoia",
+      "parsed": false
+     },
+     {
+      "text": "Triage Gem of Field Care",
+      "parsed": false
+     },
+     {
+      "text": "Trial Gem of Preparation",
+      "parsed": false
+     },
+     {
+      "text": "Umbral Gem of Unbroken Focus",
+      "parsed": false
+     },
+     {
+      "text": "Unbound Gem of Full Power",
+      "parsed": false
+     }
+    ]
+   },
+   {
+    "condition": "Comes with three lines of random option, one stat each",
+    "effects": [
+     {
+      "text": "1: STR or INT 2: AGI or VIT 3: DEX or LUK Each line can be negative: -3",
+      "stat": "1: STR or INT 2: AGI or VIT 3: DEX or LUK Each line can be negative",
+      "value": -3,
+      "unit": null,
+      "parsed": true,
+      "stat_ids": [],
+      "stat_keys": []
+     },
+     {
+      "text": "-2",
+      "stat": "1: STR or INT 2: AGI or VIT 3: DEX or LUK Each line can be negative",
+      "value": -2,
+      "unit": null,
+      "parsed": true,
+      "stat_ids": [],
+      "stat_keys": [],
+      "stat_inherited": true
+     },
+     {
+      "text": "-1 or +1",
+      "stat": "-1 or",
+      "value": 1,
+      "unit": null,
+      "parsed": true,
+      "stat_ids": [],
+      "stat_keys": []
+     }
+    ]
+   }
+  ],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 903109,
+  "name": "Shadow Gem Coffer 4",
+  "kind": "Usable",
+  "type": "Usable",
+  "category": "Usable",
+  "equip_slots": [],
+  "description": "Contains a gem from a failed experiment at the Rekenber Somatology Lab.\nOne random Lv115 Class Gem:\nBender Gem of Shifting Elements\nBlade Gem of Every Edge\nBorrowed Gem of Second Wind\nChangeling Gem of Many Faces\nDevil Gem of Bidding\nEbony Gem of Counters\nEidolon Gem of Conscription\nGale Gem of Razors\nHawk Gem of Night Skies\nHeraldry Gem of Allies\nIai Gem of the Unseen Strike\nLiving Gem of Bound Energy\nMiasma Gem of Tolerance\nPursuit Gem of Fleeing Men\nSiege Gem of Command\nSleight Gem of Cheating\nSnare Gem of Patience\nTetra Gem of Four Storms\nTorrent Gem of Many Spells\nTradition Gem of the Old Ways\nWhale Gem of High Rollers\nWyrm Gem of Fury\nComes with three lines of random option, one stat each:\n1: STR or INT\n2: AGI or VIT\n3: DEX or LUK\nEach line can be negative: -3, -2, -1 or +1.",
+  "required_level": 0,
+  "weight": 25,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/903109.png",
+   "art": "images/art/903109.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=903109",
+  "raw": {
+   "how": [
+    "Opera House, Thor Volcano, Death's Castle, Varmundt's Mansion, Odin Temple Past (Distortion), Abyss Glast Heim (Distortion), Ancient Verus Laboratory (Distortion)",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "roams",
+    [
+     [
+      "Opera House",
+      "nif-dun01"
+     ],
+     [
+      "Thor Volcano",
+      "thor-volcano-dungeon"
+     ],
+     [
+      "Death's Castle",
+      "death-castle-entrance"
+     ],
+     [
+      "Varmundt's Mansion",
+      "mansion-garden"
+     ],
+     [
+      "Odin Temple Past (Distortion)",
+      "odin-shrine-past-distortion"
+     ],
+     [
+      "Abyss Glast Heim (Distortion)",
+      "abyss-glastheim-castle-distortion"
+     ],
+     [
+      "Ancient Verus Laboratory (Distortion)",
+      "charleston-factory-distortion"
+     ]
+    ]
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 1,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Contains a gem from a failed experiment at the Rekenber Somatology Lab.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [
+   {
+    "condition": "One random Lv115 Class Gem",
+    "effects": [
+     {
+      "text": "Bender Gem of Shifting Elements",
+      "parsed": false
+     },
+     {
+      "text": "Blade Gem of Every Edge",
+      "parsed": false
+     },
+     {
+      "text": "Borrowed Gem of Second Wind",
+      "parsed": false
+     },
+     {
+      "text": "Changeling Gem of Many Faces",
+      "parsed": false
+     },
+     {
+      "text": "Devil Gem of Bidding",
+      "parsed": false
+     },
+     {
+      "text": "Ebony Gem of Counters",
+      "parsed": false
+     },
+     {
+      "text": "Eidolon Gem of Conscription",
+      "parsed": false
+     },
+     {
+      "text": "Gale Gem of Razors",
+      "parsed": false
+     },
+     {
+      "text": "Hawk Gem of Night Skies",
+      "parsed": false
+     },
+     {
+      "text": "Heraldry Gem of Allies",
+      "parsed": false
+     },
+     {
+      "text": "Iai Gem of the Unseen Strike",
+      "parsed": false
+     },
+     {
+      "text": "Living Gem of Bound Energy",
+      "parsed": false
+     },
+     {
+      "text": "Miasma Gem of Tolerance",
+      "parsed": false
+     },
+     {
+      "text": "Pursuit Gem of Fleeing Men",
+      "parsed": false
+     },
+     {
+      "text": "Siege Gem of Command",
+      "parsed": false
+     },
+     {
+      "text": "Sleight Gem of Cheating",
+      "parsed": false
+     },
+     {
+      "text": "Snare Gem of Patience",
+      "parsed": false
+     },
+     {
+      "text": "Tetra Gem of Four Storms",
+      "parsed": false
+     },
+     {
+      "text": "Torrent Gem of Many Spells",
+      "parsed": false
+     },
+     {
+      "text": "Tradition Gem of the Old Ways",
+      "parsed": false
+     },
+     {
+      "text": "Whale Gem of High Rollers",
+      "parsed": false
+     },
+     {
+      "text": "Wyrm Gem of Fury",
+      "parsed": false
+     }
+    ]
+   },
+   {
+    "condition": "Comes with three lines of random option, one stat each",
+    "effects": [
+     {
+      "text": "1: STR or INT 2: AGI or VIT 3: DEX or LUK Each line can be negative: -3",
+      "stat": "1: STR or INT 2: AGI or VIT 3: DEX or LUK Each line can be negative",
+      "value": -3,
+      "unit": null,
+      "parsed": true,
+      "stat_ids": [],
+      "stat_keys": []
+     },
+     {
+      "text": "-2",
+      "stat": "1: STR or INT 2: AGI or VIT 3: DEX or LUK Each line can be negative",
+      "value": -2,
+      "unit": null,
+      "parsed": true,
+      "stat_ids": [],
+      "stat_keys": [],
+      "stat_inherited": true
+     },
+     {
+      "text": "-1 or +1",
+      "stat": "-1 or",
+      "value": 1,
+      "unit": null,
+      "parsed": true,
+      "stat_ids": [],
+      "stat_keys": []
+     }
+    ]
+   }
+  ],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 903110,
+  "name": "Shadow Gem Coffer 5",
+  "kind": "Usable",
+  "type": "Usable",
+  "category": "Usable",
+  "equip_slots": [],
+  "description": "Contains a gem from a failed experiment at the Rekenber Somatology Lab.\nOne random Lv120 Class Gem:\nBeacon Gem of Bravery\nBulwark Gem of the Weak\nDancer Gem of Grace\nDetonation Gem of Solutions\nFinal Gem of Guiltless Duty\nFracture Gem of Broken Reality\nGaia Gem of Reckoning\nHouse Gem of Final Collection\nObsidian Gem of Restraint\nPestilence Gem of Contagion\nPioneer Gem of Untrodden Ground\nQuarry Gem of Endless Tracking\nRiver Gem of Long Meditation\nSolitude Gem of One\nTempest Gem of Descent\nTribunal Gem of Duels\nUnion Gem of Folded Space\nWeapon Gem of Flesh and Steel\nWheel Gem of Whims\nZenith Gem of Sorcery\nComes with three lines of random option, one stat each:\n1: STR or INT\n2: AGI or VIT\n3: DEX or LUK\nEach line can be negative: -3, -2, -1 or +1.",
+  "required_level": 0,
+  "weight": 25,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/903110.png",
+   "art": "images/art/903110.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=903110",
+  "raw": {
+   "how": [
+    "Lost Tomb of the King, Regenschutz Lab, Thanatos Paradise (Distortion), Dimensional Gorge (Distortion), Divine Temple of Freya (Distortion), Abandoned Castle (Distortion), Jormungand's Lair (Distortion)",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "roams",
+    [
+     [
+      "Lost Tomb of the King",
+      "lost-island-tomb"
+     ],
+     [
+      "Regenschutz Lab",
+      "regenschutz-secret-laboratory"
+     ],
+     [
+      "Thanatos Paradise (Distortion)",
+      "thanatos-paradise-distortion"
+     ],
+     [
+      "Dimensional Gorge (Distortion)",
+      "sograt-desert-dimensional-rift-distortion"
+     ],
+     [
+      "Divine Temple of Freya (Distortion)",
+      "rachel-hidden-temple-distortion"
+     ],
+     [
+      "Abandoned Castle (Distortion)",
+      "ymirs-war-castle"
+     ],
+     [
+      "Jormungand's Lair (Distortion)",
+      "jormungands-lair-distortion"
+     ]
+    ]
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 1,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Contains a gem from a failed experiment at the Rekenber Somatology Lab.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [
+   {
+    "condition": "One random Lv120 Class Gem",
+    "effects": [
+     {
+      "text": "Beacon Gem of Bravery",
+      "parsed": false
+     },
+     {
+      "text": "Bulwark Gem of the Weak",
+      "parsed": false
+     },
+     {
+      "text": "Dancer Gem of Grace",
+      "parsed": false
+     },
+     {
+      "text": "Detonation Gem of Solutions",
+      "parsed": false
+     },
+     {
+      "text": "Final Gem of Guiltless Duty",
+      "parsed": false
+     },
+     {
+      "text": "Fracture Gem of Broken Reality",
+      "parsed": false
+     },
+     {
+      "text": "Gaia Gem of Reckoning",
+      "parsed": false
+     },
+     {
+      "text": "House Gem of Final Collection",
+      "parsed": false
+     },
+     {
+      "text": "Obsidian Gem of Restraint",
+      "parsed": false
+     },
+     {
+      "text": "Pestilence Gem of Contagion",
+      "parsed": false
+     },
+     {
+      "text": "Pioneer Gem of Untrodden Ground",
+      "parsed": false
+     },
+     {
+      "text": "Quarry Gem of Endless Tracking",
+      "parsed": false
+     },
+     {
+      "text": "River Gem of Long Meditation",
+      "parsed": false
+     },
+     {
+      "text": "Solitude Gem of One",
+      "parsed": false
+     },
+     {
+      "text": "Tempest Gem of Descent",
+      "parsed": false
+     },
+     {
+      "text": "Tribunal Gem of Duels",
+      "parsed": false
+     },
+     {
+      "text": "Union Gem of Folded Space",
+      "parsed": false
+     },
+     {
+      "text": "Weapon Gem of Flesh and Steel",
+      "parsed": false
+     },
+     {
+      "text": "Wheel Gem of Whims",
+      "parsed": false
+     },
+     {
+      "text": "Zenith Gem of Sorcery",
+      "parsed": false
+     }
+    ]
+   },
+   {
+    "condition": "Comes with three lines of random option, one stat each",
+    "effects": [
+     {
+      "text": "1: STR or INT 2: AGI or VIT 3: DEX or LUK Each line can be negative: -3",
+      "stat": "1: STR or INT 2: AGI or VIT 3: DEX or LUK Each line can be negative",
+      "value": -3,
+      "unit": null,
+      "parsed": true,
+      "stat_ids": [],
+      "stat_keys": []
+     },
+     {
+      "text": "-2",
+      "stat": "1: STR or INT 2: AGI or VIT 3: DEX or LUK Each line can be negative",
+      "value": -2,
+      "unit": null,
+      "parsed": true,
+      "stat_ids": [],
+      "stat_keys": [],
+      "stat_inherited": true
+     },
+     {
+      "text": "-1 or +1",
+      "stat": "-1 or",
+      "value": 1,
+      "unit": null,
+      "parsed": true,
+      "stat_ids": [],
+      "stat_keys": []
+     }
+    ]
+   }
+  ],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 14730,
+  "name": "Somatology Coffer",
+  "kind": "Usable",
+  "type": "Usable",
+  "category": "Usable",
+  "equip_slots": [],
+  "description": "Contains a Random Equipment from:\n\nRegeschrim Laboratory Dungeon\n\nKrieg\nHurricane Plague\nGuillotine Katar\nTatenashi Armor\nWichebine Suit\nSomatology Bracelet\nOrder Soul Shadows\nIllusion Soul Shadows\nDragon Soul Shadows\nLucky 7 Shadows",
+  "required_level": 0,
+  "weight": 100,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/14730.png",
+   "art": "images/art/14730.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1658,
+    "mob": "Forgotten Egnigem",
+    "mob_level": 80,
+    "zone": "Somatology Laboratory",
+    "chance_percent": 30,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1681,
+    "mob": "Gemini-S58",
+    "mob_level": 78,
+    "zone": "Somatology Laboratory",
+    "chance_percent": 2,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=14730",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 1,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [
+   {
+    "condition": "Contains a Random Equipment from",
+    "effects": [
+     {
+      "text": "Regeschrim Laboratory Dungeon",
+      "parsed": false
+     },
+     {
+      "text": "Krieg",
+      "parsed": false
+     },
+     {
+      "text": "Hurricane Plague",
+      "parsed": false
+     },
+     {
+      "text": "Guillotine Katar",
+      "parsed": false
+     },
+     {
+      "text": "Tatenashi Armor",
+      "parsed": false
+     },
+     {
+      "text": "Wichebine Suit",
+      "parsed": false
+     },
+     {
+      "text": "Somatology Bracelet",
+      "parsed": false
+     },
+     {
+      "text": "Order Soul Shadows",
+      "parsed": false
+     },
+     {
+      "text": "Illusion Soul Shadows",
+      "parsed": false
+     },
+     {
+      "text": "Dragon Soul Shadows",
+      "parsed": false
+     },
+     {
+      "text": "Lucky 7 Shadows",
+      "parsed": false
+     }
+    ]
+   }
+  ],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 12298,
+  "name": "SP Consumption Reduction Potion",
+  "kind": "Usable",
+  "type": "Usable",
+  "category": "Usable",
+  "equip_slots": [],
+  "description": "Reduced SP cost of skills by 15% for 1 hour.",
+  "required_level": 0,
+  "weight": 1,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/12298.png",
+   "art": "images/art/12298.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=12298",
+  "raw": {
+   "how": [
+    "War Helper · Varmundt's Orphanage",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    8
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Reduced SP cost of skills by 15% for 1 hour.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 12691,
+  "name": "Traveler Card Album",
+  "kind": "Usable",
+  "type": "Container",
+  "category": "Container",
+  "equip_slots": [],
+  "description": "A cool card album that has many cards owned by a collector.\nRewards a random Level 41 to 80 Field Card.\n\nEffect: Gives 1 random card",
+  "required_level": 0,
+  "weight": 5,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/12691.png",
+   "art": "images/art/12691.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=12691",
+  "raw": {
+   "how": [
+    "Card Artist · Varmundt's Mansion - Interior",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    9
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "A cool card album that has many cards owned by a collector.",
+    "parsed": false
+   },
+   {
+    "text": "Rewards a random Level 41 to 80 Field Card.",
+    "parsed": false
+   },
+   {
+    "text": "Effect: Gives 1 random card",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 12112,
+  "name": "Tropical Sograt",
+  "kind": "Usable",
+  "type": "Usable",
+  "category": "Usable",
+  "equip_slots": [],
+  "description": "A delicious alcoholic beverage made with exotic fruits found only in Morocc.\nIt's very sweet, so people can get drunk off it without realizing it.\n\nEffect: Inflicts Confuse and Curse\nRental duration: 10 sec",
+  "required_level": 0,
+  "weight": 10,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/12112.png",
+   "art": "images/art/12112.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=12112",
+  "raw": {
+   "how": [
+    "Bartender · Inside Morocc",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "",
+    null,
+    null,
+    6
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 1,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "A delicious alcoholic beverage made with exotic fruits found only in Morocc.",
+    "parsed": false
+   },
+   {
+    "text": "It's very sweet, so people can get drunk off it without realizing it.",
+    "parsed": false
+   },
+   {
+    "text": "Effect: Inflicts Confuse and Curse",
+    "parsed": false
+   },
+   {
+    "text": "Rental duration: 10 sec",
+    "stat": "Rental duration",
+    "value": 10,
+    "unit": "s",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Rental",
+    "skill_metric": "duration",
+    "skills": [
+     "Rental"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 658,
+  "name": "Union of Tribe",
+  "kind": "Usable",
+  "type": "Supportive",
+  "category": "Supportive",
+  "equip_slots": [],
+  "description": "A symbol of solidarity that evokes a feeling of nobility to those who see it.\n\nEffect: Gives EXP to guild",
+  "required_level": 0,
+  "weight": 50,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/658.png",
+   "art": "images/art/658.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=658",
+  "raw": {
+   "how": [
+    "War Helper · Varmundt's Orphanage",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    8
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "A symbol of solidarity that evokes a feeling of nobility to those who see it.",
+    "parsed": false
+   },
+   {
+    "text": "Effect: Gives EXP to guild",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 12113,
+  "name": "Vermilion on the Beach",
+  "kind": "Usable",
+  "type": "Usable",
+  "category": "Usable",
+  "equip_slots": [],
+  "description": "A scarlet colored cocktail, favored by the ladies, that gives the drinker the feeling of lounging on the beach.\n\nEffect: Inflicts Blind and Stun\nRental duration: 10 sec",
+  "required_level": 0,
+  "weight": 10,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/12113.png",
+   "art": "images/art/12113.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=12113",
+  "raw": {
+   "how": [
+    "Bartender · Inside Morocc",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "",
+    null,
+    null,
+    6
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 1,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "A scarlet colored cocktail, favored by the ladies, that gives the drinker the feeling of lounging on the beach.",
+    "parsed": false
+   },
+   {
+    "text": "Effect: Inflicts Blind and Stun",
+    "parsed": false
+   },
+   {
+    "text": "Rental duration: 10 sec",
+    "stat": "Rental duration",
+    "value": 10,
+    "unit": "s",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Rental",
+    "skill_metric": "duration",
+    "skills": [
+     "Rental"
+    ]
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 12690,
+  "name": "Walker Card Album",
+  "kind": "Usable",
+  "type": "Container",
+  "category": "Container",
+  "equip_slots": [],
+  "description": "A cool card album that has many cards owned by a collector.\nRewards a random Level 1 to 40 Field Card.\n\nEffect: Gives 1 random card",
+  "required_level": 0,
+  "weight": 5,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/12690.png",
+   "art": "images/art/12690.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=12690",
+  "raw": {
+   "how": [
+    "Card Artist · Varmundt's Mansion - Interior",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    9
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "A cool card album that has many cards owned by a collector.",
+    "parsed": false
+   },
+   {
+    "text": "Rewards a random Level 1 to 40 Field Card.",
+    "parsed": false
+   },
+   {
+    "text": "Effect: Gives 1 random card",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 12692,
+  "name": "Wanderer Card Album",
+  "kind": "Usable",
+  "type": "Container",
+  "category": "Container",
+  "equip_slots": [],
+  "description": "A cool card album that has many cards owned by a collector.\nRewards a random Level 81 to 99 Field Card.\n\nEffect: Gives 1 random card",
+  "required_level": 0,
+  "weight": 5,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/12692.png",
+   "art": "images/art/12692.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=12692",
+  "raw": {
+   "how": [
+    "Card Artist · Varmundt's Mansion - Interior",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    9
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "A cool card album that has many cards owned by a collector.",
+    "parsed": false
+   },
+   {
+    "text": "Rewards a random Level 81 to 99 Field Card.",
+    "parsed": false
+   },
+   {
+    "text": "Effect: Gives 1 random card",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 504,
+  "name": "White Potion",
+  "kind": "Usable",
+  "type": "Healing",
+  "category": "Healing",
+  "equip_slots": [],
+  "description": "Heals 1500 Base HP\n\n15 Seconds Cooldown",
+  "required_level": 0,
+  "weight": 80,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/504.png",
+   "art": "images/art/504.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=504",
+  "raw": {
+   "how": [
+    "Kafra · Prontera, Capital of Rune Midgarts",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    5
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Heals 1500 Base HP",
+    "parsed": false
+   },
+   {
+    "text": "15 Seconds Cooldown",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 547,
+  "name": "White Slim Potion",
+  "kind": "Usable",
+  "type": "Healing",
+  "category": "Healing",
+  "equip_slots": [],
+  "description": "Heals 1500 Base HP",
+  "required_level": 0,
+  "weight": 40,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/547.png",
+   "art": "images/art/547.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=547",
+  "raw": {
+   "how": [
+    "Kafra · Prontera, Capital of Rune Midgarts",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    5
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Heals 1500 Base HP",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 503,
+  "name": "Yellow Potion",
+  "kind": "Usable",
+  "type": "Healing",
+  "category": "Healing",
+  "equip_slots": [],
+  "description": "Heals 600 Base HP\n\n15 Seconds Cooldown",
+  "required_level": 0,
+  "weight": 40,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/503.png",
+   "art": "images/art/503.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=503",
+  "raw": {
+   "how": [
+    "Kafra · Prontera, Capital of Rune Midgarts",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    5
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Heals 600 Base HP",
+    "parsed": false
+   },
+   {
+    "text": "15 Seconds Cooldown",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 546,
+  "name": "Yellow Slim Potion",
+  "kind": "Usable",
+  "type": "Healing",
+  "category": "Healing",
+  "equip_slots": [],
+  "description": "Heals 600 Base HP",
+  "required_level": 0,
+  "weight": 20,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/546.png",
+   "art": "images/art/546.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=546",
+  "raw": {
+   "how": [
+    "Kafra · Prontera, Capital of Rune Midgarts",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    5
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Heals 600 Base HP",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 607,
+  "name": "Yggdrasil Berry",
+  "kind": "Usable",
+  "type": "Healing",
+  "category": "Healing",
+  "equip_slots": [],
+  "description": "Fully Heals HP and SP, 1 minute re-use cooldown.",
+  "required_level": 0,
+  "weight": 100,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/607.png",
+   "art": "images/art/607.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1083,
+    "mob": "Shining Plant",
+    "mob_level": 1,
+    "zone": "Yggdrasil Dungeon",
+    "chance_percent": 100,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1708,
+    "mob": "Memory of Thanatos",
+    "mob_level": 100,
+    "zone": "Thanatos Tower - Unknown Place",
+    "chance_percent": 100,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 2255,
+    "mob": "Soul Cage Azrael",
+    "mob_level": 100,
+    "zone": "Malaya Hospital",
+    "chance_percent": 100,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 3124,
+    "mob": "Charleston",
+    "mob_level": 130,
+    "zone": "Charleston Factory",
+    "chance_percent": 100,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 21610,
+    "mob": "Desperate Njord",
+    "mob_level": 140,
+    "zone": "Rachel SS",
+    "chance_percent": 100,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 2958,
+    "mob": "Paradox Amdarais",
+    "mob_level": 135,
+    "zone": "Mansion Lost Area",
+    "chance_percent": 60,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1734,
+    "mob": "Kiel DX-03",
+    "mob_level": 110,
+    "zone": "Kiel Hyre University",
+    "chance_percent": 50,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1871,
+    "mob": "Fallen Bishop",
+    "mob_level": 105,
+    "zone": "Cursed Abbey Dungeon",
+    "chance_percent": 50,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 2202,
+    "mob": "Kraken",
+    "mob_level": 115,
+    "zone": "Ancient Shrine of Byalan",
+    "chance_percent": 50,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 2549,
+    "mob": "Expert Novice",
+    "mob_level": 20,
+    "zone": "Prontera Field",
+    "chance_percent": 50,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1157,
+    "mob": "Pharaoh",
+    "mob_level": 35,
+    "zone": "Morocc Sphinx",
+    "chance_percent": 25,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1312,
+    "mob": "Turtle General",
+    "mob_level": 60,
+    "zone": "Turtle Palace",
+    "chance_percent": 25,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1930,
+    "mob": "Orphan Piamette",
+    "mob_level": 15,
+    "zone": "Inside Pyramid",
+    "chance_percent": 25,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1937,
+    "mob": "King Poring",
+    "mob_level": 20,
+    "zone": "Payon Forest",
+    "chance_percent": 25,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 2249,
+    "mob": "Angry Pyuriel",
+    "mob_level": 50,
+    "zone": "Noble Bathhouse",
+    "chance_percent": 25,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1275,
+    "mob": "Alice",
+    "mob_level": 85,
+    "zone": "Glastheim",
+    "chance_percent": 1,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1699,
+    "mob": "Ancient Mimic",
+    "mob_level": 94,
+    "zone": "Abyss Lakes Underground Cave",
+    "chance_percent": 1,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1082,
+    "mob": "White Plant",
+    "mob_level": 1,
+    "zone": "Yggdrasil Dungeon",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1518,
+    "mob": "Oracle Spirit",
+    "mob_level": 69,
+    "zone": "Payon Sunken Temple",
+    "chance_percent": 0.25,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 2312,
+    "mob": "Mangkukulam",
+    "mob_level": 98,
+    "zone": "Bangungot Hospital",
+    "chance_percent": 0.25,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [
+   {
+    "container_id": 14704,
+    "container": "MVP Prize Box"
+   }
+  ],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=607",
+  "raw": {
+   "how": [
+    "Master Raffle · Mora Village",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    8
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 1,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Fully Heals HP and SP, 1 minute re-use cooldown.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 7141,
+  "name": "Yggdrasil Dew",
+  "kind": "Usable",
+  "type": "Healing",
+  "category": "Healing",
+  "equip_slots": [],
+  "description": "Recover 25% HP and SP.\n15 Seconds cooldown",
+  "required_level": 0,
+  "weight": 10,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/7141.png",
+   "art": "images/art/7141.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=7141",
+  "raw": {
+   "how": [
+    "Eternal Sage · Inside Dicastes Diel",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    6
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Recover 25% HP and SP.",
+    "parsed": false
+   },
+   {
+    "text": "15 Seconds cooldown",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 608,
+  "name": "Yggdrasil Seed",
+  "kind": "Usable",
+  "type": "Healing",
+  "category": "Healing",
+  "equip_slots": [],
+  "description": "Heals 50% HP and SP, 1 minute re-use cooldown.",
+  "required_level": 0,
+  "weight": 50,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/608.png",
+   "art": "images/art/608.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1083,
+    "mob": "Shining Plant",
+    "mob_level": 1,
+    "zone": "Yggdrasil Dungeon",
+    "chance_percent": 100,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 2052,
+    "mob": "Abyss Lord",
+    "mob_level": 125,
+    "zone": "Abyss Glastheim Castle",
+    "chance_percent": 90,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1688,
+    "mob": "Lady Tanee",
+    "mob_level": 40,
+    "zone": "Prontera Field",
+    "chance_percent": 50,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 2186,
+    "mob": "Coelacanth",
+    "mob_level": 45,
+    "zone": "Byalan Deep Cave",
+    "chance_percent": 50,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1991,
+    "mob": "Black Tendrillion",
+    "mob_level": 75,
+    "zone": "Splendide Field",
+    "chance_percent": 25,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 2253,
+    "mob": "General Daehyon",
+    "mob_level": 70,
+    "zone": "Payon Hall of Memories",
+    "chance_percent": 20,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1785,
+    "mob": "Atroce",
+    "mob_level": 115,
+    "zone": "Veins Field",
+    "chance_percent": 6,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1395,
+    "mob": "Miguel",
+    "mob_level": 95,
+    "zone": "Beach of Tears",
+    "chance_percent": 3,
+    "mvp_reward": true
+   },
+   {
+    "mob_id": 1078,
+    "mob": "Red Plant",
+    "mob_level": 1,
+    "zone": "Sacred Altar Castle",
+    "chance_percent": 1,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1079,
+    "mob": "Blue Plant",
+    "mob_level": 1,
+    "zone": "Sacred Altar Castle",
+    "chance_percent": 1,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1080,
+    "mob": "Green Plant",
+    "mob_level": 1,
+    "zone": "Yggdrasil Dungeon",
+    "chance_percent": 1,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1081,
+    "mob": "Yellow Plant",
+    "mob_level": 1,
+    "zone": "Sacred Altar Castle",
+    "chance_percent": 1,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 3498,
+    "mob": "Save Assistant",
+    "mob_level": 101,
+    "zone": "Abandoned Kafra Warehouse",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 3631,
+    "mob": "Human Kimera",
+    "mob_level": 100,
+    "zone": "Slabw",
+    "chance_percent": 0.3,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 3632,
+    "mob": "Material Kimera",
+    "mob_level": 100,
+    "zone": "Slabw",
+    "chance_percent": 0.3,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1880,
+    "mob": "Dry Goblin",
+    "mob_level": 98,
+    "zone": "Geffenia",
+    "chance_percent": 0.25,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1271,
+    "mob": "Alligator",
+    "mob_level": 46,
+    "zone": "Papuchicha Forest",
+    "chance_percent": 0.1,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=608",
+  "raw": {
+   "how": [
+    "Master Raffle · Mora Village",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    8
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 1,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Heals 50% HP and SP, 1 minute re-use cooldown.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 14725,
+  "name": "Zodiac Costume Box",
+  "kind": "Usable",
+  "type": "Usable",
+  "category": "Usable",
+  "equip_slots": [],
+  "description": "Contains a random costume headgear from the zodiac headgears. The box has a strange sound from space when it's shaken.",
+  "required_level": 0,
+  "weight": 50,
+  "atk": 0,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": null,
+  "usable_by": null,
+  "images": {
+   "icon": "images/icons/14725.png",
+   "art": "images/art/14725.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Usable&id=14725",
+  "raw": {
+   "how": [
+    "Happy Girl · Varmundt's Orphanage",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    8
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Contains a random costume headgear from the zodiac headgears. The box has a strange sound from space when it's shaken.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ }
+]

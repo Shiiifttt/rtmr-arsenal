@@ -1,0 +1,2140 @@
+[
+ {
+  "id": 1764,
+  "name": "Absolute Arrow",
+  "kind": "Ammunition",
+  "type": "Arrow",
+  "category": "Arrow",
+  "equip_slots": [
+   "Ammunition"
+  ],
+  "description": "Added: Critical +5",
+  "required_level": 100,
+  "weight": 0,
+  "atk": 9,
+  "matk": 9,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": "Neutral",
+  "usable_by": "Deadeye, Duelist, Kingslayer, Phantom Thief, Prowler, Rogue, Sinner, Thief, Unchained Rogue, Unchained Thief",
+  "images": {
+   "icon": "images/icons/1764.png",
+   "art": "images/art/1764.png"
+  },
+  "drops": [
+   {
+    "mob_id": 2786,
+    "mob": "Guild Defender",
+    "mob_level": 147,
+    "zone": "Ymir's War Castle",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Ammunition&id=1764",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 1,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Added: Critical +5",
+    "stat": "Added: Critical",
+    "value": 5,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": []
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 1761,
+  "name": "Angel Slayer Arrow",
+  "kind": "Ammunition",
+  "type": "Arrow",
+  "category": "Arrow",
+  "equip_slots": [
+   "Ammunition"
+  ],
+  "description": "Added: Curse",
+  "required_level": 70,
+  "weight": 0,
+  "atk": 3,
+  "matk": 7,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": "Shadow",
+  "usable_by": "Deadeye, Duelist, Kingslayer, Phantom Thief, Prowler, Rogue, Sinner, Thief, Unchained Rogue, Unchained Thief",
+  "images": {
+   "icon": "images/icons/1761.png",
+   "art": "images/art/1761.png"
+  },
+  "drops": [
+   {
+    "mob_id": 2690,
+    "mob": "Spectre Raydric Archer",
+    "mob_level": 111,
+    "zone": "Old Glast Heim",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Ammunition&id=1761",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Added: Curse",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 1750,
+  "name": "Arrow",
+  "kind": "Ammunition",
+  "type": "Arrow",
+  "category": "Arrow",
+  "equip_slots": [
+   "Ammunition"
+  ],
+  "description": "Arrows Are not Consumed on attacks. Ranged attacks consume SP instead according to weapon.",
+  "required_level": 10,
+  "weight": 0,
+  "atk": 2,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": "Neutral",
+  "usable_by": "Deadeye, Duelist, Kingslayer, Phantom Thief, Prowler, Rogue, Sinner, Thief, Unchained Rogue, Unchained Thief",
+  "images": {
+   "icon": "images/icons/1750.png",
+   "art": "images/art/1750.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1007,
+    "mob": "Fabre",
+    "mob_level": 1,
+    "zone": "Prontera Field",
+    "chance_percent": 1,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Ammunition&id=1750",
+  "raw": {
+   "how": [
+    "Black Market · Alberta",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    7
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Arrows Are not Consumed on attacks. Ranged attacks consume SP instead according to weapon.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 1770,
+  "name": "Black Iron Arrow",
+  "kind": "Ammunition",
+  "type": "Arrow",
+  "category": "Arrow",
+  "equip_slots": [
+   "Ammunition"
+  ],
+  "description": "An arrow made of special iron, making it easier to pierce flesh. Difficult to use compared to regular arrows.",
+  "required_level": 40,
+  "weight": 0,
+  "atk": 5,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": "Neutral",
+  "usable_by": "Deadeye, Duelist, Kingslayer, Phantom Thief, Prowler, Rogue, Sinner, Thief, Unchained Rogue, Unchained Thief",
+  "images": {
+   "icon": "images/icons/1770.png",
+   "art": "images/art/1770.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1189,
+    "mob": "Orc Archer",
+    "mob_level": 52,
+    "zone": "Geffen Field",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Ammunition&id=1770",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "An arrow made of special iron, making it easier to pierce flesh. Difficult to use compared to regular arrows.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 13201,
+  "name": "Blast Bullet",
+  "kind": "Ammunition",
+  "type": "Bullet",
+  "category": "Bullet",
+  "equip_slots": [
+   "Ammunition"
+  ],
+  "description": "A bullet, made of lead. Used on Revolvers by Judges.",
+  "required_level": 25,
+  "weight": 0,
+  "atk": 3,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": "Neutral",
+  "usable_by": "Judge, Peacekeeper",
+  "images": {
+   "icon": "images/icons/13201.png",
+   "art": "images/art/13201.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Ammunition&id=13201",
+  "raw": {
+   "how": [
+    "Quartermaster · Prontera Central Palace",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    8
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "A bullet, made of lead. Used on Revolvers by Judges.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 13200,
+  "name": "Bullet",
+  "kind": "Ammunition",
+  "type": "Bullet",
+  "category": "Bullet",
+  "equip_slots": [
+   "Ammunition"
+  ],
+  "description": "A bullet, made of lead. Used on Revolvers by Judges.",
+  "required_level": 1,
+  "weight": 0,
+  "atk": 1,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": "Neutral",
+  "usable_by": "Judge, Peacekeeper",
+  "images": {
+   "icon": "images/icons/13200.png",
+   "art": "images/art/13200.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [
+   "notrade",
+   "nodrop",
+   "nocart"
+  ],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Ammunition&id=13200",
+  "raw": {
+   "how": [
+    "Catherine Gaebolg · Prontera Central Palace",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "",
+    null,
+    null,
+    1
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 1,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "A bullet, made of lead. Used on Revolvers by Judges.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 1754,
+  "name": "Crystal Arrow",
+  "kind": "Ammunition",
+  "type": "Arrow",
+  "category": "Arrow",
+  "equip_slots": [
+   "Ammunition"
+  ],
+  "description": "A crystal arrow, the tip is clearly liquid inside!",
+  "required_level": 15,
+  "weight": 0,
+  "atk": 1,
+  "matk": 1,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": "Water",
+  "usable_by": "Deadeye, Duelist, Kingslayer, Phantom Thief, Prowler, Rogue, Sinner, Thief, Unchained Rogue, Unchained Thief",
+  "images": {
+   "icon": "images/icons/1754.png",
+   "art": "images/art/1754.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1986,
+    "mob": "Tatacho",
+    "mob_level": 76,
+    "zone": "Frozen Fields, Southwest",
+    "chance_percent": 1,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Ammunition&id=1754",
+  "raw": {
+   "how": [
+    "Black Market · Alberta",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    7
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "A crystal arrow, the tip is clearly liquid inside!",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 1767,
+  "name": "Dark Arrow",
+  "kind": "Ammunition",
+  "type": "Arrow",
+  "category": "Arrow",
+  "equip_slots": [
+   "Ammunition"
+  ],
+  "description": "A black arrow filled with evil energy.",
+  "required_level": 25,
+  "weight": 0,
+  "atk": 2,
+  "matk": 2,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": "Shadow",
+  "usable_by": "Deadeye, Duelist, Kingslayer, Phantom Thief, Prowler, Rogue, Sinner, Thief, Unchained Rogue, Unchained Thief",
+  "images": {
+   "icon": "images/icons/1767.png",
+   "art": "images/art/1767.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1016,
+    "mob": "Archer Skeleton",
+    "mob_level": 17,
+    "zone": "Payon Cave",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1377,
+    "mob": "Elder",
+    "mob_level": 68,
+    "zone": "Clock Tower",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Ammunition&id=1767",
+  "raw": {
+   "how": [
+    "Black Market · Alberta",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    7
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "A black arrow filled with evil energy.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 1766,
+  "name": "Devil Slayer Arrow",
+  "kind": "Ammunition",
+  "type": "Arrow",
+  "category": "Arrow",
+  "equip_slots": [
+   "Ammunition"
+  ],
+  "description": "Added: Silence",
+  "required_level": 70,
+  "weight": 0,
+  "atk": 3,
+  "matk": 7,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": "Holy",
+  "usable_by": "Deadeye, Duelist, Kingslayer, Phantom Thief, Prowler, Rogue, Sinner, Thief, Unchained Rogue, Unchained Thief",
+  "images": {
+   "icon": "images/icons/1766.png",
+   "art": "images/art/1766.png"
+  },
+  "drops": [
+   {
+    "mob_id": 3476,
+    "mob": "Idun Avatar",
+    "mob_level": 102,
+    "zone": "Sky Garden Village",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Ammunition&id=1766",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Added: Silence",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 1773,
+  "name": "Elven Arrow",
+  "kind": "Ammunition",
+  "type": "Arrow",
+  "category": "Arrow",
+  "equip_slots": [
+   "Ammunition"
+  ],
+  "description": "An bright arrow that iluminates its path.",
+  "required_level": 85,
+  "weight": 0,
+  "atk": 8,
+  "matk": 4,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": "Neutral",
+  "usable_by": "Deadeye, Duelist, Kingslayer, Phantom Thief, Prowler, Rogue, Sinner, Thief, Unchained Rogue, Unchained Thief",
+  "images": {
+   "icon": "images/icons/1773.png",
+   "art": "images/art/1773.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1892,
+    "mob": "Night Ruri",
+    "mob_level": 116,
+    "zone": "Niflheim",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Ammunition&id=1773",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "An bright arrow that iluminates its path.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 1752,
+  "name": "Fire Arrow",
+  "kind": "Ammunition",
+  "type": "Arrow",
+  "category": "Arrow",
+  "equip_slots": [
+   "Ammunition"
+  ],
+  "description": "A fire arrow, the tip is actually pretty hot!",
+  "required_level": 15,
+  "weight": 0,
+  "atk": 1,
+  "matk": 1,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": "Fire",
+  "usable_by": "Deadeye, Duelist, Kingslayer, Phantom Thief, Prowler, Rogue, Sinner, Thief, Unchained Rogue, Unchained Thief",
+  "images": {
+   "icon": "images/icons/1752.png",
+   "art": "images/art/1752.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1885,
+    "mob": "Enchanted Dragon",
+    "mob_level": 74,
+    "zone": "Splendide Field",
+    "chance_percent": 1,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1403,
+    "mob": "Antique Firelock",
+    "mob_level": 92,
+    "zone": "Tatami Maze",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Ammunition&id=1752",
+  "raw": {
+   "how": [
+    "Black Market · Alberta",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    7
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "A fire arrow, the tip is actually pretty hot!",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 1760,
+  "name": "Flash Arrow",
+  "kind": "Ammunition",
+  "type": "Arrow",
+  "category": "Arrow",
+  "equip_slots": [
+   "Ammunition"
+  ],
+  "description": "Added: Blind",
+  "required_level": 50,
+  "weight": 0,
+  "atk": 3,
+  "matk": 3,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": "Fire",
+  "usable_by": "Deadeye, Duelist, Kingslayer, Phantom Thief, Prowler, Rogue, Sinner, Thief, Unchained Rogue, Unchained Thief",
+  "images": {
+   "icon": "images/icons/1760.png",
+   "art": "images/art/1760.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Ammunition&id=1760",
+  "raw": {
+   "how": [
+    "Black Market · Alberta",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    [
+     "Im Important",
+     "Dark Market · Nameless Island Entrance"
+    ],
+    7,
+    6
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Added: Blind",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 1759,
+  "name": "Frozen Arrow",
+  "kind": "Ammunition",
+  "type": "Arrow",
+  "category": "Arrow",
+  "equip_slots": [
+   "Ammunition"
+  ],
+  "description": "Added: Freeze",
+  "required_level": 50,
+  "weight": 0,
+  "atk": 3,
+  "matk": 3,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": "Water",
+  "usable_by": "Deadeye, Duelist, Kingslayer, Phantom Thief, Prowler, Rogue, Sinner, Thief, Unchained Rogue, Unchained Thief",
+  "images": {
+   "icon": "images/icons/1759.png",
+   "art": "images/art/1759.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1778,
+    "mob": "Gazeti",
+    "mob_level": 96,
+    "zone": "Rachel Ice Cave",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Ammunition&id=1759",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Added: Freeze",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 1774,
+  "name": "Giant Arrow",
+  "kind": "Ammunition",
+  "type": "Arrow",
+  "category": "Arrow",
+  "equip_slots": [
+   "Ammunition"
+  ],
+  "description": "An evil arrow, can cause enough dread and fear on enemies to curse them.",
+  "required_level": 85,
+  "weight": 100,
+  "atk": 15,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": "Neutral",
+  "usable_by": "Deadeye, Duelist, Kingslayer, Phantom Thief, Prowler, Rogue, Sinner, Thief, Unchained Rogue, Unchained Thief",
+  "images": {
+   "icon": "images/icons/1774.png",
+   "art": "images/art/1774.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1253,
+    "mob": "Gargoyle",
+    "mob_level": 140,
+    "zone": "Sinking Endless Tower",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Ammunition&id=1774",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "An evil arrow, can cause enough dread and fear on enemies to curse them.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 13216,
+  "name": "Grave Bullet",
+  "kind": "Ammunition",
+  "type": "Bullet",
+  "category": "Bullet",
+  "equip_slots": [
+   "Ammunition"
+  ],
+  "description": "A bullet with names of its targets written around it, brings the feeling of dead to its targets.",
+  "required_level": 50,
+  "weight": 0,
+  "atk": 2,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": "Undead",
+  "usable_by": "Judge, Peacekeeper",
+  "images": {
+   "icon": "images/icons/13216.png",
+   "art": "images/art/13216.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Ammunition&id=13216",
+  "raw": {
+   "how": [
+    "Quartermaster · Prontera Central Palace",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    8
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "A bullet with names of its targets written around it, brings the feeling of dead to its targets.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 1755,
+  "name": "Gust Arrow",
+  "kind": "Ammunition",
+  "type": "Arrow",
+  "category": "Arrow",
+  "equip_slots": [
+   "Ammunition"
+  ],
+  "description": "A wood arrow with a decoration of leaves, you can smell the wind blowing when you shoot it.",
+  "required_level": 15,
+  "weight": 0,
+  "atk": 1,
+  "matk": 1,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": "Wind",
+  "usable_by": "Deadeye, Duelist, Kingslayer, Phantom Thief, Prowler, Rogue, Sinner, Thief, Unchained Rogue, Unchained Thief",
+  "images": {
+   "icon": "images/icons/1755.png",
+   "art": "images/art/1755.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1018,
+    "mob": "Creamy",
+    "mob_level": 10,
+    "zone": "Prontera Field",
+    "chance_percent": 0.75,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Ammunition&id=1755",
+  "raw": {
+   "how": [
+    "Black Market · Alberta",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    7
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "A wood arrow with a decoration of leaves, you can smell the wind blowing when you shoot it.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 1757,
+  "name": "Immaterial Arrow",
+  "kind": "Ammunition",
+  "type": "Arrow",
+  "category": "Arrow",
+  "equip_slots": [
+   "Ammunition"
+  ],
+  "description": "An arrow that isn't really an arrow, or is it?",
+  "required_level": 25,
+  "weight": 0,
+  "atk": 2,
+  "matk": 2,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": "Ghost",
+  "usable_by": "Deadeye, Duelist, Kingslayer, Phantom Thief, Prowler, Rogue, Sinner, Thief, Unchained Rogue, Unchained Thief",
+  "images": {
+   "icon": "images/icons/1757.png",
+   "art": "images/art/1757.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1512,
+    "mob": "Hyegun",
+    "mob_level": 62,
+    "zone": "Payon Sunken Temple",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Ammunition&id=1757",
+  "raw": {
+   "how": [
+    "Black Market · Alberta",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    7
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "An arrow that isn't really an arrow, or is it?",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 13217,
+  "name": "Last Objection",
+  "kind": "Ammunition",
+  "type": "Bullet",
+  "category": "Bullet",
+  "equip_slots": [
+   "Ammunition"
+  ],
+  "description": "Destiny is upon one's own hands.",
+  "required_level": 100,
+  "weight": 0,
+  "atk": 4,
+  "matk": 4,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": "Neutral",
+  "usable_by": "Judge, Peacekeeper",
+  "images": {
+   "icon": "images/icons/13217.png",
+   "art": "images/art/13217.png"
+  },
+  "drops": [
+   {
+    "mob_id": 2790,
+    "mob": "Ymir Emperium",
+    "mob_level": 150,
+    "zone": "Ymir's War Castle",
+    "chance_percent": 5.0,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Ammunition&id=13217",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 1,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Destiny is upon one's own hands.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 1765,
+  "name": "Oridecon Arrow",
+  "kind": "Ammunition",
+  "type": "Arrow",
+  "category": "Arrow",
+  "equip_slots": [
+   "Ammunition"
+  ],
+  "description": "An oridecon tipped arrow, extremely strong and sharp.",
+  "required_level": 60,
+  "weight": 0,
+  "atk": 7,
+  "matk": 3,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": "Neutral",
+  "usable_by": "Deadeye, Duelist, Kingslayer, Phantom Thief, Prowler, Rogue, Sinner, Thief, Unchained Rogue, Unchained Thief",
+  "images": {
+   "icon": "images/icons/1765.png",
+   "art": "images/art/1765.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1276,
+    "mob": "Raydric Archer",
+    "mob_level": 90,
+    "zone": "Inside Glastheim Chivalry",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Ammunition&id=1765",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "An oridecon tipped arrow, extremely strong and sharp.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 1763,
+  "name": "Poison Arrow",
+  "kind": "Ammunition",
+  "type": "Arrow",
+  "category": "Arrow",
+  "equip_slots": [
+   "Ammunition"
+  ],
+  "description": "Added: Poison",
+  "required_level": 50,
+  "weight": 0,
+  "atk": 5,
+  "matk": 5,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": "Earth",
+  "usable_by": "Deadeye, Duelist, Kingslayer, Phantom Thief, Prowler, Rogue, Sinner, Thief, Unchained Rogue, Unchained Thief",
+  "images": {
+   "icon": "images/icons/1763.png",
+   "art": "images/art/1763.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1282,
+    "mob": "Kobold Archer",
+    "mob_level": 57,
+    "zone": "Fortress Saint Darmain (West)",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Ammunition&id=1763",
+  "raw": {
+   "how": 0,
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Added: Poison",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 1762,
+  "name": "Rusty Arrow",
+  "kind": "Ammunition",
+  "type": "Arrow",
+  "category": "Arrow",
+  "equip_slots": [
+   "Ammunition"
+  ],
+  "description": "An old, very strange arrow that can poison the enemies.",
+  "required_level": 60,
+  "weight": 0,
+  "atk": 3,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": "Poison",
+  "usable_by": "Deadeye, Duelist, Kingslayer, Phantom Thief, Prowler, Rogue, Sinner, Thief, Unchained Rogue, Unchained Thief",
+  "images": {
+   "icon": "images/icons/1762.png",
+   "art": "images/art/1762.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Ammunition&id=1762",
+  "raw": {
+   "how": [
+    "Black Market · Alberta",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    [
+     "Im Important",
+     "Dark Market · Nameless Island Entrance"
+    ],
+    7,
+    6
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "An old, very strange arrow that can poison the enemies.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 13220,
+  "name": "Sacred Bullet",
+  "kind": "Ammunition",
+  "type": "Bullet",
+  "category": "Bullet",
+  "equip_slots": [
+   "Ammunition"
+  ],
+  "description": "A bullet blessed by divine light, purifies evil with each shot.\nCarries the power of sacred energy to smite the darkness.",
+  "required_level": 1,
+  "weight": 0,
+  "atk": 1,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": "Holy",
+  "usable_by": "Judge, Peacekeeper",
+  "images": {
+   "icon": "images/icons/13220.png",
+   "art": "images/art/13220.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": "new",
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Ammunition&id=13220",
+  "raw": {
+   "how": [
+    "Black Market · Alberta",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    7
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "A bullet blessed by divine light, purifies evil with each shot.",
+    "parsed": false
+   },
+   {
+    "text": "Carries the power of sacred energy to smite the darkness.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 13232,
+  "name": "Shadow Bullet",
+  "kind": "Ammunition",
+  "type": "Bullet",
+  "category": "Bullet",
+  "equip_slots": [
+   "Ammunition"
+  ],
+  "description": "A bullet forged from shadow essence, brings darkness to its targets.\nEach shot whispers of the void, consuming light in its path.",
+  "required_level": 1,
+  "weight": 0,
+  "atk": 1,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": "Shadow",
+  "usable_by": "Judge, Peacekeeper",
+  "images": {
+   "icon": "images/icons/13232.png",
+   "art": "images/art/13232.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": "new",
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Ammunition&id=13232",
+  "raw": {
+   "how": [
+    "Black Market · Alberta",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    7
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "A bullet forged from shadow essence, brings darkness to its targets.",
+    "parsed": false
+   },
+   {
+    "text": "Each shot whispers of the void, consuming light in its path.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 1751,
+  "name": "Silver Arrow",
+  "kind": "Ammunition",
+  "type": "Arrow",
+  "category": "Arrow",
+  "equip_slots": [
+   "Ammunition"
+  ],
+  "description": "A silver arrow, good for hunting evil beings.",
+  "required_level": 25,
+  "weight": 0,
+  "atk": 2,
+  "matk": 2,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": "Holy",
+  "usable_by": "Deadeye, Duelist, Kingslayer, Phantom Thief, Prowler, Rogue, Sinner, Thief, Unchained Rogue, Unchained Thief",
+  "images": {
+   "icon": "images/icons/1751.png",
+   "art": "images/art/1751.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1772,
+    "mob": "Isilla",
+    "mob_level": 102,
+    "zone": "Freya's Sacred Precinct",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Ammunition&id=1751",
+  "raw": {
+   "how": [
+    "Black Market · Alberta",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    7
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "A silver arrow, good for hunting evil beings.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 1753,
+  "name": "Steel Arrow",
+  "kind": "Ammunition",
+  "type": "Arrow",
+  "category": "Arrow",
+  "equip_slots": [
+   "Ammunition"
+  ],
+  "description": "A steel tipped arrow, it pierces enemies very well.",
+  "required_level": 20,
+  "weight": 0,
+  "atk": 4,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": "Neutral",
+  "usable_by": "Deadeye, Duelist, Kingslayer, Phantom Thief, Prowler, Rogue, Sinner, Thief, Unchained Rogue, Unchained Thief",
+  "images": {
+   "icon": "images/icons/1753.png",
+   "art": "images/art/1753.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1782,
+    "mob": "Roween",
+    "mob_level": 93,
+    "zone": "Ida Plane",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Ammunition&id=1753",
+  "raw": {
+   "how": [
+    "Black Market · Alberta",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    7
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "A steel tipped arrow, it pierces enemies very well.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 1756,
+  "name": "Stone Arrow",
+  "kind": "Ammunition",
+  "type": "Arrow",
+  "category": "Arrow",
+  "equip_slots": [
+   "Ammunition"
+  ],
+  "description": "A stone tip in a wood arrow, it's sturdy and does to job.",
+  "required_level": 15,
+  "weight": 0,
+  "atk": 1,
+  "matk": 1,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": "Earth",
+  "usable_by": "Deadeye, Duelist, Kingslayer, Phantom Thief, Prowler, Rogue, Sinner, Thief, Unchained Rogue, Unchained Thief",
+  "images": {
+   "icon": "images/icons/1756.png",
+   "art": "images/art/1756.png"
+  },
+  "drops": [
+   {
+    "mob_id": 1586,
+    "mob": "Leaf Cat",
+    "mob_level": 82,
+    "zone": "Ayothaya Field",
+    "chance_percent": 1.5,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1258,
+    "mob": "Goblin Archer",
+    "mob_level": 30,
+    "zone": "Geffen Field",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   },
+   {
+    "mob_id": 1572,
+    "mob": "Calmaring",
+    "mob_level": 74,
+    "zone": "Hunting Ground",
+    "chance_percent": 0.5,
+    "mvp_reward": false
+   }
+  ],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Ammunition&id=1756",
+  "raw": {
+   "how": [
+    "Black Market · Alberta",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    7
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 1
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "A stone tip in a wood arrow, it's sturdy and does to job.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 1758,
+  "name": "Stun Arrow",
+  "kind": "Ammunition",
+  "type": "Arrow",
+  "category": "Arrow",
+  "equip_slots": [
+   "Ammunition"
+  ],
+  "description": "Added: Stun",
+  "required_level": 50,
+  "weight": 0,
+  "atk": 3,
+  "matk": 3,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": "Wind",
+  "usable_by": "Deadeye, Duelist, Kingslayer, Phantom Thief, Prowler, Rogue, Sinner, Thief, Unchained Rogue, Unchained Thief",
+  "images": {
+   "icon": "images/icons/1758.png",
+   "art": "images/art/1758.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Ammunition&id=1758",
+  "raw": {
+   "how": [
+    "Black Market · Alberta",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    [
+     "Im Important",
+     "Dark Market · Nameless Island Entrance"
+    ],
+    7,
+    6
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "Added: Stun",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ },
+ {
+  "id": 13215,
+  "name": "Toxic Bullet",
+  "kind": "Ammunition",
+  "type": "Bullet",
+  "category": "Bullet",
+  "equip_slots": [
+   "Ammunition"
+  ],
+  "description": "A venomous bullet, doesn't poison the target, but causes the same effects.",
+  "required_level": 50,
+  "weight": 0,
+  "atk": 2,
+  "matk": 0,
+  "def": 0,
+  "mdef": 0,
+  "card_slots": 0,
+  "refineable": false,
+  "weapon_level": null,
+  "element": "Poison",
+  "usable_by": "Judge, Peacekeeper",
+  "images": {
+   "icon": "images/icons/13215.png",
+   "art": "images/art/13215.png"
+  },
+  "drops": [],
+  "containers": [],
+  "on_cast": [],
+  "card_affix": null,
+  "summons": null,
+  "trade_restrictions": [],
+  "patch_notes": [],
+  "freshness": null,
+  "renamed_from": null,
+  "source_url": "https://rtm-database.pages.dev/?kind=Ammunition&id=13215",
+  "raw": {
+   "how": [
+    "Quartermaster · Prontera Central Palace",
+    "",
+    "",
+    [],
+    "",
+    "",
+    "sold",
+    null,
+    null,
+    8
+   ],
+   "hatred": 0,
+   "hatred_count": 0,
+   "icon_bits": 3,
+   "no_source": 0,
+   "source_mvp": 0,
+   "source_normal": 0
+  },
+  "sets": [],
+  "effects": [
+   {
+    "text": "A venomous bullet, doesn't poison the target, but causes the same effects.",
+    "parsed": false
+   }
+  ],
+  "piece_bonus": [],
+  "refine": {
+   "per_refine": [],
+   "thresholds": []
+  },
+  "conditional": [],
+  "enchant": null,
+  "lore": null,
+  "override": null
+ }
+]

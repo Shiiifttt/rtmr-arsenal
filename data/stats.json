@@ -1,0 +1,928 @@
+[
+ {
+  "id": 0,
+  "key": "str",
+  "name": "STR",
+  "category": "primary"
+ },
+ {
+  "id": 1,
+  "key": "agi",
+  "name": "AGI",
+  "category": "primary"
+ },
+ {
+  "id": 2,
+  "key": "vit",
+  "name": "VIT",
+  "category": "primary"
+ },
+ {
+  "id": 3,
+  "key": "int",
+  "name": "INT",
+  "category": "primary"
+ },
+ {
+  "id": 4,
+  "key": "dex",
+  "name": "DEX",
+  "category": "primary"
+ },
+ {
+  "id": 5,
+  "key": "luk",
+  "name": "LUK",
+  "category": "primary"
+ },
+ {
+  "id": 6,
+  "key": "max_hp",
+  "name": "Max HP",
+  "category": "resource"
+ },
+ {
+  "id": 7,
+  "key": "max_sp",
+  "name": "Max SP",
+  "category": "resource"
+ },
+ {
+  "id": 8,
+  "key": "hp_regen",
+  "name": "HP Regen",
+  "category": "resource"
+ },
+ {
+  "id": 9,
+  "key": "sp_regen",
+  "name": "SP Regen",
+  "category": "resource"
+ },
+ {
+  "id": 10,
+  "key": "atk",
+  "name": "ATK",
+  "category": "offence"
+ },
+ {
+  "id": 11,
+  "key": "matk",
+  "name": "MATK",
+  "category": "offence"
+ },
+ {
+  "id": 12,
+  "key": "hit",
+  "name": "Hit",
+  "category": "offence"
+ },
+ {
+  "id": 13,
+  "key": "perfect_hit",
+  "name": "Perfect Hit",
+  "category": "offence"
+ },
+ {
+  "id": 14,
+  "key": "crit_rate",
+  "name": "Critical Rate",
+  "category": "offence"
+ },
+ {
+  "id": 15,
+  "key": "crit_damage",
+  "name": "Critical Damage",
+  "category": "offence"
+ },
+ {
+  "id": 16,
+  "key": "aspd",
+  "name": "ASPD",
+  "category": "offence"
+ },
+ {
+  "id": 17,
+  "key": "aspd_limit",
+  "name": "ASPD Limit",
+  "category": "offence"
+ },
+ {
+  "id": 18,
+  "key": "attack_range",
+  "name": "Attack Range",
+  "category": "offence"
+ },
+ {
+  "id": 19,
+  "key": "splash_range",
+  "name": "Splash Range",
+  "category": "offence"
+ },
+ {
+  "id": 20,
+  "key": "double_attack",
+  "name": "Double Attack",
+  "category": "offence",
+  "combine": "max",
+  "cap": 10
+ },
+ {
+  "id": 21,
+  "key": "melee_damage",
+  "name": "Melee Damage",
+  "category": "offence"
+ },
+ {
+  "id": 22,
+  "key": "ranged_damage",
+  "name": "Ranged Damage",
+  "category": "offence"
+ },
+ {
+  "id": 23,
+  "key": "magic_damage",
+  "name": "Magic Damage",
+  "category": "offence"
+ },
+ {
+  "id": 24,
+  "key": "def",
+  "name": "DEF",
+  "category": "defence"
+ },
+ {
+  "id": 25,
+  "key": "mdef",
+  "name": "MDEF",
+  "category": "defence"
+ },
+ {
+  "id": 26,
+  "key": "flee",
+  "name": "Flee",
+  "category": "defence"
+ },
+ {
+  "id": 27,
+  "key": "perfect_dodge",
+  "name": "Perfect Dodge",
+  "category": "defence"
+ },
+ {
+  "id": 28,
+  "key": "def_pen",
+  "name": "Defense Penetration",
+  "category": "defence"
+ },
+ {
+  "id": 29,
+  "key": "mdef_pen",
+  "name": "Magic Defense Penetration",
+  "category": "defence"
+ },
+ {
+  "id": 30,
+  "key": "damage_reduction",
+  "name": "Damage Reduction",
+  "category": "defence"
+ },
+ {
+  "id": 31,
+  "key": "reflect_melee",
+  "name": "Reflect Melee Damage",
+  "category": "defence"
+ },
+ {
+  "id": 32,
+  "key": "cast_time",
+  "name": "Cast Time",
+  "category": "casting"
+ },
+ {
+  "id": 33,
+  "key": "variable_cast",
+  "name": "Variable Cast Time",
+  "category": "casting"
+ },
+ {
+  "id": 34,
+  "key": "fixed_cast",
+  "name": "Fixed Cast Time",
+  "category": "casting"
+ },
+ {
+  "id": 35,
+  "key": "after_cast_delay",
+  "name": "After Cast Delay",
+  "category": "casting"
+ },
+ {
+  "id": 36,
+  "key": "cooldown",
+  "name": "Cooldown",
+  "category": "casting"
+ },
+ {
+  "id": 37,
+  "key": "sp_cost",
+  "name": "SP Cost",
+  "category": "cost"
+ },
+ {
+  "id": 38,
+  "key": "attack_sp_cost",
+  "name": "Attack SP Cost",
+  "category": "cost"
+ },
+ {
+  "id": 39,
+  "key": "move_speed",
+  "name": "Move Speed",
+  "category": "utility"
+ },
+ {
+  "id": 40,
+  "key": "weight_limit",
+  "name": "Weight Limit",
+  "category": "utility"
+ },
+ {
+  "id": 41,
+  "key": "exp_gain",
+  "name": "EXP Gain",
+  "category": "utility"
+ },
+ {
+  "id": 42,
+  "key": "healing_power",
+  "name": "Healing Power",
+  "category": "utility"
+ },
+ {
+  "id": 43,
+  "key": "healing_received",
+  "name": "Healing Received",
+  "category": "utility"
+ },
+ {
+  "id": 44,
+  "key": "leech_hp_rate",
+  "name": "HP Leech Rate",
+  "category": "utility"
+ },
+ {
+  "id": 45,
+  "key": "leech_hp_power",
+  "name": "HP Leech Power",
+  "category": "utility"
+ },
+ {
+  "id": 46,
+  "key": "leech_sp_rate",
+  "name": "SP Leech Rate",
+  "category": "utility"
+ },
+ {
+  "id": 47,
+  "key": "leech_sp_power",
+  "name": "SP Leech Power",
+  "category": "utility"
+ },
+ {
+  "id": 48,
+  "key": "drop_rate",
+  "name": "Drop Rate",
+  "category": "utility"
+ },
+ {
+  "id": 49,
+  "key": "potion_healing",
+  "name": "Potion Healing Power",
+  "category": "utility"
+ },
+ {
+  "id": 50,
+  "key": "vengeance_rate",
+  "name": "Vengeance Rate",
+  "category": "offence"
+ },
+ {
+  "id": 51,
+  "key": "double_attack_rate",
+  "name": "Double Attack Rate",
+  "category": "offence"
+ },
+ {
+  "id": 52,
+  "key": "magic_damage_received",
+  "name": "Magic Damage Received",
+  "category": "defence"
+ },
+ {
+  "id": 53,
+  "key": "physical_damage_received",
+  "name": "Physical Damage Received",
+  "category": "defence"
+ },
+ {
+  "id": 54,
+  "key": "dmg_vs_neutral",
+  "name": "DMG vs Neutral",
+  "category": "element_damage"
+ },
+ {
+  "id": 55,
+  "key": "res_neutral",
+  "name": "Neutral Resistance",
+  "category": "element_resist"
+ },
+ {
+  "id": 56,
+  "key": "magic_dmg_neutral",
+  "name": "Neutral Magic DMG",
+  "category": "element_damage"
+ },
+ {
+  "id": 57,
+  "key": "dmg_vs_water",
+  "name": "DMG vs Water",
+  "category": "element_damage"
+ },
+ {
+  "id": 58,
+  "key": "res_water",
+  "name": "Water Resistance",
+  "category": "element_resist"
+ },
+ {
+  "id": 59,
+  "key": "magic_dmg_water",
+  "name": "Water Magic DMG",
+  "category": "element_damage"
+ },
+ {
+  "id": 60,
+  "key": "dmg_vs_earth",
+  "name": "DMG vs Earth",
+  "category": "element_damage"
+ },
+ {
+  "id": 61,
+  "key": "res_earth",
+  "name": "Earth Resistance",
+  "category": "element_resist"
+ },
+ {
+  "id": 62,
+  "key": "magic_dmg_earth",
+  "name": "Earth Magic DMG",
+  "category": "element_damage"
+ },
+ {
+  "id": 63,
+  "key": "dmg_vs_fire",
+  "name": "DMG vs Fire",
+  "category": "element_damage"
+ },
+ {
+  "id": 64,
+  "key": "res_fire",
+  "name": "Fire Resistance",
+  "category": "element_resist"
+ },
+ {
+  "id": 65,
+  "key": "magic_dmg_fire",
+  "name": "Fire Magic DMG",
+  "category": "element_damage"
+ },
+ {
+  "id": 66,
+  "key": "dmg_vs_wind",
+  "name": "DMG vs Wind",
+  "category": "element_damage"
+ },
+ {
+  "id": 67,
+  "key": "res_wind",
+  "name": "Wind Resistance",
+  "category": "element_resist"
+ },
+ {
+  "id": 68,
+  "key": "magic_dmg_wind",
+  "name": "Wind Magic DMG",
+  "category": "element_damage"
+ },
+ {
+  "id": 69,
+  "key": "dmg_vs_poison",
+  "name": "DMG vs Poison",
+  "category": "element_damage"
+ },
+ {
+  "id": 70,
+  "key": "res_poison",
+  "name": "Poison Resistance",
+  "category": "element_resist"
+ },
+ {
+  "id": 71,
+  "key": "magic_dmg_poison",
+  "name": "Poison Magic DMG",
+  "category": "element_damage"
+ },
+ {
+  "id": 72,
+  "key": "dmg_vs_holy",
+  "name": "DMG vs Holy",
+  "category": "element_damage"
+ },
+ {
+  "id": 73,
+  "key": "res_holy",
+  "name": "Holy Resistance",
+  "category": "element_resist"
+ },
+ {
+  "id": 74,
+  "key": "magic_dmg_holy",
+  "name": "Holy Magic DMG",
+  "category": "element_damage"
+ },
+ {
+  "id": 75,
+  "key": "dmg_vs_dark",
+  "name": "DMG vs Dark",
+  "category": "element_damage"
+ },
+ {
+  "id": 76,
+  "key": "res_dark",
+  "name": "Dark Resistance",
+  "category": "element_resist"
+ },
+ {
+  "id": 77,
+  "key": "magic_dmg_dark",
+  "name": "Dark Magic DMG",
+  "category": "element_damage"
+ },
+ {
+  "id": 78,
+  "key": "dmg_vs_ghost",
+  "name": "DMG vs Ghost",
+  "category": "element_damage"
+ },
+ {
+  "id": 79,
+  "key": "res_ghost",
+  "name": "Ghost Resistance",
+  "category": "element_resist"
+ },
+ {
+  "id": 80,
+  "key": "magic_dmg_ghost",
+  "name": "Ghost Magic DMG",
+  "category": "element_damage"
+ },
+ {
+  "id": 81,
+  "key": "dmg_vs_undead",
+  "name": "DMG vs Undead",
+  "category": "element_damage"
+ },
+ {
+  "id": 82,
+  "key": "res_undead",
+  "name": "Undead Resistance",
+  "category": "element_resist"
+ },
+ {
+  "id": 83,
+  "key": "magic_dmg_undead",
+  "name": "Undead Magic DMG",
+  "category": "element_damage"
+ },
+ {
+  "id": 84,
+  "key": "dmg_vs_race_formless",
+  "name": "DMG vs Formless",
+  "category": "race_damage"
+ },
+ {
+  "id": 85,
+  "key": "res_race_formless",
+  "name": "Resistance vs Formless",
+  "category": "race_resist"
+ },
+ {
+  "id": 86,
+  "key": "dmg_vs_race_undead_race",
+  "name": "DMG vs Undead Race",
+  "category": "race_damage"
+ },
+ {
+  "id": 87,
+  "key": "res_race_undead_race",
+  "name": "Resistance vs Undead Race",
+  "category": "race_resist"
+ },
+ {
+  "id": 88,
+  "key": "dmg_vs_race_brute",
+  "name": "DMG vs Brute",
+  "category": "race_damage"
+ },
+ {
+  "id": 89,
+  "key": "res_race_brute",
+  "name": "Resistance vs Brute",
+  "category": "race_resist"
+ },
+ {
+  "id": 90,
+  "key": "dmg_vs_race_plant",
+  "name": "DMG vs Plant",
+  "category": "race_damage"
+ },
+ {
+  "id": 91,
+  "key": "res_race_plant",
+  "name": "Resistance vs Plant",
+  "category": "race_resist"
+ },
+ {
+  "id": 92,
+  "key": "dmg_vs_race_insect",
+  "name": "DMG vs Insect",
+  "category": "race_damage"
+ },
+ {
+  "id": 93,
+  "key": "res_race_insect",
+  "name": "Resistance vs Insect",
+  "category": "race_resist"
+ },
+ {
+  "id": 94,
+  "key": "dmg_vs_race_fish",
+  "name": "DMG vs Fish",
+  "category": "race_damage"
+ },
+ {
+  "id": 95,
+  "key": "res_race_fish",
+  "name": "Resistance vs Fish",
+  "category": "race_resist"
+ },
+ {
+  "id": 96,
+  "key": "dmg_vs_race_demon",
+  "name": "DMG vs Demon",
+  "category": "race_damage"
+ },
+ {
+  "id": 97,
+  "key": "res_race_demon",
+  "name": "Resistance vs Demon",
+  "category": "race_resist"
+ },
+ {
+  "id": 98,
+  "key": "dmg_vs_race_demihuman",
+  "name": "DMG vs Demihuman",
+  "category": "race_damage"
+ },
+ {
+  "id": 99,
+  "key": "res_race_demihuman",
+  "name": "Resistance vs Demihuman",
+  "category": "race_resist"
+ },
+ {
+  "id": 100,
+  "key": "dmg_vs_race_angel",
+  "name": "DMG vs Angel",
+  "category": "race_damage"
+ },
+ {
+  "id": 101,
+  "key": "res_race_angel",
+  "name": "Resistance vs Angel",
+  "category": "race_resist"
+ },
+ {
+  "id": 102,
+  "key": "dmg_vs_race_dragon",
+  "name": "DMG vs Dragon",
+  "category": "race_damage"
+ },
+ {
+  "id": 103,
+  "key": "res_race_dragon",
+  "name": "Resistance vs Dragon",
+  "category": "race_resist"
+ },
+ {
+  "id": 104,
+  "key": "dmg_vs_race_boss",
+  "name": "DMG vs Boss",
+  "category": "race_damage"
+ },
+ {
+  "id": 105,
+  "key": "res_race_boss",
+  "name": "Resistance vs Boss",
+  "category": "race_resist"
+ },
+ {
+  "id": 106,
+  "key": "dmg_vs_race_non_boss",
+  "name": "DMG vs Non Boss",
+  "category": "race_damage"
+ },
+ {
+  "id": 107,
+  "key": "res_race_non_boss",
+  "name": "Resistance vs Non Boss",
+  "category": "race_resist"
+ },
+ {
+  "id": 108,
+  "key": "dmg_vs_race_all_races",
+  "name": "DMG vs All Races",
+  "category": "race_damage"
+ },
+ {
+  "id": 109,
+  "key": "res_race_all_races",
+  "name": "Resistance vs All Races",
+  "category": "race_resist"
+ },
+ {
+  "id": 110,
+  "key": "dmg_vs_size_small",
+  "name": "DMG vs Small",
+  "category": "size_damage"
+ },
+ {
+  "id": 111,
+  "key": "def_vs_size_small",
+  "name": "Defense vs Small",
+  "category": "size_defence"
+ },
+ {
+  "id": 112,
+  "key": "magic_vs_size_small",
+  "name": "Magic vs Small",
+  "category": "size_damage"
+ },
+ {
+  "id": 113,
+  "key": "dmg_vs_size_medium",
+  "name": "DMG vs Medium",
+  "category": "size_damage"
+ },
+ {
+  "id": 114,
+  "key": "def_vs_size_medium",
+  "name": "Defense vs Medium",
+  "category": "size_defence"
+ },
+ {
+  "id": 115,
+  "key": "magic_vs_size_medium",
+  "name": "Magic vs Medium",
+  "category": "size_damage"
+ },
+ {
+  "id": 116,
+  "key": "dmg_vs_size_large",
+  "name": "DMG vs Large",
+  "category": "size_damage"
+ },
+ {
+  "id": 117,
+  "key": "def_vs_size_large",
+  "name": "Defense vs Large",
+  "category": "size_defence"
+ },
+ {
+  "id": 118,
+  "key": "magic_vs_size_large",
+  "name": "Magic vs Large",
+  "category": "size_damage"
+ },
+ {
+  "id": 119,
+  "key": "dmg_vs_size_all_sizes",
+  "name": "DMG vs All Sizes",
+  "category": "size_damage"
+ },
+ {
+  "id": 120,
+  "key": "def_vs_size_all_sizes",
+  "name": "Defense vs All Sizes",
+  "category": "size_defence"
+ },
+ {
+  "id": 121,
+  "key": "magic_vs_size_all_sizes",
+  "name": "Magic vs All Sizes",
+  "category": "size_damage"
+ },
+ {
+  "id": 122,
+  "key": "res_status_freeze",
+  "name": "Freeze Resistance",
+  "category": "status_resist"
+ },
+ {
+  "id": 123,
+  "key": "res_status_stun",
+  "name": "Stun Resistance",
+  "category": "status_resist"
+ },
+ {
+  "id": 124,
+  "key": "res_status_stone",
+  "name": "Stone Resistance",
+  "category": "status_resist"
+ },
+ {
+  "id": 125,
+  "key": "res_status_curse",
+  "name": "Curse Resistance",
+  "category": "status_resist"
+ },
+ {
+  "id": 126,
+  "key": "res_status_silence",
+  "name": "Silence Resistance",
+  "category": "status_resist"
+ },
+ {
+  "id": 127,
+  "key": "res_status_sleep",
+  "name": "Sleep Resistance",
+  "category": "status_resist"
+ },
+ {
+  "id": 128,
+  "key": "res_status_blind",
+  "name": "Blind Resistance",
+  "category": "status_resist"
+ },
+ {
+  "id": 129,
+  "key": "res_status_poison_status",
+  "name": "Poison Resistance",
+  "category": "status_resist"
+ },
+ {
+  "id": 130,
+  "key": "res_status_bleeding",
+  "name": "Bleeding Resistance",
+  "category": "status_resist"
+ },
+ {
+  "id": 131,
+  "key": "res_status_confusion",
+  "name": "Confusion Resistance",
+  "category": "status_resist"
+ },
+ {
+  "id": 132,
+  "key": "no_size_penalty",
+  "name": "No Size Penalty",
+  "category": "flag"
+ },
+ {
+  "id": 133,
+  "key": "ignores_reflect",
+  "name": "Ignores Reflect Damage",
+  "category": "flag"
+ },
+ {
+  "id": 134,
+  "key": "unbreakable_weapon",
+  "name": "Unbreakable Weapon",
+  "category": "flag"
+ },
+ {
+  "id": 135,
+  "key": "unbreakable_armor",
+  "name": "Unbreakable Armor",
+  "category": "flag"
+ },
+ {
+  "id": 136,
+  "key": "unstrippable_weapon",
+  "name": "Unstrippable Weapon",
+  "category": "flag"
+ },
+ {
+  "id": 137,
+  "key": "unstrippable_armor",
+  "name": "Unstrippable Armor",
+  "category": "flag"
+ },
+ {
+  "id": 138,
+  "key": "prevents_knockback",
+  "name": "Prevents Knockback",
+  "category": "flag"
+ },
+ {
+  "id": 139,
+  "key": "magic_vs_race_formless",
+  "name": "Magic vs Formless",
+  "category": "race_damage"
+ },
+ {
+  "id": 140,
+  "key": "magic_vs_race_undead_race",
+  "name": "Magic vs Undead Race",
+  "category": "race_damage"
+ },
+ {
+  "id": 141,
+  "key": "magic_vs_race_brute",
+  "name": "Magic vs Brute",
+  "category": "race_damage"
+ },
+ {
+  "id": 142,
+  "key": "magic_vs_race_plant",
+  "name": "Magic vs Plant",
+  "category": "race_damage"
+ },
+ {
+  "id": 143,
+  "key": "magic_vs_race_insect",
+  "name": "Magic vs Insect",
+  "category": "race_damage"
+ },
+ {
+  "id": 144,
+  "key": "magic_vs_race_fish",
+  "name": "Magic vs Fish",
+  "category": "race_damage"
+ },
+ {
+  "id": 145,
+  "key": "magic_vs_race_demon",
+  "name": "Magic vs Demon",
+  "category": "race_damage"
+ },
+ {
+  "id": 146,
+  "key": "magic_vs_race_demihuman",
+  "name": "Magic vs Demihuman",
+  "category": "race_damage"
+ },
+ {
+  "id": 147,
+  "key": "magic_vs_race_angel",
+  "name": "Magic vs Angel",
+  "category": "race_damage"
+ },
+ {
+  "id": 148,
+  "key": "magic_vs_race_dragon",
+  "name": "Magic vs Dragon",
+  "category": "race_damage"
+ },
+ {
+  "id": 149,
+  "key": "magic_vs_race_boss",
+  "name": "Magic vs Boss",
+  "category": "race_damage"
+ },
+ {
+  "id": 150,
+  "key": "magic_vs_race_non_boss",
+  "name": "Magic vs Non Boss",
+  "category": "race_damage"
+ },
+ {
+  "id": 151,
+  "key": "magic_vs_race_all_races",
+  "name": "Magic vs All Races",
+  "category": "race_damage"
+ },
+ {
+  "id": 152,
+  "key": "res_melee",
+  "name": "Melee Resistance",
+  "category": "defence"
+ },
+ {
+  "id": 153,
+  "key": "res_ranged",
+  "name": "Ranged Resistance",
+  "category": "defence"
+ }
+]

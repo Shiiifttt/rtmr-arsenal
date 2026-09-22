@@ -1,0 +1,26 @@
+{
+  "name": "rtmr-arsenal",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "test": "npm run test:build && node --experimental-strip-types --import ./test/register.mjs --test ../sim/test/aggregate.test.ts ../sim/test/format.test.ts ../sim/test/slots.test.ts ../sim/test/jobs.test.ts ../sim/test/rolls.test.ts ../sim/test/suggest.test.ts test/recognition.test.ts test/.tooltip.test.mjs test/.goalfocus.test.mjs",
+    "test:build": "esbuild test/tooltip.test.tsx test/goalfocus.test.tsx --bundle --platform=node --format=esm --jsx=automatic --alias:@sim=../sim/src --outdir=test --entry-names=.[name] --out-extension:.js=.mjs --external:react --external:react-dom --external:react/jsx-runtime --log-level=warning"
+  },
+  "dependencies": {
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
+  },
+  "devDependencies": {
+    "@types/react": "19.1.0",
+    "@types/react-dom": "19.1.0",
+    "@types/node": "22.15.3",
+    "@vitejs/plugin-react": "4.4.1",
+    "typescript": "5.8.3",
+    "vite": "6.3.5"
+  }
+}

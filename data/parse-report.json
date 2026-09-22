@@ -1,0 +1,862 @@
+{
+ "items": 4148,
+ "sets": 252,
+ "items_in_a_set": 876,
+ "items_with_item_refine_scaling": 1063,
+ "sets_with_set_refine_scaling": 51,
+ "effect_lines": 10430,
+ "effect_lines_unstructured": 3990,
+ "effect_parse_rate": 61.7,
+ "effect_parse_rate_by_kind": {
+  "Weapon": {
+   "lines": 2259,
+   "unstructured": 565,
+   "rate": 75.0
+  },
+  "Armor": {
+   "lines": 1502,
+   "unstructured": 194,
+   "rate": 87.1
+  },
+  "Class gear": {
+   "lines": 1377,
+   "unstructured": 509,
+   "rate": 63.0
+  },
+  "Shadow gear": {
+   "lines": 1219,
+   "unstructured": 362,
+   "rate": 70.3
+  },
+  "Card": {
+   "lines": 1058,
+   "unstructured": 220,
+   "rate": 79.2
+  },
+  "Costume": {
+   "lines": 759,
+   "unstructured": 758,
+   "rate": 0.1
+  },
+  "Other": {
+   "lines": 443,
+   "unstructured": 314,
+   "rate": 29.1
+  },
+  "Material": {
+   "lines": 404,
+   "unstructured": 392,
+   "rate": 3.0
+  },
+  "Usable": {
+   "lines": 360,
+   "unstructured": 343,
+   "rate": 4.7
+  },
+  "Shield": {
+   "lines": 293,
+   "unstructured": 38,
+   "rate": 87.0
+  },
+  "Accessory": {
+   "lines": 287,
+   "unstructured": 38,
+   "rate": 86.8
+  },
+  "Headgear": {
+   "lines": 235,
+   "unstructured": 24,
+   "rate": 89.8
+  },
+  "Relic": {
+   "lines": 204,
+   "unstructured": 204,
+   "rate": 0.0
+  },
+  "Ammunition": {
+   "lines": 30,
+   "unstructured": 29,
+   "rate": 3.3
+  }
+ },
+ "overrides_applied": [
+  {
+   "set": "Valkyries",
+   "key": "valkyries",
+   "status": "unverified",
+   "reason": "Named 'Randgris and Reginleif Cards', but only Reginleif Card declares it, so it grouped as a set containing itself and ATK+5% applied from one card. Valkyrie Randgris Card's description has no set block at all.",
+   "changed": [
+    "members",
+    "member_count"
+   ]
+  },
+  {
+   "set": "Full Shadow Card",
+   "key": "full-shadow-card",
+   "status": "unverified",
+   "reason": "Only Rank S Shadow Card mentions this set, and it writes the heading 'Full Shadow Card Set' with no colon, so the parser saw no set at all and the three lines under it became the S card's own -- the card read as granting All Stats +5 and both penetrations +10 by itself. The bonus needs all six Rank shadow cards (E/D/C/B/A/S) compounded; they take six different slots, one card each, so member_count is 6. Membership is inferred from the naming and the slots, not from any text: none of E/D/C/B/A mentions the set.",
+   "changed": [
+    "created",
+    "members",
+    "member_count",
+    "set_bonus"
+   ]
+  },
+  {
+   "set": "01",
+   "key": "01",
+   "status": "unverified",
+   "reason": "Named 'Core and Gear', but only Vesper Gear 01 declares it, so it grouped as a set containing itself and the bonus applied from one accessory. Vesper Core01's description has no set block at all. Both are accessories and fill the two accessory slots, so member_count is 2.",
+   "changed": [
+    "members",
+    "member_count"
+   ]
+  },
+  {
+   "set": "02",
+   "key": "02",
+   "status": "unverified",
+   "reason": "Named 'Core and Gear', but only Vesper Gear 02 declares it, so it grouped as a set containing itself and the bonus applied from one accessory. Vesper Core02's description has no set block at all. Both are accessories and fill the two accessory slots, so member_count is 2.",
+   "changed": [
+    "members",
+    "member_count"
+   ]
+  },
+  {
+   "set": "03",
+   "key": "03",
+   "status": "unverified",
+   "reason": "Named 'Core and Gear', but only Vesper Gear 03 declares it, so it grouped as a set containing itself and the bonus applied from one accessory. Vesper Core03's description has no set block at all. Both are accessories and fill the two accessory slots, so member_count is 2.",
+   "changed": [
+    "members",
+    "member_count"
+   ]
+  },
+  {
+   "set": "04",
+   "key": "04",
+   "status": "unverified",
+   "reason": "Named 'Core and Gear', but only Vesper Gear 04 declares it, so it grouped as a set containing itself and the bonus applied from one accessory. Vesper Core04's description has no set block at all. Both are accessories and fill the two accessory slots, so member_count is 2.",
+   "changed": [
+    "members",
+    "member_count"
+   ]
+  },
+  {
+   "set": "Asgard Artifacts",
+   "key": "asgard-artifacts",
+   "status": "unverified",
+   "reason": "Named 'Andvarinaut + Accessory', but only Andvarinaut declares it, so it grouped as a set containing itself and the whole bonus applied from one accessory. The second half is any one of the six Asgard status accessories -- Gleipnir, Megingjard, Brisingamen, Draupnir, Gjallar, Jarngreipr -- which is consistent with the bonus disabling the left accessory's status bonus: each of the six is the 'every 9 base <stat>' piece for one stat. Seven are listed as alternatives while two are worn, so member_count is 2.",
+   "changed": [
+    "members",
+    "member_count"
+   ]
+  },
+  {
+   "set": "Black Shirt",
+   "key": "black-shirt",
+   "status": "unverified",
+   "reason": "Named 'Undershirt and Black Shirt', but only the Undershirt declares it -- it declares both shirt sets -- so this grouped as a set containing the Undershirt alone and AGI+3 applied from one garment. Black Shirt's description has no set block. Undershirt is a Garment and Black Shirt an Armor, so both can be worn and member_count is 2.",
+   "changed": [
+    "members",
+    "member_count"
+   ]
+  },
+  {
+   "set": "Darkness",
+   "key": "darkness",
+   "status": "unverified",
+   "reason": "Named 'Armor, Garment, Shoes and Helmet', but only Darkness Crown declares it, so it grouped as a set containing itself alone. None of the other Darkness pieces has a set block. The Crown is the Helmet; Darkness Armor and Darkness Robe are the two Armor-slot alternatives, so five items are listed but only four are worn and member_count is 4. Darkness Helm is a separate Upper headgear piece with its own effects and no set block, and is read as not being part of this. NOTE: the set bonus is left as parsed because the tooltip itself gives it as '?' -- the numbers are unknown, not mis-parsed.",
+   "changed": [
+    "members",
+    "member_count"
+   ]
+  },
+  {
+   "set": "Death",
+   "key": "death",
+   "status": "unverified",
+   "reason": "The tooltip gives no members text at all -- just 'Death Set:' over the bonus -- and only DeathBound Armor declares it, so it grouped as a set containing itself and ATK+5%/MATK+5% applied from the armor alone. The family is the armor, the DeathCover Mantle and the DeathLand Greaves, each of which comes in an unslotted and a slotted mark. This is the unslotted mark, matched by card slots; neither mantle nor greaves has a set block of its own. Addressed by id because the two marks differ only in capitalisation ('DeathCover' vs 'Deathcover'), which is too thin a thing to key a correction on.",
+   "changed": [
+    "members",
+    "member_count"
+   ]
+  },
+  {
+   "set": "Faceworm",
+   "key": "faceworm",
+   "status": "unverified",
+   "reason": "Named 'Dark Faceworm and Queen Faceworm Cards', but only Faceworm Queen Card declares it, so it grouped as a set containing itself and the whole bonus applied from one card. Dark Faceworm Card's description has no set block at all. The two take different slots -- Dark Faceworm is Armor, the Queen is Garment -- so both can be worn and member_count is 2. Note the members text writes 'Queen Faceworm', while the item is named 'Faceworm Queen Card'.",
+   "changed": [
+    "members",
+    "member_count"
+   ]
+  },
+  {
+   "set": "Jiangshi",
+   "key": "jiangshi",
+   "status": "unverified",
+   "reason": "Named 'Hyegun, Bongun and Munak Cards', but only Hyegun Card declares it, so it grouped as a set containing itself and ATK/MATK+1% applied from one card. Bongun Card and Munak Card declare a set of their own instead, so they sit in both at once. Hyegun is an Armor card and Bongun and Munak each fit Garment or Shoes, so all three can be compounded at once and member_count is 3.",
+   "changed": [
+    "members",
+    "member_count"
+   ]
+  },
+  {
+   "set": "Kraken",
+   "key": "kraken",
+   "status": "unverified",
+   "reason": "Named 'Body and Legs Cards', but only Kraken Card declares it, so it grouped as a set containing itself and the Tetragrammaton cooldown applied from one card. Kraken Legs Card's description has no set block. Reading Kraken Card as the 'Body' half: it is the only other Kraken card in the data. The two take different slots -- Kraken Card is Middle headgear, the Legs card is Garment -- so member_count is 2.",
+   "changed": [
+    "members",
+    "member_count"
+   ]
+  },
+  {
+   "set": "Master",
+   "key": "master",
+   "status": "unverified",
+   "reason": "Named 'Armor and Master Weapon', but only Master Noble Suit declares it, so it grouped as a set containing itself and All Stats +3 applied from the armor alone. None of the Master weapons has a set block. 'Master Weapon' is any one of them, so all ten are listed as members while only two pieces are worn and member_count is 2. Master Loki Card is excluded: it is a card, not a weapon.",
+   "changed": [
+    "members",
+    "member_count"
+   ]
+  },
+  {
+   "set": "Nidhogg",
+   "key": "nidhogg",
+   "status": "unverified",
+   "reason": "Named 'Garment and Card', but only Nidhogg's Garb declares it, so it grouped as a set containing itself and the bonus applied from the garment alone. The card is spelled differently on the server -- 'Nydhogg Card', not 'Nidhogg' -- which is why nothing matched by name. It is a Garment card, so it compounds into the Garb itself, and member_count is 2.",
+   "changed": [
+    "members",
+    "member_count"
+   ]
+  },
+  {
+   "set": "Old Knight",
+   "key": "old-knight",
+   "status": "unverified",
+   "reason": "Named 'Armors and Garment', but only Old Knight Mantle declares it, so it grouped as a set containing itself and ATK/MATK +10 applied from the garment alone. The plural 'Armors' is the pair of knight armors that sit either side of the mantle in the id order -- White Knight Armor (22009, Holy Element) and Khalitzburg Knight Armor (22010, Dark Element) -- which matches the mantle carrying both Holy Resistance +10% and Dark Resistance +10%. They are alternatives for the one Armor slot, so three are listed and member_count is 2. NOTE: there is no item called 'Dark Knight Armor'; Khalitzburg is read as the dark half on the element and id evidence, and is the part most worth confirming in game.",
+   "changed": [
+    "members",
+    "member_count"
+   ]
+  },
+  {
+   "set": "Pharaoh",
+   "key": "pharaoh",
+   "status": "unverified",
+   "reason": "Named 'Pharaoh and Fire/Wind/Water Papilla Cards', but only Pharaoh Card declares it, so it grouped as a set containing itself and the autocast applied from one card. The other three are spelled 'Papila' with one l on the server, which is why nothing matched. Pharaoh Card is Middle headgear and the three Papila cards are Weapon cards. Read as Pharaoh plus one Papila, because the bonus says 'the respective spell' -- so four are listed as alternatives and member_count is 2. NOTE: if a multi-slot weapon can carry two or three Papila cards at once, this is wrong and the count should be higher; that is the part worth checking in game.",
+   "changed": [
+    "members",
+    "member_count"
+   ]
+  },
+  {
+   "set": "Memory",
+   "key": "memory",
+   "status": "unverified",
+   "reason": "The set names five cards -- 'Odium, Dolor, Despero and Maero of Thanatos + Memory of Thanatos' -- but only Memory of Thanatos declares it, so it grouped as a set containing itself and the bonus applied from one card. The other four are the Thanatos Set cards, which sit in both sets at once.",
+   "changed": [
+    "members",
+    "member_count"
+   ]
+  },
+  {
+   "set": "Metal",
+   "key": "metal",
+   "status": "unverified",
+   "reason": "The set names itself 'Ring and Boots', but only the boots declare it, so the Strange Metal Ring was never grouped in and the three marks of boots were counted as three pieces of one set. They are alternatives -- one shoes slot -- so the set is two pieces: the ring plus whichever boots are worn.",
+   "changed": [
+    "members",
+    "member_count"
+   ]
+  },
+  {
+   "set": "Pink Shirt",
+   "key": "pink-shirt",
+   "status": "unverified",
+   "reason": "Named 'Undershirt and Pink Shirt', but only the Undershirt declares it -- it declares both shirt sets -- so this grouped as a set containing the Undershirt alone and DEX+3 applied from one garment. The Pink Shirt was renamed: it is now Rabbit Pattern Shirt, which the crawler records as renamed_from 'Pink Shirt', and it mirrors Black Shirt piece for piece (level 10, one slot, HP/SP +10%, Hit +10 against the Black Shirt's Flee +10). The Undershirt's tooltip still uses the old name. Undershirt is a Garment and the shirt an Armor, so both can be worn and member_count is 2.",
+   "changed": [
+    "members",
+    "member_count"
+   ]
+  },
+  {
+   "set": "Rachel First",
+   "key": "rachel-first",
+   "status": "unverified",
+   "reason": "Named 'Armor and Weapon', but only Guillotine of the First declares it, so it grouped as a set containing itself and HP +5% applied from the weapon alone. Robes of the First has no set block; it is the only Armor named for the First, so it is read as the other half.",
+   "changed": [
+    "members",
+    "member_count"
+   ]
+  },
+  {
+   "set": "Rachel Second",
+   "key": "rachel-second",
+   "status": "unverified",
+   "reason": "Named 'Armor and Weapon', but only Sword of the Second declares it, so it grouped as a set containing itself and SP +5% applied from the weapon alone. Robes of the Second has no set block; it is the only Armor named for the Second, so it is read as the other half.",
+   "changed": [
+    "members",
+    "member_count"
+   ]
+  },
+  {
+   "set": "Rachel Third",
+   "key": "rachel-third",
+   "status": "unverified",
+   "reason": "Named 'Armor and Weapon', but only Bow of the Third declares it, so it grouped as a set containing itself and Move Speed +5% applied from the weapon alone. Robes of the Third has no set block; it is the only Armor named for the Third, so it is read as the other half.",
+   "changed": [
+    "members",
+    "member_count"
+   ]
+  },
+  {
+   "set": "Skull Mask",
+   "key": "skull-mask",
+   "status": "unverified",
+   "reason": "Not a set. Gravewhisper's tooltip writes 'Skull Mask Set:' over what is really 'Critical Damage +10% while wearing Skull Mask' -- a condition on the one weapon -- so the parser grouped a set of one and moved the bonus onto it. Dropped here; the condition is restored by the 'Gravewhisper' item correction. Skull Mask itself is a real headgear (18868) with its own unrelated effects and no set block.",
+   "changed": [
+    "dropped"
+   ]
+  },
+  {
+   "set": "Slotted Death",
+   "key": "slotted-death",
+   "status": "unverified",
+   "reason": "The slotted mark of the family described under 'death': Deathbound Armor, Deathcover Mantle and Deathland Greaves, matched by card slots. Only the armor declares the set, so it held one member and applied ATK+5%/MATK+5% from it alone. Addressed by id for the same reason -- the two marks differ only in capitalisation.",
+   "changed": [
+    "members",
+    "member_count"
+   ]
+  },
+  {
+   "set": "Slotted Bullhorn",
+   "key": "slotted-bullhorn",
+   "status": "unverified",
+   "reason": "The Bullhorn gear comes in a slotted and an unslotted mark, named identically, and every unslotted piece but the manteau names the SLOTTED set in its tooltip. The parser therefore put all nine into this set and counted nine pieces. Split here: this set is the slotted mark only. Armor and Tunic are the two Armor-slot alternatives, so five items are listed but only four are worn -- armor or tunic, shoes, manteau, ring -- and member_count is 4. Addressed by id because the names do not distinguish the marks. NOTE: which mark the unslotted tooltips MEANT to name is a guess from the card slots, and is what is worth checking in game.",
+   "changed": [
+    "members",
+    "member_count"
+   ]
+  },
+  {
+   "set": "Unslotted Bullhorn",
+   "key": "unslotted-bullhorn",
+   "status": "unverified",
+   "reason": "The other half of the split described under 'slotted-bullhorn': the unslotted mark, which only Bullhorn Manteau 15451 named correctly, leaving this set holding one garment and applying the whole bonus from it. Same shape as the slotted set -- armor or tunic, shoes, manteau, ring -- so member_count is 4. Addressed by id because the names do not distinguish the marks.",
+   "changed": [
+    "members",
+    "member_count"
+   ]
+  },
+  {
+   "set": "Aggressive Orphan",
+   "key": "aggressive-orphan",
+   "status": "unverified",
+   "reason": "The tooltip wraps as 'All Stats +4' / 'At set refine 9+ and again at 18+:' / 'Damage against all races +10%, Max HP/SP -10%'. Read literally the heading governs the racial damage and grants it twice, which is how the parser reads it. The server owner's reading is that the repeated step belongs to All Stats and the racial damage is a single step at 18+. Encoded that way here, pending in-game confirmation.",
+   "changed": [
+    "set_refine.thresholds"
+   ]
+  },
+  {
+   "item": "Murder Knife",
+   "status": "unverified",
+   "reason": "The tooltip reads 'Defense Penetration +10' / 'Extra 1 % per refine' / 'Critical Damage +10%' / 'Extra 1% per refine'. Neither 'Extra' line names a stat, and taken literally the second would scale Critical Damage. The server owner says both are a mistranslation and the weapon grants +1 Defense Penetration and +1 Magic Defense Penetration per refine. Encoded that way here. NOTE: that reading leaves the flat 'Critical Damage +10%' with no per-refine line of its own, which is worth re-checking in game.",
+   "changed": [
+    "refine.per_refine"
+   ]
+  },
+  {
+   "item": "Gravewhisper",
+   "status": "unverified",
+   "reason": "The tooltip writes 'Skull Mask Set:' over 'Critical Damage +10% / while wearing Skull Mask', which is a condition on this weapon, not a set -- so the parser invented a one-member 'Skull Mask' set and hung the bonus on it. The set is dropped under the 'skull-mask' key and the bonus is restored here as a condition, in the same shape the Bullhorn pieces use. The effects are restated too, because 'Backstab can land Critical hits' was wrapped across two lines and read as two separate unparsed effects.",
+   "changed": [
+    "effects",
+    "conditional"
+   ]
+  },
+  {
+   "item": "Rank S Shadow Card",
+   "status": "unverified",
+   "reason": "The tooltip reads 'ATK+3%' / 'MATK+3%' / 'Full Shadow Card Set' / 'All Stats +5' / 'Defense Penetration +10' / 'Magic Defense Penetration +10'. 'Full Shadow Card Set' is a set heading written without a colon, so the parser read the three lines under it as this card's own and the card claimed the whole set bonus on its own. Those lines are moved to the 'full-shadow-card' set, which needs all six Rank shadow cards compounded; what is left here is the card's own ATK/MATK.",
+   "changed": [
+    "effects"
+   ]
+  }
+ ],
+ "overrides_unverified": [
+  "Valkyries",
+  "Full Shadow Card",
+  "01",
+  "02",
+  "03",
+  "04",
+  "Asgard Artifacts",
+  "Black Shirt",
+  "Darkness",
+  "Death",
+  "Faceworm",
+  "Jiangshi",
+  "Kraken",
+  "Master",
+  "Nidhogg",
+  "Old Knight",
+  "Pharaoh",
+  "Memory",
+  "Metal",
+  "Pink Shirt",
+  "Rachel First",
+  "Rachel Second",
+  "Rachel Third",
+  "Skull Mask",
+  "Slotted Death",
+  "Slotted Bullhorn",
+  "Unslotted Bullhorn",
+  "Aggressive Orphan",
+  "Murder Knife",
+  "Gravewhisper",
+  "Rank S Shadow Card"
+ ],
+ "overrides_stale": [],
+ "enchantable_items": 69,
+ "per_stat_count_blocks": 4,
+ "element_overrides": 14,
+ "evaluable_conditions": 69,
+ "conditions_total": 388,
+ "stats_registered": 154,
+ "stat_mapping": {
+  "mapped_to_stat_ids": 5755,
+  "skill_modifiers": 958,
+  "unmapped": 232,
+  "coverage_percent": 82.9
+ },
+ "unmapped_stat_names": [
+  [
+   "1: STR or INT 2: AGI or VIT 3: DEX or LUK Each line can be negative",
+   10
+  ],
+  [
+   "Lv",
+   6
+  ],
+  [
+   "Abracadabra Cooldown Reduction",
+   5
+  ],
+  [
+   "-1 or",
+   5
+  ],
+  [
+   "Penetration",
+   4
+  ],
+  [
+   "Cannot be Refined EXP Received",
+   4
+  ],
+  [
+   "Increases Kafra Elixir refill limit by",
+   3
+  ],
+  [
+   "Dragon Claw Rate",
+   3
+  ],
+  [
+   "Zeny limit on kill",
+   3
+  ],
+  [
+   "Knockback Immunity Move Speed",
+   3
+  ],
+  [
+   "Zeny Limit on kill",
+   2
+  ],
+  [
+   "3%",
+   2
+  ],
+  [
+   "Chance: 3%",
+   2
+  ],
+  [
+   "STR: Defense Penetration",
+   2
+  ],
+  [
+   "VIT: Max HP",
+   2
+  ],
+  [
+   "INT: Magic Defense Penetration",
+   2
+  ],
+  [
+   "Damage",
+   2
+  ],
+  [
+   "Final Damage Taken",
+   2
+  ],
+  [
+   "5%",
+   2
+  ],
+  [
+   "ATK +1 and MATK",
+   2
+  ],
+  [
+   "Weapon Attack Power",
+   2
+  ],
+  [
+   "Bleed Resistance",
+   2
+  ],
+  [
+   "Physical Reduction",
+   2
+  ],
+  [
+   "Arrow Shower Knockback",
+   2
+  ],
+  [
+   "Final damage taken",
+   2
+  ],
+  [
+   "Max HP +10% and Max SP",
+   2
+  ],
+  [
+   "Dragon Thrust Range",
+   1
+  ],
+  [
+   "Dragon Claw Range",
+   1
+  ],
+  [
+   "Natural HP Regen",
+   1
+  ],
+  [
+   "Ghost and Undead",
+   1
+  ],
+  [
+   "Critical Defense Rate",
+   1
+  ],
+  [
+   "Critical Damage Received",
+   1
+  ],
+  [
+   "Lashing Andromeda DMG +5%",
+   1
+  ],
+  [
+   "Wrecking Andromeda Cooldowns",
+   1
+  ],
+  [
+   "Miscelaneous/Special Damage Taken",
+   1
+  ],
+  [
+   "Used to refine Runes up to",
+   1
+  ],
+  [
+   "Reduction",
+   1
+  ],
+  [
+   "Fire Ball Knockback",
+   1
+  ],
+  [
+   "HP Recov Rate",
+   1
+  ],
+  [
+   "SP Recov Rate",
+   1
+  ],
+  [
+   "Ignore Size Penalty ATK",
+   1
+  ],
+  [
+   "plus",
+   1
+  ],
+  [
+   "Resistance vs Dark element monsters",
+   1
+  ],
+  [
+   "Critical Resistance",
+   1
+  ],
+  [
+   "It gains",
+   1
+  ],
+  [
+   "and",
+   1
+  ],
+  [
+   "Damage with Dark-element magic",
+   1
+  ],
+  [
+   "Skill Random Mods Healing Received",
+   1
+  ],
+  [
+   "Healing Power and Healing Received",
+   1
+  ],
+  [
+   "All Damage Reduction",
+   1
+  ],
+  [
+   "All Damage received",
+   1
+  ],
+  [
+   "Immune to Confusion SP",
+   1
+  ],
+  [
+   "Perfect Dodge +2",
+   1
+  ],
+  [
+   "Nullify Size Penalty ATK",
+   1
+  ],
+  [
+   "Critical Damage Taken",
+   1
+  ],
+  [
+   "Can be used to refine armors between +0 to",
+   1
+  ],
+  [
+   "+4 refine: Total DEF",
+   1
+  ],
+  [
+   "+7 refine: Max HP",
+   1
+  ],
+  [
+   "+9 refine: Max HP",
+   1
+  ],
+  [
+   "Grants Resurrection: +1 level per set piece worn (max Lv 4). +4 refine: MDEF",
+   1
+  ]
+ ],
+ "set_text_conflicts": [
+  {
+   "set": "Amatsu",
+   "field": "set_bonus",
+   "variants": [
+    [
+     "2 Pieces: Grants Kubi no In 4 Pieces: Grants Shura"
+    ],
+    []
+   ]
+  },
+  {
+   "set": "Doctor",
+   "field": "set_bonus",
+   "variants": [
+    [
+     "MATK +10"
+    ],
+    [
+     "Healing Power +20%"
+    ]
+   ]
+  },
+  {
+   "set": "Fallen Gods",
+   "field": "set_bonus",
+   "variants": [
+    [
+     "All Stats +4",
+     "Max HP -10%"
+    ],
+    [
+     "All Stats +4",
+     "Max HP -10%."
+    ]
+   ]
+  },
+  {
+   "set": "Honor of the Fallen",
+   "field": "set_bonus",
+   "variants": [
+    [
+     "ATK +1 and MATK +1 per set refine"
+    ],
+    [
+     "ATK +1 & MATK +1 per set refine"
+    ],
+    [
+     "ATK +1 & MATK +1 per total set refine"
+    ]
+   ]
+  },
+  {
+   "set": "King's Guardian",
+   "field": "set_bonus",
+   "variants": [
+    [
+     "All Stats +2",
+     "Defense vs All Sizes +5%"
+    ],
+    [
+     "All Stats +2",
+     "Magic vs All Sizes +5%"
+    ]
+   ]
+  },
+  {
+   "set": "Mistress",
+   "field": "set_bonus",
+   "variants": [
+    [
+     "SP Cost -10%"
+    ],
+    [
+     "SP Cost-10%"
+    ]
+   ]
+  },
+  {
+   "set": "Slotted Bullhorn",
+   "field": "set_bonus",
+   "variants": [
+    [
+     "HP+10%",
+     "SP+10%",
+     "Neutral Resistance +10%",
+     "HP Regen on movement"
+    ],
+    [
+     "HP+10%",
+     "SP+10%",
+     "Neutral Resistance +10%",
+     "Healing Received +25%",
+     "HP +2 per VIT",
+     "HP Regen on movement"
+    ],
+    [
+     "HP+10%",
+     "SP+10%",
+     "Neutral Resistance +10%",
+     "HP Regen on movement",
+     "Healing Done +20%",
+     "SP Regen +50%"
+    ]
+   ]
+  }
+ ],
+ "singleton_sets": [],
+ "unparsed_samples": [
+  "\"Bearer Bonds. Please treat the owner of this document as one of the work founders and someone to be treated with great Importance\"",
+  "\"Do you have it, but black?\"",
+  "\"Even Porings can craft Elemental-Proof Potions with my handy, easy to read reference.\"_______________________",
+  "\"When you hang a man, you better look at him.\"",
+  "(+10 AGI) -Drosera Tentacle -Cooking Oil",
+  "(+10 DEX) -Comodo Tropical Fruit -Ice Crystal",
+  "(+10 INT) -Cold Ice -Blood of Wolf",
+  "(+10 LUK) -Petite Tail -Fine Noodles",
+  "(+10 STR) -Savage Meat -Black Charcoal",
+  "(+10 VIT) -Beef Head -Savory Sauce",
+  "(1-hit dodge) for 2s.",
+  "(2 Handed Sword)",
+  "(Affects attacks and skills.)",
+  "(Awakening, Concentration, Berserk) grants Blessing Lv5 for 20s",
+  "(Cannot be used by Unchained Jobs)",
+  "(If Job is Illusionist)",
+  "(Jewel Elunium, Jewel Oridecon, Jewel Bradium, Jewel Shadowdecon)",
+  "(Lv2).",
+  "(Lv3).",
+  "(Max 12% at +40 Total)",
+  "(Max 20% at +40 Total)",
+  "(Neutral excluded).",
+  "(Shields have a small ASPD penalty)",
+  "(additional).",
+  "(applied at refill).",
+  "(different from Freeze)",
+  "(except Kafra Elixir) grants Knight's Regen Lv1 for 20s",
+  "(half of Gods, half of Devils, exactly)",
+  "(heals 150 HP)",
+  "(magic or physical)",
+  "(minimum Lv1) when attacking.",
+  "(normal attacks and physical skills)",
+  "(total +30%)",
+  "(total 10)",
+  "+0.1% chance of dropping Shadow Ore / Upgrade",
+  "+0.1% chance of dropping Shadow Ore per Total Set Refine Level. +0.01% chance of dropping Jewel Ores per 8 Total Set Refine Levels.",
+  "+0.1% chance to Freeze the attacker when hit by any attack",
+  "+0.3% chance of dropping Shadow Ore / Upgrade",
+  "+0.5% chance of dropping Shadow Ore on killing monsters.",
+  "+1 Kafra Elixir capacity",
+  "+1 per 5 base",
+  "+1% All 4 Skills Damage.",
+  "+1% chance of dropping Shadow Ore on killing monsters.",
+  "+1% per highest piece refine",
+  "+1% per total set refine",
+  "+10% damage to Earth, Fire, Wind and Water monsters.",
+  "+15% final damage vs Poisoned targets +15% final damage vs Bleeding targets",
+  "+3% All Bonuses",
+  ".siht dnatsrednu lliw enoyreve toN",
+  "0.05% extra regular refine material chance per kill.",
+  "0.05% to get a random HD or Enriched refine material per kill.",
+  "0.05% to get a random regular refine material per kill.",
+  "0.07% to petrify when attacking per base INT",
+  "0.1% Extra chance on hit",
+  "0.2% autocast Sky Assault when casting Blitz Beat (added to the other ones already exists)",
+  "0.2% chance to apply Lex Aeterna on enemy when attacking per base level. (Max 30% at Lv 150)",
+  "0.5% additional chance to autocast Heal",
+  "0.5% chance to auto cast Burning Spiral per attack.",
+  "0.5% chance to auto cast Frozen Crash per attack.",
+  "0.5% chance to auto cast Land Fissure per attack."
+ ],
+ "class_rules_applied": [
+  {
+   "class": "Satsujin",
+   "status": "unverified",
+   "changed": [
+    "weapons",
+    "off_hand"
+   ]
+  }
+ ],
+ "class_rules_unverified": [
+  "Satsujin"
+ ],
+ "class_rules_stale": [],
+ "class_rules_unknown_types": []
+}

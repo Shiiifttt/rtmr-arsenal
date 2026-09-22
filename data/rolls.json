@@ -1,0 +1,1086 @@
+{
+  "version": 1,
+  "status": "unverified",
+  "note": [
+    "Random rolls an item gets when it drops. None of this is published on",
+    "rtm-database.pages.dev -- the tooltips there show the item as designed,",
+    "not as dropped -- so this file is hand-maintained from what the server",
+    "owner describes, the same way crawler/overrides.json is.",
+    "",
+    "A roll is a choice from a list plus a value the player reads off their",
+    "own item, so the ranges here only bound the input. Where a range is not",
+    "known, 'max' is null and the UI leaves the upper bound open rather than",
+    "inventing one.",
+    "",
+    "Slots with no table (weapon, costume) are not a statement that they roll",
+    "nothing -- only that nobody has described them yet. Add a table here and",
+    "it appears in the planner.",
+    "",
+    "'requires' gates a table on the item rather than the slot. Headgear and",
+    "accessories roll only when the item is a monster drop, which the crawled",
+    "drop lists already answer."
+  ],
+  "tables": [
+    {
+      "key": "shadow",
+      "label": "Shadow gear",
+      "slots": [
+        "sh_armor",
+        "sh_shoes",
+        "sh_gloves",
+        "sh_acc"
+      ],
+      "rolls": [
+        {
+          "key": "stat",
+          "label": "Stat",
+          "options": [
+            {
+              "key": "str",
+              "label": "STR",
+              "grants": [
+                {
+                  "stat": "str",
+                  "unit": null,
+                  "min": 1,
+                  "max": 2,
+                  "stat_id": 0
+                }
+              ]
+            },
+            {
+              "key": "agi",
+              "label": "AGI",
+              "grants": [
+                {
+                  "stat": "agi",
+                  "unit": null,
+                  "min": 1,
+                  "max": 2,
+                  "stat_id": 1
+                }
+              ]
+            },
+            {
+              "key": "vit",
+              "label": "VIT",
+              "grants": [
+                {
+                  "stat": "vit",
+                  "unit": null,
+                  "min": 1,
+                  "max": 2,
+                  "stat_id": 2
+                }
+              ]
+            },
+            {
+              "key": "int",
+              "label": "INT",
+              "grants": [
+                {
+                  "stat": "int",
+                  "unit": null,
+                  "min": 1,
+                  "max": 2,
+                  "stat_id": 3
+                }
+              ]
+            },
+            {
+              "key": "dex",
+              "label": "DEX",
+              "grants": [
+                {
+                  "stat": "dex",
+                  "unit": null,
+                  "min": 1,
+                  "max": 2,
+                  "stat_id": 4
+                }
+              ]
+            },
+            {
+              "key": "luk",
+              "label": "LUK",
+              "grants": [
+                {
+                  "stat": "luk",
+                  "unit": null,
+                  "min": 1,
+                  "max": 2,
+                  "stat_id": 5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "skill",
+          "label": "Skill modifier",
+          "options": [
+            {
+              "key": "skill_mod",
+              "label": "Skill damage",
+              "note": "Which skill is on the item itself; type it in so the line reads back.",
+              "grants": [
+                {
+                  "skill": true,
+                  "unit": "%",
+                  "min": 5,
+                  "max": 5,
+                  "stat_id": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "manual_rune",
+      "label": "Manual / Rune or Orb",
+      "note": "Worn alongside shadow gear and rolls a stat like it, but no skill modifier.",
+      "slots": [
+        "sh_manual",
+        "runeorb"
+      ],
+      "rolls": [
+        {
+          "key": "stat",
+          "label": "Stat",
+          "options": [
+            {
+              "key": "str",
+              "label": "STR",
+              "grants": [
+                {
+                  "stat": "str",
+                  "unit": null,
+                  "min": 1,
+                  "max": 2,
+                  "stat_id": 0
+                }
+              ]
+            },
+            {
+              "key": "agi",
+              "label": "AGI",
+              "grants": [
+                {
+                  "stat": "agi",
+                  "unit": null,
+                  "min": 1,
+                  "max": 2,
+                  "stat_id": 1
+                }
+              ]
+            },
+            {
+              "key": "vit",
+              "label": "VIT",
+              "grants": [
+                {
+                  "stat": "vit",
+                  "unit": null,
+                  "min": 1,
+                  "max": 2,
+                  "stat_id": 2
+                }
+              ]
+            },
+            {
+              "key": "int",
+              "label": "INT",
+              "grants": [
+                {
+                  "stat": "int",
+                  "unit": null,
+                  "min": 1,
+                  "max": 2,
+                  "stat_id": 3
+                }
+              ]
+            },
+            {
+              "key": "dex",
+              "label": "DEX",
+              "grants": [
+                {
+                  "stat": "dex",
+                  "unit": null,
+                  "min": 1,
+                  "max": 2,
+                  "stat_id": 4
+                }
+              ]
+            },
+            {
+              "key": "luk",
+              "label": "LUK",
+              "grants": [
+                {
+                  "stat": "luk",
+                  "unit": null,
+                  "min": 1,
+                  "max": 2,
+                  "stat_id": 5
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "dropped_headgear",
+      "label": "Headgear",
+      "slots": [
+        "upper",
+        "middle",
+        "lower"
+      ],
+      "requires": {
+        "dropped": true
+      },
+      "rolls": [
+        {
+          "key": "stat",
+          "label": "Stat",
+          "options": [
+            {
+              "key": "str",
+              "label": "STR",
+              "grants": [
+                {
+                  "stat": "str",
+                  "unit": null,
+                  "min": 1,
+                  "max": 2,
+                  "stat_id": 0
+                }
+              ]
+            },
+            {
+              "key": "agi",
+              "label": "AGI",
+              "grants": [
+                {
+                  "stat": "agi",
+                  "unit": null,
+                  "min": 1,
+                  "max": 2,
+                  "stat_id": 1
+                }
+              ]
+            },
+            {
+              "key": "vit",
+              "label": "VIT",
+              "grants": [
+                {
+                  "stat": "vit",
+                  "unit": null,
+                  "min": 1,
+                  "max": 2,
+                  "stat_id": 2
+                }
+              ]
+            },
+            {
+              "key": "int",
+              "label": "INT",
+              "grants": [
+                {
+                  "stat": "int",
+                  "unit": null,
+                  "min": 1,
+                  "max": 2,
+                  "stat_id": 3
+                }
+              ]
+            },
+            {
+              "key": "dex",
+              "label": "DEX",
+              "grants": [
+                {
+                  "stat": "dex",
+                  "unit": null,
+                  "min": 1,
+                  "max": 2,
+                  "stat_id": 4
+                }
+              ]
+            },
+            {
+              "key": "luk",
+              "label": "LUK",
+              "grants": [
+                {
+                  "stat": "luk",
+                  "unit": null,
+                  "min": 1,
+                  "max": 2,
+                  "stat_id": 5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "skill",
+          "label": "Skill modifier",
+          "options": [
+            {
+              "key": "skill_mod",
+              "label": "Skill damage",
+              "note": "Which skill is on the item itself; type it in so the line reads back.",
+              "grants": [
+                {
+                  "skill": true,
+                  "unit": "%",
+                  "min": 5,
+                  "max": 5,
+                  "stat_id": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "dropped_accessory",
+      "label": "Accessory",
+      "note": "Rolls like headgear, plus three options only accessories get: ATK +1%, MATK +1% and a flat ASPD +1.",
+      "slots": [
+        "acc1",
+        "acc2"
+      ],
+      "requires": {
+        "dropped": true
+      },
+      "rolls": [
+        {
+          "key": "stat",
+          "label": "Stat",
+          "options": [
+            {
+              "key": "str",
+              "label": "STR",
+              "grants": [
+                {
+                  "stat": "str",
+                  "unit": null,
+                  "min": 1,
+                  "max": 2,
+                  "stat_id": 0
+                }
+              ]
+            },
+            {
+              "key": "agi",
+              "label": "AGI",
+              "grants": [
+                {
+                  "stat": "agi",
+                  "unit": null,
+                  "min": 1,
+                  "max": 2,
+                  "stat_id": 1
+                }
+              ]
+            },
+            {
+              "key": "vit",
+              "label": "VIT",
+              "grants": [
+                {
+                  "stat": "vit",
+                  "unit": null,
+                  "min": 1,
+                  "max": 2,
+                  "stat_id": 2
+                }
+              ]
+            },
+            {
+              "key": "int",
+              "label": "INT",
+              "grants": [
+                {
+                  "stat": "int",
+                  "unit": null,
+                  "min": 1,
+                  "max": 2,
+                  "stat_id": 3
+                }
+              ]
+            },
+            {
+              "key": "dex",
+              "label": "DEX",
+              "grants": [
+                {
+                  "stat": "dex",
+                  "unit": null,
+                  "min": 1,
+                  "max": 2,
+                  "stat_id": 4
+                }
+              ]
+            },
+            {
+              "key": "luk",
+              "label": "LUK",
+              "grants": [
+                {
+                  "stat": "luk",
+                  "unit": null,
+                  "min": 1,
+                  "max": 2,
+                  "stat_id": 5
+                }
+              ]
+            },
+            {
+              "key": "atk_pct",
+              "label": "ATK %",
+              "grants": [
+                {
+                  "stat": "atk",
+                  "unit": "%",
+                  "min": 1,
+                  "max": 1,
+                  "stat_id": 10
+                }
+              ]
+            },
+            {
+              "key": "matk_pct",
+              "label": "MATK %",
+              "grants": [
+                {
+                  "stat": "matk",
+                  "unit": "%",
+                  "min": 1,
+                  "max": 1,
+                  "stat_id": 11
+                }
+              ]
+            },
+            {
+              "key": "aspd_flat",
+              "label": "ASPD",
+              "note": "Flat ASPD, not the percent shoes roll.",
+              "grants": [
+                {
+                  "stat": "aspd",
+                  "unit": null,
+                  "min": 1,
+                  "max": 1,
+                  "stat_id": 16
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "skill",
+          "label": "Skill modifier",
+          "options": [
+            {
+              "key": "skill_mod",
+              "label": "Skill damage",
+              "note": "Which skill is on the item itself; type it in so the line reads back.",
+              "grants": [
+                {
+                  "skill": true,
+                  "unit": "%",
+                  "min": 5,
+                  "max": 5,
+                  "stat_id": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "armor",
+      "label": "Armor",
+      "slots": [
+        "armor"
+      ],
+      "rolls": [
+        {
+          "key": "stat",
+          "label": "Stat",
+          "options": [
+            {
+              "key": "str",
+              "label": "STR",
+              "grants": [
+                {
+                  "stat": "str",
+                  "unit": null,
+                  "min": 1,
+                  "max": 2,
+                  "stat_id": 0
+                }
+              ]
+            },
+            {
+              "key": "agi",
+              "label": "AGI",
+              "grants": [
+                {
+                  "stat": "agi",
+                  "unit": null,
+                  "min": 1,
+                  "max": 2,
+                  "stat_id": 1
+                }
+              ]
+            },
+            {
+              "key": "vit",
+              "label": "VIT",
+              "grants": [
+                {
+                  "stat": "vit",
+                  "unit": null,
+                  "min": 1,
+                  "max": 2,
+                  "stat_id": 2
+                }
+              ]
+            },
+            {
+              "key": "int",
+              "label": "INT",
+              "grants": [
+                {
+                  "stat": "int",
+                  "unit": null,
+                  "min": 1,
+                  "max": 2,
+                  "stat_id": 3
+                }
+              ]
+            },
+            {
+              "key": "dex",
+              "label": "DEX",
+              "grants": [
+                {
+                  "stat": "dex",
+                  "unit": null,
+                  "min": 1,
+                  "max": 2,
+                  "stat_id": 4
+                }
+              ]
+            },
+            {
+              "key": "luk",
+              "label": "LUK",
+              "grants": [
+                {
+                  "stat": "luk",
+                  "unit": null,
+                  "min": 1,
+                  "max": 2,
+                  "stat_id": 5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "resource",
+          "label": "HP / SP",
+          "options": [
+            {
+              "key": "max_hp",
+              "label": "Max HP",
+              "grants": [
+                {
+                  "stat": "max_hp",
+                  "unit": "%",
+                  "min": 1,
+                  "max": 5,
+                  "stat_id": 6
+                }
+              ]
+            },
+            {
+              "key": "max_sp",
+              "label": "Max SP",
+              "grants": [
+                {
+                  "stat": "max_sp",
+                  "unit": "%",
+                  "min": 1,
+                  "max": 5,
+                  "stat_id": 7
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "mitigation",
+          "label": "Mitigation",
+          "options": [
+            {
+              "key": "physical_reduced",
+              "label": "Physical damage reduced",
+              "grants": [
+                {
+                  "stat": "physical_damage_received",
+                  "unit": "%",
+                  "sign": -1,
+                  "min": 1,
+                  "max": null,
+                  "stat_id": 53
+                }
+              ],
+              "reads": [
+                "Physical Damage Received"
+              ]
+            },
+            {
+              "key": "magical_reduced",
+              "label": "Magical damage reduced",
+              "grants": [
+                {
+                  "stat": "magic_damage_received",
+                  "unit": "%",
+                  "sign": -1,
+                  "min": 1,
+                  "max": null,
+                  "stat_id": 52
+                }
+              ]
+            },
+            {
+              "key": "healing_received",
+              "label": "Healing effect received",
+              "grants": [
+                {
+                  "stat": "healing_received",
+                  "unit": "%",
+                  "min": 1,
+                  "max": null,
+                  "stat_id": 43
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "garment",
+      "label": "Garment",
+      "slots": [
+        "garment"
+      ],
+      "rolls": [
+        {
+          "key": "stat",
+          "label": "Stat",
+          "options": [
+            {
+              "key": "str",
+              "label": "STR",
+              "grants": [
+                {
+                  "stat": "str",
+                  "unit": null,
+                  "min": 1,
+                  "max": 2,
+                  "stat_id": 0
+                }
+              ]
+            },
+            {
+              "key": "agi",
+              "label": "AGI",
+              "grants": [
+                {
+                  "stat": "agi",
+                  "unit": null,
+                  "min": 1,
+                  "max": 2,
+                  "stat_id": 1
+                }
+              ]
+            },
+            {
+              "key": "vit",
+              "label": "VIT",
+              "grants": [
+                {
+                  "stat": "vit",
+                  "unit": null,
+                  "min": 1,
+                  "max": 2,
+                  "stat_id": 2
+                }
+              ]
+            },
+            {
+              "key": "int",
+              "label": "INT",
+              "grants": [
+                {
+                  "stat": "int",
+                  "unit": null,
+                  "min": 1,
+                  "max": 2,
+                  "stat_id": 3
+                }
+              ]
+            },
+            {
+              "key": "dex",
+              "label": "DEX",
+              "grants": [
+                {
+                  "stat": "dex",
+                  "unit": null,
+                  "min": 1,
+                  "max": 2,
+                  "stat_id": 4
+                }
+              ]
+            },
+            {
+              "key": "luk",
+              "label": "LUK",
+              "grants": [
+                {
+                  "stat": "luk",
+                  "unit": null,
+                  "min": 1,
+                  "max": 2,
+                  "stat_id": 5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "evasion",
+          "label": "Evasion",
+          "options": [
+            {
+              "key": "flee",
+              "label": "Flee",
+              "grants": [
+                {
+                  "stat": "flee",
+                  "unit": null,
+                  "min": 1,
+                  "max": null,
+                  "stat_id": 26
+                }
+              ]
+            },
+            {
+              "key": "perfect_dodge",
+              "label": "Perfect Dodge",
+              "grants": [
+                {
+                  "stat": "perfect_dodge",
+                  "unit": null,
+                  "min": 1,
+                  "max": null,
+                  "stat_id": 27
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "sustain",
+          "label": "Sustain",
+          "options": [
+            {
+              "key": "hp_leech",
+              "label": "HP Leech",
+              "note": "Rate is the chance, power is how much of the damage comes back.",
+              "grants": [
+                {
+                  "stat": "leech_hp_rate",
+                  "unit": "%",
+                  "min": 10,
+                  "max": 20,
+                  "stat_id": 44
+                },
+                {
+                  "stat": "leech_hp_power",
+                  "unit": "%",
+                  "min": 1,
+                  "max": 2,
+                  "stat_id": 45
+                }
+              ],
+              "reads": [
+                "Leech Rate/Leech Power"
+              ]
+            },
+            {
+              "key": "sp_leech",
+              "label": "SP Leech",
+              "grants": [
+                {
+                  "stat": "leech_sp_rate",
+                  "unit": "%",
+                  "min": 10,
+                  "max": 20,
+                  "stat_id": 46
+                },
+                {
+                  "stat": "leech_sp_power",
+                  "unit": "%",
+                  "min": 1,
+                  "max": 2,
+                  "stat_id": 47
+                }
+              ],
+              "reads": [
+                "Leech Rate/Leech Power"
+              ]
+            },
+            {
+              "key": "hp_regen",
+              "label": "HP Regen",
+              "grants": [
+                {
+                  "stat": "hp_regen",
+                  "unit": "%",
+                  "min": 10,
+                  "max": 20,
+                  "stat_id": 8
+                }
+              ]
+            },
+            {
+              "key": "sp_regen",
+              "label": "SP Regen",
+              "grants": [
+                {
+                  "stat": "sp_regen",
+                  "unit": "%",
+                  "min": 10,
+                  "max": 20,
+                  "stat_id": 9
+                }
+              ]
+            },
+            {
+              "key": "fixed_cast",
+              "label": "Fixed cast time reduced",
+              "note": "In seconds, not percent.",
+              "grants": [
+                {
+                  "stat": "fixed_cast",
+                  "unit": null,
+                  "sign": -1,
+                  "min": 0.2,
+                  "max": 0.2,
+                  "step": 0.001,
+                  "stat_id": 34
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "shoes",
+      "label": "Shoes",
+      "slots": [
+        "shoes"
+      ],
+      "rolls": [
+        {
+          "key": "stat",
+          "label": "Stat",
+          "options": [
+            {
+              "key": "str",
+              "label": "STR",
+              "grants": [
+                {
+                  "stat": "str",
+                  "unit": null,
+                  "min": 1,
+                  "max": 2,
+                  "stat_id": 0
+                }
+              ]
+            },
+            {
+              "key": "agi",
+              "label": "AGI",
+              "grants": [
+                {
+                  "stat": "agi",
+                  "unit": null,
+                  "min": 1,
+                  "max": 2,
+                  "stat_id": 1
+                }
+              ]
+            },
+            {
+              "key": "vit",
+              "label": "VIT",
+              "grants": [
+                {
+                  "stat": "vit",
+                  "unit": null,
+                  "min": 1,
+                  "max": 2,
+                  "stat_id": 2
+                }
+              ]
+            },
+            {
+              "key": "int",
+              "label": "INT",
+              "grants": [
+                {
+                  "stat": "int",
+                  "unit": null,
+                  "min": 1,
+                  "max": 2,
+                  "stat_id": 3
+                }
+              ]
+            },
+            {
+              "key": "dex",
+              "label": "DEX",
+              "grants": [
+                {
+                  "stat": "dex",
+                  "unit": null,
+                  "min": 1,
+                  "max": 2,
+                  "stat_id": 4
+                }
+              ]
+            },
+            {
+              "key": "luk",
+              "label": "LUK",
+              "grants": [
+                {
+                  "stat": "luk",
+                  "unit": null,
+                  "min": 1,
+                  "max": 2,
+                  "stat_id": 5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "speed",
+          "label": "Speed",
+          "options": [
+            {
+              "key": "move_speed",
+              "label": "Move Speed",
+              "grants": [
+                {
+                  "stat": "move_speed",
+                  "unit": "%",
+                  "min": 1,
+                  "max": 10,
+                  "stat_id": 39
+                }
+              ],
+              "reads": [
+                "Movement Speed"
+              ]
+            },
+            {
+              "key": "aspd",
+              "label": "Attack Speed",
+              "grants": [
+                {
+                  "stat": "aspd",
+                  "unit": "%",
+                  "min": 1,
+                  "max": 10,
+                  "stat_id": 16
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "casting",
+          "label": "Casting",
+          "options": [
+            {
+              "key": "after_cast_delay",
+              "label": "After cast delay reduced",
+              "grants": [
+                {
+                  "stat": "after_cast_delay",
+                  "unit": "%",
+                  "sign": -1,
+                  "min": 1,
+                  "max": 10,
+                  "stat_id": 35
+                }
+              ]
+            },
+            {
+              "key": "variable_cast",
+              "label": "Variable cast time reduced",
+              "grants": [
+                {
+                  "stat": "variable_cast",
+                  "unit": "%",
+                  "sign": -1,
+                  "min": 1,
+                  "max": 10,
+                  "stat_id": 33
+                }
+              ],
+              "reads": [
+                "Variable Cast Time"
+              ]
+            },
+            {
+              "key": "aspd_limit",
+              "label": "ASPD Limit",
+              "grants": [
+                {
+                  "stat": "aspd_limit",
+                  "unit": null,
+                  "min": 1,
+                  "max": 1,
+                  "stat_id": 17
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "stat_count": 154
+}
