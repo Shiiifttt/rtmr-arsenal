@@ -36,10 +36,14 @@ code that reaches a browser is React itself.
 ```
 sim/src/        pure TypeScript, no React — the part with the actual logic
   slots.ts      character slots, and what fits in each
+  sets.ts       which members of a set are missing, and where each one goes
   jobs.ts       job restriction sentences -> can this class use it
   aggregate.ts  a build -> stat totals
 sim/test/       node --test, no test framework needed
 web/src/        the UI
+  build.ts      an empty build, and reconciling a saved one against the data
+  saves.ts      named builds, kept beside the autosave
+  share.ts      a whole build in a URL fragment
   recognition/  reads a screenshot of the game and fills the build in
 web/test/       the recogniser, run against real client captures
 tools/          build the recogniser's assets (stdlib Python, like the crawler)
@@ -49,6 +53,30 @@ recognition/    those generated assets, plus the sample screenshots
 `sim` deliberately has no React in it. It is unit-testable, it runs in plain
 Node, and the damage simulator can be built on it later without dragging the
 interface along.
+
+## Keeping and sharing a build
+
+The build in front of you is saved as you work on it, in one slot. The
+**Builds** button is for everything past that:
+
+- **Save** it under a name, so trying something out costs nothing and going
+  back is a click. Named builds live in `localStorage` beside the autosave
+  (`web/src/saves.ts`).
+- **Export** / **Import** a `.json` file, for a backup or another machine.
+  Anything imported goes through the same `reconcile` as a restored save, so a
+  stale or hand-edited file cannot put a number the rest of the app does not
+  expect into a total.
+- **Share link** puts the whole build in the URL fragment: JSON, deflated,
+  base64url, behind a one-character tag saying which. No account and no server
+  — a full build is around 250 characters, and a fragment is never sent to the
+  host the page is served from. `web/src/share.ts`.
+
+**A link never costs you your own build.** Opening one shows a banner and
+suspends the autosave entirely: look at it, change it, throw it away, and what
+you were building is exactly where you left it. "Make it mine" takes it over
+and starts saving; "Back to mine" puts yours back. A link pasted into a tab
+that already has the app open only changes the fragment, so that is handled
+too.
 
 ## Reading a screenshot
 
@@ -280,6 +308,45 @@ search for the best possible build. Sets are handled as one move that puts on
 every missing piece, because until the last piece goes on no single swap
 looks like progress. Per-skill bonuses are not counted, so they cannot be
 goals.
+
+### Guard rails
+
+Every build is held to two floors unless it says otherwise: **Max HP % ≥ -50**
+and **SP sustain % ≥ -50**. Without them the scoring would happily trade most
+of a character's HP or SP for a few points of whatever is being chased, because
+nothing in a score says those two are what keeps you alive and casting rather
+than stats like any other.
+
+A guard is not a goal. It counts for nothing while it holds — so it never pulls
+a suggestion towards more of itself, and costs the real goals nothing — and
+counts for twice a top-priority goal once crossed. Crossing one from a build
+that was above it is treated like breaking any other met target: ranked last,
+flagged "Below …", and never planned. `GUARD_WEIGHT` and `DEFAULT_GUARDS` in
+`sim/src/suggest.ts`.
+
+**SP sustain** is the pool weighed against what a cast costs:
+`(1 + MaxSP%) / (1 + SPCost%) - 1`, as a percentage. Guarding Max SP on its own
+would be misleading — a build at -60% Max SP and -60% SP Cost casts exactly as
+often as one with neither, and shadow gear trades one for the other on purpose.
+So what is guarded is the ratio: casts you can afford. It is also offerable as
+an ordinary goal ("SP sustain %").
+
+They live under "Guard rails" in the Goals panel, folded away, with each target
+editable and each removable. An absent `guards` field on a build means the
+defaults; an empty array means the player took them off and meant it.
+
+### Filling a set
+
+One piece on is enough to name a set, so the Sets panel offers **Fill** on any
+set that is short: it works out which members are missing, where each one goes
+— an empty slot first, then any slot not already holding a member — and puts
+them all on in one move. Refines and cards already in those slots are kept
+where they fit, as a hand swap would.
+
+A locked slot is nowhere, so a set that needs one is offered greyed out rather
+than half-done. Sets that list alternatives (seven Asgard accessories of which
+any two count) stop once they have enough. `completeSet` / `fillSet` in
+`sim/src/sets.ts`, which the planner's set moves use too.
 
 ### The "Not counted" panel
 

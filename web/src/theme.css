@@ -327,6 +327,15 @@ input:focus, select:focus, button:focus-visible {
 .pill.unverified {
   color: var(--warn); border-color: #5b4a2c; background: #261f12; cursor: help;
 }
+/* Sits inside a row that is itself a hover target, so it stays quiet until
+   the row is under the cursor. */
+.fill-set {
+  padding: 1px 8px; font-size: 11px; border-radius: 99px;
+  color: var(--accent); opacity: 0; cursor: pointer;
+}
+.set-row:hover .fill-set, .set-row:focus-within .fill-set { opacity: 1; }
+.fill-set:disabled { opacity: 0; }
+.set-row:hover .fill-set:disabled { opacity: .4; }
 
 .uncounted { max-height: 220px; overflow: auto; }
 .uncounted div {
@@ -491,6 +500,36 @@ input:focus, select:focus, button:focus-visible {
 .import .dropzone input[type='file'] { display: block; margin: 10px auto 0; }
 .import .picker-row.skipped { opacity: 0.65; }
 
+/* Saving, exporting and sharing a build */
+.picker.builds { width: min(640px, 100%); }
+.builds-body { padding: 14px 16px 16px; overflow: auto; }
+.builds-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.builds-note { margin: 12px 0 0; font-size: 12px; color: var(--accent); }
+.share-link {
+  width: 100%; margin-top: 8px; font-family: var(--mono); font-size: 11px;
+  color: var(--text-dim);
+}
+.save-list { margin-top: 16px; }
+.save-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 7px 0; border-top: 1px solid #1c1727;
+}
+.save-name { flex: 1; }
+.save-when {
+  font-family: var(--mono); font-size: 11px; color: var(--text-faint);
+}
+.save-row .x { border: none; background: none; color: var(--text-faint); }
+.save-row .x:hover { color: var(--bad); }
+
+/* A build that arrived in a link, and has not been adopted */
+.shared-banner {
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  margin: -8px 0 20px; padding: 9px 14px;
+  border: 1px solid var(--accent-dim); border-radius: var(--radius);
+  background: #1a1430; font-size: 12px; color: var(--text-dim);
+}
+.shared-banner strong { color: var(--accent); font-size: 12px; }
+
 /* Panel heading with an action on the right */
 .panel-head { display: flex; align-items: center; gap: 10px; }
 .panel-head h2 { flex: 1; }
@@ -534,6 +573,23 @@ input:focus, select:focus, button:focus-visible {
 .goal-bar span { display: block; height: 100%; border-radius: 2px; background: var(--warn); }
 .goal-row.met .goal-bar span { background: var(--good); }
 .goal-add { margin-top: 6px; font-size: 12px; padding: 5px 8px; }
+/* Guard rails: floors under the build, folded away until wanted. */
+.guards { margin-top: 10px; border-top: 1px solid var(--border); padding-top: 6px; }
+.guards-head {
+  display: flex; align-items: center; gap: 8px; width: 100%;
+  padding: 3px 0; border: 0; background: none;
+  font-size: 11px; text-transform: uppercase; letter-spacing: .1em;
+  color: var(--text-faint);
+}
+.guards-head:hover:not(:disabled) { background: none; color: var(--text-dim); }
+.guards-sum { margin-left: auto; letter-spacing: 0; text-transform: none; }
+.guards.breached .guards-sum { color: var(--warn); }
+.guards-caret { color: var(--text-faint); }
+/* No priority arrows: a guard is not ranked against anything. */
+.goal-row.guard { grid-template-columns: minmax(0, 1fr) 26px 76px 60px auto; }
+.goal-row.guard .goal-name { cursor: help; }
+.goal-row.guard .goal-dir { cursor: default; }
+
 .goal-opts { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: 10px; }
 .goal-opts select { width: auto; padding: 2px 6px; font-size: 12px; }
 .goal-actions { display: flex; gap: 8px; margin-top: 10px; }

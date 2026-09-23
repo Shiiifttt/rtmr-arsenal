@@ -125,6 +125,15 @@ export interface Item {
   override?: { status: 'verified' | 'unverified'; reason: string } | null;
 }
 
+/**
+ * One slot's whole contents, as a change to make.
+ *
+ * Suggestions and set fills both speak in these rather than in patches:
+ * putting a piece on is a statement about the slot as a whole -- its item,
+ * its refine, its cards and its rolls all at once.
+ */
+export interface SlotChange { slot: string; state: SlotState }
+
 export interface SetRecord {
   index: number;
   key: string;
@@ -306,6 +315,13 @@ export interface Build {
   /** Numbers the player is building towards. See suggest.ts. */
   goals?: Goal[];
   /**
+   * Lines a suggestion may not cross. Absent means the defaults apply, which
+   * is what an older save and a fresh build both want; an empty array means
+   * the player took them all off and meant it. Kept out of `goals` because
+   * they are not ranked against them -- see `Goal.guard` and `guardsOf`.
+   */
+  guards?: Goal[];
+  /**
    * Slot keys no suggestion may touch -- the piece, its cards and its rolls
    * alike. Settled parts of a build, so the planner works on the rest.
    *
@@ -334,6 +350,16 @@ export interface Goal {
    * negatives ("Variable Cast -30%"), so reaching -50% means staying under.
    */
   atMost?: boolean;
+  /**
+   * A line not to cross rather than a number to chase.
+   *
+   * A guard counts for nothing while it holds and a great deal once it is
+   * broken, so it never pulls a suggestion towards more of itself -- it only
+   * rules out the ones that would make the character unplayable. It also
+   * sits outside the priority order, because "don't halve my HP" is not a
+   * thing to rank against wanting more crit. See `GUARD_WEIGHT`.
+   */
+  guard?: boolean;
 }
 
 /**

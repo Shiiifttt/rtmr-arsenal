@@ -7,9 +7,10 @@ import {
   carryInto, fitsCard, fitsSlot, isLocked, isTwoHanded, MAIN_HAND, maxRefine, OFF_HAND,
   SLOT_BY_KEY, SLOTS, socketsOf, type SlotDef,
 } from './slots.ts';
+import { fillSet, missingMembers } from './sets.ts';
 import { BASE_STAT_KEYS } from './types.ts';
 import type {
-  BaseStats, Build, Dataset, Effect, Goal, Item, SetRecord, SlotState, Totals,
+  BaseStats, Build, Dataset, Effect, Goal, Item, SetRecord, SlotChange, SlotState, Totals,
 } from './types.ts';
 
 /**
@@ -62,6 +63,7 @@ export function goalMetrics(data: Dataset): GoalMetric[] {
     const def = data.stats.find((s) => s.key === key);
     if (def) out.push({ key, column: 'total', label: `${def.name} (total)`, category: 'derived' });
   }
+  out.push({ key: SP_SUSTAIN, column: 'total', label: 'SP sustain %', category: 'derived' });
   for (const s of data.stats) {
     // A flag is present or absent; there is no amount to aim for.
     if (s.category === 'flag') continue;
@@ -98,6 +100,60 @@ export function goalMetrics(data: Dataset): GoalMetric[] {
 
 /** Goal keys for a skill modifier: "skill:Backstab|damage". */
 export const SKILL_PREFIX = 'skill:';
+
+/**
+ * How much of your SP bar a cast costs, relative to having neither bonus.
+ *
+ * Max SP on its own is a misleading thing to guard. A build at -60% Max SP
+ * and -60% SP Cost casts exactly as many times as one with neither, because
+ * both sides of the sum moved together -- and shadow gear in particular
+ * trades one for the other on purpose. So what is worth protecting is the
+ * ratio, not the pool: casts available, as a percentage of the baseline.
+ *
+ * -50 means half the casts. Flat Max SP is deliberately not in it: this is
+ * a reading of what the gear is doing to the ratio, and a flat bonus moves
+ * the pool by an amount that depends on a base the planner does not know.
+ */
+export const SP_SUSTAIN = 'sp_sustain';
+
+function spSustain(totals: Totals, data: Dataset): number {
+  const pool = gearTotal(totals, data, 'max_sp')?.percent ?? 0;
+  const cost = gearTotal(totals, data, 'sp_cost')?.percent ?? 0;
+  // A cost reduction of 100% or more would be free casting, which nothing on
+  // this server grants; the floor keeps a corrupt or stacked total from
+  // dividing by nothing rather than modelling anything.
+  return 100 * ((1 + pool / 100) / Math.max(0.01, 1 + cost / 100) - 1);
+}
+
+/**
+ * The lines every build is held to unless it says otherwise.
+ *
+ * Suggestions used to hand back gear that halved the character's HP or SP
+ * for a few points of crit, because nothing in the scoring knew those two
+ * numbers are what keeps you alive and casting rather than stats like any
+ * other. A build that cannot take a hit is not a better build whatever its
+ * damage says, so both are floors from the start and the player moves or
+ * removes them deliberately.
+ */
+export const DEFAULT_GUARDS: Goal[] = [
+  { key: 'max_hp', column: 'percent', target: -50, guard: true },
+  { key: SP_SUSTAIN, column: 'total', target: -50, guard: true },
+];
+
+/** This build's guards: its own if it has said, otherwise the defaults. */
+export function guardsOf(build: Build): Goal[] {
+  return (build.guards ?? DEFAULT_GUARDS).map((g) => ({ ...g, guard: true }));
+}
+
+/**
+ * Everything a suggestion is judged against: the goals, then the guards.
+ *
+ * Guards last so they cannot shift the priority of a goal -- the order of
+ * `goals` is the player's ranking, and it has to keep meaning that.
+ */
+export function allGoals(build: Build): Goal[] {
+  return [...(build.goals ?? []), ...guardsOf(build)];
+}
 
 function splitLast(s: string): [string, string] {
   const at = s.lastIndexOf(':');
@@ -160,6 +216,7 @@ export function goalLabel(goal: Goal, data: Dataset): string {
 
 /** The number a goal is measured against, read off a finished build. */
 export function measure(goal: Goal, totals: Totals, build: Build, data: Dataset): number {
+  if (goal.key === SP_SUSTAIN) return spSustain(totals, data);
   if (goal.key.startsWith(SKILL_PREFIX)) {
     const t = totals.skills.get(goal.key.slice(SKILL_PREFIX.length));
     return goal.column === 'percent' ? t?.percent ?? 0 : t?.flat ?? 0;
@@ -238,6 +295,23 @@ export function priorityWeight(index: number): number {
   return PRIORITY_DECAY ** index;
 }
 
+/**
+ * What a broken guard counts for, against a top-priority goal's 1.
+ *
+ * Twice, so crossing the line is never a trade a suggestion can win on
+ * points: halving the guarded stat costs 2, where taking the best goal from
+ * nothing to its target is worth 1. It is a weight rather than a veto
+ * because a build can start out already past the line -- gear does not come
+ * off to make room for a rule -- and from there the score should be pulling
+ * back towards it rather than refusing to say anything at all.
+ */
+const GUARD_WEIGHT = 2;
+
+/** What this goal counts for: its rank, or a guard's fixed weight. */
+function weightOf(goal: Goal, index: number): number {
+  return goal.guard ? GUARD_WEIGHT : priorityWeight(index);
+}
+
 /** Lower is better. Shortfalls first; surplus on met goals after. */
 function scoreOf(goals: Goal[], values: number[]): number {
   return scoreExcept(goals, values, -1);
@@ -255,7 +329,11 @@ function scoreExcept(goals: Goal[], values: number[], skip: number): number {
   goals.forEach((goal, i) => {
     if (i === skip) return;
     const short = shortOf(goal, values[i]) / scaleOf(goal);
-    score += priorityWeight(i) * (short > 0 ? short : -SURPLUS_WEIGHT * Math.log1p(-short));
+    // A guard that holds is worth nothing. Crediting the surplus would turn
+    // "don't halve my HP" into "keep taking HP", which is a different thing
+    // to ask for and one the player can ask for with an ordinary goal.
+    if (short <= 0 && goal.guard) return;
+    score += weightOf(goal, i) * (short > 0 ? short : -SURPLUS_WEIGHT * Math.log1p(-short));
   });
   return score;
 }
@@ -296,14 +374,12 @@ function improvesAny(goals: Goal[], before: number[], after: number[]): boolean 
 function shortfallOf(goals: Goal[], values: number[]): number {
   let total = 0;
   goals.forEach((goal, i) => {
-    total += priorityWeight(i) * Math.max(0, shortOf(goal, values[i])) / scaleOf(goal);
+    total += weightOf(goal, i) * Math.max(0, shortOf(goal, values[i])) / scaleOf(goal);
   });
   return total;
 }
 
 // ---- moves --------------------------------------------------------------
-
-export interface SlotChange { slot: string; state: SlotState }
 
 export interface Move {
   /**
@@ -368,7 +444,10 @@ export function applyChanges(build: Build, changes: SlotChange[], data: Dataset)
  * the relevance filters are worked out once rather than per call.
  */
 export class Suggester {
+  /** Everything judged against: the player's goals, then the guards. */
   readonly goals: Goal[];
+  /** The goals proper -- what a suggestion is actually looking for. */
+  readonly wanted: Goal[];
   readonly relevant: Relevance;
   private readonly data: Dataset;
   private readonly opts: SuggestOptions;
@@ -384,7 +463,12 @@ export class Suggester {
     this.data = data;
     this.goals = goals;
     this.opts = opts;
-    this.relevant = relevanceOf(goals, data);
+    // Guards are left out of relevance and of `active`: a line not to cross
+    // is not a reason to go looking through the gear, and on its own it is
+    // not something to suggest towards. They still count in every score,
+    // which is where they do their work.
+    this.wanted = goals.filter((g) => !g.guard);
+    this.relevant = relevanceOf(this.wanted, data);
     this.sets = data.sets.filter((s) => setTouches(s, this.relevant));
     this.setsTouching = new Set(this.sets.map((s) => s.index));
     this.cards = data.itemList.filter((i) =>
@@ -392,7 +476,7 @@ export class Suggester {
   }
 
   get active(): boolean {
-    return this.goals.length > 0
+    return this.wanted.length > 0
       && (this.relevant.ids.size > 0 || this.relevant.skills.size > 0);
   }
 
@@ -896,11 +980,10 @@ export class Suggester {
   setMoves(build: Build): Move[] {
     const before = this.values(build);
     const baseline = scoreOf(this.goals, before);
-    const worn = wornIds(build);
     const moves: Move[] = [];
 
     for (const set of this.sets) {
-      const missing = set.member_ids.filter((id) => !worn.has(id));
+      const missing = missingMembers(build, set);
       // Four or more missing is a different build, not a suggestion.
       if (missing.length === 0 || missing.length > 3) continue;
       const placed = this.completeSet(build, set, missing);
@@ -928,52 +1011,17 @@ export class Suggester {
   /**
    * Where each missing piece of a set would go, or null if one has nowhere.
    *
-   * A locked slot is nowhere: a set is offered as one move that puts on
-   * everything missing at once, so a set that needs a locked slot cannot be
-   * offered at all rather than offered half-done.
+   * A set is offered as one move that puts on everything missing at once, so
+   * a set with any piece that cannot be placed -- barred by the class and
+   * level filters, or left with only a locked slot -- is not offered at all
+   * rather than offered half-done.
    */
   private completeSet(build: Build, set: SetRecord, missing: number[]): SlotChange[] | null {
-    const members = new Set(set.member_ids);
-    const states: Record<string, SlotState> = {};
-    const stateOf = (key: string) => states[key] ?? build.slots[key] ?? EMPTY;
-    const taken = new Set<string>();
-    const free = SLOTS.filter((s) => !isLocked(build, s.key));
-
-    for (const id of missing) {
-      const item = this.data.items.get(id);
-      if (!item || !this.allowed(item)) return null;
-
-      if (item.kind === 'Card') {
-        // Into a socket of something already worn: an empty one first, and
-        // never one holding another piece of the same set.
-        let placed = false;
-        for (const slot of free) {
-          const state = stateOf(slot.key);
-          const host = state.itemId ? this.data.items.get(state.itemId) : undefined;
-          if (!host || !fitsCard(item, slot, host)) continue;
-          const sockets = socketsOf(host, state.cards);
-          let at = sockets.findIndex((c) => c === null);
-          if (at < 0) at = sockets.findIndex((c) => c !== null && !members.has(c));
-          if (at < 0) continue;
-          sockets[at] = id;
-          states[slot.key] = { ...state, cards: sockets };
-          placed = true;
-          break;
-        }
-        if (!placed) return null;
-        continue;
-      }
-
-      // A piece: prefer an empty slot, then any slot not already holding a
-      // member of this set or claimed by an earlier piece of it.
-      const options = free.filter((s) => fitsSlot(item, s) && !taken.has(s.key)
-        && !members.has(stateOf(s.key).itemId ?? -1));
-      const slot = options.find((s) => !stateOf(s.key).itemId) ?? options[0];
-      if (!slot) return null;
-      taken.add(slot.key);
-      states[slot.key] = this.place(stateOf(slot.key), item, slot);
-    }
-    return Object.entries(states).map(([slot, state]) => ({ slot, state }));
+    const fill = fillSet(build, set, missing, this.data, {
+      allowed: (item) => this.allowed(item),
+      place: (state, item, slot) => this.place(state, item, slot),
+    });
+    return fill.blocked.length > 0 ? null : fill.changes;
   }
 
   /** An item in a slot, at the refine these options assume. */
@@ -1198,15 +1246,6 @@ function anyTouches(effects: Effect[] | undefined, rel: Relevance): boolean {
 function gearTotal(totals: Totals, data: Dataset, key: string) {
   const id = data.stats.find((s) => s.key === key)?.id;
   return id === undefined ? undefined : totals.byStat.get(id);
-}
-
-function wornIds(build: Build): Set<number> {
-  const ids = new Set<number>();
-  for (const state of Object.values(build.slots)) {
-    if (state?.itemId) ids.add(state.itemId);
-    for (const card of state?.cards ?? []) if (card) ids.add(card);
-  }
-  return ids;
 }
 
 /** "+7 Mercury Riser" -- the refine is part of the suggestion, so it is named. */

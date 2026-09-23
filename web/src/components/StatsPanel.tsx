@@ -1,5 +1,8 @@
 import { useMemo, useState } from 'react';
-import { skillTone, statTone, type Dataset, type Totals } from '@sim';
+import {
+  completeSet, skillTone, statTone,
+  type Build, type Dataset, type SetRecord, type SlotChange, type Totals,
+} from '@sim';
 import { tooltipProps } from './ItemTooltip';
 
 /**
@@ -137,7 +140,13 @@ function ElementRow({ totals }: { totals: Totals }) {
   );
 }
 
-export function SetsPanel({ totals }: { totals: Totals }) {
+export function SetsPanel({ totals, build, dataset, onFill }: {
+  totals: Totals;
+  build: Build;
+  dataset: Dataset;
+  /** Put on the rest of a set, all at once. */
+  onFill: (changes: SlotChange[]) => void;
+}) {
   if (totals.setProgress.length === 0) return null;
   return (
     <div className="panel">
@@ -153,6 +162,9 @@ export function SetsPanel({ totals }: { totals: Totals }) {
         >
           <span className={`pill ${complete ? 'done' : ''}`}>{worn}/{total}</span>
           <span style={{ flex: 1 }}>{set.name}</span>
+          {!complete && (
+            <FillSetButton set={set} build={build} dataset={dataset} onFill={onFill} />
+          )}
           {set.override && (
             // The tooltip for this set was ambiguous enough to be corrected
             // by hand. Say so, rather than presenting a reading as a reading
@@ -175,6 +187,54 @@ export function SetsPanel({ totals }: { totals: Totals }) {
         );
       })}
     </div>
+  );
+}
+
+/**
+ * "Put the rest of this set on."
+ *
+ * A set is worth nothing until the last piece goes on, so hunting down four
+ * shadow pieces one slot at a time is work with no reward until the end of
+ * it. One piece on is enough to name the set; this does the rest.
+ *
+ * It says up front what it is about to do, and refuses rather than half-does
+ * it when a piece has nowhere to go -- a locked slot, or no slot that takes
+ * it at all. A set put on halfway is a set that does nothing.
+ */
+function FillSetButton({ set, build, dataset, onFill }: {
+  set: SetRecord;
+  build: Build;
+  dataset: Dataset;
+  onFill: (changes: SlotChange[]) => void;
+}) {
+  const fill = useMemo(() => completeSet(build, set, dataset), [build, set, dataset]);
+  if (fill.need === 0) return null;
+
+  const name = (id: number) => dataset.items.get(id)?.name ?? `#${id}`;
+  const ready = fill.placed.length === fill.need;
+  const replaced = fill.changes
+    .filter((c) => {
+      const had = build.slots[c.slot]?.itemId;
+      return had && had !== c.state.itemId;
+    })
+    .map((c) => name(build.slots[c.slot]!.itemId!));
+
+  return (
+    <button
+      className="fill-set"
+      disabled={!ready}
+      onClick={() => ready && onFill(fill.changes)}
+      title={ready
+        ? [
+          `Equip ${fill.placed.map(name).join(', ')}`,
+          replaced.length > 0 ? `Takes off ${replaced.join(', ')}` : null,
+          'Refines and cards already in those slots are kept where they fit.',
+        ].filter(Boolean).join('\n')
+        : `Nowhere to put ${fill.blocked.map(name).join(', ')} — `
+          + 'either no slot takes it, or the slot it needs is locked.'}
+    >
+      Fill
+    </button>
   );
 }
 

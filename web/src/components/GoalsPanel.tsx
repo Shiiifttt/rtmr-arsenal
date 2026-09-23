@@ -1,8 +1,8 @@
 import { useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import {
-  aggregate, applyChanges, brokenGoals, diffTotals, goalLabel, goalMetrics, goalStatus,
-  isOffhandWeapon, SLOT_BY_KEY,
+  aggregate, applyChanges, brokenGoals, DEFAULT_GUARDS, diffTotals, goalLabel,
+  goalMetrics, goalStatus, guardsOf, isOffhandWeapon, SLOT_BY_KEY, SP_SUSTAIN,
   type Build, type Dataset, type Goal, type GoalMetric, type Item, type Move, type Suggester,
   type Totals, type TotalsChange,
 } from '@sim';
@@ -32,6 +32,8 @@ interface Props {
   suggester: Suggester;
   prefs: SuggestPrefs;
   onGoals: (goals: Goal[]) => void;
+  /** The guard rails, as an explicit list. Empty means "none, deliberately". */
+  onGuards: (guards: Goal[]) => void;
   onPrefs: (prefs: SuggestPrefs) => void;
   onApply: (moves: Move[]) => void;
 }
@@ -43,7 +45,7 @@ interface Props {
  * "Recommended" tab and the smart sort get their idea of better from.
  */
 export function GoalsPanel({
-  dataset, build, totals, suggester, prefs, onGoals, onPrefs, onApply,
+  dataset, build, totals, suggester, prefs, onGoals, onGuards, onPrefs, onApply,
 }: Props) {
   const goals = build.goals ?? [];
   const lockedSlots = build.locked?.length ?? 0;
@@ -186,6 +188,14 @@ export function GoalsPanel({
         ))}
       </select>
 
+      <Guards
+        build={build}
+        totals={totals}
+        dataset={dataset}
+        metrics={metrics}
+        onGuards={onGuards}
+      />
+
       {goals.length > 0 && (
         <>
           <div className="goal-opts">
@@ -255,7 +265,7 @@ export function GoalsPanel({
                 <li key={i}>
                   <MoveRow
                     move={move}
-                    goals={goals}
+                    goals={suggester.goals}
                     action={i === 0 ? 'Apply' : 'Apply up to here'}
                     onApply={() => onApply(current.slice(0, i + 1))}
                     dataset={dataset}
@@ -285,7 +295,7 @@ export function GoalsPanel({
           moves={focused.moves}
           dataset={dataset}
           build={build}
-          goals={goals}
+          goals={suggester.goals}
           lockedSlots={lockedSlots}
           onApply={onApply}
           onClose={() => setFocus(null)}
@@ -293,6 +303,100 @@ export function GoalsPanel({
       )}
     </div>
   );
+}
+
+/**
+ * The lines a suggestion may not cross.
+ *
+ * Separate from the goals above because they are a different kind of thing:
+ * not a number to reach but a floor under the character, and not ranked
+ * against anything. Without them the planner will happily trade away most
+ * of a character's HP or SP for a few points of whatever is being chased,
+ * because nothing in a score says those two are what keeps you playing.
+ *
+ * Shown rather than applied silently, and every part of them editable, so a
+ * build that really is meant to run at 300 HP can say so.
+ */
+function Guards({ build, totals, dataset, metrics, onGuards }: {
+  build: Build;
+  totals: Totals;
+  dataset: Dataset;
+  metrics: GoalMetric[];
+  onGuards: (guards: Goal[]) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const guards = guardsOf(build);
+  const status = goalStatus(guards, totals, build, dataset);
+  const breached = status.filter((s) => !s.met).length;
+  const labelOf = (g: Goal) =>
+    metrics.find((m) => m.key === g.key && m.column === g.column)?.label ?? g.key;
+
+  return (
+    <div className={`guards ${breached ? 'breached' : ''}`}>
+      <button className="guards-head" onClick={() => setOpen(!open)} aria-expanded={open}>
+        <span>Guard rails</span>
+        <span className="guards-sum">
+          {guards.length === 0 ? 'off'
+            : breached ? `${breached} crossed`
+            : `${guards.length} holding`}
+        </span>
+        <span className="guards-caret" aria-hidden="true">{open ? '▾' : '▸'}</span>
+      </button>
+
+      {open && (
+        <>
+          <p className="empty-note" style={{ margin: '2px 0 8px', fontSize: 11 }}>
+            Floors a suggestion may not drop the build below. They are never
+            chased — a guard that holds counts for nothing — so they cost the
+            goals above nothing while they hold.
+          </p>
+          {status.map((s, i) => (
+            <div className={`goal-row guard ${s.met ? 'met' : ''}`} key={i}>
+              <span className="goal-name" title={guardHint(s.goal.key)}>
+                {labelOf(s.goal)}
+              </span>
+              <span className="goal-dir" title="At least">≥</span>
+              <input
+                type="number"
+                className="goal-target"
+                value={s.goal.target}
+                onChange={(e) => {
+                  const n = Number(e.target.value);
+                  if (Number.isFinite(n)) {
+                    onGuards(guards.map((g, j) => (j === i ? { ...g, target: n } : g)));
+                  }
+                }}
+              />
+              <span className="goal-now" title="Where the build is now">
+                {fmt(s.value)}%
+              </span>
+              <button
+                className="x"
+                onClick={() => onGuards(guards.filter((_, j) => j !== i))}
+                aria-label={`Remove guard ${labelOf(s.goal)}`}
+              >×</button>
+            </div>
+          ))}
+          {guards.length < DEFAULT_GUARDS.length && (
+            <button className="more" onClick={() => onGuards(DEFAULT_GUARDS)}>
+              Restore the default guard rails
+            </button>
+          )}
+        </>
+      )}
+    </div>
+  );
+}
+
+/** Why this particular number is one worth putting a floor under. */
+function guardHint(key: string): string {
+  return key === SP_SUSTAIN
+    ? 'Casts you can afford, against having no gear bonus at all: Max SP % '
+      + 'weighed against SP Cost %.\n\nSo -60% Max SP is fine alongside -60% '
+      + 'SP cost — the two cancel — and it is only the ratio that is guarded.'
+    : 'Max HP from gear, as a percentage. Shadow gear in particular buys its '
+      + 'bonuses with HP, and enough of it stacked leaves a character that '
+      + 'cannot take a hit.';
 }
 
 /**
