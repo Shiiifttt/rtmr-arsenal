@@ -66,10 +66,24 @@ The build in front of you is saved as you work on it, in one slot. The
   Anything imported goes through the same `reconcile` as a restored save, so a
   stale or hand-edited file cannot put a number the rest of the app does not
   expect into a total.
-- **Share link** puts the whole build in the URL fragment: JSON, deflated,
-  base64url, behind a one-character tag saying which. No account and no server
-  — a full build is around 250 characters, and a fragment is never sent to the
-  host the page is served from. `web/src/share.ts`.
+- **Share link** puts the whole build in the URL fragment, written
+  positionally, deflated and base64url-encoded behind a one-character tag
+  naming the format. No account and no server — a few pieces is a link of
+  about 290 characters and every slot filled is about 500, and a fragment is
+  never sent to the host the page is served from. `web/src/share.ts`.
+
+  Deflate alone was not enough: it crushes the repeated field names, but what
+  is left is mostly five and six figure item ids, which do not compress. So
+  the shape goes first — field names dropped for position, slot keys for
+  their index into `SLOTS`, empty tails left off — which is worth about 40%,
+  and deflate still runs afterwards for the roll keys. Because slots travel
+  as positions, the order of `SLOTS` is part of the link format; a test pins
+  it, so reordering fails there rather than silently loading someone's saved
+  link into the wrong slots. Appending to `SLOTS` is safe.
+
+  The tag is what makes the format safe to change. Every format this has ever
+  written still decodes, so a link someone saved a year ago keeps working;
+  only the writing side moves.
 
 **A link never costs you your own build.** Opening one shows a banner and
 suspends the autosave entirely: look at it, change it, throw it away, and what

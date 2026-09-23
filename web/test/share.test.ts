@@ -10,6 +10,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import type { Build } from '@sim';
+import { SLOTS } from '@sim';
 import { decodeBuild, encodeBuild, payloadIn } from '../src/share.ts';
 
 const BUILD: Build = {
@@ -18,7 +19,11 @@ const BUILD: Build = {
   baseStats: { str: 90, agi: 99, vit: 1, int: 1, dex: 40, luk: 1 },
   slots: {
     weapon: { itemId: 1229, refine: 9, cards: [4144, 4144, null, null] },
-    lower: { itemId: 2299, refine: 0, cards: [], rolls: { atk: { option: 2, value: 5 } } },
+    lower: {
+      itemId: 2299, refine: 0, cards: [],
+      rolls: { atk: { option: 'ATK +%d', values: [5] },
+               skl: { option: 'Backstab +%d%', values: [3], skill: 'Backstab' } },
+    },
     armor: { itemId: null, refine: 0, cards: [] },
   },
   goals: [{ key: 'atk', column: 'total', target: 2000 }],
@@ -33,7 +38,13 @@ test('a build survives the round trip through a link', async () => {
   assert.equal(back?.className, 'Assassin');
   assert.equal(back?.baseLevel, 150);
   assert.deepEqual(back?.baseStats, BUILD.baseStats);
-  assert.deepEqual(back?.slots.weapon, BUILD.slots.weapon);
+  // Cards come back packed to the front rather than in the sockets they
+  // left in. Sockets are not positionally meaningful in Ragnarok -- four of
+  // a card is four of a card -- and `socketsOf` pads the array back out to
+  // the piece's real socket count on the way in, so the empty tail is not
+  // worth the characters.
+  assert.deepEqual(back?.slots.weapon,
+    { itemId: 1229, refine: 9, cards: [4144, 4144] });
   assert.deepEqual(back?.slots.lower, BUILD.slots.lower);
   assert.deepEqual(back?.goals, BUILD.goals);
   assert.deepEqual(back?.locked, ['weapon']);
@@ -63,11 +74,50 @@ test('the payload uses only characters a URL carries unescaped', async () => {
   assert.equal(encodeURIComponent(payload), payload);
 });
 
-test('deflating is what keeps the link short', async () => {
+test('the payload is a good deal shorter than the build it carries', async () => {
   const payload = await encodeBuild(BUILD);
-  assert.equal(payload[0], 'z', 'expected the deflated tag');
-  assert.ok(payload.length < JSON.stringify(BUILD).length,
-    `payload ${payload.length} should beat raw JSON ${JSON.stringify(BUILD).length}`);
+  assert.equal(payload[0], 'c', 'expected the compact deflated tag');
+  const raw = JSON.stringify(BUILD).length;
+  assert.ok(payload.length < raw / 2,
+    `payload ${payload.length} should be well under half of raw JSON ${raw}`);
+});
+
+/**
+ * The compact format writes a slot as its position in SLOTS, which is what
+ * saves about a hundred characters on a full build. That makes the order of
+ * SLOTS part of the link format: reorder it and every link anyone has
+ * already saved or posted starts loading gear into the wrong slots.
+ *
+ * Appending is safe. This pins what is there so a reorder fails here, where
+ * the reason is written down, rather than silently out in the world.
+ */
+test('the slot order the link format depends on is unchanged', () => {
+  assert.deepEqual(SLOTS.map((s) => s.key), [
+    'upper', 'middle', 'lower', 'armor', 'weapon', 'offhand', 'garment',
+    'shoes', 'acc1', 'acc2', 'ammo', 'gem',
+    'sh_armor', 'sh_shoes', 'sh_gloves', 'sh_acc', 'sh_manual', 'runeorb',
+    'cos_upper', 'cos_middle', 'cos_lower', 'cos_garment',
+  ]);
+});
+
+test('links in the first format still decode', async () => {
+  // Written by the version that shipped before the compact format: the
+  // whole build as JSON, deflated, under the 'z' tag. Someone has this in
+  // a chat window somewhere and it has to keep working.
+  const legacy = { className: 'Assassin', baseLevel: 150,
+    baseStats: BUILD.baseStats,
+    slots: { weapon: { itemId: 1229, refine: 9, cards: [4144, null] } },
+    locked: ['weapon'] };
+  const bytes = new TextEncoder().encode(JSON.stringify(legacy));
+  const z = new Uint8Array(await new Response(new Blob([bytes as BlobPart]).stream()
+    .pipeThrough(new CompressionStream('deflate-raw'))).arrayBuffer());
+  const b64 = Buffer.from(z).toString('base64url');
+
+  const back = await decodeBuild('z' + b64);
+  assert.equal(back?.className, 'Assassin');
+  assert.equal(back?.baseLevel, 150);
+  assert.deepEqual(back?.slots.weapon, { itemId: 1229, refine: 9, cards: [4144, null] });
+  assert.deepEqual(back?.locked, ['weapon']);
 });
 
 test('a fragment that is not a build reads as none rather than throwing', async () => {
@@ -85,7 +135,27 @@ test('the payload is found in a URL, and only under its own key', () => {
 });
 
 test('an uncompressed payload still decodes, for a browser with no deflate', async () => {
+  // The first format's uncompressed tag, still read.
   const plain = 'u' + Buffer.from(JSON.stringify(BUILD)).toString('base64url');
-  const back = await decodeBuild(plain);
-  assert.equal(back?.className, 'Assassin');
+  assert.equal((await decodeBuild(plain))?.className, 'Assassin');
+});
+
+test('a slot carries its cards and its rolls, skill and all', async () => {
+  const back = await decodeBuild(await encodeBuild(BUILD));
+  assert.deepEqual(back?.slots.weapon?.cards, [4144, 4144]);
+  assert.deepEqual(back?.slots.lower?.rolls, BUILD.slots.lower.rolls);
+});
+
+test('a build with nothing set round-trips to the same nothing', async () => {
+  const bare: Build = {
+    className: null, baseLevel: 1,
+    baseStats: { str: 1, agi: 1, vit: 1, int: 1, dex: 1, luk: 1 },
+    slots: {},
+  };
+  const back = await decodeBuild(await encodeBuild(bare));
+  assert.equal(back?.className, null);
+  assert.deepEqual(back?.slots, {});
+  assert.deepEqual(back?.goals, []);
+  assert.equal(back?.guards, undefined);
+  assert.equal(back?.manual, undefined);
 });
