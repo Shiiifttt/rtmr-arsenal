@@ -15058,7 +15058,17 @@
      "effects": [
       {
        "text": "Extra 1% per refine.",
-       "parsed": false
+       "stat": "Neutral Resistance",
+       "value": 1,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        55
+       ],
+       "stat_keys": [
+        "res_neutral"
+       ],
+       "stat_inherited": true
       }
      ]
     }
@@ -15178,8 +15188,19 @@
      "per": 1,
      "effects": [
       {
-       "text": "Extra 1% per refine",
-       "parsed": false
+       "text": "Defense/Magic Defense Penetration +1",
+       "stat": "Defense/Magic Defense Penetration",
+       "value": 1,
+       "unit": null,
+       "parsed": true,
+       "stat_ids": [
+        28,
+        29
+       ],
+       "stat_keys": [
+        "def_pen",
+        "mdef_pen"
+       ]
       }
      ]
     }
@@ -15193,7 +15214,10 @@
    "text": "Dream Enchants available"
   },
   "lore": null,
-  "override": null
+  "override": {
+   "status": "verified",
+   "reason": "'Defense/Magic Defense Penetration +5' / 'Extra 1% per refine'. The continuation inherits the stat from the line above it, but its '%' disagrees with the flat +5 it continues. Read literally that is +1% per refine; the project owner confirms it is flat +1 per refine, the same reading the server owner gave for Murder Knife's identical wording. The per cent in the tooltip is a mistranslation."
+  }
  },
  {
   "id": 22077,
@@ -15324,7 +15348,45 @@
      "effects": [
       {
        "text": "Extra 1% per refine for all",
-       "parsed": false
+       "stat": "After Cast Delay",
+       "value": -1,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        35
+       ],
+       "stat_keys": [
+        "after_cast_delay"
+       ],
+       "stat_inherited": true
+      },
+      {
+       "text": "Extra 1% per refine for all",
+       "stat": "ASPD",
+       "value": 1,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        16
+       ],
+       "stat_keys": [
+        "aspd"
+       ],
+       "stat_inherited": true
+      },
+      {
+       "text": "Extra 1% per refine for all",
+       "stat": "Variable Cast Time",
+       "value": -1,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        33
+       ],
+       "stat_keys": [
+        "variable_cast"
+       ],
+       "stat_inherited": true
       }
      ]
     }
@@ -20346,11 +20408,14 @@
     "value": -5,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": [],
-    "skill": "All",
-    "skill_metric": "cast time",
-    "skills": []
+    "stat_ids": [
+     33,
+     34
+    ],
+    "stat_keys": [
+     "variable_cast",
+     "fixed_cast"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -36301,11 +36366,14 @@
     "value": -25,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": [],
-    "skill": "All",
-    "skill_metric": "cast time",
-    "skills": []
+    "stat_ids": [
+     33,
+     34
+    ],
+    "stat_keys": [
+     "variable_cast",
+     "fixed_cast"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -44938,11 +45006,14 @@
     "value": -5,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": [],
-    "skill": "All",
-    "skill_metric": "cast time",
-    "skills": []
+    "stat_ids": [
+     33,
+     34
+    ],
+    "stat_keys": [
+     "variable_cast",
+     "fixed_cast"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -45076,11 +45147,14 @@
     "value": -5,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": [],
-    "skill": "All",
-    "skill_metric": "cast time",
-    "skills": []
+    "stat_ids": [
+     33,
+     34
+    ],
+    "stat_keys": [
+     "variable_cast",
+     "fixed_cast"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -48997,11 +49071,14 @@
     "value": -5,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": [],
-    "skill": "All",
-    "skill_metric": "cast time",
-    "skills": []
+    "stat_ids": [
+     33,
+     34
+    ],
+    "stat_keys": [
+     "variable_cast",
+     "fixed_cast"
+    ]
    },
    {
     "text": "ATK +5",
@@ -49037,13 +49114,45 @@
      "per": 1,
      "effects": [
       {
-       "text": "Extra 1% and +1 per refine",
-       "stat": "Extra 1% and",
+       "text": "All Cast Time -1%",
+       "stat": "All Cast Time",
+       "value": -1,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        33,
+        34
+       ],
+       "stat_keys": [
+        "variable_cast",
+        "fixed_cast"
+       ]
+      },
+      {
+       "text": "ATK +1",
+       "stat": "ATK",
        "value": 1,
        "unit": null,
        "parsed": true,
-       "stat_ids": [],
-       "stat_keys": []
+       "stat_ids": [
+        10
+       ],
+       "stat_keys": [
+        "atk"
+       ]
+      },
+      {
+       "text": "MATK +1",
+       "stat": "MATK",
+       "value": 1,
+       "unit": null,
+       "parsed": true,
+       "stat_ids": [
+        11
+       ],
+       "stat_keys": [
+        "matk"
+       ]
       }
      ]
     }
@@ -49053,7 +49162,10 @@
   "conditional": [],
   "enchant": null,
   "lore": "One tooth, and the wood is worn flat on it. Nobody walks far enough on these to wear anything down. Something did.",
-  "override": null
+  "override": {
+   "status": "verified",
+   "reason": "'All Cast Time -5%' / 'ATK +5, MATK +5' / 'Extra 1% and +1 per refine'. One continuation covering two lines with two different units, which no inheritance rule can split on its own -- read alone it parsed as a stat literally named 'Extra 1% and'. Per the project owner the per cent is the cast time and the flat +1 is the ATK and MATK. The cast reduction stays negative because it is more of a reduction."
+  }
  },
  {
   "id": 20739,
@@ -53771,7 +53883,17 @@
      "effects": [
       {
        "text": "Extra 1% per refine",
-       "parsed": false
+       "stat": "DMG vs Humans",
+       "value": 1,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        98
+       ],
+       "stat_keys": [
+        "dmg_vs_race_demihuman"
+       ],
+       "stat_inherited": true
       }
      ]
     }
@@ -53877,7 +53999,17 @@
      "effects": [
       {
        "text": "Extra 1% per refine",
-       "parsed": false
+       "stat": "DMG vs Humans",
+       "value": 1,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        98
+       ],
+       "stat_keys": [
+        "dmg_vs_race_demihuman"
+       ],
+       "stat_inherited": true
       }
      ]
     }

@@ -67,6 +67,28 @@
       "status": "unverified",
       "reason": "The tooltip reads 'ATK+3%' / 'MATK+3%' / 'Full Shadow Card Set' / 'All Stats +5' / 'Defense Penetration +10' / 'Magic Defense Penetration +10'. 'Full Shadow Card Set' is a set heading written without a colon, so the parser read the three lines under it as this card's own and the card claimed the whole set bonus on its own. Those lines are moved to the 'full-shadow-card' set, which needs all six Rank shadow cards compounded; what is left here is the card's own ATK/MATK.",
       "effects": ["ATK+3%", "MATK+3%"]
+    },
+
+    "Fallen Sword": {
+      "status": "verified",
+      "reason": "The tooltip wraps: 'Defense Penetration: 10' / 'Magic Defense Penetration:' / '10'. The label and its value are on separate lines, so the value read as a bare '10' with no stat and the magic penetration was lost entirely. Confirmed by the project owner as Magic Defense Penetration +10. Left to the parser this would mean treating an orphaned number as belonging to the label above it, which is the same shape as a continuation clause ('Extra 1% per refine') but means something different -- so it is corrected here rather than guessed at.",
+      "effects": ["Defense Penetration +10", "Magic Defense Penetration +10"]
+    },
+
+    "Dream Manteau": {
+      "status": "verified",
+      "reason": "'Defense/Magic Defense Penetration +5' / 'Extra 1% per refine'. The continuation inherits the stat from the line above it, but its '%' disagrees with the flat +5 it continues. Read literally that is +1% per refine; the project owner confirms it is flat +1 per refine, the same reading the server owner gave for Murder Knife's identical wording. The per cent in the tooltip is a mistranslation.",
+      "per_refine": [
+        { "per": 1, "effects": ["Defense/Magic Defense Penetration +1"] }
+      ]
+    },
+
+    "Tengu Geta": {
+      "status": "verified",
+      "reason": "'All Cast Time -5%' / 'ATK +5, MATK +5' / 'Extra 1% and +1 per refine'. One continuation covering two lines with two different units, which no inheritance rule can split on its own -- read alone it parsed as a stat literally named 'Extra 1% and'. Per the project owner the per cent is the cast time and the flat +1 is the ATK and MATK. The cast reduction stays negative because it is more of a reduction.",
+      "per_refine": [
+        { "per": 1, "effects": ["All Cast Time -1%", "ATK +1", "MATK +1"] }
+      ]
     }
   },
 
@@ -173,6 +195,18 @@
       "member_count": 3
     },
 
+    "fallen-gods": {
+      "status": "unverified",
+      "reason": "Necromancer's Hand Mirror repeats the whole Fallen Gods block in its description, so it grouped as a fifth member -- but it has no equip_slots and is not refineable, which is what a retired item looks like here, and the set's own refine lines name only Armor, Shoes, Gloves and Pendant. Left in, member_count is 5 while only four pieces can be worn, so the set bonus can never complete. The four named pieces are the set; the mirror is dropped.",
+      "members": [
+        "Fallen Gods Armor",
+        "Fallen Gods Gloves",
+        "Fallen Gods Shoes",
+        "Fallen Gods Pendant"
+      ],
+      "member_count": 4
+    },
+
     "faceworm": {
       "status": "unverified",
       "reason": "Named 'Dark Faceworm and Queen Faceworm Cards', but only Faceworm Queen Card declares it, so it grouped as a set containing itself and the whole bonus applied from one card. Dark Faceworm Card's description has no set block at all. The two take different slots -- Dark Faceworm is Armor, the Queen is Garment -- so both can be worn and member_count is 2. Note the members text writes 'Queen Faceworm', while the item is named 'Faceworm Queen Card'.",
@@ -185,6 +219,30 @@
       "reason": "Named 'Hyegun, Bongun and Munak Cards', but only Hyegun Card declares it, so it grouped as a set containing itself and ATK/MATK+1% applied from one card. Bongun Card and Munak Card declare a set of their own instead, so they sit in both at once. Hyegun is an Armor card and Bongun and Munak each fit Garment or Shoes, so all three can be compounded at once and member_count is 3.",
       "members": ["Hyegun Card", "Bongun Card", "Munak Card"],
       "member_count": 3
+    },
+
+    "king-s-wizard": {
+      "status": "unverified",
+      "reason": "King's Wizard Shoes writes 'King's Guardian Set Bonus:' over the King's *Wizard* bonus -- 'Magic vs All Sizes +5%', where Guardian's is 'Defense vs All Sizes +5%' -- so the heading is a typo on the server's side and the parser grouped the shoes into Guardian by the name it declares. Everything else about the piece is Wizard: it is named King's Wizard Shoes, it sits in the Wizard id block (24424 Armor, 24425 Gloves, 24426 Shoes, 24427 Pendant), and its piece bonus 'Magic vs Small +5%' completes the family's set of sizes alongside Large on the Armor, Medium on the Gloves and All Sizes on the Pendant. All four King's shadow sets are Armor, Gloves, Shoes and Pendant, so member_count is 4.",
+      "members": [
+        "King's Wizard Armor",
+        "King's Wizard Gloves",
+        "King's Wizard Shoes",
+        "King's Wizard Pendant"
+      ],
+      "member_count": 4
+    },
+
+    "king-s-guardian": {
+      "status": "unverified",
+      "reason": "The other half of the King's Wizard Shoes typo: with the shoes counted here this had five members and member_count 5, of which two -- King's Guardian Shoes and King's Wizard Shoes -- are shoes competing for the one shadow shoes slot, so only four could ever be worn and the set bonus could never apply. Restored to the four Guardian pieces.",
+      "members": [
+        "King's Guardian Armor",
+        "King's Guardian Gloves",
+        "King's Guardian Shoes",
+        "King's Guardian Pendant"
+      ],
+      "member_count": 4
     },
 
     "kraken": {

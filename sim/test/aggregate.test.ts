@@ -71,12 +71,18 @@ test('a card in a weapon contributes its effect', () => {
 });
 
 test('per-N refine scales in whole steps, not linearly', () => {
+  // Any step size the data still has, rather than a fixed 4: which N an item
+  // carries is a fact about the tooltips, and one that moves. Most of the
+  // per-4 and per-8 blocks turned out to be set refine written under a set
+  // heading, and pinning the fixture to a number the data had that day is
+  // what made this test fail when they moved.
   const item = itemList.find((i) =>
-    i.refineable && i.refine.per_refine.some((g) => (g.per ?? 1) === 4)
+    i.refineable && i.refine.per_refine.some((g) => (g.per ?? 1) >= 2)
     && i.refine.per_refine.every((g) => g.effects.every((e) => e.parsed && e.stat_ids?.length)))!;
-  assert.ok(item, 'need an item with per-4-refine scaling');
+  assert.ok(item, 'need an item with per-N-refine scaling');
 
-  const group = item.refine.per_refine.find((g) => (g.per ?? 1) === 4)!;
+  const group = item.refine.per_refine.find((g) => (g.per ?? 1) >= 2)!;
+  const per = group.per ?? 1;
   const eff = group.effects.find((e) => e.parsed && e.stat_ids?.length)!;
   const id = eff.stat_ids![0];
   const slot = SLOTS.find((s) => s.accepts.some((a) => item.equip_slots.includes(a)))!;
@@ -89,11 +95,14 @@ test('per-N refine scales in whole steps, not linearly', () => {
   };
 
   const base = at(0);
-  // Kept inside the server's +10 cap so this is a reachable build.
-  assert.equal(at(3) - base, 0, '+3 should not reach a per-4 step');
-  assert.equal(at(4) - base, eff.value!, '+4 is exactly one step');
-  assert.equal(at(7) - base, eff.value!, '+7 is still one step');
-  assert.equal(at(8) - base, eff.value! * 2, '+8 is two steps, not eight');
+  // Kept inside the server's +10 cap so these are reachable builds.
+  assert.ok(per * 2 <= MAX_REFINE, `per-${per} needs two steps inside the cap`);
+  assert.equal(at(per - 1) - base, 0, `+${per - 1} should not reach a step`);
+  assert.equal(at(per) - base, eff.value!, `+${per} is exactly one step`);
+  assert.equal(at(per * 2 - 1) - base, eff.value!,
+    `+${per * 2 - 1} is still one step`);
+  assert.equal(at(per * 2) - base, eff.value! * 2,
+    `+${per * 2} is two steps, not ${per * 2}`);
 });
 
 test('set bonus applies only when every piece is worn', () => {

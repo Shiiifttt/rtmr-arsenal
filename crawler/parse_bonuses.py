@@ -486,6 +486,15 @@ def parse_effect(text: str, per_refine: int | None = None,
         # Resolve the wording onto canonical stat ids so the arsenal can add
         # equipment up without re-reading the text.
         eff.update(stat_registry.resolve(stat_text))
+        # "SP Cost Reduction: 18%" is SP Cost -18%: the same quantity seen
+        # from the other side, like "Damage Taken" below. Only where a
+        # smaller number is the better one -- "Ranged Damage Reduction"
+        # resolves to a resistance, which is a stat of its own where more is
+        # simply more, and must not be flipped.
+        keys = set(eff.get("stat_keys") or [])
+        if (eff["value"] > 0 and keys and keys <= stat_registry.LOWER_IS_BETTER
+                and re.search(r"\breduction\b", stat_text, re.I)):
+            eff["value"] = -eff["value"]
         if eff.get("skill") and not eff.get("stat_ids"):
             # Which skills, by their proper names, so bonuses to one skill
             # from different items can be added up as one figure.
@@ -532,6 +541,26 @@ def split_effects(line: str) -> list[str]:
 # "+1% per 10 base STR" on its own names no stat: it is a second clause about
 # the stat named before the comma ("Max SP +1%, +1% per 10 base STR").
 _BARE_VALUE = re.compile(r"^[+\-]\s*\d")
+
+# The same thing a line later rather than a comma later:
+#
+#   Defense Penetration +5,        Ranged Attack +5%
+#   +1 more per refine             Extra 1% per refine
+#
+# The continuation gives a number and no stat, so read alone it is either
+# unparseable or -- worse -- a stat called "Extra". It means more of what the
+# line above named. Matched against the line with its "per refine" phrase
+# already taken off, so what is left has to be the quantity and nothing else:
+# that is what keeps "3% per refine chance to autocast Lv1 Heal when hit" out,
+# which is a proc chance rather than a second clause about a stat.
+#
+# "for all" reaches back over the whole run of stat lines above it rather than
+# just the last one -- Dream Shoes writes three, then "Extra 1% per refine for
+# all".
+_CARRY_OVER = re.compile(
+    r"^(?:extra\s+|an\s+extra\s+)?"
+    r"(?P<sign>[+\-])?\s*(?P<value>\d+(?:\.\d+)?)\s*(?P<unit>%)?"
+    r"(?:\s+more)?(?P<all>\s+for\s+all)?\s*\.?$", re.I)
 
 
 def parse_leech(line: str) -> list[dict] | None:
@@ -657,19 +686,105 @@ def parse_line(line: str) -> list[dict]:
         return effects
 
     out: list[dict] = []
-    carried: str | None = None
+    carried: dict | None = None
     for part in split_effects(line):
         eff = parse_effect(part)
         if _BARE_VALUE.match(part.strip()) and carried and not eff.get("stat"):
-            reparsed = parse_effect(f"{carried} {part.strip()}")
-            if reparsed.get("parsed"):
-                reparsed["text"] = part.strip()
-                reparsed["stat_inherited"] = True
-                eff = reparsed
-        if eff.get("stat"):
-            carried = eff["stat"]
+            eff = inherit_stat(eff, carried) or eff
+        # The source keeps its place while continuations attach to it, so a
+        # second clause inherits the stat *and* the sign of the real line.
+        if eff.get("stat") and not eff.get("stat_inherited"):
+            carried = eff
         out.append(eff)
     return _drop_zeroes(out)
+
+
+def _scaling_stripped(text: str) -> str:
+    """One effect line with its "per refine" / "per 5 base STR" tail taken off.
+
+    What is left is the quantity the line is actually about, which is what
+    decides whether the line is a bare continuation or prose of its own.
+    """
+    for pattern in (INLINE_PER_SET_REFINE, INLINE_PER_REFINE, INLINE_PER_BASE_STAT):
+        if pattern.search(text):
+            text = pattern.sub("", text)
+    return text.strip(" .,")
+
+
+def inherit_stat(eff: dict, src: dict) -> dict | None:
+    """One bare-value clause, given the stat from the clause before it.
+
+    The inherited line is composed back into tooltip wording and put through
+    the parser again rather than having its ids copied across, so the stat
+    resolves exactly once, in one place.
+
+    The sign comes from the source where the continuation does not give one,
+    because "extra 1%" means one percent more of what was just said -- and
+    what was just said may be a reduction. Dream Shoes writes "After Cast
+    Delay -5% / ASPD +5% / Variable Cast Time -5% / Extra 1% per refine for
+    all", where a literal +1% would be wrong on two lines out of three.
+
+    Returns None when there is nothing sound to inherit, and the caller
+    leaves the line as it found it.
+    """
+    m = _CARRY_OVER.match(_scaling_stripped(eff["text"]))
+    if not m or not src.get("stat"):
+        return None
+    sign = m.group("sign") or ("-" if (src.get("value") or 0) < 0 else "+")
+    out = parse_effect(f"{src['stat']} {sign}{m.group('value')}{m.group('unit') or ''}")
+    if not out.get("parsed") or not out.get("stat_ids"):
+        return None
+    out["text"] = eff["text"]
+    out["stat_inherited"] = True
+    # The scaling belongs to the continuation, not to the line it took its
+    # stat from: "+1 more per refine" scales, "Defense Penetration +5" does
+    # not.
+    for carry in ("per_refine", "per_set_refine", "per_base_stat"):
+        if carry in eff:
+            out[carry] = eff[carry]
+    return out
+
+
+def carries_to_all(text: str) -> bool:
+    """Does this continuation reach back over every stat line above it?"""
+    m = _CARRY_OVER.match(_scaling_stripped(text))
+    return bool(m and m.group("all"))
+
+
+def carry_over(effects: list[dict], run: list[dict]) -> list[dict]:
+    """Give a bare "Extra 1% per refine" the stat from the line above it.
+
+    `run` is the unbroken row of stat-naming lines immediately above this
+    one; anything that is not one clears it, so a continuation can only ever
+    attach to lines it actually follows.
+    """
+    out: list[dict] = []
+    for eff in effects:
+        if eff.get("parsed") or not run:
+            out.append(eff)
+            continue
+        sources = run if carries_to_all(eff["text"]) else run[-1:]
+        made = [made_eff for made_eff in
+                (inherit_stat(eff, src) for src in sources) if made_eff]
+        out.extend(made or [eff])
+    return out
+
+
+def stat_run(effects: list[dict], previous: list[dict]) -> list[dict]:
+    """The row of stat-naming lines a continuation may attach to.
+
+    Consecutive stat lines build the row up, because "for all" reaches back
+    over all of them. A line that inherited its stat leaves the row as it
+    is, so two continuations in a row both reach the same place. Anything
+    else -- prose, a flag, a blank line, an unreadable line -- breaks it,
+    which is what stops a number picking up a stat from further up the
+    tooltip than the lines it follows.
+    """
+    named = [e for e in effects if e.get("parsed") and e.get("stat")
+             and e.get("stat_ids") and not e.get("stat_inherited")]
+    if named:
+        return previous + named
+    return previous if any(e.get("stat_inherited") for e in effects) else []
 
 
 def _drop_zeroes(effects: list[dict]) -> list[dict]:
@@ -741,9 +856,19 @@ def parse_description(desc: str) -> dict:
     pending_scope: str | None = None
     current_block: dict | None = None
     last_stat: str | None = None
+    # The row of stat lines a bare "Extra 1% per refine" may attach to.
+    carry_run: list[dict] = []
     expect_members = False
 
     for line in lines:
+        # Cleared at the top of every line and put back only by the body-line
+        # branch below, so a continuation can only ever attach to the body
+        # line directly above it. A blank line, a heading, a condition -- any
+        # of them ends the run, because none of them is a clause a number can
+        # be a second half of. Fallen Sword is why: it writes "Magic Defense
+        # Penetration:" and then "10" on the next line, and without this the
+        # wrapped value reads as more of the Defense Penetration above it.
+        carry_from, carry_run = carry_run, []
         if not line:
             continue
 
@@ -855,8 +980,24 @@ def parse_description(desc: str) -> dict:
             m = H_PER_REFINE.match(line)
             if m:
                 pending_cond = {"per": int(m.group("n") or 1), "effects": []}
-                result["item_refine"]["per_refine"].append(pending_cond)
-                section, pending_scope = "pending", "item"
+                # Under a set bonus heading, "Per 4 Refines:" counts the set's
+                # combined refines and pays out only once the set is whole --
+                # the same thing H_PER_SET_REFINE says in words, written
+                # without the word "set" because the heading above already
+                # said it.
+                #
+                # Read as the piece's own refine it was wrong three ways over:
+                # every member of these shadow sets repeats the whole set
+                # block, so the bonus applied four times, off four separate
+                # refine numbers, and without the set needing to be complete
+                # at all.
+                if current_block is not None and section in (
+                        "set_bonus", "set_bonus_wait", "set_members"):
+                    sr["per_set_refine"].append(pending_cond)
+                    section, pending_scope = "pending", "set"
+                else:
+                    result["item_refine"]["per_refine"].append(pending_cond)
+                    section, pending_scope = "pending", "item"
                 continue
 
             # A heading with its payload on the same line:
@@ -886,7 +1027,12 @@ def parse_description(desc: str) -> dict:
             section = "set_bonus_wait"
             continue
 
-        for eff in parse_line(line):
+        # A line that gives a number and no stat is a second clause about the
+        # line above it, so it is resolved before anything is filed away.
+        line_effects = carry_over(parse_line(line), carry_from)
+        carry_run = stat_run(line_effects, carry_from)
+
+        for eff in line_effects:
             # An enchant note is a property of the item; lift it out rather
             # than letting it sit in the totals as an unreadable "effect".
             if eff.get("enchant"):

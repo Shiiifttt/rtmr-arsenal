@@ -5099,11 +5099,14 @@
        "value": -1,
        "unit": "%",
        "parsed": true,
-       "stat_ids": [],
-       "stat_keys": [],
-       "skill": "All",
-       "skill_metric": "cast time",
-       "skills": []
+       "stat_ids": [
+        33,
+        34
+       ],
+       "stat_keys": [
+        "variable_cast",
+        "fixed_cast"
+       ]
       }
      ]
     }
@@ -9644,11 +9647,14 @@
     "value": -5,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": [],
-    "skill": "All",
-    "skill_metric": "cast time",
-    "skills": []
+    "stat_ids": [
+     33,
+     34
+    ],
+    "stat_keys": [
+     "variable_cast",
+     "fixed_cast"
+    ]
    }
   ],
   "piece_bonus": [],

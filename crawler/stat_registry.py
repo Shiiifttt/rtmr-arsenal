@@ -281,6 +281,10 @@ ALIASES: dict[str, list[str]] = {
     "cast time": ["cast_time"],
     "variable cast": ["variable_cast"], "variable cast time": ["variable_cast"],
     "fixed cast": ["fixed_cast"], "fixed cast time": ["fixed_cast"],
+    # "All" names both halves at once, where a bare "Cast Time" is the
+    # server's own general figure. Eight items say it and none of them
+    # counted for anything until this was here.
+    "all cast time": ["variable_cast", "fixed_cast"],
     "after cast delay": ["after_cast_delay"],
     "cooldown": ["cooldown"],
 
@@ -384,6 +388,15 @@ _STATUS_WORDS = {
     "freeze": "freeze", "freezing": "freeze", "stun": "stun", "stone": "stone",
     "curse": "curse", "silence": "silence", "sleep": "sleep", "blind": "blind",
     "poison": "poison_status", "bleeding": "bleeding", "confusion": "confusion",
+}
+
+# Stats where a smaller number is the better one, so "Reduction" in the
+# wording means a negative value rather than a positive one. Kept in step
+# with LOWER_IS_BETTER in sim/src/format.ts, which colours the same stats.
+LOWER_IS_BETTER = {
+    "sp_cost", "attack_sp_cost", "cast_time", "variable_cast", "fixed_cast",
+    "after_cast_delay", "cooldown", "magic_damage_received",
+    "physical_damage_received",
 }
 
 # "Defense vs All Sizes", "Attack vs Large", "Resistance vs Boss",

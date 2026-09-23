@@ -2646,7 +2646,17 @@
      "effects": [
       {
        "text": "Extra 1% per refine",
-       "parsed": false
+       "stat": "Ranged Attack",
+       "value": 1,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        22
+       ],
+       "stat_keys": [
+        "ranged_damage"
+       ],
+       "stat_inherited": true
       }
      ]
     }
@@ -30611,7 +30621,17 @@
      "effects": [
       {
        "text": "Extra 1% per refine",
-       "parsed": false
+       "stat": "Critical Damage",
+       "value": 1,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        15
+       ],
+       "stat_keys": [
+        "crit_damage"
+       ],
+       "stat_inherited": true
       }
      ]
     }

@@ -8,7 +8,7 @@
    {
     "text": "SP Cost Reduction: 18%",
     "stat": "SP Cost Reduction",
-    "value": 18,
+    "value": -18,
     "unit": "%",
     "parsed": true,
     "stat_ids": [
@@ -103,7 +103,7 @@
    {
     "text": "SP Cost Reduction: 18%",
     "stat": "SP Cost Reduction",
-    "value": 18,
+    "value": -18,
     "unit": "%",
     "parsed": true,
     "stat_ids": [
@@ -164,7 +164,7 @@
    {
     "text": "SP Cost Reduction: 10%",
     "stat": "SP Cost Reduction",
-    "value": 10,
+    "value": -10,
     "unit": "%",
     "parsed": true,
     "stat_ids": [
@@ -213,7 +213,7 @@
    {
     "text": "SP Cost Reduction: 10%",
     "stat": "SP Cost Reduction",
-    "value": 10,
+    "value": -10,
     "unit": "%",
     "parsed": true,
     "stat_ids": [
@@ -275,7 +275,7 @@
    {
     "text": "SP Cost Reduction: 10%",
     "stat": "SP Cost Reduction",
-    "value": 10,
+    "value": -10,
     "unit": "%",
     "parsed": true,
     "stat_ids": [
@@ -324,7 +324,7 @@
    {
     "text": "SP Cost Reduction: 15%",
     "stat": "SP Cost Reduction",
-    "value": 15,
+    "value": -15,
     "unit": "%",
     "parsed": true,
     "stat_ids": [
@@ -373,7 +373,7 @@
    {
     "text": "SP Cost Reduction: 11%",
     "stat": "SP Cost Reduction",
-    "value": 11,
+    "value": -11,
     "unit": "%",
     "parsed": true,
     "stat_ids": [
@@ -436,7 +436,7 @@
    {
     "text": "SP Cost Reduction: 11%",
     "stat": "SP Cost Reduction",
-    "value": 11,
+    "value": -11,
     "unit": "%",
     "parsed": true,
     "stat_ids": [
@@ -511,7 +511,7 @@
    {
     "text": "SP Cost Reduction: 11%",
     "stat": "SP Cost Reduction",
-    "value": 11,
+    "value": -11,
     "unit": "%",
     "parsed": true,
     "stat_ids": [
@@ -574,7 +574,7 @@
    {
     "text": "SP Cost Reduction: 16%",
     "stat": "SP Cost Reduction",
-    "value": 16,
+    "value": -16,
     "unit": "%",
     "parsed": true,
     "stat_ids": [
@@ -636,7 +636,7 @@
    {
     "text": "SP Cost Reduction: 12%",
     "stat": "SP Cost Reduction",
-    "value": 12,
+    "value": -12,
     "unit": "%",
     "parsed": true,
     "stat_ids": [
@@ -712,7 +712,7 @@
    {
     "text": "SP Cost Reduction: 12%",
     "stat": "SP Cost Reduction",
-    "value": 12,
+    "value": -12,
     "unit": "%",
     "parsed": true,
     "stat_ids": [
@@ -787,7 +787,7 @@
    {
     "text": "SP Cost Reduction: 12%",
     "stat": "SP Cost Reduction",
-    "value": 12,
+    "value": -12,
     "unit": "%",
     "parsed": true,
     "stat_ids": [
@@ -863,7 +863,7 @@
    {
     "text": "SP Cost Reduction: 17%",
     "stat": "SP Cost Reduction",
-    "value": 17,
+    "value": -17,
     "unit": "%",
     "parsed": true,
     "stat_ids": [
@@ -925,7 +925,7 @@
    {
     "text": "SP Cost Reduction: 13%",
     "stat": "SP Cost Reduction",
-    "value": 13,
+    "value": -13,
     "unit": "%",
     "parsed": true,
     "stat_ids": [
@@ -1007,7 +1007,7 @@
    {
     "text": "SP Cost Reduction: 13%",
     "stat": "SP Cost Reduction",
-    "value": 13,
+    "value": -13,
     "unit": "%",
     "parsed": true,
     "stat_ids": [
@@ -1061,7 +1061,7 @@
    {
     "text": "SP Cost Reduction: 18%",
     "stat": "SP Cost Reduction",
-    "value": 18,
+    "value": -18,
     "unit": "%",
     "parsed": true,
     "stat_ids": [
@@ -1155,7 +1155,7 @@
    {
     "text": "SP Cost Reduction: 14%",
     "stat": "SP Cost Reduction",
-    "value": 14,
+    "value": -14,
     "unit": "%",
     "parsed": true,
     "stat_ids": [
@@ -1224,7 +1224,7 @@
    {
     "text": "SP Cost Reduction: 15%",
     "stat": "SP Cost Reduction",
-    "value": 15,
+    "value": -15,
     "unit": "%",
     "parsed": true,
     "stat_ids": [
@@ -1301,7 +1301,7 @@
    {
     "text": "SP Cost Reduction: 22%",
     "stat": "SP Cost Reduction",
-    "value": 22,
+    "value": -22,
     "unit": "%",
     "parsed": true,
     "stat_ids": [
@@ -1364,7 +1364,7 @@
    {
     "text": "SP Cost Reduction: 17%",
     "stat": "SP Cost Reduction",
-    "value": 17,
+    "value": -17,
     "unit": "%",
     "parsed": true,
     "stat_ids": [
@@ -1948,7 +1948,7 @@
    {
     "text": "SP Cost Reduction: 17%",
     "stat": "SP Cost Reduction",
-    "value": 17,
+    "value": -17,
     "unit": "%",
     "parsed": true,
     "stat_ids": [
@@ -4063,26 +4063,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 2,
-     "effects": [
-      {
-       "text": "DMG vs Earth +1%",
-       "stat": "DMG vs Earth",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        60
-       ],
-       "stat_keys": [
-        "dmg_vs_earth"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -4114,26 +4095,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 2,
-     "effects": [
-      {
-       "text": "DMG vs Earth +1%",
-       "stat": "DMG vs Earth",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        60
-       ],
-       "stat_keys": [
-        "dmg_vs_earth"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -4165,26 +4127,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 2,
-     "effects": [
-      {
-       "text": "DMG vs Earth +1%",
-       "stat": "DMG vs Earth",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        60
-       ],
-       "stat_keys": [
-        "dmg_vs_earth"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -4216,26 +4159,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 2,
-     "effects": [
-      {
-       "text": "DMG vs Earth +1%",
-       "stat": "DMG vs Earth",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        60
-       ],
-       "stat_keys": [
-        "dmg_vs_earth"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -4975,7 +4899,17 @@
      "effects": [
       {
        "text": "Extra 1% per refine",
-       "parsed": false
+       "stat": "Ranged Attack",
+       "value": 1,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        22
+       ],
+       "stat_keys": [
+        "ranged_damage"
+       ],
+       "stat_inherited": true
       }
      ]
     }
@@ -8294,26 +8228,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "Flee +1",
-       "stat": "Flee",
-       "value": 1,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        26
-       ],
-       "stat_keys": [
-        "flee"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -8358,26 +8273,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "Flee +1",
-       "stat": "Flee",
-       "value": 1,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        26
-       ],
-       "stat_keys": [
-        "flee"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -8445,26 +8341,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "Flee +1",
-       "stat": "Flee",
-       "value": 1,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        26
-       ],
-       "stat_keys": [
-        "flee"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -8509,26 +8386,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "Flee +1",
-       "stat": "Flee",
-       "value": 1,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        26
-       ],
-       "stat_keys": [
-        "flee"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -13286,10 +13144,6 @@
    },
    {
     "text": "+1% per 10 base STR",
-    "per_base_stat": {
-     "per": 10,
-     "stat": "STR"
-    },
     "stat": "Max SP",
     "value": 1,
     "unit": "%",
@@ -13300,7 +13154,11 @@
     "stat_keys": [
      "max_sp"
     ],
-    "stat_inherited": true
+    "stat_inherited": true,
+    "per_base_stat": {
+     "per": 10,
+     "stat": "STR"
+    }
    }
   ],
   "refine": {
@@ -13336,10 +13194,6 @@
    },
    {
     "text": "+1% per 3 base STR",
-    "per_base_stat": {
-     "per": 3,
-     "stat": "STR"
-    },
     "stat": "SP Regen",
     "value": 1,
     "unit": "%",
@@ -13350,7 +13204,11 @@
     "stat_keys": [
      "sp_regen"
     ],
-    "stat_inherited": true
+    "stat_inherited": true,
+    "per_base_stat": {
+     "per": 3,
+     "stat": "STR"
+    }
    }
   ],
   "refine": {
@@ -13386,10 +13244,6 @@
    },
    {
     "text": "-1% per 5 base STR",
-    "per_base_stat": {
-     "per": 5,
-     "stat": "STR"
-    },
     "stat": "Variable Cast Time",
     "value": -1,
     "unit": "%",
@@ -13400,7 +13254,11 @@
     "stat_keys": [
      "variable_cast"
     ],
-    "stat_inherited": true
+    "stat_inherited": true,
+    "per_base_stat": {
+     "per": 5,
+     "stat": "STR"
+    }
    }
   ],
   "refine": {
@@ -13436,10 +13294,6 @@
    },
    {
     "text": "+1% per 20 base STR",
-    "per_base_stat": {
-     "per": 20,
-     "stat": "STR"
-    },
     "stat": "MATK",
     "value": 1,
     "unit": "%",
@@ -13450,7 +13304,11 @@
     "stat_keys": [
      "matk"
     ],
-    "stat_inherited": true
+    "stat_inherited": true,
+    "per_base_stat": {
+     "per": 20,
+     "stat": "STR"
+    }
    }
   ],
   "refine": {
@@ -16005,26 +15863,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "Weight Limit+10",
-       "stat": "Weight Limit",
-       "value": 10,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        40
-       ],
-       "stat_keys": [
-        "weight_limit"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -16056,26 +15895,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "Weight Limit+10",
-       "stat": "Weight Limit",
-       "value": 10,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        40
-       ],
-       "stat_keys": [
-        "weight_limit"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -16107,26 +15927,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "Weight Limit+10",
-       "stat": "Weight Limit",
-       "value": 10,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        40
-       ],
-       "stat_keys": [
-        "weight_limit"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -16158,26 +15959,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "Weight Limit+10",
-       "stat": "Weight Limit",
-       "value": 10,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        40
-       ],
-       "stat_keys": [
-        "weight_limit"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -16578,26 +16360,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "Critical Damage +1%",
-       "stat": "Critical Damage",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        15
-       ],
-       "stat_keys": [
-        "crit_damage"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -16629,26 +16392,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "Critical Damage +1%",
-       "stat": "Critical Damage",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        15
-       ],
-       "stat_keys": [
-        "crit_damage"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -16680,26 +16424,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "Critical Damage +1%",
-       "stat": "Critical Damage",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        15
-       ],
-       "stat_keys": [
-        "crit_damage"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -16731,26 +16456,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "Critical Damage +1%",
-       "stat": "Critical Damage",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        15
-       ],
-       "stat_keys": [
-        "crit_damage"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -23375,10 +23081,6 @@
    },
    {
     "text": "+1% per 10 base INT",
-    "per_base_stat": {
-     "per": 10,
-     "stat": "INT"
-    },
     "stat": "Max HP",
     "value": 1,
     "unit": "%",
@@ -23389,7 +23091,11 @@
     "stat_keys": [
      "max_hp"
     ],
-    "stat_inherited": true
+    "stat_inherited": true,
+    "per_base_stat": {
+     "per": 10,
+     "stat": "INT"
+    }
    }
   ],
   "refine": {
@@ -23425,10 +23131,6 @@
    },
    {
     "text": "+1% per 3 base INT",
-    "per_base_stat": {
-     "per": 3,
-     "stat": "INT"
-    },
     "stat": "HP Regen",
     "value": 1,
     "unit": "%",
@@ -23439,7 +23141,11 @@
     "stat_keys": [
      "hp_regen"
     ],
-    "stat_inherited": true
+    "stat_inherited": true,
+    "per_base_stat": {
+     "per": 3,
+     "stat": "INT"
+    }
    }
   ],
   "refine": {
@@ -23475,10 +23181,6 @@
    },
    {
     "text": "+1% per 10 base INT",
-    "per_base_stat": {
-     "per": 10,
-     "stat": "INT"
-    },
     "stat": "ASPD",
     "value": 1,
     "unit": "%",
@@ -23489,7 +23191,11 @@
     "stat_keys": [
      "aspd"
     ],
-    "stat_inherited": true
+    "stat_inherited": true,
+    "per_base_stat": {
+     "per": 10,
+     "stat": "INT"
+    }
    }
   ],
   "refine": {
@@ -23525,10 +23231,6 @@
    },
    {
     "text": "+1% per 20 base INT",
-    "per_base_stat": {
-     "per": 20,
-     "stat": "INT"
-    },
     "stat": "ATK",
     "value": 1,
     "unit": "%",
@@ -23539,7 +23241,11 @@
     "stat_keys": [
      "atk"
     ],
-    "stat_inherited": true
+    "stat_inherited": true,
+    "per_base_stat": {
+     "per": 20,
+     "stat": "INT"
+    }
    }
   ],
   "refine": {
@@ -29877,26 +29583,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 2,
-     "effects": [
-      {
-       "text": "Perfect Hit +1%",
-       "stat": "Perfect Hit",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        13
-       ],
-       "stat_keys": [
-        "perfect_hit"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -29928,26 +29615,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 2,
-     "effects": [
-      {
-       "text": "Perfect Hit +1%",
-       "stat": "Perfect Hit",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        13
-       ],
-       "stat_keys": [
-        "perfect_hit"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -29979,26 +29647,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 2,
-     "effects": [
-      {
-       "text": "Perfect Hit +1%",
-       "stat": "Perfect Hit",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        13
-       ],
-       "stat_keys": [
-        "perfect_hit"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -30030,26 +29679,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 2,
-     "effects": [
-      {
-       "text": "Perfect Hit +1%",
-       "stat": "Perfect Hit",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        13
-       ],
-       "stat_keys": [
-        "perfect_hit"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -33932,26 +33562,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 2,
-     "effects": [
-      {
-       "text": "DMG vs Water +1%",
-       "stat": "DMG vs Water",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        57
-       ],
-       "stat_keys": [
-        "dmg_vs_water"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -33983,26 +33594,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 2,
-     "effects": [
-      {
-       "text": "DMG vs Water +1%",
-       "stat": "DMG vs Water",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        57
-       ],
-       "stat_keys": [
-        "dmg_vs_water"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -34034,26 +33626,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 2,
-     "effects": [
-      {
-       "text": "DMG vs Water +1%",
-       "stat": "DMG vs Water",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        57
-       ],
-       "stat_keys": [
-        "dmg_vs_water"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -34085,26 +33658,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 2,
-     "effects": [
-      {
-       "text": "DMG vs Water +1%",
-       "stat": "DMG vs Water",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        57
-       ],
-       "stat_keys": [
-        "dmg_vs_water"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -37640,26 +37194,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 8,
-     "effects": [
-      {
-       "text": "ATK+1%",
-       "stat": "ATK",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        10
-       ],
-       "stat_keys": [
-        "atk"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -37691,26 +37226,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 8,
-     "effects": [
-      {
-       "text": "ATK+1%",
-       "stat": "ATK",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        10
-       ],
-       "stat_keys": [
-        "atk"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -37742,26 +37258,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 8,
-     "effects": [
-      {
-       "text": "ATK+1%",
-       "stat": "ATK",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        10
-       ],
-       "stat_keys": [
-        "atk"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -37793,26 +37290,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 8,
-     "effects": [
-      {
-       "text": "ATK+1%",
-       "stat": "ATK",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        10
-       ],
-       "stat_keys": [
-        "atk"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -37961,26 +37439,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "MDEF+1",
-       "stat": "MDEF",
-       "value": 1,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        25
-       ],
-       "stat_keys": [
-        "mdef"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -38012,26 +37471,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "MDEF+1",
-       "stat": "MDEF",
-       "value": 1,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        25
-       ],
-       "stat_keys": [
-        "mdef"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -38063,26 +37503,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "MDEF+1",
-       "stat": "MDEF",
-       "value": 1,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        25
-       ],
-       "stat_keys": [
-        "mdef"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -38114,26 +37535,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "MDEF+1",
-       "stat": "MDEF",
-       "value": 1,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        25
-       ],
-       "stat_keys": [
-        "mdef"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -39569,7 +38971,17 @@
      "effects": [
       {
        "text": "Extra 1% per refine.",
-       "parsed": false
+       "stat": "Neutral Resistance",
+       "value": 1,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        55
+       ],
+       "stat_keys": [
+        "res_neutral"
+       ],
+       "stat_inherited": true
       }
      ]
     }
@@ -39664,8 +39076,19 @@
      "per": 1,
      "effects": [
       {
-       "text": "Extra 1% per refine",
-       "parsed": false
+       "text": "Defense/Magic Defense Penetration +1",
+       "stat": "Defense/Magic Defense Penetration",
+       "value": 1,
+       "unit": null,
+       "parsed": true,
+       "stat_ids": [
+        28,
+        29
+       ],
+       "stat_keys": [
+        "def_pen",
+        "mdef_pen"
+       ]
       }
      ]
     }
@@ -39679,7 +39102,11 @@
    "text": "Dream Enchants available"
   },
   "lore": null,
-  "unparsed": []
+  "unparsed": [],
+  "override": {
+   "status": "verified",
+   "reason": "'Defense/Magic Defense Penetration +5' / 'Extra 1% per refine'. The continuation inherits the stat from the line above it, but its '%' disagrees with the flat +5 it continues. Read literally that is +1% per refine; the project owner confirms it is flat +1 per refine, the same reading the server owner gave for Murder Knife's identical wording. The per cent in the tooltip is a mistranslation."
+  }
  },
  {
   "id": 7365,
@@ -39834,7 +39261,45 @@
      "effects": [
       {
        "text": "Extra 1% per refine for all",
-       "parsed": false
+       "stat": "After Cast Delay",
+       "value": -1,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        35
+       ],
+       "stat_keys": [
+        "after_cast_delay"
+       ],
+       "stat_inherited": true
+      },
+      {
+       "text": "Extra 1% per refine for all",
+       "stat": "ASPD",
+       "value": 1,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        16
+       ],
+       "stat_keys": [
+        "aspd"
+       ],
+       "stat_inherited": true
+      },
+      {
+       "text": "Extra 1% per refine for all",
+       "stat": "Variable Cast Time",
+       "value": -1,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        33
+       ],
+       "stat_keys": [
+        "variable_cast"
+       ],
+       "stat_inherited": true
       }
      ]
     }
@@ -43121,26 +42586,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 8,
-     "effects": [
-      {
-       "text": "ASPD +1%",
-       "stat": "ASPD",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        16
-       ],
-       "stat_keys": [
-        "aspd"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -43174,26 +42620,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 8,
-     "effects": [
-      {
-       "text": "ASPD +1%",
-       "stat": "ASPD",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        16
-       ],
-       "stat_keys": [
-        "aspd"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -43227,26 +42654,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 8,
-     "effects": [
-      {
-       "text": "ASPD +1%",
-       "stat": "ASPD",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        16
-       ],
-       "stat_keys": [
-        "aspd"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -43280,26 +42688,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 8,
-     "effects": [
-      {
-       "text": "ASPD +1%",
-       "stat": "ASPD",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        16
-       ],
-       "stat_keys": [
-        "aspd"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -43759,26 +43148,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 8,
-     "effects": [
-      {
-       "text": "MATK+1%",
-       "stat": "MATK",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        11
-       ],
-       "stat_keys": [
-        "matk"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -43810,26 +43180,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 8,
-     "effects": [
-      {
-       "text": "MATK+1%",
-       "stat": "MATK",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        11
-       ],
-       "stat_keys": [
-        "matk"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -43861,26 +43212,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 8,
-     "effects": [
-      {
-       "text": "MATK+1%",
-       "stat": "MATK",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        11
-       ],
-       "stat_keys": [
-        "matk"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -43912,26 +43244,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 8,
-     "effects": [
-      {
-       "text": "MATK+1%",
-       "stat": "MATK",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        11
-       ],
-       "stat_keys": [
-        "matk"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -46797,26 +46110,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "SP+1%",
-       "stat": "SP",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        7
-       ],
-       "stat_keys": [
-        "max_sp"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -46848,26 +46142,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "SP+1%",
-       "stat": "SP",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        7
-       ],
-       "stat_keys": [
-        "max_sp"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -46899,26 +46174,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "SP+1%",
-       "stat": "SP",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        7
-       ],
-       "stat_keys": [
-        "max_sp"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -46950,26 +46206,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "SP+1%",
-       "stat": "SP",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        7
-       ],
-       "stat_keys": [
-        "max_sp"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -47482,7 +46719,7 @@
   ],
   "effects": [
    {
-    "text": "Defense Penetration: 10",
+    "text": "Defense Penetration +10",
     "stat": "Defense Penetration",
     "value": 10,
     "unit": null,
@@ -47492,6 +46729,19 @@
     ],
     "stat_keys": [
      "def_pen"
+    ]
+   },
+   {
+    "text": "Magic Defense Penetration +10",
+    "stat": "Magic Defense Penetration",
+    "value": 10,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     29
+    ],
+    "stat_keys": [
+     "mdef_pen"
     ]
    }
   ],
@@ -47547,7 +46797,11 @@
   "lore": "Relic of a swordsman lost to Rekenber's experiments.",
   "unparsed": [
    "10"
-  ]
+  ],
+  "override": {
+   "status": "verified",
+   "reason": "The tooltip wraps: 'Defense Penetration: 10' / 'Magic Defense Penetration:' / '10'. The label and its value are on separate lines, so the value read as a bare '10' with no stat and the magic penetration was lost entirely. Confirmed by the project owner as Magic Defense Penetration +10. Left to the parser this would mean treating an orphaned number as belonging to the label above it, which is the same shape as a continuation clause ('Extra 1% per refine') but means something different -- so it is corrected here rather than guessed at."
+  }
  },
  {
   "id": 14706,
@@ -49017,26 +48271,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "ATK+1",
-       "stat": "ATK",
-       "value": 1,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        10
-       ],
-       "stat_keys": [
-        "atk"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -49081,26 +48316,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "ATK+1",
-       "stat": "ATK",
-       "value": 1,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        10
-       ],
-       "stat_keys": [
-        "atk"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -49145,26 +48361,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "ATK+1",
-       "stat": "ATK",
-       "value": 1,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        10
-       ],
-       "stat_keys": [
-        "atk"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -49209,26 +48406,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "ATK+1",
-       "stat": "ATK",
-       "value": 1,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        10
-       ],
-       "stat_keys": [
-        "atk"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -51356,11 +50534,14 @@
     "value": -5,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": [],
-    "skill": "All",
-    "skill_metric": "cast time",
-    "skills": []
+    "stat_ids": [
+     33,
+     34
+    ],
+    "stat_keys": [
+     "variable_cast",
+     "fixed_cast"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -51404,11 +50585,14 @@
        "value": -1,
        "unit": "%",
        "parsed": true,
-       "stat_ids": [],
-       "stat_keys": [],
-       "skill": "All",
-       "skill_metric": "cast time",
-       "skills": []
+       "stat_ids": [
+        33,
+        34
+       ],
+       "stat_keys": [
+        "variable_cast",
+        "fixed_cast"
+       ]
       }
      ]
     }
@@ -58961,32 +58145,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "DMG vs Fire/Water/Wind/Earth +1%",
-       "stat": "DMG vs Fire/Water/Wind/Earth",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        63,
-        57,
-        66,
-        60
-       ],
-       "stat_keys": [
-        "dmg_vs_fire",
-        "dmg_vs_water",
-        "dmg_vs_wind",
-        "dmg_vs_earth"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -59024,32 +58183,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "DMG vs Fire/Water/Wind/Earth +1%",
-       "stat": "DMG vs Fire/Water/Wind/Earth",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        63,
-        57,
-        66,
-        60
-       ],
-       "stat_keys": [
-        "dmg_vs_fire",
-        "dmg_vs_water",
-        "dmg_vs_wind",
-        "dmg_vs_earth"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -59087,32 +58221,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "DMG vs Fire/Water/Wind/Earth +1%",
-       "stat": "DMG vs Fire/Water/Wind/Earth",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        63,
-        57,
-        66,
-        60
-       ],
-       "stat_keys": [
-        "dmg_vs_fire",
-        "dmg_vs_water",
-        "dmg_vs_wind",
-        "dmg_vs_earth"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -59150,32 +58259,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "DMG vs Fire/Water/Wind/Earth +1%",
-       "stat": "DMG vs Fire/Water/Wind/Earth",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        63,
-        57,
-        66,
-        60
-       ],
-       "stat_keys": [
-        "dmg_vs_fire",
-        "dmg_vs_water",
-        "dmg_vs_wind",
-        "dmg_vs_earth"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -59865,26 +58949,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 2,
-     "effects": [
-      {
-       "text": "DMG vs Dark +1%",
-       "stat": "DMG vs Dark",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        75
-       ],
-       "stat_keys": [
-        "dmg_vs_dark"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -59916,26 +58981,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 2,
-     "effects": [
-      {
-       "text": "DMG vs Dark +1%",
-       "stat": "DMG vs Dark",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        75
-       ],
-       "stat_keys": [
-        "dmg_vs_dark"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -59967,26 +59013,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 2,
-     "effects": [
-      {
-       "text": "DMG vs Dark +1%",
-       "stat": "DMG vs Dark",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        75
-       ],
-       "stat_keys": [
-        "dmg_vs_dark"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -60018,26 +59045,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 2,
-     "effects": [
-      {
-       "text": "DMG vs Dark +1%",
-       "stat": "DMG vs Dark",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        75
-       ],
-       "stat_keys": [
-        "dmg_vs_dark"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -62865,26 +61873,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 2,
-     "effects": [
-      {
-       "text": "Damage vs Undead +1%",
-       "stat": "Damage vs Undead",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        81
-       ],
-       "stat_keys": [
-        "dmg_vs_undead"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -62916,26 +61905,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 2,
-     "effects": [
-      {
-       "text": "Damage vs Undead +1%",
-       "stat": "Damage vs Undead",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        81
-       ],
-       "stat_keys": [
-        "dmg_vs_undead"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -62967,26 +61937,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 2,
-     "effects": [
-      {
-       "text": "Damage vs Undead +1%",
-       "stat": "Damage vs Undead",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        81
-       ],
-       "stat_keys": [
-        "dmg_vs_undead"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -63018,26 +61969,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 2,
-     "effects": [
-      {
-       "text": "Damage vs Undead +1%",
-       "stat": "Damage vs Undead",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        81
-       ],
-       "stat_keys": [
-        "dmg_vs_undead"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -63121,39 +62053,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "DEF+5",
-       "stat": "DEF",
-       "value": 5,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        24
-       ],
-       "stat_keys": [
-        "def"
-       ]
-      },
-      {
-       "text": "MDEF+1",
-       "stat": "MDEF",
-       "value": 1,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        25
-       ],
-       "stat_keys": [
-        "mdef"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -63237,39 +62137,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "DEF+5",
-       "stat": "DEF",
-       "value": 5,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        24
-       ],
-       "stat_keys": [
-        "def"
-       ]
-      },
-      {
-       "text": "MDEF+1",
-       "stat": "MDEF",
-       "value": 1,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        25
-       ],
-       "stat_keys": [
-        "mdef"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -63353,39 +62221,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "DEF+5",
-       "stat": "DEF",
-       "value": 5,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        24
-       ],
-       "stat_keys": [
-        "def"
-       ]
-      },
-      {
-       "text": "MDEF+1",
-       "stat": "MDEF",
-       "value": 1,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        25
-       ],
-       "stat_keys": [
-        "mdef"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -63469,39 +62305,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "DEF+5",
-       "stat": "DEF",
-       "value": 5,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        24
-       ],
-       "stat_keys": [
-        "def"
-       ]
-      },
-      {
-       "text": "MDEF+1",
-       "stat": "MDEF",
-       "value": 1,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        25
-       ],
-       "stat_keys": [
-        "mdef"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -64534,7 +63338,7 @@
    {
     "text": "SP Cost Reduction: 19%",
     "stat": "SP Cost Reduction",
-    "value": 19,
+    "value": -19,
     "unit": "%",
     "parsed": true,
     "stat_ids": [
@@ -64629,7 +63433,7 @@
    {
     "text": "SP Cost Reduction: 5%",
     "stat": "SP Cost Reduction",
-    "value": 5,
+    "value": -5,
     "unit": "%",
     "parsed": true,
     "stat_ids": [
@@ -66879,7 +65683,17 @@
      "effects": [
       {
        "text": "Extra 1% per refine",
-       "parsed": false
+       "stat": "Critical Damage",
+       "value": 1,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        15
+       ],
+       "stat_keys": [
+        "crit_damage"
+       ],
+       "stat_inherited": true
       }
      ]
     }
@@ -67504,26 +66318,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "Defense vs All Sizes +1%",
-       "stat": "Defense vs All Sizes",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        120
-       ],
-       "stat_keys": [
-        "def_vs_size_all_sizes"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -67555,26 +66350,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "Defense vs All Sizes +1%",
-       "stat": "Defense vs All Sizes",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        120
-       ],
-       "stat_keys": [
-        "def_vs_size_all_sizes"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -67606,26 +66382,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "Defense vs All Sizes +1%",
-       "stat": "Defense vs All Sizes",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        120
-       ],
-       "stat_keys": [
-        "def_vs_size_all_sizes"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -67657,26 +66414,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "Defense vs All Sizes +1%",
-       "stat": "Defense vs All Sizes",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        120
-       ],
-       "stat_keys": [
-        "def_vs_size_all_sizes"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -67708,26 +66446,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "Attack vs All Sizes +1%",
-       "stat": "Attack vs All Sizes",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        119
-       ],
-       "stat_keys": [
-        "dmg_vs_size_all_sizes"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -67759,26 +66478,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "Attack vs All Sizes +1%",
-       "stat": "Attack vs All Sizes",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        119
-       ],
-       "stat_keys": [
-        "dmg_vs_size_all_sizes"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -67810,26 +66510,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "Attack vs All Sizes +1%",
-       "stat": "Attack vs All Sizes",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        119
-       ],
-       "stat_keys": [
-        "dmg_vs_size_all_sizes"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -67861,26 +66542,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "Attack vs All Sizes +1%",
-       "stat": "Attack vs All Sizes",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        119
-       ],
-       "stat_keys": [
-        "dmg_vs_size_all_sizes"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -68102,26 +66764,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "Magic vs All Sizes +1%",
-       "stat": "Magic vs All Sizes",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        121
-       ],
-       "stat_keys": [
-        "magic_vs_size_all_sizes"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -68153,26 +66796,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "Magic vs All Sizes +1%",
-       "stat": "Magic vs All Sizes",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        121
-       ],
-       "stat_keys": [
-        "magic_vs_size_all_sizes"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -68204,26 +66828,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "Magic vs All Sizes +1%",
-       "stat": "Magic vs All Sizes",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        121
-       ],
-       "stat_keys": [
-        "magic_vs_size_all_sizes"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -68236,7 +66841,7 @@
   "name": "King's Wizard Shoes",
   "kind": "Shadow gear",
   "sets": [
-   115
+   118
   ],
   "effects": [],
   "piece_bonus": [
@@ -68255,26 +66860,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "Magic vs All Sizes +1%",
-       "stat": "Magic vs All Sizes",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        121
-       ],
-       "stat_keys": [
-        "magic_vs_size_all_sizes"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -68291,7 +66877,7 @@
    {
     "text": "SP Cost Reduction: 15%",
     "stat": "SP Cost Reduction",
-    "value": 15,
+    "value": -15,
     "unit": "%",
     "parsed": true,
     "stat_ids": [
@@ -72021,39 +70607,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "HP +10",
-       "stat": "HP",
-       "value": 10,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        6
-       ],
-       "stat_keys": [
-        "max_hp"
-       ]
-      },
-      {
-       "text": "SP +1",
-       "stat": "SP",
-       "value": 1,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        7
-       ],
-       "stat_keys": [
-        "max_sp"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -72085,39 +70639,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "HP +10",
-       "stat": "HP",
-       "value": 10,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        6
-       ],
-       "stat_keys": [
-        "max_hp"
-       ]
-      },
-      {
-       "text": "SP +1",
-       "stat": "SP",
-       "value": 1,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        7
-       ],
-       "stat_keys": [
-        "max_sp"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -72149,39 +70671,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "HP +10",
-       "stat": "HP",
-       "value": 10,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        6
-       ],
-       "stat_keys": [
-        "max_hp"
-       ]
-      },
-      {
-       "text": "SP +1",
-       "stat": "SP",
-       "value": 1,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        7
-       ],
-       "stat_keys": [
-        "max_sp"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -72213,39 +70703,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "HP +10",
-       "stat": "HP",
-       "value": 10,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        6
-       ],
-       "stat_keys": [
-        "max_hp"
-       ]
-      },
-      {
-       "text": "SP +1",
-       "stat": "SP",
-       "value": 1,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        7
-       ],
-       "stat_keys": [
-        "max_sp"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -72277,39 +70735,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "HP +10",
-       "stat": "HP",
-       "value": 10,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        6
-       ],
-       "stat_keys": [
-        "max_hp"
-       ]
-      },
-      {
-       "text": "SP +1",
-       "stat": "SP",
-       "value": 1,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        7
-       ],
-       "stat_keys": [
-        "max_sp"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -72341,39 +70767,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "HP +10",
-       "stat": "HP",
-       "value": 10,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        6
-       ],
-       "stat_keys": [
-        "max_hp"
-       ]
-      },
-      {
-       "text": "SP +1",
-       "stat": "SP",
-       "value": 1,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        7
-       ],
-       "stat_keys": [
-        "max_sp"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -72405,39 +70799,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "HP +10",
-       "stat": "HP",
-       "value": 10,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        6
-       ],
-       "stat_keys": [
-        "max_hp"
-       ]
-      },
-      {
-       "text": "SP +1",
-       "stat": "SP",
-       "value": 1,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        7
-       ],
-       "stat_keys": [
-        "max_sp"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -72469,39 +70831,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "HP +10",
-       "stat": "HP",
-       "value": 10,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        6
-       ],
-       "stat_keys": [
-        "max_hp"
-       ]
-      },
-      {
-       "text": "SP +1",
-       "stat": "SP",
-       "value": 1,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        7
-       ],
-       "stat_keys": [
-        "max_sp"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -72533,39 +70863,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "HP +10",
-       "stat": "HP",
-       "value": 10,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        6
-       ],
-       "stat_keys": [
-        "max_hp"
-       ]
-      },
-      {
-       "text": "SP +1",
-       "stat": "SP",
-       "value": 1,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        7
-       ],
-       "stat_keys": [
-        "max_sp"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -72597,39 +70895,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "HP +10",
-       "stat": "HP",
-       "value": 10,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        6
-       ],
-       "stat_keys": [
-        "max_hp"
-       ]
-      },
-      {
-       "text": "SP +1",
-       "stat": "SP",
-       "value": 1,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        7
-       ],
-       "stat_keys": [
-        "max_sp"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -72661,39 +70927,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "HP +10",
-       "stat": "HP",
-       "value": 10,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        6
-       ],
-       "stat_keys": [
-        "max_hp"
-       ]
-      },
-      {
-       "text": "SP +1",
-       "stat": "SP",
-       "value": 1,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        7
-       ],
-       "stat_keys": [
-        "max_sp"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -72725,39 +70959,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "HP +10",
-       "stat": "HP",
-       "value": 10,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        6
-       ],
-       "stat_keys": [
-        "max_hp"
-       ]
-      },
-      {
-       "text": "SP +1",
-       "stat": "SP",
-       "value": 1,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        7
-       ],
-       "stat_keys": [
-        "max_sp"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -72789,21 +70991,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 10,
-     "effects": [
-      {
-       "text": "+3% All Bonuses",
-       "parsed": false
-      },
-      {
-       "text": "(Max 12% at +40 Total)",
-       "parsed": false
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -72838,21 +71026,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 10,
-     "effects": [
-      {
-       "text": "+3% All Bonuses",
-       "parsed": false
-      },
-      {
-       "text": "(Max 12% at +40 Total)",
-       "parsed": false
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -72887,21 +71061,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 10,
-     "effects": [
-      {
-       "text": "+3% All Bonuses",
-       "parsed": false
-      },
-      {
-       "text": "(Max 12% at +40 Total)",
-       "parsed": false
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -72936,21 +71096,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 10,
-     "effects": [
-      {
-       "text": "+3% All Bonuses",
-       "parsed": false
-      },
-      {
-       "text": "(Max 12% at +40 Total)",
-       "parsed": false
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -72985,39 +71131,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "HP +10",
-       "stat": "HP",
-       "value": 10,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        6
-       ],
-       "stat_keys": [
-        "max_hp"
-       ]
-      },
-      {
-       "text": "SP +1",
-       "stat": "SP",
-       "value": 1,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        7
-       ],
-       "stat_keys": [
-        "max_sp"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -73049,39 +71163,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "HP +10",
-       "stat": "HP",
-       "value": 10,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        6
-       ],
-       "stat_keys": [
-        "max_hp"
-       ]
-      },
-      {
-       "text": "SP +1",
-       "stat": "SP",
-       "value": 1,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        7
-       ],
-       "stat_keys": [
-        "max_sp"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -73113,39 +71195,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "HP +10",
-       "stat": "HP",
-       "value": 10,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        6
-       ],
-       "stat_keys": [
-        "max_hp"
-       ]
-      },
-      {
-       "text": "SP +1",
-       "stat": "SP",
-       "value": 1,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        7
-       ],
-       "stat_keys": [
-        "max_sp"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -73177,39 +71227,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "HP +10",
-       "stat": "HP",
-       "value": 10,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        6
-       ],
-       "stat_keys": [
-        "max_hp"
-       ]
-      },
-      {
-       "text": "SP +1",
-       "stat": "SP",
-       "value": 1,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        7
-       ],
-       "stat_keys": [
-        "max_sp"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -73241,39 +71259,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "HP +10",
-       "stat": "HP",
-       "value": 10,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        6
-       ],
-       "stat_keys": [
-        "max_hp"
-       ]
-      },
-      {
-       "text": "SP +1",
-       "stat": "SP",
-       "value": 1,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        7
-       ],
-       "stat_keys": [
-        "max_sp"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -73305,39 +71291,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "HP +10",
-       "stat": "HP",
-       "value": 10,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        6
-       ],
-       "stat_keys": [
-        "max_hp"
-       ]
-      },
-      {
-       "text": "SP +1",
-       "stat": "SP",
-       "value": 1,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        7
-       ],
-       "stat_keys": [
-        "max_sp"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -73369,39 +71323,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "HP +10",
-       "stat": "HP",
-       "value": 10,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        6
-       ],
-       "stat_keys": [
-        "max_hp"
-       ]
-      },
-      {
-       "text": "SP +1",
-       "stat": "SP",
-       "value": 1,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        7
-       ],
-       "stat_keys": [
-        "max_sp"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -73433,39 +71355,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "HP +10",
-       "stat": "HP",
-       "value": 10,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        6
-       ],
-       "stat_keys": [
-        "max_hp"
-       ]
-      },
-      {
-       "text": "SP +1",
-       "stat": "SP",
-       "value": 1,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        7
-       ],
-       "stat_keys": [
-        "max_sp"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -73722,26 +71612,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "HP+20",
-       "stat": "HP",
-       "value": 20,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        6
-       ],
-       "stat_keys": [
-        "max_hp"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -73766,26 +71637,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "HP+20",
-       "stat": "HP",
-       "value": 20,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        6
-       ],
-       "stat_keys": [
-        "max_hp"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -73810,26 +71662,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "HP+20",
-       "stat": "HP",
-       "value": 20,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        6
-       ],
-       "stat_keys": [
-        "max_hp"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -73854,26 +71687,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "HP+20",
-       "stat": "HP",
-       "value": 20,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        6
-       ],
-       "stat_keys": [
-        "max_hp"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -75648,26 +73462,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "HP+1%",
-       "stat": "HP",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        6
-       ],
-       "stat_keys": [
-        "max_hp"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -75712,26 +73507,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "HP+1%",
-       "stat": "HP",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        6
-       ],
-       "stat_keys": [
-        "max_hp"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -75776,26 +73552,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "HP+1%",
-       "stat": "HP",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        6
-       ],
-       "stat_keys": [
-        "max_hp"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -75840,26 +73597,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "HP+1%",
-       "stat": "HP",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        6
-       ],
-       "stat_keys": [
-        "max_hp"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -76173,26 +73911,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "DMG vs Neutral +1%",
-       "stat": "DMG vs Neutral",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        54
-       ],
-       "stat_keys": [
-        "dmg_vs_neutral"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -76224,26 +73943,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "DMG vs Neutral +1%",
-       "stat": "DMG vs Neutral",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        54
-       ],
-       "stat_keys": [
-        "dmg_vs_neutral"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -76275,26 +73975,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "DMG vs Neutral +1%",
-       "stat": "DMG vs Neutral",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        54
-       ],
-       "stat_keys": [
-        "dmg_vs_neutral"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -76326,26 +74007,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "DMG vs Neutral +1%",
-       "stat": "DMG vs Neutral",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        54
-       ],
-       "stat_keys": [
-        "dmg_vs_neutral"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -76377,26 +74039,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 8,
-     "effects": [
-      {
-       "text": "Move Speed +1%",
-       "stat": "Move Speed",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        39
-       ],
-       "stat_keys": [
-        "move_speed"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -76428,26 +74071,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 8,
-     "effects": [
-      {
-       "text": "Move Speed +1%",
-       "stat": "Move Speed",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        39
-       ],
-       "stat_keys": [
-        "move_speed"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -76479,26 +74103,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 8,
-     "effects": [
-      {
-       "text": "Move Speed +1%",
-       "stat": "Move Speed",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        39
-       ],
-       "stat_keys": [
-        "move_speed"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -76530,26 +74135,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 8,
-     "effects": [
-      {
-       "text": "Move Speed +1%",
-       "stat": "Move Speed",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        39
-       ],
-       "stat_keys": [
-        "move_speed"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -76670,24 +74256,6 @@
   "refine": {
    "per_refine": [
     {
-     "per": 1,
-     "effects": [
-      {
-       "text": "HP +7",
-       "stat": "HP",
-       "value": 7,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        6
-       ],
-       "stat_keys": [
-        "max_hp"
-       ]
-      }
-     ]
-    },
-    {
      "per": 8,
      "effects": [
       {
@@ -76738,24 +74306,6 @@
   ],
   "refine": {
    "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "HP +7",
-       "stat": "HP",
-       "value": 7,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        6
-       ],
-       "stat_keys": [
-        "max_hp"
-       ]
-      }
-     ]
-    },
     {
      "per": 8,
      "effects": [
@@ -76808,24 +74358,6 @@
   "refine": {
    "per_refine": [
     {
-     "per": 1,
-     "effects": [
-      {
-       "text": "HP +7",
-       "stat": "HP",
-       "value": 7,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        6
-       ],
-       "stat_keys": [
-        "max_hp"
-       ]
-      }
-     ]
-    },
-    {
      "per": 8,
      "effects": [
       {
@@ -76876,24 +74408,6 @@
   ],
   "refine": {
    "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "HP +7",
-       "stat": "HP",
-       "value": 7,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        6
-       ],
-       "stat_keys": [
-        "max_hp"
-       ]
-      }
-     ]
-    },
     {
      "per": 8,
      "effects": [
@@ -80182,21 +77696,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 2,
-     "effects": [
-      {
-       "text": "+1% All 4 Skills Damage.",
-       "parsed": false
-      },
-      {
-       "text": "(Max 20% at +40 Total)",
-       "parsed": false
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -80232,21 +77732,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 2,
-     "effects": [
-      {
-       "text": "+1% All 4 Skills Damage.",
-       "parsed": false
-      },
-      {
-       "text": "(Max 20% at +40 Total)",
-       "parsed": false
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -80282,21 +77768,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 2,
-     "effects": [
-      {
-       "text": "+1% All 4 Skills Damage.",
-       "parsed": false
-      },
-      {
-       "text": "(Max 20% at +40 Total)",
-       "parsed": false
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -80332,21 +77804,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 2,
-     "effects": [
-      {
-       "text": "+1% All 4 Skills Damage.",
-       "parsed": false
-      },
-      {
-       "text": "(Max 20% at +40 Total)",
-       "parsed": false
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -82872,17 +80330,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 10,
-     "effects": [
-      {
-       "text": "0.05% extra regular refine material chance per kill.",
-       "parsed": false
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -82909,17 +80357,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 10,
-     "effects": [
-      {
-       "text": "0.05% extra regular refine material chance per kill.",
-       "parsed": false
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -82946,17 +80384,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 10,
-     "effects": [
-      {
-       "text": "0.05% extra regular refine material chance per kill.",
-       "parsed": false
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -82983,17 +80411,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 10,
-     "effects": [
-      {
-       "text": "0.05% extra regular refine material chance per kill.",
-       "parsed": false
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -86173,9 +83591,7 @@
   "id": 901954,
   "name": "Necromancer's Hand Mirror",
   "kind": "Shadow gear",
-  "sets": [
-   81
-  ],
+  "sets": [],
   "effects": [],
   "piece_bonus": [],
   "refine": {
@@ -91418,7 +88834,17 @@
      "effects": [
       {
        "text": "+1 more per refine",
-       "parsed": false
+       "stat": "Defense Penetration",
+       "value": 1,
+       "unit": null,
+       "parsed": true,
+       "stat_ids": [
+        28
+       ],
+       "stat_keys": [
+        "def_pen"
+       ],
+       "stat_inherited": true
       },
       {
        "text": "ATK -1 per refine",
@@ -91473,7 +88899,17 @@
      "effects": [
       {
        "text": "+1 more per refine",
-       "parsed": false
+       "stat": "Defense Penetration",
+       "value": 1,
+       "unit": null,
+       "parsed": true,
+       "stat_ids": [
+        28
+       ],
+       "stat_keys": [
+        "def_pen"
+       ],
+       "stat_inherited": true
       },
       {
        "text": "ATK -1 per refine",
@@ -91528,7 +88964,17 @@
      "effects": [
       {
        "text": "+1 more per refine",
-       "parsed": false
+       "stat": "Defense Penetration",
+       "value": 1,
+       "unit": null,
+       "parsed": true,
+       "stat_ids": [
+        28
+       ],
+       "stat_keys": [
+        "def_pen"
+       ],
+       "stat_inherited": true
       },
       {
        "text": "ATK -1 per refine",
@@ -91583,7 +89029,17 @@
      "effects": [
       {
        "text": "+1 more per refine",
-       "parsed": false
+       "stat": "Defense Penetration",
+       "value": 1,
+       "unit": null,
+       "parsed": true,
+       "stat_ids": [
+        28
+       ],
+       "stat_keys": [
+        "def_pen"
+       ],
+       "stat_inherited": true
       },
       {
        "text": "ATK -1 per refine",
@@ -92979,26 +90435,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "DEF+1",
-       "stat": "DEF",
-       "value": 1,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        24
-       ],
-       "stat_keys": [
-        "def"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -93030,26 +90467,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "DEF+1",
-       "stat": "DEF",
-       "value": 1,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        24
-       ],
-       "stat_keys": [
-        "def"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -93081,26 +90499,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "DEF+1",
-       "stat": "DEF",
-       "value": 1,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        24
-       ],
-       "stat_keys": [
-        "def"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -93132,26 +90531,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "DEF+1",
-       "stat": "DEF",
-       "value": 1,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        24
-       ],
-       "stat_keys": [
-        "def"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -94856,26 +92236,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 2,
-     "effects": [
-      {
-       "text": "DMG vs Holy +1%",
-       "stat": "DMG vs Holy",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        72
-       ],
-       "stat_keys": [
-        "dmg_vs_holy"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -94907,26 +92268,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 2,
-     "effects": [
-      {
-       "text": "DMG vs Holy +1%",
-       "stat": "DMG vs Holy",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        72
-       ],
-       "stat_keys": [
-        "dmg_vs_holy"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -94958,26 +92300,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 2,
-     "effects": [
-      {
-       "text": "DMG vs Holy +1%",
-       "stat": "DMG vs Holy",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        72
-       ],
-       "stat_keys": [
-        "dmg_vs_holy"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -95009,26 +92332,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 2,
-     "effects": [
-      {
-       "text": "DMG vs Holy +1%",
-       "stat": "DMG vs Holy",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        72
-       ],
-       "stat_keys": [
-        "dmg_vs_holy"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -95449,17 +92753,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "Zeny limit +1 per kill",
-       "parsed": false
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -95486,17 +92780,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "Zeny limit +1 per kill",
-       "parsed": false
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -95523,17 +92807,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "Zeny limit +1 per kill",
-       "parsed": false
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -95560,17 +92834,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "Zeny limit +1 per kill",
-       "parsed": false
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -96124,17 +93388,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "0.1% Extra chance on hit",
-       "parsed": false
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -96161,17 +93415,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "0.1% Extra chance on hit",
-       "parsed": false
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -96198,17 +93442,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "0.1% Extra chance on hit",
-       "parsed": false
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -96235,17 +93469,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "0.1% Extra chance on hit",
-       "parsed": false
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -97736,11 +94960,14 @@
     "value": -25,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": [],
-    "skill": "All",
-    "skill_metric": "cast time",
-    "skills": []
+    "stat_ids": [
+     33,
+     34
+    ],
+    "stat_keys": [
+     "variable_cast",
+     "fixed_cast"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -98038,7 +95265,7 @@
    {
     "text": "SP Cost Reduction: 4%",
     "stat": "SP Cost Reduction",
-    "value": 4,
+    "value": -4,
     "unit": "%",
     "parsed": true,
     "stat_ids": [
@@ -98097,7 +95324,7 @@
    {
     "text": "SP Cost Reduction: 15%",
     "stat": "SP Cost Reduction",
-    "value": 15,
+    "value": -15,
     "unit": "%",
     "parsed": true,
     "stat_ids": [
@@ -98261,26 +95488,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "After Cast Delay -1%",
-       "stat": "After Cast Delay",
-       "value": -1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        35
-       ],
-       "stat_keys": [
-        "after_cast_delay"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -98312,26 +95520,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "After Cast Delay -1%",
-       "stat": "After Cast Delay",
-       "value": -1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        35
-       ],
-       "stat_keys": [
-        "after_cast_delay"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -98363,26 +95552,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "After Cast Delay -1%",
-       "stat": "After Cast Delay",
-       "value": -1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        35
-       ],
-       "stat_keys": [
-        "after_cast_delay"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -98414,26 +95584,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 1,
-     "effects": [
-      {
-       "text": "After Cast Delay -1%",
-       "stat": "After Cast Delay",
-       "value": -1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        35
-       ],
-       "stat_keys": [
-        "after_cast_delay"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -101994,26 +99145,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 2,
-     "effects": [
-      {
-       "text": "DMG vs Wind +1%",
-       "stat": "DMG vs Wind",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        66
-       ],
-       "stat_keys": [
-        "dmg_vs_wind"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -102045,26 +99177,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 2,
-     "effects": [
-      {
-       "text": "DMG vs Wind +1%",
-       "stat": "DMG vs Wind",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        66
-       ],
-       "stat_keys": [
-        "dmg_vs_wind"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -102096,26 +99209,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 2,
-     "effects": [
-      {
-       "text": "DMG vs Wind +1%",
-       "stat": "DMG vs Wind",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        66
-       ],
-       "stat_keys": [
-        "dmg_vs_wind"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -102147,26 +99241,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 2,
-     "effects": [
-      {
-       "text": "DMG vs Wind +1%",
-       "stat": "DMG vs Wind",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        66
-       ],
-       "stat_keys": [
-        "dmg_vs_wind"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -107175,26 +104250,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 2,
-     "effects": [
-      {
-       "text": "DMG vs Fire +1%",
-       "stat": "DMG vs Fire",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        63
-       ],
-       "stat_keys": [
-        "dmg_vs_fire"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -107226,26 +104282,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 2,
-     "effects": [
-      {
-       "text": "DMG vs Fire +1%",
-       "stat": "DMG vs Fire",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        63
-       ],
-       "stat_keys": [
-        "dmg_vs_fire"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -107277,26 +104314,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 2,
-     "effects": [
-      {
-       "text": "DMG vs Fire +1%",
-       "stat": "DMG vs Fire",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        63
-       ],
-       "stat_keys": [
-        "dmg_vs_fire"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -107328,26 +104346,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 2,
-     "effects": [
-      {
-       "text": "DMG vs Fire +1%",
-       "stat": "DMG vs Fire",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        63
-       ],
-       "stat_keys": [
-        "dmg_vs_fire"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -112593,11 +109592,14 @@
     "value": -5,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": [],
-    "skill": "All",
-    "skill_metric": "cast time",
-    "skills": []
+    "stat_ids": [
+     33,
+     34
+    ],
+    "stat_keys": [
+     "variable_cast",
+     "fixed_cast"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -112656,11 +109658,14 @@
     "value": -5,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": [],
-    "skill": "All",
-    "skill_metric": "cast time",
-    "skills": []
+    "stat_ids": [
+     33,
+     34
+    ],
+    "stat_keys": [
+     "variable_cast",
+     "fixed_cast"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -112745,11 +109750,14 @@
     "value": -5,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": [],
-    "skill": "All",
-    "skill_metric": "cast time",
-    "skills": []
+    "stat_ids": [
+     33,
+     34
+    ],
+    "stat_keys": [
+     "variable_cast",
+     "fixed_cast"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -113742,24 +110750,6 @@
        ]
       }
      ]
-    },
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "SP+1%",
-       "stat": "SP",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        7
-       ],
-       "stat_keys": [
-        "max_sp"
-       ]
-      }
-     ]
     }
    ],
    "thresholds": []
@@ -113804,24 +110794,6 @@
        "skills": [
         "Freezing Spear",
         "Wind Blade"
-       ]
-      }
-     ]
-    },
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "SP+1%",
-       "stat": "SP",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        7
-       ],
-       "stat_keys": [
-        "max_sp"
        ]
       }
      ]
@@ -113872,24 +110844,6 @@
        ]
       }
      ]
-    },
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "SP+1%",
-       "stat": "SP",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        7
-       ],
-       "stat_keys": [
-        "max_sp"
-       ]
-      }
-     ]
     }
    ],
    "thresholds": []
@@ -113934,24 +110888,6 @@
        "skills": [
         "Freezing Spear",
         "Wind Blade"
-       ]
-      }
-     ]
-    },
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "SP+1%",
-       "stat": "SP",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        7
-       ],
-       "stat_keys": [
-        "max_sp"
        ]
       }
      ]
@@ -115327,26 +112263,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "Cast Time -1%",
-       "stat": "Cast Time",
-       "value": -1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        32
-       ],
-       "stat_keys": [
-        "cast_time"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -115378,26 +112295,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "Cast Time -1%",
-       "stat": "Cast Time",
-       "value": -1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        32
-       ],
-       "stat_keys": [
-        "cast_time"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -115429,26 +112327,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "Cast Time -1%",
-       "stat": "Cast Time",
-       "value": -1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        32
-       ],
-       "stat_keys": [
-        "cast_time"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -115480,26 +112359,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "Cast Time -1%",
-       "stat": "Cast Time",
-       "value": -1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        32
-       ],
-       "stat_keys": [
-        "cast_time"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -120118,11 +116978,14 @@
     "value": -5,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": [],
-    "skill": "All",
-    "skill_metric": "cast time",
-    "skills": []
+    "stat_ids": [
+     33,
+     34
+    ],
+    "stat_keys": [
+     "variable_cast",
+     "fixed_cast"
+    ]
    },
    {
     "text": "ATK +5",
@@ -120158,13 +117021,45 @@
      "per": 1,
      "effects": [
       {
-       "text": "Extra 1% and +1 per refine",
-       "stat": "Extra 1% and",
+       "text": "All Cast Time -1%",
+       "stat": "All Cast Time",
+       "value": -1,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        33,
+        34
+       ],
+       "stat_keys": [
+        "variable_cast",
+        "fixed_cast"
+       ]
+      },
+      {
+       "text": "ATK +1",
+       "stat": "ATK",
        "value": 1,
        "unit": null,
        "parsed": true,
-       "stat_ids": [],
-       "stat_keys": []
+       "stat_ids": [
+        10
+       ],
+       "stat_keys": [
+        "atk"
+       ]
+      },
+      {
+       "text": "MATK +1",
+       "stat": "MATK",
+       "value": 1,
+       "unit": null,
+       "parsed": true,
+       "stat_ids": [
+        11
+       ],
+       "stat_keys": [
+        "matk"
+       ]
       }
      ]
     }
@@ -120176,7 +117071,11 @@
   "lore": "One tooth, and the wood is worn flat on it. Nobody walks far enough on these to wear anything down. Something did.",
   "unparsed": [
    "2 Pieces: Grants Kubi no In 4 Pieces: Grants Shura"
-  ]
+  ],
+  "override": {
+   "status": "verified",
+   "reason": "'All Cast Time -5%' / 'ATK +5, MATK +5' / 'Extra 1% and +1 per refine'. One continuation covering two lines with two different units, which no inheritance rule can split on its own -- read alone it parsed as a stat literally named 'Extra 1% and'. Per the project owner the per cent is the cast time and the flat +1 is the ATK and MATK. The cast reduction stays negative because it is more of a reduction."
+  }
  },
  {
   "id": 7159,
@@ -122211,45 +119110,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 2,
-     "effects": [
-      {
-       "text": "ASPD +1%",
-       "stat": "ASPD",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        16
-       ],
-       "stat_keys": [
-        "aspd"
-       ]
-      },
-      {
-       "text": "Flame Petals",
-       "parsed": false
-      },
-      {
-       "text": "Freezing Spear and Wind Blades DMG +1%",
-       "stat": "Freezing Spear and Wind Blades DMG",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [],
-       "stat_keys": [],
-       "skill": "Freezing Spear and Wind Blades",
-       "skill_metric": "damage",
-       "skills": [
-        "Freezing Spear",
-        "Wind Blade"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -122329,45 +119190,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 2,
-     "effects": [
-      {
-       "text": "ASPD +1%",
-       "stat": "ASPD",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        16
-       ],
-       "stat_keys": [
-        "aspd"
-       ]
-      },
-      {
-       "text": "Flame Petals",
-       "parsed": false
-      },
-      {
-       "text": "Freezing Spear and Wind Blades DMG +1%",
-       "stat": "Freezing Spear and Wind Blades DMG",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [],
-       "stat_keys": [],
-       "skill": "Freezing Spear and Wind Blades",
-       "skill_metric": "damage",
-       "skills": [
-        "Freezing Spear",
-        "Wind Blade"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -122447,45 +119270,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 2,
-     "effects": [
-      {
-       "text": "ASPD +1%",
-       "stat": "ASPD",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        16
-       ],
-       "stat_keys": [
-        "aspd"
-       ]
-      },
-      {
-       "text": "Flame Petals",
-       "parsed": false
-      },
-      {
-       "text": "Freezing Spear and Wind Blades DMG +1%",
-       "stat": "Freezing Spear and Wind Blades DMG",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [],
-       "stat_keys": [],
-       "skill": "Freezing Spear and Wind Blades",
-       "skill_metric": "damage",
-       "skills": [
-        "Freezing Spear",
-        "Wind Blade"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -122565,45 +119350,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 2,
-     "effects": [
-      {
-       "text": "ASPD +1%",
-       "stat": "ASPD",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        16
-       ],
-       "stat_keys": [
-        "aspd"
-       ]
-      },
-      {
-       "text": "Flame Petals",
-       "parsed": false
-      },
-      {
-       "text": "Freezing Spear and Wind Blades DMG +1%",
-       "stat": "Freezing Spear and Wind Blades DMG",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [],
-       "stat_keys": [],
-       "skill": "Freezing Spear and Wind Blades",
-       "skill_metric": "damage",
-       "skills": [
-        "Freezing Spear",
-        "Wind Blade"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -125851,39 +122598,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "HP+2%",
-       "stat": "HP",
-       "value": 2,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        6
-       ],
-       "stat_keys": [
-        "max_hp"
-       ]
-      },
-      {
-       "text": "SP+1%",
-       "stat": "SP",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        7
-       ],
-       "stat_keys": [
-        "max_sp"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -125917,39 +122632,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "HP+2%",
-       "stat": "HP",
-       "value": 2,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        6
-       ],
-       "stat_keys": [
-        "max_hp"
-       ]
-      },
-      {
-       "text": "SP+1%",
-       "stat": "SP",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        7
-       ],
-       "stat_keys": [
-        "max_sp"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -125983,39 +122666,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "HP+2%",
-       "stat": "HP",
-       "value": 2,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        6
-       ],
-       "stat_keys": [
-        "max_hp"
-       ]
-      },
-      {
-       "text": "SP+1%",
-       "stat": "SP",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        7
-       ],
-       "stat_keys": [
-        "max_sp"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -126049,39 +122700,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 4,
-     "effects": [
-      {
-       "text": "HP+2%",
-       "stat": "HP",
-       "value": 2,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        6
-       ],
-       "stat_keys": [
-        "max_hp"
-       ]
-      },
-      {
-       "text": "SP+1%",
-       "stat": "SP",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        7
-       ],
-       "stat_keys": [
-        "max_sp"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -126328,10 +122947,6 @@
    },
    {
     "text": "+1% per 10 base DEX",
-    "per_base_stat": {
-     "per": 10,
-     "stat": "DEX"
-    },
     "stat": "Move Speed",
     "value": 1,
     "unit": "%",
@@ -126342,7 +122957,11 @@
     "stat_keys": [
      "move_speed"
     ],
-    "stat_inherited": true
+    "stat_inherited": true,
+    "per_base_stat": {
+     "per": 10,
+     "stat": "DEX"
+    }
    }
   ],
   "refine": {
@@ -126380,10 +122999,6 @@
    },
    {
     "text": "+1 per 10 base DEX",
-    "per_base_stat": {
-     "per": 10,
-     "stat": "DEX"
-    },
     "stat": "Perfect Dodge",
     "value": 1,
     "unit": null,
@@ -126394,7 +123009,11 @@
     "stat_keys": [
      "perfect_dodge"
     ],
-    "stat_inherited": true
+    "stat_inherited": true,
+    "per_base_stat": {
+     "per": 10,
+     "stat": "DEX"
+    }
    }
   ],
   "refine": {
@@ -126432,10 +123051,6 @@
    },
    {
     "text": "+1% per 10 base DEX",
-    "per_base_stat": {
-     "per": 10,
-     "stat": "DEX"
-    },
     "stat": "Critical Damage",
     "value": 1,
     "unit": "%",
@@ -126446,7 +123061,11 @@
     "stat_keys": [
      "crit_damage"
     ],
-    "stat_inherited": true
+    "stat_inherited": true,
+    "per_base_stat": {
+     "per": 10,
+     "stat": "DEX"
+    }
    }
   ],
   "refine": {
@@ -127943,26 +124562,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 2,
-     "effects": [
-      {
-       "text": "DMG vs Poison +1%",
-       "stat": "DMG vs Poison",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        69
-       ],
-       "stat_keys": [
-        "dmg_vs_poison"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -127994,26 +124594,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 2,
-     "effects": [
-      {
-       "text": "DMG vs Poison +1%",
-       "stat": "DMG vs Poison",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        69
-       ],
-       "stat_keys": [
-        "dmg_vs_poison"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -128045,26 +124626,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 2,
-     "effects": [
-      {
-       "text": "DMG vs Poison +1%",
-       "stat": "DMG vs Poison",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        69
-       ],
-       "stat_keys": [
-        "dmg_vs_poison"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -128096,26 +124658,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 2,
-     "effects": [
-      {
-       "text": "DMG vs Poison +1%",
-       "stat": "DMG vs Poison",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        69
-       ],
-       "stat_keys": [
-        "dmg_vs_poison"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -131870,39 +128413,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 8,
-     "effects": [
-      {
-       "text": "HP+1%",
-       "stat": "HP",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        6
-       ],
-       "stat_keys": [
-        "max_hp"
-       ]
-      },
-      {
-       "text": "SP+1%",
-       "stat": "SP",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        7
-       ],
-       "stat_keys": [
-        "max_sp"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -131928,39 +128439,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 8,
-     "effects": [
-      {
-       "text": "HP+1%",
-       "stat": "HP",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        6
-       ],
-       "stat_keys": [
-        "max_hp"
-       ]
-      },
-      {
-       "text": "SP+1%",
-       "stat": "SP",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        7
-       ],
-       "stat_keys": [
-        "max_sp"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -131986,39 +128465,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 8,
-     "effects": [
-      {
-       "text": "HP+1%",
-       "stat": "HP",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        6
-       ],
-       "stat_keys": [
-        "max_hp"
-       ]
-      },
-      {
-       "text": "SP+1%",
-       "stat": "SP",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        7
-       ],
-       "stat_keys": [
-        "max_sp"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -132044,39 +128491,7 @@
    }
   ],
   "refine": {
-   "per_refine": [
-    {
-     "per": 8,
-     "effects": [
-      {
-       "text": "HP+1%",
-       "stat": "HP",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        6
-       ],
-       "stat_keys": [
-        "max_hp"
-       ]
-      },
-      {
-       "text": "SP+1%",
-       "stat": "SP",
-       "value": 1,
-       "unit": "%",
-       "parsed": true,
-       "stat_ids": [
-        7
-       ],
-       "stat_keys": [
-        "max_sp"
-       ]
-      }
-     ]
-    }
-   ],
+   "per_refine": [],
    "thresholds": []
   },
   "conditional": [],
@@ -150896,13 +147311,7 @@
      },
      {
       "text": "-2",
-      "stat": "1: STR or INT 2: AGI or VIT 3: DEX or LUK Each line can be negative",
-      "value": -2,
-      "unit": null,
-      "parsed": true,
-      "stat_ids": [],
-      "stat_keys": [],
-      "stat_inherited": true
+      "parsed": false
      },
      {
       "text": "-1 or +1",
@@ -150941,7 +147350,8 @@
    "Reaper Gem of Passage",
    "Shackle Gem of Endless Links",
    "Strider Gem of Distant Lands",
-   "Verdict Gem of Destiny"
+   "Verdict Gem of Destiny",
+   "-2"
   ]
  },
  {
@@ -151068,13 +147478,7 @@
      },
      {
       "text": "-2",
-      "stat": "1: STR or INT 2: AGI or VIT 3: DEX or LUK Each line can be negative",
-      "value": -2,
-      "unit": null,
-      "parsed": true,
-      "stat_ids": [],
-      "stat_keys": [],
-      "stat_inherited": true
+      "parsed": false
      },
      {
       "text": "-1 or +1",
@@ -151113,7 +147517,8 @@
    "Undying Gem of Unfinished Paths",
    "Wayward Gem of Laid Traps",
    "Wonder Gem of Transmutation",
-   "Zantetsu Gem of the Clean Cut"
+   "Zantetsu Gem of the Clean Cut",
+   "-2"
   ]
  },
  {
@@ -151236,13 +147641,7 @@
      },
      {
       "text": "-2",
-      "stat": "1: STR or INT 2: AGI or VIT 3: DEX or LUK Each line can be negative",
-      "value": -2,
-      "unit": null,
-      "parsed": true,
-      "stat_ids": [],
-      "stat_keys": [],
-      "stat_inherited": true
+      "parsed": false
      },
      {
       "text": "-1 or +1",
@@ -151280,7 +147679,8 @@
    "Triage Gem of Field Care",
    "Trial Gem of Preparation",
    "Umbral Gem of Unbroken Focus",
-   "Unbound Gem of Full Power"
+   "Unbound Gem of Full Power",
+   "-2"
   ]
  },
  {
@@ -151407,13 +147807,7 @@
      },
      {
       "text": "-2",
-      "stat": "1: STR or INT 2: AGI or VIT 3: DEX or LUK Each line can be negative",
-      "value": -2,
-      "unit": null,
-      "parsed": true,
-      "stat_ids": [],
-      "stat_keys": [],
-      "stat_inherited": true
+      "parsed": false
      },
      {
       "text": "-1 or +1",
@@ -151452,7 +147846,8 @@
    "Torrent Gem of Many Spells",
    "Tradition Gem of the Old Ways",
    "Whale Gem of High Rollers",
-   "Wyrm Gem of Fury"
+   "Wyrm Gem of Fury",
+   "-2"
   ]
  },
  {
@@ -151571,13 +147966,7 @@
      },
      {
       "text": "-2",
-      "stat": "1: STR or INT 2: AGI or VIT 3: DEX or LUK Each line can be negative",
-      "value": -2,
-      "unit": null,
-      "parsed": true,
-      "stat_ids": [],
-      "stat_keys": [],
-      "stat_inherited": true
+      "parsed": false
      },
      {
       "text": "-1 or +1",
@@ -151614,7 +148003,8 @@
    "Union Gem of Folded Space",
    "Weapon Gem of Flesh and Steel",
    "Wheel Gem of Whims",
-   "Zenith Gem of Sorcery"
+   "Zenith Gem of Sorcery",
+   "-2"
   ]
  },
  {
@@ -157835,7 +154225,7 @@
    {
     "text": "SP Cost Reduction: 15%",
     "stat": "SP Cost Reduction",
-    "value": 15,
+    "value": -15,
     "unit": "%",
     "parsed": true,
     "stat_ids": [
@@ -157894,7 +154284,7 @@
    {
     "text": "SP Cost Reduction: 13%",
     "stat": "SP Cost Reduction",
-    "value": 13,
+    "value": -13,
     "unit": "%",
     "parsed": true,
     "stat_ids": [
@@ -173342,7 +169732,17 @@
      "effects": [
       {
        "text": "Extra 1% per refine",
-       "parsed": false
+       "stat": "DMG vs Humans",
+       "value": 1,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        98
+       ],
+       "stat_keys": [
+        "dmg_vs_race_demihuman"
+       ],
+       "stat_inherited": true
       }
      ]
     }
@@ -173397,7 +169797,17 @@
      "effects": [
       {
        "text": "Extra 1% per refine",
-       "parsed": false
+       "stat": "DMG vs Humans",
+       "value": 1,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        98
+       ],
+       "stat_keys": [
+        "dmg_vs_race_demihuman"
+       ],
+       "stat_inherited": true
       }
      ]
     }
@@ -181373,7 +177783,7 @@
    {
     "text": "SP Cost Reduction: 100%",
     "stat": "SP Cost Reduction",
-    "value": 100,
+    "value": -100,
     "unit": "%",
     "parsed": true,
     "stat_ids": [
