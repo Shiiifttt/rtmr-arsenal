@@ -13,11 +13,12 @@ import { dirname, resolve } from 'node:path';
 
 import {
   aggregate, BASE_LEVEL_DEFAULT, BASE_STAT_MAX, BASE_STAT_MIN, bindBaseStatIds,
-  BASE_STAT_KEYS, baseFlee, clampBaseStat, combine, defaultBaseStats, fleeFromAgi,
+  BASE_STAT_KEYS, baseFlee, clampBaseStat, combine, compoundPercent, defaultBaseStats,
+  derivedStats, fleeFromAgi,
   fitsSlot, maxRefine, MAX_REFINE, SLOTS,
 } from '../src/index.ts';
 import type {
-  Build, Dataset, Item, RollData, SetRecord, SlotState, StatDef,
+  Build, Dataset, Item, RollData, SetRecord, SlotState, StatDef, StatTotal,
 } from '../src/types.ts';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
@@ -772,6 +773,39 @@ test('flee counts AGI off equipment, and the skills box sits outside the percent
   // +16% Total Flee and 14 flat gear flee gives the reported 531. Folding
   // the 70 in before the percent instead would give 542.
   assert.equal(combine(baseFlee(132, 139), 14, 16) + 70, 531);
+});
+
+test('Total Flee percents compound rather than add', () => {
+  // Base level 136, 99 points of AGI, the three Maiden of Time cards
+  // (+6%, +5%, +5%) and +70 from skills, read in game in three gear states.
+  // Summed to 16% these come out 563, 557 and 568 -- low by 3, 3 and 4, and
+  // the level was checked in game. Compounded, all three are exact.
+  const pct = compoundPercent([6, 5, 5]);
+  assert.ok(Math.abs(pct - 16.865) < 1e-9, '1.06 x 1.05 x 1.05');
+  const measured: [agi: number, flat: number, ingame: number][] = [
+    [152, 22, 566], [148, 22, 560], [152, 27, 572],
+  ];
+  for (const [agi, flat, ingame] of measured) {
+    assert.equal(combine(baseFlee(136, agi), flat, pct) + 70, ingame, `${agi} AGI, +${flat}`);
+  }
+
+  // And derivedStats does it from the gear's own sources.
+  const fleeTotal: StatTotal = {
+    statId: statId('flee'), flat: 27, percent: 16,
+    sources: [
+      { label: 'Wind Weaver', value: 15, unit: null },
+      { label: 'Yoyo Card', value: 12, unit: null },
+      { label: 'Maiden of Past Card', value: 6, unit: '%' },
+      { label: 'Maiden of Present Card', value: 5, unit: '%' },
+      { label: 'Maiden of Future Card', value: 5, unit: '%' },
+    ],
+  };
+  const flee = derivedStats(136, { ...defaultBaseStats(), agi: 99 },
+    (k) => (k === 'flee' ? fleeTotal : k === 'agi'
+      ? { statId: statId('agi'), flat: 53, percent: 0, sources: [] } : undefined),
+    { flee: 70 }).find((d) => d.key === 'flee')!;
+  assert.deepEqual(flee.percentParts, [6, 5, 5]);
+  assert.equal(flee.total, 572);
 });
 
 test('Double Attack takes the highest level, never the sum, and caps at 10', () => {

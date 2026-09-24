@@ -16,8 +16,13 @@ export interface DerivedStat {
   base: number;
   /** Flat equipment bonuses to the same stat. */
   flat: number;
-  /** Percentage equipment bonuses, applied after the flat ones. */
+  /**
+   * Percentage equipment bonuses, applied after the flat ones. For a stat
+   * whose percents compound this is the combined figure, not their sum.
+   */
   percent: number;
+  /** The separate percents, when they compound rather than add. */
+  percentParts?: number[];
   /** Anything the planner cannot model yet -- skills, buffs -- typed in. */
   manual: number;
   /** The final figure: (base + flat) scaled by percent, then plus manual. */
@@ -90,12 +95,28 @@ export function baseFlee(baseLevel: number, agi: number): number {
   return 100 + baseLevel + fleeFromAgi(agi);
 }
 
+/**
+ * Several percentages applied one after another, as one percentage.
+ *
+ * +6%, +5% and +5% compound to +16.865%, not +16%. Nothing is floored
+ * between the steps -- flooring after each one reads two low on the build
+ * this was measured against.
+ */
+export function compoundPercent(parts: number[]): number {
+  return (parts.reduce((acc, p) => acc * (1 + p / 100), 1) - 1) * 100;
+}
+
 interface Formula {
   key: string;
   label: string;
   formula: string;
   verified: boolean;
   manualHint?: string;
+  /**
+   * True when each percentage source multiplies the running figure rather
+   * than being summed with the others first.
+   */
+  compounds?: boolean;
   /**
    * `stats` is the points column; `stat` reads a finished total with
    * equipment folded in. Which one a formula uses is part of the formula,
@@ -113,6 +134,11 @@ export const FORMULAS: Formula[] = [
     label: 'Flee',
     formula: '100 + base level + total AGI + 1 per 10 total AGI',
     verified: true,
+    // Measured at base level 136, 152 AGI, +16% from the three Maiden of
+    // Time cards and +70 from skills: 560, 566 and 572 in game across three
+    // gear states. Compounding matches all three; summing to 16% reads
+    // 3-4 low on each.
+    compounds: true,
     manualHint: 'Flee from skills — for example Shadow Mastery (+3/level) '
       + 'and Improve Dodge (+4/level), so +70 with both maxed.',
     // The total, so AGI off equipment counts -- see baseFlee. This is the
@@ -147,7 +173,9 @@ export function derivedStats(
     const base = f.compute(baseLevel, stats, statTotal);
     const total = gear(f.key);
     const flat = total?.flat ?? 0;
-    const percent = total?.percent ?? 0;
+    const parts = (total?.sources ?? []).filter((s) => s.unit === '%').map((s) => s.value);
+    const compounded = f.compounds && parts.length > 1;
+    const percent = compounded ? compoundPercent(parts) : total?.percent ?? 0;
     const extra = manual[f.key] ?? 0;
     return {
       key: f.key,
@@ -155,6 +183,7 @@ export function derivedStats(
       base,
       flat,
       percent,
+      ...(compounded ? { percentParts: parts } : {}),
       manual: extra,
       // The manual box sits outside the percent: skill flee is added to the
       // finished figure rather than scaled by a Total Flee bonus. Gear flat

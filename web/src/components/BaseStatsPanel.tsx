@@ -144,7 +144,12 @@ function derivationOf(d: DerivedStat): string {
   }
   if (d.percent) {
     running = Math.floor(running * (1 + d.percent / 100));
-    lines.push(`then ${d.percent >= 0 ? '+' : ''}${round(d.percent)}% -> ${running}`);
+    // Compounding percents are listed one by one, so +16% on the gear does
+    // not look like a mistake beside the +16.87% actually applied.
+    const how = d.percentParts
+      ? ` (${d.percentParts.map((p) => `${p >= 0 ? '+' : ''}${p}%`).join(' x ')})`
+      : '';
+    lines.push(`then ${d.percent >= 0 ? '+' : ''}${round(d.percent)}%${how} -> ${running}`);
   }
   // Skills come last, outside the percent -- see derivedStats.
   if (d.manual) {
