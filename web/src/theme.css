@@ -760,10 +760,11 @@ input:focus, select:focus, button:focus-visible {
    row itself is not a click target the way an item row is. */
 .picker-row.rec { cursor: default; }
 
-/* ---- plan overlay: longer-term goals ------------------------------------ */
+/* ---- plan overlay: one section per kind of way forward ------------------ */
 
-.stretch { margin-top: 14px; padding-top: 10px; border-top: 1px solid var(--border); }
-.stretch h4 { margin: 0 0 4px; font-size: 12px; font-weight: 600; color: var(--text-dim); }
-.stretch .empty-note { margin: 0 0 8px; font-size: 11px; }
+.path { margin-top: 14px; padding-top: 10px; border-top: 1px solid var(--border); }
+.path:first-child { margin-top: 0; padding-top: 0; border-top: 0; }
+.path h4 { margin: 0 0 4px; font-size: 12px; font-weight: 600; color: var(--text-dim); }
+.path .empty-note { margin: 0 0 8px; font-size: 11px; }
 /* What to farm for a longer-term goal, under its label. */
 .move-note { margin: 2px 0; font-size: 11px; color: var(--warn); }

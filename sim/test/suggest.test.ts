@@ -12,7 +12,8 @@ import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 
 import {
-  aggregate, applyChanges, bindBaseStatIds, brokenGoals, brokenSets, defaultBaseStats, diffTotals,
+  aggregate, allGoals, applyChanges, bindBaseStatIds, brokenGoals, brokenSets, defaultBaseStats,
+  diffTotals,
   effectTone, farmFor, fitsSlot, rollTableFor, goalMetrics, goalsFromBuild, reachOf, REACH_EFFORT_FACTOR,
   REACH_KILL_FACTOR, REACH_REFINE_FLOOR, REFINE_MOVE_CAP, statsThatMatter,
   goalScore, goalStatus, isTwoHanded, measure, priorityWeight, SLOTS, Suggester, tableForSlot,
@@ -433,6 +434,50 @@ test('class gems with no job sentence are held to their class', () => {
   const thief = new Suggester(rules, [{ key: 'agi', column: 'total', target: 1 }],
     { className: 'Phantom Thief', maxLevel: null, refine: null });
   assert.equal(thief.allowed(byName('Unbound Gem of Full Power')), true);
+});
+
+test('upgrade paths lower nothing the build has, and show every kind of way forward', () => {
+  const build = satsujin();
+  const goals = allGoals({ ...build, goals: goalsFromBuild(build, aggregate(build, withEffort), withEffort) });
+  const s = new Suggester(withEffort, goals, { className: 'Satsujin', maxLevel: 136, refine: 'auto' });
+  const paths = s.upgradePaths(build);
+  const now = s.values(build);
+
+  for (const m of [...paths.near, ...paths.refines, ...paths.rolls, ...paths.far]) {
+    const after = s.values(applyChanges(build, m.changes, withEffort));
+    goals.forEach((g, i) => {
+      const worse = g.atMost ? after[i] > now[i] + 1e-9 : after[i] < now[i] - 1e-9;
+      // SP efficiency and HP included: a met goal is not a surplus to spend.
+      assert.ok(!worse, `${m.label} lowers ${g.key}: ${now[i]} -> ${after[i]}`);
+    });
+  }
+  assert.ok(paths.near.length > 0, 'something within reach');
+  assert.ok(paths.refines.some((m) => /Valkyrie Circlet/.test(m.label)),
+    'the circlet refine is not crowded out by the swaps');
+  assert.ok(paths.far.length > 0, 'and something to work towards');
+  const slots = paths.near.map((m) => m.changes.map((c) => c.slot).join());
+  assert.equal(new Set(slots).size, slots.length, 'one per slot, not the same slot three ways');
+});
+
+test('refines are offered on their own, for the goals a player actually set', () => {
+  const build = satsujin();
+  const opts: SuggestOptions = { className: 'Satsujin', maxLevel: 136, refine: 'auto' };
+  // The goals on the player's own share link, all already met.
+  const theirs: Goal[] = [
+    { key: 'flee', column: 'flat', target: 22 },
+    { key: 'melee_damage', column: 'percent', target: 10 },
+    { key: 'def_pen', column: 'flat', target: 42 },
+  ];
+  const refines = new Suggester(withEffort, theirs, opts).refineUpgrades(build);
+  assert.ok(refines.some((m) => /Wind Weaver/.test(m.label)),
+    `flee per refine on Wind Weaver serves the flee goal: ${refines.map((m) => m.label)}`);
+
+  // A flee total goal counts AGI as well, so the circlet's all-stats refine
+  // serves it.
+  const flee: Goal = { key: 'flee', column: 'total', target: 1 };
+  const circlet = new Suggester(withEffort, [flee], opts).refineUpgrades(build);
+  assert.ok(circlet.some((m) => /Valkyrie Circlet/.test(m.label)),
+    `AGI feeds flee: ${circlet.map((m) => m.label)}`);
 });
 
 test('refining what is worn is offered up to +9, never +10', () => {

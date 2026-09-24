@@ -167,6 +167,11 @@ interface Formula {
    */
   compounds?: boolean;
   /**
+   * The stats the formula reads besides its own gear column, so a goal on
+   * the total knows what else moves it: flee from AGI.
+   */
+  inputs?: string[];
+  /**
    * `stats` is the points column; `stat` reads a finished total with
    * equipment folded in. Which one a formula uses is part of the formula,
    * and the difference is large, so both are handed over rather than one
@@ -188,6 +193,7 @@ export const FORMULAS: Formula[] = [
     // gear states. Compounding matches all three; summing to 16% reads
     // 3-4 low on each.
     compounds: true,
+    inputs: ['agi'],
     manualHint: 'Flee from skills — for example Shadow Mastery (+3/level) '
       + 'and Improve Dodge (+4/level), so +70 with both maxed.',
     // The total, so AGI off equipment counts -- see baseFlee. This is the

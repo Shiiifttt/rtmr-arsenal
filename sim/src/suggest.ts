@@ -220,6 +220,18 @@ export interface Reach {
   refine: number;
 }
 
+/** The ways forward from a build that has met its goals; see `upgradePaths`. */
+export interface UpgradePaths {
+  /** The best swap within reach, one per slot, and sets to finish. */
+  near: Move[];
+  /** Worn pieces refined further, up to +9. */
+  refines: Move[];
+  /** Copies of worn pieces with rolls that suit the build better. */
+  rolls: Move[];
+  /** The best out of reach, one per slot: something to work towards. */
+  far: Move[];
+}
+
 /** The furthest a suggestion refines a piece already worn. See `refineMoves`. */
 export const REFINE_MOVE_CAP = 9;
 
@@ -1228,6 +1240,86 @@ export class Suggester {
   }
 
   /**
+   * Every way forward from a build whose goals are all met, by kind.
+   *
+   * Once nothing is short there is no gap for a plan to close, and a greedy
+   * chain of steps only shows whatever scores highest -- the easy +9 on a
+   * circlet, or the sun helmet a player could be working towards, both drop
+   * off the end. So the answer is a set of paths instead, each on its own:
+   * the best swap for each slot within reach, refines on what is worn,
+   * better-rolled copies, and the best of what is out of reach for each
+   * slot, with what to farm for it.
+   *
+   * Every goal and guard is held where the build already is, not merely at
+   * its target: an upgrade raises something and lowers nothing. A build
+   * that has met its SP cost goal has not thereby made SP cost free to
+   * spend, and treating a surplus as spendable is how an off-hand swap used
+   * to cost it the SP efficiency it was built around.
+   */
+  upgradePaths(build: Build, perKind = 8): UpgradePaths {
+    const empty = { near: [], refines: [], rolls: [], far: [] };
+    if (!this.active) return empty;
+    const values = this.values(build);
+    const held = this.goals.map((g, i) => ({
+      ...g,
+      target: g.atMost ? Math.min(g.target, values[i]) : Math.max(g.target, values[i]),
+    }));
+    const reach = this.opts.reach === undefined ? reachOf(build, this.data) : this.opts.reach;
+    const make = (r: Reach | null) => {
+      const s = new Suggester(this.data, held, { ...this.opts, reach: r });
+      s.pushing = true;
+      return s;
+    };
+    const near = make(reach);
+    const wide = make({ effort: null, kill: null, refine: Math.max(reach?.refine ?? 0, REFINE_MOVE_CAP) });
+    const best = (moves: Move[]) => moves
+      .filter((m) => m.gain > EPSILON)
+      .sort((a, b) => b.gain - a.gain);
+    const bestPerSlot = (s: Suggester, keep: (m: Move) => boolean) => SLOTS.flatMap((slot) => {
+      const top = best(s.slotMoves(build, slot.key, 3, false, false))
+        .find((m) => s.keeps(build, m) && keep(m));
+      return top ? [top] : [];
+    });
+
+    const beyond = (m: Move) => m.changes.some((c) => {
+      const was = build.slots[c.slot];
+      const ids = [
+        ...(c.state.itemId !== was?.itemId ? [c.state.itemId] : []),
+        ...c.state.cards.filter((id) => !was?.cards.includes(id)),
+      ];
+      return ids.some((id) => { const i = id ? this.data.items.get(id) : undefined; return !!i && !near.allowed(i); });
+    });
+    const nearSets = best(near.setMoves(build)).filter((m) => near.keeps(build, m));
+    return {
+      near: best([...bestPerSlot(near, () => true), ...nearSets]).slice(0, perKind),
+      refines: best(near.refineMoves(build)).filter((m) => near.keeps(build, m)).slice(0, perKind),
+      rolls: best(SLOTS.flatMap((slot) => near.rollMoves(build, slot.key)))
+        .filter((m) => near.keeps(build, m)).slice(0, 3),
+      far: best(bestPerSlot(wide, beyond)).slice(0, perKind),
+    };
+  }
+
+  /**
+   * The worn pieces most worth refining, best first, up to +9.
+   *
+   * Refining competes in the plan with every swap, and a swap usually
+   * scores higher, so refines rarely make its few steps. But taking what is
+   * already worn from +6 to +9 is the upgrade most players are actually
+   * working on, so it is offered on its own as well.
+   */
+  refineUpgrades(build: Build, limit = 3): Move[] {
+    if (!this.active) return [];
+    const held = this.withinReach(build);
+    const pushing = new Suggester(this.data, this.goals, held.opts);
+    pushing.pushing = held.pushing
+      || goalStatus(this.goals, aggregate(build, this.data), build, this.data).every((s) => s.met);
+    return pushing.refineMoves(build)
+      .filter((m) => m.gain > EPSILON && pushing.breaks(m).length === 0)
+      .sort((a, b) => b.gain - a.gain)
+      .slice(0, limit);
+  }
+
+  /**
    * The copies of worn pieces worth farming for better rolls, best first.
    *
    * The same piece with rolls that suit the build: often the cheapest real
@@ -1626,9 +1718,17 @@ export function relevanceOf(goals: Goal[], data: Dataset): Relevance {
       continue;
     }
     // A derived value is fed by the gear stat of the same key (flee by
-    // flee); a base stat total by that stat. Either way it is one id.
+    // flee); a base stat total by that stat. A derived total is also fed by
+    // whatever its formula reads -- flee by AGI -- or AGI gear, cards and
+    // refines would never be looked at for a flee goal.
     const id = data.stats.find((s) => s.key === goal.key)?.id;
     if (id !== undefined) ids.add(id);
+    if (goal.column === 'total') {
+      for (const input of FORMULAS.find((f) => f.key === goal.key)?.inputs ?? []) {
+        const inputId = data.stats.find((s) => s.key === input)?.id;
+        if (inputId !== undefined) ids.add(inputId);
+      }
+    }
   }
   return { ids, skills };
 }

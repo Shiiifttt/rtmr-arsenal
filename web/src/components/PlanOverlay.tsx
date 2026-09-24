@@ -3,24 +3,37 @@ import { applyChanges, farmFor, type Build, type Dataset, type Goal, type Move }
 import { LockedNote, MoveRow } from './GoalsPanel';
 
 /**
- * The plan from "Suggest changes" or "Find upgrades", over the build.
+ * What "Suggest changes" and "Find upgrades" found, over the build.
  *
  * Its own overlay rather than a list under the goals, for the same reason
  * as `GoalFocus`: each row is a full suggestion -- pieces, cards, refine,
  * every stat it moves -- and needs the picker's width, not a side panel's.
  *
- * Unlike the focus list, the rows are steps: each is measured from where
- * the ones above leave the build, and applying one applies everything
- * before it too.
+ * Laid out as paths rather than one list. With goals still short there is
+ * a plan: steps that build on each other towards the targets. With every
+ * goal met there is nothing to close, so what is shown is every way
+ * forward, each on its own -- the best swap for each slot, refines on what
+ * is worn, better rolls, and what is out of reach but worth working
+ * towards -- so an easy refine or a long-term sun helmet is never crowded
+ * out by whatever happens to score highest.
  */
-export function PlanOverlay({
-  moves, stretch, rolls, upgrading, dataset, build, goals, lockedSlots, onApply, onClose,
-}: {
-  moves: Move[];
+export interface PlanPaths {
+  /** Steps towards unmet goals, in order; empty once every goal is met. */
+  steps: Move[];
+  /** The best swaps within reach, each an alternative. */
+  near: Move[];
+  /** Worn pieces worth refining further, up to +9. */
+  refines: Move[];
   /** Copies of worn pieces with rolls that suit the build better. */
   rolls: Move[];
-  /** Out-of-reach alternatives, for when the plan has little to offer. */
-  stretch: Move[];
+  /** Out of reach for now, but where the build can head. */
+  far: Move[];
+}
+
+export function PlanOverlay({
+  paths, upgrading, dataset, build, goals, lockedSlots, onApply, onClose,
+}: {
+  paths: PlanPaths;
   /** Every goal was already met, so these are upgrades rather than fixes. */
   upgrading: boolean;
   dataset: Dataset;
@@ -36,18 +49,32 @@ export function PlanOverlay({
     return () => window.removeEventListener('keydown', onKey);
   }, [onClose]);
 
+  const { steps, near, refines, rolls, far } = paths;
   // The build each step starts from, which is how it will be applied.
   const stepBuilds = useMemo(() => {
     const out: Build[] = [];
     let at = build;
-    for (const move of moves) {
+    for (const move of steps) {
       out.push(at);
       at = applyChanges(at, move.changes, dataset);
     }
     return out;
-  }, [moves, build, dataset]);
+  }, [steps, build, dataset]);
 
   const title = upgrading ? 'Upgrades' : 'Suggested changes';
+  const nothing = [steps, near, refines, rolls, far].every((l) => l.length === 0);
+  const row = (move: Move, action: string, onRowApply: () => void, from: Build, farm = false,
+    rolled = false) => (
+    <MoveRow
+      move={move}
+      goals={goals}
+      action={action}
+      onApply={onRowApply}
+      dataset={dataset}
+      build={from}
+      note={farm ? <FarmNote move={move} build={build} dataset={dataset} rolled={rolled} /> : undefined}
+    />
+  );
 
   return (
     <div className="overlay" onMouseDown={(e) => {
@@ -57,15 +84,15 @@ export function PlanOverlay({
         <div className="picker-head">
           <h3>{title}</h3>
           <span className="focus-sub">
-            {upgrading ? 'raises a goal, lowers none' : 'towards the goals'}
+            {upgrading ? 'raises a goal, lowers nothing you have' : 'towards the goals'}
           </span>
           <div className="spacer" />
-          {moves.length > 1 && <button onClick={() => onApply(moves)}>Apply all</button>}
+          {steps.length > 1 && <button onClick={() => onApply(steps)}>Apply all steps</button>}
           <button onClick={onClose}>Close</button>
         </div>
 
         <div className="picker-list">
-          {moves.length === 0 ? (
+          {nothing && (
             <div className="loading">
               {upgrading
                 ? 'Nothing within these options raises a goal without lowering another.'
@@ -75,85 +102,55 @@ export function PlanOverlay({
                 {lockedSlots > 0 && <LockedNote slots={lockedSlots} />}.
               </div>
             </div>
-          ) : (
-            <ol className="plan focus-list">
-              {moves.map((move, i) => (
-                <li key={i}>
-                  <MoveRow
-                    move={move}
-                    goals={goals}
-                    action={i === 0 ? 'Apply' : 'Apply up to here'}
-                    onApply={() => onApply(moves.slice(0, i + 1))}
-                    dataset={dataset}
-                    build={stepBuilds[i]}
-                  />
-                </li>
-              ))}
-            </ol>
           )}
 
-          {rolls.length > 0 && (
-            <div className="stretch">
-              <h4>Better-rolled copies</h4>
-              <p className="empty-note">
-                The same piece with random options that suit this build, at a
-                typical good roll. Farmed where you already get the piece.
-              </p>
-              <ol className="plan focus-list">
-                {rolls.map((move, i) => (
-                  <li key={i}>
-                    <MoveRow
-                      move={move}
-                      goals={goals}
-                      action="Set rolls"
-                      onApply={() => onApply([move])}
-                      dataset={dataset}
-                      build={build}
-                      note={<FarmNote move={move} build={build} dataset={dataset} rolled />}
-                    />
-                  </li>
-                ))}
-              </ol>
-            </div>
-          )}
+          <Path title="Steps" note={steps.length > 1
+            ? 'Each builds on the ones above, so they apply in order. A greedy plan: a good '
+              + 'route, not a proof of the best build.' : undefined}>
+            {steps.map((move, i) => row(move, i === 0 ? 'Apply' : 'Apply up to here',
+              () => onApply(steps.slice(0, i + 1)), stepBuilds[i]))}
+          </Path>
 
-          {stretch.length > 0 && (
-            <div className="stretch">
-              <h4>Longer-term goals</h4>
-              <p className="empty-note">
-                Past what this build usually reaches — a longer grind, a tougher
-                monster or a higher refine — but where the next real gains are.
-                Alternatives, not steps.
-              </p>
-              <ol className="plan focus-list">
-                {stretch.map((move, i) => (
-                  <li key={i}>
-                    <MoveRow
-                      move={move}
-                      goals={goals}
-                      action="Equip"
-                      onApply={() => onApply([move])}
-                      dataset={dataset}
-                      build={build}
-                      note={<FarmNote move={move} build={build} dataset={dataset} />}
-                    />
-                  </li>
-                ))}
-              </ol>
-            </div>
-          )}
+          <Path title="Within reach" note={'The best swap for each slot that this build could '
+            + 'get next. Each is an alternative, measured from the build as it is.'}>
+            {near.map((move) => row(move, 'Equip', () => onApply([move]), build))}
+          </Path>
+
+          <Path title="Refine what you have" note={'The pieces already worn that gain the most '
+            + 'from more refine, up to +9. Never +10: that last step is a gamble, not a plan.'}>
+            {refines.map((move) => row(move, 'Apply', () => onApply([move]), build))}
+          </Path>
+
+          <Path title="Better-rolled copies" note={'The same piece with random options that suit '
+            + 'this build, at a typical good roll. Farmed where you already get the piece.'}>
+            {rolls.map((move) => row(move, 'Set rolls', () => onApply([move]), build, true, true))}
+          </Path>
+
+          <Path title="Longer-term goals" note={'Past what this build usually reaches — a longer '
+            + 'grind, a tougher monster or a higher refine — but where it can head, one per slot, '
+            + 'with what to farm for it.'}>
+            {far.map((move) => row(move, 'Equip', () => onApply([move]), build, true))}
+          </Path>
         </div>
-
-        {moves.length > 1 && (
-          <div className="picker-foot">
-            <span>{moves.length} steps</span>
-            <span>
-              Steps build on each other, so they apply in order. This is a greedy
-              plan — a good route, not a proof of the best build.
-            </span>
-          </div>
-        )}
       </div>
+    </div>
+  );
+}
+
+/** One kind of way forward: a heading, a line on what it is, its rows. */
+function Path({ title, note, children }: {
+  title: string;
+  note?: string;
+  children: React.ReactNode[];
+}) {
+  if (children.length === 0) return null;
+  return (
+    <div className="path">
+      <h4>{title}</h4>
+      {note && <p className="empty-note">{note}</p>}
+      <ol className="plan focus-list">
+        {children.map((child, i) => <li key={i}>{child}</li>)}
+      </ol>
     </div>
   );
 }

@@ -7,7 +7,7 @@ import {
   type Totals, type TotalsChange,
 } from '@sim';
 import { GoalFocus } from './GoalFocus';
-import { PlanOverlay } from './PlanOverlay';
+import { PlanOverlay, type PlanPaths } from './PlanOverlay';
 import { Icon } from './Icon';
 import { tooltipProps } from './ItemTooltip';
 
@@ -28,6 +28,26 @@ export const DEFAULT_PREFS: SuggestPrefs = { mineOnly: true, levelCap: true, ref
 
 /** Fewer plan steps than this and the out-of-reach goals are shown as well. */
 const STRETCH_BELOW = 3;
+
+/**
+ * Everything the overlay shows. With every goal met, the upgrade paths --
+ * no chain of steps, since there is nothing to close. With goals short, the
+ * plan towards them, and around it refines, better rolls and, when the plan
+ * is short, what is out of reach.
+ */
+function pathsFor(suggester: Suggester, build: Build, allMet: boolean): PlanPaths {
+  if (allMet) return { steps: [], ...suggester.upgradePaths(build) };
+  const steps = suggester.plan(build);
+  // Refines the plan already takes are not listed twice.
+  const planned = new Set(steps.map((m) => m.label));
+  return {
+    steps,
+    near: [],
+    refines: suggester.refineUpgrades(build).filter((m) => !planned.has(m.label)),
+    rolls: suggester.rollUpgrades(build),
+    far: steps.length < STRETCH_BELOW ? suggester.stretchMoves(build) : [],
+  };
+}
 
 interface Props {
   dataset: Dataset;
@@ -64,10 +84,9 @@ export function GoalsPanel({
   // changes -- a slot, a goal, an option -- it describes a different
   // starting point, so it is dropped rather than shown stale.
   const [plan, setPlan] = useState<{
-    for: Build; suggester: Suggester; moves: Move[]; stretch: Move[]; rolls: Move[];
-    upgrading: boolean;
+    for: Build; suggester: Suggester; paths: PlanPaths; upgrading: boolean;
   } | null>(null);
-  const current = plan && plan.for === build && plan.suggester === suggester ? plan.moves : null;
+  const current = plan && plan.for === build && plan.suggester === suggester ? plan : null;
 
   // "More of this one, please" for a single goal, on the same terms: dropped
   // as soon as it would describe a build that is no longer the one on screen.
@@ -253,14 +272,9 @@ export function GoalsPanel({
 
           <div className="goal-actions">
             <button
-              onClick={() => {
-                const moves = suggester.plan(build);
-                // A short plan leaves the player without much to aim for, so
-                // the best of what is out of reach comes with it.
-                const stretch = moves.length < STRETCH_BELOW ? suggester.stretchMoves(build) : [];
-                const rolls = suggester.rollUpgrades(build);
-                setPlan({ for: build, suggester, moves, stretch, rolls, upgrading: allMet });
-              }}
+              onClick={() => setPlan({
+                for: build, suggester, paths: pathsFor(suggester, build, allMet), upgrading: allMet,
+              })}
               title={allMet ? 'Every goal is met, so this looks for upgrades: changes '
                 + 'that raise a goal without lowering any' : undefined}
             >
@@ -274,10 +288,8 @@ export function GoalsPanel({
           suggestions, and they need the room the picker gets. */}
       {current && (
         <PlanOverlay
-          moves={current}
-          stretch={plan!.stretch}
-          rolls={plan!.rolls}
-          upgrading={plan!.upgrading}
+          paths={current.paths}
+          upgrading={current.upgrading}
           dataset={dataset}
           build={build}
           goals={suggester.goals}
