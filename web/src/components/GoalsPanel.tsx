@@ -1,8 +1,9 @@
 import { useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import {
-  aggregate, applyChanges, brokenGoals, brokenSets, DEFAULT_GUARDS, diffTotals, goalLabel,
-  goalMetrics, goalsFromBuild, goalStatus, guardsOf, statsThatMatter, isOffhandWeapon, SLOT_BY_KEY, SP_SUSTAIN,
+  aggregate, applyChanges, brokenGoals, brokenSets, computedGoal, DEFAULT_GUARDS, diffTotals, goalLabel,
+  goalMetrics, goalsFromBuild, goalsFromPlaystyle, goalStatus, guardsOf, rankPlaystyles, statsThatMatter,
+  isOffhandWeapon, SLOT_BY_KEY, SP_SUSTAIN,
   type Build, type Dataset, type Goal, type GoalMetric, type Item, type Move, type Suggester,
   type Totals, type TotalsChange,
 } from '@sim';
@@ -26,26 +27,25 @@ export interface SuggestPrefs {
 
 export const DEFAULT_PREFS: SuggestPrefs = { mineOnly: true, levelCap: true, refine: 'auto' };
 
-/** Fewer plan steps than this and the out-of-reach goals are shown as well. */
-const STRETCH_BELOW = 3;
-
 /**
  * Everything the overlay shows. With every goal met, the upgrade paths --
  * no chain of steps, since there is nothing to close. With goals short, the
- * plan towards them, and around it refines, better rolls and, when the plan
- * is short, what is out of reach.
+ * plan towards them, and around it refines, better rolls, trades, and what
+ * is out of reach -- high effort is marked and ranked lower, never hidden.
  */
 function pathsFor(suggester: Suggester, build: Build, allMet: boolean): PlanPaths {
   if (allMet) return { steps: [], ...suggester.upgradePaths(build) };
   const steps = suggester.plan(build);
   // Refines the plan already takes are not listed twice.
   const planned = new Set(steps.map((m) => m.label));
+  const far = suggester.stretchMoves(build);
   return {
     steps,
     near: [],
     refines: suggester.refineUpgrades(build).filter((m) => !planned.has(m.label)),
     rolls: suggester.rollUpgrades(build),
-    far: steps.length < STRETCH_BELOW ? suggester.stretchMoves(build) : [],
+    far,
+    ...suggester.tradeOffs(build, steps, far),
   };
 }
 
@@ -133,6 +133,7 @@ export function GoalsPanel({
             Add the numbers you are building towards. The item picker then ranks
             by them, and can recommend pieces, cards and set swaps to reach them.
           </p>
+          <ClassStart build={build} totals={totals} dataset={dataset} onGoals={onGoals} />
           <button
             className="goal-from-build"
             onClick={() => onGoals(goalsFromBuild(build, totals, dataset))}
@@ -316,6 +317,58 @@ export function GoalsPanel({
 }
 
 /**
+ * Goals for the class's usual builds, for a player who does not know yet
+ * what to aim for.
+ *
+ * The playstyle offered is the one the base stats point at -- a Satsujin
+ * with more STR than INT gets the melee goals -- and the others are a click
+ * away, because stats early on are thin evidence and a player may be
+ * respeccing towards something else.
+ */
+function ClassStart({ build, totals, dataset, onGoals }: {
+  build: Build;
+  totals: Totals;
+  dataset: Dataset;
+  onGoals: (goals: Goal[]) => void;
+}) {
+  const styles = dataset.classGoals?.[build.className ?? ''];
+  const ranked = useMemo(() => rankPlaystyles(styles ?? [], build.baseStats),
+    [styles, build.baseStats]);
+  // By name, so the choice survives the ranking reordering under it.
+  const [picked, setPicked] = useState<string | null>(null);
+  if (!build.className || ranked.length === 0) return null;
+
+  const chosen = ranked.find((r) => r.style.name === picked) ?? ranked[0];
+  const fits = (r: typeof chosen) => r === ranked[0] && r.fit > 0 && ranked.length > 1;
+  const style = chosen.style;
+  const title = `${style.basis}\n\nGoals, most important first:\n`
+    + style.goals.map((g) => `• ${goalLabel({ ...g, target: 0 }, dataset)}`).join('\n')
+    + `\n\nEach starts at what the build has now, so Suggest looks for upgrades. `
+    + `Confidence: ${style.confidence}.`;
+
+  return (
+    <div className="class-start">
+      <button onClick={() => onGoals(goalsFromPlaystyle(style, build, totals, dataset))} title={title}>
+        Use {build.className} goals
+      </button>
+      {ranked.length > 1 ? (
+        <select
+          value={style.name}
+          onChange={(e) => setPicked(e.target.value)}
+          aria-label={`${build.className} playstyle`}
+        >
+          {ranked.map((r) => (
+            <option key={r.style.name} value={r.style.name}>
+              {r.style.name}{fits(r) ? ' — fits your stats' : ''}
+            </option>
+          ))}
+        </select>
+      ) : <span className="class-start-name" title={title}>{style.name}</span>}
+    </div>
+  );
+}
+
+/**
  * The lines a suggestion may not cross.
  *
  * Separate from the goals above because they are a different kind of thing:
@@ -438,7 +491,13 @@ export function MoveRow({ move, goals, action, onApply, dataset, build, note }: 
       brokenSets(before, after),
     ] as const;
   }, [build, move, dataset, goals]);
-  const isGoal = (c: TotalsChange) => goals.some((g) => g.key === c.key && g.column === c.column);
+  // A goal worked out from several stats -- SP sustain, damage against any
+  // target -- has no line of its own in the stat list, so it is shown from
+  // the goal values instead, and its one-stat namesake is not shown twice.
+  const isGoal = (c: TotalsChange) => goals.some((g) => g.key === c.key && g.column === c.column
+    && !computedGoal(g.key));
+  const computed = goals.map((g, i) => ({ g, d: move.after[i] - move.before[i] }))
+    .filter(({ g, d }) => computedGoal(g.key) && !g.guard && Math.abs(d) > 1e-9);
   // Goals this move would take below their target. Said first, because it is
   // the one consequence a player would not forgive being buried.
   const broken = brokenGoals(goals, move.before, move.after);
@@ -518,6 +577,23 @@ export function MoveRow({ move, goals, action, onApply, dataset, build, note }: 
               Breaks {setsBroken.map((set) => `${set.name} set`).join(', ')} ·{' '}
             </span>
           )}
+          {move.standout ? (
+            <span
+              className="standout"
+              title={'A long way off for this build, and far enough ahead of anything close by '
+                + 'that it is worth farming on purpose.'}
+            >
+              Worth target-farming ·{' '}
+            </span>
+          ) : move.highEffort && (
+            <span
+              className="high-effort"
+              title={'Past what this build usually reaches: a longer grind or a tougher monster '
+                + 'than the gear you wear. Ranked below what is close by, not left out.'}
+            >
+              High effort ·{' '}
+            </span>
+          )}
           {move.maxed && (
             <span title="The suggestion above, with the pieces it puts on at full refine">
               At full refine ·{' '}
@@ -551,6 +627,12 @@ export function MoveRow({ move, goals, action, onApply, dataset, build, note }: 
             without burying the next suggestion. */}
         {note && <div className="move-note">{note}</div>}
         <div className="deltas">
+          {computed.map(({ g, d }, i) => (
+            <span key={`g${i}`} className={`delta ${(g.atMost ? d < 0 : d > 0) ? 'up' : 'down'}`}>
+              {d > 0 ? '+' : ''}{fmt(d)}{g.column === 'percent' ? '%' : ''}{' '}
+              {goalLabel(g, dataset).replace(/ %$/, '')}
+            </span>
+          ))}
           {changes.filter(isGoal).map((c, i) => <Change key={i} c={c} />)}
           <EffectsButton changes={changes} matters={matters} />
         </div>

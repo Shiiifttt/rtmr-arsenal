@@ -8,7 +8,7 @@ import {
   SLOT_BY_KEY, SLOTS, socketsOf, type SlotDef,
 } from './slots.ts';
 import { fillSet, missingMembers } from './sets.ts';
-import { acquisitionOf } from './sources.ts';
+import { acquisitionOf, farmFor } from './sources.ts';
 import { BASE_STAT_KEYS } from './types.ts';
 import type {
   BaseStats, Build, Dataset, Effect, Goal, Item, SetRecord, SlotChange, SlotState, Totals,
@@ -65,6 +65,12 @@ export function goalMetrics(data: Dataset): GoalMetric[] {
     if (def) out.push({ key, column: 'total', label: `${def.name} (total)`, category: 'derived' });
   }
   out.push({ key: SP_SUSTAIN, column: 'total', label: 'SP sustain %', category: 'derived' });
+  for (const t of TARGET_TOTALS) {
+    out.push({ key: t.key, column: 'percent', label: `${t.label} %`, category: 'damage vs any target' });
+  }
+  for (const g of TARGET_GROUPS) {
+    out.push({ key: g.key, column: 'percent', label: `${g.label} %`, category: 'damage vs any target' });
+  }
   for (const s of data.stats) {
     // A flag is present or absent; there is no amount to aim for.
     if (s.category === 'flag') continue;
@@ -124,6 +130,105 @@ function spSustain(totals: Totals, data: Dataset): number {
   // this server grants; the floor keeps a corrupt or stacked total from
   // dividing by nothing rather than modelling anything.
   return 100 * ((1 + pool / 100) / Math.max(0.01, 1 + cost / 100) - 1);
+}
+
+// ---- damage against a kind of target -------------------------------------
+
+/**
+ * Race, size and element damage, read the way it lands on a monster.
+ *
+ * The registry keeps "DMG vs All Races" as a stat of its own, beside
+ * Demihuman, Brute and the rest, and a goal on one race used to read only
+ * that race's column -- so a Demihuman goal never saw an all-races line, and
+ * an Ifrit Card did nothing for a Large goal. Against a Demihuman both
+ * apply, so a goal on one member of a group reads the member plus the
+ * group's "all" stat.
+ *
+ * Elements have no "all" stat: "all elements" is written onto each of the
+ * ten when the tooltip is parsed, so Vesper Card is already in every one.
+ */
+interface TargetGroup {
+  /** The goal key for "against any of them". */
+  key: string;
+  label: string;
+  members: string[];
+  /** The stat for the whole group, when the registry has one. */
+  all?: string;
+}
+
+const RACES = ['formless', 'undead_race', 'brute', 'plant', 'insect', 'fish', 'demon',
+  'demihuman', 'angel', 'dragon'];
+const SIZES = ['small', 'medium', 'large'];
+const ELEMENTS = ['neutral', 'water', 'earth', 'fire', 'wind', 'poison', 'holy', 'dark', 'ghost',
+  'undead'];
+
+const TARGET_GROUPS: TargetGroup[] = [
+  { key: 'any_race_dmg', label: 'DMG vs any race', members: RACES.map((r) => `dmg_vs_race_${r}`),
+    all: 'dmg_vs_race_all_races' },
+  { key: 'any_size_dmg', label: 'DMG vs any size', members: SIZES.map((s) => `dmg_vs_size_${s}`),
+    all: 'dmg_vs_size_all_sizes' },
+  { key: 'any_element_dmg', label: 'DMG vs any element', members: ELEMENTS.map((e) => `dmg_vs_${e}`) },
+  { key: 'any_race_magic', label: 'Magic vs any race',
+    members: RACES.map((r) => `magic_vs_race_${r}`), all: 'magic_vs_race_all_races' },
+  { key: 'any_size_magic', label: 'Magic vs any size',
+    members: SIZES.map((s) => `magic_vs_size_${s}`), all: 'magic_vs_size_all_sizes' },
+];
+
+/**
+ * "Against any target": race, size and element together, as one percentage.
+ *
+ * The three are separate modifiers that multiply rather than add, as in
+ * vanilla renewal -- confirmed for this server by the project owner. So +6% vs all sizes (Ifrit) and +4% vs all elements (Vesper)
+ * can be weighed against each other and against a race card, in one number.
+ * Magic has no element-of-target stat on this server, so its version is race
+ * and size.
+ */
+const TARGET_TOTALS: { key: string; label: string; groups: string[] }[] = [
+  { key: 'any_target_dmg', label: 'DMG vs any target',
+    groups: ['any_race_dmg', 'any_size_dmg', 'any_element_dmg'] },
+  { key: 'any_target_magic', label: 'Magic vs any target', groups: ['any_race_magic', 'any_size_magic'] },
+];
+
+const GROUP_BY_KEY = new Map(TARGET_GROUPS.map((g) => [g.key, g]));
+const GROUP_OF_MEMBER = new Map(TARGET_GROUPS.flatMap((g) => g.members.map((m) => [m, g] as const)));
+
+/**
+ * Goals worked out here rather than read off one stat. There is no line in
+ * a change's stat list that is the goal's own, so their movement has to be
+ * shown from the goal values instead -- see `computedGoal`.
+ */
+export function computedGoal(key: string): boolean {
+  return key === SP_SUSTAIN || GROUP_BY_KEY.has(key) || TARGET_TOTALS.some((t) => t.key === key)
+    || !!GROUP_OF_MEMBER.get(key)?.all;
+}
+
+function percentOf(totals: Totals, data: Dataset, key: string): number {
+  return gearTotal(totals, data, key)?.percent ?? 0;
+}
+
+/** One member of a group as it lands: its own column plus the group's "all". */
+function memberPercent(totals: Totals, data: Dataset, group: TargetGroup, member: string): number {
+  return percentOf(totals, data, member) + (group.all ? percentOf(totals, data, group.all) : 0);
+}
+
+/**
+ * The bonus that holds whatever of the group is being hit: the weakest
+ * member's. A Demihuman card is worth nothing here, and an all-races one its
+ * full amount, which is the difference between building for one map and
+ * building to hit anything.
+ */
+function groupPercent(totals: Totals, data: Dataset, group: TargetGroup): number {
+  return Math.min(...group.members.map((m) => memberPercent(totals, data, group, m)));
+}
+
+/** The stats a target goal reads, for relevance. */
+function targetInputs(key: string): string[] {
+  const group = GROUP_BY_KEY.get(key);
+  if (group) return [...group.members, ...(group.all ? [group.all] : [])];
+  const total = TARGET_TOTALS.find((t) => t.key === key);
+  if (total) return total.groups.flatMap(targetInputs);
+  const of = GROUP_OF_MEMBER.get(key);
+  return of?.all ? [key, of.all] : [];
 }
 
 /**
@@ -230,6 +335,46 @@ export interface UpgradePaths {
   rolls: Move[];
   /** The best out of reach, one per slot: something to work towards. */
   far: Move[];
+  /** Trades: more of one goal for less of another, best on balance first. */
+  sides: Move[];
+  /** High-effort moves far enough ahead of the rest to target-farm. */
+  farm: Move[];
+}
+
+/**
+ * What a piece past the build's reach is discounted by when ranked against
+ * ones within it. A ranking, not a filter: an Invoker's Ring that is worth
+ * twice anything nearby still comes out on top.
+ */
+export const HIGH_EFFORT_DISCOUNT = 0.5;
+
+/**
+ * How far a high-effort move has to outdo the best within reach before it
+ * is called out as worth farming on purpose. A calibration, not a model.
+ */
+export const STANDOUT_FACTOR = 2;
+
+/** And the least it has to be worth at all: a tenth of the top goal's target. */
+const STANDOUT_MIN = 0.1;
+
+/**
+ * What a change is worth to the goals, gains less losses, each goal as a
+ * fraction of where it stands and at its priority.
+ *
+ * The score cannot rank trades. It charges a goal dropped below its target
+ * in full and credits one raised past it on a log, which is right for
+ * "don't take what I have" and useless for "is +15% leech worth 5 crit".
+ * This is the straight sum, so a trade that gives far more than it takes
+ * comes out ahead. Guards are left out: they are lines, not amounts.
+ */
+export function tradeValue(goals: Goal[], before: number[], after: number[]): number {
+  let total = 0;
+  goals.forEach((goal, i) => {
+    if (goal.guard) return;
+    const scale = Math.max(Math.abs(goal.target), Math.abs(before[i]), 1);
+    total += priorityWeight(i) * (goal.atMost ? -1 : 1) * (after[i] - before[i]) / scale;
+  });
+  return total;
 }
 
 /** The furthest a suggestion refines a piece already worn. See `refineMoves`. */
@@ -452,6 +597,18 @@ export function goalLabel(goal: Goal, data: Dataset): string {
 /** The number a goal is measured against, read off a finished build. */
 export function measure(goal: Goal, totals: Totals, build: Build, data: Dataset): number {
   if (goal.key === SP_SUSTAIN) return spSustain(totals, data);
+  const group = GROUP_BY_KEY.get(goal.key);
+  if (group) return groupPercent(totals, data, group);
+  const total = TARGET_TOTALS.find((t) => t.key === goal.key);
+  if (total) {
+    const product = total.groups.reduce((acc, key) =>
+      acc * (1 + groupPercent(totals, data, GROUP_BY_KEY.get(key)!) / 100), 1);
+    return (product - 1) * 100;
+  }
+  const member = GROUP_OF_MEMBER.get(goal.key);
+  if (member?.all && goal.column === 'percent') {
+    return memberPercent(totals, data, member, goal.key);
+  }
   if (goal.key.startsWith(SKILL_PREFIX)) {
     const t = totals.skills.get(goal.key.slice(SKILL_PREFIX.length));
     return goal.column === 'percent' ? t?.percent ?? 0 : t?.flat ?? 0;
@@ -654,6 +811,17 @@ export interface Move {
   sidegrade?: boolean;
   /** The suggestion before it, with its new pieces at full refine. */
   maxed?: boolean;
+  /**
+   * Puts on something past what the build usually reaches: a longer grind
+   * or a tougher monster. Still suggested -- it may well be worth it -- but
+   * said, and ranked below what is close by.
+   */
+  highEffort?: boolean;
+  /**
+   * High effort, and so far ahead of anything within reach that it is worth
+   * going after on purpose. Only for pieces that drop from something.
+   */
+  standout?: boolean;
 }
 
 export interface SuggestOptions {
@@ -1171,8 +1339,10 @@ export class Suggester {
    * way goals are compared everywhere else.
    */
   focusMoves(build: Build, goal: Goal, limit = 12): Move[] {
-    const held = this.withinReach(build);
-    if (held !== this) return held.focusMoves(build, goal, limit);
+    // Past the build's reach too: asking for more of one number is exactly
+    // when a long grind can be worth knowing about. Such moves are marked
+    // and ranked at HIGH_EFFORT_DISCOUNT, never left out.
+    const reach = this.reachFor(build);
     // Identity first, so two goals on the same stat with different targets
     // stay distinct; by key only as a fallback for a copied goal object.
     let index = this.goals.indexOf(goal);
@@ -1182,7 +1352,7 @@ export class Suggester {
     if (index < 0) return [];
     const mine = this.goals[index];
 
-    const inner = new Suggester(this.data, [mine], this.opts);
+    const inner = new Suggester(this.data, [mine], { ...this.opts, reach: anyGrind(reach) });
     // Refine is chosen to maximise the stat rather than to close a gap: a
     // met goal has no gap left, and tuning on shortfall would tie at every
     // refine and settle on +0.
@@ -1210,9 +1380,13 @@ export class Suggester {
       // give more of it is not an answer, however good it is otherwise.
       if (push <= EPSILON) continue;
       const cost = scoreExcept(this.goals, after, index) - costBefore;
+      const highEffort = this.beyondReach(build, move, reach);
       rated.push({
-        move: { ...move, gain: baseline - scoreOf(this.goals, after), before, after },
-        push,
+        move: {
+          ...move, gain: baseline - scoreOf(this.goals, after), before, after,
+          ...(highEffort ? { highEffort } : {}),
+        },
+        push: highEffort ? push * HIGH_EFFORT_DISCOUNT : push,
         cost,
         broken: brokenGoals(this.goals, before, after).length
           + this.breaksSets(build, move).length,
@@ -1232,8 +1406,9 @@ export class Suggester {
       .map((r) => r.move);
 
     // Marked after the +10 variants exist, since raising a refine can start
-    // costing another goal that the same piece at its minimum did not.
-    return this.withMaxedVariants(build, listed).map((move) => {
+    // costing another goal that the same piece at its minimum did not. Held
+    // to a reach, there are none: see `maxedVariant`.
+    return (reach ? listed : this.withMaxedVariants(build, listed)).map((move) => {
       const cost = scoreExcept(this.goals, move.after, index) - costBefore;
       return cost > EPSILON ? { ...move, sidegrade: true } : { ...move, sidegrade: false };
     });
@@ -1257,21 +1432,17 @@ export class Suggester {
    * to cost it the SP efficiency it was built around.
    */
   upgradePaths(build: Build, perKind = 8): UpgradePaths {
-    const empty = { near: [], refines: [], rolls: [], far: [] };
+    const empty = { near: [], refines: [], rolls: [], far: [], sides: [], farm: [] };
     if (!this.active) return empty;
-    const values = this.values(build);
-    const held = this.goals.map((g, i) => ({
-      ...g,
-      target: g.atMost ? Math.min(g.target, values[i]) : Math.max(g.target, values[i]),
-    }));
-    const reach = this.opts.reach === undefined ? reachOf(build, this.data) : this.opts.reach;
+    const held = this.heldAt(build);
+    const reach = this.reachFor(build);
     const make = (r: Reach | null) => {
       const s = new Suggester(this.data, held, { ...this.opts, reach: r });
       s.pushing = true;
       return s;
     };
     const near = make(reach);
-    const wide = make({ effort: null, kill: null, refine: Math.max(reach?.refine ?? 0, REFINE_MOVE_CAP) });
+    const wide = make(wideOf(reach));
     const best = (moves: Move[]) => moves
       .filter((m) => m.gain > EPSILON)
       .sort((a, b) => b.gain - a.gain);
@@ -1281,22 +1452,137 @@ export class Suggester {
       return top ? [top] : [];
     });
 
-    const beyond = (m: Move) => m.changes.some((c) => {
-      const was = build.slots[c.slot];
-      const ids = [
-        ...(c.state.itemId !== was?.itemId ? [c.state.itemId] : []),
-        ...c.state.cards.filter((id) => !was?.cards.includes(id)),
-      ];
-      return ids.some((id) => { const i = id ? this.data.items.get(id) : undefined; return !!i && !near.allowed(i); });
-    });
     const nearSets = best(near.setMoves(build)).filter((m) => near.keeps(build, m));
+    const upgrades = best([...bestPerSlot(near, () => true), ...nearSets]).slice(0, perKind);
+    const far = best(bestPerSlot(wide, (m) => this.beyondReach(build, m, reach)))
+      .slice(0, perKind).map((m) => ({ ...m, highEffort: true }));
     return {
-      near: best([...bestPerSlot(near, () => true), ...nearSets]).slice(0, perKind),
+      near: upgrades,
       refines: best(near.refineMoves(build)).filter((m) => near.keeps(build, m)).slice(0, perKind),
       rolls: best(SLOTS.flatMap((slot) => near.rollMoves(build, slot.key)))
         .filter((m) => near.keeps(build, m)).slice(0, 3),
-      far: best(bestPerSlot(wide, beyond)).slice(0, perKind),
+      far,
+      ...this.tradeOffs(build, upgrades, far, perKind),
     };
+  }
+
+  /**
+   * Every goal held where the build already is, not merely at its target:
+   * an upgrade raises something and lowers nothing. See `upgradePaths`.
+   */
+  private heldAt(build: Build): Goal[] {
+    const values = this.values(build);
+    return this.goals.map((g, i) => ({
+      ...g,
+      target: g.atMost ? Math.min(g.target, values[i]) : Math.max(g.target, values[i]),
+    }));
+  }
+
+  /** The reach these options give, or the build's own when they give none. */
+  private reachFor(build: Build): Reach | null {
+    return this.opts.reach === undefined ? reachOf(build, this.data) : this.opts.reach;
+  }
+
+  /** Does this move put on anything, piece or card, that the reach turns away? */
+  private beyondReach(build: Build, move: Move, reach: Reach | null): boolean {
+    if (!reach) return false;
+    const near = new Suggester(this.data, [], { ...this.opts, reach });
+    return move.changes.some((c) => newIds(build, c).some((id) => {
+      const item = this.data.items.get(id);
+      return !!item && !near.allowed(item);
+    }));
+  }
+
+  /**
+   * The trades worth making, and what is worth farming on purpose.
+   *
+   * `upgradePaths` only lists changes that lower nothing, which is right for
+   * "upgrade" and leaves out the change a player most often means by
+   * "sidegrade": an Invoker's Ring for an accessory that gave a little crit,
+   * when the build is about leech. So the best change per goal is found as
+   * `focusMoves` finds it -- a suggester that knows only that goal -- and
+   * each is weighed by `tradeValue`: all it gains against all it costs.
+   * What comes out ahead, and crosses no guard, is listed, one per slot.
+   *
+   * Past the build's reach it is still listed, marked, and ranked at
+   * `HIGH_EFFORT_DISCOUNT`. And a high-effort change worth `STANDOUT_FACTOR`
+   * times the best within reach -- `upgrades` are that, the plan's steps or
+   * the within-reach swaps -- is called out in `farm`, if it drops anywhere.
+   */
+  tradeOffs(build: Build, upgrades: Move[], far: Move[], limit = 8): { sides: Move[]; farm: Move[] } {
+    if (!this.active) return { sides: [], farm: [] };
+    const held = this.heldAt(build);
+    const reach = this.reachFor(build);
+    const before = this.values(build);
+    const baseline = scoreOf(this.goals, before);
+    const wideOpts = { ...this.opts, reach: anyGrind(reach) };
+
+    const candidates: Move[] = [];
+    for (const goal of held) {
+      if (goal.guard) continue;
+      const inner = new Suggester(this.data, [goal], wideOpts);
+      inner.pushing = true;
+      if (!inner.active) continue;
+      for (const slot of SLOTS) candidates.push(...inner.slotMoves(build, slot.key, 3, false, false));
+      candidates.push(...inner.setMoves(build));
+    }
+
+    const rated: { move: Move; value: number; rank: number; slot: string }[] = [];
+    for (const move of dedupe(candidates)) {
+      if (!this.respectsLocks(build, move.changes)) continue;
+      const after = this.values(applyChanges(build, move.changes, this.data));
+      const moved = held.map((g, i) => (g.guard ? 0 : (g.atMost ? -1 : 1) * (after[i] - before[i])));
+      // Upgrades are listed as upgrades; this is for what costs something.
+      if (!moved.some((d) => d < -EPSILON) || !moved.some((d) => d > EPSILON)) continue;
+      // A trade may cost a goal; it may not cross a guard's line.
+      if (brokenGoals(this.goals, before, after).some((g) => g.guard)) continue;
+      const value = tradeValue(held, before, after);
+      if (value <= EPSILON) continue;
+      const highEffort = this.beyondReach(build, move, reach);
+      rated.push({
+        move: {
+          ...move, before, after, gain: baseline - scoreOf(this.goals, after), sidegrade: true,
+          ...(highEffort ? { highEffort } : {}),
+        },
+        value,
+        rank: highEffort ? value * HIGH_EFFORT_DISCOUNT : value,
+        slot: move.kind === 'set' ? move.label : move.changes.map((c) => c.slot).join('+'),
+      });
+    }
+    rated.sort((a, b) => b.rank - a.rank);
+    const perSlot = new Map<string, (typeof rated)[number]>();
+    for (const r of rated) if (!perSlot.has(r.slot)) perSlot.set(r.slot, r);
+    const sides = [...perSlot.values()].slice(0, limit);
+
+    // Farming on purpose: measured against everything that is not itself a
+    // long way off.
+    const valueOf = (m: Move) => tradeValue(held, before, m.after);
+    const close = Math.max(0, ...upgrades.map(valueOf), ...sides.filter((r) => !r.move.highEffort)
+      .map((r) => r.value));
+    const farm = [...far.map((m) => ({ move: m, value: valueOf(m) })),
+      ...sides.filter((r) => r.move.highEffort)]
+      .filter((r) => r.value >= STANDOUT_MIN && r.value >= STANDOUT_FACTOR * close
+        && this.farmable(build, r.move))
+      .sort((a, b) => b.value - a.value)
+      .slice(0, 3)
+      .map((r) => ({ ...r.move, highEffort: true, standout: true }));
+    const standing = new Set(farm.map((m) => m.label));
+    return {
+      sides: sides.map((r) => (standing.has(r.move.label) ? { ...r.move, standout: true } : r.move)),
+      farm,
+    };
+  }
+
+  /** Does the hardest new thing this move puts on drop from a monster? */
+  private farmable(build: Build, move: Move): boolean {
+    let hardest: { id: number; effort: number } | null = null;
+    for (const c of move.changes) {
+      for (const id of newIds(build, c)) {
+        const e = this.data.effort?.get(id)?.effort ?? 0;
+        if (!hardest || e > hardest.effort) hardest = { id, effort: e };
+      }
+    }
+    return !!hardest && farmFor(hardest.id, this.data) !== null;
   }
 
   /**
@@ -1352,11 +1638,8 @@ export class Suggester {
    */
   stretchMoves(build: Build, limit = 5): Move[] {
     if (!this.active) return [];
-    const near = this.opts.reach === undefined ? reachOf(build, this.data) : this.opts.reach;
-    const wide = new Suggester(this.data, this.goals, {
-      ...this.opts,
-      reach: { effort: null, kill: null, refine: Math.max(near?.refine ?? 0, REFINE_MOVE_CAP) },
-    });
+    const near = this.reachFor(build);
+    const wide = new Suggester(this.data, this.goals, { ...this.opts, reach: wideOf(near) });
     // With every goal met there is no gap to close, so it pushes, as the
     // plan does.
     wide.pushing = this.pushing
@@ -1381,7 +1664,8 @@ export class Suggester {
         return [item, ...cards].some((i) => !!i && !heldBack.allowed(i));
       }))
       .sort((a, b) => b.gain - a.gain)
-      .slice(0, limit);
+      .slice(0, limit)
+      .map((m) => ({ ...m, highEffort: true }));
   }
 
   /**
@@ -1723,6 +2007,12 @@ export function relevanceOf(goals: Goal[], data: Dataset): Relevance {
     // refines would never be looked at for a flee goal.
     const id = data.stats.find((s) => s.key === goal.key)?.id;
     if (id !== undefined) ids.add(id);
+    // A target goal, or one race of a group with an "all" stat, is fed by
+    // everything it reads -- or an all-races card would never be looked at.
+    for (const input of targetInputs(goal.key)) {
+      const inputId = data.stats.find((s) => s.key === input)?.id;
+      if (inputId !== undefined) ids.add(inputId);
+    }
     if (goal.column === 'total') {
       for (const input of FORMULAS.find((f) => f.key === goal.key)?.inputs ?? []) {
         const inputId = data.stats.find((s) => s.key === input)?.id;
@@ -1760,6 +2050,30 @@ function anyTouches(effects: Effect[] | undefined, rel: Relevance): boolean {
 }
 
 // ---- helpers ------------------------------------------------------------
+
+/** The reach with the grind and toughness limits off; refine still stops at +9. */
+function wideOf(reach: Reach | null): Reach {
+  return { effort: null, kill: null, refine: Math.max(reach?.refine ?? 0, REFINE_MOVE_CAP) };
+}
+
+/**
+ * The reach with the grind and toughness limits off and the refine kept.
+ * For listing high-effort pieces beside the rest: a piece is marked for how
+ * hard it is to get, and assuming +9 on it as well would be a second stretch
+ * the mark does not mention.
+ */
+function anyGrind(reach: Reach | null): Reach | null {
+  return reach && { effort: null, kill: null, refine: reach.refine };
+}
+
+/** What a change puts on that the slot did not have: the piece, and new cards. */
+function newIds(build: Build, change: SlotChange): number[] {
+  const was = build.slots[change.slot];
+  return [
+    ...(change.state.itemId !== was?.itemId && change.state.itemId ? [change.state.itemId] : []),
+    ...change.state.cards.filter((id): id is number => !!id && !was?.cards.includes(id)),
+  ];
+}
 
 function gearTotal(totals: Totals, data: Dataset, key: string) {
   const id = data.stats.find((s) => s.key === key)?.id;

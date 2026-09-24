@@ -25333,6 +25333,18 @@
     "zone": "Cursed Abbey Dungeon",
     "chance_percent": 10,
     "mvp_reward": true
+   },
+   {
+    "mob_id": 1870,
+    "mob": "Necromancer",
+    "mob_level": 105,
+    "zone": "Cursed Abbey Dungeon",
+    "chance_percent": 0.5,
+    "mvp_reward": false,
+    "override": {
+     "status": "unverified",
+     "reason": "Project owner, 2026-09-25: a recent change added a 0.5% drop from Necromancer. The database still lists only the Fallen Bishop MVP."
+    }
    }
   ],
   "containers": [],

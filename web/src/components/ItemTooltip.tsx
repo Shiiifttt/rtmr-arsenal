@@ -4,7 +4,7 @@ import {
 } from 'react';
 import { createPortal } from 'react-dom';
 import {
-  effectLine, effectTone, HALVED_OFFHAND, isRefineable, jobLimitFix, jobLimitOf,
+  effectLine, effectTone, HALVED_OFFHAND, HALVED_OFFHAND_CARDS, isRefineable, jobLimitFix, jobLimitOf,
   skillTone, statTone,
 } from '@sim';
 import type {
@@ -218,11 +218,17 @@ export function ItemTooltipLayer({ dataset, totals }: {
 export function ItemCard({
   item, refine = 0, hostRefine = 0, cards, dataset, progress, offhand = false, count: own = 1,
 }: ItemTarget & { dataset: Dataset; progress?: Totals['setProgress'] }) {
-  // The same categories the aggregator halves: race and size damage only.
-  const halves = (eff: Effect) => offhand && (eff.stat_ids?.length ?? 0) > 0
-    && eff.stat_ids!.every((id) => HALVED_OFFHAND.has(dataset.statById.get(id)?.category ?? ''));
-  const line = (eff: Effect, key: string | number, count = own) =>
-    <Stacked key={key} eff={eff} count={count} half={halves(eff)} />;
+  // The same rules the aggregator halves by: race and size damage on
+  // anything in the hand, and Critical Damage as well on the cards in it.
+  const halvedBy = (eff: Effect, card: boolean) => offhand && (eff.stat_ids?.length ?? 0) > 0
+    && eff.stat_ids!.every((id) => {
+      const def = dataset.statById.get(id);
+      return HALVED_OFFHAND.has(def?.category ?? '') || (card && HALVED_OFFHAND_CARDS.has(def?.key ?? ''));
+    });
+  const halves = (eff: Effect) => halvedBy(eff, false);
+  const cardHalves = (eff: Effect) => halvedBy(eff, true);
+  const line = (eff: Effect, key: string | number, count = own, card = false) =>
+    <Stacked key={key} eff={eff} count={count} half={halvedBy(eff, card)} />;
   const url = iconUrl(item);
   // A card scales off its host's refine; everything else off its own. The
   // card itself is never refined, so the number drives its per-refine lines
@@ -360,8 +366,8 @@ export function ItemCard({
                 {card.name}
                 {count > 1 && <em className="card-count">×{count}</em>}
               </div>
-              {card.effects.map((eff, i) => line(eff, i, count))}
-              {card.piece_bonus.map((eff, i) => line(eff, `pb${i}`, count))}
+              {card.effects.map((eff, i) => line(eff, i, count, true))}
+              {card.piece_bonus.map((eff, i) => line(eff, `pb${i}`, count, true))}
               {/* Counted off this piece's refine, not the card's own. */}
               {card.refine.per_refine.map((group, i) => {
                 const per = group.per ?? 1;
@@ -373,7 +379,7 @@ export function ItemCard({
                     met={times > 0}
                     note={times > 0 ? `x${times}` : 'unrefined'}
                   >
-                    <Scaled group={group} steps={times} count={count} halves={halves} />
+                    <Scaled group={group} steps={times} count={count} halves={cardHalves} />
                   </Section>
                 );
               })}
@@ -385,14 +391,14 @@ export function ItemCard({
                     met={steps >= at}
                     note={steps >= at ? 'active' : `+${at - steps} refine short`}
                   >
-                    {group.effects.map((eff, j) => line(eff, j, count))}
+                    {group.effects.map((eff, j) => line(eff, j, count, true))}
                   </Section>
                 )))}
               {/* A card whose whole effect is conditional ("Hell Poodle")
                   would otherwise show as a bare name. */}
               {card.conditional.map((cond, i) => (
                 <Section key={`cc${i}`} title={cond.condition} conditional>
-                  {cond.effects.map((eff, j) => line(eff, j, count))}
+                  {cond.effects.map((eff, j) => line(eff, j, count, true))}
                 </Section>
               ))}
             </div>

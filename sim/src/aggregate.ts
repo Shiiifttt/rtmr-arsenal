@@ -61,17 +61,22 @@ export function aggregate(build: Build, data: Dataset): Totals {
   // "ATK +1 every 20 flee" cannot be answered until everything else is in,
   // so these are set aside and applied in a second pass below.
   const deferred: {
-    eff: Effect; label: string; multiplier: number; halved: boolean;
+    eff: Effect; label: string; multiplier: number; halved: Halving;
   }[] = [];
 
   const rulesById = new Map(data.stats.map((s) => [s.id, s]));
   const ruleFor = (statId: number) => rulesById.get(statId);
 
   // Set while walking a weapon dual-wielded in the off hand: its race and
-  // size damage modifiers count at half. Everything else on it is whole.
-  let halving = false;
-  const scaleFor = (statId: number, halved: boolean) =>
-    halved && HALVED_OFFHAND.has(ruleFor(statId)?.category ?? '') ? 0.5 : 1;
+  // size damage modifiers count at half, and so does Critical Damage on the
+  // cards in it. Everything else on it is whole.
+  let halving: Halving = 'none';
+  const scaleFor = (statId: number, halved: Halving) => {
+    if (halved === 'none') return 1;
+    const rule = ruleFor(statId);
+    if (HALVED_OFFHAND.has(rule?.category ?? '')) return 0.5;
+    return halved === 'card' && HALVED_OFFHAND_CARDS.has(rule?.key ?? '') ? 0.5 : 1;
+  };
 
   const add = (eff: Effect, label: string, multiplier = 1) => {
     // An element override is a property, not a quantity. Collect the claim
@@ -271,7 +276,8 @@ export function aggregate(build: Build, data: Dataset): Totals {
     // Covers the piece, its refine, its rolls and the cards in it -- all of
     // it is carried in that hand. Set bonuses below belong to the set, not
     // the hand, and are left whole.
-    halving = isOffhandWeapon(slot, item);
+    const hand: Halving = isOffhandWeapon(slot, item) ? 'hand' : 'none';
+    halving = hand;
 
     addBaseStats(item, byStat, label);
     addAll(item.effects, label);
@@ -291,6 +297,7 @@ export function aggregate(build: Build, data: Dataset): Totals {
       if (!cardId) continue;
       const card = data.items.get(cardId);
       if (!card) continue;
+      halving = hand === 'hand' ? 'card' : 'none';
       addBaseStats(card, byStat, card.name);
       addAll(card.effects, card.name);
       addAll(card.piece_bonus, card.name);
@@ -306,13 +313,14 @@ export function aggregate(build: Build, data: Dataset): Totals {
       }
       applyConditionals(card, card.name, refine);
     }
+    halving = hand;
 
     for (const s of item.sets) {
       push(wornBySet, s, item.id);
       refineBySet.set(s, (refineBySet.get(s) ?? 0) + refine);
     }
   }
-  halving = false;
+  halving = 'none';
 
   // ---- set bonuses -------------------------------------------------------
   const setProgress: Totals['setProgress'] = [];
@@ -422,6 +430,16 @@ export function skillKey(skill: string, metric: string): string {
  * Resistances are not among them, and neither is anything on a shield.
  */
 export const HALVED_OFFHAND = new Set(['race_damage', 'size_damage']);
+
+/**
+ * Stats, by key, that count at half only from a card in an off-hand weapon:
+ * the weapon's own Critical Damage stays whole. From the project owner, not
+ * yet measured.
+ */
+export const HALVED_OFFHAND_CARDS = new Set(['crit_damage']);
+
+/** What part of an off-hand weapon is being walked, for the halving rules. */
+type Halving = 'none' | 'hand' | 'card';
 
 /** ATK/MATK/DEF/MDEF come from columns, not from the description text. */
 function addBaseStats(item: Item, byStat: Map<number, StatTotal>, label: string) {

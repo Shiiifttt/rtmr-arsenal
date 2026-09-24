@@ -8,7 +8,7 @@
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
-    "test": "npm run test:build && node --experimental-strip-types --import ./test/register.mjs --test ../sim/test/aggregate.test.ts ../sim/test/format.test.ts ../sim/test/slots.test.ts ../sim/test/sets.test.ts ../sim/test/guards.test.ts ../sim/test/jobs.test.ts ../sim/test/rolls.test.ts ../sim/test/suggest.test.ts ../sim/test/sources.test.ts test/recognition.test.ts test/share.test.ts test/.tooltip.test.mjs test/.goalfocus.test.mjs",
+    "test": "npm run test:build && node --experimental-strip-types --import ./test/register.mjs --test ../sim/test/aggregate.test.ts ../sim/test/format.test.ts ../sim/test/slots.test.ts ../sim/test/sets.test.ts ../sim/test/guards.test.ts ../sim/test/jobs.test.ts ../sim/test/rolls.test.ts ../sim/test/suggest.test.ts ../sim/test/sources.test.ts ../sim/test/class-goals.test.ts test/recognition.test.ts test/share.test.ts test/.tooltip.test.mjs test/.goalfocus.test.mjs",
     "test:build": "esbuild test/tooltip.test.tsx test/goalfocus.test.tsx --bundle --platform=node --format=esm --jsx=automatic --alias:@sim=../sim/src --outdir=test --entry-names=.[name] --out-extension:.js=.mjs --external:react --external:react-dom --external:react/jsx-runtime --log-level=warning"
   },
   "dependencies": {

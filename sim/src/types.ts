@@ -1,5 +1,7 @@
 /** Shapes of the generated dataset, plus the build model the UI edits. */
 
+import type { ClassGoals } from './presets.ts';
+
 /** A condition the character sheet can actually answer. */
 export type Requirement =
   /**
@@ -415,6 +417,11 @@ export interface Dataset {
    * missing from it are unknown, not cheap.
    */
   effort?: Map<number, ItemEffort> | null;
+  /**
+   * Starting goals per class, from data/class-goals.json. Absent means no
+   * class has any, and the Goals panel offers only the build's own.
+   */
+  classGoals?: ClassGoals | null;
 }
 
 export interface ItemEffort {

@@ -28,6 +28,10 @@ export interface PlanPaths {
   rolls: Move[];
   /** Out of reach for now, but where the build can head. */
   far: Move[];
+  /** Trades that give more than they take. */
+  sides: Move[];
+  /** High-effort moves far enough ahead to farm on purpose. */
+  farm: Move[];
 }
 
 export function PlanOverlay({
@@ -49,7 +53,7 @@ export function PlanOverlay({
     return () => window.removeEventListener('keydown', onKey);
   }, [onClose]);
 
-  const { steps, near, refines, rolls, far } = paths;
+  const { steps, near, refines, rolls, far, sides, farm } = paths;
   // The build each step starts from, which is how it will be applied.
   const stepBuilds = useMemo(() => {
     const out: Build[] = [];
@@ -62,7 +66,7 @@ export function PlanOverlay({
   }, [steps, build, dataset]);
 
   const title = upgrading ? 'Upgrades' : 'Suggested changes';
-  const nothing = [steps, near, refines, rolls, far].every((l) => l.length === 0);
+  const nothing = [steps, near, refines, rolls, far, sides, farm].every((l) => l.length === 0);
   const row = (move: Move, action: string, onRowApply: () => void, from: Build, farm = false,
     rolled = false) => (
     <MoveRow
@@ -104,6 +108,11 @@ export function PlanOverlay({
             </div>
           )}
 
+          <Path title="Worth target-farming" note={'A long way off for this build, but so far ahead '
+            + 'of anything close by that it is worth going after on purpose.'}>
+            {farm.map((move) => row(move, 'Equip', () => onApply([move]), build, true))}
+          </Path>
+
           <Path title="Steps" note={steps.length > 1
             ? 'Each builds on the ones above, so they apply in order. A greedy plan: a good '
               + 'route, not a proof of the best build.' : undefined}>
@@ -114,6 +123,11 @@ export function PlanOverlay({
           <Path title="Within reach" note={'The best swap for each slot that this build could '
             + 'get next. Each is an alternative, measured from the build as it is.'}>
             {near.map((move) => row(move, 'Equip', () => onApply([move]), build))}
+          </Path>
+
+          <Path title="Sidegrades" note={'Trades: more of one goal for less of another, where '
+            + 'what it gives outweighs what it takes. High-effort ones are marked and ranked lower.'}>
+            {sides.map((move) => row(move, 'Equip', () => onApply([move]), build, !!move.highEffort))}
           </Path>
 
           <Path title="Refine what you have" note={'The pieces already worn that gain the most '
@@ -129,7 +143,8 @@ export function PlanOverlay({
           <Path title="Longer-term goals" note={'Past what this build usually reaches — a longer '
             + 'grind, a tougher monster or a higher refine — but where it can head, one per slot, '
             + 'with what to farm for it.'}>
-            {far.map((move) => row(move, 'Equip', () => onApply([move]), build, true))}
+            {far.filter((m) => !farm.some((f) => f.label === m.label))
+              .map((move) => row(move, 'Equip', () => onApply([move]), build, true))}
           </Path>
         </div>
       </div>

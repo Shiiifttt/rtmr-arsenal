@@ -432,6 +432,7 @@ def stage_decode(raw_dir: Path, out_dir: Path) -> dict:
     items = decode_items(items_payload)
     mobs = decode_mobs(mobs_payload)
     apply_acquisition(items, Path(__file__).resolve().parent / "acquisition.json")
+    apply_drops(items, mobs, Path(__file__).resolve().parent / "acquisition.json")
 
     items_dir = out_dir / "items"
     by_kind_dir = items_dir / "by-kind"
@@ -633,6 +634,50 @@ def apply_acquisition(items: list[dict], path: Path) -> None:
             if name not in by_name:
                 print(f"  ! acquisition: no item called {name!r}", file=sys.stderr)
     print(f"[decode] exchange costs corrected on {applied} items")
+
+
+def apply_drops(items: list[dict], mobs: list[dict], path: Path) -> None:
+    """Add the drops the database has not caught up with.
+
+    Written onto both sides -- the item's drop list and the monster's -- so
+    the effort score, the "where it drops" overlay and the monster's own
+    table all agree. A drop already listed for that monster has its chance
+    replaced rather than being listed twice.
+    """
+    if not path.exists():
+        return
+    spec = json.loads(path.read_text("utf-8"))
+    by_name: dict[str, list[dict]] = {}
+    for item in items:
+        by_name.setdefault(item["name"], []).append(item)
+    mob_by_name = {m["name"]: m for m in mobs}
+    applied = 0
+    for entry in spec.get("drops", []):
+        mob = mob_by_name.get(entry["mob"])
+        if mob is None:
+            print(f"  ! drops: no monster called {entry['mob']!r}", file=sys.stderr)
+            continue
+        match = by_name.get(entry["item"])
+        if not match:
+            print(f"  ! drops: no item called {entry['item']!r}", file=sys.stderr)
+            continue
+        for item in match:
+            item["drops"] = [d for d in item["drops"] if d["mob_id"] != mob["id"]] + [{
+                "mob_id": mob["id"],
+                "mob": mob["name"],
+                "mob_level": mob["level"],
+                "zone": mob["zone"],
+                "chance_percent": entry["chance_percent"],
+                "mvp_reward": False,
+                "override": {"status": entry.get("status"), "reason": entry.get("reason")},
+            }]
+            mob["drops"] = [d for d in mob["drops"] if d["item_id"] != item["id"]] + [{
+                "item_id": item["id"],
+                "item": item["name"],
+                "chance_percent": entry["chance_percent"],
+            }]
+            applied += 1
+    print(f"[decode] drops added on {applied} items")
 
 
 MIN_HP_PER_LEVEL = 200

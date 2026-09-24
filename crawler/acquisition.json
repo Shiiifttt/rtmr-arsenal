@@ -14,7 +14,20 @@
   "listed; the vendor and place are kept.",
   "",
   "'status' is either 'verified' (checked in game) or 'unverified' (a best",
-  "reading, not yet confirmed), as in overrides.json and class-rules.json."
+  "reading, not yet confirmed), as in overrides.json and class-rules.json.",
+  "",
+  "'drops' adds a monster drop the database does not list yet, by item and",
+  "monster name, with its chance in percent. It is written onto both the",
+  "item and the monster, and replaces any chance already listed for that pair."
+ ],
+ "drops": [
+  {
+   "item": "Invoker's Ring",
+   "mob": "Necromancer",
+   "chance_percent": 0.5,
+   "status": "unverified",
+   "reason": "Project owner, 2026-09-25: a recent change added a 0.5% drop from Necromancer. The database still lists only the Fallen Bishop MVP."
+  }
  ],
  "entries": [
   {

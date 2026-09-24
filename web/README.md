@@ -136,9 +136,13 @@ A one-handed weapon dual-wielded in the off hand contributes its race and size
 **damage** modifiers (`DMG vs Demihuman`, `DMG vs Large`, `Magic vs Small`,
 Boss / Non-Boss / All Races…) at half. That covers the weapon, its refine and
 the cards in it, and the stat panel's sources say `(off-hand, half)`.
+Critical Damage from the **cards** in it counts at half as well; the weapon's
+own Critical Damage stays whole.
 Resistances are not halved, nothing on a shield is, and set bonuses belong to
-the set rather than the hand, so they stay whole. The categories are
-`HALVED_OFFHAND` in `sim/src/aggregate.ts`.
+the set rather than the hand, so they stay whole. The rules are
+`HALVED_OFFHAND` (categories) and `HALVED_OFFHAND_CARDS` (stats, cards only)
+in `sim/src/aggregate.ts`. Whether element damage (`DMG vs Fire`…) is halved
+is not known yet; it is counted whole.
 
 ## Goals and suggestions
 

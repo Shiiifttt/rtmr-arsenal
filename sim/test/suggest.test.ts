@@ -17,7 +17,7 @@ import {
   effectTone, farmFor, fitsSlot, rollTableFor, goalMetrics, goalsFromBuild, reachOf, REACH_EFFORT_FACTOR,
   REACH_KILL_FACTOR, REACH_REFINE_FLOOR, REFINE_MOVE_CAP, statsThatMatter,
   goalScore, goalStatus, isTwoHanded, measure, priorityWeight, SLOTS, Suggester, tableForSlot,
-  type Move, type SuggestOptions,
+  tradeValue, type Move, type SuggestOptions,
 } from '../src/index.ts';
 import type {
   Build, Dataset, Goal, Item, RollData, SetRecord, SlotState, StatDef,
@@ -976,4 +976,125 @@ test('no goals means no opinion', () => {
   assert.equal(s.active, false);
   assert.deepEqual(s.plan(emptyBuild()), []);
   assert.equal(s.rank(emptyBuild(), 'armor', null, itemList).size, 0);
+});
+
+test('a race or size goal counts the "all" line too, and "any" goals take the weakest', () => {
+  const build = emptyBuild();
+  const g = (key: string): Goal => ({ key, column: 'percent', target: 0 });
+  const at = (b: Build, key: string) => measure(g(key), aggregate(b, dataset), b, dataset);
+  // Ifrit Card: Damage vs All Sizes +6%. A Large goal used to read none of it.
+  build.slots.acc1 = { itemId: byName('Invoker\'s Ring').id, refine: 0, cards: [byName('Ifrit Card').id] };
+  assert.equal(at(build, 'dmg_vs_size_large'), 6);
+  assert.equal(at(build, 'any_size_dmg'), 6);
+  // Vesper Card: "all elements" is written onto each of the ten.
+  const robe = itemList.find((i) => i.equip_slots.includes('Armor') && i.card_slots === 1
+    && i.effects.every((e) => !e.stat_keys?.some((k) => k.startsWith('dmg_vs'))))!;
+  build.slots.armor = { itemId: robe.id, refine: 0, cards: [byName('Vesper Card').id] };
+  assert.equal(at(build, 'any_element_dmg'), 4);
+  // One race is not any race.
+  const demi = itemList.find((i) => i.kind === 'Card' && i.effects.length === 1
+    && i.effects[0].stat_keys?.length === 1 && i.effects[0].stat_keys[0] === 'dmg_vs_race_demihuman')!;
+  build.slots.weapon = { itemId: oneHander.id, refine: 0, cards: [demi.id] };
+  assert.ok(at(build, 'dmg_vs_race_demihuman') > 0);
+  assert.equal(at(build, 'any_race_dmg'), 0);
+  // Race, size and element multiply: 1.06 x 1.04.
+  assert.ok(Math.abs(at(build, 'any_target_dmg') - (1.06 * 1.04 - 1) * 100) < 1e-9);
+
+  // And the suggester looks at both cards for it.
+  const s = new Suggester(dataset, [{ ...g('any_target_dmg'), target: 20 }], OPEN);
+  assert.ok(s.mayMatter(byName('Ifrit Card')) && s.mayMatter(byName('Vesper Card')));
+  const bare = emptyBuild();
+  bare.slots.weapon = { itemId: oneHander.id, refine: 0, cards: [] };
+  const ranked = s.rank(bare, 'weapon', 0, [demi, byName('Vesper Card')]);
+  assert.equal(ranked.get(demi.id)?.gain ?? 0, 0, 'a one-race card does nothing against any target');
+});
+
+test('Invoker\'s Ring drops from Necromancer too, which is what brings it within reach', () => {
+  const ring = byName('Invoker\'s Ring');
+  const necro = ring.drops.find((d) => d.mob === 'Necromancer');
+  assert.equal(necro?.chance_percent, 0.5);
+  assert.equal(withEffort.effort!.get(ring.id)!.via, necro!.mob_id, 'the cheapest route is now the normal monster');
+});
+
+/** A leech build whose accessories carry other goals: the Invoker's Ring is a trade. */
+function leecher(): Build {
+  const build = emptyBuild();
+  build.baseLevel = 130;
+  const put = (slot: string, name: string, refine = 0) => {
+    build.slots[slot] = { itemId: byName(name).id, refine, cards: [] };
+  };
+  put('middle', 'Evil Wing Ears'); put('armor', 'Jiangshi Clothes', 6);
+  put('acc1', 'Vesper Core03'); put('acc2', 'Vesper Core01');
+  put('weapon', 'Green Mantis', 6); put('shoes', 'Metal Boots MK I', 6);
+  return build;
+}
+
+test('sidegrades are trades that come out ahead, high effort included but marked', () => {
+  const build = leecher();
+  const goals = [
+    { key: 'leech_hp_rate', column: 'percent' as const, target: 23 },
+    ...goalsFromBuild(build, aggregate(build, withEffort), withEffort),
+  ];
+  // As it was before the Necromancer drop: an MVP ring, far past this build.
+  const mvpOnly: Dataset = { ...withEffort, effort: new Map(withEffort.effort) };
+  mvpOnly.effort!.set(byName('Invoker\'s Ring').id, { effort: 5598072289, kill: 254458, via: 1871 });
+  const s = new Suggester(mvpOnly, [...goals, ...allGoals({ ...build, goals: [] })],
+    { className: null, maxLevel: 130, refine: 'auto' });
+  const paths = s.upgradePaths(build);
+  const ring = paths.sides.find((m) => m.label.startsWith('Invoker\'s Ring'));
+  assert.ok(ring, 'the ring is offered for an accessory that gave something else');
+  assert.equal(ring!.highEffort, true, 'and said to be a long way off');
+  for (const m of paths.sides) {
+    assert.ok(tradeValueOf(s, m) > 0, `${m.label} does not come out ahead`);
+    assert.ok(!brokenGoals(s.goals, m.before, m.after).some((g) => g.guard), `${m.label} crosses a guard`);
+  }
+  assert.ok(paths.far.every((m) => m.highEffort));
+
+  // Here something close by is worth nearly as much, so nothing is called out.
+  assert.equal(paths.farm.length, 0);
+  // With only the one accessory free and nothing close by to compare
+  // against, the ring is worth farming on purpose -- off the MVP it drops from.
+  const alone: Build = { ...build, locked: SLOTS.map((x) => x.key).filter((k) => k !== 'acc1') };
+  const far = s.upgradePaths(alone).far;
+  const { farm } = s.tradeOffs(alone, [], far);
+  const called = farm.find((m) => m.label.startsWith("Invoker's Ring"));
+  assert.ok(called?.standout && called.highEffort);
+  assert.equal(farmFor(byName("Invoker's Ring").id, mvpOnly)?.mob, 'Fallen Bishop');
+});
+
+function tradeValueOf(s: Suggester, m: Move): number {
+  return tradeValue(s.goals.map((g, i) => ({ ...g, target: m.before[i] })), m.before, m.after);
+}
+
+test('more of one goal looks past reach too, marked and ranked lower, off hand included', () => {
+  const build = emptyBuild();
+  build.baseLevel = 130;
+  const put = (slot: string, name: string, refine = 0) => {
+    build.slots[slot] = { itemId: byName(name).id, refine, cards: [] };
+  };
+  put('weapon', 'Main Gauche', 6); put('armor', 'Jiangshi Clothes', 6);
+  put('shoes', 'Metal Boots MK I', 6); put('middle', 'Evil Wing Ears');
+  const goal: Goal = { key: 'dmg_vs_race_demihuman', column: 'percent', target: 10 };
+  const s = new Suggester(withEffort, [goal, ...allGoals({ ...build, goals: [] })],
+    { className: null, maxLevel: 130, refine: 'auto' });
+  const moves = s.focusMoves(build, goal);
+  const reach = reachOf(build, withEffort);
+  const near = new Suggester(withEffort, [goal], { className: null, maxLevel: 130, refine: 'auto', reach });
+  const far = moves.filter((m) => m.highEffort);
+  assert.ok(far.length > 0, 'a Bloody Murderer weapon is a long grind, and still offered');
+  for (const m of moves) {
+    const beyond = m.changes.some((c) => [c.state.itemId, ...c.state.cards].some((id) => {
+      const i = id ? withEffort.items.get(id) : undefined;
+      return !!i && id !== build.slots[c.slot]?.itemId && !build.slots[c.slot]?.cards.includes(id)
+        && !near.allowed(i);
+    }));
+    assert.equal(!!m.highEffort, beyond, `${m.label} is marked by whether it is past reach`);
+    for (const c of m.changes) {
+      if (c.state.itemId !== build.slots[c.slot]?.itemId) {
+        assert.ok(c.state.refine <= reach.refine, `${m.label} assumes more refine than the build has`);
+      }
+    }
+  }
+  assert.ok(moves.some((m) => m.changes.some((c) => c.slot === 'offhand')),
+    'an off-hand weapon counts at half, and half is still worth listing');
 });

@@ -685,6 +685,10 @@ input:focus, select:focus, button:focus-visible {
 .goal-opts select { width: auto; padding: 2px 6px; font-size: 12px; }
 .goal-actions { display: flex; gap: 8px; margin-top: 10px; }
 .goal-from-build { margin: 0 0 10px; }
+/* The class's goals and which of its playstyles, side by side. */
+.class-start { display: flex; align-items: center; gap: 8px; margin: 0 0 8px; flex-wrap: wrap; }
+.class-start select { min-width: 0; flex: 1; font-size: 12px; padding: 4px 6px; }
+.class-start-name { font-size: 12px; color: var(--text-dim); }
 
 .plan { margin: 10px 0 0; padding-left: 18px; display: grid; gap: 6px; }
 .plan li::marker { color: var(--text-faint); font-family: var(--mono); font-size: 11px; }
@@ -733,6 +737,9 @@ input:focus, select:focus, button:focus-visible {
 /* Not merely a loss: this one ends up short of the target that was set. */
 .delta.below { border-bottom: 1px dotted var(--bad); }
 .below { color: var(--bad); }
+/* A long way off: said, not hidden. And one worth going after anyway. */
+.high-effort { color: var(--warn); }
+.standout { color: var(--accent); font-weight: 600; }
 
 .more {
   margin-top: 6px; padding: 2px 8px; font-size: 11px; color: var(--text-dim);

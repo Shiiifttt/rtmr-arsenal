@@ -1158,3 +1158,17 @@ test('"at 9+ and again at 18+" pays out twice, and only the line it governs', ()
   assert.equal(agi(under), agi(once), 'All Stats must not gain a step at 9');
   assert.equal(agi(once), agi(twice), 'nor another at 18');
 });
+
+test('Critical Damage on cards in an off-hand weapon counts at half; the weapon\'s own does not', () => {
+  const knife = itemList.find((i) => i.name === 'Murder Knife')!;
+  const sandworm = itemList.find((i) => i.name === 'Sandworm Card')!;
+  const own = knife.effects.filter((e) => e.stat_keys?.includes('crit_damage'))
+    .reduce((acc, e) => acc + (e.value ?? 0), 0);
+  const crit = (slot: string) => {
+    const build = emptyBuild();
+    build.slots[slot] = { itemId: knife.id, refine: 0, cards: [sandworm.id, sandworm.id] };
+    return aggregate(build, dataset).byStat.get(statId('crit_damage'))?.percent ?? 0;
+  };
+  assert.equal(crit('weapon'), own + 20);
+  assert.equal(crit('offhand'), own + 10, 'two cards at half, the knife\'s own line whole');
+});

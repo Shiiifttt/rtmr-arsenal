@@ -1,6 +1,6 @@
 import {
   bindBaseStatIds, readSpawns,
-  type ClassRules, type Dataset, type Item, type MobInfo, type RollData,
+  type ClassGoals, type ClassRules, type Dataset, type Item, type MobInfo, type RollData,
   type SetRecord, type SpawnFile, type StatDef,
 } from '@sim';
 
@@ -12,7 +12,7 @@ import {
  * the stat totals synchronous, which is what makes the UI feel immediate.
  */
 export async function loadDataset(base = './data'): Promise<Dataset> {
-  const [itemList, sets, stats, classes, classRules, rolls, armorTargets, effort] =
+  const [itemList, sets, stats, classes, classRules, rolls, armorTargets, effort, classGoals] =
     await Promise.all([
       getJSON<Item[]>(`${base}/items/all.json`),
       getJSON<SetRecord[]>(`${base}/sets/all.json`),
@@ -32,6 +32,10 @@ export async function loadDataset(base = './data'): Promise<Dataset> {
       // held to what the character could plausibly farm next.
       getJSON<Record<string, [number, number, number]>>(`${base}/items/effort.json`)
         .catch(() => null),
+      // Hand-written starting goals per class. Missing it costs the "goals for
+      // my class" button, nothing else.
+      getJSON<{ presets: ClassGoals }>(`${base}/class-goals.json`)
+        .then((f) => f.presets).catch(() => null),
     ]);
 
   bindBaseStatIds(stats);
@@ -50,6 +54,7 @@ export async function loadDataset(base = './data'): Promise<Dataset> {
       ? new Map(Object.entries(effort)
         .map(([id, [e, kill, via]]) => [Number(id), { effort: e, kill, via }]))
       : null,
+    classGoals,
   };
 }
 
