@@ -155,6 +155,119 @@ export function allGoals(build: Build): Goal[] {
   return [...(build.goals ?? []), ...guardsOf(build)];
 }
 
+/**
+ * Stats a build never gets goals for from `goalsFromBuild`: conveniences
+ * nobody builds around. A boot with move speed is not a move speed build.
+ * Max HP and SP are not on it -- they are survivability, and some skills
+ * scale off them outright.
+ */
+const NOT_A_FOCUS = new Set([
+  'hp_regen', 'sp_regen', 'move_speed', 'weight_limit', 'exp_gain', 'drop_rate',
+]);
+
+/** How many sources a stat needs before it reads as something the build chose. */
+const FOCUS_MIN_SOURCES = 2;
+
+/** More than this and every change breaks something; the list stops being a direction. */
+const FOCUS_MAX_GOALS = 8;
+
+/**
+ * Goals read off the gear already worn, each at the value it has now.
+ *
+ * For "show me upgrades" without having to say what an upgrade is: whatever
+ * the gear already stacks is taken to be what the build is for. A stat
+ * counts when at least two separate sources push it the good way, so one
+ * stray line on a piece worn for something else does not become a goal.
+ * The most-stacked stats come first, which is their priority.
+ *
+ * Every target is the current value, so every goal starts met. That makes
+ * the existing rules mean the right thing: a change that lowers any of them
+ * breaks a goal and is never planned, and anything that raises one without
+ * lowering another is an upgrade.
+ *
+ * "All stats +N" lands on every base stat equally, so for those only what
+ * one stat gets beyond the least-fed of the six counts -- otherwise every
+ * build with a Valkyrie Circlet would read as wanting all six.
+ */
+export function goalsFromBuild(build: Build, totals: Totals, data: Dataset): Goal[] {
+  const found: { goal: Goal; sources: number; size: number }[] = [];
+  /**
+   * `fed` is what the good sources add up to, for a gear column. When the
+   * build's own penalties eat most of it -- +31% Max HP from three pieces
+   * and shadow gear taking 29 of it back -- the build is not about that
+   * stat, and a target near zero would make any gain on it look enormous,
+   * since goals are weighed as fractions of their targets.
+   */
+  const offer = (
+    key: string, column: Goal['column'], sources: number, lower: boolean, fed?: number,
+  ) => {
+    if (sources < FOCUS_MIN_SOURCES) return;
+    const goal: Goal = { key, column, target: 0, ...(lower ? { atMost: true } : {}) };
+    const value = measure(goal, totals, build, data);
+    if (fed !== undefined && Math.abs(value) < Math.abs(fed) / 2) return;
+    if (fed !== undefined && Math.sign(value) !== Math.sign(fed)) return;
+    // Rounded towards "met": 16.865% as a target of 16.87 would start short.
+    goal.target = (lower ? Math.ceil(value * 100 - EPSILON) : Math.floor(value * 100 + EPSILON)) / 100;
+    found.push({ goal, sources, size: Math.abs(value) });
+  };
+  // A piece's own ATK or DEF comes with wearing anything in the slot, so it
+  // says nothing about what the build is for.
+  const good = (s: { label: string; value: number }, key: string) =>
+    statTone(key, s.value) === 'good' && !s.label.endsWith(' (base)');
+
+  // Base stats, over the share every one of them gets.
+  const labelsOf = (key: string) => new Set((gearTotal(totals, data, key)?.sources ?? [])
+    .filter((s) => s.unit !== '%' && good(s, key)).map((s) => s.label));
+  const perStat = BASE_STAT_KEYS.map((k) => labelsOf(k));
+  const everywhere = [...perStat[0]].filter((l) => perStat.every((set) => set.has(l)));
+  BASE_STAT_KEYS.forEach((key, i) => {
+    offer(key, 'total', [...perStat[i]].filter((l) => !everywhere.includes(l)).length, false);
+  });
+
+  // Derived totals take their sources from the gear stat of the same key.
+  const derived = new Set(FORMULAS.map((f) => f.key));
+  for (const key of derived) {
+    offer(key, 'total', (gearTotal(totals, data, key)?.sources ?? [])
+      .filter((s) => good(s, key)).length, false);
+  }
+
+  const metrics = goalMetrics(data);
+  const offered = (key: string, column: Goal['column']) =>
+    metrics.some((m) => m.key === key && m.column === column);
+  for (const def of data.stats) {
+    if (def.category === 'flag' || NOT_A_FOCUS.has(def.key) || derived.has(def.key)) continue;
+    if ((BASE_STAT_KEYS as string[]).includes(def.key)) continue;
+    const sources = totals.byStat.get(def.id)?.sources ?? [];
+    const lower = statTone(def.key, 1) === 'bad';
+    for (const column of ['flat', 'percent'] as const) {
+      if (!offered(def.key, column)) continue;
+      const mine = sources.filter((s) => (s.unit === '%') === (column === 'percent') && good(s, def.key));
+      offer(def.key, column, mine.length, lower, sum(mine));
+    }
+  }
+
+  for (const [key, t] of totals.skills) {
+    const metric = key.split('|')[1] ?? '';
+    const lower = skillTone(metric, 1) === 'bad';
+    for (const column of ['flat', 'percent'] as const) {
+      const mine = t.sources.filter((s) => (s.unit === '%') === (column === 'percent')
+        && skillTone(metric, s.value) === 'good');
+      if (offered(`${SKILL_PREFIX}${key}`, column)) {
+        offer(`${SKILL_PREFIX}${key}`, column, mine.length, lower, sum(mine));
+      }
+    }
+  }
+
+  // Most sources first; between equals, the bigger number, which is the
+  // one the build has put more into.
+  found.sort((a, b) => b.sources - a.sources || b.size - a.size);
+  return found.slice(0, FOCUS_MAX_GOALS).map((f) => f.goal);
+}
+
+function sum(sources: { value: number }[]): number {
+  return sources.reduce((acc, s) => acc + s.value, 0);
+}
+
 function splitLast(s: string): [string, string] {
   const at = s.lastIndexOf(':');
   return [s.slice(0, at), s.slice(at + 1)];
@@ -941,11 +1054,22 @@ export class Suggester {
    */
   plan(build: Build, maxSteps = 6): Move[] {
     if (!this.active) return [];
+    // Every goal already met -- as it is from the start with goals read off
+    // the build -- means there is no gap to close, so the plan looks for
+    // upgrades instead: anything that raises a goal and lowers none, until
+    // nothing does. Refine is then tuned for more rather than for enough,
+    // since "enough" is +0 when nothing is short.
+    const met = (b: Build) =>
+      goalStatus(this.goals, aggregate(b, this.data), b, this.data).every((s) => s.met);
+    if (met(build) && !this.pushing) {
+      const upgrading = new Suggester(this.data, this.goals, this.opts);
+      upgrading.pushing = true;
+      return upgrading.plan(build, maxSteps);
+    }
     const steps: Move[] = [];
     let current = build;
     for (let i = 0; i < maxSteps; i++) {
-      const totals = aggregate(current, this.data);
-      if (goalStatus(this.goals, totals, current, this.data).every((s) => s.met)) break;
+      if (!this.pushing && met(current)) break;
 
       let best: Move | null = null;
       for (const slot of SLOTS) {

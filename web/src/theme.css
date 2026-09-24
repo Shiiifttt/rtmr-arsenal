@@ -615,6 +615,7 @@ input:focus, select:focus, button:focus-visible {
 .goal-opts { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: 10px; }
 .goal-opts select { width: auto; padding: 2px 6px; font-size: 12px; }
 .goal-actions { display: flex; gap: 8px; margin-top: 10px; }
+.goal-from-build { margin: 0 0 10px; }
 
 .plan { margin: 10px 0 0; padding-left: 18px; display: grid; gap: 6px; }
 .plan li::marker { color: var(--text-faint); font-family: var(--mono); font-size: 11px; }

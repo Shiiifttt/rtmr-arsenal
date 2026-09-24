@@ -13,7 +13,7 @@ import { dirname, resolve } from 'node:path';
 
 import {
   aggregate, applyChanges, bindBaseStatIds, brokenGoals, defaultBaseStats, diffTotals,
-  effectTone, fitsSlot, goalMetrics,
+  effectTone, fitsSlot, goalMetrics, goalsFromBuild,
   goalScore, goalStatus, isTwoHanded, measure, priorityWeight, SLOTS, Suggester, tableForSlot,
   type Move, type SuggestOptions,
 } from '../src/index.ts';
@@ -232,6 +232,72 @@ test('a plan only takes steps that help, and ends at the goal', () => {
   assert.equal(status.met, true);
 });
 
+/**
+ * A real level 136 Satsujin, from a player's share link: dagger and shield,
+ * stacked AGI and flee, the three Maiden of Time cards, shadow gear.
+ */
+function satsujin(): Build {
+  const build = emptyBuild();
+  build.className = 'Satsujin';
+  build.baseLevel = 136;
+  build.baseStats = { str: 99, agi: 99, vit: 49, int: 49, dex: 49, luk: 1 };
+  build.manual = { flee: 70 };
+  const put = (slot: string, itemId: number, refine: number, cards: number[] = [],
+    rolls: [string, string, number[]][] = []) => {
+    build.slots[slot] = { itemId, refine, cards,
+      ...(rolls.length ? { rolls: Object.fromEntries(
+        rolls.map(([k, option, values]) => [k, { option, values }])) } : {}) };
+  };
+  put('upper', 18827, 6);
+  put('middle', 5068, 0, [13571]);
+  put('lower', 5928, 5, [4437, 4046], [['stat', 'str', [1]]]);
+  put('armor', 2375, 0, [13589, 4051], [['stat', 'agi', [2]], ['resource', 'max_hp', [3]]]);
+  put('weapon', 1533, 9, [4136]);
+  put('offhand', 13063, 7, [4413]);
+  put('garment', 15435, 6, [13590, 4092], [['stat', 'agi', [2]], ['evasion', 'perfect_dodge', [1]]]);
+  put('shoes', 22000, 6, [13591], [['stat', 'agi', [1]], ['speed', 'move_speed', [9]]]);
+  put('acc1', 2633, 0);
+  put('acc2', 15424, 0, [13743], [['stat', 'agi', [1]]]);
+  return build;
+}
+
+test('goals read off a build are what its gear stacks, all met as it stands', () => {
+  const build = satsujin();
+  const totals = aggregate(build, dataset);
+  const goals = goalsFromBuild(build, totals, dataset);
+  const keys = goals.map((g) => g.key);
+
+  for (const k of ['agi', 'flee', 'def_pen']) assert.ok(keys.includes(k), `expected ${k}: ${keys}`);
+  // Every piece has DEF and the weapons have MATK; wearing them is not a choice.
+  assert.ok(!keys.includes('def') && !keys.includes('matk'), `base values leaked in: ${keys}`);
+  // "All stats +N" alone does not make LUK a goal.
+  assert.ok(!keys.includes('luk'));
+  assert.ok(keys.indexOf('agi') < keys.indexOf('def_pen'), 'the most stacked stat first');
+  assert.ok(goalStatus(goals, totals, build, dataset).every((s) => s.met), 'all start met');
+  const cost = goals.find((g) => g.key === 'sp_cost');
+  if (cost) assert.equal(cost.atMost, true, 'a cost is a ceiling');
+});
+
+test('with every goal met, the plan finds upgrades that lower nothing', () => {
+  const build = satsujin();
+  const goals = [...goalsFromBuild(build, aggregate(build, dataset), dataset)];
+  const s = new Suggester(dataset, goals, { className: 'Satsujin', maxLevel: 136, refine: null });
+  const steps = s.plan(build, 2);
+  assert.ok(steps.length > 0, 'a mid-game build has something to improve');
+  let at = build;
+  for (const step of steps) {
+    assert.ok(step.gain > 0);
+    at = applyChanges(at, step.changes, dataset);
+  }
+  const before = s.values(build);
+  const after = s.values(at);
+  goals.forEach((g, i) => {
+    const d = after[i] - before[i];
+    assert.ok(g.atMost ? d <= 1e-9 : d >= -1e-9, `${g.key} got worse: ${before[i]} -> ${after[i]}`);
+  });
+  assert.ok(goals.some((g, i) => (g.atMost ? after[i] < before[i] : after[i] > before[i])));
+});
+
 test('suggestions respect the class and level limits', () => {
   const build = emptyBuild();
   const opts: SuggestOptions = { className: 'Assassin', maxLevel: 50, refine: null };
@@ -413,7 +479,7 @@ test('sidegrades are listed after the upgrades, and never planned', () => {
 });
 
 test('clicking one goal finds more of it even when every goal is met', () => {
-  // Melee damage already at its target, so there is no plan left to make --
+  // Melee damage already at its target, so the plan has no gap to close --
   // which is exactly when "just give me more of this" is the question.
   const melee: Goal = { key: 'melee_damage', column: 'percent', target: 0 };
   const flee: Goal = { key: 'flee', column: 'total', target: 0 };
@@ -421,7 +487,11 @@ test('clicking one goal finds more of it even when every goal is met', () => {
   const build = emptyBuild();
   assert.ok(goalStatus([melee, flee], aggregate(build, dataset), build, dataset)
     .every((g) => g.met), 'both goals start met');
-  assert.equal(s.plan(build).length, 0, 'nothing left to plan');
+  // The plan then looks for upgrades rather than stopping, and none of them
+  // may take a goal below its target.
+  for (const step of s.plan(build)) {
+    assert.equal(s.breaks(step).length, 0, `${step.label} breaks a goal`);
+  }
 
   const moves = s.focusMoves(build, melee);
   assert.ok(moves.length > 0, 'but there is still more melee damage to be had');

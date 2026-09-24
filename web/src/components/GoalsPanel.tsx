@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import {
   aggregate, applyChanges, brokenGoals, DEFAULT_GUARDS, diffTotals, goalLabel,
-  goalMetrics, goalStatus, guardsOf, isOffhandWeapon, SLOT_BY_KEY, SP_SUSTAIN,
+  goalMetrics, goalsFromBuild, goalStatus, guardsOf, isOffhandWeapon, SLOT_BY_KEY, SP_SUSTAIN,
   type Build, type Dataset, type Goal, type GoalMetric, type Item, type Move, type Suggester,
   type Totals, type TotalsChange,
 } from '@sim';
@@ -52,6 +52,9 @@ export function GoalsPanel({
   const metrics = useMemo(() => goalMetrics(dataset), [dataset]);
   const groups = useMemo(() => groupMetrics(metrics), [metrics]);
   const status = goalStatus(goals, totals, build, dataset);
+  // The plan's own test, guards included: with everything met it hunts for
+  // upgrades rather than stopping.
+  const allMet = goalStatus(suggester.goals, totals, build, dataset).every((s) => s.met);
 
   // The plan belongs to the build it was worked out for. Once anything
   // changes -- a slot, a goal, an option -- it describes a different
@@ -108,10 +111,21 @@ export function GoalsPanel({
       <h2>Goals</h2>
 
       {goals.length === 0 && (
-        <p className="empty-note" style={{ margin: '0 0 10px', fontSize: 12 }}>
-          Add the numbers you are building towards. The item picker then ranks
-          by them, and can recommend pieces, cards and set swaps to reach them.
-        </p>
+        <>
+          <p className="empty-note" style={{ margin: '0 0 10px', fontSize: 12 }}>
+            Add the numbers you are building towards. The item picker then ranks
+            by them, and can recommend pieces, cards and set swaps to reach them.
+          </p>
+          <button
+            className="goal-from-build"
+            onClick={() => onGoals(goalsFromBuild(build, totals, dataset))}
+            title={'Takes the stats your gear already stacks as the goals, at the '
+              + 'values you have now.\n\nSuggest then looks for upgrades: changes '
+              + 'that raise one of them without lowering any.'}
+          >
+            Use my current build
+          </button>
+        </>
       )}
 
       {status.map((s, i) => (
@@ -242,10 +256,10 @@ export function GoalsPanel({
           <div className="goal-actions">
             <button
               onClick={() => setPlan({ for: build, suggester, moves: suggester.plan(build) })}
-              disabled={status.every((s) => s.met)}
-              title={status.every((s) => s.met) ? 'Every goal is already met' : undefined}
+              title={allMet ? 'Every goal is met, so this looks for upgrades: changes '
+                + 'that raise a goal without lowering any' : undefined}
             >
-              Suggest changes
+              {allMet ? 'Find upgrades' : 'Suggest changes'}
             </button>
             {current && current.length > 1 && (
               <button onClick={() => onApply(current)}>Apply all</button>
@@ -254,7 +268,8 @@ export function GoalsPanel({
 
           {current && current.length === 0 && (
             <p className="empty-note" style={{ fontSize: 12 }}>
-              Nothing within these options gets any closer. Loosening the class,
+              {allMet ? 'Nothing within these options raises a goal without lowering '
+                + 'another' : 'Nothing within these options gets any closer'}. Loosening the class,
               level or refine options may help
               {lockedSlots > 0 && <LockedNote slots={lockedSlots} />}.
             </p>
