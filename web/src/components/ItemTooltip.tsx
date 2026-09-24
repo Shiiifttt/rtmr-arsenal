@@ -11,6 +11,7 @@ import type {
   Dataset, Effect, Item, RefineGroup, SetRecord, StatTotal, Totals,
 } from '@sim';
 import { iconUrl } from '../data';
+import { PierceChart } from './PierceChart';
 
 /**
  * The MMO-style item tooltip.
@@ -204,7 +205,7 @@ export function ItemTooltipLayer({ dataset, totals }: {
             progress={totals?.setProgress} />
         : target.target.kind === 'set'
           ? <SetCard {...target.target} />
-          : <StatCard {...target.target} />}
+          : <StatCard {...target.target} armorTargets={dataset.armorTargets ?? null} />}
     </div>,
     document.body,
   );
@@ -471,7 +472,8 @@ export function ItemCard({
  * checked by looking at it. "Where is that coming from?" was previously a
  * question you answered by taking gear off one piece at a time.
  */
-export function StatCard({ name, statKey, metric, sources, flat, percent }: StatTarget) {
+export function StatCard({ name, statKey, metric, sources, flat, percent, armorTargets = null }:
+  StatTarget & { armorTargets?: Dataset['armorTargets'] }) {
   // A flag has no amount to show; everything else does, coloured by whichever
   // notion of "better" applies to it.
   const amounts = statKey !== null || metric !== undefined;
@@ -524,6 +526,16 @@ export function StatCard({ name, statKey, metric, sources, flat, percent }: Stat
           </div>
         ))}
       </Section>
+
+      {(statKey === 'def_pen' || statKey === 'mdef_pen') && (
+        <Section title={statKey === 'def_pen' ? 'Effective pierce' : 'Effective magic pierce'}>
+          <PierceChart
+            kind={statKey === 'def_pen' ? 'def' : 'mdef'}
+            pen={flat}
+            targets={statKey === 'def_pen' ? armorTargets?.def ?? null : armorTargets?.mdef ?? null}
+          />
+        </Section>
+      )}
 
       {amounts && flat !== 0 && percent !== 0 && (
         <div className="tip-note">

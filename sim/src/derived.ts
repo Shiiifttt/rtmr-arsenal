@@ -106,6 +106,55 @@ export function compoundPercent(parts: number[]): number {
   return (parts.reduce((acc, p) => acc * (1 + p / 100), 1) - 1) * 100;
 }
 
+/**
+ * Effective pierce, in percent, from the DEF Penetration stat.
+ *
+ * Not one to one: each point is worth less than the one before, and the
+ * curve only reaches 100% at 100 penetration. Measured in the character
+ * window, and exact at all five readings once floored:
+ *
+ *   5 -> 14    15 -> 38    42 -> 80    47 -> 85    53 -> 89
+ *
+ * which is the complement cubed -- the defence left over is what one point
+ * in a hundred leaves, three times over.
+ *
+ * Unfloored, so a chart can draw the curve; `Math.floor` it for the figure
+ * the game shows.
+ */
+export function effectivePierce(pen: number): number {
+  const p = Math.min(100, Math.max(0, pen));
+  return 100 * (1 - (1 - p / 100) ** 3);
+}
+
+/**
+ * The share of a hit that gets through a monster's hard DEF, 0 to 1.
+ *
+ * Renewal's formula, which this server keeps: damage x (4000 + DEF) /
+ * (4000 + DEF x 10). Pierce takes its share of the DEF away first. So 700
+ * DEF lets 43% through with no pierce, and 85% at 89% pierce -- and against
+ * a monster with no DEF, penetration is worth nothing at all.
+ *
+ * Soft DEF (the VIT part, subtracted afterwards) is left out: penetration
+ * does not touch it, and it is small beside hard DEF on the monsters where
+ * penetration matters.
+ */
+export function defMultiplier(def: number, pierce: number): number {
+  const d = Math.max(0, def) * (1 - Math.min(100, Math.max(0, pierce)) / 100);
+  return (4000 + d) / (4000 + d * 10);
+}
+
+/**
+ * The same for magic: renewal's damage x (1000 + MDEF) / (1000 + MDEF x 10).
+ *
+ * A quarter of the constant, so MDEF bites far harder than DEF does at the
+ * same figure -- 700 MDEF lets 21% of a spell through, against 43% for a
+ * hit on 700 DEF.
+ */
+export function mdefMultiplier(mdef: number, pierce: number): number {
+  const d = Math.max(0, mdef) * (1 - Math.min(100, Math.max(0, pierce)) / 100);
+  return (1000 + d) / (1000 + d * 10);
+}
+
 interface Formula {
   key: string;
   label: string;

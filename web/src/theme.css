@@ -563,6 +563,75 @@ input:focus, select:focus, button:focus-visible {
   padding: 0 2px; line-height: 0;
 }
 .slot-head .shot:hover { color: var(--text); }
+.slot-head .find {
+  all: unset; cursor: pointer; color: var(--text-faint);
+  padding: 0 2px; line-height: 0;
+}
+.slot-head .find:hover { color: var(--text); }
+
+/* ---- effective pierce chart, in the DEF Penetration hover ---------------- */
+
+.pierce svg { display: block; width: 100%; height: auto; }
+.pierce-grid { stroke: var(--border); stroke-width: 1; }
+.pierce-guide { stroke: var(--border-strong); stroke-width: 1; stroke-dasharray: 3 3; }
+.pierce-line { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linejoin: round; }
+/* Ringed in the tooltip's own background, so it lifts off the line. */
+.pierce-dot { fill: var(--accent); stroke: #17131f; stroke-width: 2; }
+.pierce-tick { fill: var(--text-faint); font-family: var(--mono); font-size: 10px; }
+.pierce-label { fill: var(--text); font-family: var(--mono); font-size: 11px; }
+/* One bar per target: how much of a hit survives its DEF. */
+.pierce-bars { display: grid; gap: 4px; }
+.pierce-bar {
+  display: grid; grid-template-columns: 128px 1fr 34px; align-items: center; gap: 6px;
+  font-size: 11px;
+}
+.pierce-bar-label { color: var(--text-dim); white-space: nowrap; }
+.pierce-bar-label em { color: var(--text-faint); font-style: normal; font-size: 10px; }
+.pierce-bar-track { height: 6px; border-radius: 3px; background: var(--border); overflow: hidden; }
+.pierce-bar-track span { display: block; height: 100%; border-radius: 3px; background: var(--accent); }
+.pierce-bar-value { text-align: right; font-family: var(--mono); color: var(--text); }
+.pierce-sub {
+  display: flex; align-items: center; gap: 6px; margin: 8px 0 3px;
+  font-size: 11px; color: var(--text-dim);
+}
+.pierce .pierce-sub:first-child { margin-top: 0; }
+/* The same amber the planner uses for unconfirmed formulas elsewhere. */
+.pierce-flag {
+  padding: 0 4px; border: 1px dotted var(--warn); border-radius: 3px;
+  font-size: 9px; text-transform: uppercase; letter-spacing: .05em; color: var(--warn);
+}
+
+/* ---- where it comes from ------------------------------------------------ */
+
+.picker.sources { width: min(640px, 100%); }
+.src { padding: 10px 4px; border-bottom: 1px solid var(--border); }
+.src:last-child { border-bottom: 0; }
+.src.dim { opacity: .7; }
+.src-head { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.src-head .icon { width: 24px; height: 24px; }
+.src-name { font-weight: 600; }
+.src-role {
+  margin-left: auto; font-family: var(--mono); font-size: 11px; color: var(--text-faint);
+}
+.src-none { font-size: 12px; color: var(--text-faint); font-style: italic; }
+.src-how { font-size: 12px; margin: 4px 0; }
+.src-tag {
+  display: inline-block; margin-right: 6px; padding: 0 5px; border: 1px solid var(--border-strong);
+  border-radius: 3px; font-size: 10px; text-transform: uppercase; letter-spacing: .05em;
+  color: var(--text-dim);
+}
+.src-costs { color: var(--text-dim); }
+.src-note { font-size: 11px; color: var(--text-faint); margin: 2px 0 0 4px; }
+.src-drops { width: 100%; border-collapse: collapse; font-size: 12px; }
+.src-drops td { padding: 3px 4px; vertical-align: top; }
+.src-rate { width: 56px; text-align: right; font-family: var(--mono); color: var(--accent); }
+.src-lv { color: var(--text-faint); font-size: 11px; }
+.src-mvp {
+  margin-left: 6px; padding: 0 4px; border-radius: 3px; font-size: 10px;
+  background: var(--warn); color: var(--bg);
+}
+.src-maps { font-size: 11px; color: var(--text-dim); overflow-wrap: anywhere; }
+.src-respawn { color: var(--text-faint); }
 
 /* ---- goals ------------------------------------------------------------- */
 

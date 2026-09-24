@@ -6,4 +6,5 @@ export * from './derived.ts';
 export * from './format.ts';
 export * from './rolls.ts';
 export * from './sets.ts';
+export * from './sources.ts';
 export * from './suggest.ts';

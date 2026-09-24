@@ -102,6 +102,10 @@ export interface Item {
     chance_percent: number;
     mvp_reward: boolean;
   }[];
+  /** Boxes and card albums that can contain this. */
+  containers?: { container_id: number; container: string | null }[];
+  /** Crawl fields kept verbatim; `how` is read by `acquisitionOf`. */
+  raw?: { how?: unknown };
   effects: Effect[];
   piece_bonus: Effect[];
   refine: { per_refine: RefineGroup[]; thresholds: RefineGroup[] };
@@ -401,6 +405,22 @@ export interface Dataset {
   classRules: ClassRules | null;
   /** Hand-written roll tables; null if data/rolls.json has not been built. */
   rolls: RollData | null;
+  /**
+   * The DEF and MDEF figures penetration is judged against: softest
+   * monster, averages, hardest. Absent if data/mobs/armor-targets.json is.
+   */
+  armorTargets?: { def: ArmorTarget[]; mdef: ArmorTarget[] } | null;
+}
+
+export interface ArmorTarget {
+  label: string;
+  /** The DEF or MDEF figure, whichever list this is in. */
+  value: number;
+  /** A single monster's name and level; absent for an average. */
+  name?: string;
+  level?: number;
+  /** How many kinds of monster an average is over. */
+  count?: number;
 }
 
 /** A running total for one stat. Flat and percent never mix. */

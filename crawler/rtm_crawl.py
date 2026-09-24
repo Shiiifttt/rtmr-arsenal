@@ -349,15 +349,33 @@ def decode_mobs(payload: dict) -> list[dict]:
             idx = C.get(name)
             return row[idx] if idx is not None and idx < len(row) else None
 
+        # Each drop is [name index, chance %, item id]: a Poring's
+        # [0, 100, 909] is Jellopy at 100%, and [4, 1, 4001] its card at 1%.
         drops = []
         for d in (col("drops") or []):
-            if not isinstance(d, list) or len(d) < 2:
+            if not isinstance(d, list) or len(d) < 3:
                 continue
             drops.append({
-                "item_id": d[0],
-                "item": lookup(items, d[1]) if len(d) > 1 else None,
-                "chance_percent": d[2] if len(d) > 2 else None,
-                "raw": d,
+                "item_id": d[2],
+                "item": lookup(items, d[0]),
+                "chance_percent": d[1],
+            })
+
+        # "crowd" runs parallel to "maps": how many spawn on each, and the
+        # respawn window in seconds. A field mob reads [25, 5, 0] -- 25 of
+        # them, back five seconds after dying -- and an MVP [1, 1800, 3600].
+        map_names = lookup_many(maps, col("maps"))
+        codes = col("codes") or []
+        spawns = []
+        for i, crowd in enumerate(col("crowd") or []):
+            if not isinstance(crowd, list) or not crowd or i >= len(map_names):
+                continue
+            spawns.append({
+                "map": map_names[i],
+                "code": codes[i] if i < len(codes) else None,
+                "count": crowd[0],
+                "respawn_s": [crowd[1] if len(crowd) > 1 else 0,
+                              crowd[2] if len(crowd) > 2 else 0],
             })
 
         out.append({
@@ -371,7 +389,8 @@ def decode_mobs(payload: dict) -> list[dict]:
             "element_level": col("elv"),
             "is_mvp": bool(col("mvp")),
             "zone": lookup(zones, col("zone")),
-            "maps": lookup_many(maps, col("maps")),
+            "maps": map_names,
+            "spawns": spawns,
             "atk": col("atk"),
             "def": col("def"),
             "mdef": col("mdef"),
@@ -420,6 +439,8 @@ def stage_decode(raw_dir: Path, out_dir: Path) -> dict:
 
     write_json(items_dir / "all.json", items)
     write_json(out_dir / "mobs" / "all.json", mobs)
+    write_spawns(out_dir / "mobs" / "spawns.json", mobs)
+    write_json(out_dir / "mobs" / "armor-targets.json", armor_targets(mobs))
 
     buckets: dict[str, list[dict]] = {}
     for item in items:
@@ -528,6 +549,62 @@ def stage_images(fetcher: Fetcher, items: list[dict], project: Path,
         done.set()
 
     return {"downloaded": counter["n"], "skipped": fetcher.counts["skipped"]}
+
+
+def write_spawns(path: Path, mobs: list[dict]) -> None:
+    """Where each monster lives, for the planner's "where does this drop".
+
+    Kept apart from mobs/all.json, which is over a megabyte: the planner
+    only needs a monster's name, level, MVP flag and spawns, and only once
+    someone asks where something drops, so this is loaded on demand.
+    Positional to keep it small: {id: [name, level, mvp, [[map, count,
+    respawn min s, respawn max s], ...]]}.
+    """
+    out = {}
+    for m in mobs:
+        out[str(m["id"])] = [
+            m["name"], m["level"], 1 if m["is_mvp"] else 0,
+            [[s["map"], s["count"], s["respawn_s"][0], s["respawn_s"][1]]
+             for s in m["spawns"]],
+        ]
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_suffix(path.suffix + ".part")
+    tmp.write_text(json.dumps(out, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    tmp.replace(path)
+
+
+def armor_targets(mobs: list[dict]) -> dict:
+    """The DEF and MDEF figures penetration is judged against.
+
+    What penetration is worth depends entirely on the target, so the planner
+    shows it against several: the softest monster, the average one, the
+    average endgame one (level 130 and up), and the hardest. Only monsters
+    with a spawn count: event and summon-only entries would pull the figures
+    towards targets nobody farms. Averages are per kind of monster, not
+    weighted by how many spawn.
+
+    The softest is the highest level of the zero-armour monsters, so it
+    names something worth fighting rather than a training dummy. DEF and
+    MDEF are picked separately: the hardest target for one is not the
+    hardest for the other.
+    """
+    def targets(key: str, name: str) -> list[dict]:
+        fought = [m for m in mobs if m["spawns"] and m[key] is not None]
+        endgame = [m for m in fought if (m["level"] or 0) >= 130]
+        one = lambda label, m: {
+            "label": label, "name": m["name"], "level": m["level"], "value": m[key]}
+        mean = lambda label, group: {
+            "label": label, "count": len(group),
+            "value": round(sum(m[key] for m in group) / len(group)),
+        }
+        return [
+            one(f"Lowest {name}", min(fought, key=lambda m: (m[key], -m["level"]))),
+            mean("Average", fought),
+            mean("Average, Lv 130+", endgame),
+            one(f"Highest {name}", max(fought, key=lambda m: (m[key], m["level"]))),
+        ]
+
+    return {"def": targets("def", "DEF"), "mdef": targets("mdef", "MDEF")}
 
 
 def write_json(path: Path, payload) -> None:

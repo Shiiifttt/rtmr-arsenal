@@ -1,6 +1,7 @@
 import {
-  bindBaseStatIds,
-  type ClassRules, type Dataset, type Item, type RollData, type SetRecord, type StatDef,
+  bindBaseStatIds, readSpawns,
+  type ClassRules, type Dataset, type Item, type MobInfo, type RollData,
+  type SetRecord, type SpawnFile, type StatDef,
 } from '@sim';
 
 /**
@@ -11,7 +12,7 @@ import {
  * the stat totals synchronous, which is what makes the UI feel immediate.
  */
 export async function loadDataset(base = './data'): Promise<Dataset> {
-  const [itemList, sets, stats, classes, classRules, rolls] = await Promise.all([
+  const [itemList, sets, stats, classes, classRules, rolls, armorTargets] = await Promise.all([
     getJSON<Item[]>(`${base}/items/all.json`),
     getJSON<SetRecord[]>(`${base}/sets/all.json`),
     getJSON<StatDef[]>(`${base}/stats.json`),
@@ -23,6 +24,9 @@ export async function loadDataset(base = './data'): Promise<Dataset> {
     // Hand-written, and built separately from the crawl. Missing it costs
     // the roll editor, not the planner, so it must not fail the load.
     getJSON<RollData>(`${base}/rolls.json`).catch(() => null),
+    // A few hundred bytes; missing it only costs the penetration hover its
+    // damage figures.
+    getJSON<Dataset['armorTargets']>(`${base}/mobs/armor-targets.json`).catch(() => null),
   ]);
 
   bindBaseStatIds(stats);
@@ -36,7 +40,20 @@ export async function loadDataset(base = './data'): Promise<Dataset> {
     classes,
     classRules,
     rolls,
+    armorTargets,
   };
+}
+
+let spawns: Promise<Map<number, MobInfo>> | null = null;
+
+/**
+ * Where every monster lives. Fetched the first time someone asks where
+ * something drops, and kept: nothing else in the planner needs it.
+ */
+export function loadSpawns(base = './data'): Promise<Map<number, MobInfo>> {
+  spawns ??= getJSON<SpawnFile>(`${base}/mobs/spawns.json`).then(readSpawns)
+    .catch((e) => { spawns = null; throw e; });
+  return spawns;
 }
 
 async function getJSON<T>(url: string): Promise<T> {

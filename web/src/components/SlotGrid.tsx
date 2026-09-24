@@ -23,6 +23,8 @@ interface Props {
   onSwapHands: () => void;
   /** Settle this slot, so no suggestion touches its piece, cards or rolls. */
   onToggleLock: (slotKey: string, locked: boolean) => void;
+  /** Show where this slot's piece, cards and refine materials come from. */
+  onSources: (slot: SlotDef) => void;
 }
 
 const GROUPS: { key: SlotDef['group']; label: string }[] = [
@@ -82,7 +84,7 @@ export function SlotGrid(props: Props) {
 function Slot({
   slot, dataset, build, disabled,
   onOpenItem, onOpenCard, onClear, onClearCard, onAddCard, onRefine, onRoll,
-  onImportRolls, onToggleLock,
+  onImportRolls, onToggleLock, onSources,
 }: Props & { slot: SlotDef; disabled: boolean }) {
   const state = build.slots[slot.key];
   const locked = isLocked(build, slot.key);
@@ -145,6 +147,22 @@ function Slot({
                    0 1-1-1V4.5a1 1 0 0 1 1-1h2.5L5.5 2Zm2.5 3.5a3.25 3.25 0 1 0 0
                    6.5 3.25 3.25 0 0 0 0-6.5Zm0 1.5a1.75 1.75 0 1 1 0 3.5 1.75
                    1.75 0 0 1 0-3.5Z"
+              />
+            </svg>
+          </button>
+        )}
+        {item && (
+          <button
+            className="find"
+            onClick={() => onSources(slot)}
+            title={`Where ${item.name}, its cards and its refine materials drop`}
+            aria-label={`Where ${item.name} comes from`}
+          >
+            <svg viewBox="0 0 16 16" width="11" height="11" aria-hidden="true">
+              <path
+                fill="currentColor"
+                d="M6.5 1a5.5 5.5 0 0 1 4.38 8.82l3.65 3.65-1.06 1.06-3.65-3.65A5.5 5.5 0 1 1
+                   6.5 1Zm0 1.5a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z"
               />
             </svg>
           </button>

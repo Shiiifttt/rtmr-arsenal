@@ -14,7 +14,7 @@ import { dirname, resolve } from 'node:path';
 import {
   aggregate, BASE_LEVEL_DEFAULT, BASE_STAT_MAX, BASE_STAT_MIN, bindBaseStatIds,
   BASE_STAT_KEYS, baseFlee, clampBaseStat, combine, compoundPercent, defaultBaseStats,
-  derivedStats, fleeFromAgi,
+  defMultiplier, derivedStats, effectivePierce, fleeFromAgi, mdefMultiplier,
   fitsSlot, maxRefine, MAX_REFINE, SLOTS,
 } from '../src/index.ts';
 import type {
@@ -773,6 +773,32 @@ test('flee counts AGI off equipment, and the skills box sits outside the percent
   // +16% Total Flee and 14 flat gear flee gives the reported 531. Folding
   // the 70 in before the percent instead would give 542.
   assert.equal(combine(baseFlee(132, 139), 14, 16) + 70, 531);
+});
+
+test('effective pierce matches the character window at five readings', () => {
+  const measured: [number, number][] = [[5, 14], [15, 38], [42, 80], [47, 85], [53, 89]];
+  for (const [pen, ingame] of measured) {
+    assert.equal(Math.floor(effectivePierce(pen)), ingame, `${pen} pen`);
+  }
+  assert.equal(effectivePierce(0), 0);
+  assert.equal(effectivePierce(100), 100);
+  assert.equal(effectivePierce(150), 100, 'capped at full pierce');
+});
+
+test('hard DEF lets (4000 + DEF) / (4000 + 10 DEF) through, after pierce', () => {
+  assert.equal(defMultiplier(0, 0), 1, 'no DEF, nothing lost');
+  assert.equal(defMultiplier(0, 89), 1, 'and nothing for pierce to gain');
+  assert.ok(Math.abs(defMultiplier(700, 0) - 4700 / 11000) < 1e-12);
+  // 89% pierce leaves 77 of 700 DEF.
+  assert.ok(Math.abs(defMultiplier(700, 89) - 4077 / 4770) < 1e-12);
+  assert.equal(defMultiplier(700, 100), 1, 'full pierce, full damage');
+});
+
+test('hard MDEF lets (1000 + MDEF) / (1000 + 10 MDEF) through, after pierce', () => {
+  assert.equal(mdefMultiplier(0, 0), 1);
+  assert.ok(Math.abs(mdefMultiplier(700, 0) - 1700 / 8000) < 1e-12);
+  assert.ok(mdefMultiplier(700, 0) < defMultiplier(700, 0), 'MDEF bites harder than DEF');
+  assert.equal(mdefMultiplier(700, 100), 1);
 });
 
 test('Total Flee percents compound rather than add', () => {

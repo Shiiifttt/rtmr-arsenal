@@ -14,6 +14,7 @@ import { BaseStatsPanel } from './components/BaseStatsPanel';
 import { SetsPanel, StatsPanel, UncountedPanel } from './components/StatsPanel';
 import { ImportPanel } from './components/ImportPanel';
 import { RollImport } from './components/RollImport';
+import { SourcesPanel } from './components/SourcesPanel';
 import { ItemTooltipLayer } from './components/ItemTooltip';
 import { DEFAULT_PREFS, GoalsPanel, type SuggestPrefs } from './components/GoalsPanel';
 
@@ -62,6 +63,8 @@ export default function App() {
   const [shared, setShared] = useState(false);
   /** The slot whose rolls are being read from a screenshot. */
   const [shooting, setShooting] = useState<SlotDef | null>(null);
+  /** The slot whose drop locations are open. */
+  const [sourcing, setSourcing] = useState<SlotDef | null>(null);
   const [prefs, setPrefs] = useState<SuggestPrefs>(loadPrefs);
 
   useEffect(() => {
@@ -336,6 +339,7 @@ export default function App() {
             onImportRolls={setShooting}
             onSwapHands={() => setBuild((b) => swapHands(b, dataset) ?? b)}
             onToggleLock={(key, locked) => setBuild((b) => withLock(b, key, locked))}
+            onSources={setSourcing}
           />
         </div>
 
@@ -384,6 +388,15 @@ export default function App() {
             rolls: { ...(build.slots[shooting.key].rolls ?? {}), ...picks },
           })}
           onClose={() => setShooting(null)}
+        />
+      )}
+
+      {sourcing && build.slots[sourcing.key]?.itemId && (
+        <SourcesPanel
+          dataset={dataset}
+          slot={sourcing}
+          state={build.slots[sourcing.key]}
+          onClose={() => setSourcing(null)}
         />
       )}
 
