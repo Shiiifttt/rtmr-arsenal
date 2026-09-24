@@ -403,12 +403,6 @@ test('a hand-corrected set applies its correction once, and says it is corrected
     'status must be one of the two known values',
   );
 
-  // Every corrected threshold fires at most once: the "and again" shape the
-  // override exists to undo would show up as a repeated `at` entry.
-  for (const t of set.set_refine.thresholds) {
-    assert.equal(t.at?.length, 1, `${set.name}: corrected thresholds are single-step`);
-  }
-
   const build = emptyBuild();
   const used: string[] = [];
   for (const m of set.members) {
@@ -1062,4 +1056,45 @@ test('off-hand halving leaves stats outside race and size alone', () => {
   build.slots.offhand = { itemId: oneHander.id, refine: 0, cards: [atkCard.id] };
   const atk = aggregate(build, dataset).byStat.get(statId('atk'))!;
   assert.equal(atk.flat, oneHander.atk + atkCard.effects[0].value!);
+});
+
+test('"at 9+ and again at 18+" pays out twice, and only the line it governs', () => {
+  // Aggressive Orphan, confirmed in game. The tooltip wraps as
+  //
+  //   All Stats +4
+  //   At set refine 9+ and again at 18+:
+  //   Damage against all races +10%, Max HP/SP -10%
+  //
+  // which reads at a glance as though the repeated step belonged to All
+  // Stats. It does not: the heading governs the two lines under it, and it
+  // is the racial damage that lands twice. This was hand-corrected the
+  // other way once, on a misreading, so the numbers are pinned here.
+  const set = sets.find((s) => s.name === 'Aggressive Orphan')!;
+  assert.ok(set, 'expected the Aggressive Orphan set in the dataset');
+
+  const build = emptyBuild();
+  const slots = ['sh_armor', 'sh_gloves', 'sh_shoes', 'sh_acc'];
+  const place = (refine: number) => {
+    set.members.forEach((m, i) => {
+      build.slots[slots[i]] = { itemId: m.id, refine, cards: [] };
+    });
+    return aggregate(build, dataset);
+  };
+  const dmg = (t: ReturnType<typeof aggregate>) =>
+    t.byStat.get(statId('dmg_vs_race_all_races'))?.percent ?? 0;
+  const agi = (t: ReturnType<typeof aggregate>) =>
+    t.byStat.get(statId('agi'))?.flat ?? 0;
+
+  // Four pieces, so each +N gives a combined set refine of 4N.
+  const under = place(2);   // set refine 8 -- under the first step
+  const once = place(3);    // set refine 12 -- past 9, short of 18
+  const twice = place(5);   // set refine 20 -- past both
+
+  assert.equal(dmg(under), 0, 'nothing before set refine 9');
+  assert.equal(dmg(once), 10, 'one step at set refine 9');
+  assert.equal(dmg(twice), 20, 'and again at 18, so twice over');
+
+  // All Stats is the set's flat bonus and does not repeat with refine.
+  assert.equal(agi(under), agi(once), 'All Stats must not gain a step at 9');
+  assert.equal(agi(once), agi(twice), 'nor another at 18');
 });

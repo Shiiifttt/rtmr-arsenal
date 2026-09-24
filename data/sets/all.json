@@ -610,39 +610,10 @@
     {
      "kind": "set_refine_threshold",
      "at": [
-      9
-     ],
-     "effects": [
-      {
-       "text": "All Stats +4",
-       "stat": "All Stats",
-       "value": 4,
-       "unit": null,
-       "parsed": true,
-       "stat_ids": [
-        0,
-        1,
-        2,
-        3,
-        4,
-        5
-       ],
-       "stat_keys": [
-        "str",
-        "agi",
-        "vit",
-        "int",
-        "dex",
-        "luk"
-       ]
-      }
-     ]
-    },
-    {
-     "kind": "set_refine_threshold",
-     "at": [
+      9,
       18
      ],
+     "note": "applies again at the higher step",
      "effects": [
       {
        "text": "Damage against all races +10%",
@@ -688,11 +659,7 @@
     }
    ]
   },
-  "piece_bonus_note": "Each piece also carries its own Piece Bonus; see the item.",
-  "override": {
-   "status": "unverified",
-   "reason": "The tooltip wraps as 'All Stats +4' / 'At set refine 9+ and again at 18+:' / 'Damage against all races +10%, Max HP/SP -10%'. Read literally the heading governs the racial damage and grants it twice, which is how the parser reads it. The server owner's reading is that the repeated step belongs to All Stats and the racial damage is a single step at 18+. Encoded that way here, pending in-game confirmation."
-  }
+  "piece_bonus_note": "Each piece also carries its own Piece Bonus; see the item."
  },
  {
   "index": 7,

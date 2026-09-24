@@ -382,15 +382,6 @@
    ]
   },
   {
-   "set": "Aggressive Orphan",
-   "key": "aggressive-orphan",
-   "status": "unverified",
-   "reason": "The tooltip wraps as 'All Stats +4' / 'At set refine 9+ and again at 18+:' / 'Damage against all races +10%, Max HP/SP -10%'. Read literally the heading governs the racial damage and grants it twice, which is how the parser reads it. The server owner's reading is that the repeated step belongs to All Stats and the racial damage is a single step at 18+. Encoded that way here, pending in-game confirmation.",
-   "changed": [
-    "set_refine.thresholds"
-   ]
-  },
-  {
    "item": "Murder Knife",
    "status": "unverified",
    "reason": "The tooltip reads 'Defense Penetration +10' / 'Extra 1 % per refine' / 'Critical Damage +10%' / 'Extra 1% per refine'. Neither 'Extra' line names a stat, and taken literally the second would scale Critical Damage. The server owner says both are a mistranslation and the weapon grants +1 Defense Penetration and +1 Magic Defense Penetration per refine. Encoded that way here. NOTE: that reading leaves the flat 'Critical Damage +10%' with no per-refine line of its own, which is worth re-checking in game.",
@@ -471,7 +462,6 @@
   "Slotted Death",
   "Slotted Bullhorn",
   "Unslotted Bullhorn",
-  "Aggressive Orphan",
   "Murder Knife",
   "Gravewhisper",
   "Rank S Shadow Card"
@@ -484,7 +474,7 @@
  "conditions_total": 388,
  "stats_registered": 154,
  "stat_mapping": {
-  "mapped_to_stat_ids": 5636,
+  "mapped_to_stat_ids": 5635,
   "skill_modifiers": 947,
   "unmapped": 226,
   "coverage_percent": 82.8

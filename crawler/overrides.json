@@ -394,22 +394,6 @@
         { "id": 15453, "name": "Bullhorn Ring" }
       ],
       "member_count": 4
-    },
-
-    "aggressive-orphan": {
-      "status": "unverified",
-      "reason": "The tooltip wraps as 'All Stats +4' / 'At set refine 9+ and again at 18+:' / 'Damage against all races +10%, Max HP/SP -10%'. Read literally the heading governs the racial damage and grants it twice, which is how the parser reads it. The server owner's reading is that the repeated step belongs to All Stats and the racial damage is a single step at 18+. Encoded that way here, pending in-game confirmation.",
-      "set_refine_thresholds": [
-        { "at": [9], "effects": ["All Stats +4"] },
-        {
-          "at": [18],
-          "effects": ["Damage against all races +10%", "Max HP/SP -10%"]
-        },
-        {
-          "at": [36],
-          "effects": ["Morroc's Mark cooldown reduced from 60min to 2min"]
-        }
-      ]
     }
   }
 }
