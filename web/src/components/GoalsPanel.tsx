@@ -7,6 +7,7 @@ import {
   type Totals, type TotalsChange,
 } from '@sim';
 import { GoalFocus } from './GoalFocus';
+import { PlanOverlay } from './PlanOverlay';
 import { Icon } from './Icon';
 import { tooltipProps } from './ItemTooltip';
 
@@ -59,7 +60,9 @@ export function GoalsPanel({
   // The plan belongs to the build it was worked out for. Once anything
   // changes -- a slot, a goal, an option -- it describes a different
   // starting point, so it is dropped rather than shown stale.
-  const [plan, setPlan] = useState<{ for: Build; suggester: Suggester; moves: Move[] } | null>(null);
+  const [plan, setPlan] = useState<{
+    for: Build; suggester: Suggester; moves: Move[]; upgrading: boolean;
+  } | null>(null);
   const current = plan && plan.for === build && plan.suggester === suggester ? plan.moves : null;
 
   // "More of this one, please" for a single goal, on the same terms: dropped
@@ -67,15 +70,6 @@ export function GoalsPanel({
   const [focus, setFocus] =
     useState<{ for: Build; suggester: Suggester; goal: Goal; moves: Move[] } | null>(null);
   const focused = focus && focus.for === build && focus.suggester === suggester ? focus : null;
-  const stepBuilds = useMemo(() => {
-    const out: Build[] = [];
-    let at = build;
-    for (const move of current ?? []) {
-      out.push(at);
-      at = applyChanges(at, move.changes, dataset);
-    }
-    return out;
-  }, [current, build, dataset]);
 
   const labelOf = (g: Goal) =>
     metrics.find((m) => m.key === g.key && m.column === g.column)?.label ?? g.key;
@@ -255,54 +249,32 @@ export function GoalsPanel({
 
           <div className="goal-actions">
             <button
-              onClick={() => setPlan({ for: build, suggester, moves: suggester.plan(build) })}
+              onClick={() => setPlan({
+                for: build, suggester, moves: suggester.plan(build), upgrading: allMet,
+              })}
               title={allMet ? 'Every goal is met, so this looks for upgrades: changes '
                 + 'that raise a goal without lowering any' : undefined}
             >
               {allMet ? 'Find upgrades' : 'Suggest changes'}
             </button>
-            {current && current.length > 1 && (
-              <button onClick={() => onApply(current)}>Apply all</button>
-            )}
           </div>
-
-          {current && current.length === 0 && (
-            <p className="empty-note" style={{ fontSize: 12 }}>
-              {allMet ? 'Nothing within these options raises a goal without lowering '
-                + 'another' : 'Nothing within these options gets any closer'}. Loosening the class,
-              level or refine options may help
-              {lockedSlots > 0 && <LockedNote slots={lockedSlots} />}.
-            </p>
-          )}
-          {current && current.length > 0 && (
-            <ol className="plan">
-              {current.map((move, i) => (
-                <li key={i}>
-                  <MoveRow
-                    move={move}
-                    goals={suggester.goals}
-                    action={i === 0 ? 'Apply' : 'Apply up to here'}
-                    onApply={() => onApply(current.slice(0, i + 1))}
-                    dataset={dataset}
-                    // Each step is measured from where the steps before it
-                    // leave the build, which is how they will be applied.
-                    build={stepBuilds[i]}
-                  />
-                </li>
-              ))}
-            </ol>
-          )}
-          {current && current.length > 1 && (
-            <p className="empty-note" style={{ margin: '6px 0 0', fontSize: 11 }}>
-              Steps build on each other, so they apply in order. This is a
-              greedy plan — a good route, not a proof of the best build.
-            </p>
-          )}
         </>
       )}
 
       {/* Over the build rather than in this panel: the rows are full
           suggestions, and they need the room the picker gets. */}
+      {current && (
+        <PlanOverlay
+          moves={current}
+          upgrading={plan!.upgrading}
+          dataset={dataset}
+          build={build}
+          goals={suggester.goals}
+          lockedSlots={lockedSlots}
+          onApply={onApply}
+          onClose={() => setPlan(null)}
+        />
+      )}
       {focused && (
         <GoalFocus
           goal={focused.goal}
