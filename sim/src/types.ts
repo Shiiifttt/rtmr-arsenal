@@ -215,6 +215,13 @@ export interface RollOption {
 export interface RollDef {
   key: string;
   label: string;
+  note?: string;
+  /**
+   * A gate on this one roll. `says`: phrases, any of which the item's
+   * description must contain, ignoring case -- normal gear rolls a skill
+   * modifier only when it says "Skill Random Mods". See `rollTableFor`.
+   */
+  requires?: { says?: string[] };
   options: RollOption[];
 }
 

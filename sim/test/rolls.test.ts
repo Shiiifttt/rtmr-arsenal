@@ -369,3 +369,28 @@ test('a value out of the new range is pulled back into it', () => {
   );
   assert.deepEqual(after.rolls?.stat.values, [2], 'clamped to the 1-2 range');
 });
+
+test('normal gear rolls a skill modifier only when its description says so', () => {
+  const rollKeys = (slot: string, name: string) => {
+    const item = itemList.find((i) => i.name === name)!;
+    return rollTableFor(rolls, slot, item)?.rolls.map((r) => r.key) ?? [];
+  };
+  // "Has Skill Random Mods" / "Skill Random Mods" on the item itself.
+  assert.ok(rollKeys('acc1', 'Vesper Core01').includes('skill'));
+  assert.ok(rollKeys('upper', 'Sombrero').includes('skill'));
+  assert.ok(rollKeys('garment', 'Temporal Manteau').includes('skill'));
+  // A dropped accessory that says nothing of it still rolls stats, not skills.
+  const plain = itemList.find((i) => fitsSlot(i, SLOT_BY_KEY.get('acc1')!)
+    && (i.drops?.length ?? 0) > 0 && !/skill random|skill mod/i.test(i.description ?? ''))!;
+  const keys = rollKeys('acc1', plain.name);
+  assert.ok(keys.length > 0 && !keys.includes('skill'), plain.name);
+  // Shadow gear is ungated.
+  const shadow = itemList.find((i) => fitsSlot(i, SLOT_BY_KEY.get('sh_acc')!))!;
+  assert.ok(rollKeys('sh_acc', shadow.name).includes('skill'));
+});
+
+test('the narrowed table is the same object each time it is asked for', () => {
+  const item = itemList.find((i) => fitsSlot(i, SLOT_BY_KEY.get('acc1')!)
+    && (i.drops?.length ?? 0) > 0 && !/skill random|skill mod/i.test(i.description ?? ''))!;
+  assert.equal(rollTableFor(rolls, 'acc1', item), rollTableFor(rolls, 'acc1', item));
+});

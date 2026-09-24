@@ -59,6 +59,7 @@ def build(source: Path = SOURCE, stats_path: Path = STATS) -> dict:
             if roll["key"] in keys:
                 problems.append(f"{where}: duplicate roll key {roll['key']!r}")
             keys.add(roll["key"])
+            problems += check_roll_gate(roll, where)
 
             option_keys = set()
             for option in roll.get("options", []):
@@ -80,6 +81,24 @@ def build(source: Path = SOURCE, stats_path: Path = STATS) -> dict:
 
     doc["stat_count"] = len(id_by_key)
     return doc
+
+
+def check_roll_gate(roll: dict, where: str) -> list[str]:
+    """A gate on one roll: 'says', phrases the item's description must contain.
+
+    An unknown gate, or an empty phrase list, would read as "no condition" and
+    hand the roll to every item in the slot -- the failure the gate exists for.
+    """
+    label = f"{where} roll {roll['key']!r}"
+    gate = roll.get("requires")
+    if gate is None:
+        return []
+    problems = [f"{label}: unknown condition {g!r} (the planner only understands ['says'])"
+                for g in gate if g != "says"]
+    says = gate.get("says")
+    if not isinstance(says, list) or not says or not all(isinstance(s, str) and s.strip() for s in says):
+        problems.append(f"{label}: 'says' must be a non-empty list of phrases")
+    return problems
 
 
 def check_grant(grant: dict, id_by_key: dict, where: str, option: dict) -> list[str]:

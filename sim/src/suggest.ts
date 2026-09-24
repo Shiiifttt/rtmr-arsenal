@@ -366,15 +366,50 @@ const STANDOUT_MIN = 0.1;
  * "don't take what I have" and useless for "is +15% leech worth 5 crit".
  * This is the straight sum, so a trade that gives far more than it takes
  * comes out ahead. Guards are left out: they are lines, not amounts.
+ * `gainsOnly` sums just the goals it raises, for weighing against a cost
+ * that is not a goal's.
  */
-export function tradeValue(goals: Goal[], before: number[], after: number[]): number {
+export function tradeValue(
+  goals: Goal[], before: number[], after: number[], gainsOnly = false,
+): number {
   let total = 0;
   goals.forEach((goal, i) => {
     if (goal.guard) return;
     const scale = Math.max(Math.abs(goal.target), Math.abs(before[i]), 1);
-    total += priorityWeight(i) * (goal.atMost ? -1 : 1) * (after[i] - before[i]) / scale;
+    const term = priorityWeight(i) * (goal.atMost ? -1 : 1) * (after[i] - before[i]) / scale;
+    total += gainsOnly ? Math.max(0, term) : term;
   });
   return total;
+}
+
+/**
+ * What a trade is charged per 100% lost on a stat the goals do not cover.
+ *
+ * `tradeValue` sees only the goals, so a sidegrade that buys a little crit
+ * with -160% HP and SP regen looked free -- neither regen is anyone's goal,
+ * and both are still what keeps a character going between fights. A quarter
+ * per 100% keeps a small loss cheap and makes a pile of them cost more than
+ * most trades gain: +10% on the top goal is worth 0.1.
+ */
+export const COLLATERAL_WEIGHT = 0.25;
+
+/**
+ * The losses a change inflicts outside the goals, as a trade cost.
+ *
+ * Percent columns only: they share a scale, where a flat 200 HP and a flat
+ * 2 ASPD do not. Skill modifiers are left out -- one on a skill the build does
+ * not use costs it nothing -- and so are gains, since a stat nobody asked for
+ * is not a reason to take a trade.
+ */
+export function collateralCost(changes: TotalsChange[], rel: Relevance, data: Dataset): number {
+  let cost = 0;
+  for (const c of changes) {
+    if (c.tone !== 'bad' || c.column !== 'percent' || c.key.startsWith(SKILL_PREFIX)) continue;
+    const id = data.stats.find((s) => s.key === c.key)?.id;
+    if (id === undefined || rel.ids.has(id)) continue;
+    cost += COLLATERAL_WEIGHT * Math.abs(c.delta) / 100;
+  }
+  return cost;
 }
 
 /** The furthest a suggestion refines a piece already worn. See `refineMoves`. */
@@ -1054,11 +1089,24 @@ export class Suggester {
     tried.sort((a, b) => a.score - b.score);
 
     const moves: Move[] = [];
+    // Only a trade is judged on what it costs outside the goals, so this is
+    // worked out on the first one rather than for every slot asked about.
+    let outside: { covered: Relevance; totals: Totals } | null = null;
     const push = (kind: Move['kind'], label: string, state: SlotState, after: number[]) => {
       if (!this.respectsLocks(build, [{ slot: slotKey, state }])) return;
       const gain = baseline - scoreOf(this.goals, after);
       const sidegrade = gain <= EPSILON;
       if (sidegrade && !improvesAny(this.goals, before, after)) return;
+      // What a trade gains on the goals has to outweigh what it costs
+      // outside them: -160% regen for a little crit is not a sidegrade.
+      // Only the gains -- a trade between two goals is shown as one, and its
+      // cost to the goals is already on the row.
+      if (sidegrade) {
+        outside ??= { covered: relevanceOf(this.goals, this.data), totals: aggregate(build, this.data) };
+        const next = aggregate(applyChanges(build, [{ slot: slotKey, state }], this.data), this.data);
+        const cost = collateralCost(diffTotals(outside.totals, next, this.data), outside.covered, this.data);
+        if (tradeValue(this.goals, before, after, true) - cost <= EPSILON) return;
+      }
       moves.push({
         kind, label, changes: [{ slot: slotKey, state }], gain, before, after,
         ...(sidegrade ? { sidegrade } : {}),
@@ -1516,6 +1564,10 @@ export class Suggester {
     const before = this.values(build);
     const baseline = scoreOf(this.goals, before);
     const wideOpts = { ...this.opts, reach: anyGrind(reach) };
+    // What the goals, guards included, already account for; losses anywhere
+    // else are charged by `collateralCost`.
+    const covered = relevanceOf(this.goals, this.data);
+    const totalsBefore = aggregate(build, this.data);
 
     const candidates: Move[] = [];
     for (const goal of held) {
@@ -1530,13 +1582,15 @@ export class Suggester {
     const rated: { move: Move; value: number; rank: number; slot: string }[] = [];
     for (const move of dedupe(candidates)) {
       if (!this.respectsLocks(build, move.changes)) continue;
-      const after = this.values(applyChanges(build, move.changes, this.data));
+      const next = applyChanges(build, move.changes, this.data);
+      const after = this.values(next);
       const moved = held.map((g, i) => (g.guard ? 0 : (g.atMost ? -1 : 1) * (after[i] - before[i])));
       // Upgrades are listed as upgrades; this is for what costs something.
       if (!moved.some((d) => d < -EPSILON) || !moved.some((d) => d > EPSILON)) continue;
       // A trade may cost a goal; it may not cross a guard's line.
       if (brokenGoals(this.goals, before, after).some((g) => g.guard)) continue;
-      const value = tradeValue(held, before, after);
+      const value = tradeValue(held, before, after)
+        - collateralCost(diffTotals(totalsBefore, aggregate(next, this.data), this.data), covered, this.data);
       if (value <= EPSILON) continue;
       const highEffort = this.beyondReach(build, move, reach);
       rated.push({

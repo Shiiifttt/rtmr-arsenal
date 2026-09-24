@@ -18,6 +18,7 @@ import {
   REACH_KILL_FACTOR, REACH_REFINE_FLOOR, REFINE_MOVE_CAP, statsThatMatter,
   goalScore, goalStatus, isTwoHanded, measure, priorityWeight, SLOTS, Suggester, tableForSlot,
   tradeValue, type Move, type SuggestOptions,
+  collateralCost, COLLATERAL_WEIGHT, relevanceOf, statTone, type TotalsChange,
 } from '../src/index.ts';
 import type {
   Build, Dataset, Goal, Item, RollData, SetRecord, SlotState, StatDef,
@@ -961,8 +962,8 @@ test('roll advice picks the option that serves the goals, at the top of its rang
 });
 
 test('a skill-damage roll is aimed at a skill the goals name', () => {
-  const acc = itemList.find((i) => i.equip_slots.includes('Accessory') && i.kind === 'Accessory'
-    && (i.drops?.length ?? 0) > 0)!;
+  // One that says it rolls skill mods; a plain drop only rolls stats.
+  const acc = byName('Vesper Core01');
   const build = emptyBuild();
   build.slots.acc1 = { itemId: acc.id, refine: 0, cards: [] };
   const goal: Goal = { key: 'skill:Back Stab|damage', column: 'percent', target: 50 };
@@ -1097,4 +1098,18 @@ test('more of one goal looks past reach too, marked and ranked lower, off hand i
   }
   assert.ok(moves.some((m) => m.changes.some((c) => c.slot === 'offhand')),
     'an off-hand weapon counts at half, and half is still worth listing');
+});
+
+test('a loss on a stat no goal covers is charged to a trade, per 100% lost', () => {
+  const rel = relevanceOf([{ key: 'crit_rate', column: 'flat', target: 10 }], dataset);
+  const change = (key: string, column: 'flat' | 'percent', delta: number): TotalsChange => ({
+    key, column, label: key, delta, unit: column === 'percent' ? '%' : '', tone: statTone(key, delta),
+  });
+  // -160% HP and SP regen: the case that read as a free sidegrade.
+  assert.equal(collateralCost([change('hp_regen', 'percent', -80), change('sp_regen', 'percent', -80)],
+    rel, dataset), COLLATERAL_WEIGHT * 1.6);
+  // The goal's own stat is the goals' business, flat columns have no shared
+  // scale, and gains are no reason to trade.
+  assert.equal(collateralCost([change('crit_rate', 'percent', -50), change('max_hp', 'flat', -500),
+    change('hp_regen', 'percent', 40)], rel, dataset), 0);
 });

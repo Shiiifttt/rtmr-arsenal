@@ -1,5 +1,5 @@
 import type {
-  Effect, Item, RollData, RollGrant, RollOption, RollTable,
+  Effect, Item, RollData, RollDef, RollGrant, RollOption, RollTable,
 } from './types.ts';
 
 /**
@@ -54,13 +54,41 @@ export function rollsApply(table: RollTable, item: Item): boolean {
   return true;
 }
 
+/**
+ * Does this item roll this one roll? Only a gated roll can say no, and only
+ * by the item's description not naming it: most drops roll stats, and only
+ * the few that say "Skill Random Mods" roll a skill modifier as well.
+ */
+export function rollApplies(roll: RollDef, item: Item): boolean {
+  const says = roll.requires?.says;
+  if (!says?.length) return true;
+  const text = (item.description ?? '').toLowerCase();
+  return says.some((s) => text.includes(s.toLowerCase()));
+}
+
+/**
+ * The table with only the rolls this item gets, per roll gate. The same
+ * object for the same rolls, so a slot re-rendered or re-scored is not handed
+ * a fresh table every time.
+ */
+const NARROWED = new WeakMap<RollTable, Map<string, RollTable>>();
+
 /** What this item, in this slot, actually rolls. Null when it rolls nothing. */
 export function rollTableFor(
   data: RollData | null | undefined, slotKey: string, item: Item | null | undefined,
 ): RollTable | null {
   const table = tableForSlot(data, slotKey);
   if (!table || !item) return null;
-  return rollsApply(table, item) ? table : null;
+  if (!rollsApply(table, item)) return null;
+  const rolls = table.rolls.filter((r) => rollApplies(r, item));
+  if (rolls.length === table.rolls.length) return table;
+  if (rolls.length === 0) return null;
+  const sig = rolls.map((r) => r.key).join('|');
+  let byRolls = NARROWED.get(table);
+  if (!byRolls) NARROWED.set(table, byRolls = new Map());
+  let narrowed = byRolls.get(sig);
+  if (!narrowed) byRolls.set(sig, narrowed = { ...table, rolls });
+  return narrowed;
 }
 
 export function optionOf(table: RollTable, rollKey: string, optionKey: string | null) {

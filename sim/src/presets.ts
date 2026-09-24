@@ -26,8 +26,12 @@ export interface Playstyle {
    * the playstyle's own base-stat goals, ranked -- see `playstyleLeans`.
    */
   leans?: Partial<Record<keyof BaseStats, number>>;
-  /** In priority order, like the Goals panel. */
-  goals: Omit<Goal, 'target'>[];
+  /**
+   * In priority order, like the Goals panel. A `target` is a number worth
+   * reaching whatever the build has now -- 50 penetration -- and is kept
+   * only while the build is short of it.
+   */
+  goals: (Omit<Goal, 'target'> & { target?: number })[];
 }
 
 /** data/class-goals.json's `presets`: an empty list is a class with no combat. */
@@ -79,11 +83,13 @@ export function rankPlaystyles(
 /**
  * A playstyle as goals, each starting where the build already is.
  *
- * Nobody chose the numbers, so none are invented: every goal reads as met,
- * and the planner looks for upgrades along the playstyle's priorities rather
+ * Nobody chose the numbers, so none are invented: a goal reads as met, and
+ * the planner looks for upgrades along the playstyle's priorities rather
  * than chasing a target the player never set. Rounded towards "met", as
- * `goalsFromBuild` does. A goal on a metric this dataset no longer offers is
- * left out rather than added as a row nothing can move.
+ * `goalsFromBuild` does. The exception is a goal the file gives a target --
+ * penetration at 50 is close to a must for any damage build -- which starts
+ * short until the build reaches it. A goal on a metric this dataset no
+ * longer offers is left out rather than added as a row nothing can move.
  */
 export function goalsFromPlaystyle(
   style: Playstyle, build: Build, totals: Totals, data: Dataset,
@@ -94,7 +100,9 @@ export function goalsFromPlaystyle(
     .map((g) => {
       const goal: Goal = { ...g, target: 0 };
       const value = measure(goal, totals, build, data);
-      goal.target = (g.atMost ? Math.ceil(value * 100 - 1e-9) : Math.floor(value * 100 + 1e-9)) / 100;
+      const now = (g.atMost ? Math.ceil(value * 100 - 1e-9) : Math.floor(value * 100 + 1e-9)) / 100;
+      goal.target = g.target === undefined ? now
+        : g.atMost ? Math.min(g.target, now) : Math.max(g.target, now);
       return goal;
     });
 }

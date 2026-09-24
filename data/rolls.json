@@ -18,7 +18,12 @@
     "",
     "'requires' gates a table on the item rather than the slot. Headgear and",
     "accessories roll only when the item is a monster drop, which the crawled",
-    "drop lists already answer."
+    "drop lists already answer.",
+    "",
+    "'requires' on a roll gates that one roll on the item: 'says' lists phrases,",
+    "any of which the item's description must contain (case aside). Normal gear",
+    "rolls a skill modifier only when it says so -- Vesper Cores, Kafra Ring,",
+    "Sombrero, Death Hand, Honor of the Fallen, Temporal Manteau."
   ],
   "tables": [
     {
@@ -349,7 +354,14 @@
                 }
               ]
             }
-          ]
+          ],
+          "note": "Normal gear rolls a skill modifier only when its description says so (\"Skill Random Mods\"); shadow gear always can.",
+          "requires": {
+            "says": [
+              "skill random",
+              "skill mod"
+            ]
+          }
         }
       ]
     },
@@ -508,7 +520,14 @@
                 }
               ]
             }
-          ]
+          ],
+          "note": "Normal gear rolls a skill modifier only when its description says so (\"Skill Random Mods\"); shadow gear always can.",
+          "requires": {
+            "says": [
+              "skill random",
+              "skill mod"
+            ]
+          }
         }
       ]
     },
@@ -904,6 +923,33 @@
               ]
             }
           ]
+        },
+        {
+          "key": "skill",
+          "label": "Skill modifier",
+          "options": [
+            {
+              "key": "skill_mod",
+              "label": "Skill damage",
+              "note": "Which skill is on the item itself; type it in so the line reads back.",
+              "grants": [
+                {
+                  "skill": true,
+                  "unit": "%",
+                  "min": 5,
+                  "max": 5,
+                  "stat_id": null
+                }
+              ]
+            }
+          ],
+          "note": "Normal gear rolls a skill modifier only when its description says so (\"Skill Random Mods\"); shadow gear always can.",
+          "requires": {
+            "says": [
+              "skill random",
+              "skill mod"
+            ]
+          }
         }
       ]
     },

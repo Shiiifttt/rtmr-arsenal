@@ -93,7 +93,7 @@ test('Night Raven: high STR counters, low STR and high LUK auto-attacks', () => 
   assert.equal(pick('Night Raven', { str: 1, agi: 60, luk: 100, dex: 40 }), 'Raven auto-attack (LUK)');
 });
 
-test('goals from a playstyle start met, in the playstyle\'s order', () => {
+test('goals from a playstyle start met, in the playstyle\'s order, bar a set target', () => {
   const slots: Record<string, SlotState> = {};
   for (const s of SLOTS) slots[s.key] = { itemId: null, refine: 0, cards: [] };
   const build: Build = {
@@ -103,6 +103,21 @@ test('goals from a playstyle start met, in the playstyle\'s order', () => {
   const style = presets.Satsujin[0];
   const goals = goalsFromPlaystyle(style, build, totals, dataset);
   assert.deepEqual(goals.map((g) => g.key), style.goals.map((g) => g.key));
-  assert.ok(goalStatus(goals, totals, build, dataset).every((s) => s.met));
+  const status = goalStatus(goals, totals, build, dataset);
+  // Penetration is the one goal with a number of its own, and a naked
+  // character is short of it; everything else starts where the build is.
+  assert.deepEqual(status.filter((s) => !s.met).map((s) => s.goal.key), ['def_pen']);
+  assert.equal(goals.find((g) => g.key === 'def_pen')?.target, 50);
   assert.equal(goals.find((g) => g.key === 'agi')?.target, 90);
+});
+
+test('every damage playstyle chases penetration to 50, right after its main stat', () => {
+  for (const [cls, styles] of Object.entries(presets)) {
+    if (cls === 'Orphan') continue;
+    for (const s of styles) {
+      const at = s.goals.findIndex((g) => g.key === 'def_pen' || g.key === 'mdef_pen');
+      assert.equal(at, 1, `${cls} / ${s.name}`);
+      assert.equal(s.goals[at].target, 50, `${cls} / ${s.name}`);
+    }
+  }
 });

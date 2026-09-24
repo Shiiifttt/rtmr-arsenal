@@ -3,9 +3,10 @@
   "Hand-maintained starting goals per class, for players with no goals yet.",
   "Each class lists playstyles, the first one being the default. A playstyle's",
   "goals are in priority order, the same way the Goals panel orders them.",
-  "Targets are not stored: filling a preset starts each goal at the build's",
-  "current value, so the planner looks for upgrades rather than chasing numbers",
-  "nobody chose. confidence: \"from play\" / \"stated\" (class note names the stats)",
+  "Targets are mostly not stored: filling a preset starts each goal at the",
+  "build's current value, so the planner looks for upgrades rather than chasing",
+  "numbers nobody chose. A goal with a \"target\" (penetration at 50) keeps it",
+  "while the build is short of it. confidence: \"from play\" / \"stated\" (class note names the stats)",
   "/ \"guess\" (read from skill scaling) / \"weak guess\" (skills are ambiguous).",
   "An empty list means the class has no combat to plan for.",
   "The playstyle offered first is the one the character's base stats lean",
@@ -35,6 +36,7 @@
     "basis": "Back Stab +1%/AGI, tripled when single-wielding a dagger. The most direct path to Assassin.",
     "goals": [
      { "key": "agi", "column": "total" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "atk", "column": "percent" },
      { "key": "skill:Back Stab|damage", "column": "percent" },
      { "key": "any_target_dmg", "column": "percent" },
@@ -48,6 +50,7 @@
     "basis": "Rolling Cutter and Cross Ripper Slasher +1%/VIT, sword/axe/katar.",
     "goals": [
      { "key": "vit", "column": "total" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "atk", "column": "percent" },
      { "key": "skill:Rolling Cutter|damage", "column": "percent" },
      { "key": "skill:Cross Ripper Slasher|damage", "column": "percent" },
@@ -61,6 +64,7 @@
     "basis": "Flaming Petals / Freezing Spear / Wind Blade are MATK hits, also autocast by Auto Spell.",
     "goals": [
      { "key": "int", "column": "total" },
+     { "key": "mdef_pen", "column": "flat", "target": 50 },
      { "key": "matk", "column": "percent" },
      { "key": "magic_damage", "column": "percent" },
      { "key": "any_target_magic", "column": "percent" },
@@ -74,6 +78,7 @@
     "basis": "Double Strafe into Arrow Shower, +1%/DEX on Combo Ready.",
     "goals": [
      { "key": "dex", "column": "total" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "atk", "column": "percent" },
      { "key": "ranged_damage", "column": "percent" },
      { "key": "skill:Double Strafe|damage", "column": "percent" },
@@ -90,6 +95,7 @@
     "basis": "Sonic Blow +2%/LUK and can crit; Impact Tooth +1%/LUK; Katar Mastery and Fury add crit, doubled with katars. Leads to Executioner.",
     "goals": [
      { "key": "crit_rate", "column": "flat" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "crit_damage", "column": "percent" },
      { "key": "luk", "column": "total" },
      { "key": "atk", "column": "percent" },
@@ -104,6 +110,7 @@
     "basis": "Burst Petals and Silent Strike +2%/DEX, dagger or sword, Burst Petals has 1.5s variable cast.",
     "goals": [
      { "key": "dex", "column": "total" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "atk", "column": "percent" },
      { "key": "skill:Silent Strike|damage", "column": "percent" },
      { "key": "skill:Burst Petals|damage", "column": "percent" },
@@ -117,6 +124,7 @@
     "basis": "Axe Tornado and Boomeraxe +1%/VIT, Axe Mastery adds HP. Leads to Scoundrel.",
     "goals": [
      { "key": "vit", "column": "total" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "atk", "column": "percent" },
      { "key": "skill:Axe Tornado|damage", "column": "percent" },
      { "key": "skill:Boomeraxe|damage", "column": "percent" },
@@ -132,6 +140,7 @@
     "basis": "Overpower +2%/STR, Wind Slash +2%/STR and can crit, Face-Off +1%/STR. Wind Slash and Face-Off reach 5+ cells, so they count as ranged.",
     "goals": [
      { "key": "str", "column": "total" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "atk", "column": "percent" },
      { "key": "skill:Wind Slash|damage", "column": "percent" },
      { "key": "ranged_damage", "column": "percent" },
@@ -146,6 +155,7 @@
     "basis": "Arrow Vulcan +1%/DEX and STR, more on Combo Ready. Leads to Deadeye.",
     "goals": [
      { "key": "dex", "column": "total" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "str", "column": "total" },
      { "key": "atk", "column": "percent" },
      { "key": "ranged_damage", "column": "percent" },
@@ -159,6 +169,7 @@
     "basis": "Shield Boomerang +1%/VIT and shield refine/weight; Shield Mastery adds HP. Leads to Duelist.",
     "goals": [
      { "key": "vit", "column": "total" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "max_hp", "column": "percent" },
      { "key": "skill:Shield Boomerang|damage", "column": "percent" },
      { "key": "atk", "column": "percent" },
@@ -172,6 +183,7 @@
     "basis": "Throw Acid +2%/INT, Throw Molotov +1%/INT, both magic. Leads to Saboteur.",
     "goals": [
      { "key": "int", "column": "total" },
+     { "key": "mdef_pen", "column": "flat", "target": 50 },
      { "key": "matk", "column": "percent" },
      { "key": "skill:Throw Acid|damage", "column": "percent" },
      { "key": "skill:Throw Molotov|damage", "column": "percent" },
@@ -187,6 +199,7 @@
     "basis": "Southern Cross (both hands) and Counter Slash +1%/AGI; Weapon Blocking needs dual wield.",
     "goals": [
      { "key": "agi", "column": "total" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "atk", "column": "percent" },
      { "key": "skill:Southern Cross|damage", "column": "percent" },
      { "key": "skill:Counter Slash|damage", "column": "percent" },
@@ -203,6 +216,7 @@
     "basis": "Alpha and Omega +2%/LUK and can crit; Omega is not boosted by melee bonuses, so DMG vs target over Melee %.",
     "goals": [
      { "key": "crit_rate", "column": "flat" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "crit_damage", "column": "percent" },
      { "key": "luk", "column": "total" },
      { "key": "atk", "column": "percent" },
@@ -218,6 +232,7 @@
     "basis": "Meteor Rush +3%/AGI, 11-cell line AoE (ranged), can crit.",
     "goals": [
      { "key": "agi", "column": "total" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "crit_rate", "column": "flat" },
      { "key": "crit_damage", "column": "percent" },
      { "key": "atk", "column": "percent" },
@@ -234,6 +249,7 @@
     "basis": "Cursed Coffin +8%/LUK and Desolated Burial +7%/LUK after Omega, both crit; Loki's Veil adds +2%/INT. Long cast when used alone.",
     "goals": [
      { "key": "luk", "column": "total" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "crit_rate", "column": "flat" },
      { "key": "crit_damage", "column": "percent" },
      { "key": "atk", "column": "percent" },
@@ -249,6 +265,7 @@
     "basis": "Cross Impact +1%/AGI, +2%/DEX under Loki's Veil, 7 hits crit at half rate. Not affected by DMG % cards, so no DMG vs target goal.",
     "goals": [
      { "key": "dex", "column": "total" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "agi", "column": "total" },
      { "key": "atk", "column": "percent" },
      { "key": "crit_rate", "column": "flat" },
@@ -265,6 +282,7 @@
     "basis": "Venom Buster is magic, +4%/INT, tripled vs poisoned targets.",
     "goals": [
      { "key": "int", "column": "total" },
+     { "key": "mdef_pen", "column": "flat", "target": 50 },
      { "key": "matk", "column": "percent" },
      { "key": "skill:Venom Buster|damage", "column": "percent" },
      { "key": "magic_damage", "column": "percent" },
@@ -278,6 +296,7 @@
     "basis": "Venom Splasher +4%/VIT, physical 9x9.",
     "goals": [
      { "key": "vit", "column": "total" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "atk", "column": "percent" },
      { "key": "skill:Venom Splasher|damage", "column": "percent" },
      { "key": "any_target_dmg", "column": "percent" },
@@ -292,6 +311,7 @@
     "basis": "Mjolnir Fall +5%/VIT (11 cells, ranged), Spiral Blade +2%/VIT, Rupture Axe VIT; +2%/INT vs Deadly Poisoned. Costs Max HP per cast.",
     "goals": [
      { "key": "vit", "column": "total" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "max_hp", "column": "percent" },
      { "key": "atk", "column": "percent" },
      { "key": "skill:Mjolnir Fall|damage", "column": "percent" },
@@ -308,6 +328,7 @@
     "basis": "Plague Impress +2%/INT (+4% on poisoned) and Death Cloud +1%/INT, both magic.",
     "goals": [
      { "key": "int", "column": "total" },
+     { "key": "mdef_pen", "column": "flat", "target": 50 },
      { "key": "matk", "column": "percent" },
      { "key": "skill:Plague Impress|damage", "column": "percent" },
      { "key": "skill:Death Cloud|damage", "column": "percent" },
@@ -323,6 +344,7 @@
     "basis": "Thousand Arms +5%/AGI 7x7, costs 5% HP. Daggers only.",
     "goals": [
      { "key": "agi", "column": "total" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "atk", "column": "percent" },
      { "key": "skill:Thousand Arms|damage", "column": "percent" },
      { "key": "any_target_dmg", "column": "percent" },
@@ -336,6 +358,7 @@
     "basis": "Samsara Burst +0.25%/INT per pulse plus a Seven Winds stat; Makibishi +2%/DEX.",
     "goals": [
      { "key": "int", "column": "total" },
+     { "key": "mdef_pen", "column": "flat", "target": 50 },
      { "key": "skill:Samsara Burst|damage", "column": "percent" },
      { "key": "matk", "column": "percent" },
      { "key": "any_target_magic", "column": "percent" },
@@ -354,6 +377,7 @@
     },
     "goals": [
      { "key": "agi", "column": "total" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "flee", "column": "total" },
      { "key": "atk", "column": "percent" },
      { "key": "skill:Full Moon Blades|damage", "column": "percent" },
@@ -369,6 +393,7 @@
     "basis": "Darkness Falls +7%/INT, Darkness Flows +3%/INT, Frozen / Zephyr Winds INT (+DEX on Soul Curse).",
     "goals": [
      { "key": "int", "column": "total" },
+     { "key": "mdef_pen", "column": "flat", "target": 50 },
      { "key": "matk", "column": "percent" },
      { "key": "skill:Darkness Falls|damage", "column": "percent" },
      { "key": "skill:Darkness Flows|damage", "column": "percent" },
@@ -385,6 +410,7 @@
     "basis": "From play: high STR means Counter Slash and Typhoon Edge. Typhoon Edge +1%/STR, Counter Slash +1%/AGI and Steel Wings adds AGI x level.",
     "goals": [
      { "key": "str", "column": "total" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "atk", "column": "percent" },
      { "key": "skill:Counter Slash|damage", "column": "percent" },
      { "key": "agi", "column": "total" },
@@ -404,6 +430,7 @@
     },
     "goals": [
      { "key": "luk", "column": "total" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "dex", "column": "total" },
      { "key": "ranged_damage", "column": "percent" },
      { "key": "skill:Blitz Beat|damage", "column": "percent" },
@@ -419,6 +446,7 @@
     "basis": "Class note: main stats STR and AGI, auto-attack focus. Frenzy sets ASPD to 193 and blocks healing, so leech carries HP.",
     "goals": [
      { "key": "str", "column": "total" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "agi", "column": "total" },
      { "key": "atk", "column": "percent" },
      { "key": "crit_rate", "column": "flat" },
@@ -435,6 +463,7 @@
     "basis": "Dual daggers, Relentless Daggers / Harness Speed for ASPD and crit, Harness Magic adds MATK to hits. Frenzy blocks healing, so leech carries HP.",
     "goals": [
      { "key": "atk", "column": "percent" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "crit_rate", "column": "flat" },
      { "key": "crit_damage", "column": "percent" },
      { "key": "any_target_dmg", "column": "percent" },
@@ -452,6 +481,7 @@
     "basis": "Headshot +10%/DEX, always crit in Sniper Nest, so crit damage over crit rate; Aimed Bolt +1%/DEX; Headshot has 1.5-2.3s fixed cast.",
     "goals": [
      { "key": "dex", "column": "total" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "atk", "column": "percent" },
      { "key": "crit_damage", "column": "percent" },
      { "key": "ranged_damage", "column": "percent" },
@@ -468,6 +498,7 @@
     "basis": "Arrow Storm +4%/DEX (+6% on Finisher Ready), GodHand Arrow +1%/DEX. Heavy Max SP costs.",
     "goals": [
      { "key": "dex", "column": "total" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "atk", "column": "percent" },
      { "key": "ranged_damage", "column": "percent" },
      { "key": "skill:Arrow Storm|damage", "column": "percent" },
@@ -482,6 +513,7 @@
     "basis": "Inquisition Resolve multi-hits and Final Arrow +100%/level on normal shots.",
     "goals": [
      { "key": "atk", "column": "percent" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "ranged_damage", "column": "percent" },
      { "key": "dex", "column": "total" },
      { "key": "aspd", "column": "percent" },
@@ -496,6 +528,7 @@
     "basis": "Retribution +5%/VIT plus +3%/VIT per counter; Riposte always crits off VIT/LUK; Delta Skyfall +3%/AGI, 7+ cells (ranged).",
     "goals": [
      { "key": "vit", "column": "total" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "max_hp", "column": "percent" },
      { "key": "atk", "column": "percent" },
      { "key": "skill:Retribution|damage", "column": "percent" },
@@ -513,6 +546,7 @@
     "basis": "Check Mate +10% Max HP, Rook's Smash +1/5 HP, Queen's Brand +3%/VIT and HP, King's Chains VIT/STR and +1% per DEF, 7+ cells (ranged). From play: damage from Max HP.",
     "goals": [
      { "key": "max_hp", "column": "percent" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "vit", "column": "total" },
      { "key": "skill:Queen's Brand|damage", "column": "percent" },
      { "key": "skill:King's Chains|damage", "column": "percent" },
@@ -531,6 +565,7 @@
     "basis": "Eruption and Unholy Light are MATK spells boosted by Focus; Water Ball +1%/INT; Arcane Flow for cast time.",
     "goals": [
      { "key": "int", "column": "total" },
+     { "key": "mdef_pen", "column": "flat", "target": 50 },
      { "key": "matk", "column": "percent" },
      { "key": "magic_damage", "column": "percent" },
      { "key": "any_target_magic", "column": "percent" },
@@ -548,14 +583,14 @@
     "basis": "Elemental spells +3%/INT with 5s variable / 2.3s fixed cast and 5s cooldowns; Tetragrammaton +4%/INT; Comet +15%/INT.",
     "goals": [
      { "key": "int", "column": "total" },
+     { "key": "mdef_pen", "column": "flat", "target": 50 },
      { "key": "matk", "column": "percent" },
      { "key": "skill:Tetragrammaton|damage", "column": "percent" },
      { "key": "skill:Fire/Water/Wind/Earth Magic|damage", "column": "percent" },
      { "key": "any_target_magic", "column": "percent" },
      { "key": "variable_cast", "column": "percent", "atMost": true },
      { "key": "fixed_cast", "column": "flat", "atMost": true },
-     { "key": "cooldown", "column": "flat", "atMost": true },
-     { "key": "mdef_pen", "column": "flat" }
+     { "key": "cooldown", "column": "flat", "atMost": true }
     ]
    }
   ],
@@ -566,6 +601,7 @@
     "basis": "Greater Explosion +4%/INT and Burning Field +1%/INT, both magic; Hot Trap is fixed INT x DEX damage.",
     "goals": [
      { "key": "int", "column": "total" },
+     { "key": "mdef_pen", "column": "flat", "target": 50 },
      { "key": "matk", "column": "percent" },
      { "key": "skill:Greater Explosion|damage", "column": "percent" },
      { "key": "skill:Burning Field|damage", "column": "percent" },
@@ -582,6 +618,7 @@
     "basis": "Acid Demonstration +2%/INT and DEX, ignores DEF and flee; Cluster Bomb and Cold Trap scale off INT and DEX.",
     "goals": [
      { "key": "int", "column": "total" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "dex", "column": "total" },
      { "key": "skill:Acid Demonstration|damage", "column": "percent" },
      { "key": "skill:Cluster Bomb|damage", "column": "percent" },
@@ -595,6 +632,7 @@
     "basis": "Rolling Flames +2%/STR and DEX, Claymore Trap fixed STR damage.",
     "goals": [
      { "key": "str", "column": "total" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "dex", "column": "total" },
      { "key": "atk", "column": "percent" },
      { "key": "skill:Rolling Flames|damage", "column": "percent" },
@@ -610,6 +648,7 @@
     "basis": "Shadow Slash +1%/LUK, 3 crit attempts; Cloaking adds crit.",
     "goals": [
      { "key": "luk", "column": "total" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "crit_rate", "column": "flat" },
      { "key": "crit_damage", "column": "percent" },
      { "key": "atk", "column": "percent" },
@@ -623,6 +662,7 @@
     "basis": "Arrow Vulcan +1%/DEX and STR.",
     "goals": [
      { "key": "dex", "column": "total" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "str", "column": "total" },
      { "key": "atk", "column": "percent" },
      { "key": "ranged_damage", "column": "percent" },
@@ -638,6 +678,7 @@
     "basis": "Shadow Slash+ at Lv 11-13 with no SP cost.",
     "goals": [
      { "key": "luk", "column": "total" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "crit_rate", "column": "flat" },
      { "key": "crit_damage", "column": "percent" },
      { "key": "atk", "column": "percent" },
@@ -651,6 +692,7 @@
     "basis": "Sonic Blow+ at Lv 11-13 with reduced cooldown, +2%/LUK, can crit.",
     "goals": [
      { "key": "luk", "column": "total" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "crit_rate", "column": "flat" },
      { "key": "crit_damage", "column": "percent" },
      { "key": "atk", "column": "percent" },
@@ -667,6 +709,7 @@
     "basis": "Arrow Vulcan+ at Lv 11-13 with no cast time.",
     "goals": [
      { "key": "dex", "column": "total" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "str", "column": "total" },
      { "key": "atk", "column": "percent" },
      { "key": "ranged_damage", "column": "percent" },
@@ -680,6 +723,7 @@
     "basis": "Wind Slash+ at Lv 11-13 with reduced cooldown, +2%/STR, can crit, 5+ cells (ranged).",
     "goals": [
      { "key": "str", "column": "total" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "atk", "column": "percent" },
      { "key": "skill:Wind Slash|damage", "column": "percent" },
      { "key": "ranged_damage", "column": "percent" },
@@ -696,6 +740,7 @@
     "basis": "Delta Skyfall +3%/AGI, Meteor Rush +3%/AGI (can crit), Southern Cross +1%/AGI. Shadow sets count as +3 refine.",
     "goals": [
      { "key": "agi", "column": "total" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "atk", "column": "percent" },
      { "key": "skill:Delta Skyfall|damage", "column": "percent" },
      { "key": "skill:Meteor Rush|damage", "column": "percent" },
@@ -711,6 +756,7 @@
     "basis": "Soul Destroyer +5%/INT, Greater Explosion +4%/INT, Unholy Light; all magic.",
     "goals": [
      { "key": "int", "column": "total" },
+     { "key": "mdef_pen", "column": "flat", "target": 50 },
      { "key": "matk", "column": "percent" },
      { "key": "skill:Soul Destroyer|damage", "column": "percent" },
      { "key": "skill:Greater Explosion|damage", "column": "percent" },
@@ -726,6 +772,7 @@
     "basis": "Heavy Stab +3%/VIT, Dragon Thrust +1%/STR and VIT, Wind Cutter +2%/VIT with a 1H spear; Weapon Quicken adds +2%/AGI.",
     "goals": [
      { "key": "vit", "column": "total" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "str", "column": "total" },
      { "key": "atk", "column": "percent" },
      { "key": "skill:Heavy Stab|damage", "column": "percent" },
@@ -742,6 +789,7 @@
     "basis": "Dragon Breath +5%/VIT and boosted by long-range amplifiers; Dragon Claw +1%/VIT and DEX.",
     "goals": [
      { "key": "vit", "column": "total" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "max_hp", "column": "percent" },
      { "key": "atk", "column": "percent" },
      { "key": "ranged_damage", "column": "percent" },
@@ -756,6 +804,8 @@
     "basis": "Crescent Dive +1%/STR and AGI (+1%/AGI under Weapon Quicken); Geirskogul is wind magic +2%/STR and INT.",
     "goals": [
      { "key": "str", "column": "total" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
+     { "key": "mdef_pen", "column": "flat", "target": 50 },
      { "key": "agi", "column": "total" },
      { "key": "atk", "column": "percent" },
      { "key": "skill:Crescent Dive|damage", "column": "percent" },
@@ -772,6 +822,7 @@
     "basis": "Class note: main stats STR and LUK. Scythe Reap and Sweeping Slash +2%/LUK and crit; Hellraiser +3%/LUK. Low HP, steals HP.",
     "goals": [
      { "key": "luk", "column": "total" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "str", "column": "total" },
      { "key": "crit_rate", "column": "flat" },
      { "key": "crit_damage", "column": "percent" },
@@ -789,6 +840,7 @@
     "basis": "Class note: main stats STR and LUK. Reaping Slash and Roaring Overslash +2%/LUK and crit; Ominous Presence turns leech into shields.",
     "goals": [
      { "key": "luk", "column": "total" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "str", "column": "total" },
      { "key": "crit_rate", "column": "flat" },
      { "key": "crit_damage", "column": "percent" },
@@ -807,6 +859,7 @@
     "basis": "Rapid Chain / Smashing Uppercut +VIT per Combo Stack, Heroic Landing +2%/VIT; punches cost 5-7% Max SP.",
     "goals": [
      { "key": "vit", "column": "total" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "atk", "column": "percent" },
      { "key": "skill:Smashing Uppercut|damage", "column": "percent" },
      { "key": "skill:Rapid Chain|damage", "column": "percent" },
@@ -823,6 +876,7 @@
     "basis": "Thug Might +4%/VIT, Swanton Bomb +3%/VIT and +50% Max HP; Ruthless Mastery boosts single-target skills.",
     "goals": [
      { "key": "max_hp", "column": "percent" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "vit", "column": "total" },
      { "key": "atk", "column": "percent" },
      { "key": "skill:Thug Might|damage", "column": "percent" },
@@ -837,6 +891,7 @@
     "basis": "Momentum Mastery shortens Smashing Uppercut by alternating Rapid Chain and Triple Threat.",
     "goals": [
      { "key": "vit", "column": "total" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "atk", "column": "percent" },
      { "key": "skill:Smashing Uppercut|damage", "column": "percent" },
      { "key": "skill:Rapid Chain|damage", "column": "percent" },
@@ -851,6 +906,7 @@
     "basis": "Rebounding Bash +2%/DEX and repeats at DEX% chance; Cross Punch +3%/DEX and Diplomacy +4%/LUK can crit.",
     "goals": [
      { "key": "dex", "column": "total" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "luk", "column": "total" },
      { "key": "crit_rate", "column": "flat" },
      { "key": "crit_damage", "column": "percent" },
@@ -867,6 +923,7 @@
     "basis": "Class note: main stats DEX and AGI or VIT. Violent Barrage +2%/AGI and +3%/DEX on combo; Absolution adds auto-attack hits; Death Sentence +3%/DEX.",
     "goals": [
      { "key": "dex", "column": "total" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "agi", "column": "total" },
      { "key": "atk", "column": "percent" },
      { "key": "ranged_damage", "column": "percent" },
@@ -882,6 +939,7 @@
     "basis": "Class note: the \"or VIT\" variant. Scathe +3%/VIT.",
     "goals": [
      { "key": "dex", "column": "total" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "vit", "column": "total" },
      { "key": "atk", "column": "percent" },
      { "key": "ranged_damage", "column": "percent" },
@@ -898,6 +956,7 @@
     "basis": "Every whip skill scales off DEX: Lashing Andromeda +4%/DEX (can crit, 7 cells so ranged), Eternal Chain and Conviction +2%/DEX (3 cells, melee). Costs are % Max SP.",
     "goals": [
      { "key": "dex", "column": "total" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "atk", "column": "percent" },
      { "key": "skill:Lashing Andromeda|damage", "column": "percent" },
      { "key": "skill:Eternal Chain|damage", "column": "percent" },
@@ -914,6 +973,7 @@
     "basis": "Class note: main stat LUK. Gift Card and Arcana of Destiny +3%/LUK, Double Down can crit; Card Mastery adds ASPD.",
     "goals": [
      { "key": "luk", "column": "total" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "atk", "column": "percent" },
      { "key": "skill:Gift Card|damage", "column": "percent" },
      { "key": "skill:Arcana of Destiny|damage", "column": "percent" },
@@ -931,6 +991,7 @@
     "basis": "Night Menace and Fatal Menace +3%/STR on Combo Ready, Vengeance +1%/STR, Shatter Cross +10%/STR vs frozen; damage rises with missing HP, Black Heart leeches.",
     "goals": [
      { "key": "str", "column": "total" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "atk", "column": "percent" },
      { "key": "skill:Night Menace|damage", "column": "percent" },
      { "key": "skill:Fatal Menace|damage", "column": "percent" },
@@ -948,6 +1009,7 @@
     "basis": "Instant Draw +3%/AGI and +2% per bonus ASPD rate; every Ronin skill can crit with a one-handed sword, and Hit no longer matters.",
     "goals": [
      { "key": "agi", "column": "total" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "crit_rate", "column": "flat" },
      { "key": "crit_damage", "column": "percent" },
      { "key": "atk", "column": "percent" },
@@ -962,6 +1024,7 @@
     "basis": "Ascending / Descending Steel +2%/INT, Void Dash +1%/INT and +1% per bonus Move Speed.",
     "goals": [
      { "key": "int", "column": "total" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "crit_damage", "column": "percent" },
      { "key": "atk", "column": "percent" },
      { "key": "skill:Descending Steel|damage", "column": "percent" },
@@ -978,6 +1041,7 @@
     "basis": "Shadowstab, Whirling Kunai and Flying Knife scale off DEX (Macabre adds more); Shadowstab speed comes from ASPD and after-cast delay.",
     "goals": [
      { "key": "dex", "column": "total" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
      { "key": "atk", "column": "percent" },
      { "key": "skill:Shadowstab|damage", "column": "percent" },
      { "key": "after_cast_delay", "column": "percent", "atMost": true },
@@ -994,6 +1058,7 @@
     "basis": "Class note: main stats INT and DEX. Real Magic Attack +1%/INT, Illusion of Vermilion +5%/INT.",
     "goals": [
      { "key": "int", "column": "total" },
+     { "key": "mdef_pen", "column": "flat", "target": 50 },
      { "key": "dex", "column": "total" },
      { "key": "matk", "column": "percent" },
      { "key": "skill:Real Magic Attack|damage", "column": "percent" },
@@ -1010,6 +1075,7 @@
     "basis": "Umbral Cut +2%/INT with a long variable cast; autospells fire on hits, so attack speed feeds them.",
     "goals": [
      { "key": "int", "column": "total" },
+     { "key": "mdef_pen", "column": "flat", "target": 50 },
      { "key": "matk", "column": "percent" },
      { "key": "magic_damage", "column": "percent" },
      { "key": "any_target_magic", "column": "percent" },
@@ -1027,6 +1093,8 @@
     "basis": "Originality uses ATK and MATK; Abracadabra casts anything; every skill has +1s cooldown.",
     "goals": [
      { "key": "atk", "column": "percent" },
+     { "key": "def_pen", "column": "flat", "target": 50 },
+     { "key": "mdef_pen", "column": "flat", "target": 50 },
      { "key": "matk", "column": "percent" },
      { "key": "any_target_dmg", "column": "percent" },
      { "key": "any_target_magic", "column": "percent" },
