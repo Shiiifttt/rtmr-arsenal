@@ -468,7 +468,28 @@ _SKILLS_FILE = Path(__file__).resolve().parent.parent / "data" / "raw" / "skilln
 _SKILL_CACHE: dict[str, str] | None = None
 
 # Written the short way in tooltips; the skill list spells them out.
-_SKILL_ALIASES = {"increase agi": "Increase Agility", "back stab": "Backstab"}
+# "increase agi" is shortened past what squashing can recover -- the skill is
+# "Increase Agility" -- so it stays written out. "back stab" used to be here
+# mapping to "Backstab", which is not a spelling the server uses at all: its
+# own list says "Back Stab", and the squashed match now reaches it from
+# either spelling.
+_SKILL_ALIASES = {"increase agi": "Increase Agility"}
+
+# Misspelled in the tooltips themselves, and too far off for the squashed
+# match to reach: a letter wrong rather than a space or a full stop. Each
+# target is a name on the server's own skill list, checked before it was
+# written here, and each was splitting one skill's total across two or
+# three entries -- Shield Boomerang was landing in three places at once.
+#
+# Kept apart from the aliases above because the reason differs. Those are
+# tooltips writing a real name the short way; these are tooltips getting a
+# real name wrong.
+_SKILL_TYPOS = {
+    "shield boomerange": "Shield Boomerang",
+    "shield boomerand": "Shield Boomerang",
+    "thow molotov": "Throw Molotov",
+    "illusion of vermillion": "Illusion of Vermilion",
+}
 
 # Words that mark a phrase as being about skills in general, or a group,
 # rather than naming one: "All 4 skills Damage", "Thief Spells Damage".
@@ -476,32 +497,72 @@ _NOT_A_SKILL = re.compile(
     r"\d|^\(|\b(all|skills?|spells?|every|each|these|them|basic|immune)\b", re.I)
 
 
-def _known_skills() -> dict[str, str]:
-    """lower-case name -> the server's own spelling, from the crawled list."""
+def _squash(name: str) -> str:
+    """A skill name with everything a tooltip is careless about removed.
+
+    Spacing, punctuation, case and a trailing plural, so "Hell Raiser",
+    "Shadow Stab", "Mr Bombastic" and "King's Chain" reach Hellraiser,
+    Shadowstab, Mr. Bombastic and King's Chains. Each of those was showing
+    up as a second skill alongside the real one, splitting its total in two.
+
+    The trailing "+" is kept, because on this server it is a different
+    skill and not a flourish: Sonic Blow and Sonic Blow+ both exist, and
+    eight pairs like them would collapse into each other without it. With
+    it, all 445 skills squash to 445 distinct forms.
+    """
+    s = re.sub(r"[^a-z0-9+]", "", name.lower())
+    plus = s.endswith("+")
+    if plus:
+        s = s[:-1]
+    if s.endswith("s"):
+        s = s[:-1]
+    return s + ("+" if plus else "")
+
+
+def _known_skills() -> tuple[dict[str, str], dict[str, str]]:
+    """The crawled skill list, by exact lower-case name and by squashed form.
+
+    The squashed index only holds forms that exactly one skill has, so a
+    loose match can never silently pick between two real skills.
+    """
     global _SKILL_CACHE
     if _SKILL_CACHE is None:
-        _SKILL_CACHE = {}
+        exact: dict[str, str] = {}
+        squashed: dict[str, str] = {}
+        clashed: set[str] = set()
         try:
             import json
             data = json.loads(_SKILLS_FILE.read_text(encoding="utf-8"))
             for row in data.get("skills", []):
                 name = row[0] if isinstance(row, list) else row
-                if isinstance(name, str):
-                    _SKILL_CACHE[name.lower()] = name
+                if not isinstance(name, str):
+                    continue
+                exact[name.lower()] = name
+                key = _squash(name)
+                if key in squashed and squashed[key] != name:
+                    clashed.add(key)
+                squashed[key] = name
         except (OSError, ValueError):
             pass
+        for key in clashed:
+            squashed.pop(key, None)
+        _SKILL_CACHE = (exact, squashed)
     return _SKILL_CACHE
 
 
 def _one_skill(text: str) -> str | None:
     t = text.strip().lower()
-    known = _known_skills()
+    known, loose = _known_skills()
     for cand in (t, t[:-1] if t.endswith("s") else None):
         if cand and cand in known:
             return known[cand]
         if cand and cand in _SKILL_ALIASES:
             return _SKILL_ALIASES[cand]
-    return None
+        if cand and cand in _SKILL_TYPOS:
+            return _SKILL_TYPOS[cand]
+    # Nothing matched as written. Try again ignoring what a tooltip is
+    # careless about, which is where the one-character splits come from.
+    return loose.get(_squash(t))
 
 
 def canonical_skills(skill_text: str) -> list[str]:

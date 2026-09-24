@@ -271,8 +271,10 @@ test('putting on a two-handed weapon clears the off hand', () => {
 });
 
 test('a skill modifier can be a goal, and suggestions chase it', () => {
-  const metric = goalMetrics(dataset).find((m) => m.key === 'skill:Backstab|damage');
-  assert.ok(metric, 'expected Backstab damage to be offered as a goal');
+  // "Back Stab" as the server's own skill list spells it. The tooltips
+  // write it both ways; the parser snaps both onto the official name.
+  const metric = goalMetrics(dataset).find((m) => m.key === 'skill:Back Stab|damage');
+  assert.ok(metric, 'expected Back Stab damage to be offered as a goal');
   assert.equal(metric!.column, 'percent');
   const goal: Goal = { key: metric!.key, column: 'percent', target: 30 };
   const s = new Suggester(dataset, [goal], OPEN);
@@ -681,9 +683,9 @@ test('a skill-damage roll is aimed at a skill the goals name', () => {
     && (i.drops?.length ?? 0) > 0)!;
   const build = emptyBuild();
   build.slots.acc1 = { itemId: acc.id, refine: 0, cards: [] };
-  const goal: Goal = { key: 'skill:Backstab|damage', column: 'percent', target: 50 };
+  const goal: Goal = { key: 'skill:Back Stab|damage', column: 'percent', target: 50 };
   const [move] = new Suggester(dataset, [goal], OPEN).rollMoves(build, 'acc1');
-  assert.equal(move.changes[0].state.rolls?.skill?.skill, 'Backstab');
+  assert.equal(move.changes[0].state.rolls?.skill?.skill, 'Back Stab');
   assert.equal(move.after[0], 5);
 });
 
