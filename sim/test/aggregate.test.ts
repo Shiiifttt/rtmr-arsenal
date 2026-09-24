@@ -523,7 +523,7 @@ test('an enchant note is an item property, not an effect', () => {
   );
 });
 
-test('derived flee follows the stated formula and says it is unconfirmed', () => {
+test('derived flee follows the stated formula and shows its working', () => {
   const build = emptyBuild();
   build.baseLevel = 100;
   build.baseStats.agi = 50;
@@ -531,10 +531,9 @@ test('derived flee follows the stated formula and says it is unconfirmed', () =>
   const totals = aggregate(build, dataset);
   const flee = totals.derived.find((d) => d.key === 'flee')!;
   assert.ok(flee, 'flee should be derived');
-  // AGI 50 gives 50 + 15 = 65, plus twice the level.
-  assert.equal(flee.base, 100 * 2 + 65, 'base level x2 + AGI + 3 per 10 AGI');
+  // AGI 50 gives 50 + 5 = 55, over the flat 100 and the level.
+  assert.equal(flee.base, 100 + 100 + 55, '100 + base level + AGI + 1 per 10 AGI');
   assert.equal(flee.total, flee.base, 'with no gear the total is the base');
-  assert.equal(flee.verified, false, 'the formula is not confirmed in game');
   assert.ok(flee.formula.length > 0, 'it must show its working');
 });
 
@@ -569,7 +568,7 @@ test('flee adds up real gear in the right order', () => {
 
   const flee = aggregate(build, dataset).derived.find((d) => d.key === 'flee')!;
   // The formula reads the points column, so gear AGI must not move it.
-  assert.equal(flee.base, 265, 'level 100 x2 + AGI 50 + 15');
+  assert.equal(flee.base, 255, '100 + level 100 + AGI 50 + 5');
   assert.ok(flee.flat >= 7, `expected at least the +7 from ${flat.name}`);
   assert.equal(
     flee.total, Math.floor((flee.base + flee.flat) * (1 + flee.percent / 100)),
@@ -727,29 +726,58 @@ test('a base-stat gate reads "over N" as N+1, not N', () => {
   assert.equal(agiAt(99) - agiAt(98), 5, 'the +5 lands at 99 and not before');
 });
 
-test('flee reads the points column, and the skills box sits outside the percent', () => {
-  // The order matters and the two AGI readings differ by a lot, so both are
-  // pinned: gear AGI must not touch the formula, and skills must land on the
-  // finished figure rather than being scaled by a Total Flee bonus.
-  assert.equal(fleeFromAgi(99), 126, '99 + 9 whole steps of 3');
+test('flee matches the character window, at three AGI values', () => {
+  // Read off a naked character at base level 134 with 70 flee from two
+  // maxed passives. Three points rather than one, because the pair of them
+  // is what pins the formula: the deltas fix the per-ten step at one, and
+  // the step then fixes the constant at 100 + level.
+  const measured: [number, number][] = [[99, 412], [100, 414], [110, 425]];
+  for (const [agi, ingame] of measured) {
+    const build = emptyBuild();
+    build.baseLevel = 134;
+    build.baseStats.agi = agi;
+    build.manual = { flee: 70 };
+    const flee = aggregate(build, dataset).derived.find((d) => d.key === 'flee')!;
+    assert.equal(flee.total, ingame, `${agi} AGI should read ${ingame} in game`);
+  }
+
+  assert.equal(fleeFromAgi(99), 108, '99 + 9 whole steps of 1');
   assert.equal(fleeFromAgi(9), 9, 'under the first step, one flee per point');
-  assert.equal(baseFlee(132, 99), 264 + 126);
+  assert.equal(baseFlee(134, 99), 234 + 108);
+});
 
+test('flee counts AGI off equipment, and the skills box sits outside the percent', () => {
+  // Both halves are pinned because both were once wrong the other way:
+  // gear AGI feeds the formula, and skills land on the finished figure
+  // rather than being scaled by a Total Flee bonus.
+  // Flat AGI and no flee of its own, so the only thing that can move the
+  // base figure is the AGI.
+  const agiSlot = SLOTS.find((s) => s.key === 'shoes')!;
+  const agiGear = itemList.find((i) => fitsSlot(i, agiSlot)
+    && i.effects.some((e) => e.parsed && e.unit !== '%' && (e.value ?? 0) > 0
+      && e.stat_keys?.length === 1 && e.stat_keys[0] === 'agi')
+    && !i.effects.some((e) => e.stat_keys?.includes('flee'))
+    && i.refine.per_refine.length === 0 && i.refine.thresholds.length === 0);
+  assert.ok(agiGear, 'need a piece granting flat AGI and no flee');
+
+  const bonus = agiGear.effects.find((e) => e.stat_keys?.[0] === 'agi')!.value!;
   const build = emptyBuild();
-  build.baseLevel = 132;
+  build.baseLevel = 134;
   build.baseStats.agi = 99;
-  build.manual = { flee: 70 };
+  build.slots.shoes = { itemId: agiGear.id, refine: 0, cards: [] };
 
-  const flee = aggregate(build, dataset).derived.find((d) => d.key === 'flee')!;
-  assert.equal(flee.base, 390);
-  assert.equal(flee.manual, 70);
-  assert.equal(flee.total, 390 + 70, 'with no percent the skills simply add');
+  const totals = aggregate(build, dataset);
+  assert.equal(totals.byStat.get(statId('agi'))!.flat, bonus);
+  const flee = totals.derived.find((d) => d.key === 'flee')!;
+  const agi = 99 + bonus;
+  assert.equal(flee.base, 100 + 134 + agi + Math.floor(agi / 10),
+    'the gear AGI moves the base figure, step included');
 
-  // And the worked example from the live character: +16% off the Maiden of
-  // Time set over base plus 8 flat gear flee, and only then the 70 from
-  // skills, is what turns this into the reported 531. Folding the skills in
-  // before the percent instead would give 533.
-  assert.equal(combine(390, 8, 16) + 70, 531);
+  // Skills land on the finished figure, not inside the percent. Worked
+  // against the earlier live reading: level 132, 99 points, +40 gear AGI,
+  // +16% Total Flee and 14 flat gear flee gives the reported 531. Folding
+  // the 70 in before the percent instead would give 542.
+  assert.equal(combine(baseFlee(132, 139), 14, 16) + 70, 531);
 });
 
 test('Double Attack takes the highest level, never the sum, and caps at 10', () => {

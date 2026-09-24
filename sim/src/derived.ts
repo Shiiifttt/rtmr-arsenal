@@ -46,34 +46,48 @@ export function combine(base: number, flat: number, percent: number): number {
 }
 
 /**
- * Flee from AGI: one per point, plus three more for every whole ten.
+ * Flee from AGI: one per point, plus one more for every whole ten.
  *
- * The step is whole: 99 AGI is 99 + 27, not 99 + 29.7. Nine points short of a
+ * The step is whole: 99 AGI is 99 + 9, not 99 + 9.9. Nine points short of a
  * step are worth one flee each and no more, which is the kind of thing that
- * makes a planner disagree with the character window by exactly three.
+ * makes a planner disagree with the character window by exactly one.
  */
 export function fleeFromAgi(agi: number): number {
-  return agi + Math.floor(agi / 10) * 3;
+  return agi + Math.floor(agi / 10);
 }
 
 /**
- * Base flee, as stated by the server owner.
+ * Base flee: a flat 100, the base level, and AGI with its per-ten step.
  *
- * `agi` is the points on the character sheet, not the total with equipment.
- * That reading is what the one reported figure supports: at level 132 with
- * 99 points, +40 AGI from gear, +16% Total Flee from the Maiden of Time set
- * and +70 flee from two maxed skills that the percent does not touch, the
- * reported 531 needs 461 out of the percent, so a pre-percent subtotal of
- * 398. The points column gives 264 + 126 = 390, leaving 8 flat flee to come
- * from equipment. Reading the *total* AGI instead gives 442 before the
- * percent and 582 after the skills are added, far past the target with no
- * gear flee counted at all, so it cannot be what the server does.
+ * Measured in game on a naked character at base level 134 with 70 flee from
+ * two maxed passives, which the percent does not touch:
  *
- * Still unverified: one data point cannot separate this from a formula that
- * happens to agree at these numbers.
+ *   99 AGI -> 412      100 + 134 + 99 + 9  + 70
+ *   100 AGI -> 414     100 + 134 + 100 + 10 + 70
+ *   110 AGI -> 425     100 + 134 + 110 + 11 + 70
+ *
+ * Three points, exact on all three, and they pin both halves: the deltas
+ * (+2 for one point of AGI, +13 for eleven) only fit a step of one per ten,
+ * and the constant then has to be 100 + level rather than level x2.
+ *
+ * Both were wrong before, in the same direction, which is why the planner
+ * read 52 high at level 134: level x2 is 34 too many and a step of three is
+ * another 18.
+ *
+ * `agi` is the total with equipment folded in, not the points column. The
+ * readings above are what settle it: base stat points stop at 99, so the
+ * "99+1" and "99+11" they were taken at can only be bonus AGI, and flee
+ * moved with it -- by two for one point of bonus AGI, which is the raw
+ * point plus the ten-step it crossed.
+ *
+ * The one earlier reading agrees once read this way. At level 132 with 99
+ * points, +40 AGI of gear, +16% Total Flee and the same +70 of skills, the
+ * reported 531 wants 14 flat flee out of the equipment, which is an
+ * ordinary amount for the pieces involved. Reading the points column
+ * instead would need 58, which is not.
  */
 export function baseFlee(baseLevel: number, agi: number): number {
-  return baseLevel * 2 + fleeFromAgi(agi);
+  return 100 + baseLevel + fleeFromAgi(agi);
 }
 
 interface Formula {
@@ -97,11 +111,14 @@ export const FORMULAS: Formula[] = [
   {
     key: 'flee',
     label: 'Flee',
-    formula: 'base level x2 + AGI + 3 per 10 AGI',
-    verified: false,
+    formula: '100 + base level + total AGI + 1 per 10 total AGI',
+    verified: true,
     manualHint: 'Flee from skills — for example Shadow Mastery (+3/level) '
       + 'and Improve Dodge (+4/level), so +70 with both maxed.',
-    compute: (level, stats) => baseFlee(level, stats.agi),
+    // The total, so AGI off equipment counts -- see baseFlee. This is the
+    // one formula where the two readings differ by a lot, which is why
+    // `stat` is handed over at all.
+    compute: (level, _stats, stat) => baseFlee(level, stat('agi')),
   },
 ];
 
