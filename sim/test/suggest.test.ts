@@ -12,8 +12,9 @@ import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 
 import {
-  aggregate, applyChanges, bindBaseStatIds, brokenGoals, defaultBaseStats, diffTotals,
-  effectTone, fitsSlot, goalMetrics, goalsFromBuild,
+  aggregate, applyChanges, bindBaseStatIds, brokenGoals, brokenSets, defaultBaseStats, diffTotals,
+  effectTone, farmFor, fitsSlot, rollTableFor, goalMetrics, goalsFromBuild, reachOf, REACH_EFFORT_FACTOR,
+  REACH_KILL_FACTOR, REACH_REFINE_FLOOR, REFINE_MOVE_CAP, statsThatMatter,
   goalScore, goalStatus, isTwoHanded, measure, priorityWeight, SLOTS, Suggester, tableForSlot,
   type Move, type SuggestOptions,
 } from '../src/index.ts';
@@ -258,6 +259,13 @@ function satsujin(): Build {
   put('shoes', 22000, 6, [13591], [['stat', 'agi', [1]], ['speed', 'move_speed', [9]]]);
   put('acc1', 2633, 0);
   put('acc2', 15424, 0, [13743], [['stat', 'agi', [1]]]);
+  // The full Aggressive Orphan shadow set, a manual and a rune.
+  put('sh_armor', 29928, 4, [], [['stat', 'agi', [1]]]);
+  put('sh_shoes', 29930, 4, [], [['stat', 'agi', [1]]]);
+  put('sh_gloves', 29929, 4, [], [['stat', 'agi', [1]]]);
+  put('sh_acc', 29931, 6, [], [['stat', 'agi', [1]]]);
+  put('sh_manual', 24021, 0, [], [['stat', 'agi', [1]]]);
+  put('runeorb', 24173, 6, [], [['stat', 'agi', [1]]]);
   return build;
 }
 
@@ -296,6 +304,162 @@ test('with every goal met, the plan finds upgrades that lower nothing', () => {
     assert.ok(g.atMost ? d <= 1e-9 : d >= -1e-9, `${g.key} got worse: ${before[i]} -> ${after[i]}`);
   });
   assert.ok(goals.some((g, i) => (g.atMost ? after[i] < before[i] : after[i] > before[i])));
+});
+
+/** The dataset with item effort, which is what turns the reach on. */
+const withEffort: Dataset = {
+  ...dataset,
+  effort: new Map(Object.entries(load<Record<string, [number, number, number]>>('items/effort.json'))
+    .map(([id, [effort, kill, via]]) => [Number(id), { effort, kill, via }])),
+};
+
+test('reach is read off the second-best piece, not the best', () => {
+  const build = satsujin();
+  const reach = reachOf(build, withEffort);
+  // A +9 weapon, then +7, +6, +6, +6, +5: one +9 is not a habit of +9s.
+  assert.equal(reach.refine, 7);
+  // Wind Weaver is the hardest piece worn; the Venus Cape after it sets the bar.
+  assert.equal(reach.effort, withEffort.effort!.get(15435)!.effort * REACH_EFFORT_FACTOR);
+  assert.equal(reach.kill, withEffort.effort!.get(15435)!.kill * REACH_KILL_FACTOR);
+
+  const fresh = reachOf(emptyBuild(), withEffort);
+  assert.equal(fresh.refine, REACH_REFINE_FLOOR, 'nothing refined still assumes the safe range');
+  assert.equal(fresh.effort, null, 'and nothing worn sets no bar at all');
+  assert.equal(fresh.kill, null);
+});
+
+test('whole-build suggestions stay within reach; browsing a slot does not', () => {
+  const build = satsujin();
+  const goals = goalsFromBuild(build, aggregate(build, withEffort), withEffort);
+  const opts: SuggestOptions = { className: 'Satsujin', maxLevel: 136, refine: 'auto' };
+  const reach = reachOf(build, withEffort);
+
+  // A sun helmet: a +9 moon helmet and a thousand Star Pieces away.
+  const sun = byName('Apus of the Sun');
+  const held = new Suggester(withEffort, goals, { ...opts, reach });
+  assert.equal(held.allowed(sun), false, 'not offered to a build with one +9');
+  assert.equal(new Suggester(withEffort, goals, opts).allowed(sun), true,
+    'but there to be found when browsing the slot');
+  // A Valhalla drop: a short enough grind, but off a 1.5 million HP Knight.
+  assert.equal(held.allowed(byName('Veidistafur')), false, 'not while farming mid-level maps');
+  assert.equal(held.allowed(byName('Mistress Card')), false, 'nor an MVP card');
+
+  for (const step of new Suggester(withEffort, goals, opts).plan(build, 3)) {
+    for (const c of step.changes) {
+      const item = withEffort.items.get(c.state.itemId ?? -1);
+      if (!item || item.id === build.slots[c.slot]?.itemId) continue;
+      assert.ok(c.state.refine <= reach.refine, `${step.label} assumes +${c.state.refine}`);
+      const e = withEffort.effort!.get(item.id);
+      assert.ok(!e || (e.effort <= reach.effort! && e.kill <= reach.kill!),
+        `${item.name} is out of reach`);
+    }
+  }
+});
+
+test('longer-term goals are only what reach turned away, each with something to farm', () => {
+  const build = satsujin();
+  const goals = goalsFromBuild(build, aggregate(build, withEffort), withEffort);
+  const opts: SuggestOptions = { className: 'Satsujin', maxLevel: 136, refine: 'auto' };
+  const reach = reachOf(build, withEffort);
+  const near = new Suggester(withEffort, goals, { ...opts, reach });
+  const stretch = new Suggester(withEffort, goals, opts).stretchMoves(build);
+  assert.ok(stretch.length > 0, 'there is always something further to aim for');
+  for (const m of stretch) {
+    const beyond = m.changes.some((c) => [c.state.itemId, ...c.state.cards]
+      .some((id) => { const i = id ? withEffort.items.get(id) : undefined; return !!i && !near.allowed(i); }));
+    assert.ok(beyond, `${m.label} was within reach, so it belongs in the plan`);
+    for (const c of m.changes) assert.ok(c.state.refine <= REFINE_MOVE_CAP, `${m.label} at +10`);
+  }
+
+  // A Sage piece is not farmed; its thousand essences are.
+  const target = farmFor(byName('Sage Robe').id, withEffort)!;
+  assert.equal(withEffort.items.get(target.itemId)!.name, 'Distortion Essence');
+  assert.equal(target.qty, 1000);
+  assert.ok(target.chance > 0 && target.mob.length > 0);
+});
+
+test('better-rolled copies aim at a typical roll, not the perfect one', () => {
+  const build = satsujin();
+  const goals = goalsFromBuild(build, aggregate(build, withEffort), withEffort);
+  const s = new Suggester(withEffort, goals, { className: 'Satsujin', maxLevel: 136, refine: 'auto' });
+  const rolls = s.rollUpgrades(build);
+  assert.ok(rolls.length > 0, 'some worn piece rolls, and could roll better for this build');
+  for (const m of rolls) {
+    assert.equal(m.kind, 'rolls');
+    assert.match(m.label, /^Farm another /);
+    const [c] = m.changes;
+    assert.equal(c.state.itemId, build.slots[c.slot].itemId, 'a copy of what is worn');
+    const table = rollTableFor(withEffort.rolls, c.slot, withEffort.items.get(c.state.itemId!));
+    for (const [key, pick] of Object.entries(c.state.rolls ?? {})) {
+      // Rolls the worn piece already has, and nothing beat, are kept as they are.
+      if (JSON.stringify(build.slots[c.slot].rolls?.[key]) === JSON.stringify(pick)) continue;
+      const option = table?.rolls.find((r) => r.key === key)?.options.find((o) => o.key === pick.option);
+      option?.grants.forEach((g, i) => {
+        if (g.max !== null) assert.ok(pick.values[i] <= Math.ceil((g.min + g.max) / 2), `${m.label}: ${key} aims past the middle`);
+      });
+    }
+  }
+});
+
+test('a complete set is not broken by a plan', () => {
+  const build = satsujin();
+  // Aggressive Orphan armour, boots, gloves and pendant: the full shadow set.
+  const worn = aggregate(build, dataset).setProgress.find((p) => p.set.name.startsWith('Aggressive Orphan'));
+  assert.ok(worn?.complete, 'the fixture wears the whole set');
+
+  // Swapping one piece out is seen to break it.
+  const other = itemList.find((i) => i.equip_slots.includes('Shadow armor')
+    && !i.sets.includes(worn!.set.index))!;
+  const swap = applyChanges(build, [{ slot: 'sh_armor', state: { itemId: other.id, refine: 0, cards: [] } }], dataset);
+  assert.deepEqual(brokenSets(aggregate(build, dataset), aggregate(swap, dataset)).map((s) => s.index),
+    [worn!.set.index]);
+
+  const goals = goalsFromBuild(build, aggregate(build, withEffort), withEffort);
+  const s = new Suggester(withEffort, goals, { className: 'Satsujin', maxLevel: 136, refine: 'auto' });
+  let at = build;
+  for (const step of s.plan(build, 4)) {
+    const next = applyChanges(at, step.changes, withEffort);
+    assert.deepEqual(brokenSets(aggregate(at, withEffort), aggregate(next, withEffort)), [],
+      `${step.label} breaks a set`);
+    at = next;
+  }
+});
+
+test('class gems with no job sentence are held to their class', () => {
+  const rules: Dataset = { ...dataset, classRules: load('class-rules.json') };
+  const s = new Suggester(rules, [{ key: 'agi', column: 'total', target: 1 }],
+    { className: 'Satsujin', maxLevel: null, refine: null });
+  assert.equal(s.allowed(byName('Unbound Gem of Full Power')), false, 'a Phantom Thief gem');
+  const thief = new Suggester(rules, [{ key: 'agi', column: 'total', target: 1 }],
+    { className: 'Phantom Thief', maxLevel: null, refine: null });
+  assert.equal(thief.allowed(byName('Unbound Gem of Full Power')), true);
+});
+
+test('refining what is worn is offered up to +9, never +10', () => {
+  const build = satsujin();
+  const goals = goalsFromBuild(build, aggregate(build, dataset), dataset);
+  const s = new Suggester(dataset, goals, { className: 'Satsujin', maxLevel: 136, refine: 'auto' });
+  const moves = s.refineMoves(build);
+  assert.ok(moves.length > 0, 'a +6 circlet giving all stats per refine has room to go');
+  for (const m of moves) {
+    const [c] = m.changes;
+    assert.equal(c.state.itemId, build.slots[c.slot].itemId, 'the same piece, refined');
+    assert.ok(c.state.refine > build.slots[c.slot].refine && c.state.refine <= REFINE_MOVE_CAP,
+      `${m.label} goes to +${c.state.refine}`);
+  }
+  assert.ok(!moves.some((m) => m.changes[0].slot === 'weapon'), 'the +9 weapon is left alone');
+});
+
+test('a loss only counts on a stat the build uses, or its class always wants', () => {
+  const build = satsujin();
+  const totals = aggregate(build, dataset);
+  const used = statsThatMatter(build, totals, dataset);
+  assert.ok(used.has('flee') && used.has('def_pen'));
+  assert.ok(!used.has('crit_rate'), 'this Satsujin has no crit to lose');
+
+  const legend = { ...build, className: 'Legend' };
+  assert.ok(statsThatMatter(legend, totals, dataset).has('crit_rate'),
+    'a Legend always wants crit');
 });
 
 test('suggestions respect the class and level limits', () => {
@@ -557,7 +721,9 @@ test('pushing a met goal still refines, where plain planning would not', () => {
   // A weapon whose refine only feeds a goal that is already met: tuning on
   // shortfall would tie at every refine and leave it at +0.
   const melee: Goal = { key: 'melee_damage', column: 'percent', target: 0 };
-  const auto: SuggestOptions = { className: null, maxLevel: null, refine: 'auto' };
+  // No reach: an empty build could only be assumed to reach +4, and this is
+  // about how refine is tuned, not how far.
+  const auto: SuggestOptions = { className: null, maxLevel: null, refine: 'auto', reach: null };
   const s = new Suggester(dataset, [melee], auto);
   const moves = s.focusMoves(emptyBuild(), melee).filter((m) => !m.maxed);
   assert.ok(moves.some((m) => m.changes.some((c) => c.state.refine > 0)),
@@ -744,8 +910,9 @@ test('roll advice picks the option that serves the goals, at the top of its rang
   const s = new Suggester(dataset, [{ key: 'dex', column: 'total', target: 99 }], OPEN);
   const [move] = s.rollMoves(build, 'acc1');
   assert.ok(move, 'expected roll advice');
-  assert.deepEqual(move.changes[0].state.rolls?.stat, { option: 'dex', values: [2] });
-  assert.match(move.label, /DEX \+2/);
+  // Accessories roll a stat +1 at most; +2 is armour, garment and shoes.
+  assert.deepEqual(move.changes[0].state.rolls?.stat, { option: 'dex', values: [1] });
+  assert.match(move.label, /DEX \+1/);
 });
 
 test('a skill-damage roll is aimed at a skill the goals name', () => {

@@ -8,6 +8,7 @@ import {
   SLOT_BY_KEY, SLOTS, socketsOf, type SlotDef,
 } from './slots.ts';
 import { fillSet, missingMembers } from './sets.ts';
+import { acquisitionOf } from './sources.ts';
 import { BASE_STAT_KEYS } from './types.ts';
 import type {
   BaseStats, Build, Dataset, Effect, Goal, Item, SetRecord, SlotChange, SlotState, Totals,
@@ -168,6 +169,114 @@ const NOT_A_FOCUS = new Set([
 /** How many sources a stat needs before it reads as something the build chose. */
 const FOCUS_MIN_SOURCES = 2;
 
+/**
+ * Stats a class wants whatever its gear says so far. From players: the
+ * Legend and Revenant branches are built around crits, so crit is never
+ * incidental there -- one source is enough to make it a goal, and losing
+ * it is always a loss.
+ */
+export const CLASS_WANTS: Record<string, string[]> = {
+  Vagabond: ['crit_rate', 'crit_damage'],
+  Legend: ['crit_rate', 'crit_damage'],
+  Trickster: ['crit_rate', 'crit_damage'],
+  Revenant: ['crit_rate', 'crit_damage'],
+};
+
+/**
+ * The stats that count for this build: its goals, what its gear stacks,
+ * and what its class always wants. A change that costs something outside
+ * this -- two crit off a build with none to speak of -- costs it nothing.
+ */
+export function statsThatMatter(
+  build: Build, totals: Totals, data: Dataset, goals: Goal[] = [],
+): Set<string> {
+  const out = new Set<string>();
+  for (const g of [...goals, ...goalsFromBuild(build, totals, data)]) out.add(g.key);
+  for (const key of CLASS_WANTS[build.className ?? ''] ?? []) out.add(key);
+  return out;
+}
+
+// ---- reach ----------------------------------------------------------------
+
+/**
+ * What a character can plausibly get next, read off what it already has.
+ *
+ * Suggestions across the whole build used to reach for whatever scored best
+ * in the database: a +10 on a character with no +9s, a sun helmet, Valhalla
+ * drops for a build still farming mid-level maps. All of those are real
+ * items and none of them is advice. So the build's own gear sets the bar:
+ * the second-best piece on each count, not the best, so one lucky drop or
+ * one +10 does not unlock everything.
+ *
+ * Only for suggestions across the whole build. Browsing one slot is someone
+ * looking at what exists, and there everything is shown.
+ */
+export interface Reach {
+  /** The longest grind (see data/items/effort.json) worth suggesting. */
+  effort: number | null;
+  /** The toughest monster, in effective HP, a suggestion may send you after. */
+  kill: number | null;
+  /** The highest refine worth assuming on a suggested piece. */
+  refine: number;
+}
+
+/** The furthest a suggestion refines a piece already worn. See `refineMoves`. */
+export const REFINE_MOVE_CAP = 9;
+
+/** How far past the build's own gear a suggestion may reach, in grind. */
+export const REACH_EFFORT_FACTOR = 5;
+/**
+ * How much tougher a monster may be than the ones the build already farms.
+ * Tighter than the grind: a longer grind is patience, a monster three times
+ * tougher is a different character.
+ */
+export const REACH_KILL_FACTOR = 3;
+/**
+ * The refine assumed reachable even with nothing refined yet. A guess at
+ * the safe limit; this server's refine rates are not known.
+ */
+export const REACH_REFINE_FLOOR = 4;
+
+export function reachOf(build: Build, data: Dataset): Reach {
+  const efforts: number[] = [];
+  const kills: number[] = [];
+  const refines: number[] = [];
+  for (const state of Object.values(build.slots)) {
+    const item = state?.itemId ? data.items.get(state.itemId) : undefined;
+    if (!item) continue;
+    for (const id of [item.id, ...state.cards]) {
+      const e = id ? data.effort?.get(id) : undefined;
+      if (e !== undefined) {
+        efforts.push(e.effort);
+        kills.push(e.kill);
+      }
+    }
+    if (maxRefine(item) > 0) refines.push(state.refine);
+  }
+  const secondBest = (xs: number[]) => {
+    const sorted = [...xs].sort((a, b) => b - a);
+    return sorted[1] ?? sorted[0];
+  };
+  const effort = secondBest(efforts);
+  const kill = secondBest(kills);
+  return {
+    effort: effort === undefined ? null : effort * REACH_EFFORT_FACTOR,
+    kill: kill === undefined ? null : kill * REACH_KILL_FACTOR,
+    refine: Math.max(REACH_REFINE_FLOOR, secondBest(refines) ?? 0),
+  };
+}
+
+/**
+ * The refine an item's recipe asks of a piece going into it: "The moon
+ * headgear has to be refined to exactly +9" is a +9 before the sun helmet
+ * is even possible.
+ */
+function refineRequired(item: Item): number {
+  const note = acquisitionOf(item)?.note ?? '';
+  const m = /refined to (?:exactly )?\+(\d+)/i.exec(note);
+  return m ? Number(m[1]) : 0;
+}
+
 /** More than this and every change breaks something; the list stops being a direction. */
 const FOCUS_MAX_GOALS = 8;
 
@@ -191,6 +300,7 @@ const FOCUS_MAX_GOALS = 8;
  */
 export function goalsFromBuild(build: Build, totals: Totals, data: Dataset): Goal[] {
   const found: { goal: Goal; sources: number; size: number }[] = [];
+  const wanted = new Set(CLASS_WANTS[build.className ?? ''] ?? []);
   /**
    * `fed` is what the good sources add up to, for a gear column. When the
    * build's own penalties eat most of it -- +31% Max HP from three pieces
@@ -201,7 +311,7 @@ export function goalsFromBuild(build: Build, totals: Totals, data: Dataset): Goa
   const offer = (
     key: string, column: Goal['column'], sources: number, lower: boolean, fed?: number,
   ) => {
-    if (sources < FOCUS_MIN_SOURCES) return;
+    if (sources < (wanted.has(key) ? 1 : FOCUS_MIN_SOURCES)) return;
     const goal: Goal = { key, column, target: 0, ...(lower ? { atMost: true } : {}) };
     const value = measure(goal, totals, build, data);
     if (fed !== undefined && Math.abs(value) < Math.abs(fed) / 2) return;
@@ -475,6 +585,21 @@ export function brokenGoals(goals: Goal[], before: number[], after: number[]): G
     shortOf(goal, before[i]) <= EPSILON && shortOf(goal, after[i]) > EPSILON);
 }
 
+/**
+ * Complete sets a change would leave incomplete.
+ *
+ * A player running a full set is running it on purpose -- the set bonus is
+ * usually the reason for the pieces -- so a swap that breaks one is judged
+ * like one that takes a goal below its target: listed after everything
+ * that keeps them whole, and never planned. The score would often allow
+ * it, because a set bonus the goals do not name counts for nothing there.
+ */
+export function brokenSets(before: Totals, after: Totals): SetRecord[] {
+  const stillWhole = new Set(after.setProgress.filter((p) => p.complete).map((p) => p.set.index));
+  return before.setProgress.filter((p) => p.complete && !stillWhole.has(p.set.index))
+    .map((p) => p.set);
+}
+
 /** Does this change move at least one goal the right way? */
 function improvesAny(goals: Goal[], before: number[], after: number[]): boolean {
   return goals.some((goal, i) => {
@@ -498,8 +623,9 @@ export interface Move {
   /**
    * 'sockets': a piece with more card slots, offered whatever the goals say.
    * 'rolls': the random options worth aiming for on the piece already worn.
+   * 'refine': the piece already worn, refined further.
    */
-  kind: 'item' | 'cards' | 'set' | 'sockets' | 'rolls';
+  kind: 'item' | 'cards' | 'set' | 'sockets' | 'rolls' | 'refine';
   /** What a person would call it: "Hodremlin Card ×4 in Shoes". */
   label: string;
   changes: SlotChange[];
@@ -530,6 +656,12 @@ export interface SuggestOptions {
    * of the piece: as far up as the goals reward, and no further.
    */
   refine: number | null | 'auto';
+  /**
+   * What the character can plausibly get next. Undefined means "work it out
+   * from the build" when planning across the whole build, and no limit when
+   * working on one slot; null means no limit anywhere. See `Reach`.
+   */
+  reach?: Reach | null;
 }
 
 const EMPTY: SlotState = { itemId: null, refine: 0, cards: [] };
@@ -605,12 +737,47 @@ export class Suggester {
 
   allowed(item: Item): boolean {
     if (!canEquip(item, this.opts.className, this.data.classRules)) return false;
-    return this.opts.maxLevel === null || item.required_level <= this.opts.maxLevel;
+    if (this.opts.maxLevel !== null && item.required_level > this.opts.maxLevel) return false;
+    const reach = this.opts.reach;
+    if (reach) {
+      const e = this.data.effort?.get(item.id);
+      if (e && reach.effort !== null && e.effort > reach.effort) return false;
+      if (e && reach.kill !== null && e.kill > reach.kill) return false;
+      if (refineRequired(item) > reach.refine) return false;
+    }
+    return true;
+  }
+
+  /** The highest refine to assume on this piece: its cap, or the build's reach. */
+  private refineCap(item: Item): number {
+    return Math.min(maxRefine(item), this.opts.reach?.refine ?? Infinity);
+  }
+
+  /**
+   * This suggester held to what the build can reach, for suggestions across
+   * the whole build. Itself when a reach was already given.
+   */
+  private withinReach(build: Build): Suggester {
+    if (this.opts.reach !== undefined) return this;
+    const held = new Suggester(this.data, this.goals, { ...this.opts, reach: reachOf(build, this.data) });
+    held.pushing = this.pushing;
+    return held;
   }
 
   /** The goals this move would take below their target. */
   breaks(move: Move): Goal[] {
     return brokenGoals(this.goals, move.before, move.after);
+  }
+
+  /** The complete sets this move would break, from `build`. */
+  breaksSets(build: Build, move: Move): SetRecord[] {
+    return brokenSets(aggregate(build, this.data),
+      aggregate(applyChanges(build, move.changes, this.data), this.data));
+  }
+
+  /** Neither takes a goal below its target nor breaks a complete set. */
+  private keeps(build: Build, move: Move): boolean {
+    return this.breaks(move).length === 0 && this.breaksSets(build, move).length === 0;
   }
 
   /**
@@ -795,6 +962,10 @@ export class Suggester {
 
   private maxedVariant(build: Build, move: Move): Move | null {
     if (move.kind === 'rolls') return null;
+    // Held to a reach, the suggestion already sits at the highest refine the
+    // build can be expected to hit; "the same at +10" is the advice it is
+    // there to stop giving.
+    if (this.opts.reach) return null;
     let raised = false;
     let cap = 0;
     const changes = move.changes.map((c) => {
@@ -834,6 +1005,10 @@ export class Suggester {
    * been established (max unknown) the minimum is used, so the promise is
    * one the item can keep. A skill-damage roll is aimed at a skill the goals
    * name. Rolls already set that nothing beats are left alone.
+   *
+   * Held to a reach -- suggestions across the whole build -- it aims at the
+   * middle of each range instead: a copy worth farming for, not the one
+   * perfect drop.
    */
   rollMoves(build: Build, slotKey: string): Move[] {
     if (!this.active || isLocked(build, slotKey)) return [];
@@ -855,7 +1030,9 @@ export class Suggester {
       let pickHere: RollPick | null = null;
       let labelHere = '';
       for (const option of roll.options) {
-        const values = option.grants.map((g) => g.max ?? g.min);
+        const aim = (g: { min: number; max: number | null }) => (g.max === null ? g.min
+          : this.opts.reach ? Math.round((g.min + g.max) / 2) : g.max);
+        const values = option.grants.map(aim);
         const tries = option.grants.some((g) => g.skill)
           ? skillGoals.map((skill) => ({ pick: { option: option.key, values, skill }, name: skill }))
           : [{ pick: { option: option.key, values } as RollPick, name: option.label }];
@@ -865,8 +1042,9 @@ export class Suggester {
             best = score;
             pickHere = pick;
             labelHere = `${name} ${option.grants.map((g) => {
-              const v = (g.max ?? g.min) * (g.sign ?? 1);
-              return `${v > 0 ? '+' : ''}${v}${g.unit ?? ''}${g.max === null ? ' or more' : ''}`;
+              const v = aim(g) * (g.sign ?? 1);
+              const more = g.max === null || aim(g) < g.max;
+              return `${v > 0 ? '+' : ''}${v}${g.unit ?? ''}${more ? ' or more' : ''}`;
             }).join(' / ')}`;
           }
         }
@@ -880,7 +1058,9 @@ export class Suggester {
     const after = valuesWith(picks);
     return [{
       kind: 'rolls',
-      label: `Aim for ${chosen.join(', ')} on ${item.name}`,
+      label: this.opts.reach
+        ? `Farm another ${item.name} rolled ${chosen.join(', ')}`
+        : `Aim for ${chosen.join(', ')} on ${item.name}`,
       changes: [{ slot: slotKey, state: { ...state, rolls: picks } }],
       gain: scoreOf(this.goals, before) - best,
       before, after,
@@ -979,6 +1159,8 @@ export class Suggester {
    * way goals are compared everywhere else.
    */
   focusMoves(build: Build, goal: Goal, limit = 12): Move[] {
+    const held = this.withinReach(build);
+    if (held !== this) return held.focusMoves(build, goal, limit);
     // Identity first, so two goals on the same stat with different targets
     // stay distinct; by key only as a fallback for a copied goal object.
     let index = this.goals.indexOf(goal);
@@ -1006,6 +1188,7 @@ export class Suggester {
       candidates.push(...inner.slotMoves(build, slot.key, limit, false, false));
     }
     candidates.push(...inner.setMoves(build));
+    candidates.push(...inner.refineMoves(build));
 
     const rated: { move: Move; push: number; cost: number; broken: number }[] = [];
     for (const move of dedupe(candidates)) {
@@ -1019,7 +1202,8 @@ export class Suggester {
         move: { ...move, gain: baseline - scoreOf(this.goals, after), before, after },
         push,
         cost,
-        broken: brokenGoals(this.goals, before, after).length,
+        broken: brokenGoals(this.goals, before, after).length
+          + this.breaksSets(build, move).length,
       });
     }
 
@@ -1044,6 +1228,114 @@ export class Suggester {
   }
 
   /**
+   * The copies of worn pieces worth farming for better rolls, best first.
+   *
+   * The same piece with rolls that suit the build: often the cheapest real
+   * upgrade there is, since the player already farms where it drops. Aimed
+   * at a typical good roll, not a perfect one, and nothing that would take
+   * a goal below its target.
+   */
+  rollUpgrades(build: Build, limit = 3): Move[] {
+    if (!this.active) return [];
+    const held = this.withinReach(build);
+    const pushing = new Suggester(this.data, this.goals, held.opts);
+    pushing.pushing = held.pushing
+      || goalStatus(this.goals, aggregate(build, this.data), build, this.data).every((s) => s.met);
+    return SLOTS.flatMap((slot) => pushing.rollMoves(build, slot.key))
+      .filter((m) => m.gain > EPSILON && pushing.breaks(m).length === 0)
+      .sort((a, b) => b.gain - a.gain)
+      .slice(0, limit);
+  }
+
+  /**
+   * The best pieces out of the build's reach: something to aim for when
+   * nothing close by improves on what is worn.
+   *
+   * Reach keeps a plan honest, but a plan that comes back empty leaves the
+   * player with no idea what to work towards. So the same search runs with
+   * the grind and the toughness limits off -- refine still stops at +9 --
+   * and what it finds that the reach turned away is offered separately, as
+   * alternatives rather than steps, each with what to go and farm for it.
+   * Nothing that would take a goal below its target.
+   */
+  stretchMoves(build: Build, limit = 5): Move[] {
+    if (!this.active) return [];
+    const near = this.opts.reach === undefined ? reachOf(build, this.data) : this.opts.reach;
+    const wide = new Suggester(this.data, this.goals, {
+      ...this.opts,
+      reach: { effort: null, kill: null, refine: Math.max(near?.refine ?? 0, REFINE_MOVE_CAP) },
+    });
+    // With every goal met there is no gap to close, so it pushes, as the
+    // plan does.
+    wide.pushing = this.pushing
+      || goalStatus(this.goals, aggregate(build, this.data), build, this.data).every((s) => s.met);
+    const heldBack = new Suggester(this.data, this.goals, { ...this.opts, reach: near });
+
+    const candidates: Move[] = [];
+    for (const slot of SLOTS) candidates.push(...wide.slotMoves(build, slot.key, 3, false, false));
+    candidates.push(...wide.setMoves(build));
+    return dedupe(candidates)
+      .filter((m) => m.gain > EPSILON && wide.keeps(build, m))
+      // Only what the reach turned away; the rest the plan already offers.
+      .filter((m) => m.changes.some((c) => {
+        if (c.state.itemId === build.slots[c.slot]?.itemId) {
+          return c.state.cards.some((id) => {
+            const card = id ? this.data.items.get(id) : undefined;
+            return !!card && !heldBack.allowed(card);
+          });
+        }
+        const item = this.data.items.get(c.state.itemId ?? -1);
+        const cards = c.state.cards.map((id) => (id ? this.data.items.get(id) : undefined));
+        return [item, ...cards].some((i) => !!i && !heldBack.allowed(i));
+      }))
+      .sort((a, b) => b.gain - a.gain)
+      .slice(0, limit);
+  }
+
+  /**
+   * Refining what is already worn, as far as it helps and no further than +9.
+   *
+   * Often the honest answer to "what next": when nothing within reach beats
+   * the piece in the slot, taking a +7 circlet to +9 is the upgrade. Never
+   * +10 -- the last step is a sliver of a chance with a downgrade on failure,
+   * which is a gamble, not a plan -- and never past the piece's own cap.
+   * Offered past the build's usual refine, because one piece is exactly
+   * where a player would put the effort; that is what reach does not cover.
+   */
+  refineMoves(build: Build): Move[] {
+    const before = this.values(build);
+    const baseline = scoreOf(this.goals, before);
+    const moves: Move[] = [];
+    for (const slot of SLOTS) {
+      if (isLocked(build, slot.key)) continue;
+      const state = build.slots[slot.key];
+      const item = state?.itemId ? this.data.items.get(state.itemId) : undefined;
+      if (!item) continue;
+      const top = Math.min(REFINE_MOVE_CAP, maxRefine(item));
+      if (state.refine >= top || !this.refineMatters(item, state)) continue;
+      // The lowest refine that scores best, so a step that only pays at +8
+      // is not dressed up as needing +9.
+      let best: { refine: number; score: number; after: number[] } | null = null;
+      for (let r = state.refine + 1; r <= top; r++) {
+        const trial = applyChanges(build, [{ slot: slot.key, state: { ...state, refine: r } }], this.data);
+        const after = this.values(trial);
+        const score = scoreOf(this.goals, after);
+        if (!best || score < best.score - EPSILON) best = { refine: r, score, after };
+      }
+      if (!best) continue;
+      const gain = baseline - best.score;
+      if (gain <= EPSILON) continue;
+      moves.push({
+        kind: 'refine',
+        label: `Refine ${item.name} +${state.refine} → +${best.refine}`,
+        changes: [{ slot: slot.key, state: { ...state, refine: best.refine } }],
+        gain, before, after: best.after,
+      });
+    }
+    return moves;
+  }
+
+  /**
    * A short plan across the whole build, one change at a time.
    *
    * Greedy: each step is the single best move given the steps before it, so
@@ -1054,6 +1346,8 @@ export class Suggester {
    */
   plan(build: Build, maxSteps = 6): Move[] {
     if (!this.active) return [];
+    const held = this.withinReach(build);
+    if (held !== this) return held.plan(build, maxSteps);
     // Every goal already met -- as it is from the start with goals read off
     // the build -- means there is no gap to close, so the plan looks for
     // upgrades instead: anything that raises a goal and lowers none, until
@@ -1078,13 +1372,13 @@ export class Suggester {
           // A step that costs a goal its target is moving away from the point
           // of the plan, which is to have them all met. Left to the lists,
           // where it can be weighed by hand.
-          if (this.breaks(move).length > 0) continue;
-          if (!best || move.gain > best.gain) best = move;
+          if (best && move.gain <= best.gain) continue;
+          if (this.keeps(current, move)) best = move;
         }
       }
-      for (const move of this.setMoves(current)) {
-        if (this.breaks(move).length > 0) continue;
-        if (!best || move.gain > best.gain) best = move;
+      for (const move of [...this.setMoves(current), ...this.refineMoves(current)]) {
+        if (best && move.gain <= best.gain) continue;
+        if (this.keeps(current, move)) best = move;
       }
       if (!best || best.gain <= EPSILON) break;
       steps.push(best);
@@ -1177,7 +1471,7 @@ export class Suggester {
         const { slot, state } = out[i];
         const item = this.data.items.get(state.itemId ?? -1);
         if (!item || item.id === build.slots[slot]?.itemId) continue;
-        const limit = maxRefine(item);
+        const limit = this.refineCap(item);
         if (limit === 0 || !this.refineMatters(item, state)) continue;
 
         const at = (r: number) => out.map((c, j) =>

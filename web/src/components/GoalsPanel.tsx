@@ -1,8 +1,8 @@
 import { useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import {
-  aggregate, applyChanges, brokenGoals, DEFAULT_GUARDS, diffTotals, goalLabel,
-  goalMetrics, goalsFromBuild, goalStatus, guardsOf, isOffhandWeapon, SLOT_BY_KEY, SP_SUSTAIN,
+  aggregate, applyChanges, brokenGoals, brokenSets, DEFAULT_GUARDS, diffTotals, goalLabel,
+  goalMetrics, goalsFromBuild, goalStatus, guardsOf, statsThatMatter, isOffhandWeapon, SLOT_BY_KEY, SP_SUSTAIN,
   type Build, type Dataset, type Goal, type GoalMetric, type Item, type Move, type Suggester,
   type Totals, type TotalsChange,
 } from '@sim';
@@ -25,6 +25,9 @@ export interface SuggestPrefs {
 }
 
 export const DEFAULT_PREFS: SuggestPrefs = { mineOnly: true, levelCap: true, refine: 'auto' };
+
+/** Fewer plan steps than this and the out-of-reach goals are shown as well. */
+const STRETCH_BELOW = 3;
 
 interface Props {
   dataset: Dataset;
@@ -61,7 +64,8 @@ export function GoalsPanel({
   // changes -- a slot, a goal, an option -- it describes a different
   // starting point, so it is dropped rather than shown stale.
   const [plan, setPlan] = useState<{
-    for: Build; suggester: Suggester; moves: Move[]; upgrading: boolean;
+    for: Build; suggester: Suggester; moves: Move[]; stretch: Move[]; rolls: Move[];
+    upgrading: boolean;
   } | null>(null);
   const current = plan && plan.for === build && plan.suggester === suggester ? plan.moves : null;
 
@@ -249,9 +253,14 @@ export function GoalsPanel({
 
           <div className="goal-actions">
             <button
-              onClick={() => setPlan({
-                for: build, suggester, moves: suggester.plan(build), upgrading: allMet,
-              })}
+              onClick={() => {
+                const moves = suggester.plan(build);
+                // A short plan leaves the player without much to aim for, so
+                // the best of what is out of reach comes with it.
+                const stretch = moves.length < STRETCH_BELOW ? suggester.stretchMoves(build) : [];
+                const rolls = suggester.rollUpgrades(build);
+                setPlan({ for: build, suggester, moves, stretch, rolls, upgrading: allMet });
+              }}
               title={allMet ? 'Every goal is met, so this looks for upgrades: changes '
                 + 'that raise a goal without lowering any' : undefined}
             >
@@ -266,6 +275,8 @@ export function GoalsPanel({
       {current && (
         <PlanOverlay
           moves={current}
+          stretch={plan!.stretch}
+          rolls={plan!.rolls}
           upgrading={plan!.upgrading}
           dataset={dataset}
           build={build}
@@ -395,7 +406,7 @@ function guardHint(key: string): string {
  * cards the suggestion gives it, so what is being recommended can be read
  * the same way as anything in the slot grid.
  */
-export function MoveRow({ move, goals, action, onApply, dataset, build }: {
+export function MoveRow({ move, goals, action, onApply, dataset, build, note }: {
   move: Move;
   goals: Goal[];
   action: string;
@@ -403,12 +414,18 @@ export function MoveRow({ move, goals, action, onApply, dataset, build }: {
   dataset: Dataset;
   /** The build the move applies to, so its full effect can be worked out. */
   build: Build;
+  /** A line under the row: what to farm for it, say. */
+  note?: React.ReactNode;
 }) {
-  const changes = useMemo(() => diffTotals(
-    aggregate(build, dataset),
-    aggregate(applyChanges(build, move.changes, dataset), dataset),
-    dataset,
-  ), [build, move, dataset]);
+  const [changes, matters, setsBroken] = useMemo(() => {
+    const before = aggregate(build, dataset);
+    const after = aggregate(applyChanges(build, move.changes, dataset), dataset);
+    return [
+      diffTotals(before, after, dataset),
+      statsThatMatter(build, before, dataset, goals),
+      brokenSets(before, after),
+    ] as const;
+  }, [build, move, dataset, goals]);
   const isGoal = (c: TotalsChange) => goals.some((g) => g.key === c.key && g.column === c.column);
   // Goals this move would take below their target. Said first, because it is
   // the one consequence a player would not forgive being buried.
@@ -421,8 +438,9 @@ export function MoveRow({ move, goals, action, onApply, dataset, build }: {
     return { slot: def?.label ?? c.slot, item, state: c.state, cards,
       offhand: !!def && isOffhandWeapon(def, item),
       // A move that keeps the piece and changes its cards is a move about
-      // the cards, so those are what it should show.
-      newPiece: !!item && item.id !== was?.itemId };
+      // the cards, so those are what it should show. A refine is about the
+      // piece, so it shows the piece.
+      newPiece: !!item && (item.id !== was?.itemId || move.kind === 'refine') };
   });
   const first = pieces.find((p) => p.item);
 
@@ -479,6 +497,15 @@ export function MoveRow({ move, goals, action, onApply, dataset, build }: {
               Below {broken.map((g) => goalLabel(g, dataset)).join(', ')} ·{' '}
             </span>
           )}
+          {setsBroken.length > 0 && (
+            <span
+              className="below"
+              title={'This takes a piece out of a set you have complete, and loses its set '
+                + 'bonus.\n\nListed after everything that keeps your sets whole, and never planned.'}
+            >
+              Breaks {setsBroken.map((set) => `${set.name} set`).join(', ')} ·{' '}
+            </span>
+          )}
           {move.maxed && (
             <span title="The suggestion above, with the pieces it puts on at full refine">
               At full refine ·{' '}
@@ -491,7 +518,8 @@ export function MoveRow({ move, goals, action, onApply, dataset, build }: {
           )}
           {move.kind === 'set' ? 'Set · ' : move.kind === 'cards' ? 'Cards · '
             : move.kind === 'sockets' ? 'More slots · '
-            : move.kind === 'rolls' ? 'Random options · ' : ''}
+            : move.kind === 'rolls' ? 'Random options · '
+            : move.kind === 'refine' ? 'Refine · ' : ''}
           {pieces.map((p, i) => (
             <span key={i}>
               {i > 0 && ', '}
@@ -509,9 +537,10 @@ export function MoveRow({ move, goals, action, onApply, dataset, build }: {
         {/* The goals inline, since they are why the row is here; the rest
             behind a hover, where a long list can be read in two columns
             without burying the next suggestion. */}
+        {note && <div className="move-note">{note}</div>}
         <div className="deltas">
           {changes.filter(isGoal).map((c, i) => <Change key={i} c={c} />)}
-          <EffectsButton changes={changes} />
+          <EffectsButton changes={changes} matters={matters} />
         </div>
       </div>
       <button onClick={onApply}>{action === 'Equip' && move.kind === 'rolls' ? 'Set rolls' : action}</button>
@@ -519,9 +548,9 @@ export function MoveRow({ move, goals, action, onApply, dataset, build }: {
   );
 }
 
-function Change({ c }: { c: TotalsChange }) {
+function Change({ c, idle }: { c: TotalsChange; idle?: boolean }) {
   return (
-    <span className={`delta ${c.tone === 'bad' ? 'down' : 'up'}`}>
+    <span className={`delta ${idle ? 'idle' : c.tone === 'bad' ? 'down' : 'up'}`}>
       {c.delta > 0 ? '+' : ''}{fmt(c.delta)}{c.unit} {c.label}
     </span>
   );
@@ -532,10 +561,18 @@ function Change({ c }: { c: TotalsChange }) {
  * does. Rendered into the body at a fixed position so the picker's
  * scrolling list cannot clip it.
  */
-function EffectsButton({ changes }: { changes: TotalsChange[] }) {
+function EffectsButton({ changes, matters }: {
+  changes: TotalsChange[];
+  /** Stats this build uses; a loss anywhere else is listed but not counted. */
+  matters: Set<string>;
+}) {
   const [at, setAt] = useState<{ left: number; top: number; up: boolean } | null>(null);
   const gains = changes.filter((c) => c.tone !== 'bad');
-  const losses = changes.filter((c) => c.tone === 'bad');
+  const losses = changes.filter((c) => c.tone === 'bad' && matters.has(c.key));
+  // Two crit off a build with no crit to speak of is not a cost. Still
+  // shown -- the build might be about to change direction -- but apart,
+  // and not in the count on the button.
+  const idle = changes.filter((c) => c.tone === 'bad' && !matters.has(c.key));
   if (changes.length === 0) return <span className="fx-none">no change to any stat</span>;
 
   const open = (el: HTMLElement) => {
@@ -558,6 +595,7 @@ function EffectsButton({ changes }: { changes: TotalsChange[] }) {
         <span className={losses.length ? 'down' : ''}>
           {losses.length} loss{losses.length === 1 ? '' : 'es'}
         </span>
+        {idle.length > 0 && <span className="idle"> · {idle.length} unused</span>}
       </button>
       {at && createPortal(
         <div
@@ -573,6 +611,14 @@ function EffectsButton({ changes }: { changes: TotalsChange[] }) {
             <div className="tip-sec-title">You lose</div>
             {losses.length ? losses.map((c, i) => <div key={i}><Change c={c} /></div>)
               : <div className="tip-dim">nothing</div>}
+            {idle.length > 0 && (
+              <>
+                <div className="tip-sec-title" style={{ marginTop: 8 }}>
+                  Lost, but not used by this build
+                </div>
+                {idle.map((c, i) => <div key={i}><Change c={c} idle /></div>)}
+              </>
+            )}
           </div>
         </div>,
         document.body,

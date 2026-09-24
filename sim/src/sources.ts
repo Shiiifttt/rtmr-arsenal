@@ -1,4 +1,4 @@
-import type { Item } from './types.ts';
+import type { Dataset, Item } from './types.ts';
 
 /**
  * Where things come from: monster drops, vendors, quests, boxes, and the
@@ -147,4 +147,46 @@ export function refineMaterials(item: Item, refine: number, maxRefine: number, s
     from = tier.upTo + 1;
   }
   return out;
+}
+
+/**
+ * What to actually go and farm for an item: the part of its cheapest route
+ * that takes the longest, followed down to a monster.
+ *
+ * A sun helmet is not farmed; its Star Pieces are. So an exchange is
+ * followed into whichever ingredient costs the most in total (quantity
+ * times effort), and on down until something drops. Null when the route
+ * ends at a vendor or is not known.
+ */
+export interface FarmTarget {
+  itemId: number;
+  /** How many of it the original item needs, all the way down. */
+  qty: number;
+  /** The monster it drops best from, by effort. */
+  mobId: number;
+  mob: string;
+  zone: string;
+  chance: number;
+}
+
+export function farmFor(itemId: number, data: Dataset, qty = 1, depth = 0): FarmTarget | null {
+  const e = data.effort?.get(itemId);
+  const item = data.items.get(itemId);
+  if (!e || !item || depth > 6) return null;
+  if (e.via > 0) {
+    const drop = item.drops?.find((d) => d.mob_id === e.via);
+    return drop ? {
+      itemId, qty, mobId: drop.mob_id, mob: drop.mob, zone: drop.zone, chance: drop.chance_percent,
+    } : null;
+  }
+  if (e.via < 0) {
+    const costs = acquisitionOf(item)?.costs ?? [];
+    let heaviest: { id: number; qty: number; weight: number } | null = null;
+    for (const c of costs) {
+      const weight = c.qty * (data.effort?.get(c.id)?.effort ?? 0);
+      if (!heaviest || weight > heaviest.weight) heaviest = { id: c.id, qty: c.qty, weight };
+    }
+    return heaviest ? farmFor(heaviest.id, data, qty * heaviest.qty, depth + 1) : null;
+  }
+  return null;
 }

@@ -705,6 +705,7 @@ input:focus, select:focus, button:focus-visible {
 }
 .fx-btn .up { color: var(--good); }
 .fx-btn .down { color: var(--bad); }
+.fx-btn .idle { color: var(--text-faint); }
 .fx-none { font-size: 11px; color: var(--text-faint); font-style: italic; }
 .fx-pop {
   width: auto; max-width: 480px; pointer-events: none;
@@ -727,6 +728,8 @@ input:focus, select:focus, button:focus-visible {
 .delta { font-family: var(--mono); font-size: 11px; }
 .delta.up { color: var(--good); }
 .delta.down { color: var(--bad); }
+/* Lost, but on a stat this build does not use: shown, not alarming. */
+.delta.idle { color: var(--text-faint); }
 /* Not merely a loss: this one ends up short of the target that was set. */
 .delta.below { border-bottom: 1px dotted var(--bad); }
 .below { color: var(--bad); }
@@ -756,3 +759,11 @@ input:focus, select:focus, button:focus-visible {
 /* A recommendation is read and then acted on with its own button, so the
    row itself is not a click target the way an item row is. */
 .picker-row.rec { cursor: default; }
+
+/* ---- plan overlay: longer-term goals ------------------------------------ */
+
+.stretch { margin-top: 14px; padding-top: 10px; border-top: 1px solid var(--border); }
+.stretch h4 { margin: 0 0 4px; font-size: 12px; font-weight: 600; color: var(--text-dim); }
+.stretch .empty-note { margin: 0 0 8px; font-size: 11px; }
+/* What to farm for a longer-term goal, under its label. */
+.move-note { margin: 2px 0; font-size: 11px; color: var(--warn); }

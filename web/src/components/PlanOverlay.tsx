@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from 'react';
-import { applyChanges, type Build, type Dataset, type Goal, type Move } from '@sim';
+import { applyChanges, farmFor, type Build, type Dataset, type Goal, type Move } from '@sim';
 import { LockedNote, MoveRow } from './GoalsPanel';
 
 /**
@@ -14,9 +14,13 @@ import { LockedNote, MoveRow } from './GoalsPanel';
  * before it too.
  */
 export function PlanOverlay({
-  moves, upgrading, dataset, build, goals, lockedSlots, onApply, onClose,
+  moves, stretch, rolls, upgrading, dataset, build, goals, lockedSlots, onApply, onClose,
 }: {
   moves: Move[];
+  /** Copies of worn pieces with rolls that suit the build better. */
+  rolls: Move[];
+  /** Out-of-reach alternatives, for when the plan has little to offer. */
+  stretch: Move[];
   /** Every goal was already met, so these are upgrades rather than fixes. */
   upgrading: boolean;
   dataset: Dataset;
@@ -87,6 +91,57 @@ export function PlanOverlay({
               ))}
             </ol>
           )}
+
+          {rolls.length > 0 && (
+            <div className="stretch">
+              <h4>Better-rolled copies</h4>
+              <p className="empty-note">
+                The same piece with random options that suit this build, at a
+                typical good roll. Farmed where you already get the piece.
+              </p>
+              <ol className="plan focus-list">
+                {rolls.map((move, i) => (
+                  <li key={i}>
+                    <MoveRow
+                      move={move}
+                      goals={goals}
+                      action="Set rolls"
+                      onApply={() => onApply([move])}
+                      dataset={dataset}
+                      build={build}
+                      note={<FarmNote move={move} build={build} dataset={dataset} rolled />}
+                    />
+                  </li>
+                ))}
+              </ol>
+            </div>
+          )}
+
+          {stretch.length > 0 && (
+            <div className="stretch">
+              <h4>Longer-term goals</h4>
+              <p className="empty-note">
+                Past what this build usually reaches — a longer grind, a tougher
+                monster or a higher refine — but where the next real gains are.
+                Alternatives, not steps.
+              </p>
+              <ol className="plan focus-list">
+                {stretch.map((move, i) => (
+                  <li key={i}>
+                    <MoveRow
+                      move={move}
+                      goals={goals}
+                      action="Equip"
+                      onApply={() => onApply([move])}
+                      dataset={dataset}
+                      build={build}
+                      note={<FarmNote move={move} build={build} dataset={dataset} />}
+                    />
+                  </li>
+                ))}
+              </ol>
+            </div>
+          )}
         </div>
 
         {moves.length > 1 && (
@@ -100,5 +155,42 @@ export function PlanOverlay({
         )}
       </div>
     </div>
+  );
+}
+
+/**
+ * "Farm 1,000 Distortion Essence — Aspect of Lies, Morroc Town (4.65%)".
+ *
+ * Follows the hardest new piece in the suggestion down its cheapest route
+ * to whatever actually has to be farmed. Nothing when that route ends at a
+ * vendor or is not known.
+ */
+function FarmNote({ move, build, dataset, rolled }: {
+  move: Move;
+  build: Build;
+  dataset: Dataset;
+  /** A new copy of the worn piece is what is farmed, not anything new. */
+  rolled?: boolean;
+}) {
+  let hardest: { id: number; effort: number } | null = null;
+  for (const c of move.changes) {
+    const was = build.slots[c.slot];
+    const ids = [
+      ...((rolled || c.state.itemId !== was?.itemId) && c.state.itemId ? [c.state.itemId] : []),
+      ...c.state.cards.filter((id): id is number => !!id && !was?.cards.includes(id)),
+    ];
+    for (const id of ids) {
+      const e = dataset.effort?.get(id)?.effort ?? 0;
+      if (!hardest || e > hardest.effort) hardest = { id, effort: e };
+    }
+  }
+  const target = hardest ? farmFor(hardest.id, dataset) : null;
+  const item = target ? dataset.items.get(target.itemId) : null;
+  if (!target || !item) return null;
+  return (
+    <>
+      Farm {target.qty > 1 ? `${target.qty.toLocaleString()} ` : ''}{item.name}
+      {' — '}{target.mob}, {target.zone} ({target.chance}%)
+    </>
   );
 }

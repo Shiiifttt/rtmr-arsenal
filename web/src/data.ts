@@ -12,22 +12,27 @@ import {
  * the stat totals synchronous, which is what makes the UI feel immediate.
  */
 export async function loadDataset(base = './data'): Promise<Dataset> {
-  const [itemList, sets, stats, classes, classRules, rolls, armorTargets] = await Promise.all([
-    getJSON<Item[]>(`${base}/items/all.json`),
-    getJSON<SetRecord[]>(`${base}/sets/all.json`),
-    getJSON<StatDef[]>(`${base}/stats.json`),
-    getJSON<string[]>(`${base}/classes.json`).catch(() => [] as string[]),
-    // Hand-maintained corrections to what a class can hold. Missing it means
-    // the job sentence on each item is the only restriction, which is how
-    // the planner behaved before the file existed.
-    getJSON<ClassRules>(`${base}/class-rules.json`).catch(() => null),
-    // Hand-written, and built separately from the crawl. Missing it costs
-    // the roll editor, not the planner, so it must not fail the load.
-    getJSON<RollData>(`${base}/rolls.json`).catch(() => null),
-    // A few hundred bytes; missing it only costs the penetration hover its
-    // damage figures.
-    getJSON<Dataset['armorTargets']>(`${base}/mobs/armor-targets.json`).catch(() => null),
-  ]);
+  const [itemList, sets, stats, classes, classRules, rolls, armorTargets, effort] =
+    await Promise.all([
+      getJSON<Item[]>(`${base}/items/all.json`),
+      getJSON<SetRecord[]>(`${base}/sets/all.json`),
+      getJSON<StatDef[]>(`${base}/stats.json`),
+      getJSON<string[]>(`${base}/classes.json`).catch(() => [] as string[]),
+      // Hand-maintained corrections to what a class can hold. Missing it means
+      // the job sentence on each item is the only restriction, which is how
+      // the planner behaved before the file existed.
+      getJSON<ClassRules>(`${base}/class-rules.json`).catch(() => null),
+      // Hand-written, and built separately from the crawl. Missing it costs
+      // the roll editor, not the planner, so it must not fail the load.
+      getJSON<RollData>(`${base}/rolls.json`).catch(() => null),
+      // A few hundred bytes; missing it only costs the penetration hover its
+      // damage figures.
+      getJSON<Dataset['armorTargets']>(`${base}/mobs/armor-targets.json`).catch(() => null),
+      // How hard each item is to get. Missing it means suggestions are not
+      // held to what the character could plausibly farm next.
+      getJSON<Record<string, [number, number, number]>>(`${base}/items/effort.json`)
+        .catch(() => null),
+    ]);
 
   bindBaseStatIds(stats);
 
@@ -41,6 +46,10 @@ export async function loadDataset(base = './data'): Promise<Dataset> {
     classRules,
     rolls,
     armorTargets,
+    effort: effort
+      ? new Map(Object.entries(effort)
+        .map(([id, [e, kill, via]]) => [Number(id), { effort: e, kill, via }]))
+      : null,
   };
 }
 

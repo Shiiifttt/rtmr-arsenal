@@ -410,6 +410,20 @@ export interface Dataset {
    * monster, averages, hardest. Absent if data/mobs/armor-targets.json is.
    */
   armorTargets?: { def: ArmorTarget[]; mdef: ArmorTarget[] } | null;
+  /**
+   * How hard each item is to get, from data/items/effort.json. Items
+   * missing from it are unknown, not cheap.
+   */
+  effort?: Map<number, ItemEffort> | null;
+}
+
+export interface ItemEffort {
+  /** Roughly how much monster HP it takes to get: the length of the grind. */
+  effort: number;
+  /** Effective HP of the toughest monster on the way: whether you can at all. */
+  kill: number;
+  /** The route the figures come from: a monster id, 0 for a zeny purchase, -1 for an exchange. */
+  via: number;
 }
 
 export interface ArmorTarget {
