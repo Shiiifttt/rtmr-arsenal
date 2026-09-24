@@ -451,6 +451,24 @@ input:focus, select:focus, button:focus-visible {
 .tip-line.bad, .tip-sec.cond .tip-line.bad { color: var(--bad); }
 .tip-dim { color: var(--text-faint); font-size: 11px; }
 
+/* One contribution to a total: where it came from, and how much. */
+.tip-src {
+  display: flex; align-items: baseline; gap: 10px;
+  font-size: 12px; line-height: 1.5;
+}
+.tip-src-label {
+  flex: 1; min-width: 0; color: var(--text-dim);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.tip-src-count { color: var(--accent); font-style: normal; font-size: 11px; }
+.tip-src-value {
+  font-family: var(--mono); font-size: 11px; white-space: nowrap;
+}
+/* A totals row is a hover target now, so it has to look like one. */
+.stat-row { cursor: help; border-radius: var(--radius); }
+.stat-row:hover { background: var(--bg-input); }
+.stat-row:focus-visible { outline: 2px solid var(--accent-dim); outline-offset: -2px; }
+
 /* Cards compounded into a piece. The line goes *between* cards, so each
    card reads as one block; inside a card, its per-refine and conditional
    parts are indented under its name rather than ruled off, which made a

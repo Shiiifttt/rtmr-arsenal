@@ -1,7 +1,8 @@
 import { useMemo, useState } from 'react';
 import {
   completeSet, skillTone, statTone,
-  type Build, type Dataset, type SetRecord, type SlotChange, type Totals,
+  type Build, type Dataset, type SetRecord, type SlotChange, type StatTotal,
+  type Totals,
 } from '@sim';
 import { tooltipProps } from './ItemTooltip';
 
@@ -14,13 +15,17 @@ import { tooltipProps } from './ItemTooltip';
  */
 export function StatsPanel({ totals, dataset }: { totals: Totals; dataset: Dataset }) {
   const rows = useMemo(() => {
-    const byCategory = new Map<string, { key: string; name: string; flat: number; percent: number }[]>();
+    const byCategory = new Map<string, {
+      key: string; name: string; flat: number; percent: number;
+      sources: StatTotal['sources'];
+    }[]>();
     for (const total of totals.byStat.values()) {
       const def = dataset.statById.get(total.statId);
       if (!def) continue;
       if (total.flat === 0 && total.percent === 0) continue;
       const list = byCategory.get(def.category) ?? [];
-      list.push({ key: def.key, name: def.name, flat: total.flat, percent: total.percent });
+      list.push({ key: def.key, name: def.name, flat: total.flat,
+        percent: total.percent, sources: total.sources });
       byCategory.set(def.category, list);
     }
     for (const list of byCategory.values()) list.sort((a, b) => a.name.localeCompare(b.name));
@@ -41,14 +46,27 @@ export function StatsPanel({ totals, dataset }: { totals: Totals; dataset: Datas
         <div key={category}>
           <div className="stat-cat">{label(category)}</div>
           {list.map((row) => (
-            <div className="stat-row" key={row.name}>
+            <div
+              className="stat-row"
+              key={row.name}
+              tabIndex={0}
+              {...tooltipProps({
+                kind: 'stat',
+                name: row.name,
+                // A flag is a property, not an amount, so its hover lists
+                // what granted it and leaves the numbers off.
+                statKey: category === 'flag' ? null : row.key,
+                sources: row.sources,
+                flat: row.flat,
+                percent: row.percent,
+              })}
+            >
               <span className="n">{row.name}</span>
               {/* A flag is a property, not a quantity: two sources of
                   "Unbreakable Weapon" is still just unbreakable, so the
                   count is deliberately not shown as a total. */}
               {category === 'flag' ? (
-                <span className="v flag" title={row.flat > 1
-                  ? `granted by ${row.flat} pieces` : undefined}>yes</span>
+                <span className="v flag">yes</span>
               ) : (
                 <>
                   <span className={`v flat ${row.flat ? statTone(row.key, row.flat) ?? '' : 'zero'}`}>
@@ -91,9 +109,11 @@ function SkillRows({ totals }: { totals: Totals }) {
       {shown.map((s) => (
         <div
           className="stat-row" key={`${s.skill}|${s.metric}`}
-          title={s.sources.map((src) =>
-            `${src.label}: ${fmt(src.value)}${src.unit === '%' ? '%' : src.unit ? ` ${src.unit}` : ''}`)
-            .join('\n')}
+          tabIndex={0}
+          {...tooltipProps({
+            kind: 'stat', name: `${s.skill} ${s.metric}`, statKey: null,
+            metric: s.metric, sources: s.sources, flat: s.flat, percent: s.percent,
+          })}
         >
           <span className="n">{s.skill} {s.metric}</span>
           <span className={`v flat ${s.flat ? skillTone(s.metric, s.flat) ?? '' : 'zero'}`}>

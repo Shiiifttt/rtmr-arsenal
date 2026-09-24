@@ -5,8 +5,11 @@ import {
 import { createPortal } from 'react-dom';
 import {
   effectLine, effectTone, HALVED_OFFHAND, isRefineable, jobLimitFix, jobLimitOf,
+  skillTone, statTone,
 } from '@sim';
-import type { Dataset, Effect, Item, RefineGroup, SetRecord, Totals } from '@sim';
+import type {
+  Dataset, Effect, Item, RefineGroup, SetRecord, StatTotal, Totals,
+} from '@sim';
 import { iconUrl } from '../data';
 
 /**
@@ -50,7 +53,30 @@ export interface SetTarget {
   progress: Totals['setProgress'][number];
 }
 
-export type TooltipTarget = ItemTarget | SetTarget;
+/**
+ * One row of the totals, and everything that fed it.
+ *
+ * The totals are a sum, and a sum is the one thing in this app you cannot
+ * check by looking at it. Every contribution is already carried on the
+ * total as it is added up; this is what puts it back on screen.
+ */
+export interface StatTarget {
+  kind: 'stat';
+  /** The stat's name as the panel writes it. */
+  name: string;
+  /**
+   * Null for a flag, which has a count rather than an amount, and for a
+   * skill modifier, whose direction reads by `metric` instead.
+   */
+  statKey: string | null;
+  /** Set for a skill modifier: "damage", "cooldown", "sp cost". */
+  metric?: string;
+  sources: StatTotal['sources'];
+  flat: number;
+  percent: number;
+}
+
+export type TooltipTarget = ItemTarget | SetTarget | StatTarget;
 
 interface Active {
   target: TooltipTarget;
@@ -176,7 +202,9 @@ export function ItemTooltipLayer({ dataset, totals }: {
       {target.target.kind === 'item'
         ? <ItemCard {...target.target} dataset={dataset}
             progress={totals?.setProgress} />
-        : <SetCard {...target.target} />}
+        : target.target.kind === 'set'
+          ? <SetCard {...target.target} />
+          : <StatCard {...target.target} />}
     </div>,
     document.body,
   );
@@ -431,6 +459,82 @@ export function ItemCard({
  * be judged from a `2/4` counter alone -- but an inactive bonus is dimmed so
  * it is never mistaken for one already counted in the totals.
  */
+/**
+ * Where one row of the totals came from.
+ *
+ * Every line the aggregator added is listed, named the way it was added --
+ * the piece, the card, the set, the refine block, the roll. Identical lines
+ * from the same source are collapsed with a count, because four copies of a
+ * card is one fact about the build, not four.
+ *
+ * This exists because a total is the one number in the app that cannot be
+ * checked by looking at it. "Where is that coming from?" was previously a
+ * question you answered by taking gear off one piece at a time.
+ */
+export function StatCard({ name, statKey, metric, sources, flat, percent }: StatTarget) {
+  // A flag has no amount to show; everything else does, coloured by whichever
+  // notion of "better" applies to it.
+  const amounts = statKey !== null || metric !== undefined;
+  const toneOf = (v: number) =>
+    (metric !== undefined ? skillTone(metric, v) : statKey ? statTone(statKey, v) : null);
+  const grouped: { label: string; value: number; unit: string | null; count: number }[] = [];
+  for (const source of sources) {
+    const prior = grouped.find((g) => g.label === source.label && g.unit === source.unit);
+    if (prior) {
+      prior.value += source.value;
+      prior.count += 1;
+    } else {
+      grouped.push({ ...source, count: 1 });
+    }
+  }
+  // Biggest contribution first: on a stat with a dozen sources, the one
+  // worth arguing with is almost always the largest.
+  grouped.sort((a, b) => Math.abs(b.value) - Math.abs(a.value));
+
+  const amount = (value: number, unit: string | null) =>
+    `${value > 0 ? '+' : ''}${Math.round(value * 100) / 100}${unit === '%' ? '%' : unit ? ` ${unit}` : ''}`;
+
+  return (
+    <>
+      <div className="tip-head">
+        <div style={{ minWidth: 0 }}>
+          <div className="tip-name">{name}</div>
+          <div className="tip-sub">
+            {!amounts
+              ? `granted by ${sources.length} ${sources.length === 1 ? 'piece' : 'pieces'}`
+              : [flat !== 0 ? amount(flat, null) : null,
+                percent !== 0 ? amount(percent, '%') : null]
+                .filter(Boolean).join(' and ')}
+            {` · ${grouped.length} source${grouped.length === 1 ? '' : 's'}`}
+          </div>
+        </div>
+      </div>
+
+      <Section title="From">
+        {grouped.map((g, i) => (
+          <div className="tip-src" key={i}>
+            <span className="tip-src-label">
+              {g.label}{g.count > 1 && <em className="tip-src-count"> ×{g.count}</em>}
+            </span>
+            {amounts && (
+              <span className={`tip-src-value ${toneOf(g.value) ?? ''}`}>
+                {amount(g.value, g.unit)}
+              </span>
+            )}
+          </div>
+        ))}
+      </Section>
+
+      {amounts && flat !== 0 && percent !== 0 && (
+        <div className="tip-note">
+          Flat and percent are totalled apart, and are not combined here —
+          how they stack is the damage model's job.
+        </div>
+      )}
+    </>
+  );
+}
+
 function SetCard({ progress }: SetTarget) {
   const { set, worn, total, complete, setRefine, wornIds } = progress;
   const equipped = new Set(wornIds);

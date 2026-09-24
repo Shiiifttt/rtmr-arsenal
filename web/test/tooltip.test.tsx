@@ -18,7 +18,7 @@ import { test } from 'node:test';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { bindBaseStatIds } from '@sim';
 import type { Dataset, Item, RollData, SetRecord, StatDef } from '@sim';
-import { ItemCard } from '../src/components/ItemTooltip';
+import { ItemCard, StatCard } from '../src/components/ItemTooltip';
 
 const ROOT = new URL('../../data/', import.meta.url);
 const j = <T,>(p: string): T => JSON.parse(readFileSync(new URL(p, ROOT), 'utf8'));
@@ -138,4 +138,59 @@ test('a card shows no level requirement, because it has none to show', () => {
   const ungated = itemList.find((i) =>
     i.kind !== 'Card' && i.equip_slots.length > 0 && i.required_level === 0)!;
   if (ungated) assert.match(render(ungated), /No level requirement/);
+});
+
+// ---- the totals row hover ------------------------------------------------
+
+const statCard = (props: Parameters<typeof StatCard>[0]) =>
+  renderToStaticMarkup(<StatCard {...props} />);
+
+test('a total names every source, largest first', () => {
+  const html = statCard({
+    kind: 'stat', name: 'Max HP', statKey: 'max_hp', flat: 0, percent: -24,
+    sources: [
+      { label: 'Fallen Gods Armor (refine)', value: -14, unit: '%' },
+      { label: 'Fallen Gods set', value: -10, unit: '%' },
+    ],
+  });
+  assert.ok(html.includes('Max HP'));
+  assert.ok(html.includes('Fallen Gods Armor (refine)'));
+  assert.ok(html.includes('Fallen Gods set'));
+  assert.ok(html.includes('2 sources'));
+  // Biggest contribution first, whichever order it was added in.
+  assert.ok(html.indexOf('Fallen Gods Armor') < html.indexOf('Fallen Gods set'));
+});
+
+test('the same source several times over is collapsed with a count', () => {
+  const html = statCard({
+    kind: 'stat', name: 'ATK', statKey: 'atk', flat: 20, percent: 0,
+    sources: Array.from({ length: 4 }, () =>
+      ({ label: 'Hodremlin Card', value: 5, unit: null })),
+  });
+  assert.ok(html.includes('×4'), 'four copies of a card is one line with a count');
+  assert.ok(html.includes('+20'), 'and the summed value');
+  assert.ok(html.includes('1 source'), 'counted as one source, not four');
+});
+
+test('a flag lists what granted it and shows no amount', () => {
+  const html = statCard({
+    kind: 'stat', name: 'Unbreakable Weapon', statKey: null, flat: 2, percent: 0,
+    sources: [
+      { label: 'Some Weapon', value: 1, unit: null },
+      { label: 'Some Armor', value: 1, unit: null },
+    ],
+  });
+  assert.ok(html.includes('granted by 2 pieces'));
+  assert.ok(!html.includes('tip-src-value'), 'a flag has no amount to show');
+});
+
+test('a skill modifier is coloured by its metric, not by a stat key', () => {
+  // Lower is better for a cooldown, so a reduction must read as a gain.
+  const html = statCard({
+    kind: 'stat', name: 'Heal cooldown', statKey: null, metric: 'cooldown',
+    flat: -2, percent: 0,
+    sources: [{ label: 'Some Gem', value: -2, unit: 's' }],
+  });
+  assert.ok(html.includes('-2 s'));
+  assert.ok(html.includes('good'), 'a shorter cooldown is a gain');
 });
