@@ -431,6 +431,7 @@ def stage_decode(raw_dir: Path, out_dir: Path) -> dict:
 
     items = decode_items(items_payload)
     mobs = decode_mobs(mobs_payload)
+    apply_acquisition(items, Path(__file__).resolve().parent / "acquisition.json")
 
     items_dir = out_dir / "items"
     by_kind_dir = items_dir / "by-kind"
@@ -441,6 +442,8 @@ def stage_decode(raw_dir: Path, out_dir: Path) -> dict:
     write_json(out_dir / "mobs" / "all.json", mobs)
     write_spawns(out_dir / "mobs" / "spawns.json", mobs)
     write_json(out_dir / "mobs" / "armor-targets.json", armor_targets(mobs))
+    effort = items_dir / "effort.json"
+    effort.write_text(json.dumps(item_effort(items, mobs), separators=(",", ":")), encoding="utf-8")
 
     buckets: dict[str, list[dict]] = {}
     for item in items:
@@ -571,6 +574,170 @@ def write_spawns(path: Path, mobs: list[dict]) -> None:
     tmp = path.with_suffix(path.suffix + ".part")
     tmp.write_text(json.dumps(out, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
     tmp.replace(path)
+
+
+SOLD_EFFORT = 1000
+"""What something sold for zeny with no item cost counts as. The data has
+no prices, so it is simply cheap next to anything that has to be farmed."""
+
+MVP_EFFORT_FACTOR = 200
+"""How much harder a drop is to farm off an MVP than the rest of the sum
+says. An MVP comes back every 30 to 60 minutes and other players want it
+too, so a 3% card is some thirty kills spread over a day or more of
+camping. Calibrated so Mistress Card lands just past a sun helmet, which is
+where players place it. A calibration, not a model."""
+
+SPARSE_SPAWNS = 10
+"""How many spawns on a map it takes before finding the next one stops
+being the slow part. A kill costs 1 + SPARSE_SPAWNS / spawns times its HP:
+70 on a map is barely slower than the HP alone, 3 is four times slower,
+and a lone spawn eleven times -- the walking between them is the cost. The
+data has no map sizes, so this is spawns per map, not true density."""
+
+
+def apply_acquisition(items: list[dict], path: Path) -> None:
+    """Put back the exchange costs the database leaves out.
+
+    Written into the item's raw "how" field, where the database's own costs
+    live, so both the planner's effort score and its "where it comes from"
+    overlay read the corrected figure without knowing it was corrected. The
+    correction itself is kept alongside, as "how_override", so it can be
+    shown and argued with.
+    """
+    if not path.exists():
+        return
+    spec = json.loads(path.read_text("utf-8"))
+    by_name: dict[str, list[dict]] = {}
+    for item in items:
+        by_name.setdefault(item["name"], []).append(item)
+    applied = 0
+    for entry in spec.get("entries", []):
+        costs = []
+        for qty, name in entry["costs"]:
+            match = by_name.get(name)
+            if not match:
+                print(f"  ! acquisition: no item called {name!r}", file=sys.stderr)
+                continue
+            costs.append([qty, name, match[0]["id"]])
+        for name in entry["names"]:
+            for item in by_name.get(name) or []:
+                how = item["raw"].get("how")
+                how = list(how) if isinstance(how, list) else ["", "", "", [], "", "", ""]
+                how += [None] * max(0, 7 - len(how))
+                how[3] = costs
+                how[6] = ""  # an exchange, not a zeny purchase
+                item["raw"]["how"] = how
+                item["raw"]["how_override"] = {
+                    "status": entry.get("status"), "reason": entry.get("reason")}
+                applied += 1
+            if name not in by_name:
+                print(f"  ! acquisition: no item called {name!r}", file=sys.stderr)
+    print(f"[decode] exchange costs corrected on {applied} items")
+
+
+MIN_HP_PER_LEVEL = 200
+"""The least HP a monster is taken to have per level, for effort. A handful
+carry a token figure -- Shadow of Reginleif is level 124 with 30 HP, Fake
+Pope level 144 with 240 -- which is a special mechanic (a fixed number of
+hits, say), not a monster that dies to a sneeze. Read literally they make
+whatever they drop look free."""
+
+
+def effective_hp(mob: dict) -> float:
+    """HP as it takes to chew through, armour included.
+
+    Renewal's hard DEF lets (4000 + DEF) / (4000 + 10 DEF) of a hit through,
+    and hard MDEF (1000 + MDEF) / (1000 + 10 MDEF) of a spell. Effort is not
+    about one build, so the monster is taken through whichever lets more in:
+    700 DEF on a Valhalla Knight counts in full only if 25 MDEF did not
+    leave the door open for magic. No penetration assumed.
+    """
+    d = max(0, mob.get("def") or 0)
+    m = max(0, mob.get("mdef") or 0)
+    through = max((4000 + d) / (4000 + 10 * d), (1000 + m) / (1000 + 10 * m))
+    hp = max(mob["hp"] or 0, (mob["level"] or 0) * MIN_HP_PER_LEVEL)
+    return hp / through
+
+
+def item_effort(items: list[dict], mobs: list[dict]) -> dict[str, list[int]]:
+    """How hard each item is to get: [effort, toughest kill, route].
+
+    Effort is roughly how much monster HP you chew through to get it; the
+    toughest kill is the effective HP of the hardest monster the route asks
+    you to beat. They answer different questions -- how long, and whether at
+    all. A Valhalla drop is out of a mid-game character's hands because of
+    the 1.5 million HP Knight standing over it, however short the grind.
+
+    For a drop: what one kill costs over the drop chance. A kill costs the
+    monster's effective HP (armour included), scaled up when there are few
+    of it on its best map to find; MVPs cost far more again. For an
+    exchange: the sum of what it costs, each part worked out the same way.
+    The easiest route wins. Only monsters that spawn count, and never the
+    level 1 training dummies.
+
+    It is a yardstick, not a price. It exists so suggestions can tell a
+    piece a character could farm next week from one that takes a finished
+    endgame build -- Valhalla drops at 1% off 1.5 million HP, or a sun
+    helmet at a thousand Star Pieces and a +9 moon helmet. Items whose
+    effort cannot be worked out (boxes, zeny prices) are left out, and read
+    as unknown rather than as cheap.
+    """
+    by_id = {i["id"]: i for i in items}
+    mob_by_id = {m["id"]: m for m in mobs}
+    # (effort, toughest kill, route) per item; None while in progress or
+    # unknown. The route is the monster id for a drop, 0 for a zeny purchase
+    # and -1 for an exchange, so the planner can follow the chosen route down
+    # to what is actually worth farming.
+    memo: dict[int, tuple[float, float, int] | None] = {}
+
+    def effort(item_id: int, depth: int = 0) -> tuple[float, float, int] | None:
+        if item_id in memo:
+            return memo[item_id]
+        memo[item_id] = None  # a cycle reads as unknown, not as free
+        item = by_id.get(item_id)
+        if item is None:
+            return None
+        best: tuple[float, float, int] | None = None
+
+        def take(route: tuple[float, float, int]) -> None:
+            nonlocal best
+            if best is None or route[0] < best[0]:
+                best = route
+
+        for d in item.get("drops") or []:
+            mob = mob_by_id.get(d["mob_id"])
+            chance = d.get("chance_percent") or 0
+            if not mob or not mob["spawns"] or (mob["level"] or 0) <= 1 or chance <= 0:
+                continue
+            most = max((s["count"] or 0) for s in mob["spawns"])
+            ehp = effective_hp(mob)
+            cost = ehp * (1 + SPARSE_SPAWNS / max(1, most)) / (chance / 100)
+            if mob["is_mvp"]:
+                cost *= MVP_EFFORT_FACTOR
+            take((cost, ehp, mob["id"]))
+        how = (item.get("raw") or {}).get("how")
+        if isinstance(how, list) and how and how[0]:
+            costs = how[3] if len(how) > 3 and isinstance(how[3], list) else []
+            if not costs and len(how) > 6 and how[6] == "sold":
+                take((SOLD_EFFORT, 0.0, 0))
+            elif costs and depth < 6:
+                total, toughest = 0.0, 0.0
+                for c in costs:
+                    if isinstance(c, list) and len(c) >= 3:
+                        part = effort(c[2], depth + 1)
+                        if part:
+                            total += (c[0] or 0) * part[0]
+                            toughest = max(toughest, part[1])
+                take((total, toughest, -1))
+        memo[item_id] = best
+        return best
+
+    out = {}
+    for item in items:
+        e = effort(item["id"])
+        if e is not None:
+            out[str(item["id"])] = [round(e[0]), round(e[1]), e[2]]
+    return out
 
 
 def armor_targets(mobs: list[dict]) -> dict:

@@ -38,6 +38,13 @@
   ],
 
   "items": {
+    "Rhyncho Card": {
+      "status": "unverified",
+      "reason": "The tooltip reads 'HP+1% per Improve Wisdom skill level (Naturally Learned only)', which depends on a skill the planner does not model. Project owner: most thief branches learn it to level 10, so it is counted at its usual +10%. A character without the skill gets less.",
+      "effects": [
+        "HP +10%"
+      ]
+    },
     "Murder Knife": {
       "status": "unverified",
       "reason": "The tooltip reads 'Defense Penetration +10' / 'Extra 1 % per refine' / 'Critical Damage +10%' / 'Extra 1% per refine'. Neither 'Extra' line names a stat, and taken literally the second would scale Critical Damage. The server owner says both are a mistranslation and the weapon grants +1 Defense Penetration and +1 Magic Defense Penetration per refine. Encoded that way here. NOTE: that reading leaves the flat 'Critical Damage +10%' with no per-refine line of its own, which is worth re-checking in game.",

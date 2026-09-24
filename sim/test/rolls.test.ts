@@ -340,7 +340,9 @@ test('rolls do not follow an item into a slot that rolls differently', () => {
   };
   const after = carryInto(before, shadowItem, SLOT_BY_KEY.get('sh_armor')!, dataset);
   assert.equal(after.rolls?.evasion, undefined, 'shadow gear has no evasion roll');
-  assert.deepEqual(after.rolls?.stat, { option: 'agi', values: [2] },
+  // Shadow gear rolls +1 at most where a garment rolls +2, so the value is
+  // pulled into the new range on the way.
+  assert.deepEqual(after.rolls?.stat, { option: 'agi', values: [1] },
     'but the stat roll exists in both tables');
 });
 

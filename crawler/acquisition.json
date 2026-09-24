@@ -1,0 +1,30 @@
+{
+ "_README": [
+  "What an item costs to get, where the database leaves it out.",
+  "",
+  "This file is maintained by hand and is NOT generated. The item payload",
+  "records vendors and exchanges, but some exchanges come through as a plain",
+  "'sold' with no item cost at all -- which reads as a zeny purchase, and",
+  "makes the piece look as easy to get as anything in a shop. That in turn",
+  "puts it at the top of every suggestion list.",
+  "",
+  "Each entry names the items it covers and the costs, as [quantity, item",
+  "name]. The name is looked up in the dataset, so a typo is reported rather",
+  "than silently costing nothing. The costs replace whatever the database",
+  "listed; the vendor and place are kept.",
+  "",
+  "'status' is either 'verified' (checked in game) or 'unverified' (a best",
+  "reading, not yet confirmed), as in overrides.json and class-rules.json."
+ ],
+ "entries": [
+  {
+   "names": [
+    "Sage Robe", "Sage Armor", "Sage Muffler", "Sage Manteau", "Sage Shoes",
+    "Sage Boots", "Sage Pendant", "Sage Earrings", "Sage Necklace", "Sage Ring"
+   ],
+   "status": "unverified",
+   "reason": "Project owner, from play: the Eternal Sage trades these for 1,000 Distortion Essence each. The database lists them as sold, with no item cost.",
+   "costs": [[1000, "Distortion Essence"]]
+  }
+ ]
+}

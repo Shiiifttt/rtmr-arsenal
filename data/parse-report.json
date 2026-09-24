@@ -5,7 +5,7 @@
  "items_with_item_refine_scaling": 891,
  "sets_with_set_refine_scaling": 96,
  "effect_lines": 10207,
- "effect_lines_unstructured": 3952,
+ "effect_lines_unstructured": 3951,
  "effect_parse_rate": 61.3,
  "effect_parse_rate_by_kind": {
   "Weapon": {
@@ -25,8 +25,8 @@
   },
   "Card": {
    "lines": 1058,
-   "unstructured": 218,
-   "rate": 79.4
+   "unstructured": 217,
+   "rate": 79.5
   },
   "Shadow gear": {
    "lines": 991,
@@ -382,6 +382,14 @@
    ]
   },
   {
+   "item": "Rhyncho Card",
+   "status": "unverified",
+   "reason": "The tooltip reads 'HP+1% per Improve Wisdom skill level (Naturally Learned only)', which depends on a skill the planner does not model. Project owner: most thief branches learn it to level 10, so it is counted at its usual +10%. A character without the skill gets less.",
+   "changed": [
+    "effects"
+   ]
+  },
+  {
    "item": "Murder Knife",
    "status": "unverified",
    "reason": "The tooltip reads 'Defense Penetration +10' / 'Extra 1 % per refine' / 'Critical Damage +10%' / 'Extra 1% per refine'. Neither 'Extra' line names a stat, and taken literally the second would scale Critical Damage. The server owner says both are a mistranslation and the weapon grants +1 Defense Penetration and +1 Magic Defense Penetration per refine. Encoded that way here. NOTE: that reading leaves the flat 'Critical Damage +10%' with no per-refine line of its own, which is worth re-checking in game.",
@@ -462,6 +470,7 @@
   "Slotted Death",
   "Slotted Bullhorn",
   "Unslotted Bullhorn",
+  "Rhyncho Card",
   "Murder Knife",
   "Gravewhisper",
   "Rank S Shadow Card"
@@ -474,7 +483,7 @@
  "conditions_total": 388,
  "stats_registered": 154,
  "stat_mapping": {
-  "mapped_to_stat_ids": 5635,
+  "mapped_to_stat_ids": 5636,
   "skill_modifiers": 947,
   "unmapped": 226,
   "coverage_percent": 82.8
@@ -899,10 +908,42 @@
     "weapons",
     "off_hand"
    ]
+  },
+  {
+   "item": "Loki's Scarf",
+   "status": "unverified",
+   "changed": [
+    "usable_by"
+   ]
+  },
+  {
+   "item": "Unbound Gem of Full Power",
+   "status": "unverified",
+   "changed": [
+    "usable_by"
+   ]
+  },
+  {
+   "item": "Loki Gem of the Traitor's Path",
+   "status": "unverified",
+   "changed": [
+    "usable_by"
+   ]
+  },
+  {
+   "item": "Polymath Gem of All Schools",
+   "status": "unverified",
+   "changed": [
+    "usable_by"
+   ]
   }
  ],
  "class_rules_unverified": [
-  "Satsujin"
+  "Satsujin",
+  "Loki's Scarf",
+  "Unbound Gem of Full Power",
+  "Loki Gem of the Traitor's Path",
+  "Polymath Gem of All Schools"
  ],
  "class_rules_stale": [],
  "class_rules_unknown_types": []

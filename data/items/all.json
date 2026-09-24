@@ -227150,8 +227150,17 @@
   "sets": [],
   "effects": [
    {
-    "text": "HP+1% per Improve Wisdom skill level (Naturally Learned only)",
-    "parsed": false
+    "text": "HP +10%",
+    "stat": "HP",
+    "value": 10,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     6
+    ],
+    "stat_keys": [
+     "max_hp"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -227162,7 +227171,10 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "override": null
+  "override": {
+   "status": "unverified",
+   "reason": "The tooltip reads 'HP+1% per Improve Wisdom skill level (Naturally Learned only)', which depends on a skill the planner does not model. Project owner: most thief branches learn it to level 10, so it is counted at its usual +10%. A character without the skill gets less."
+  }
  },
  {
   "id": 28296,
@@ -373565,10 +373577,16 @@
     "Eternal Sage · Inside Dicastes Diel",
     "",
     "",
-    [],
+    [
+     [
+      1000,
+      "Distortion Essence",
+      7361
+     ]
+    ],
     "",
     "",
-    "sold",
+    "",
     null,
     null,
     6
@@ -373578,7 +373596,11 @@
    "icon_bits": 3,
    "no_source": 0,
    "source_mvp": 0,
-   "source_normal": 0
+   "source_normal": 0,
+   "how_override": {
+    "status": "unverified",
+    "reason": "Project owner, from play: the Eternal Sage trades these for 1,000 Distortion Essence each. The database lists them as sold, with no item cost."
+   }
   },
   "sets": [],
   "effects": [
@@ -373646,10 +373668,16 @@
     "Eternal Sage · Inside Dicastes Diel",
     "",
     "",
-    [],
+    [
+     [
+      1000,
+      "Distortion Essence",
+      7361
+     ]
+    ],
     "",
     "",
-    "sold",
+    "",
     null,
     null,
     6
@@ -373659,7 +373687,11 @@
    "icon_bits": 3,
    "no_source": 0,
    "source_mvp": 0,
-   "source_normal": 0
+   "source_normal": 0,
+   "how_override": {
+    "status": "unverified",
+    "reason": "Project owner, from play: the Eternal Sage trades these for 1,000 Distortion Essence each. The database lists them as sold, with no item cost."
+   }
   },
   "sets": [],
   "effects": [
@@ -373727,10 +373759,16 @@
     "Eternal Sage · Inside Dicastes Diel",
     "",
     "",
-    [],
+    [
+     [
+      1000,
+      "Distortion Essence",
+      7361
+     ]
+    ],
     "",
     "",
-    "sold",
+    "",
     null,
     null,
     6
@@ -373740,7 +373778,11 @@
    "icon_bits": 3,
    "no_source": 0,
    "source_mvp": 0,
-   "source_normal": 0
+   "source_normal": 0,
+   "how_override": {
+    "status": "unverified",
+    "reason": "Project owner, from play: the Eternal Sage trades these for 1,000 Distortion Essence each. The database lists them as sold, with no item cost."
+   }
   },
   "sets": [],
   "effects": [
@@ -373808,10 +373850,16 @@
     "Eternal Sage · Inside Dicastes Diel",
     "",
     "",
-    [],
+    [
+     [
+      1000,
+      "Distortion Essence",
+      7361
+     ]
+    ],
     "",
     "",
-    "sold",
+    "",
     null,
     null,
     6
@@ -373821,7 +373869,11 @@
    "icon_bits": 3,
    "no_source": 0,
    "source_mvp": 0,
-   "source_normal": 0
+   "source_normal": 0,
+   "how_override": {
+    "status": "unverified",
+    "reason": "Project owner, from play: the Eternal Sage trades these for 1,000 Distortion Essence each. The database lists them as sold, with no item cost."
+   }
   },
   "sets": [],
   "effects": [
@@ -373889,10 +373941,16 @@
     "Eternal Sage · Inside Dicastes Diel",
     "",
     "",
-    [],
+    [
+     [
+      1000,
+      "Distortion Essence",
+      7361
+     ]
+    ],
     "",
     "",
-    "sold",
+    "",
     null,
     null,
     6
@@ -373902,7 +373960,11 @@
    "icon_bits": 3,
    "no_source": 0,
    "source_mvp": 0,
-   "source_normal": 0
+   "source_normal": 0,
+   "how_override": {
+    "status": "unverified",
+    "reason": "Project owner, from play: the Eternal Sage trades these for 1,000 Distortion Essence each. The database lists them as sold, with no item cost."
+   }
   },
   "sets": [],
   "effects": [
@@ -373970,10 +374032,16 @@
     "Eternal Sage · Inside Dicastes Diel",
     "",
     "",
-    [],
+    [
+     [
+      1000,
+      "Distortion Essence",
+      7361
+     ]
+    ],
     "",
     "",
-    "sold",
+    "",
     null,
     null,
     6
@@ -373983,7 +374051,11 @@
    "icon_bits": 3,
    "no_source": 0,
    "source_mvp": 0,
-   "source_normal": 0
+   "source_normal": 0,
+   "how_override": {
+    "status": "unverified",
+    "reason": "Project owner, from play: the Eternal Sage trades these for 1,000 Distortion Essence each. The database lists them as sold, with no item cost."
+   }
   },
   "sets": [],
   "effects": [
@@ -374051,10 +374123,16 @@
     "Eternal Sage · Inside Dicastes Diel",
     "",
     "",
-    [],
+    [
+     [
+      1000,
+      "Distortion Essence",
+      7361
+     ]
+    ],
     "",
     "",
-    "sold",
+    "",
     null,
     null,
     6
@@ -374064,7 +374142,11 @@
    "icon_bits": 3,
    "no_source": 0,
    "source_mvp": 0,
-   "source_normal": 0
+   "source_normal": 0,
+   "how_override": {
+    "status": "unverified",
+    "reason": "Project owner, from play: the Eternal Sage trades these for 1,000 Distortion Essence each. The database lists them as sold, with no item cost."
+   }
   },
   "sets": [],
   "effects": [
@@ -374132,10 +374214,16 @@
     "Eternal Sage · Inside Dicastes Diel",
     "",
     "",
-    [],
+    [
+     [
+      1000,
+      "Distortion Essence",
+      7361
+     ]
+    ],
     "",
     "",
-    "sold",
+    "",
     null,
     null,
     6
@@ -374145,7 +374233,11 @@
    "icon_bits": 3,
    "no_source": 0,
    "source_mvp": 0,
-   "source_normal": 0
+   "source_normal": 0,
+   "how_override": {
+    "status": "unverified",
+    "reason": "Project owner, from play: the Eternal Sage trades these for 1,000 Distortion Essence each. The database lists them as sold, with no item cost."
+   }
   },
   "sets": [],
   "effects": [
@@ -374213,10 +374305,16 @@
     "Eternal Sage · Inside Dicastes Diel",
     "",
     "",
-    [],
+    [
+     [
+      1000,
+      "Distortion Essence",
+      7361
+     ]
+    ],
     "",
     "",
-    "sold",
+    "",
     null,
     null,
     6
@@ -374226,7 +374324,11 @@
    "icon_bits": 3,
    "no_source": 0,
    "source_mvp": 0,
-   "source_normal": 0
+   "source_normal": 0,
+   "how_override": {
+    "status": "unverified",
+    "reason": "Project owner, from play: the Eternal Sage trades these for 1,000 Distortion Essence each. The database lists them as sold, with no item cost."
+   }
   },
   "sets": [],
   "effects": [
@@ -374294,10 +374396,16 @@
     "Eternal Sage · Inside Dicastes Diel",
     "",
     "",
-    [],
+    [
+     [
+      1000,
+      "Distortion Essence",
+      7361
+     ]
+    ],
     "",
     "",
-    "sold",
+    "",
     null,
     null,
     6
@@ -374307,7 +374415,11 @@
    "icon_bits": 3,
    "no_source": 0,
    "source_mvp": 0,
-   "source_normal": 0
+   "source_normal": 0,
+   "how_override": {
+    "status": "unverified",
+    "reason": "Project owner, from play: the Eternal Sage trades these for 1,000 Distortion Essence each. The database lists them as sold, with no item cost."
+   }
   },
   "sets": [],
   "effects": [
