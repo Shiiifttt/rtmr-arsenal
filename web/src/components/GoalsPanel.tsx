@@ -605,6 +605,11 @@ export function Deltas({ goals, before, after, labelOf }: {
   const chips = goals.map((goal, i) => {
     const d = after[i] - before[i];
     if (Math.abs(d) < 1e-9) return null;
+    // A guard is a floor, not a number being chased, so a chip for it on
+    // every row in the picker is noise -- it moves whatever you are
+    // looking at. The exception is a change that actually crosses it,
+    // which is the one thing the guard exists to say.
+    if (goal.guard && !broken.has(goal)) return null;
     const better = goal.atMost ? d < 0 : d > 0;
     return (
       <span

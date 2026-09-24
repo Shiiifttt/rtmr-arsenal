@@ -6,7 +6,7 @@ import {
 } from '@sim';
 import { loadDataset } from './data';
 import { emptyBuild, reconcile, STORAGE_KEY } from './build';
-import { decodeBuild, payloadIn } from './share';
+import { decodeBuild, payloadIn, shareUrl } from './share';
 import { BuildsPanel } from './components/BuildsPanel';
 import { SlotGrid } from './components/SlotGrid';
 import { ItemPicker } from './components/ItemPicker';
@@ -48,6 +48,10 @@ export default function App() {
   const [picking, setPicking] = useState<Picking | null>(null);
   const [importing, setImporting] = useState(false);
   const [builds, setBuilds] = useState(false);
+  /** Open the Builds panel with the share link already made. */
+  const [wantLink, setWantLink] = useState(false);
+  /** Brief acknowledgement on the toolbar's Share button. */
+  const [copied, setCopied] = useState(false);
   /**
    * Showing a build that arrived in a link, and not yet adopted.
    *
@@ -114,6 +118,26 @@ export default function App() {
       // A corrupt or absent save is not worth failing over -- an empty
       // build is a usable answer and the broken one is left alone on disk.
       setBuild(emptyBuild());
+    }
+  };
+
+  /**
+   * Copy a link to this build, without opening anything.
+   *
+   * Sharing is the one thing in the Builds panel that is a single action
+   * rather than a decision, so it gets a button of its own up here. If the
+   * clipboard is not available -- an insecure origin, or the permission
+   * refused -- the panel opens with the link already made, to copy by hand.
+   */
+  const copyLink = async (b: Build) => {
+    const url = await shareUrl(b);
+    try {
+      await navigator.clipboard.writeText(url);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1800);
+    } catch {
+      setWantLink(true);
+      setBuilds(true);
     }
   };
 
@@ -247,6 +271,15 @@ export default function App() {
         >
           Clear gear
         </button>
+        <button
+          className={`share-btn ${copied ? 'shared' : ''}`}
+          onClick={() => void copyLink(build)}
+          title={'Copy a link to this build. It carries the whole thing — '
+            + 'nothing is uploaded, and opening one never touches the '
+            + 'reader\'s own build.'}
+        >
+          {copied ? 'Link copied' : 'Share'}
+        </button>
       </header>
 
       {shared && (
@@ -358,8 +391,9 @@ export default function App() {
         <BuildsPanel
           dataset={dataset}
           build={build}
+          autoShare={wantLink}
           onLoad={(next) => { setBuild(next); ownIt(); }}
-          onClose={() => setBuilds(false)}
+          onClose={() => { setBuilds(false); setWantLink(false); }}
         />
       )}
 

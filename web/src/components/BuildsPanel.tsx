@@ -9,6 +9,8 @@ interface Props {
   build: Build;
   /** Load a build over the one on screen. Already reconciled. */
   onLoad: (build: Build) => void;
+  /** Make the share link as soon as this opens, for the toolbar's fallback. */
+  autoShare?: boolean;
   onClose: () => void;
 }
 
@@ -20,12 +22,21 @@ interface Props {
  * save is for coming back next week, a file is for a backup or another
  * machine, and a link is for showing someone.
  */
-export function BuildsPanel({ dataset, build, onLoad, onClose }: Props) {
+export function BuildsPanel({ dataset, build, autoShare, onLoad, onClose }: Props) {
   const [saves, setSaves] = useState<SavedBuild[]>(loadSaves);
   const [name, setName] = useState('');
   const [note, setNote] = useState<string | null>(null);
   const [link, setLink] = useState<string | null>(null);
   const file = useRef<HTMLInputElement>(null);
+
+  // Opened by the toolbar's Share when the clipboard would not take it, so
+  // the link is on screen to copy by hand rather than a button away.
+  useEffect(() => {
+    if (autoShare) void share();
+    // Once, on open: re-running this on every keystroke in the name box
+    // would rebuild the link each time for nothing.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [autoShare]);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
