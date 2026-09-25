@@ -1,5 +1,8 @@
 import { aggregate, BASE_STAT_IDS, skillKey } from './aggregate.ts';
-import { combine, defMultiplier, effectivePierce, FORMULAS, mdefMultiplier } from './derived.ts';
+import {
+  combine, critDamageFromLuk, defMultiplier, effectivePierce, FORMULAS, mdefMultiplier, statusAtk,
+  statusAtkFromLuk,
+} from './derived.ts';
 import { skillTone, statTone, type Tone } from './format.ts';
 import { canEquip } from './jobs.ts';
 import { rollTableFor, type RollPick } from './rolls.ts';
@@ -234,22 +237,61 @@ function skillRatio(kind: 'physical' | 'magic', totals: Totals, build: Build, da
   return 100 * (Math.exp(logs.reduce((a, b) => a + b, 0) / logs.length) - 1);
 }
 
+/**
+ * Chain links for a hit's ATK: status ATK off STR for melee (and for a
+ * physical build that does not say which it is), off DEX for ranged, with
+ * the gear's flat ATK beside it.
+ */
+const ATK_MELEE = 'atk_melee';
+const ATK_RANGED = 'atk_ranged';
+
+/**
+ * What a point of each kind of ATK is worth beside a point of status ATK.
+ * From the project owner, in this order: status ATK far above the rest, then
+ * the main hand's own ATK, then flat ATK bonuses, then the off hand's own
+ * ATK. The order is theirs; the figures are calibrations.
+ */
+const ATK_WEIGHTS = { main: 0.5, bonus: 0.4, off: 0.25 };
+
+/**
+ * The part of a hit's ATK the link does not see -- mastery, buffs and the
+ * like -- that the weighed ATK is measured against. A calibration, not a
+ * measurement: at 250, 99 + 36 STR is some +59% on the hit before any gear,
+ * and a 200 ATK main hand another +40%.
+ */
+const ATK_REST = 250;
+
+function atkLink(stat: 'str' | 'dex', totals: Totals, build: Build, data: Dataset): number {
+  const points = measure({ key: stat, column: 'total', target: 0 }, totals, build, data);
+  const luk = measure({ key: 'luk', column: 'total', target: 0 }, totals, build, data);
+  const main = data.items.get(build.slots.weapon?.itemId ?? -1);
+  const off = isTwoHanded(main) ? undefined : data.items.get(build.slots.offhand?.itemId ?? -1);
+  const mainAtk = main?.atk ?? 0;
+  // A shield carries no ATK of its own, so this is only ever a weapon's.
+  const offAtk = off?.atk ?? 0;
+  const bonus = (gearTotal(totals, data, 'atk')?.flat ?? 0) - mainAtk - offAtk;
+  const weighed = statusAtk(Math.max(0, points)) + statusAtkFromLuk(luk) + ATK_WEIGHTS.main * mainAtk
+    + ATK_WEIGHTS.bonus * bonus + ATK_WEIGHTS.off * offAtk;
+  return 100 * Math.max(0, weighed) / ATK_REST;
+}
+
 const DAMAGE_CHAINS: { key: string; label: string; factors: string[] }[] = [
-  { key: 'phys_dmg_mult', label: 'Physical DMG (ATK% × target)', factors: ['atk', 'any_target_dmg'] },
-  { key: 'melee_dmg_mult', label: 'Melee DMG (ATK% × target × melee)',
-    factors: ['atk', 'any_target_dmg', 'melee_damage'] },
-  { key: 'ranged_dmg_mult', label: 'Ranged DMG (ATK% × target × ranged)',
-    factors: ['atk', 'any_target_dmg', 'ranged_damage'] },
+  { key: 'phys_dmg_mult', label: 'Physical DMG (ATK × ATK% × target)',
+    factors: [ATK_MELEE, 'atk', 'any_target_dmg'] },
+  { key: 'melee_dmg_mult', label: 'Melee DMG (ATK × ATK% × target × melee)',
+    factors: [ATK_MELEE, 'atk', 'any_target_dmg', 'melee_damage'] },
+  { key: 'ranged_dmg_mult', label: 'Ranged DMG (ATK × ATK% × target × ranged)',
+    factors: [ATK_RANGED, 'atk', 'any_target_dmg', 'ranged_damage'] },
   { key: 'magic_dmg_mult', label: 'Magic DMG (MATK% × target)', factors: ['matk', 'any_target_magic'] },
   // The same, with the skills' own scaling off base stats as one more link:
   // a Satsujin's Full Moon is 500% +8% per AGI, so a point of AGI is some
   // 0.65% more damage on top of its flee. See `skillRatio`.
-  { key: 'phys_skill_mult', label: 'Physical skill DMG (ATK% × target × stat scaling)',
-    factors: ['atk', 'any_target_dmg', SKILL_RATIO_PHYS] },
-  { key: 'ranged_skill_mult', label: 'Ranged skill DMG (ATK% × target × ranged × stat scaling)',
-    factors: ['atk', 'any_target_dmg', 'ranged_damage', SKILL_RATIO_PHYS] },
-  { key: 'melee_skill_mult', label: 'Melee skill DMG (ATK% × target × melee × stat scaling)',
-    factors: ['atk', 'any_target_dmg', 'melee_damage', SKILL_RATIO_PHYS] },
+  { key: 'phys_skill_mult', label: 'Physical skill DMG (ATK × ATK% × target × stat scaling)',
+    factors: [ATK_MELEE, 'atk', 'any_target_dmg', SKILL_RATIO_PHYS] },
+  { key: 'ranged_skill_mult', label: 'Ranged skill DMG (ATK × ATK% × target × ranged × stat scaling)',
+    factors: [ATK_RANGED, 'atk', 'any_target_dmg', 'ranged_damage', SKILL_RATIO_PHYS] },
+  { key: 'melee_skill_mult', label: 'Melee skill DMG (ATK × ATK% × target × melee × stat scaling)',
+    factors: [ATK_MELEE, 'atk', 'any_target_dmg', 'melee_damage', SKILL_RATIO_PHYS] },
   { key: 'magic_skill_mult', label: 'Magic skill DMG (MATK% × target × stat scaling)',
     factors: ['matk', 'any_target_magic', SKILL_RATIO_MAGIC] },
 ];
@@ -293,6 +335,9 @@ function targetInputs(key: string): string[] {
   // Which base stats a class's skills scale off is the class's business;
   // for relevance, any of them may.
   if (key === SKILL_RATIO_PHYS || key === SKILL_RATIO_MAGIC) return [...BASE_STAT_KEYS];
+  if (key === ATK_MELEE) return ['str', 'luk', 'atk'];
+  if (key === ATK_RANGED) return ['dex', 'luk', 'atk'];
+  if (key === 'crit_damage') return ['luk'];
   if (key === RES_ELEMENTS) return RES_ELEMENT_KEYS;
   if (key === RES_RACES) return RES_RACE_KEYS;
   if (key === RES_DAMAGE) return RES_DAMAGE_INPUTS;
@@ -932,6 +977,8 @@ export function measure(goal: Goal, totals: Totals, build: Build, data: Dataset)
   if (side !== undefined) return side;
   if (goal.key === SKILL_RATIO_PHYS) return skillRatio('physical', totals, build, data);
   if (goal.key === SKILL_RATIO_MAGIC) return skillRatio('magic', totals, build, data);
+  if (goal.key === ATK_MELEE) return atkLink('str', totals, build, data);
+  if (goal.key === ATK_RANGED) return atkLink('dex', totals, build, data);
   const group = GROUP_BY_KEY.get(goal.key);
   if (group) return groupPercent(totals, data, group);
   const total = TARGET_TOTALS.find((t) => t.key === goal.key);
@@ -962,6 +1009,11 @@ export function measure(goal: Goal, totals: Totals, build: Build, data: Dataset)
     // the figure the character window shows.
     const points = build.baseStats?.[goal.key as keyof BaseStats] ?? 0;
     return combine(points, gear?.flat ?? 0, gear?.percent ?? 0);
+  }
+  // Every point of LUK is +1% Critical Damage on top of the gear's.
+  if (goal.key === 'crit_damage' && goal.column === 'percent') {
+    const luk = measure({ key: 'luk', column: 'total', target: 0 }, totals, build, data);
+    return (gear?.percent ?? 0) + critDamageFromLuk(luk);
   }
   return goal.column === 'percent' ? gear?.percent ?? 0 : gear?.flat ?? 0;
 }

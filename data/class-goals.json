@@ -103,7 +103,7 @@
      { "skill": "Sonic Blow", "base": 325, "per": { "luk": 2 } }
     ] },
     "goals": [
-     { "key": "crit_rate", "column": "flat" },
+     { "key": "crit_rate", "column": "total" },
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
      { "key": "crit_damage", "column": "percent" },
      { "key": "luk", "column": "total" },
@@ -245,7 +245,7 @@
      { "skill": "Sonic Blow", "base": 325, "per": { "luk": 2 } }
     ] },
     "goals": [
-     { "key": "crit_rate", "column": "flat" },
+     { "key": "crit_rate", "column": "total" },
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
      { "key": "crit_damage", "column": "percent" },
      { "key": "luk", "column": "total" },
@@ -265,7 +265,7 @@
     "goals": [
      { "key": "agi", "column": "total" },
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
-     { "key": "crit_rate", "column": "flat" },
+     { "key": "crit_rate", "column": "total" },
      { "key": "crit_damage", "column": "percent" },
      { "key": "ranged_skill_mult", "column": "percent" },
      { "key": "skill:Meteor Rush|damage", "column": "percent" }
@@ -280,7 +280,7 @@
     "goals": [
      { "key": "luk", "column": "total" },
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
-     { "key": "crit_rate", "column": "flat" },
+     { "key": "crit_rate", "column": "total" },
      { "key": "crit_damage", "column": "percent" },
      { "key": "phys_dmg_mult", "column": "percent" },
      { "key": "skill:Cursed Coffin|damage", "column": "percent" },
@@ -301,7 +301,7 @@
      { "key": "phys_skill_mult", "column": "percent" },
      { "key": "agi", "column": "total" },
      { "key": "atk", "column": "percent" },
-     { "key": "crit_rate", "column": "flat" },
+     { "key": "crit_rate", "column": "total" },
      { "key": "crit_damage", "column": "percent" },
      { "key": "skill:Cross Impact|damage", "column": "percent" },
      { "key": "cooldown", "column": "flat", "atMost": true }
@@ -495,7 +495,7 @@
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
      { "key": "agi", "column": "total" },
      { "key": "phys_dmg_mult", "column": "percent" },
-     { "key": "crit_rate", "column": "flat" },
+     { "key": "crit_rate", "column": "total" },
      { "key": "crit_damage", "column": "percent" },
      { "key": "leech_hp_rate", "column": "percent" }
     ]
@@ -509,7 +509,7 @@
     "goals": [
      { "key": "phys_dmg_mult", "column": "percent" },
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
-     { "key": "crit_rate", "column": "flat" },
+     { "key": "crit_rate", "column": "total" },
      { "key": "crit_damage", "column": "percent" },
      { "key": "aspd", "column": "percent" },
      { "key": "str", "column": "total" },
@@ -715,7 +715,7 @@
     "goals": [
      { "key": "luk", "column": "total" },
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
-     { "key": "crit_rate", "column": "flat" },
+     { "key": "crit_rate", "column": "total" },
      { "key": "crit_damage", "column": "percent" },
      { "key": "phys_skill_mult", "column": "percent" },
      { "key": "skill:Shadow Slash|damage", "column": "percent" }
@@ -748,7 +748,7 @@
     "goals": [
      { "key": "luk", "column": "total" },
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
-     { "key": "crit_rate", "column": "flat" },
+     { "key": "crit_rate", "column": "total" },
      { "key": "crit_damage", "column": "percent" },
      { "key": "phys_skill_mult", "column": "percent" },
      { "key": "skill:Shadow Slash|damage", "column": "percent" }
@@ -764,7 +764,7 @@
     "goals": [
      { "key": "luk", "column": "total" },
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
-     { "key": "crit_rate", "column": "flat" },
+     { "key": "crit_rate", "column": "total" },
      { "key": "crit_damage", "column": "percent" },
      { "key": "phys_skill_mult", "column": "percent" },
      { "key": "skill:Sonic Blow|damage", "column": "percent" },
@@ -800,7 +800,7 @@
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
      { "key": "ranged_skill_mult", "column": "percent" },
      { "key": "skill:Wind Slash|damage", "column": "percent" },
-     { "key": "crit_rate", "column": "flat" },
+     { "key": "crit_rate", "column": "total" },
      { "key": "crit_damage", "column": "percent" }
     ]
    }
@@ -820,7 +820,7 @@
      { "key": "ranged_skill_mult", "column": "percent" },
      { "key": "skill:Delta Skyfall|damage", "column": "percent" },
      { "key": "skill:Meteor Rush|damage", "column": "percent" },
-     { "key": "crit_rate", "column": "flat" },
+     { "key": "crit_rate", "column": "total" },
      { "key": "crit_damage", "column": "percent" }
     ]
    },
@@ -914,7 +914,7 @@
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
      { "key": "phys_skill_mult", "column": "percent" },
      { "key": "str", "column": "total" },
-     { "key": "crit_rate", "column": "flat" },
+     { "key": "crit_rate", "column": "total" },
      { "key": "crit_damage", "column": "percent" },
      { "key": "atk", "column": "percent" },
      { "key": "skill:Sweeping Slash|damage", "column": "percent" },
@@ -937,7 +937,7 @@
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
      { "key": "phys_skill_mult", "column": "percent" },
      { "key": "str", "column": "total" },
-     { "key": "crit_rate", "column": "flat" },
+     { "key": "crit_rate", "column": "total" },
      { "key": "crit_damage", "column": "percent" },
      { "key": "atk", "column": "percent" },
      { "key": "skill:Roaring Overslash|damage", "column": "percent" },
@@ -1006,7 +1006,7 @@
      { "key": "dex", "column": "total" },
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
      { "key": "luk", "column": "total" },
-     { "key": "crit_rate", "column": "flat" },
+     { "key": "crit_rate", "column": "total" },
      { "key": "crit_damage", "column": "percent" },
      { "key": "phys_skill_mult", "column": "percent" },
      { "key": "skill:Rebounding Bash|damage", "column": "percent" }
@@ -1094,7 +1094,7 @@
      { "key": "skill:Gift Card|damage", "column": "percent" },
      { "key": "skill:Arcana of Destiny|damage", "column": "percent" },
      { "key": "skill:Double Down|damage", "column": "percent" },
-     { "key": "crit_rate", "column": "flat" }
+     { "key": "crit_rate", "column": "total" }
     ]
    }
   ],
@@ -1131,7 +1131,7 @@
     "goals": [
      { "key": "agi", "column": "total" },
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
-     { "key": "crit_rate", "column": "flat" },
+     { "key": "crit_rate", "column": "total" },
      { "key": "crit_damage", "column": "percent" },
      { "key": "phys_skill_mult", "column": "percent" },
      { "key": "aspd", "column": "percent" },
@@ -1155,7 +1155,7 @@
      { "key": "skill:Descending Steel|damage", "column": "percent" },
      { "key": "skill:Void Dash|damage", "column": "percent" },
      { "key": "move_speed", "column": "percent" },
-     { "key": "crit_rate", "column": "flat" }
+     { "key": "crit_rate", "column": "total" }
     ]
    }
   ],

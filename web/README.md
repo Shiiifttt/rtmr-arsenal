@@ -503,6 +503,24 @@ with millions of HP -- over gear it could use this month. A refine of +6 is
 assumed within reach from the start (`REACH_REFINE_FLOOR`), the top of the
 HD ore tier. All of these are calibrations.
 
+### ATK, and what LUK gives
+
+Every physical damage chain starts with an ATK link (`atk_melee`,
+`atk_ranged` in `sim/src/suggest.ts`). Status ATK is the stat plus one per
+whole ten -- STR for melee and for a physical build that does not say, DEX
+for ranged -- plus one per three LUK for both, all counting gear points.
+From the project owner, status ATK is worth far more than ATK off gear,
+and gear ATK ranks main hand's own ATK, then flat ATK bonuses, then the off
+hand's own ATK. Those are weighed at 0.5, 0.4 and 0.25 of a status point
+(`ATK_WEIGHTS`), and the sum is measured against 250 (`ATK_REST`), so 99 +
+36 STR is some +59% on a hit. The order is the owner's; the figures are
+calibrations.
+
+LUK also gives +2 Critical Rate and +1% Critical Damage a point, and a flee
+per ten. Critical Rate is a derived total like Flee (the class presets aim at
+it rather than at gear crit), and a Critical Damage goal counts LUK on top of
+the gear's percent. None of the LUK rules is measured yet.
+
 ### Skills that scale off base stats
 
 A Satsujin's Full Moon is "250 +50% per level +8% per AGI": at 90 AGI a point

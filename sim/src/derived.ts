@@ -62,6 +62,15 @@ export function fleeFromAgi(agi: number): number {
 }
 
 /**
+ * Status ATK, the same shape as flee from AGI: one per point, plus one more
+ * for every whole ten. STR for melee, DEX for ranged. From the project owner,
+ * who confirms the steps count the total with equipment folded in.
+ */
+export function statusAtk(stat: number): number {
+  return stat + Math.floor(stat / 10);
+}
+
+/**
  * Base flee: a flat 100, the base level, and AGI with its per-ten step.
  *
  * Measured in game on a naked character at base level 134 with 70 flee from
@@ -90,9 +99,12 @@ export function fleeFromAgi(agi: number): number {
  * reported 531 wants 14 flat flee out of the equipment, which is an
  * ordinary amount for the pieces involved. Reading the points column
  * instead would need 58, which is not.
+ *
+ * LUK adds one more per whole ten (project owner, later). The readings above
+ * were at low LUK, where that is nothing.
  */
-export function baseFlee(baseLevel: number, agi: number): number {
-  return 100 + baseLevel + fleeFromAgi(agi);
+export function baseFlee(baseLevel: number, agi: number, luk = 0): number {
+  return 100 + baseLevel + fleeFromAgi(agi) + fleeFromLuk(luk);
 }
 
 /**
@@ -186,22 +198,55 @@ export const FORMULAS: Formula[] = [
   {
     key: 'flee',
     label: 'Flee',
-    formula: '100 + base level + total AGI + 1 per 10 total AGI',
+    formula: '100 + base level + total AGI + 1 per 10 total AGI + 1 per 10 total LUK',
+    // The AGI half is measured; the LUK half is the project owner's word.
     verified: true,
     // Measured at base level 136, 152 AGI, +16% from the three Maiden of
     // Time cards and +70 from skills: 560, 566 and 572 in game across three
     // gear states. Compounding matches all three; summing to 16% reads
     // 3-4 low on each.
     compounds: true,
-    inputs: ['agi'],
+    inputs: ['agi', 'luk'],
     manualHint: 'Flee from skills — for example Shadow Mastery (+3/level) '
       + 'and Improve Dodge (+4/level), so +70 with both maxed.',
     // The total, so AGI off equipment counts -- see baseFlee. This is the
     // one formula where the two readings differ by a lot, which is why
     // `stat` is handed over at all.
-    compute: (level, _stats, stat) => baseFlee(level, stat('agi')),
+    compute: (level, _stats, stat) => baseFlee(level, stat('agi'), stat('luk')),
+  },
+  {
+    key: 'crit_rate',
+    label: 'Critical Rate',
+    formula: '2 per total LUK',
+    verified: false,
+    inputs: ['luk'],
+    manualHint: 'Critical Rate from skills and buffs.',
+    compute: (_level, _stats, stat) => critFromLuk(stat('luk')),
   },
 ];
+
+/**
+ * LUK's share of critical hits: +2 Critical Rate and +1% Critical Damage a
+ * point, counting LUK from any source. From the project owner, not yet
+ * measured. So 100 LUK is 200 crit, which dwarfs the +3 to +15 on gear.
+ */
+export function critFromLuk(luk: number): number {
+  return 2 * Math.max(0, luk);
+}
+
+export function critDamageFromLuk(luk: number): number {
+  return Math.max(0, luk);
+}
+
+/** LUK's status ATK, melee and ranged alike: one per whole three. From the project owner. */
+export function statusAtkFromLuk(luk: number): number {
+  return Math.floor(Math.max(0, luk) / 3);
+}
+
+/** LUK's flee: one per whole ten. From the project owner, not yet measured. */
+export function fleeFromLuk(luk: number): number {
+  return Math.floor(Math.max(0, luk) / 10);
+}
 
 /**
  * Every derived stat, with equipment folded in.

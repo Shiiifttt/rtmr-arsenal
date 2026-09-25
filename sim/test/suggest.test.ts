@@ -19,6 +19,7 @@ import {
   goalScore, goalStatus, isTwoHanded, measure, priorityWeight, SLOTS, Suggester, tableForSlot,
   tradeValue, coveredBy, type Move, type SuggestOptions,
   collateralCost, COLLATERAL_WEIGHT, relevanceOf, statTone, type TotalsChange, sideGoals,
+  statusAtk,
 } from '../src/index.ts';
 import type {
   Build, Dataset, Goal, Item, RollData, SetRecord, SlotState, StatDef,
@@ -1251,7 +1252,54 @@ test('a damage chain multiplies its links, so a +6% size card beats +3% ATK in t
   const both = applyChanges(build, [{ slot: 'weapon',
     state: { ...build.slots.weapon, cards: [cards[0].id, cards[1].id] } }], withLevels);
   const at = measure(chain, aggregate(both, withLevels), both, withLevels);
-  assert.ok(Math.abs(at - (1.03 * 1.06 - 1) * 100) < 1e-9);
+  const atk = measure({ key: 'atk_melee', column: 'percent', target: 0 }, aggregate(both, withLevels), both, withLevels);
+  assert.ok(Math.abs(at - (1.03 * 1.06 * (1 + atk / 100) - 1) * 100) < 1e-9);
+});
+
+test('status ATK is one per point and one more per ten: STR for melee, DEX for ranged', () => {
+  assert.equal(statusAtk(99), 108);
+  assert.equal(statusAtk(135), 148);
+  const link = (key: string, stat: 'str' | 'dex', points: number) => {
+    const build = fresh100();
+    build.baseStats[stat] = points;
+    return measure({ key, column: 'percent', target: 0 }, aggregate(build, withLevels), build, withLevels);
+  };
+  // 1 point against 99: the link grows by the status ATK between them.
+  assert.ok(Math.abs(link('atk_melee', 'str', 99) - link('atk_melee', 'str', 1) - 100 * 107 / 250) < 1e-9);
+  assert.ok(Math.abs(link('atk_ranged', 'dex', 99) - link('atk_ranged', 'dex', 1) - 100 * 107 / 250) < 1e-9);
+  // And each only from its own stat.
+  assert.equal(link('atk_melee', 'dex', 99), link('atk_melee', 'dex', 1));
+  assert.equal(link('atk_ranged', 'str', 99), link('atk_ranged', 'str', 1));
+});
+
+test('LUK: 2 crit and 1% crit damage a point, 1 status ATK per 3, 1 flee per 10', () => {
+  const at = (luk: number, goal: Goal) => {
+    const build = fresh100();
+    build.baseStats.luk = luk;
+    return measure(goal, aggregate(build, withLevels), build, withLevels);
+  };
+  const gain = (goal: Goal) => at(99, goal) - at(1, goal);
+  assert.equal(gain({ key: 'crit_rate', column: 'total', target: 0 }), 2 * 98);
+  assert.equal(gain({ key: 'crit_damage', column: 'percent', target: 0 }), 98);
+  assert.equal(gain({ key: 'flee', column: 'total', target: 0 }), 9);
+  // 33 status ATK at 99 LUK, none at 1, in both links.
+  for (const key of ['atk_melee', 'atk_ranged']) {
+    assert.ok(Math.abs(gain({ key, column: 'percent', target: 0 }) - 100 * 33 / 250) < 1e-9);
+  }
+});
+
+test('gear ATK counts below status ATK: main hand, then flat bonuses, then off hand', () => {
+  const gauche = byName('Main Gauche');
+  assert.ok(gauche.atk > 0);
+  const link = (weapon: number | null, offhand: number | null) => {
+    const build = emptyBuild();
+    build.slots.weapon = { itemId: weapon, refine: 0, cards: [] };
+    build.slots.offhand = { itemId: offhand, refine: 0, cards: [] };
+    return measure({ key: 'atk_melee', column: 'percent', target: 0 }, aggregate(build, withLevels), build, withLevels);
+  };
+  const bare = link(null, null);
+  assert.ok(Math.abs(link(gauche.id, null) - bare - 100 * 0.5 * gauche.atk / 250) < 1e-9);
+  assert.ok(Math.abs(link(gauche.id, gauche.id) - link(gauche.id, null) - 100 * 0.25 * gauche.atk / 250) < 1e-9);
 });
 
 test('a headgear worn in two positions takes both, counts once, and is charged for what it moves', () => {
