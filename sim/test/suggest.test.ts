@@ -1673,3 +1673,18 @@ test('penetration past 50 counts at half what the curve adds', () => {
   assert.ok(high > 0, 'still worth something');
   assert.ok(high < low / 3, `20 points past 50 (${high.toFixed(3)}) well under 20 before it (${low.toFixed(3)})`);
 });
+
+test('ASPD cap: 180, +1 per 40 AGI from any source, plus ASPD Limit, never past 190', () => {
+  const cap = (agi: number, manual = 0) => {
+    const build = fresh100();
+    build.baseStats.agi = agi;
+    build.manual = { aspd_limit: manual };
+    return measure({ key: 'aspd_limit', column: 'total', target: 0 }, aggregate(build, withLevels), build, withLevels);
+  };
+  assert.equal(cap(39), 180);
+  assert.equal(cap(80), 182);
+  assert.equal(cap(99), 182);
+  // Frenzy and the masteries in the skills box, up against the wall.
+  assert.equal(cap(99, 5), 187);
+  assert.equal(cap(99, 20), 190);
+});

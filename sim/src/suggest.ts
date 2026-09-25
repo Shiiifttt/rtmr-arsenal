@@ -503,7 +503,8 @@ const SIDE_RULES: { key: string; column: Goal['column']; side: NonNullable<Goal[
   // only to a build that goes after attack speed at all. From the project
   // owner: to a Satsujin building no ASPD it is basically worthless, and
   // it was holding back a Valkyrie Circlet for Wyrdbrand's +1.
-  { key: 'aspd_limit', column: 'flat', side: { gain: 0.03, loss: 0.03, per: 1 }, needs: /^aspd/ },
+  // The total, so the +1 per 40 AGI counts as well as gear's ASPD Limit.
+  { key: 'aspd_limit', column: 'total', side: { gain: 0.03, loss: 0.03, per: 1 }, needs: /^aspd/ },
   // VIT and INT raise Max HP and SP and their regeneration, so they help any
   // build a little whatever its goals: a +6 Valkyrie Circlet is worth having
   // on a build that never asked for either. A point about a quarter of what
@@ -1071,7 +1072,7 @@ function shortOf(goal: Goal, value: number): number {
  * goal saved before, or read off the build, carries no cap of its own -- and
  * a build at -62% SP cost was still being sent after more.
  */
-const DEFAULT_CAPS: Record<string, number> = { sp_cost: -50, def_pen: 70, mdef_pen: 70 };
+const DEFAULT_CAPS: Record<string, number> = { sp_cost: -50, def_pen: 70, mdef_pen: 70, aspd_limit: 190 };
 
 /** A goal's cap: its own, or the stat's default, never short of its target. */
 export function goalCap(goal: Goal): number | undefined {

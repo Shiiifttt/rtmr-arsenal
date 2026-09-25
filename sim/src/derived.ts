@@ -178,6 +178,8 @@ interface Formula {
    * than being summed with the others first.
    */
   compounds?: boolean;
+  /** A hard wall the finished figure never passes: ASPD's 190. */
+  max?: number;
   /**
    * The stats the formula reads besides its own gear column, so a goal on
    * the total knows what else moves it: flee from AGI.
@@ -223,6 +225,19 @@ export const FORMULAS: Formula[] = [
     inputs: ['luk'],
     manualHint: 'Critical Rate from skills and buffs.',
     compute: (_level, _stats, stat) => critFromLuk(stat('luk')),
+  },
+  {
+    key: 'aspd_limit',
+    label: 'ASPD Cap',
+    formula: '180 + 1 per 40 total AGI + ASPD Limit, up to 190',
+    // The server's own codex, and the project owner (2026-09-26): every 40
+    // AGI from any source is +1. Not yet read off a character window.
+    verified: false,
+    inputs: ['agi'],
+    max: 190,
+    manualHint: 'ASPD cap from skills: +3 for knowing Frenzy, +1 each for a maxed '
+      + 'Card Mastery and Sleight Mastery.',
+    compute: (_level, _stats, stat) => 180 + Math.floor(Math.max(0, stat('agi')) / 40),
   },
 ];
 
@@ -295,7 +310,7 @@ export function derivedStats(
       // The manual box sits outside the percent: skill flee is added to the
       // finished figure rather than scaled by a Total Flee bonus. Gear flat
       // is still inside it -- see combine.
-      total: combine(base, flat, percent) + extra,
+      total: Math.min(f.max ?? Infinity, combine(base, flat, percent) + extra),
       formula: f.formula,
       manualHint: f.manualHint,
       verified: f.verified,
