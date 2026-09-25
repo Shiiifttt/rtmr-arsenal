@@ -353,6 +353,10 @@ ALIASES: dict[str, list[str]] = {
     "non-neutral resistance": _NON_NEUTRAL,
     "all non-neutral resistance": _NON_NEUTRAL,
     "all elements (except neutral) resistance": _NON_NEUTRAL,
+    # From the project owner: the natural elements are the four of the
+    # world, the corporal ones the four of body and spirit (Ragged Manteau).
+    "all natural elements resistance": ["res_fire", "res_water", "res_wind", "res_earth"],
+    "all corporal elements resistance": ["res_ghost", "res_poison", "res_holy", "res_dark"],
     "all damage reduction": ["damage_reduction"],
     # Damage received, which is lower-is-better: the "Reduction" in the
     # wording flips the sign, so "Physical Reduction +10%" is -10% received.

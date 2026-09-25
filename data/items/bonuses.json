@@ -96196,8 +96196,18 @@
     "value": -20,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     64,
+     58,
+     67,
+     61
+    ],
+    "stat_keys": [
+     "res_fire",
+     "res_water",
+     "res_wind",
+     "res_earth"
+    ]
    },
    {
     "text": "All Corporal Elements Resistance +15%",
@@ -96205,8 +96215,18 @@
     "value": 15,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     79,
+     70,
+     73,
+     76
+    ],
+    "stat_keys": [
+     "res_ghost",
+     "res_poison",
+     "res_holy",
+     "res_dark"
+    ]
    }
   ],
   "piece_bonus": [],

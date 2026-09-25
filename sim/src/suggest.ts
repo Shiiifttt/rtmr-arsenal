@@ -393,6 +393,9 @@ const SIDE_RULES: { key: string; column: Goal['column']; side: NonNullable<Goal[
   // build a little whatever its goals: a +6 Valkyrie Circlet is worth having
   // on a build that never asked for either. A point about a quarter of what
   // a point of AGI is to a 74 AGI build that ranks it first.
+  // Perfect Dodge: a chance to dodge a normal physical attack outright, so
+  // 100 is immunity to them -- but not to skills, so of minor value.
+  { key: 'perfect_dodge', column: 'flat', side: { gain: 0.1, loss: 0.1, per: 100 } },
   { key: 'vit', column: 'total', side: { gain: 0.003, loss: 0.003, per: 1 } },
   { key: 'int', column: 'total', side: { gain: 0.003, loss: 0.003, per: 1 } },
 ];
@@ -421,7 +424,8 @@ export function sideGoals(build: Build, totals: Totals, data: Dataset): Goal[] {
 
 /** The stats the side goals read: never "not used by this build". */
 const SIDE_STATS = ['max_hp', 'max_sp', ...RES_ELEMENT_KEYS, ...RES_RACE_KEYS,
-  ...RES_DAMAGE_INPUTS, 'hp_on_kill', 'sp_on_kill', 'aspd_limit', 'vit', 'int'];
+  ...RES_DAMAGE_INPUTS, 'hp_on_kill', 'sp_on_kill', 'aspd_limit', 'perfect_dodge',
+  'vit', 'int'];
 
 /**
  * Stats a build never gets goals for from `goalsFromBuild`: conveniences

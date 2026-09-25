@@ -1398,6 +1398,12 @@ test('resistance, sustain on kill and ASPD Limit are read off the tooltips', () 
   // Dream Manteau costs 50 Distortion Essence, which is more than Asprika's souls.
   const effort = (name: string) => withEffort.effort!.get(byName(name).id)!.effort;
   assert.ok(effort('Dream Manteau') > effort('Asprika'));
+  assert.equal(effort('Dream Ring'), effort('Dream Manteau'));
+  // Natural elements are the four of the world, corporal the four of body and spirit.
+  assert.deepEqual(keysOf('Ragged Manteau', /Natural/),
+    [[['res_fire', 'res_water', 'res_wind', 'res_earth'], -20]]);
+  assert.deepEqual(keysOf('Ragged Manteau', /Corporal/),
+    [[['res_ghost', 'res_poison', 'res_holy', 'res_dark'], 15]]);
 });
 
 test('side goals: resistances both ways, a negative one double, ASPD Limit only for hitting', () => {
@@ -1405,7 +1411,8 @@ test('side goals: resistances both ways, a negative one double, ASPD Limit only 
   const totals = aggregate(build, dataset);
   const side = sideGoals(build, totals, dataset);
   const keys = side.map((g) => g.key);
-  for (const k of ['res_elements', 'res_races', 'res_damage', 'kill_sustain', 'aspd_limit', 'vit', 'int']) {
+  for (const k of ['res_elements', 'res_races', 'res_damage', 'kill_sustain', 'aspd_limit', 'perfect_dodge',
+    'vit', 'int']) {
     assert.ok(keys.includes(k), k);
   }
   // A caster's goals leave ASPD Limit out.

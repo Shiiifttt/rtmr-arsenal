@@ -383,6 +383,7 @@ any character, each held where the build already is (`sideGoals` in
 | Damage reduction (final, melee/ranged, physical/magic received) | 0.5 per 100%, both ways | the same, for everything at once |
 | HP/SP on kill, as % of a 10,000 HP / 500 SP pool | 0.5 per 100% | pays for a great deal of HP and SP costs (Wyrdbrand) |
 | ASPD Limit | 0.03 per point, physical builds only | what attack-speed builds run into; worth nothing to a caster |
+| Perfect Dodge | 0.1 per 100, both ways | 100 is immunity to normal physical attacks, but not to skills: minor |
 | VIT, INT (totals) | 0.003 per point | more HP, SP and regeneration for any build: a +6 Valkyrie Circlet is worth having |
 
 All of these weights are calibrations, not measurements. Side goals never

@@ -15049,10 +15049,16 @@
     "Dream Box · Varmundt's Orphanage",
     "",
     "",
-    [],
+    [
+     [
+      50,
+      "Distortion Essence",
+      7361
+     ]
+    ],
     "",
     "",
-    "sold",
+    "",
     null,
     null,
     8
@@ -15062,7 +15068,11 @@
    "icon_bits": 3,
    "no_source": 0,
    "source_mvp": 0,
-   "source_normal": 1
+   "source_normal": 1,
+   "how_override": {
+    "status": "unverified",
+    "reason": "Project owner, 2026-09-25: the Dream shop trades each for 50 Distortion Essence (the manteau also drops in Rachel SS, which is hard content). The database lists them as sold from the Dream Box, with no item cost, which made them look as easy as a shop item."
+   }
   },
   "sets": [
    66
@@ -15213,7 +15223,7 @@
    "source_normal": 1,
    "how_override": {
     "status": "unverified",
-    "reason": "Project owner, 2026-09-25: the Dream shop trades it for 50 Distortion Essence (it also drops in Rachel SS, which is hard content). The database lists it as sold from the Dream Box, with no item cost, which made it look as easy as a shop item."
+    "reason": "Project owner, 2026-09-25: the Dream shop trades each for 50 Distortion Essence (the manteau also drops in Rachel SS, which is hard content). The database lists them as sold from the Dream Box, with no item cost, which made them look as easy as a shop item."
    }
   },
   "sets": [
@@ -15336,10 +15346,16 @@
     "Dream Box · Varmundt's Orphanage",
     "",
     "",
-    [],
+    [
+     [
+      50,
+      "Distortion Essence",
+      7361
+     ]
+    ],
     "",
     "",
-    "sold",
+    "",
     null,
     null,
     8
@@ -15349,7 +15365,11 @@
    "icon_bits": 3,
    "no_source": 0,
    "source_mvp": 0,
-   "source_normal": 1
+   "source_normal": 1,
+   "how_override": {
+    "status": "unverified",
+    "reason": "Project owner, 2026-09-25: the Dream shop trades each for 50 Distortion Essence (the manteau also drops in Rachel SS, which is hard content). The database lists them as sold from the Dream Box, with no item cost, which made them look as easy as a shop item."
+   }
   },
   "sets": [
    66
@@ -37287,8 +37307,18 @@
     "value": -20,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     64,
+     58,
+     67,
+     61
+    ],
+    "stat_keys": [
+     "res_fire",
+     "res_water",
+     "res_wind",
+     "res_earth"
+    ]
    },
    {
     "text": "All Corporal Elements Resistance +15%",
@@ -37296,8 +37326,18 @@
     "value": 15,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     79,
+     70,
+     73,
+     76
+    ],
+    "stat_keys": [
+     "res_ghost",
+     "res_poison",
+     "res_holy",
+     "res_dark"
+    ]
    }
   ],
   "piece_bonus": [],
