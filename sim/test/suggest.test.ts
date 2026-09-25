@@ -19,7 +19,7 @@ import {
   goalScore, goalStatus, isTwoHanded, measure, priorityWeight, SLOTS, Suggester, tableForSlot,
   tradeValue, coveredBy, type Move, type SuggestOptions,
   collateralCost, COLLATERAL_WEIGHT, relevanceOf, statTone, type TotalsChange, sideGoals,
-  statusAtk, MARKET_ROUTE, boughtFromPlayers,
+  statusAtk, MARKET_ROUTE, boughtFromPlayers, sidePaidFor,
 } from '../src/index.ts';
 import type {
   Build, Dataset, Goal, Item, RollData, SetRecord, SlotState, StatDef,
@@ -470,15 +470,24 @@ test('upgrade paths lower nothing the build has, and show every kind of way forw
   for (const m of [...paths.near, ...paths.refines, ...paths.rolls, ...paths.far]) {
     const after = s.values(applyChanges(build, m.changes, withEffort));
     goals.forEach((g, i) => {
+      // Guards are floors, and side goals are weighed below.
+      if (g.guard || g.side) return;
       const worse = g.atMost ? after[i] > now[i] + 1e-9 : after[i] < now[i] - 1e-9;
-      // SP efficiency and HP included: a met goal is not a surplus to spend.
+      // SP efficiency included: a met goal is not a surplus to spend.
       assert.ok(!worse, `${m.label} lowers ${g.key}: ${now[i]} -> ${after[i]}`);
     });
+    assert.deepEqual(brokenGoals(goals, now, after).filter((g) => g.guard), [], `${m.label} crosses a guard`);
+    // A little HP or a resistance may go, if the goals more than win it back.
+    assert.ok(sidePaidFor(goals, now, after), `${m.label} gives up more on the side than it gains`);
   }
   assert.ok(paths.near.length > 0, 'something within reach');
   assert.ok(paths.refines.some((m) => /Valkyrie Circlet/.test(m.label)),
     'the circlet refine is not crowded out by the swaps');
   assert.ok(paths.far.length > 0, 'and something to work towards');
+  // Ammunition is left out: a better kunai is on offer here, and not worth saying.
+  assert.ok(Object.values(paths).flat().every((m) => m.changes.every((c) => c.slot !== 'ammo')),
+    'nothing for the ammunition slot');
+  assert.ok(s.slotMoves(build, 'ammo', 3, false, false).length > 0, 'though browsing it still works');
   const slots = paths.near.map((m) => m.changes.map((c) => c.slot).join());
   assert.equal(new Set(slots).size, slots.length, 'one per slot, not the same slot three ways');
 });
@@ -1498,18 +1507,21 @@ test('resistance, sustain on kill and ASPD Limit are read off the tooltips', () 
     [[['res_ghost', 'res_poison', 'res_holy', 'res_dark'], 15]]);
 });
 
-test('side goals: resistances both ways, a negative one double, ASPD Limit only for hitting', () => {
+test('side goals: resistances both ways, a negative one double, ASPD Limit only for attack speed', () => {
   const build = socketsEmpty();
   const totals = aggregate(build, dataset);
   const side = sideGoals(build, totals, dataset);
   const keys = side.map((g) => g.key);
-  for (const k of ['res_elements', 'res_races', 'res_damage', 'kill_sustain', 'aspd_limit', 'perfect_dodge',
+  for (const k of ['res_elements', 'res_races', 'res_damage', 'kill_sustain', 'perfect_dodge',
     'vit', 'int']) {
     assert.ok(keys.includes(k), k);
   }
-  // A caster's goals leave ASPD Limit out.
-  const caster = { ...build, goals: [{ key: 'matk', column: 'percent' as const, target: 0 }] };
-  assert.ok(!sideGoals(caster, totals, dataset).some((g) => g.key === 'aspd_limit'));
+  // ASPD Limit only for a build going after attack speed: a caster, or a
+  // hitter building no ASPD, has no use for it.
+  const has = (goals: Goal[]) => sideGoals({ ...build, goals }, totals, dataset).some((g) => g.key === 'aspd_limit');
+  assert.ok(!has([{ key: 'matk', column: 'percent', target: 0 }]));
+  assert.ok(!has([{ key: 'melee_dmg_mult', column: 'percent', target: 0 }]));
+  assert.ok(has([{ key: 'aspd', column: 'percent', target: 0 }]));
 
   const goals = allGoals(build, dataset);
   const s = new Suggester(dataset, goals, { className: 'Satsujin', maxLevel: null, refine: null });

@@ -74,7 +74,7 @@ export function PlanOverlay({
         <div className="picker-head">
           <h3>{title}</h3>
           <span className="focus-sub">
-            {upgrading ? 'raises a goal, lowers nothing you have' : 'each on its own, towards the goals'}
+            {upgrading ? 'raises a goal, lowers none of them' : 'each on its own, towards the goals'}
           </span>
           {/* In the header rather than under the lists, so it says the search
               is still going without moving anything as results land. */}
@@ -102,7 +102,8 @@ export function PlanOverlay({
           </Path>
 
           <Path title="Recommended" note={'The best swap for each slot, and sets to finish, '
-            + 'that this build could get next and that lower nothing. Each is its own upgrade, '
+            + 'that this build could get next and that lower none of your goals — a little HP or '
+            + 'a resistance may go, if the goals win back more. Each is its own upgrade, '
             + 'measured from the build as it is — not a step in a chain.'}>
             {near.map((move) => row(move, 'Equip', () => onApply([move]), build))}
           </Path>

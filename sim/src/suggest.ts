@@ -479,10 +479,13 @@ const SIDE_LABELS: Record<string, string> = {
  * longer pays for its HP -50%.
  */
 const SIDE_RULES: { key: string; column: Goal['column']; side: NonNullable<Goal['side']>;
-  physical?: boolean }[] = [
+  physical?: boolean; needs?: RegExp }[] = [
   // Max HP both ways: from the project owner, it is worth more than a loss
-  // to avoid -- +10% about +2 AGI on a 74 AGI build. Max SP losses only.
-  { key: 'max_hp', column: 'percent', side: { gain: 0.3, loss: 0.3, per: 100 } },
+  // to avoid -- +10% now about +4 AGI on a 74 AGI build. Max SP losses only.
+  // Doubled from 0.3 on the project owner's word, 2026-09-25: HP was still
+  // undervalued -- a Diabolus Armor's +22% with an HP card beside it is a
+  // real upgrade to a build that lives on dodging until it does not.
+  { key: 'max_hp', column: 'percent', side: { gain: 0.6, loss: 0.6, per: 100 } },
   { key: 'max_sp', column: 'percent', side: { gain: 0, loss: 0.25, per: 100 } },
   { key: RES_ELEMENTS, column: 'percent', side: { gain: 0.5, loss: 0.5, per: 100 } },
   { key: RES_RACES, column: 'percent', side: { gain: 0.5, loss: 0.5, per: 100 } },
@@ -491,8 +494,11 @@ const SIDE_RULES: { key: string; column: Goal['column']; side: NonNullable<Goal[
   // Leech: how a physical build keeps its HP up between potions. Per 1% of
   // damage returned on average -- Evil Wing Ears' 15% chance of 3% is 0.45%.
   { key: LEECH, column: 'percent', side: { gain: 0.04, loss: 0.04, per: 1 }, physical: true },
-  // A point of ASPD Limit about as much as +3 AGI on a 100 AGI build.
-  { key: 'aspd_limit', column: 'flat', side: { gain: 0.03, loss: 0.03, per: 1 }, physical: true },
+  // A point of ASPD Limit about as much as +3 AGI on a 100 AGI build -- but
+  // only to a build that goes after attack speed at all. From the project
+  // owner: to a Satsujin building no ASPD it is basically worthless, and
+  // it was holding back a Valkyrie Circlet for Wyrdbrand's +1.
+  { key: 'aspd_limit', column: 'flat', side: { gain: 0.03, loss: 0.03, per: 1 }, needs: /^aspd/ },
   // VIT and INT raise Max HP and SP and their regeneration, so they help any
   // build a little whatever its goals: a +6 Valkyrie Circlet is worth having
   // on a build that never asked for either. A point about a quarter of what
@@ -517,7 +523,7 @@ export function sideGoals(build: Build, totals: Totals, data: Dataset): Goal[] {
   const own = build.goals ?? [];
   const physical = own.some((g) => PHYSICAL.test(g.key));
   return SIDE_RULES
-    .filter((r) => (!r.physical || physical)
+    .filter((r) => (!r.physical || physical) && (!r.needs || own.some((g) => r.needs!.test(g.key)))
       && !own.some((g) => g.key === r.key && g.column === r.column))
     .map((r) => {
       const goal: Goal = { key: r.key, column: r.column, target: 0, side: r.side };
@@ -540,6 +546,13 @@ const SIDE_STATS = ['max_hp', 'max_sp', ...RES_ELEMENT_KEYS, ...RES_RACE_KEYS,
 const NOT_A_FOCUS = new Set([
   'hp_regen', 'sp_regen', 'move_speed', 'weight_limit', 'exp_gain', 'drop_rate',
 ]);
+
+/**
+ * The slots recommendations look through: all but ammunition, which for the
+ * most part does not matter (the project owner). A player browsing the ammo
+ * slot still gets its options; nothing volunteers them.
+ */
+const SUGGESTED_SLOTS: SlotDef[] = SLOTS.filter((s) => s.key !== 'ammo');
 
 /** How many sources a stat needs before it reads as something the build chose. */
 const FOCUS_MIN_SOURCES = 2;
@@ -1264,6 +1277,15 @@ export function sideLost(goals: Goal[], before: number[], after: number[]): Goal
 }
 
 /**
+ * Does the change more than pay for the side goals it lowers? True when it
+ * lowers none; otherwise when what it does to every goal, side goals at
+ * their own small weights, comes out ahead (`tradeValue`).
+ */
+export function sidePaidFor(goals: Goal[], before: number[], after: number[]): boolean {
+  return sideLost(goals, before, after).length === 0 || tradeValue(goals, before, after) > EPSILON;
+}
+
+/**
  * Complete sets a change would leave incomplete.
  *
  * A player running a full set is running it on purpose -- the set bonus is
@@ -1485,9 +1507,20 @@ export class Suggester {
     return this.breaks(move).length === 0 && this.breaksSets(build, move).length === 0;
   }
 
-  /** `keeps`, and gives up no Max HP % or Max SP % either: an upgrade, not a trade. */
+  /**
+   * `keeps`, and what it gives up outside the goals the goals more than win
+   * back: an upgrade, not a trade.
+   *
+   * The side goals were once only Max HP and SP, and any loss there ruled a
+   * change out. They grew -- resistances, sustain per kill, ASPD Limit, VIT
+   * and INT -- until nearly every swap gave up a little of one, and the
+   * Recommended list came up empty: a Valkyrie Circlet worth +3 AGI, +3 STR
+   * and 4% more damage was held back for Wyrdbrand's HP per kill. So a side
+   * loss is weighed rather than ruled out: the change has to come out ahead
+   * with it counted (`sidePaidFor`).
+   */
   private lowersNothing(build: Build, move: Move): boolean {
-    return this.keeps(build, move) && sideLost(this.goals, move.before, move.after).length === 0;
+    return this.keeps(build, move) && sidePaidFor(this.goals, move.before, move.after);
   }
 
   /**
@@ -1911,7 +1944,7 @@ export class Suggester {
     const scale = scaleOf(mine);
 
     const candidates: Move[] = [];
-    for (const slot of SLOTS) {
+    for (const slot of SUGGESTED_SLOTS) {
       candidates.push(...inner.slotMoves(build, slot.key, limit, false, false));
     }
     candidates.push(...inner.setMoves(build));
@@ -2019,12 +2052,12 @@ export class Suggester {
     yield snap();
     out.refines = best(near.refineMoves(build)).filter((m) => near.lowersNothing(build, m))
       .slice(0, perKind);
-    out.rolls = best(SLOTS.flatMap((slot) => near.rollMoves(build, slot.key)))
+    out.rolls = best(SUGGESTED_SLOTS.flatMap((slot) => near.rollMoves(build, slot.key)))
       .filter((m) => near.lowersNothing(build, m)).slice(0, 3);
     yield snap();
 
     const far: Move[] = [];
-    for (const slot of SLOTS) {
+    for (const slot of SUGGESTED_SLOTS) {
       const top = wide.topOf(build, slot.key, (m) => this.beyondReach(build, m, reach));
       if (!top) continue;
       far.push({ ...top, highEffort: true });
@@ -2071,7 +2104,7 @@ export class Suggester {
   private *nearStream(build: Build): Generator<{ near: Move[]; cards: Move[] }> {
     const near: Move[] = [];
     const cards: Move[] = [];
-    for (const slot of SLOTS) {
+    for (const slot of SUGGESTED_SLOTS) {
       const top = this.topOf(build, slot.key);
       const card = this.cardMove(build, slot.key);
       if (top) near.push(top);
@@ -2153,6 +2186,11 @@ export class Suggester {
     // Held at the cap, not past it: at -62% SP cost with a cap of -50%,
     // giving back 12% costs nothing and is not a loss to guard.
     return this.goals.map((g, i) => {
+      // A guard is a floor, not an amount: held where the build is, a Miracle
+      // Blue Rose's -5% Max SP "broke" SP sustain and nothing that cost any
+      // SP was ever recommended. What SP it does give up is charged through
+      // the Max SP side goal (`sidePaidFor`).
+      if (g.guard) return g;
       const v = capped(g, values[i]);
       return { ...g, cap: goalCap(g), target: g.atMost ? Math.min(g.target, v) : Math.max(g.target, v) };
     });
@@ -2318,7 +2356,7 @@ export class Suggester {
       const close = new Suggester(this.data, [goal], { ...this.opts, reach });
       close.pushing = true;
       const found: Move[] = [];
-      for (const slot of SLOTS) {
+      for (const slot of SUGGESTED_SLOTS) {
         found.push(...inner.slotMoves(build, slot.key, 3, false, false));
         for (const s of [close, inner]) {
           const cards = s.cardMove(build, slot.key);
@@ -2396,7 +2434,7 @@ export class Suggester {
       if (!fixer.active) break;
       const taken = new Set(combo.changes.map((c) => c.slot));
       const fixes: Move[] = fixer.refineMoves(next).filter((m) => !taken.has(m.changes[0].slot));
-      for (const slot of SLOTS) {
+      for (const slot of SUGGESTED_SLOTS) {
         if (taken.has(slot.key)) continue;
         fixes.push(...fixer.slotMoves(next, slot.key, 1, false, false));
         const card = fixer.cardMove(next, slot.key);
@@ -2469,7 +2507,7 @@ export class Suggester {
     const pushing = new Suggester(this.data, this.goals, held.opts);
     pushing.pushing = held.pushing
       || goalStatus(this.goals, aggregate(build, this.data), build, this.data).every((s) => s.met);
-    return SLOTS.flatMap((slot) => pushing.rollMoves(build, slot.key))
+    return SUGGESTED_SLOTS.flatMap((slot) => pushing.rollMoves(build, slot.key))
       .filter((m) => m.gain > EPSILON && pushing.breaks(m).length === 0)
       .sort((a, b) => b.gain - a.gain)
       .slice(0, limit);
@@ -2497,7 +2535,7 @@ export class Suggester {
     const heldBack = new Suggester(this.data, this.goals, { ...this.opts, reach: near });
 
     const candidates: Move[] = [];
-    for (const slot of SLOTS) candidates.push(...wide.slotMoves(build, slot.key, 3, false, false));
+    for (const slot of SUGGESTED_SLOTS) candidates.push(...wide.slotMoves(build, slot.key, 3, false, false));
     candidates.push(...wide.setMoves(build));
     return dedupe(candidates)
       .filter((m) => m.gain > EPSILON && wide.keeps(build, m))
@@ -2532,7 +2570,7 @@ export class Suggester {
     const before = this.values(build);
     const baseline = scoreOf(this.goals, before);
     const moves: Move[] = [];
-    for (const slot of SLOTS) {
+    for (const slot of SUGGESTED_SLOTS) {
       if (isLocked(build, slot.key)) continue;
       const state = build.slots[slot.key];
       const item = state?.itemId ? this.data.items.get(state.itemId) : undefined;
@@ -2598,7 +2636,7 @@ export class Suggester {
       if (!this.pushing && met(current)) break;
 
       let best: Move | null = null;
-      for (const slot of SLOTS) {
+      for (const slot of SUGGESTED_SLOTS) {
         // No +10 variants: the plan is about what is needed, not the ceiling.
         for (const move of this.slotMoves(current, slot.key, 3, false, false)) {
           // A step that costs a goal its target is moving away from the point
