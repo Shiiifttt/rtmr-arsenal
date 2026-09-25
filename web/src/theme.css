@@ -53,7 +53,7 @@ input:focus, select:focus, button:focus-visible {
 
 /* ---- layout ------------------------------------------------------------ */
 
-.app { max-width: 1400px; margin: 0 auto; padding: 20px; }
+.app { max-width: 1840px; margin: 0 auto; padding: 20px; }
 
 .topbar {
   display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
@@ -70,13 +70,41 @@ input:focus, select:focus, button:focus-visible {
 .share-btn.shared { color: var(--good); border-color: #2c5b44; }
 .spacer { flex: 1; }
 
+/*
+ * Three columns where they fit: the gear, then the character and its goals,
+ * then the totals and sets -- so the full stat list is on screen beside the
+ * gear rather than a long scroll under the goals. Narrower, the totals go
+ * under the goals; narrower still, everything stacks.
+ *
+ * The gear spans both rows in the two-column layout, and the second row
+ * takes whatever height is left, so the totals sit straight under the
+ * goals instead of being pushed down to the bottom of the gear.
+ */
 .columns {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(320px, 400px);
+  grid-template-rows: auto 1fr;
+  grid-template-areas: "gear character" "gear totals";
   gap: 20px;
   align-items: start;
 }
-@media (max-width: 960px) { .columns { grid-template-columns: 1fr; } }
+.col-gear { grid-area: gear; }
+.col-character { grid-area: character; }
+.col-totals { grid-area: totals; }
+@media (min-width: 1360px) {
+  .columns {
+    grid-template-columns: minmax(520px, 780px) minmax(320px, 400px) minmax(320px, 1fr);
+    grid-template-rows: auto;
+    grid-template-areas: "gear character totals";
+  }
+}
+@media (max-width: 960px) {
+  .columns {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-template-areas: "gear" "character" "totals";
+  }
+}
 
 .panel {
   background: var(--bg-raised);

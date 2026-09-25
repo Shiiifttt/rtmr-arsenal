@@ -310,7 +310,7 @@ export default function App() {
       )}
 
       <div className="columns">
-        <div>
+        <div className="col-gear">
           <SlotGrid
             dataset={dataset}
             build={build}
@@ -343,7 +343,7 @@ export default function App() {
           />
         </div>
 
-        <div>
+        <div className="col-character">
           <BaseStatsPanel
             baseStats={build.baseStats}
             baseLevel={build.baseLevel}
@@ -368,6 +368,9 @@ export default function App() {
             onPrefs={setPrefs}
             onApply={applyMoves}
           />
+        </div>
+
+        <div className="col-totals">
           <StatsPanel totals={totals} dataset={dataset} />
           <SetsPanel
             totals={totals}
