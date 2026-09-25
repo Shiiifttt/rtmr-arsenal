@@ -433,6 +433,7 @@ def stage_decode(raw_dir: Path, out_dir: Path) -> dict:
     mobs = decode_mobs(mobs_payload)
     apply_acquisition(items, Path(__file__).resolve().parent / "acquisition.json")
     apply_drops(items, mobs, Path(__file__).resolve().parent / "acquisition.json")
+    apply_market(items, mobs, Path(__file__).resolve().parent / "acquisition.json")
 
     items_dir = out_dir / "items"
     by_kind_dir = items_dir / "by-kind"
@@ -601,6 +602,34 @@ maps of 20 avatars are easy; at 10 a kidnapper hunted down cost what eight
 avatars did. The data has no map sizes, so this is spawns per map, not true
 density."""
 
+MAP_EFFORT_TIERS: list[tuple[float, tuple[str, ...]]] = [
+    (10.0, ("ama_ss", "Valhalla", "Halls of the Einherjar")),
+    (4.0, ("Rachel SS",)),
+    (2.5, ("Jormungand's Lair", "Hall of the Last God")),
+    (1.5, ("Thanatos Paradise", "Sograt Desert - Dimensional Rift")),
+]
+"""How much harder a map is to farm than its monsters' HP says, by map name
+(a name here also covers its floors: "Thanatos Paradise" is F1 to Summit).
+
+From the project owner, 2026-09-25: the Rachel, Amatsu and Valhalla SS maps
+are the hardest content by far; Jormungandr's lair (Heartless) is tough but
+more obtainable, then Thanatos Paradise and the Dimensional Gorge. Rachel SS
+can be soloed, at very high investment and on a few classes; the Amatsu and
+Valhalla ones are uncharted for 99% of the server, with one or two parties
+running them, hence 10 against Rachel's 4. The
+Valhalla SS is taken as both Valhalla maps -- their monsters run 1.25 to 4.5
+million HP against Rachel SS's quarter million. The factors are the owner's
+choice, not a measurement. A monster that lives elsewhere too is priced on
+whichever of its maps is cheapest."""
+
+
+def map_effort_factor(name: str) -> float:
+    for factor, maps in MAP_EFFORT_TIERS:
+        if any(name == m or name.startswith(m + " ") for m in maps):
+            return factor
+    return 1.0
+
+
 QUEST_EFFORT = 500_000_000
 """What an item behind a long quest chain counts as: some 700 Distortion
 Essence, most of the way to the Sage gear's 1,000. The data has no quests, so the
@@ -650,6 +679,45 @@ def apply_acquisition(items: list[dict], path: Path) -> None:
             if name not in by_name:
                 print(f"  ! acquisition: no item called {name!r}", file=sys.stderr)
     print(f"[decode] exchange costs corrected on {applied} items")
+
+
+def apply_market(items: list[dict], mobs: list[dict], path: Path) -> None:
+    """Mark the items players commonly buy from each other.
+
+    Kept on the item as raw "market", with its reason, so item_effort can
+    price the purchase as a route of its own and the planner can say "buy"
+    rather than "farm". An entry names items, or maps whose drops are all
+    commonly traded (by name, covering floors as MAP_EFFORT_TIERS does).
+    """
+    if not path.exists():
+        return
+    spec = json.loads(path.read_text("utf-8"))
+    by_name: dict[str, list[dict]] = {}
+    for item in items:
+        by_name.setdefault(item["name"], []).append(item)
+    applied = 0
+    on_map = lambda name, maps: any(name == m or name.startswith(m + " ") for m in maps)
+    for entry in spec.get("market", []):
+        names = list(entry.get("names", []))
+        if entry.get("maps"):
+            # Only what drops there and nowhere else: Distortion Essence
+            # falls off Broken Thanatos, but off every other MVP too.
+            there = {m["id"] for m in mobs
+                     if any(on_map(s["map"], entry["maps"]) for s in m["spawns"])}
+            spawning = {m["id"] for m in mobs if m["spawns"]}
+            for item in items:
+                sources = {d["mob_id"] for d in item.get("drops") or []} & spawning
+                if sources and sources <= there:
+                    names.append(item["name"])
+        for name in names:
+            match = by_name.get(name)
+            if not match:
+                print(f"  ! market: no item called {name!r}", file=sys.stderr)
+                continue
+            for item in match:
+                item["raw"]["market"] = {"status": entry.get("status"), "reason": entry.get("reason")}
+                applied += 1
+    print(f"[decode] marked {applied} items as bought from players")
 
 
 def apply_drops(items: list[dict], mobs: list[dict], path: Path) -> None:
@@ -746,10 +814,71 @@ def item_effort(items: list[dict], mobs: list[dict]) -> dict[str, list[int]]:
     by_id = {i["id"]: i for i in items}
     mob_by_id = {m["id"]: m for m in mobs}
     # (effort, toughest kill, route) per item; None while in progress or
-    # unknown. The route is the monster id for a drop, 0 for a zeny purchase
-    # and -1 for an exchange, so the planner can follow the chosen route down
-    # to what is actually worth farming.
+    # unknown. The route is the monster id for a drop, 0 for a zeny purchase,
+    # -1 for an exchange, -2 for a quest chain and -3 for buying from other
+    # players, so the planner can follow the chosen route down to what is
+    # actually worth farming.
     memo: dict[int, tuple[float, float, int] | None] = {}
+
+    def drop_route(item: dict, tiered: bool) -> tuple[float, float, int] | None:
+        """The cheapest drop: (effort, toughest kill, monster id), or None.
+
+        `tiered` applies `MAP_EFFORT_TIERS`; without it, a map counts for
+        its monsters' HP and spawns alone.
+        """
+        best: tuple[float, float, int] | None = None
+
+        def take(route: tuple[float, float, int]) -> None:
+            nonlocal best
+            if best is None or route[0] < best[0]:
+                best = route
+
+        def factor(name: str) -> float:
+            return map_effort_factor(name) if tiered else 1.0
+
+        # Per map, every ordinary monster there that drops it, pooled.
+        pooled: dict[str, list[tuple[dict, int, float]]] = {}
+        for d in item.get("drops") or []:
+            mob = mob_by_id.get(d["mob_id"])
+            chance = d.get("chance_percent") or 0
+            if not mob or not mob["spawns"] or (mob["level"] or 0) <= 1 or chance <= 0:
+                continue
+            # One entry per monster and map: a map name listed several times
+            # is several instances of it, not one bigger map, so the best.
+            here: dict[str, int] = {}
+            for s in mob["spawns"]:
+                here[s["map"]] = max(here.get(s["map"], 0), s["count"] or 0)
+            ehp = effective_hp(mob)
+            # Its cheapest map: the walking between spawns, and how hard the
+            # place is beyond the monster's HP (`MAP_EFFORT_TIERS`).
+            per_kill = ehp * min((1 + SPARSE_SPAWNS / max(1, n)) * factor(name)
+                                 for name, n in here.items())
+            cost = per_kill / (chance / 100)
+            if mob["is_mvp"]:
+                cost *= MVP_EFFORT_FACTOR
+            else:
+                for name, n in here.items():
+                    if n:
+                        pooled.setdefault(name, []).append((mob, n, chance))
+            take((cost, ehp, mob["id"]))
+        # A map where several monsters drop it is farmed as one: every kill
+        # there counts, so the walking is set by all of them together. Sky
+        # Garden Okolnir has ninety avatars that all drop Einherjar Soul, and
+        # counting Sif Avatar's twenty alone made the souls cost twice what
+        # they do. Per kill, the average over what spawns.
+        for name, group in pooled.items():
+            if len(group) < 2:
+                continue
+            count = sum(n for _, n, _ in group)
+            ehp = sum(effective_hp(m) * n for m, n, _ in group) / count
+            chance = sum(c * n for _, n, c in group) / count
+            cost = ehp * (1 + SPARSE_SPAWNS / count) * factor(name) / (chance / 100)
+            # The route names the monster most of the kills are. The toughest
+            # kill is the average one: a lone Thor Avatar among ninety others
+            # can be walked past, and should not put the map out of reach.
+            lead = max(group, key=lambda g: g[1])[0]
+            take((cost, ehp, lead["id"]))
+        return best
 
     def effort(item_id: int, depth: int = 0) -> tuple[float, float, int] | None:
         if item_id in memo:
@@ -765,17 +894,17 @@ def item_effort(items: list[dict], mobs: list[dict]) -> dict[str, list[int]]:
             if best is None or route[0] < best[0]:
                 best = route
 
-        for d in item.get("drops") or []:
-            mob = mob_by_id.get(d["mob_id"])
-            chance = d.get("chance_percent") or 0
-            if not mob or not mob["spawns"] or (mob["level"] or 0) <= 1 or chance <= 0:
-                continue
-            most = max((s["count"] or 0) for s in mob["spawns"])
-            ehp = effective_hp(mob)
-            cost = ehp * (1 + SPARSE_SPAWNS / max(1, most)) / (chance / 100)
-            if mob["is_mvp"]:
-                cost *= MVP_EFFORT_FACTOR
-            take((cost, ehp, mob["id"]))
+        drop = drop_route(item, tiered=True)
+        if drop:
+            take(drop)
+        if (item.get("raw") or {}).get("market"):
+            # Bought from players: priced at what the grind costs whoever
+            # farms it -- how hard their map is is theirs, not the buyer's --
+            # and with no monster to beat, so no toughest kill. Preferred over
+            # farming it at the same effort: that is how most players get it.
+            bought = drop_route(item, tiered=False)
+            if bought and (best is None or bought[0] <= best[0]):
+                best = (bought[0], 0.0, -3)
         how = (item.get("raw") or {}).get("how")
         if isinstance(how, list) and how and how[0]:
             costs = how[3] if len(how) > 3 and isinstance(how[3], list) else []
@@ -792,6 +921,9 @@ def item_effort(items: list[dict], mobs: list[dict]) -> dict[str, list[int]]:
                             total += (c[0] or 0) * part[0]
                             toughest = max(toughest, part[1])
                 take((total, toughest, -1))
+        if (item.get("raw") or {}).get("market") and best and best[2] != -3 and not drop:
+            # Bought, but nothing drops it: whatever it costs, with no kill.
+            best = (best[0], 0.0, -3)
         memo[item_id] = best
         return best
 

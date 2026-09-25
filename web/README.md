@@ -503,6 +503,26 @@ with millions of HP -- over gear it could use this month. A refine of +6 is
 assumed within reach from the start (`REACH_REFINE_FLOOR`), the top of the
 HD ore tier. All of these are calibrations.
 
+### How hard a drop is to farm
+
+Effort (`item_effort` in `crawler/rtm_crawl.py`) prices a drop by the
+monster's effective HP over the chance, scaled up for sparse maps. A map
+where several monsters drop the same thing is priced as one farm: every
+Sky Garden avatar drops Einherjar Soul, so the ninety on Okolnir count
+together. Some maps are harder than their monsters' HP says
+(`MAP_EFFORT_TIERS`, from the project owner): the Amatsu and Valhalla SS
+maps ×10 (one or two parties on the server run them), Rachel SS ×4,
+Jormungandr's lair ×2.5, Thanatos Paradise and the Dimensional Rift ×1.5.
+
+Items players commonly buy from each other are listed under `market` in
+`crawler/acquisition.json`: the Weavers, everything that drops only in
+Thanatos Paradise or the Dimensional Rift, and some lower-level gear
+(Temporal Boots, the Metal set, the Naght Sieger ring). Buying is priced at
+what the grind costs whoever farms it, without the map's tier factor, and
+with no monster for the buyer to beat. The overlay says "Buy … from
+players" instead of where to farm, and wearing one does not raise the
+build's toughness bar.
+
 ### ATK, and what LUK gives
 
 Every physical damage chain starts with an ATK link (`atk_melee`,

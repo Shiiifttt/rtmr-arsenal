@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import {
-  farmFor, type Build, type Dataset, type Goal, type Move, type PlanPaths,
+  boughtFromPlayers, farmFor, type Build, type Dataset, type Goal, type Move, type PlanPaths,
 } from '@sim';
 import { LockedNote, MoveRow } from './GoalsPanel';
 
@@ -134,7 +134,7 @@ export function PlanOverlay({
 
           <Path title="Longer-term goals" note={'Past what this build usually reaches — a longer '
             + 'grind, a tougher monster or a higher refine — but where it can head, one per slot, '
-            + 'with what to farm for it.'}>
+            + 'with what to farm for it, or to buy from players.'}>
             {far.filter((m) => !farm.some((f) => f.label === m.label))
               .map((move) => row(move, 'Equip', () => onApply([move]), build, true))}
           </Path>
@@ -190,6 +190,9 @@ function FarmNote({ move, build, dataset, rolled }: {
       const e = dataset.effort?.get(id)?.effort ?? 0;
       if (!hardest || e > hardest.effort) hardest = { id, effort: e };
     }
+  }
+  if (hardest && boughtFromPlayers(hardest.id, dataset)) {
+    return <>Buy {dataset.items.get(hardest.id)?.name} from players</>;
   }
   const target = hardest ? farmFor(hardest.id, dataset) : null;
   const item = target ? dataset.items.get(target.itemId) : null;

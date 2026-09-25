@@ -19,7 +19,7 @@ import {
   goalScore, goalStatus, isTwoHanded, measure, priorityWeight, SLOTS, Suggester, tableForSlot,
   tradeValue, coveredBy, type Move, type SuggestOptions,
   collateralCost, COLLATERAL_WEIGHT, relevanceOf, statTone, type TotalsChange, sideGoals,
-  statusAtk,
+  statusAtk, MARKET_ROUTE, boughtFromPlayers,
 } from '../src/index.ts';
 import type {
   Build, Dataset, Goal, Item, RollData, SetRecord, SlotState, StatDef,
@@ -323,12 +323,29 @@ test('reach is read off the second-best piece, not the best', () => {
   assert.equal(reach.refine, 7);
   // Wind Weaver is the hardest piece worn; the Venus Cape after it sets the bar.
   assert.equal(reach.effort, withEffort.effort!.get(15435)!.effort * REACH_EFFORT_FACTOR);
-  assert.equal(reach.kill, withEffort.effort!.get(15435)!.kill * REACH_KILL_FACTOR);
+  // The Weaver and the Venus Cape are bought, so neither has a monster to
+  // beat; the kill bar is the second toughest of what is left.
+  for (const id of [byName('Wind Weaver').id, 15435]) {
+    assert.equal(withEffort.effort!.get(id)!.via, MARKET_ROUTE);
+    assert.equal(withEffort.effort!.get(id)!.kill, 0);
+  }
+  const kills = Object.values(build.slots).flatMap((st) => [st.itemId, ...st.cards])
+    .map((id) => (id ? withEffort.effort!.get(id)?.kill : undefined))
+    .filter((k): k is number => k !== undefined).sort((a, b) => b - a);
+  assert.equal(reach.kill, kills[1] * REACH_KILL_FACTOR);
 
   const fresh = reachOf(emptyBuild(), withEffort);
   assert.equal(fresh.refine, REACH_REFINE_FLOOR, 'nothing refined still assumes the safe range');
   assert.equal(fresh.effort, null, 'and nothing worn sets no bar at all');
   assert.equal(fresh.kill, null);
+});
+
+test('a Weaver is bought from players rather than farmed off Rachel SS', () => {
+  const weaver = byName('Fate Weaver').id;
+  assert.ok(boughtFromPlayers(weaver, withEffort));
+  assert.equal(farmFor(weaver, withEffort), null, 'no monster to send the player to');
+  // Its own drops, off the SS, cost more than buying it.
+  assert.ok(!boughtFromPlayers(byName('Valkyrie Circlet').id, withEffort));
 });
 
 test('whole-build suggestions stay within reach; browsing a slot does not', () => {
@@ -362,10 +379,13 @@ test('whole-build suggestions stay within reach; browsing a slot does not', () =
 test('longer-term goals are only what reach turned away, each with something to farm', () => {
   const build = satsujin();
   const goals = goalsFromBuild(build, aggregate(build, withEffort), withEffort);
-  const opts: SuggestOptions = { className: 'Satsujin', maxLevel: 136, refine: 'auto' };
-  const reach = reachOf(build, withEffort);
-  const near = new Suggester(withEffort, goals, { ...opts, reach });
-  const stretch = new Suggester(withEffort, goals, opts).stretchMoves(build);
+  // A reach pinned rather than read off the build: its bought Weaver sets no
+  // toughness bar, and the bar its farmed gear sets leaves Valhalla -- the
+  // one thing it has left to aim for -- out even of the longer-term lists.
+  const reach = { effort: 200_000_000, kill: 400_000, refine: 7 };
+  const opts: SuggestOptions = { className: 'Satsujin', maxLevel: 136, refine: 'auto', reach };
+  const near = new Suggester(withEffort, goals, opts);
+  const stretch = near.stretchMoves(build);
   assert.ok(stretch.length > 0, 'there is always something further to aim for');
   for (const m of stretch) {
     const beyond = m.changes.some((c) => [c.state.itemId, ...c.state.cards]
@@ -441,7 +461,9 @@ test('class gems with no job sentence are held to their class', () => {
 test('upgrade paths lower nothing the build has, and show every kind of way forward', () => {
   const build = satsujin();
   const goals = allGoals({ ...build, goals: goalsFromBuild(build, aggregate(build, withEffort), withEffort) });
-  const s = new Suggester(withEffort, goals, { className: 'Satsujin', maxLevel: 136, refine: 'auto' });
+  // Reach pinned as in the longer-term test, so there is something past it.
+  const s = new Suggester(withEffort, goals, { className: 'Satsujin', maxLevel: 136, refine: 'auto',
+    reach: { effort: 200_000_000, kill: 400_000, refine: 7 } });
   const paths = s.upgradePaths(build);
   const now = s.values(build);
 

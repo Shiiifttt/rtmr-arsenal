@@ -1,4 +1,4 @@
-import type { Dataset, Item } from './types.ts';
+import { MARKET_ROUTE, type Dataset, type Item } from './types.ts';
 
 /**
  * Where things come from: monster drops, vendors, quests, boxes, and the
@@ -173,6 +173,8 @@ export function farmFor(itemId: number, data: Dataset, qty = 1, depth = 0): Farm
   const e = data.effort?.get(itemId);
   const item = data.items.get(itemId);
   if (!e || !item || depth > 6) return null;
+  // Bought, not farmed: see `boughtFromPlayers`.
+  if (e.via === MARKET_ROUTE) return null;
   if (e.via > 0) {
     const drop = item.drops?.find((d) => d.mob_id === e.via);
     return drop ? {
@@ -189,4 +191,13 @@ export function farmFor(itemId: number, data: Dataset, qty = 1, depth = 0): Farm
     return heaviest ? farmFor(heaviest.id, data, qty * heaviest.qty, depth + 1) : null;
   }
   return null;
+}
+
+/**
+ * Is the cheapest way to this item buying it from another player? From the
+ * project owner: a Weaver is a solid goal even for a class that cannot farm
+ * Rachel SS itself. The items are listed by hand in crawler/acquisition.json.
+ */
+export function boughtFromPlayers(itemId: number, data: Dataset): boolean {
+  return data.effort?.get(itemId)?.via === MARKET_ROUTE;
 }

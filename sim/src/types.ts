@@ -464,9 +464,16 @@ export interface ItemEffort {
   effort: number;
   /** Effective HP of the toughest monster on the way: whether you can at all. */
   kill: number;
-  /** The route the figures come from: a monster id, 0 for a zeny purchase, -1 for an exchange. */
+  /**
+   * The route the figures come from: a monster id, 0 for a zeny purchase,
+   * -1 for an exchange, -2 for a quest chain, -3 (`MARKET_ROUTE`) for buying
+   * from other players.
+   */
   via: number;
 }
+
+/** `ItemEffort.via` for an item players buy from each other rather than farm. */
+export const MARKET_ROUTE = -3;
 
 export interface ArmorTarget {
   label: string;

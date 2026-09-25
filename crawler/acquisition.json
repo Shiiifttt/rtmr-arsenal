@@ -22,7 +22,34 @@
   "",
   "'quest': true in place of costs marks an item behind a long quest chain,",
   "which the data knows nothing about; it counts as QUEST_EFFORT in",
-  "crawler/rtm_crawl.py rather than as unknown, which read as within reach."
+  "crawler/rtm_crawl.py rather than as unknown, which read as within reach.",
+  "",
+  "'market' lists items players commonly buy from each other rather than farm",
+  "themselves, by name or as every drop of the monsters on some maps. Buying",
+  "is priced at what the grind costs whoever farms it, without the map's",
+  "MAP_EFFORT_TIERS factor, and with no monster for the buyer to beat."
+ ],
+ "market": [
+  {
+   "names": ["Fate Weaver", "Flaming Weaver", "Frozen Weaver", "Nature Weaver", "Wind Weaver"],
+   "status": "unverified",
+   "reason": "Project owner, 2026-09-25: buying a Weaver is a solid goal even for classes that cannot farm Rachel SS themselves."
+  },
+  {
+   "maps": ["Thanatos Paradise", "Sograt Desert - Dimensional Rift"],
+   "status": "unverified",
+   "reason": "Project owner, 2026-09-25: Thanatos Paradise and Dimensional Gorge drops are commonly bought."
+  },
+  {
+   "names": [
+    "Temporal STR Boots", "Temporal AGI Boots", "Temporal VIT Boots", "Temporal INT Boots",
+    "Temporal DEX Boots", "Temporal LUK Boots",
+    "Strange Metal Ring", "Metal Boots MK I", "Metal Boots MK II", "Metal Boots MK III",
+    "Ring of Naght Sieger"
+   ],
+   "status": "unverified",
+   "reason": "Project owner, 2026-09-25: some lower-level gear is sometimes bought -- Temporal Boots, the MK 1-3 metal set and the Naught Sieger ring. Jewel ores are too, but the vendors already sell them."
+  }
  ],
  "drops": [
   {
