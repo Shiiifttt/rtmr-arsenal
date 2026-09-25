@@ -1,4 +1,4 @@
-import { isOffhandWeapon, isRefineable, SLOTS } from './slots.ts';
+import { coveredBy, isOffhandWeapon, isRefineable, SLOTS } from './slots.ts';
 import { rollEffects, rollTableFor } from './rolls.ts';
 import type {
   BaseStats, Build, Dataset, Effect, ElementClaim, Item, RefineGroup,
@@ -270,6 +270,9 @@ export function aggregate(build: Build, data: Dataset): Totals {
     if (!state?.itemId) continue;
     const item = data.items.get(state.itemId);
     if (!item) continue;
+    // Taken by a headgear worn in two positions, which counts once, from
+    // its own slot -- even when a screenshot recorded it in both.
+    if (coveredBy(build, slot.key, data)) continue;
 
     const refine = isRefineable(item) ? state.refine : 0;
     const label = item.name;

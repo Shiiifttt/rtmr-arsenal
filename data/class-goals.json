@@ -23,10 +23,9 @@
     "confidence": "guess",
     "basis": "No attack skills, daggers only. Generic melee until the job change at job level 10.",
     "goals": [
-     { "key": "atk", "column": "percent" },
+     { "key": "phys_dmg_mult", "column": "percent" },
      { "key": "agi", "column": "total" },
      { "key": "dex", "column": "total" },
-     { "key": "any_target_dmg", "column": "percent" },
      { "key": "max_hp", "column": "percent" }
     ]
    }
@@ -39,10 +38,8 @@
     "goals": [
      { "key": "agi", "column": "total" },
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
-     { "key": "atk", "column": "percent" },
+     { "key": "melee_dmg_mult", "column": "percent" },
      { "key": "skill:Back Stab|damage", "column": "percent" },
-     { "key": "any_target_dmg", "column": "percent" },
-     { "key": "melee_damage", "column": "percent" },
      { "key": "flee", "column": "total" }
     ]
    },
@@ -53,10 +50,9 @@
     "goals": [
      { "key": "vit", "column": "total" },
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
-     { "key": "atk", "column": "percent" },
+     { "key": "phys_dmg_mult", "column": "percent" },
      { "key": "skill:Rolling Cutter|damage", "column": "percent" },
      { "key": "skill:Cross Ripper Slasher|damage", "column": "percent" },
-     { "key": "any_target_dmg", "column": "percent" },
      { "key": "max_hp", "column": "percent" }
     ]
    },
@@ -67,9 +63,8 @@
     "goals": [
      { "key": "int", "column": "total" },
      { "key": "mdef_pen", "column": "flat", "target": 25, "cap": 70 },
-     { "key": "matk", "column": "percent" },
+     { "key": "magic_dmg_mult", "column": "percent" },
      { "key": "magic_damage", "column": "percent" },
-     { "key": "any_target_magic", "column": "percent" },
      { "key": "variable_cast", "column": "percent", "atMost": true },
      { "key": "skill:Flaming Petals|damage", "column": "percent" }
     ]
@@ -81,11 +76,9 @@
     "goals": [
      { "key": "dex", "column": "total" },
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
-     { "key": "atk", "column": "percent" },
-     { "key": "ranged_damage", "column": "percent" },
+     { "key": "ranged_dmg_mult", "column": "percent" },
      { "key": "skill:Double Strafe|damage", "column": "percent" },
-     { "key": "skill:Arrow Shower|damage", "column": "percent" },
-     { "key": "any_target_dmg", "column": "percent" }
+     { "key": "skill:Arrow Shower|damage", "column": "percent" }
     ]
    }
   ],
@@ -100,9 +93,8 @@
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
      { "key": "crit_damage", "column": "percent" },
      { "key": "luk", "column": "total" },
-     { "key": "atk", "column": "percent" },
+     { "key": "phys_dmg_mult", "column": "percent" },
      { "key": "skill:Sonic Blow|damage", "column": "percent" },
-     { "key": "any_target_dmg", "column": "percent" },
      { "key": "aspd", "column": "percent" }
     ]
    },
@@ -113,10 +105,9 @@
     "goals": [
      { "key": "dex", "column": "total" },
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
-     { "key": "atk", "column": "percent" },
+     { "key": "phys_dmg_mult", "column": "percent" },
      { "key": "skill:Silent Strike|damage", "column": "percent" },
      { "key": "skill:Burst Petals|damage", "column": "percent" },
-     { "key": "any_target_dmg", "column": "percent" },
      { "key": "variable_cast", "column": "percent", "atMost": true }
     ]
    },
@@ -127,10 +118,9 @@
     "goals": [
      { "key": "vit", "column": "total" },
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
-     { "key": "atk", "column": "percent" },
+     { "key": "phys_dmg_mult", "column": "percent" },
      { "key": "skill:Axe Tornado|damage", "column": "percent" },
      { "key": "skill:Boomeraxe|damage", "column": "percent" },
-     { "key": "any_target_dmg", "column": "percent" },
      { "key": "max_hp", "column": "percent" }
     ]
    }
@@ -143,12 +133,10 @@
     "goals": [
      { "key": "str", "column": "total" },
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
-     { "key": "atk", "column": "percent" },
+     { "key": "ranged_dmg_mult", "column": "percent" },
      { "key": "skill:Wind Slash|damage", "column": "percent" },
-     { "key": "ranged_damage", "column": "percent" },
      { "key": "skill:Face-Off|damage", "column": "percent" },
-     { "key": "skill:Overpower|damage", "column": "percent" },
-     { "key": "any_target_dmg", "column": "percent" }
+     { "key": "skill:Overpower|damage", "column": "percent" }
     ]
    },
    {
@@ -159,10 +147,8 @@
      { "key": "dex", "column": "total" },
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
      { "key": "str", "column": "total" },
-     { "key": "atk", "column": "percent" },
-     { "key": "ranged_damage", "column": "percent" },
-     { "key": "skill:Arrow Vulcan|damage", "column": "percent" },
-     { "key": "any_target_dmg", "column": "percent" }
+     { "key": "ranged_dmg_mult", "column": "percent" },
+     { "key": "skill:Arrow Vulcan|damage", "column": "percent" }
     ]
    },
    {
@@ -174,9 +160,8 @@
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
      { "key": "max_hp", "column": "percent" },
      { "key": "skill:Shield Boomerang|damage", "column": "percent" },
-     { "key": "atk", "column": "percent" },
-     { "key": "def", "column": "flat" },
-     { "key": "any_target_dmg", "column": "percent" }
+     { "key": "phys_dmg_mult", "column": "percent" },
+     { "key": "def", "column": "flat" }
     ]
    },
    {
@@ -186,11 +171,10 @@
     "goals": [
      { "key": "int", "column": "total" },
      { "key": "mdef_pen", "column": "flat", "target": 25, "cap": 70 },
-     { "key": "matk", "column": "percent" },
+     { "key": "magic_dmg_mult", "column": "percent" },
      { "key": "skill:Throw Acid|damage", "column": "percent" },
      { "key": "skill:Throw Molotov|damage", "column": "percent" },
-     { "key": "magic_damage", "column": "percent" },
-     { "key": "any_target_magic", "column": "percent" }
+     { "key": "magic_damage", "column": "percent" }
     ]
    }
   ],
@@ -202,12 +186,10 @@
     "goals": [
      { "key": "agi", "column": "total" },
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
-     { "key": "atk", "column": "percent" },
+     { "key": "melee_dmg_mult", "column": "percent" },
      { "key": "skill:Southern Cross|damage", "column": "percent" },
      { "key": "skill:Counter Slash|damage", "column": "percent" },
-     { "key": "any_target_dmg", "column": "percent" },
-     { "key": "aspd", "column": "percent" },
-     { "key": "melee_damage", "column": "percent" }
+     { "key": "aspd", "column": "percent" }
     ]
    }
   ],
@@ -221,11 +203,10 @@
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
      { "key": "crit_damage", "column": "percent" },
      { "key": "luk", "column": "total" },
-     { "key": "atk", "column": "percent" },
+     { "key": "phys_dmg_mult", "column": "percent" },
      { "key": "skill:Omega|damage", "column": "percent" },
      { "key": "skill:Alpha|damage", "column": "percent" },
-     { "key": "skill:Sonic Blow|damage", "column": "percent" },
-     { "key": "any_target_dmg", "column": "percent" }
+     { "key": "skill:Sonic Blow|damage", "column": "percent" }
     ]
    },
    {
@@ -237,10 +218,8 @@
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
      { "key": "crit_rate", "column": "flat" },
      { "key": "crit_damage", "column": "percent" },
-     { "key": "atk", "column": "percent" },
-     { "key": "skill:Meteor Rush|damage", "column": "percent" },
-     { "key": "ranged_damage", "column": "percent" },
-     { "key": "any_target_dmg", "column": "percent" }
+     { "key": "ranged_dmg_mult", "column": "percent" },
+     { "key": "skill:Meteor Rush|damage", "column": "percent" }
     ]
    }
   ],
@@ -254,10 +233,9 @@
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
      { "key": "crit_rate", "column": "flat" },
      { "key": "crit_damage", "column": "percent" },
-     { "key": "atk", "column": "percent" },
+     { "key": "phys_dmg_mult", "column": "percent" },
      { "key": "skill:Cursed Coffin|damage", "column": "percent" },
      { "key": "skill:Desolated Burial|damage", "column": "percent" },
-     { "key": "any_target_dmg", "column": "percent" },
      { "key": "variable_cast", "column": "percent", "atMost": true }
     ]
    },
@@ -285,10 +263,9 @@
     "goals": [
      { "key": "int", "column": "total" },
      { "key": "mdef_pen", "column": "flat", "target": 25, "cap": 70 },
-     { "key": "matk", "column": "percent" },
+     { "key": "magic_dmg_mult", "column": "percent" },
      { "key": "skill:Venom Buster|damage", "column": "percent" },
      { "key": "magic_damage", "column": "percent" },
-     { "key": "any_target_magic", "column": "percent" },
      { "key": "variable_cast", "column": "percent", "atMost": true }
     ]
    },
@@ -299,9 +276,8 @@
     "goals": [
      { "key": "vit", "column": "total" },
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
-     { "key": "atk", "column": "percent" },
+     { "key": "phys_dmg_mult", "column": "percent" },
      { "key": "skill:Venom Splasher|damage", "column": "percent" },
-     { "key": "any_target_dmg", "column": "percent" },
      { "key": "max_hp", "column": "percent" }
     ]
    }
@@ -315,13 +291,11 @@
      { "key": "vit", "column": "total" },
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
      { "key": "max_hp", "column": "percent" },
-     { "key": "atk", "column": "percent" },
+     { "key": "ranged_dmg_mult", "column": "percent" },
      { "key": "skill:Mjolnir Fall|damage", "column": "percent" },
      { "key": "skill:Spiral Blade|damage", "column": "percent" },
      { "key": "skill:Rupture Axe|damage", "column": "percent" },
-     { "key": "ranged_damage", "column": "percent" },
-     { "key": "int", "column": "total" },
-     { "key": "any_target_dmg", "column": "percent" }
+     { "key": "int", "column": "total" }
     ]
    },
    {
@@ -331,11 +305,10 @@
     "goals": [
      { "key": "int", "column": "total" },
      { "key": "mdef_pen", "column": "flat", "target": 25, "cap": 70 },
-     { "key": "matk", "column": "percent" },
+     { "key": "magic_dmg_mult", "column": "percent" },
      { "key": "skill:Plague Impress|damage", "column": "percent" },
      { "key": "skill:Death Cloud|damage", "column": "percent" },
-     { "key": "magic_damage", "column": "percent" },
-     { "key": "any_target_magic", "column": "percent" }
+     { "key": "magic_damage", "column": "percent" }
     ]
    }
   ],
@@ -347,10 +320,8 @@
     "goals": [
      { "key": "agi", "column": "total" },
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
-     { "key": "atk", "column": "percent" },
+     { "key": "melee_dmg_mult", "column": "percent" },
      { "key": "skill:Thousand Arms|damage", "column": "percent" },
-     { "key": "any_target_dmg", "column": "percent" },
-     { "key": "melee_damage", "column": "percent" },
      { "key": "max_hp", "column": "percent" }
     ]
    },
@@ -362,8 +333,7 @@
      { "key": "int", "column": "total" },
      { "key": "mdef_pen", "column": "flat", "target": 25, "cap": 70 },
      { "key": "skill:Samsara Burst|damage", "column": "percent" },
-     { "key": "matk", "column": "percent" },
-     { "key": "any_target_magic", "column": "percent" },
+     { "key": "magic_dmg_mult", "column": "percent" },
      { "key": "variable_cast", "column": "percent", "atMost": true }
     ]
    }
@@ -382,10 +352,8 @@
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
      { "key": "str", "column": "total" },
      { "key": "flee", "column": "total" },
-     { "key": "atk", "column": "percent" },
-     { "key": "sp_cost", "column": "percent", "atMost": true },
-     { "key": "any_target_dmg", "column": "percent" },
-     { "key": "melee_damage", "column": "percent" }
+     { "key": "melee_dmg_mult", "column": "percent" },
+     { "key": "sp_cost", "column": "percent", "atMost": true, "cap": -50 }
     ]
    },
    {
@@ -395,9 +363,8 @@
     "goals": [
      { "key": "int", "column": "total" },
      { "key": "mdef_pen", "column": "flat", "target": 25, "cap": 70 },
-     { "key": "matk", "column": "percent" },
-     { "key": "sp_cost", "column": "percent", "atMost": true },
-     { "key": "any_target_magic", "column": "percent" },
+     { "key": "magic_dmg_mult", "column": "percent" },
+     { "key": "sp_cost", "column": "percent", "atMost": true, "cap": -50 },
      { "key": "variable_cast", "column": "percent", "atMost": true }
     ]
    }
@@ -410,11 +377,9 @@
     "goals": [
      { "key": "str", "column": "total" },
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
-     { "key": "atk", "column": "percent" },
+     { "key": "melee_dmg_mult", "column": "percent" },
      { "key": "skill:Counter Slash|damage", "column": "percent" },
      { "key": "agi", "column": "total" },
-     { "key": "any_target_dmg", "column": "percent" },
-     { "key": "melee_damage", "column": "percent" },
      { "key": "aspd", "column": "percent" }
     ]
    },
@@ -447,10 +412,9 @@
      { "key": "str", "column": "total" },
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
      { "key": "agi", "column": "total" },
-     { "key": "atk", "column": "percent" },
+     { "key": "phys_dmg_mult", "column": "percent" },
      { "key": "crit_rate", "column": "flat" },
      { "key": "crit_damage", "column": "percent" },
-     { "key": "any_target_dmg", "column": "percent" },
      { "key": "leech_hp_rate", "column": "percent" }
     ]
    }
@@ -461,11 +425,10 @@
     "confidence": "guess",
     "basis": "Dual daggers, Relentless Daggers / Harness Speed for ASPD and crit, Harness Magic adds MATK to hits. Frenzy blocks healing, so leech carries HP.",
     "goals": [
-     { "key": "atk", "column": "percent" },
+     { "key": "phys_dmg_mult", "column": "percent" },
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
      { "key": "crit_rate", "column": "flat" },
      { "key": "crit_damage", "column": "percent" },
-     { "key": "any_target_dmg", "column": "percent" },
      { "key": "aspd", "column": "percent" },
      { "key": "str", "column": "total" },
      { "key": "agi", "column": "total" },
@@ -511,12 +474,10 @@
     "confidence": "weak guess",
     "basis": "Inquisition Resolve multi-hits and Final Arrow +100%/level on normal shots.",
     "goals": [
-     { "key": "atk", "column": "percent" },
+     { "key": "ranged_dmg_mult", "column": "percent" },
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
-     { "key": "ranged_damage", "column": "percent" },
      { "key": "dex", "column": "total" },
-     { "key": "aspd", "column": "percent" },
-     { "key": "any_target_dmg", "column": "percent" }
+     { "key": "aspd", "column": "percent" }
     ]
    }
   ],
@@ -529,12 +490,10 @@
      { "key": "vit", "column": "total" },
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
      { "key": "max_hp", "column": "percent" },
-     { "key": "atk", "column": "percent" },
+     { "key": "ranged_dmg_mult", "column": "percent" },
      { "key": "skill:Retribution|damage", "column": "percent" },
      { "key": "crit_damage", "column": "percent" },
-     { "key": "skill:Delta Skyfall|damage", "column": "percent" },
-     { "key": "any_target_dmg", "column": "percent" },
-     { "key": "ranged_damage", "column": "percent" }
+     { "key": "skill:Delta Skyfall|damage", "column": "percent" }
     ]
    }
   ],
@@ -551,9 +510,7 @@
      { "key": "skill:King's Chains|damage", "column": "percent" },
      { "key": "skill:Check Mate|damage", "column": "percent" },
      { "key": "def", "column": "flat" },
-     { "key": "atk", "column": "percent" },
-     { "key": "any_target_dmg", "column": "percent" },
-     { "key": "ranged_damage", "column": "percent" }
+     { "key": "ranged_dmg_mult", "column": "percent" }
     ]
    }
   ],
@@ -565,9 +522,8 @@
     "goals": [
      { "key": "int", "column": "total" },
      { "key": "mdef_pen", "column": "flat", "target": 25, "cap": 70 },
-     { "key": "matk", "column": "percent" },
+     { "key": "magic_dmg_mult", "column": "percent" },
      { "key": "magic_damage", "column": "percent" },
-     { "key": "any_target_magic", "column": "percent" },
      { "key": "skill:Eruption|damage", "column": "percent" },
      { "key": "skill:Unholy Light|damage", "column": "percent" },
      { "key": "variable_cast", "column": "percent", "atMost": true },
@@ -583,10 +539,9 @@
     "goals": [
      { "key": "int", "column": "total" },
      { "key": "mdef_pen", "column": "flat", "target": 25, "cap": 70 },
-     { "key": "matk", "column": "percent" },
+     { "key": "magic_dmg_mult", "column": "percent" },
      { "key": "skill:Tetragrammaton|damage", "column": "percent" },
      { "key": "skill:Fire/Water/Wind/Earth Magic|damage", "column": "percent" },
-     { "key": "any_target_magic", "column": "percent" },
      { "key": "variable_cast", "column": "percent", "atMost": true },
      { "key": "fixed_cast", "column": "flat", "atMost": true },
      { "key": "cooldown", "column": "flat", "atMost": true }
@@ -601,12 +556,11 @@
     "goals": [
      { "key": "int", "column": "total" },
      { "key": "mdef_pen", "column": "flat", "target": 25, "cap": 70 },
-     { "key": "matk", "column": "percent" },
+     { "key": "magic_dmg_mult", "column": "percent" },
      { "key": "skill:Greater Explosion|damage", "column": "percent" },
      { "key": "skill:Burning Field|damage", "column": "percent" },
      { "key": "magic_damage", "column": "percent" },
-     { "key": "dex", "column": "total" },
-     { "key": "any_target_magic", "column": "percent" }
+     { "key": "dex", "column": "total" }
     ]
    }
   ],
@@ -633,10 +587,9 @@
      { "key": "str", "column": "total" },
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
      { "key": "dex", "column": "total" },
-     { "key": "atk", "column": "percent" },
+     { "key": "phys_dmg_mult", "column": "percent" },
      { "key": "skill:Rolling Flames|damage", "column": "percent" },
-     { "key": "skill:Claymore Trap|damage", "column": "percent" },
-     { "key": "any_target_dmg", "column": "percent" }
+     { "key": "skill:Claymore Trap|damage", "column": "percent" }
     ]
    }
   ],
@@ -650,9 +603,8 @@
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
      { "key": "crit_rate", "column": "flat" },
      { "key": "crit_damage", "column": "percent" },
-     { "key": "atk", "column": "percent" },
-     { "key": "skill:Shadow Slash|damage", "column": "percent" },
-     { "key": "any_target_dmg", "column": "percent" }
+     { "key": "phys_dmg_mult", "column": "percent" },
+     { "key": "skill:Shadow Slash|damage", "column": "percent" }
     ]
    },
    {
@@ -663,10 +615,8 @@
      { "key": "dex", "column": "total" },
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
      { "key": "str", "column": "total" },
-     { "key": "atk", "column": "percent" },
-     { "key": "ranged_damage", "column": "percent" },
-     { "key": "skill:Arrow Vulcan|damage", "column": "percent" },
-     { "key": "any_target_dmg", "column": "percent" }
+     { "key": "ranged_dmg_mult", "column": "percent" },
+     { "key": "skill:Arrow Vulcan|damage", "column": "percent" }
     ]
    }
   ],
@@ -680,9 +630,8 @@
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
      { "key": "crit_rate", "column": "flat" },
      { "key": "crit_damage", "column": "percent" },
-     { "key": "atk", "column": "percent" },
-     { "key": "skill:Shadow Slash|damage", "column": "percent" },
-     { "key": "any_target_dmg", "column": "percent" }
+     { "key": "phys_dmg_mult", "column": "percent" },
+     { "key": "skill:Shadow Slash|damage", "column": "percent" }
     ]
    },
    {
@@ -694,9 +643,8 @@
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
      { "key": "crit_rate", "column": "flat" },
      { "key": "crit_damage", "column": "percent" },
-     { "key": "atk", "column": "percent" },
+     { "key": "phys_dmg_mult", "column": "percent" },
      { "key": "skill:Sonic Blow|damage", "column": "percent" },
-     { "key": "any_target_dmg", "column": "percent" },
      { "key": "aspd", "column": "percent" }
     ]
    }
@@ -710,10 +658,8 @@
      { "key": "dex", "column": "total" },
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
      { "key": "str", "column": "total" },
-     { "key": "atk", "column": "percent" },
-     { "key": "ranged_damage", "column": "percent" },
-     { "key": "skill:Arrow Vulcan|damage", "column": "percent" },
-     { "key": "any_target_dmg", "column": "percent" }
+     { "key": "ranged_dmg_mult", "column": "percent" },
+     { "key": "skill:Arrow Vulcan|damage", "column": "percent" }
     ]
    },
    {
@@ -723,12 +669,10 @@
     "goals": [
      { "key": "str", "column": "total" },
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
-     { "key": "atk", "column": "percent" },
+     { "key": "ranged_dmg_mult", "column": "percent" },
      { "key": "skill:Wind Slash|damage", "column": "percent" },
-     { "key": "ranged_damage", "column": "percent" },
      { "key": "crit_rate", "column": "flat" },
-     { "key": "crit_damage", "column": "percent" },
-     { "key": "any_target_dmg", "column": "percent" }
+     { "key": "crit_damage", "column": "percent" }
     ]
    }
   ],
@@ -740,13 +684,11 @@
     "goals": [
      { "key": "agi", "column": "total" },
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
-     { "key": "atk", "column": "percent" },
+     { "key": "ranged_dmg_mult", "column": "percent" },
      { "key": "skill:Delta Skyfall|damage", "column": "percent" },
      { "key": "skill:Meteor Rush|damage", "column": "percent" },
-     { "key": "ranged_damage", "column": "percent" },
      { "key": "crit_rate", "column": "flat" },
-     { "key": "crit_damage", "column": "percent" },
-     { "key": "any_target_dmg", "column": "percent" }
+     { "key": "crit_damage", "column": "percent" }
     ]
    },
    {
@@ -756,11 +698,10 @@
     "goals": [
      { "key": "int", "column": "total" },
      { "key": "mdef_pen", "column": "flat", "target": 25, "cap": 70 },
-     { "key": "matk", "column": "percent" },
+     { "key": "magic_dmg_mult", "column": "percent" },
      { "key": "skill:Soul Destroyer|damage", "column": "percent" },
      { "key": "skill:Greater Explosion|damage", "column": "percent" },
-     { "key": "magic_damage", "column": "percent" },
-     { "key": "any_target_magic", "column": "percent" }
+     { "key": "magic_damage", "column": "percent" }
     ]
    }
   ],
@@ -773,11 +714,10 @@
      { "key": "vit", "column": "total" },
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
      { "key": "str", "column": "total" },
-     { "key": "atk", "column": "percent" },
+     { "key": "phys_dmg_mult", "column": "percent" },
      { "key": "skill:Heavy Stab|damage", "column": "percent" },
      { "key": "skill:Dragon Thrust|damage", "column": "percent" },
-     { "key": "max_hp", "column": "percent" },
-     { "key": "any_target_dmg", "column": "percent" }
+     { "key": "max_hp", "column": "percent" }
     ]
    }
   ],
@@ -790,11 +730,9 @@
      { "key": "vit", "column": "total" },
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
      { "key": "max_hp", "column": "percent" },
-     { "key": "atk", "column": "percent" },
-     { "key": "ranged_damage", "column": "percent" },
+     { "key": "ranged_dmg_mult", "column": "percent" },
      { "key": "skill:Dragon Breath|damage", "column": "percent" },
-     { "key": "skill:Dragon Claw|damage", "column": "percent" },
-     { "key": "any_target_dmg", "column": "percent" }
+     { "key": "skill:Dragon Claw|damage", "column": "percent" }
     ]
    },
    {
@@ -806,11 +744,10 @@
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
      { "key": "mdef_pen", "column": "flat", "target": 25, "cap": 70 },
      { "key": "agi", "column": "total" },
-     { "key": "atk", "column": "percent" },
+     { "key": "phys_dmg_mult", "column": "percent" },
      { "key": "skill:Crescent Dive|damage", "column": "percent" },
      { "key": "skill:Geirskogul|damage", "column": "percent" },
-     { "key": "matk", "column": "percent" },
-     { "key": "any_target_dmg", "column": "percent" }
+     { "key": "matk", "column": "percent" }
     ]
    }
   ],
@@ -859,12 +796,11 @@
     "goals": [
      { "key": "vit", "column": "total" },
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
-     { "key": "atk", "column": "percent" },
+     { "key": "phys_dmg_mult", "column": "percent" },
      { "key": "skill:Smashing Uppercut|damage", "column": "percent" },
      { "key": "skill:Rapid Chain|damage", "column": "percent" },
      { "key": "skill:Triple Threat|damage", "column": "percent" },
-     { "key": "max_sp", "column": "percent" },
-     { "key": "any_target_dmg", "column": "percent" }
+     { "key": "max_sp", "column": "percent" }
     ]
    }
   ],
@@ -877,11 +813,9 @@
      { "key": "max_hp", "column": "percent" },
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
      { "key": "vit", "column": "total" },
-     { "key": "atk", "column": "percent" },
+     { "key": "ranged_dmg_mult", "column": "percent" },
      { "key": "skill:Thug Might|damage", "column": "percent" },
-     { "key": "ranged_damage", "column": "percent" },
-     { "key": "skill:Rebounding Bash|damage", "column": "percent" },
-     { "key": "any_target_dmg", "column": "percent" }
+     { "key": "skill:Rebounding Bash|damage", "column": "percent" }
     ]
    },
    {
@@ -891,12 +825,11 @@
     "goals": [
      { "key": "vit", "column": "total" },
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
-     { "key": "atk", "column": "percent" },
+     { "key": "phys_dmg_mult", "column": "percent" },
      { "key": "skill:Smashing Uppercut|damage", "column": "percent" },
      { "key": "skill:Rapid Chain|damage", "column": "percent" },
      { "key": "skill:Triple Threat|damage", "column": "percent" },
-     { "key": "max_sp", "column": "percent" },
-     { "key": "any_target_dmg", "column": "percent" }
+     { "key": "max_sp", "column": "percent" }
     ]
    },
    {
@@ -909,9 +842,8 @@
      { "key": "luk", "column": "total" },
      { "key": "crit_rate", "column": "flat" },
      { "key": "crit_damage", "column": "percent" },
-     { "key": "atk", "column": "percent" },
-     { "key": "skill:Rebounding Bash|damage", "column": "percent" },
-     { "key": "any_target_dmg", "column": "percent" }
+     { "key": "phys_dmg_mult", "column": "percent" },
+     { "key": "skill:Rebounding Bash|damage", "column": "percent" }
     ]
    }
   ],
@@ -956,12 +888,11 @@
     "goals": [
      { "key": "dex", "column": "total" },
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
-     { "key": "atk", "column": "percent" },
+     { "key": "phys_dmg_mult", "column": "percent" },
      { "key": "skill:Lashing Andromeda|damage", "column": "percent" },
      { "key": "skill:Eternal Chain|damage", "column": "percent" },
      { "key": "skill:Conviction|damage", "column": "percent" },
-     { "key": "max_sp", "column": "percent" },
-     { "key": "any_target_dmg", "column": "percent" }
+     { "key": "max_sp", "column": "percent" }
     ]
    }
   ],
@@ -973,13 +904,11 @@
     "goals": [
      { "key": "luk", "column": "total" },
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
-     { "key": "atk", "column": "percent" },
+     { "key": "ranged_dmg_mult", "column": "percent" },
      { "key": "skill:Gift Card|damage", "column": "percent" },
      { "key": "skill:Arcana of Destiny|damage", "column": "percent" },
      { "key": "skill:Double Down|damage", "column": "percent" },
-     { "key": "ranged_damage", "column": "percent" },
-     { "key": "crit_rate", "column": "flat" },
-     { "key": "any_target_dmg", "column": "percent" }
+     { "key": "crit_rate", "column": "flat" }
     ]
    }
   ],
@@ -991,13 +920,12 @@
     "goals": [
      { "key": "str", "column": "total" },
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
-     { "key": "atk", "column": "percent" },
+     { "key": "phys_dmg_mult", "column": "percent" },
      { "key": "skill:Night Menace|damage", "column": "percent" },
      { "key": "skill:Fatal Menace|damage", "column": "percent" },
      { "key": "skill:Vengeance|damage", "column": "percent" },
      { "key": "max_hp", "column": "percent" },
-     { "key": "leech_hp_rate", "column": "percent" },
-     { "key": "any_target_dmg", "column": "percent" }
+     { "key": "leech_hp_rate", "column": "percent" }
     ]
    }
   ],
@@ -1011,10 +939,9 @@
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
      { "key": "crit_rate", "column": "flat" },
      { "key": "crit_damage", "column": "percent" },
-     { "key": "atk", "column": "percent" },
+     { "key": "phys_dmg_mult", "column": "percent" },
      { "key": "aspd", "column": "percent" },
-     { "key": "skill:Instant Draw|damage", "column": "percent" },
-     { "key": "any_target_dmg", "column": "percent" }
+     { "key": "skill:Instant Draw|damage", "column": "percent" }
     ]
    },
    {
@@ -1041,12 +968,11 @@
     "goals": [
      { "key": "dex", "column": "total" },
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
-     { "key": "atk", "column": "percent" },
+     { "key": "phys_dmg_mult", "column": "percent" },
      { "key": "skill:Shadowstab|damage", "column": "percent" },
      { "key": "after_cast_delay", "column": "percent", "atMost": true },
      { "key": "aspd", "column": "percent" },
-     { "key": "agi", "column": "total" },
-     { "key": "any_target_dmg", "column": "percent" }
+     { "key": "agi", "column": "total" }
     ]
    }
   ],
@@ -1075,9 +1001,8 @@
     "goals": [
      { "key": "int", "column": "total" },
      { "key": "mdef_pen", "column": "flat", "target": 25, "cap": 70 },
-     { "key": "matk", "column": "percent" },
+     { "key": "magic_dmg_mult", "column": "percent" },
      { "key": "magic_damage", "column": "percent" },
-     { "key": "any_target_magic", "column": "percent" },
      { "key": "skill:Umbral Cut|damage", "column": "percent" },
      { "key": "aspd", "column": "percent" },
      { "key": "variable_cast", "column": "percent", "atMost": true },
@@ -1091,12 +1016,10 @@
     "confidence": "weak guess",
     "basis": "Originality uses ATK and MATK; Abracadabra casts anything; every skill has +1s cooldown.",
     "goals": [
-     { "key": "atk", "column": "percent" },
+     { "key": "phys_dmg_mult", "column": "percent" },
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
      { "key": "mdef_pen", "column": "flat", "target": 25, "cap": 70 },
-     { "key": "matk", "column": "percent" },
-     { "key": "any_target_dmg", "column": "percent" },
-     { "key": "any_target_magic", "column": "percent" },
+     { "key": "magic_dmg_mult", "column": "percent" },
      { "key": "skill:Originality|damage", "column": "percent" },
      { "key": "cooldown", "column": "flat", "atMost": true }
     ]

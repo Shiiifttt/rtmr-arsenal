@@ -4,7 +4,8 @@ import { skillTone, statTone, type Tone } from './format.ts';
 import { canEquip } from './jobs.ts';
 import { rollTableFor, type RollPick } from './rolls.ts';
 import {
-  carryInto, fitsCard, fitsSlot, isLocked, isTwoHanded, MAIN_HAND, maxRefine, OFF_HAND,
+  carryInto, fitsCard, fitsSlot, isLocked, isTwoHanded, maxRefine, OFF_HAND,
+  settleHeadgear,
   SLOT_BY_KEY, SLOTS, socketsOf, type SlotDef,
 } from './slots.ts';
 import { fillSet, missingMembers } from './sets.ts';
@@ -65,6 +66,9 @@ export function goalMetrics(data: Dataset): GoalMetric[] {
     if (def) out.push({ key, column: 'total', label: `${def.name} (total)`, category: 'derived' });
   }
   out.push({ key: SP_SUSTAIN, column: 'total', label: 'SP sustain %', category: 'derived' });
+  for (const c of DAMAGE_CHAINS) {
+    out.push({ key: c.key, column: 'percent', label: `${c.label} %`, category: 'damage (combined)' });
+  }
   for (const t of TARGET_TOTALS) {
     out.push({ key: t.key, column: 'percent', label: `${t.label} %`, category: 'damage vs any target' });
   }
@@ -189,6 +193,26 @@ const TARGET_TOTALS: { key: string; label: string; groups: string[] }[] = [
   { key: 'any_target_magic', label: 'Magic vs any target', groups: ['any_race_magic', 'any_size_magic'] },
 ];
 
+/**
+ * One damage chain as one number: the multipliers a hit goes through, each
+ * a separate modifier that multiplies the others, as in renewal.
+ *
+ * Kept apart as goals, the links were traded against each other by their
+ * rank in the list rather than by what they do to a hit -- ATK +3% ranked
+ * above "vs any target" beat a +6% all-sizes card, when the card is twice
+ * the damage. Folded into one goal they are weighed the way they stack.
+ * Critical damage is left out: it only applies on a crit.
+ */
+const DAMAGE_CHAINS: { key: string; label: string; factors: string[] }[] = [
+  { key: 'phys_dmg_mult', label: 'Physical DMG (ATK% × target)', factors: ['atk', 'any_target_dmg'] },
+  { key: 'melee_dmg_mult', label: 'Melee DMG (ATK% × target × melee)',
+    factors: ['atk', 'any_target_dmg', 'melee_damage'] },
+  { key: 'ranged_dmg_mult', label: 'Ranged DMG (ATK% × target × ranged)',
+    factors: ['atk', 'any_target_dmg', 'ranged_damage'] },
+  { key: 'magic_dmg_mult', label: 'Magic DMG (MATK% × target)', factors: ['matk', 'any_target_magic'] },
+];
+const CHAIN_BY_KEY = new Map(DAMAGE_CHAINS.map((c) => [c.key, c]));
+
 const GROUP_BY_KEY = new Map(TARGET_GROUPS.map((g) => [g.key, g]));
 const GROUP_OF_MEMBER = new Map(TARGET_GROUPS.flatMap((g) => g.members.map((m) => [m, g] as const)));
 
@@ -199,6 +223,7 @@ const GROUP_OF_MEMBER = new Map(TARGET_GROUPS.flatMap((g) => g.members.map((m) =
  */
 export function computedGoal(key: string): boolean {
   return key === SP_SUSTAIN || GROUP_BY_KEY.has(key) || TARGET_TOTALS.some((t) => t.key === key)
+    || CHAIN_BY_KEY.has(key)
     || !!GROUP_OF_MEMBER.get(key)?.all;
 }
 
@@ -221,8 +246,10 @@ function groupPercent(totals: Totals, data: Dataset, group: TargetGroup): number
   return Math.min(...group.members.map((m) => memberPercent(totals, data, group, m)));
 }
 
-/** The stats a target goal reads, for relevance. */
+/** The stats a target goal or damage chain reads, for relevance. */
 function targetInputs(key: string): string[] {
+  const chain = CHAIN_BY_KEY.get(key);
+  if (chain) return chain.factors.flatMap((f) => [f, ...targetInputs(f)]);
   const group = GROUP_BY_KEY.get(key);
   if (group) return [...group.members, ...(group.all ? [group.all] : [])];
   const total = TARGET_TOTALS.find((t) => t.key === key);
@@ -240,10 +267,14 @@ function targetInputs(key: string): string[] {
  * other. A build that cannot take a hit is not a better build whatever its
  * damage says, so both are floors from the start and the player moves or
  * removes them deliberately.
+ *
+ * Movement speed joined them on the project owner's word: past -10% a
+ * character feels awful to play, whatever it gains.
  */
 export const DEFAULT_GUARDS: Goal[] = [
   { key: 'max_hp', column: 'percent', target: -50, guard: true },
   { key: SP_SUSTAIN, column: 'total', target: -50, guard: true },
+  { key: 'move_speed', column: 'percent', target: -10, guard: true },
 ];
 
 /** This build's guards: its own if it has said, otherwise the defaults. */
@@ -673,6 +704,12 @@ export function measure(goal: Goal, totals: Totals, build: Build, data: Dataset)
       acc * (1 + groupPercent(totals, data, GROUP_BY_KEY.get(key)!) / 100), 1);
     return (product - 1) * 100;
   }
+  const chain = CHAIN_BY_KEY.get(goal.key);
+  if (chain) {
+    const product = chain.factors.reduce((acc, f) =>
+      acc * (1 + measure({ key: f, column: 'percent', target: 0 }, totals, build, data) / 100), 1);
+    return (product - 1) * 100;
+  }
   const member = GROUP_OF_MEMBER.get(goal.key);
   if (member?.all && goal.column === 'percent') {
     return memberPercent(totals, data, member, goal.key);
@@ -946,11 +983,17 @@ const EPSILON = 1e-9;
  *
  * A two-handed weapon takes the off hand with it, so anything left there is
  * cleared rather than counted -- otherwise a suggestion could claim a
- * shield's bonus alongside a weapon that cannot be held with one.
+ * shield's bonus alongside a weapon that cannot be held with one. The same
+ * goes for a headgear worn in two positions: see `settleHeadgear`.
  */
 export function applyChanges(build: Build, changes: SlotChange[], data: Dataset): Build {
-  const slots = { ...build.slots };
-  for (const change of changes) slots[change.slot] = change.state;
+  let slots = { ...build.slots };
+  for (const change of changes) {
+    slots[change.slot] = change.state;
+    // A headgear worn in two positions empties the other one, and whatever
+    // goes where one was takes it off.
+    slots = settleHeadgear(slots, change.slot, data);
+  }
   const weapon = data.items.get(slots.weapon?.itemId ?? -1);
   if (isTwoHanded(weapon) && slots[OFF_HAND]?.itemId) slots[OFF_HAND] = EMPTY;
   return { ...build, slots };
@@ -1071,9 +1114,11 @@ export class Suggester {
   private respectsLocks(build: Build, changes: SlotChange[]): boolean {
     if (!build.locked?.length) return true;
     if (changes.some((c) => isLocked(build, c.slot))) return false;
-    if (!isLocked(build, OFF_HAND) || !build.slots[OFF_HAND]?.itemId) return true;
-    const main = changes.find((c) => c.slot === MAIN_HAND);
-    return !main || !isTwoHanded(this.data.items.get(main.state.itemId ?? -1));
+    // What reaches past the slot it names -- a two-handed weapon emptying
+    // the off hand, a two-position headgear emptying the other position --
+    // is caught by looking at what the change leaves behind.
+    const after = applyChanges(build, changes, this.data).slots;
+    return build.locked.every((k) => JSON.stringify(after[k]) === JSON.stringify(build.slots[k]));
   }
 
   /**

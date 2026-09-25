@@ -452,6 +452,10 @@ function Guards({ build, totals, dataset, metrics, onGuards }: {
 
 /** Why this particular number is one worth putting a floor under. */
 function guardHint(key: string): string {
+  if (key === 'move_speed') {
+    return 'Movement speed from gear, as a percentage. Some pieces trade it away '
+      + 'for their bonuses, and past -10% a character feels awful to play.';
+  }
   return key === SP_SUSTAIN
     ? 'Casts you can afford, against having no gear bonus at all: Max SP % '
       + 'weighed against SP Cost %.\n\nSo -60% Max SP is fine alongside -60% '

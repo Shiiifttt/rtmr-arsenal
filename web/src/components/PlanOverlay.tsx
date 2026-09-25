@@ -78,18 +78,22 @@ export function PlanOverlay({
     <div className="overlay" onMouseDown={(e) => {
       if (e.target === e.currentTarget) onClose();
     }}>
-      <div className="picker focus" role="dialog" aria-modal="true" aria-label={title}>
+      <div className="picker focus plan" role="dialog" aria-modal="true" aria-label={title}>
         <div className="picker-head">
           <h3>{title}</h3>
           <span className="focus-sub">
             {upgrading ? 'raises a goal, lowers nothing you have' : 'towards the goals'}
           </span>
+          {/* In the header rather than under the lists, so it says the search
+              is still going without moving anything as results land. */}
+          {searching && <span className="plan-searching" role="status">Searching…</span>}
           <div className="spacer" />
           {steps.length > 1 && <button onClick={() => onApply(steps)}>Apply all steps</button>}
           <button onClick={onClose}>Close</button>
         </div>
 
         <div className="picker-list">
+          {nothing && searching && <div className="loading plan-searching">Searching…</div>}
           {nothing && !searching && (
             <div className="loading">
               {upgrading
@@ -148,11 +152,6 @@ export function PlanOverlay({
 
           {/* The search fills the lists in as it goes; this says there is
               more to come, so a short list is not read as the whole answer. */}
-          {searching && (
-            <div className="plan-searching" role="status">
-              {nothing ? 'Looking…' : 'Still looking — more suggestions will appear here as they are found.'}
-            </div>
-          )}
         </div>
       </div>
     </div>

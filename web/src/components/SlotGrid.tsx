@@ -1,6 +1,6 @@
 import {
-  emptySockets, groupCards, isLocked, isOffhandWeapon, isTwoHanded, maxRefine, rollTableFor,
-  SLOTS, socketsOf, swapHands, tableForSlot,
+  coveredBy, emptySockets, groupCards, isLocked, isOffhandWeapon, isTwoHanded, maxRefine,
+  rollTableFor, SLOT_BY_KEY, SLOTS, socketsOf, swapHands, tableForSlot,
   type Build, type Dataset, type RollPick, type SlotDef,
 } from '@sim';
 import { Icon } from './Icon';
@@ -88,7 +88,13 @@ function Slot({
 }: Props & { slot: SlotDef; disabled: boolean }) {
   const state = build.slots[slot.key];
   const locked = isLocked(build, slot.key);
-  const item = state?.itemId ? dataset.items.get(state.itemId) ?? null : null;
+  // Taken by a headgear worn in two positions. The slot can still be
+  // filled -- that takes the other piece off, as in the game -- but it shows
+  // what is covering it rather than "Empty", or a copy of the same piece
+  // recorded here by a screenshot.
+  const coverKey = coveredBy(build, slot.key, dataset);
+  const cover = coverKey ? dataset.items.get(build.slots[coverKey]?.itemId ?? -1) ?? null : null;
+  const item = !cover && state?.itemId ? dataset.items.get(state.itemId) ?? null : null;
   const limit = maxRefine(item);
   const rollTable = rollTableFor(dataset.rolls, slot.key, item);
   // The slot rolls, but this piece does not. Said out loud, because an
@@ -181,14 +187,17 @@ function Slot({
         <button
           onClick={() => !disabled && onOpenItem(slot)}
           disabled={disabled}
-          title={disabled ? 'Taken by a two-handed weapon' : 'Choose an item'}
+          title={disabled ? 'Taken by a two-handed weapon'
+            : cover ? `Taken by ${cover.name}, which is worn in ${SLOT_BY_KEY.get(coverKey!)?.label} `
+              + 'as well. Choosing a piece here takes it off.'
+            : 'Choose an item'}
           {...(item && !disabled
             ? tooltipProps({ kind: 'item', item, refine: state.refine, cards, offhand })
             : {})}
         >
           {item ? <Icon item={item} /> : <div className="icon ph">+</div>}
           <span className={`slot-name ${item ? '' : 'empty'}`}>
-            {disabled ? 'Two-handed' : item?.name ?? 'Empty'}
+            {disabled ? 'Two-handed' : cover ? `Taken by ${cover.name}` : item?.name ?? 'Empty'}
           </span>
         </button>
       </div>

@@ -130,7 +130,9 @@ test('Satsujin starts on the stats every piece feeds: STR and AGI, SP cost, no s
   const keys = (s: typeof moon) => s.goals.map((g) => g.key);
   assert.ok(keys(moon).includes('agi') && keys(moon).includes('str'));
   for (const style of [moon, magic]) {
-    assert.ok(style.goals.some((g) => g.key === 'sp_cost' && g.atMost), style.name);
+    // Solved at -50%: past that, more is worth nothing, so a plan does not
+    // stack one SP cost piece on another.
+    assert.ok(style.goals.some((g) => g.key === 'sp_cost' && g.atMost && g.cap === -50), style.name);
     assert.ok(!keys(style).some((k) => k.startsWith('skill:')), style.name);
   }
 });

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   aggregate, allGoals, applyChanges, carryInto, fitsCard, fitsSlot, rollTableFor,
-  SLOTS, Suggester, swapHands, withLock,
+  settleHeadgear, SLOTS, Suggester, swapHands, withLock,
   type Build, type Dataset, type Item, type Move, type SlotDef, type SlotState,
 } from '@sim';
 import { loadDataset } from './data';
@@ -222,7 +222,12 @@ export default function App() {
       // trying a different piece while planning is a comparison, not a
       // fresh start. Anything the new item cannot take is dropped by
       // carryInto; clearing the slot is how you start over.
-      setSlot(slot.key, carryInto(build.slots[slot.key], item, slot, dataset));
+      // A headgear worn in two positions empties the other; a piece put
+      // where one was takes it off.
+      const next = carryInto(build.slots[slot.key], item, slot, dataset);
+      setBuild((b) => ({
+        ...b, slots: settleHeadgear({ ...b.slots, [slot.key]: next }, slot.key, dataset),
+      }));
     } else {
       const cards = [...build.slots[slot.key].cards];
       cards[socket] = item.id;

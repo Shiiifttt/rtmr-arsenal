@@ -316,3 +316,79 @@ export function maxRefine(item: Item | null | undefined): number {
 export function isOffhandWeapon(slot: SlotDef, item: Item | null | undefined): boolean {
   return slot.key === OFF_HAND && !!item?.equip_slots.includes('Weapon');
 }
+
+// ---- headgear that takes more than one slot ------------------------------
+
+/** The headgear slots, top to bottom, for gear and for costumes. */
+const HEADGEAR_ROWS: Record<string, string>[] = [
+  { 'Upper headgear': 'upper', 'Middle headgear': 'middle', 'Lower headgear': 'lower' },
+  { 'Upper headgear': 'cos_upper', 'Middle headgear': 'cos_middle', 'Lower headgear': 'cos_lower' },
+];
+
+function rowOf(slotKey: string): Record<string, string> | undefined {
+  return HEADGEAR_ROWS.find((row) => Object.values(row).includes(slotKey));
+}
+
+/**
+ * The other headgear slots a piece takes up when worn in `slotKey`.
+ *
+ * A headgear that lists more than one position -- Majestic Helmet is
+ * upper and middle, Odin's Mask middle and lower -- is worn in all of them
+ * at once, as in the game. The item data says it can go in either; it does
+ * not say that wearing it empties the other.
+ */
+export function coversAlso(item: Item | null | undefined, slotKey: string): string[] {
+  const row = rowOf(slotKey);
+  if (!item || !row) return [];
+  const keys = item.equip_slots.map((s) => row[s]).filter((k): k is string => !!k);
+  return keys.includes(slotKey) ? keys.filter((k) => k !== slotKey) : [];
+}
+
+/**
+ * The slot whose headgear also takes up this one, if any.
+ *
+ * A screenshot shows a two-position headgear in both of its slots, so the
+ * same piece can be recorded twice. It is worn once: the higher of the two
+ * slots is where it counts, and the other reads as taken by it.
+ */
+export function coveredBy(build: Build, slotKey: string, data: Dataset): string | null {
+  const row = rowOf(slotKey);
+  if (!row) return null;
+  const order = Object.values(row);
+  for (const other of order) {
+    if (other === slotKey) continue;
+    const id = build.slots[other]?.itemId;
+    if (!coversAlso(data.items.get(id ?? -1), other).includes(slotKey)) continue;
+    // The same piece recorded in both: it counts in the higher slot.
+    if (build.slots[slotKey]?.itemId === id && order.indexOf(slotKey) < order.indexOf(other)) {
+      continue;
+    }
+    return other;
+  }
+  return null;
+}
+
+const NOTHING: SlotState = { itemId: null, refine: 0, cards: [] };
+
+/**
+ * The slots after putting something into `slotKey`, with headgear sorted
+ * out: a multi-position piece empties the other slots it takes, and a piece
+ * put where one was covering takes the covering one off.
+ */
+export function settleHeadgear(
+  slots: Record<string, SlotState>, slotKey: string, data: Dataset,
+): Record<string, SlotState> {
+  const row = rowOf(slotKey);
+  if (!row) return slots;
+  const out = { ...slots };
+  const placed = data.items.get(out[slotKey]?.itemId ?? -1);
+  for (const k of coversAlso(placed, slotKey)) out[k] = NOTHING;
+  if (placed) {
+    for (const other of Object.values(row)) {
+      if (other === slotKey) continue;
+      const item = data.items.get(out[other]?.itemId ?? -1);
+      if (coversAlso(item, other).includes(slotKey)) out[other] = NOTHING;
+    }
+  }
+  return out;
+}

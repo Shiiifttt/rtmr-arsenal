@@ -17,7 +17,7 @@ import {
   effectTone, farmFor, fitsSlot, rollTableFor, goalMetrics, goalsFromBuild, reachOf, REACH_EFFORT_FACTOR,
   REACH_KILL_FACTOR, REACH_REFINE_FLOOR, REFINE_MOVE_CAP, statsThatMatter,
   goalScore, goalStatus, isTwoHanded, measure, priorityWeight, SLOTS, Suggester, tableForSlot,
-  tradeValue, type Move, type SuggestOptions,
+  tradeValue, coveredBy, type Move, type SuggestOptions,
   collateralCost, COLLATERAL_WEIGHT, relevanceOf, statTone, type TotalsChange,
 } from '../src/index.ts';
 import type {
@@ -1224,4 +1224,61 @@ test('the overlay\'s search comes a section at a time, and ends where the one-sh
   const up = [...met.paths(build)].pop()!;
   assert.deepEqual(up.steps, []);
   assert.deepEqual(up.near.map((m) => m.label), met.upgradePaths(build).near.map((m) => m.label));
+});
+
+test('a damage chain multiplies its links, so a +6% size card beats +3% ATK in the main hand', () => {
+  const build = fresh100();
+  build.slots.offhand = { itemId: byName('Main Gauche').id, refine: 4, cards: [] };
+  const chain: Goal = { key: 'melee_dmg_mult', column: 'percent', target: 0, open: true };
+  const s = new Suggester(withLevels, [chain], OPEN);
+  const cards = [byName('Pasana Card'), byName('Khalitzburg Card')];
+  const main = s.rank(build, 'weapon', 0, cards);
+  assert.ok(main.get(cards[1].id)!.gain > main.get(cards[0].id)!.gain * 1.5);
+  // In the off hand the size card counts at half, and the two are level.
+  const off = s.rank(build, 'offhand', 0, cards);
+  assert.ok(Math.abs(off.get(cards[1].id)!.gain - off.get(cards[0].id)!.gain) < 1e-9);
+  // The product, not the sum: ATK +3% and size +6% together.
+  const both = applyChanges(build, [{ slot: 'weapon',
+    state: { ...build.slots.weapon, cards: [cards[0].id, cards[1].id] } }], withLevels);
+  const at = measure(chain, aggregate(both, withLevels), both, withLevels);
+  assert.ok(Math.abs(at - (1.03 * 1.06 - 1) * 100) < 1e-9);
+});
+
+test('a headgear worn in two positions takes both, counts once, and is charged for what it moves', () => {
+  const majestic = byName('Majestic Helmet');
+  assert.deepEqual([...majestic.equip_slots].sort(), ['Middle headgear', 'Upper headgear']);
+  const hat = itemList.find((i) => i.equip_slots.length === 1 && i.equip_slots[0] === 'Upper headgear'
+    && i.kind !== 'Costume' && i.kind !== 'Card')!;
+  const build = emptyBuild();
+  build.slots.upper = { itemId: hat.id, refine: 0, cards: [] };
+
+  // Put in the middle, it takes the upper hat off.
+  const worn = applyChanges(build, [{ slot: 'middle', state: { itemId: majestic.id, refine: 0, cards: [] } }], dataset);
+  assert.equal(worn.slots.upper.itemId, null);
+  assert.equal(coveredBy(worn, 'upper', dataset), 'middle');
+  // And a hat put back on top takes the helmet off.
+  const back = applyChanges(worn, [{ slot: 'upper', state: { itemId: hat.id, refine: 0, cards: [] } }], dataset);
+  assert.equal(back.slots.middle.itemId, null);
+
+  // Recorded in both slots, as a screenshot shows it, it counts once.
+  const twice = emptyBuild();
+  twice.slots.upper = { itemId: majestic.id, refine: 0, cards: [] };
+  twice.slots.middle = { itemId: majestic.id, refine: 0, cards: [] };
+  const once = emptyBuild();
+  once.slots.upper = { itemId: majestic.id, refine: 0, cards: [] };
+  const atk = (b: Build) => aggregate(b, dataset).byStat.get(stats.find((x) => x.key === 'atk')!.id)?.percent ?? 0;
+  assert.equal(atk(twice), atk(once));
+
+  // A locked upper hat is not taken off by a suggestion for the middle.
+  const locked: Build = { ...build, locked: ['upper'] };
+  const s = new Suggester(dataset, [{ key: 'atk', column: 'percent', target: 50 }], OPEN);
+  for (const m of s.slotMoves(locked, 'middle')) {
+    assert.equal(applyChanges(locked, m.changes, dataset).slots.upper.itemId, hat.id, m.label);
+  }
+});
+
+test('movement speed below -10% is a guard rail from the start', () => {
+  const g = allGoals(emptyBuild()).find((x) => x.key === 'move_speed');
+  assert.ok(g?.guard);
+  assert.equal(g!.target, -10);
 });
