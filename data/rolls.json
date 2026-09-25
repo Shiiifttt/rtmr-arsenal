@@ -18,7 +18,12 @@
     "",
     "'requires' gates a table on the item rather than the slot. Headgear and",
     "accessories roll only when the item is a monster drop, which the crawled",
-    "drop lists already answer.",
+    "drop lists already answer. 'types' lists item types a table is for: it",
+    "shares the slot with the slot's ordinary table and comes first for those",
+    "items -- a Dracomancer orb rolls its own two, not the rune's.",
+    "",
+    "A skill grant with 'skill_name' always names that skill, so the player",
+    "is not asked for it; 'metric' says what it raises ('level', or 'damage').",
     "",
     "'requires' on a roll gates that one roll on the item: 'says' lists phrases,",
     "any of which the item's description must contain (case aside). Normal gear",
@@ -244,6 +249,64 @@
             }
           ],
           "note": "+1 only on headgear, accessories and shadow gear; +2 is armour, garment and shoes. Project owner, from play."
+        }
+      ]
+    },
+    {
+      "key": "orb",
+      "label": "Dracomancer orb",
+      "note": "Project owner, 2026-09-26: a Dracomancer orb rolls two things, Dragon Soul level and Max HP. Orbs share the rune's slot but not its rolls.",
+      "slots": [
+        "runeorb"
+      ],
+      "requires": {
+        "types": [
+          "Scale Orb",
+          "Claw Orb",
+          "Wing Orb",
+          "Raider Orb"
+        ]
+      },
+      "rolls": [
+        {
+          "key": "dragon_soul",
+          "label": "Dragon Soul",
+          "options": [
+            {
+              "key": "dragon_soul_level",
+              "label": "Dragon Soul level",
+              "grants": [
+                {
+                  "skill": true,
+                  "skill_name": "Dragon Soul",
+                  "metric": "level",
+                  "unit": null,
+                  "min": 1,
+                  "max": 5,
+                  "stat_id": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "resource",
+          "label": "Max HP",
+          "options": [
+            {
+              "key": "max_hp",
+              "label": "Max HP",
+              "grants": [
+                {
+                  "stat": "max_hp",
+                  "unit": "%",
+                  "min": 1,
+                  "max": 5,
+                  "stat_id": 6
+                }
+              ]
+            }
+          ]
         }
       ]
     },

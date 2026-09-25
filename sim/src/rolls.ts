@@ -35,7 +35,7 @@ export function tableForSlot(
   data: RollData | null | undefined, slotKey: string,
 ): RollTable | null {
   if (!data) return null;
-  return data.tables.find((t) => t.slots.includes(slotKey)) ?? null;
+  return data.tables.find((t) => t.slots.includes(slotKey) && !t.requires?.types) ?? null;
 }
 
 /**
@@ -49,6 +49,9 @@ export function tableForSlot(
  */
 export function rollsApply(table: RollTable, item: Item): boolean {
   if (table.requires?.dropped && !(item.drops && item.drops.length > 0)) {
+    return false;
+  }
+  if (table.requires?.types && !(item.type && table.requires.types.includes(item.type))) {
     return false;
   }
   return true;
@@ -88,8 +91,12 @@ const NARROWED = new WeakMap<RollTable, Map<string, RollTable>>();
 export function rollTableFor(
   data: RollData | null | undefined, slotKey: string, item: Item | null | undefined,
 ): RollTable | null {
-  const table = tableForSlot(data, slotKey);
-  if (!table || !item) return null;
+  if (!item) return null;
+  // A table for this item's type comes first -- an orb rolls its own two,
+  // not the rune's -- then the slot's ordinary one.
+  const table = data?.tables.find((t) => t.slots.includes(slotKey) && !!t.requires?.types
+    && rollsApply(t, item)) ?? tableForSlot(data, slotKey);
+  if (!table) return null;
   if (neverRolls(data, item) || !rollsApply(table, item)) return null;
   const rolls = table.rolls.filter((r) => rollApplies(r, item));
   if (rolls.length === table.rolls.length) return table;
@@ -165,12 +172,13 @@ export function rollEffects(
         // Totalled against the named skill, the same as a skill modifier
         // on the item itself. With no skill typed in there is nothing to
         // total against, so it stays in the uncounted list with its label.
-        const skill = pick.skill?.trim();
+        const skill = (grant.skill_name ?? pick.skill)?.trim();
+        const metric = grant.metric ?? 'damage';
         out.push(skill ? {
-          text: `${skill} damage ${shown}`,
-          stat: `${skill} damage`, value, unit, parsed: true,
+          text: `${skill} ${metric} ${shown}`,
+          stat: `${skill} ${metric}`, value, unit, parsed: true,
           stat_ids: [], stat_keys: [],
-          skill, skill_metric: 'damage', skills: [skill],
+          skill, skill_metric: metric, skills: [skill],
         } : {
           text: `${option.label} ${shown}`,
           parsed: false,

@@ -195,6 +195,13 @@ export interface RollGrant {
   sign?: number;
   /** True where the roll modifies a named skill rather than a stat. */
   skill?: boolean;
+  /**
+   * The skill, where the roll always names the same one -- a Dracomancer
+   * orb's Dragon Soul level -- so the player is not asked to type it.
+   */
+  skill_name?: string;
+  /** What a skill roll raises: 'damage' unless it says ('level'). */
+  metric?: string;
 }
 
 export interface RollOption {
@@ -228,14 +235,18 @@ export interface RollDef {
 export interface RollTable {
   key: string;
   label: string;
-  /** Slot keys this table applies to. Each slot has at most one table. */
+  /**
+   * Slot keys this table applies to. A slot has at most one table without a
+   * `types` gate; tables with one can share it (orbs beside runes).
+   */
   slots: string[];
   /**
    * A gate on the item rather than the slot. Headgear and accessories roll
    * only on a monster drop, so the same slot both does and does not roll
-   * depending on what is in it.
+   * depending on what is in it. `types`: item types the table is for, ahead
+   * of the slot's ordinary table -- a Dracomancer orb rolls its own two.
    */
-  requires?: { dropped?: boolean };
+  requires?: { dropped?: boolean; types?: string[] };
   rolls: RollDef[];
 }
 

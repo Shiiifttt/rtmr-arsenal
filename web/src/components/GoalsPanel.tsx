@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import {
-  aggregate, applyChanges, brokenGoals, brokenSets, tradeSummary, computedGoal, DEFAULT_GUARDS, diffTotals, goalCap,
+  aggregate, applyChanges, brokenGoals, brokenSets, tradeSummary, computedGoal, DEFAULT_GUARDS, diffTotals, FORMULAS,
+  goalCap,
   goalLabel,
   goalMetrics, goalsFromBuild, goalsFromPlaystyle, goalStatus, guardsOf, rankPlaystyles, statsThatMatter,
   isOffhandWeapon, SLOT_BY_KEY, SP_SUSTAIN,
@@ -503,7 +504,7 @@ export function MoveRow({ move, goals, action, onApply, dataset, build, note }: 
     const before = aggregate(build, dataset);
     const after = aggregate(applyChanges(build, move.changes, dataset), dataset);
     return [
-      diffTotals(before, after, dataset),
+      foldDerived(diffTotals(before, after, dataset), goals),
       statsThatMatter(build, before, dataset, goals),
       brokenSets(before, after),
     ] as const;
@@ -670,6 +671,19 @@ export function MoveRow({ move, goals, action, onApply, dataset, build, note }: 
       <button onClick={onApply}>{action === 'Equip' && move.kind === 'rolls' ? 'Set rolls' : action}</button>
     </div>
   );
+}
+
+/**
+ * A derived stat's gear lines folded into its total. Flee, Critical Rate and
+ * ASPD Limit are each one stat: the gear's +1 ASPD Limit is part of the
+ * total that also counts AGI, and listing both read as two different stats
+ * moving. The gear line stays only where a goal is on that column itself.
+ */
+function foldDerived(changes: TotalsChange[], goals: Goal[]): TotalsChange[] {
+  const totals = new Set(changes.filter((c) => c.column === 'total').map((c) => c.key));
+  return changes.filter((c) => c.column === 'total' || !totals.has(c.key)
+    || !FORMULAS.some((f) => f.key === c.key)
+    || goals.some((g) => g.key === c.key && g.column === c.column));
 }
 
 function Change({ c, idle }: { c: TotalsChange; idle?: boolean }) {

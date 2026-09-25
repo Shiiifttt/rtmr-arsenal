@@ -122,7 +122,8 @@ function SkillName({ option, skill, onSkill }: {
   skill: string;
   onSkill: (name: string) => void;
 }) {
-  if (!option.grants.some((g) => g.skill)) return null;
+  // A roll that always names the same skill has nothing to ask.
+  if (!option.grants.some((g) => g.skill && !g.skill_name)) return null;
   return (
     <input
       className="roll-skill"

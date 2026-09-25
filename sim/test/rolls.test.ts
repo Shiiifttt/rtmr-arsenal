@@ -72,9 +72,11 @@ test('every slot a roll table claims is a real slot', () => {
     'these tables would never be reached: no slot has that key');
 });
 
-test('no slot is claimed by two tables', () => {
+test('no slot is claimed by two ordinary tables', () => {
+  // A table gated on item types shares its slot: orbs beside the runes.
   const seen = new Map<string, string>();
   for (const table of rolls.tables) {
+    if (table.requires?.types) continue;
     for (const slot of table.slots) {
       assert.equal(seen.get(slot), undefined,
         `${slot} is claimed by both ${seen.get(slot)} and ${table.key}`);
@@ -393,4 +395,37 @@ test('the narrowed table is the same object each time it is asked for', () => {
   const item = itemList.find((i) => fitsSlot(i, SLOT_BY_KEY.get('acc1')!)
     && (i.drops?.length ?? 0) > 0 && !/skill random|skill mod/i.test(i.description ?? ''))!;
   assert.equal(rollTableFor(rolls, 'acc1', item), rollTableFor(rolls, 'acc1', item));
+});
+
+test('a Dracomancer orb rolls Dragon Soul level and Max HP, not the rune\'s stat', () => {
+  const orb = itemList.find((i) => i.type === 'Scale Orb')!;
+  const rune = itemList.find((i) => i.type === 'Rune' && i.usable_by === 'All except Orphan')!;
+  const orbTable = rollTableFor(rolls, 'runeorb', orb)!;
+  assert.equal(orbTable.key, 'orb');
+  assert.deepEqual(orbTable.rolls.map((r) => r.key), ['dragon_soul', 'resource']);
+  // The rune keeps its own, and the slot's ordinary table is still the rune's.
+  assert.equal(rollTableFor(rolls, 'runeorb', rune)!.key, 'manual_rune');
+  assert.equal(tableForSlot(rolls, 'runeorb')!.key, 'manual_rune');
+
+  const effects = rollEffects(orbTable, {
+    dragon_soul: { option: 'dragon_soul_level', values: [3] },
+    resource: { option: 'max_hp', values: [5] },
+  });
+  const soul = effects.find((e) => e.skill === 'Dragon Soul')!;
+  assert.equal(soul.skill_metric, 'level');
+  assert.equal(soul.value, 3);
+  const hp = effects.find((e) => e.stat_keys?.includes('max_hp'))!;
+  assert.equal(hp.value, 5);
+  assert.equal(hp.unit, '%');
+
+  // Worn, both land: the Max HP in the totals, the level against the skill.
+  const build: Build = { className: 'Dracomancer', baseLevel: 150, baseStats: defaultBaseStats(), slots: {
+    runeorb: { itemId: orb.id, refine: 0, cards: [], rolls: {
+      dragon_soul: { option: 'dragon_soul_level', values: [4] },
+      resource: { option: 'max_hp', values: [9] },
+    } },
+  } };
+  const totals = aggregate(build, dataset);
+  assert.equal(totals.byStat.get(statId('max_hp'))!.percent, 5, 'clamped to the 5% the roll allows');
+  assert.equal(totals.skills.get('Dragon Soul|level')!.flat, 4);
 });

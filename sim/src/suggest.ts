@@ -1838,7 +1838,7 @@ export class Suggester {
         const aim = (g: { min: number; max: number | null }) => (g.max === null ? g.min
           : this.opts.reach ? Math.round((g.min + g.max) / 2) : g.max);
         const values = option.grants.map(aim);
-        const tries = option.grants.some((g) => g.skill)
+        const tries = option.grants.some((g) => g.skill && !g.skill_name)
           ? skillGoals.map((skill) => ({ pick: { option: option.key, values, skill }, name: skill }))
           : [{ pick: { option: option.key, values } as RollPick, name: option.label }];
         for (const { pick, name } of tries) {

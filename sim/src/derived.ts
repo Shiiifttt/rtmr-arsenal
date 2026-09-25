@@ -228,7 +228,9 @@ export const FORMULAS: Formula[] = [
   },
   {
     key: 'aspd_limit',
-    label: 'ASPD Cap',
+    // Named as the gear stat is: they are one stat, the gear's part of this
+    // total, and two names read as two things in a change's gains.
+    label: 'ASPD Limit',
     formula: '180 + 1 per 40 total AGI + ASPD Limit, up to 190',
     // The server's own codex, and the project owner (2026-09-26): every 40
     // AGI from any source is +1. Not yet read off a character window.

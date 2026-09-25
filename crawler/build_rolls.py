@@ -38,7 +38,7 @@ def build(source: Path = SOURCE, stats_path: Path = STATS) -> dict:
     seen_slots: dict[str, str] = {}
     # Gates the planner knows how to answer. A typo here would otherwise read
     # as "no condition" and hand the roll to every item in the slot.
-    known_gates = {"dropped"}
+    known_gates = {"dropped", "types"}
 
     never = doc.get("never_from", [])
     if not isinstance(never, list) or not all(isinstance(p, str) and p.strip() for p in never):
@@ -51,7 +51,14 @@ def build(source: Path = SOURCE, stats_path: Path = STATS) -> dict:
                 problems.append(
                     f"{where}: unknown condition {gate!r} "
                     f"(the planner only understands {sorted(known_gates)})")
+        typed = "types" in table.get("requires", {})
+        if typed and not (isinstance(table["requires"]["types"], list) and table["requires"]["types"]):
+            problems.append(f"{where}: 'types' must be a non-empty list of item types")
         for slot in table.get("slots", []):
+            # A table gated on item types shares its slot with the slot's
+            # ordinary table: orbs roll their own beside the runes.
+            if typed:
+                continue
             if slot in seen_slots:
                 problems.append(
                     f"{where}: slot {slot!r} is already claimed by "
@@ -111,9 +118,11 @@ def check_grant(grant: dict, id_by_key: dict, where: str, option: dict) -> list[
 
     if grant.get("skill"):
         # A skill modifier has no stat to add into. It is carried through so
-        # the planner can show the line, and lands in `uncounted` like every
-        # other per-skill bonus rather than being quietly folded into totals.
+        # the planner can show the line, and totalled against its skill.
+        # 'skill_name' fixes the skill; 'metric' is what it raises.
         grant["stat_id"] = None
+        if grant.get("metric") not in (None, "damage", "level"):
+            return [f"{label}: unknown skill metric {grant['metric']!r}"]
         return []
 
     key = grant.get("stat")
