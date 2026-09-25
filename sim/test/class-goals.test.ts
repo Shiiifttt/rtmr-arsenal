@@ -12,11 +12,11 @@ import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 
 import {
-  aggregate, bindBaseStatIds, defaultBaseStats, goalMetrics, goalsFromPlaystyle, goalStatus,
+  aggregate, bindBaseStatIds, canEquip, defaultBaseStats, goalMetrics, goalsFromPlaystyle, goalStatus,
   measure, rankPlaystyles, scalingFromDescription, SLOTS, type Playstyle,
 } from '../src/index.ts';
 import type {
-  BaseStats, Build, Dataset, Goal, Item, RollData, SetRecord, SlotState, StatDef,
+  BaseStats, Build, ClassRules, Dataset, Goal, Item, RollData, SetRecord, SlotState, StatDef,
 } from '../src/types.ts';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
@@ -86,6 +86,30 @@ test('Satsujin: STR over INT is the melee build, INT over STR the magic one', ()
   assert.equal(pick('Satsujin', { str: 40, int: 20 }), 'Moon (AGI/flee)');
   assert.equal(pick('Satsujin', { agi: 90, str: 20, int: 10 }), 'Moon (AGI/flee)');
   assert.equal(pick('Satsujin', { str: 10, int: 60, dex: 40 }), 'Darkness magic (INT)');
+});
+
+test('Dracomancer: Crescent Dive is physical, Geirskogul magic, and neither wants the other kind', () => {
+  assert.equal(pick('Dracomancer', { str: 99, agi: 80 }), 'Crescent Dive (STR/AGI)');
+  assert.equal(pick('Dracomancer', { str: 99, int: 80 }), 'Geirskogul (STR/INT)');
+  assert.equal(pick('Dracomancer', { vit: 99, dex: 40 }), 'Dragon Pact (VIT)');
+  const style = (name: string) => presets.Dracomancer.find((p) => p.name === name)!;
+  const keys = (name: string) => style(name).goals.map((g) => g.key);
+  for (const magic of ['mdef_pen', 'matk', 'magic_skill_mult']) {
+    assert.ok(!keys('Crescent Dive (STR/AGI)').includes(magic), `physical build wants ${magic}`);
+  }
+  assert.ok(!keys('Geirskogul (STR/INT)').includes('def_pen'), 'magic build wants physical pen');
+  assert.equal(style('Crescent Dive (STR/AGI)').scaling?.kind, 'physical');
+  assert.equal(style('Geirskogul (STR/INT)').scaling?.kind, 'magic');
+});
+
+test('Dracomancer holds a spear, wyrm spear or bone sword, and a shield in the off hand', () => {
+  const rules = load<ClassRules>('class-rules.json');
+  const can = (name: string) => canEquip(itemList.find((i) => i.name === name)!, 'Dracomancer', rules);
+  for (const ok of ['Glaive', 'Draco Horn', 'Black Bone Sword', 'Guard', 'Buckler']) assert.ok(can(ok), ok);
+  // Daggers, axes, a two-handed sword and one-handed swords all ship open to it.
+  for (const no of ['Belena', 'Mjolnir', 'Orc Warlord Greatsword', 'Main Gauche', 'Sword']) {
+    assert.ok(!can(no), no);
+  }
 });
 
 test('Night Raven: high STR counters, low STR and high LUK auto-attacks', () => {

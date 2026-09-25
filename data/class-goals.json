@@ -881,20 +881,32 @@
     ]
    },
    {
-    "name": "Dragon Force (STR/AGI)",
+    "name": "Crescent Dive (STR/AGI)",
     "confidence": "weak guess",
-    "basis": "Crescent Dive +1%/STR and AGI (+1%/AGI under Weapon Quicken); Geirskogul is wind magic +2%/STR and INT.",
+    "basis": "Crescent Dive +1%/STR and AGI (+1%/AGI under Weapon Quicken). Physical: split from Geirskogul on the project owner's word, so a physical build is not sent after magic pen and MATK.",
     "scaling": { "kind": "physical", "skills": [
-     { "skill": "Crescent Dive", "base": 500, "per": { "str": 1, "agi": 1 } },
-     { "skill": "Geirskogul", "base": 1100, "per": { "str": 2, "int": 2 } }
+     { "skill": "Crescent Dive", "base": 500, "per": { "str": 1, "agi": 1 } }
     ] },
     "goals": [
      { "key": "str", "column": "total" },
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
-     { "key": "mdef_pen", "column": "flat", "target": 25, "cap": 70 },
      { "key": "agi", "column": "total" },
      { "key": "phys_skill_mult", "column": "percent" },
-     { "key": "skill:Crescent Dive|damage", "column": "percent" },
+     { "key": "skill:Crescent Dive|damage", "column": "percent" }
+    ]
+   },
+   {
+    "name": "Geirskogul (STR/INT)",
+    "confidence": "weak guess",
+    "basis": "Geirskogul is wind magic +2%/STR and INT. Magic: split from Crescent Dive on the project owner's word. STR listed first, as the skill scales off it as much as INT, which is also what tells a STR/INT character from a STR/AGI one.",
+    "scaling": { "kind": "magic", "skills": [
+     { "skill": "Geirskogul", "base": 1100, "per": { "str": 2, "int": 2 } }
+    ] },
+    "goals": [
+     { "key": "str", "column": "total" },
+     { "key": "mdef_pen", "column": "flat", "target": 25, "cap": 70 },
+     { "key": "int", "column": "total" },
+     { "key": "magic_skill_mult", "column": "percent" },
      { "key": "skill:Geirskogul|damage", "column": "percent" },
      { "key": "matk", "column": "percent" }
     ]
