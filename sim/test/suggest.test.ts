@@ -1529,4 +1529,35 @@ test('a whole shadow set can be traded for another, with one change to win back 
   // Each set once, paired or not.
   const names = sides.filter((m) => m.kind === 'set').map((m) => /^Complete (.+?) set:/.exec(m.label)?.[1]);
   assert.equal(new Set(names).size, names.length);
+  // No combination crosses a guard -- one that wins SP back at -25% move
+  // speed is not a fix -- and adds at most two changes.
+  const paths = s.upgradePaths(build);
+  for (const m of [...paths.sides, ...paths.near]) {
+    assert.ok(!brokenGoals(s.goals, m.before, m.after).some((g) => g.guard), m.label);
+    assert.ok(m.label.split(' + ').length <= 3, m.label);
+  }
+  // What is recommended is within reach, combinations included.
+  const reach = reachOf(build, withEffort);
+  for (const m of paths.near) {
+    for (const c of m.changes) {
+      const e = withEffort.effort!.get(c.state.itemId ?? -1)?.effort ?? 0;
+      assert.ok(c.state.itemId === build.slots[c.slot]?.itemId || e <= reach.effort!, m.label);
+    }
+  }
+});
+
+test('a set is refined together, to reach a set refine no one piece can', () => {
+  // Aggressive Orphan pays +10% against every race at set refine 9, and again
+  // at 18 -- a sum over four pieces. Tuned one piece at a time, none of them
+  // ever moved off +0.
+  const build = socketsEmpty();
+  const goals: Goal[] = [{ key: 'any_race_dmg', column: 'percent', target: 0, open: true }];
+  const s = new Suggester(withEffort, goals, { className: 'Satsujin', maxLevel: 100, refine: 'auto',
+    reach: { effort: null, kill: null, refine: 6 } });
+  const move = s.setMoves(build).find((m) => m.label.startsWith('Complete Aggressive Orphan set'));
+  assert.ok(move, 'the set is offered');
+  const setRefine = move!.changes.reduce((n, c) => n + c.state.refine, 0);
+  assert.ok(setRefine >= 18, `set refine ${setRefine}`);
+  // The least that does it: past 18 there is nothing more to get.
+  assert.ok(setRefine < 24, `set refine ${setRefine}`);
 });

@@ -574,8 +574,19 @@ export interface UpgradePaths {
 /** What the suggestion overlay shows: the recommendations, by kind. */
 export type PlanPaths = UpgradePaths;
 
-/** How many set swaps are tried again with one change to win back what they cost. */
+/** How many set swaps, and other trades, are tried with changes to win back what they cost. */
 const PAIR_SETS = 4;
+const PAIR_TRADES = 4;
+/** And how many changes a combination may add. */
+const MAX_FIXES = 2;
+
+/** What the trade search finds: trades, what to farm, and combinations that are upgrades. */
+export interface TradeOffs {
+  sides: Move[];
+  farm: Move[];
+  /** Trades that, with a change or two elsewhere, lower nothing at all. */
+  combos: Move[];
+}
 
 /** How many alternative sets are listed. */
 export const SET_ALTERNATIVES = 4;
@@ -1965,6 +1976,9 @@ export class Suggester {
     for (const t of this.tradeOffStream(build, upgrades, out.far, perKind)) {
       out.sides = t.sides.filter((m) => !listed.has(setName(m)));
       out.farm = t.farm;
+      // A trade that a change or two elsewhere turns into a net win, lowering
+      // nothing, is recommended with the rest.
+      if (t.combos.length > 0) out.near = best([...upgrades, ...t.combos]).slice(0, NEAR_LIMIT);
       yield snap();
     }
   }
@@ -2114,15 +2128,15 @@ export class Suggester {
    * times the best within reach -- `upgrades` are that, the plan's steps or
    * the within-reach swaps -- is called out in `farm`, if it drops anywhere.
    */
-  tradeOffs(build: Build, upgrades: Move[], far: Move[], limit = 8): { sides: Move[]; farm: Move[] } {
-    return last(this.tradeOffStream(build, upgrades, far, limit), { sides: [], farm: [] });
+  tradeOffs(build: Build, upgrades: Move[], far: Move[], limit = 8): TradeOffs {
+    return last(this.tradeOffStream(build, upgrades, far, limit), { sides: [], farm: [], combos: [] });
   }
 
   /** `tradeOffs` a goal at a time: the lists so far, after each goal's search. */
   *tradeOffStream(
     build: Build, upgrades: Move[], far: Move[], limit = 8,
-  ): Generator<{ sides: Move[]; farm: Move[] }> {
-    if (!this.active) { yield { sides: [], farm: [] }; return; }
+  ): Generator<TradeOffs> {
+    if (!this.active) { yield { sides: [], farm: [], combos: [] }; return; }
     const held = this.heldAt(build);
     const reach = this.reachFor(build);
     const before = this.values(build);
@@ -2136,9 +2150,31 @@ export class Suggester {
     type Rated = { move: Move; value: number; rank: number; slot: string };
     const rated: Rated[] = [];
     const seen = new Set<string>();
-    // Set swaps that give something up, for pairing below.
-    const setTrades: { move: Move; lost: Goal[]; worth: number }[] = [];
-    const rate = (move: Move, pairable = true) => {
+    // Trades that give something up, for combining below.
+    const costly: { move: Move; worth: number; breaksSet: boolean }[] = [];
+    // Combinations that, together, lower nothing: upgrades, not trades.
+    const combos: Move[] = [];
+    // A set found for one goal had its refine tuned for that goal alone: the
+    // AGI search put Aggressive Orphan on at +0, blind to the +10% against
+    // every race its set refine pays at 9 and again at 18. Retuned here
+    // against every goal before it is weighed.
+    // The real goals and guards, not `held`: held at the build's own
+    // figures, the SP guard read the set's -10% Max SP as crossing a line
+    // and tuned the refine back to +0.
+    const tuner = new Suggester(this.data, this.goals, wideOpts);
+    tuner.pushing = true;
+    const retuned = (move: Move): Move => {
+      if (move.kind !== 'set') return move;
+      const { changes } = tuner.tune(build, move.changes);
+      const name = setName(move);
+      const pieces = changes.map((c) => {
+        const item = this.data.items.get(c.state.itemId ?? -1);
+        return item ? named(item, c.state) : c.slot;
+      });
+      return { ...move, changes, ...(name ? { label: `Complete ${name} set: ${pieces.join(', ')}` } : {}) };
+    };
+    const rate = (found: Move, pairable = true) => {
+      const move = pairable ? retuned(found) : found;
       const key = stateKey(move);
       if (seen.has(key)) return;
       seen.add(key);
@@ -2150,11 +2186,9 @@ export class Suggester {
       if (!moved.some((d) => d < -EPSILON) || !moved.some((d) => d > EPSILON)) return;
       // A trade may cost a goal; it may not cross a guard's line.
       if (brokenGoals(this.goals, before, after).some((g) => g.guard)) return;
-      // Only swaps that break a set the build has complete: that set carried
-      // something, and winning it back is what pairing is for.
-      if (pairable && move.kind === 'set' && brokenSets(totalsBefore, aggregate(next, this.data)).length > 0) {
-        setTrades.push({ move, worth: tradeValue(held, before, after),
-          lost: held.filter((g, i) => !g.guard && !g.side && moved[i] < -EPSILON) });
+      if (pairable) {
+        costly.push({ move, worth: tradeValue(held, before, after),
+          breaksSet: move.kind === 'set' && brokenSets(totalsBefore, aggregate(next, this.data)).length > 0 });
       }
       const value = tradeValue(held, before, after)
         - collateralCost(diffTotals(totalsBefore, aggregate(next, this.data), this.data), covered, this.data);
@@ -2196,6 +2230,7 @@ export class Suggester {
       return {
         sides: sides.map((r) => (standing.has(r.move.label) ? { ...r.move, standout: true } : r.move)),
         farm,
+        combos: best([...combos]),
       };
     };
 
@@ -2226,35 +2261,87 @@ export class Suggester {
       yield lists();
     }
 
-    // One set for another usually costs something the old set carried --
-    // Fallen Civilization's SP cost -50% -- that one change elsewhere would
-    // win back. Judged alone, the swap is charged for all of it; so the best
-    // few are also tried with the single change, in a slot the set leaves
-    // alone, that does most for the pair as a whole.
-    const worthPairing = setTrades.sort((a, b) => b.worth - a.worth).slice(0, PAIR_SETS);
-    for (const { move, lost } of worthPairing) {
-      if (lost.length === 0) continue;
-      const next = applyChanges(build, move.changes, this.data);
-      const fixer = new Suggester(this.data, lost, { ...this.opts, reach });
-      fixer.pushing = true;
-      if (!fixer.active) continue;
-      const taken = new Set(move.changes.map((c) => c.slot));
-      let best: { fix: Move; value: number } | null = null;
-      for (const slot of SLOTS) {
-        if (taken.has(slot.key)) continue;
-        const card = fixer.cardMove(next, slot.key);
-        for (const fix of [...fixer.slotMoves(next, slot.key, 1, false, false), ...(card ? [card] : [])]) {
-          const value = tradeValue(held, before, this.values(applyChanges(next, fix.changes, this.data)));
-          if (!best || value > best.value) best = { fix, value };
-        }
-      }
-      if (best) {
-        rate({ ...move, label: `${move.label} + ${best.fix.label}`,
-          changes: [...move.changes, ...best.fix.changes] }, false);
+    // A trade usually costs something one or two changes elsewhere would win
+    // back: trading Fallen Civilization away drops SP cost -50%, and a
+    // refined Laevateinn or a rune gets much of it back. Judged alone, the
+    // trade is charged for all of it. So the most promising -- swaps of a
+    // whole set first, then the best other trades -- are tried with up to
+    // two changes, in slots they leave alone, each the one that does most
+    // for the combination as a whole. What then lowers nothing at all is an
+    // upgrade in its own right; the rest are trades like any other.
+    const promising = [
+      ...costly.filter((c) => c.breaksSet).sort((a, b) => b.worth - a.worth).slice(0, PAIR_SETS),
+      ...costly.filter((c) => !c.breaksSet).sort((a, b) => b.worth - a.worth).slice(0, PAIR_TRADES),
+    ];
+    for (const { move } of promising) {
+      const combo = this.compensate(build, move, held, before, reach);
+      if (combo === move) continue;
+      const next = applyChanges(build, combo.changes, this.data);
+      const after = this.values(next);
+      const lowers = held.some((g, i) => !g.guard && (g.atMost ? -1 : 1) * (after[i] - before[i]) < -EPSILON);
+      const outside = collateralCost(diffTotals(totalsBefore, aggregate(next, this.data), this.data), covered, this.data);
+      const gain = baseline - scoreOf(this.goals, after);
+      // Recommended is within reach; a combination past it stays a trade,
+      // marked and ranked lower like any other.
+      if (!lowers && outside <= EPSILON && gain > EPSILON && !this.beyondReach(build, combo, reach)
+        && !brokenGoals(this.goals, before, after).some((g) => g.guard)) {
+        combos.push({ ...combo, before, after, gain, sidegrade: false });
+      } else {
+        rate(combo, false);
       }
     }
-    if (worthPairing.length > 0) yield lists();
+    if (promising.length > 0) yield lists();
     if (seen.size === 0) yield lists();
+  }
+
+  /**
+   * A trade, plus up to `MAX_FIXES` changes that win back what it costs.
+   *
+   * Each change is the one, in a slot the combination has not touched yet,
+   * that leaves the whole worth most -- a swap, cards, or refining a piece
+   * already worn -- found by a suggester that knows only the goals still
+   * short of where they were. It stops as soon as nothing helps. Returns
+   * the trade itself when nothing does.
+   */
+  private compensate(build: Build, move: Move, held: Goal[], before: number[], reach: Reach | null): Move {
+    let combo = move;
+    let worth = tradeValue(held, before, this.values(applyChanges(build, move.changes, this.data)));
+    for (let k = 0; k < MAX_FIXES; k++) {
+      const next = applyChanges(build, combo.changes, this.data);
+      const now = this.values(next);
+      const lost = held.filter((g, i) => !g.guard && !g.side
+        && (g.atMost ? -1 : 1) * (now[i] - before[i]) < -EPSILON);
+      if (lost.length === 0) break;
+      const fixer = new Suggester(this.data, lost, { ...this.opts, reach });
+      fixer.pushing = true;
+      if (!fixer.active) break;
+      const taken = new Set(combo.changes.map((c) => c.slot));
+      const fixes: Move[] = fixer.refineMoves(next).filter((m) => !taken.has(m.changes[0].slot));
+      for (const slot of SLOTS) {
+        if (taken.has(slot.key)) continue;
+        fixes.push(...fixer.slotMoves(next, slot.key, 1, false, false));
+        const card = fixer.cardMove(next, slot.key);
+        if (card) fixes.push(card);
+      }
+      let best: { fix: Move; worth: number } | null = null;
+      for (const fix of fixes) {
+        if (!this.respectsLocks(build, fix.changes)) continue;
+        const after = this.values(applyChanges(next, fix.changes, this.data));
+        // A guard is a line a trade may not cross, and a combination is one
+        // trade: Soul of Ymir's SP back at -25% move speed is not a fix.
+        if (brokenGoals(this.goals, before, after).some((g) => g.guard)) continue;
+        const w = tradeValue(held, before, after);
+        if (!best || w > best.worth) best = { fix, worth: w };
+      }
+      if (!best || best.worth <= worth + EPSILON) break;
+      // The same piece twice -- a Laevateinn in each hand -- says which is which.
+      const where = SLOT_BY_KEY.get(best.fix.changes[0].slot)?.label;
+      const part = combo.label.includes(best.fix.label) && where ? `${best.fix.label} (${where})` : best.fix.label;
+      combo = { ...combo, label: `${combo.label} + ${part}`,
+        changes: [...combo.changes, ...best.fix.changes] };
+      worth = best.worth;
+    }
+    return combo;
   }
 
   /** Does the hardest new thing this move puts on drop from a monster? */
@@ -2546,6 +2633,28 @@ export class Suggester {
   private tune(build: Build, changes: SlotChange[]): { changes: SlotChange[]; after: number[] } {
     let out = changes;
     if (this.opts.refine === 'auto') {
+      // Set refine is the sum over the pieces, so a threshold -- Aggressive
+      // Orphan's "set refine 9+ and again at 18+" -- is out of any one
+      // piece's reach, and tuned alone every piece stayed at +0. So all the
+      // new pieces are raised together first, to the lowest shared refine
+      // that scores best; the loop below then trims each to the least that
+      // keeps it.
+      const tunable = out.map((c) => {
+        const item = this.data.items.get(c.state.itemId ?? -1);
+        return !!item && item.id !== build.slots[c.slot]?.itemId
+          && this.refineCap(item) > 0 && this.refineMatters(item, c.state) ? this.refineCap(item) : 0;
+      });
+      if (tunable.filter((cap) => cap > 0).length > 1) {
+        const together = (r: number) => out.map((c, j) =>
+          (tunable[j] > 0 ? { ...c, state: { ...c.state, refine: Math.min(r, tunable[j]) } } : c));
+        let bestR = 0;
+        let bestScore = Infinity;
+        for (let r = 0; r <= Math.max(...tunable); r++) {
+          const score = this.objective(this.values(applyChanges(build, together(r), this.data)));
+          if (score < bestScore - EPSILON) { bestScore = score; bestR = r; }
+        }
+        out = together(bestR);
+      }
       for (let i = 0; i < out.length; i++) {
         const { slot, state } = out[i];
         const item = this.data.items.get(state.itemId ?? -1);

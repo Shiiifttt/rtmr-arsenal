@@ -529,3 +529,23 @@ since a replaced set usually carried something (Fallen Civilization's SP cost
 elsewhere that wins most of it back, and listed as one trade: "Complete
 Aggressive Orphan set + +6 Laevateinn with Pinguicula Card". Each set is
 listed once, paired or not, whichever comes out ahead.
+
+**Trades are also tried as combinations.** A trade usually costs something a
+change or two elsewhere would win back: Fallen Civilization carries SP cost
+-50%, and a refined Laevateinn in each hand gets much of it back. So the most
+promising trades -- swaps of a whole set first, then the best others -- are
+tried again with up to two more changes (`MAX_FIXES`), each the one that
+leaves the whole worth most: a swap, cards, or refining a piece already worn,
+in a slot the combination has not touched, never crossing a guard. A
+combination that then lowers nothing at all is listed under Recommended, if
+it is within reach; the rest are sidegrades like any other. One row, one
+decision: "Complete Aggressive Orphan set + +6 Laevateinn with Pinguicula Card
++ +6 Laevateinn with Pinguicula Card (Off-hand)".
+
+**A set is refined together.** Set refine is the sum over the pieces, so a
+threshold like Aggressive Orphan's "set refine 9+ and again at 18+" is out of
+any one piece's reach, and tuning one piece at a time left all four at +0.
+The new pieces are raised together first, then each trimmed to the least that
+keeps the result -- +3/+5/+5/+5, set refine 18, both +10% all-race tiers. A
+set found in the trade search for one goal is re-tuned against every goal
+before it is weighed.
