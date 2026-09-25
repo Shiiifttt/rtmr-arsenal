@@ -536,10 +536,17 @@ hand's own ATK. Those are weighed at 0.5, 0.4 and 0.25 of a status point
 36 STR is some +59% on a hit. The order is the owner's; the figures are
 calibrations.
 
-LUK also gives +2 Critical Rate and +1% Critical Damage a point, and a flee
-per ten. Critical Rate is a derived total like Flee (the class presets aim at
-it rather than at gear crit), and a Critical Damage goal counts LUK on top of
-the gear's percent. None of the LUK rules is measured yet.
+The stat rules follow the server's own codex (`data/raw/codex.json`), which
+the project owner confirms: DEX adds +1 ATK per 5 and one more per 20 for
+everyone, and a ranged weapon leaves STR a fifth of a point each. LUK gives
+Critical Rate 1 + 1 per 3 + 2 per 10 (a derived total like Flee, which the
+class presets aim at) and a flee per five. None of the LUK rules is read off
+a character window yet.
+
+Max HP % (1.0 per 100%) and, for a physical build, leech (0.08 per 1% of
+damage returned) are side goals worth going after in their own right: the
+trade search looks for single pieces and cards for them as it does for the
+player's goals.
 
 ### Skills that scale off base stats
 

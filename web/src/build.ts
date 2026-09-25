@@ -78,6 +78,12 @@ export function reconcile(saved: Build, dataset: Dataset): Build {
     [savedSlots.acc1, savedSlots.acc2] = [savedSlots.acc2, savedSlots.acc1];
   }
 
+  // The orb had no slot of its own until runes and orbs were split, so an
+  // orb saved in the old shared one moves across.
+  if (!savedSlots.orb?.itemId && !fits('runeorb', 'runeorb') && fits('runeorb', 'orb')) {
+    [savedSlots.orb, savedSlots.runeorb] = [savedSlots.runeorb, undefined as never];
+  }
+
   for (const slot of SLOTS) {
     const state = savedSlots[slot.key];
     if (!state?.itemId) continue;

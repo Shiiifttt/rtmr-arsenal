@@ -1,6 +1,6 @@
 import { aggregate, BASE_STAT_IDS, skillKey } from './aggregate.ts';
 import {
-  combine, critDamageFromLuk, defMultiplier, effectivePierce, FORMULAS, mdefMultiplier, statusAtk,
+  atkFromDex, combine, defMultiplier, effectivePierce, FORMULAS, mdefMultiplier, statusAtk,
   statusAtkFromLuk,
 } from './derived.ts';
 import { skillTone, statTone, type Tone } from './format.ts';
@@ -262,15 +262,19 @@ const ATK_WEIGHTS = { main: 0.5, bonus: 0.4, off: 0.25 };
 const ATK_REST = 250;
 
 function atkLink(stat: 'str' | 'dex', totals: Totals, build: Build, data: Dataset): number {
-  const points = measure({ key: stat, column: 'total', target: 0 }, totals, build, data);
-  const luk = measure({ key: 'luk', column: 'total', target: 0 }, totals, build, data);
+  const total = (k: string) => Math.max(0, measure({ key: k, column: 'total', target: 0 }, totals, build, data));
+  const points = total(stat);
+  const luk = total('luk');
+  // From the codex: DEX gives everyone +1 ATK per 5 (and per 20), and a
+  // ranged weapon leaves STR a fifth of a point each.
+  const besides = atkFromDex(total('dex')) + (stat === 'dex' ? Math.floor(total('str') / 5) : 0);
   const main = data.items.get(build.slots.weapon?.itemId ?? -1);
   const off = isTwoHanded(main) ? undefined : data.items.get(build.slots.offhand?.itemId ?? -1);
   const mainAtk = main?.atk ?? 0;
   // A shield carries no ATK of its own, so this is only ever a weapon's.
   const offAtk = off?.atk ?? 0;
   const bonus = (gearTotal(totals, data, 'atk')?.flat ?? 0) - mainAtk - offAtk;
-  const weighed = statusAtk(Math.max(0, points)) + statusAtkFromLuk(luk) + ATK_WEIGHTS.main * mainAtk
+  const weighed = statusAtk(points) + statusAtkFromLuk(luk) + besides + ATK_WEIGHTS.main * mainAtk
     + ATK_WEIGHTS.bonus * bonus + ATK_WEIGHTS.off * offAtk;
   return 100 * Math.max(0, weighed) / ATK_REST;
 }
@@ -335,9 +339,8 @@ function targetInputs(key: string): string[] {
   // Which base stats a class's skills scale off is the class's business;
   // for relevance, any of them may.
   if (key === SKILL_RATIO_PHYS || key === SKILL_RATIO_MAGIC) return [...BASE_STAT_KEYS];
-  if (key === ATK_MELEE) return ['str', 'luk', 'atk'];
-  if (key === ATK_RANGED) return ['dex', 'luk', 'atk'];
-  if (key === 'crit_damage') return ['luk'];
+  if (key === ATK_MELEE) return ['str', 'dex', 'luk', 'atk'];
+  if (key === ATK_RANGED) return ['dex', 'str', 'luk', 'atk'];
   if (key === RES_ELEMENTS) return RES_ELEMENT_KEYS;
   if (key === RES_RACES) return RES_RACE_KEYS;
   if (key === RES_DAMAGE) return RES_DAMAGE_INPUTS;
@@ -481,11 +484,12 @@ const SIDE_LABELS: Record<string, string> = {
 const SIDE_RULES: { key: string; column: Goal['column']; side: NonNullable<Goal['side']>;
   physical?: boolean; needs?: RegExp }[] = [
   // Max HP both ways: from the project owner, it is worth more than a loss
-  // to avoid -- +10% now about +4 AGI on a 74 AGI build. Max SP losses only.
+  // to avoid -- +10% now about +7 AGI on a 74 AGI build. Max SP losses only.
   // Doubled from 0.3 on the project owner's word, 2026-09-25: HP was still
   // undervalued -- a Diabolus Armor's +22% with an HP card beside it is a
   // real upgrade to a build that lives on dodging until it does not.
-  { key: 'max_hp', column: 'percent', side: { gain: 0.6, loss: 0.6, per: 100 } },
+  // Raised again to 1.0 the same day: HP% should be valuable.
+  { key: 'max_hp', column: 'percent', side: { gain: 1.0, loss: 1.0, per: 100 } },
   { key: 'max_sp', column: 'percent', side: { gain: 0, loss: 0.25, per: 100 } },
   { key: RES_ELEMENTS, column: 'percent', side: { gain: 0.5, loss: 0.5, per: 100 } },
   { key: RES_RACES, column: 'percent', side: { gain: 0.5, loss: 0.5, per: 100 } },
@@ -493,7 +497,8 @@ const SIDE_RULES: { key: string; column: Goal['column']; side: NonNullable<Goal[
   { key: KILL_SUSTAIN, column: 'percent', side: { gain: 0.5, loss: 0.5, per: 100 } },
   // Leech: how a physical build keeps its HP up between potions. Per 1% of
   // damage returned on average -- Evil Wing Ears' 15% chance of 3% is 0.45%.
-  { key: LEECH, column: 'percent', side: { gain: 0.04, loss: 0.04, per: 1 }, physical: true },
+  // Doubled from 0.04 on the project owner's word: it should be valuable.
+  { key: LEECH, column: 'percent', side: { gain: 0.08, loss: 0.08, per: 1 }, physical: true },
   // A point of ASPD Limit about as much as +3 AGI on a 100 AGI build -- but
   // only to a build that goes after attack speed at all. From the project
   // owner: to a Satsujin building no ASPD it is basically worthless, and
@@ -509,6 +514,15 @@ const SIDE_RULES: { key: string; column: Goal['column']; side: NonNullable<Goal[
   { key: 'vit', column: 'total', side: { gain: 0.003, loss: 0.003, per: 1 } },
   { key: 'int', column: 'total', side: { gain: 0.003, loss: 0.003, per: 1 } },
 ];
+
+/**
+ * Side goals the trade search looks for gear for, as it does for the
+ * player's own goals. Every other side goal is only weighed on what the
+ * goals turn up; these two are worth going after in their own right (the
+ * project owner: HP%, and leech for a physical build, should be valuable),
+ * and a Diabolus Armor with an HP card beside it was never looked at.
+ */
+const SEARCHED_SIDES = new Set(['max_hp', LEECH]);
 
 /** Goal keys that mark a build as one that attacks for its damage. */
 const PHYSICAL = /^(atk|def_pen|melee_damage|ranged_damage|crit_|aspd|double_attack|dmg_vs_|any_(target|race|size|element)_dmg$|(phys|melee|ranged)_dmg_mult$)/;
@@ -1023,11 +1037,6 @@ export function measure(goal: Goal, totals: Totals, build: Build, data: Dataset)
     const points = build.baseStats?.[goal.key as keyof BaseStats] ?? 0;
     return combine(points, gear?.flat ?? 0, gear?.percent ?? 0);
   }
-  // Every point of LUK is +1% Critical Damage on top of the gear's.
-  if (goal.key === 'crit_damage' && goal.column === 'percent') {
-    const luk = measure({ key: 'luk', column: 'total', target: 0 }, totals, build, data);
-    return (gear?.percent ?? 0) + critDamageFromLuk(luk);
-  }
   return goal.column === 'percent' ? gear?.percent ?? 0 : gear?.flat ?? 0;
 }
 
@@ -1084,9 +1093,24 @@ export function goalCap(goal: Goal): number | undefined {
  */
 const REF_DEF = 208;
 const REF_MDEF = 116;
+
+/**
+ * Past this much penetration, what the curve still adds counts at half.
+ * From the project owner: past 50 it starts losing value even against the
+ * hardest DEF in the game -- the average monster the curve is read against
+ * says less about the top end than the targets a player actually meets.
+ */
+const PEN_KNEE = 50;
+const PEN_TAIL = 0.5;
+
+/** The damage a curve gives, with what it adds past `PEN_KNEE` at `PEN_TAIL`. */
+function withKnee(damage: (pen: number) => number): (pen: number) => number {
+  return (p) => (p <= PEN_KNEE ? damage(p) : damage(PEN_KNEE) + PEN_TAIL * (damage(p) - damage(PEN_KNEE)));
+}
+
 const PEN_DAMAGE: Record<string, (pen: number) => number> = {
-  def_pen: (p) => 100 * (defMultiplier(REF_DEF, effectivePierce(p)) / defMultiplier(REF_DEF, 0) - 1),
-  mdef_pen: (p) => 100 * (mdefMultiplier(REF_MDEF, effectivePierce(p)) / mdefMultiplier(REF_MDEF, 0) - 1),
+  def_pen: withKnee((p) => 100 * (defMultiplier(REF_DEF, effectivePierce(p)) / defMultiplier(REF_DEF, 0) - 1)),
+  mdef_pen: withKnee((p) => 100 * (mdefMultiplier(REF_MDEF, effectivePierce(p)) / mdefMultiplier(REF_MDEF, 0) - 1)),
 };
 
 /**
@@ -1274,6 +1298,27 @@ export function brokenGoals(goals: Goal[], before: number[], after: number[]): G
 /** Side goals this change lowers: HP, a resistance, sustain given up. */
 export function sideLost(goals: Goal[], before: number[], after: number[]): Goal[] {
   return goals.filter((goal, i) => goal.side && after[i] < before[i] - EPSILON);
+}
+
+/**
+ * What a trade trades: the goals it gains most on and loses most on, biggest
+ * first, each by what it counts for in `tradeValue` at its own priority.
+ * A sidegrade is one thing for another -- HP and penetration for melee
+ * damage and SP cost -- and this is what lets it say so.
+ */
+export function tradeSummary(
+  goals: Goal[], before: number[], after: number[], top = 2,
+): { gains: Goal[]; losses: Goal[] } {
+  const terms = goals.map((goal, i) => {
+    // Only this goal moved, so the term keeps the goal's own priority.
+    const one = before.map((v, j) => (j === i ? after[i] : v));
+    return { goal, term: tradeValue(goals, before, one) };
+  }).filter((t) => Math.abs(t.term) > EPSILON);
+  const pick = (xs: typeof terms) => xs.slice(0, top).map((t) => t.goal);
+  return {
+    gains: pick(terms.filter((t) => t.term > 0).sort((a, b) => b.term - a.term)),
+    losses: pick(terms.filter((t) => t.term < 0).sort((a, b) => a.term - b.term)),
+  };
 }
 
 /**
@@ -2067,8 +2112,12 @@ export class Suggester {
     // A set already recommended is not offered again as a trade, at some
     // other refine: it is the same decision.
     const listed = new Set([...upgrades, ...out.sets].map(setName).filter(Boolean));
+    // Nor is a piece already recommended: listed twice, once as an upgrade
+    // and once as a trade, it says two things about the same choice.
+    const recommended = new Set(upgrades.flatMap((m) => m.changes.map((c) => `${c.slot}:${c.state.itemId}`)));
+    const repeats = (m: Move) => m.changes.every((c) => recommended.has(`${c.slot}:${c.state.itemId}`));
     for (const t of this.tradeOffStream(build, upgrades, out.far, perKind)) {
-      out.sides = t.sides.filter((m) => !listed.has(setName(m)));
+      out.sides = t.sides.filter((m) => !listed.has(setName(m)) && !repeats(m));
       out.farm = t.farm;
       // A trade that a change or two elsewhere turns into a net win, lowering
       // nothing, is recommended with the rest.
@@ -2274,7 +2323,7 @@ export class Suggester {
       const set = this.data.sets.find((x) => x.name === setName(move));
       return { ...move, changes, ...(set ? { label: this.setTitle(build, set, changes) } : {}) };
     };
-    const rate = (found: Move, pairable = true) => {
+    const rate = (found: Move, pairable = true, floor = 0) => {
       const move = pairable ? retuned(found) : found;
       const key = stateKey(move);
       if (seen.has(key)) return;
@@ -2293,7 +2342,7 @@ export class Suggester {
       }
       const value = tradeValue(held, before, after)
         - collateralCost(diffTotals(totalsBefore, aggregate(next, this.data), this.data), covered, this.data);
-      if (value <= EPSILON) return;
+      if (value <= floor + EPSILON) return;
       const highEffort = this.beyondReach(build, move, reach);
       rated.push({
         move: {
@@ -2338,7 +2387,7 @@ export class Suggester {
     // A goal at a time, so the lists fill in as the search goes rather than
     // all at the end.
     for (const goal of held) {
-      if (goal.guard || goal.side) continue;
+      if (goal.guard || (goal.side && !SEARCHED_SIDES.has(goal.key))) continue;
       const inner = new Suggester(this.data, [goal], wideOpts);
       inner.pushing = true;
       if (!inner.active) continue;
@@ -2363,7 +2412,9 @@ export class Suggester {
           if (cards) found.push(cards);
         }
       }
-      found.push(...inner.setMoves(build));
+      // Not for a side goal: the HP search reached straight for whole sets --
+      // Ornstein's Gift, Dragon Claw -- which crowded the single pieces out.
+      if (!goal.side) found.push(...inner.setMoves(build));
       // Each piece found, tuned again with +9 allowed: only where refine pays
       // does it come back different.
       for (const move of [...found]) {
@@ -2404,7 +2455,15 @@ export class Suggester {
         && !brokenGoals(this.goals, before, after).some((g) => g.guard)) {
         combos.push({ ...combo, before, after, gain, sidegrade: false });
       } else {
-        rate(combo, false);
+        // Only if the trade adds something to what goes with it: the changes
+        // that win its cost back are often upgrades of their own -- a rune, a
+        // refine -- and on their HP alone they carried whole set swaps that
+        // were worse than nothing into the list.
+        const extra = combo.changes.filter((c) => !move.changes.includes(c));
+        const alone = applyChanges(build, extra, this.data);
+        const floor = tradeValue(held, before, this.values(alone))
+          - collateralCost(diffTotals(totalsBefore, aggregate(alone, this.data), this.data), covered, this.data);
+        rate(combo, false, Math.max(0, floor));
       }
     }
     if (promising.length > 0) yield lists();

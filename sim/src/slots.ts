@@ -86,9 +86,12 @@ export const SLOTS: SlotDef[] = [
   { key: 'sh_manual', label: 'Manual', group: 'shadow',
     accepts: ['Shadow accessory'], cardTargets: [], types: ['Manual'] },
   // Runes and orbs are not shadow gear by kind, but they are worn alongside
-  // it and roll the same way, so they live under the same heading.
-  { key: 'runeorb', label: 'Rune or Orb', group: 'shadow',
-    accepts: ['Rune or orb'], cardTargets: [] },
+  // it and roll the same way, so they live under the same heading. The server
+  // files both as "Rune or orb", but they are two slots: a Dracomancer wears
+  // a rune and an orb (the project owner). The key stays "runeorb" so saved
+  // builds and links keep their rune; the orb slot is at the end of the list.
+  { key: 'runeorb', label: 'Rune', group: 'shadow',
+    accepts: ['Rune or orb'], cardTargets: [], types: ['Rune'] },
 
   { key: 'cos_upper', label: 'Costume Upper', group: 'costume',
     accepts: ['Upper headgear', 'Costume'], cardTargets: [], kinds: ['Costume'] },
@@ -98,6 +101,11 @@ export const SLOTS: SlotDef[] = [
     accepts: ['Lower headgear', 'Costume'], cardTargets: [], kinds: ['Costume'] },
   { key: 'cos_garment', label: 'Costume Garment', group: 'costume',
     accepts: ['Garment', 'Costume'], cardTargets: [], kinds: ['Costume'] },
+
+  // Last, not beside the rune: share links store slots by position, and a
+  // slot put in the middle would move every one after it.
+  { key: 'orb', label: 'Orb', group: 'shadow',
+    accepts: ['Rune or orb'], cardTargets: [], notTypes: ['Rune'] },
 ];
 
 export const SLOT_BY_KEY = new Map(SLOTS.map((s) => [s.key, s]));

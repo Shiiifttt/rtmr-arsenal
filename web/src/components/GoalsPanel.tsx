@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import {
-  aggregate, applyChanges, brokenGoals, brokenSets, computedGoal, DEFAULT_GUARDS, diffTotals, goalCap,
+  aggregate, applyChanges, brokenGoals, brokenSets, tradeSummary, computedGoal, DEFAULT_GUARDS, diffTotals, goalCap,
   goalLabel,
   goalMetrics, goalsFromBuild, goalsFromPlaystyle, goalStatus, guardsOf, rankPlaystyles, statsThatMatter,
   isOffhandWeapon, SLOT_BY_KEY, SP_SUSTAIN,
@@ -518,6 +518,14 @@ export function MoveRow({ move, goals, action, onApply, dataset, build, note }: 
   // Goals this move would take below their target. Said first, because it is
   // the one consequence a player would not forgive being buried.
   const broken = brokenGoals(goals, move.before, move.after);
+  // A goal's name without its working: "Melee DMG %", not the formula.
+  const shortLabel = (g: Goal) => goalLabel(g, dataset).replace(/\s*\([^)]*\)/g, '');
+  // What a sidegrade trades, in a few words: the goals it gains and loses most.
+  const traded = useMemo(() => {
+    if (!move.sidegrade) return null;
+    const t = tradeSummary(goals, move.before, move.after);
+    return t.gains.length > 0 && t.losses.length > 0 ? t : null;
+  }, [move, goals]);
   const pieces = move.changes.map((c) => {
     const item = dataset.items.get(c.state.itemId ?? -1);
     const cards = c.state.cards.map((id) => (id ? dataset.items.get(id) ?? null : null));
@@ -620,7 +628,10 @@ export function MoveRow({ move, goals, action, onApply, dataset, build, note }: 
           )}
           {move.sidegrade && (
             <span title="Helps some goals but costs others — a trade, not an upgrade">
-              Sidegrade ·{' '}
+              {traded
+                ? `Sidegrade: ${traded.gains.map(shortLabel).join(', ')} for `
+                  + `${traded.losses.map(shortLabel).join(', ')} · `
+                : 'Sidegrade · '}
             </span>
           )}
           {move.kind === 'set' ? 'Set · ' : move.kind === 'cards' ? 'Cards · '

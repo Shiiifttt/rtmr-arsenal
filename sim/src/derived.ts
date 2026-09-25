@@ -100,7 +100,7 @@ export function statusAtk(stat: number): number {
  * ordinary amount for the pieces involved. Reading the points column
  * instead would need 58, which is not.
  *
- * LUK adds one more per whole ten (project owner, later). The readings above
+ * LUK adds one more per whole five (the server's codex). The readings above
  * were at low LUK, where that is nothing.
  */
 export function baseFlee(baseLevel: number, agi: number, luk = 0): number {
@@ -198,8 +198,8 @@ export const FORMULAS: Formula[] = [
   {
     key: 'flee',
     label: 'Flee',
-    formula: '100 + base level + total AGI + 1 per 10 total AGI + 1 per 10 total LUK',
-    // The AGI half is measured; the LUK half is the project owner's word.
+    formula: '100 + base level + total AGI + 1 per 10 total AGI + 1 per 5 total LUK',
+    // The AGI half is measured; the LUK half is the server's codex.
     verified: true,
     // Measured at base level 136, 152 AGI, +16% from the three Maiden of
     // Time cards and +70 from skills: 560, 566 and 572 in game across three
@@ -217,7 +217,8 @@ export const FORMULAS: Formula[] = [
   {
     key: 'crit_rate',
     label: 'Critical Rate',
-    formula: '2 per total LUK',
+    formula: '1 + 1 per 3 total LUK + 2 per 10 total LUK',
+    // The server's own codex, not yet read off a character window.
     verified: false,
     inputs: ['luk'],
     manualHint: 'Critical Rate from skills and buffs.',
@@ -226,26 +227,32 @@ export const FORMULAS: Formula[] = [
 ];
 
 /**
- * LUK's share of critical hits: +2 Critical Rate and +1% Critical Damage a
- * point, counting LUK from any source. From the project owner, not yet
- * measured. So 100 LUK is 200 crit, which dwarfs the +3 to +15 on gear.
+ * Critical Rate from LUK, from the server's own codex (data/raw/codex.json):
+ * 1, plus 1 per 3 LUK, plus 2 more at every 10th point. So 100 LUK is 54.
+ * Counts LUK from any source, as every formula here does.
  */
 export function critFromLuk(luk: number): number {
-  return 2 * Math.max(0, luk);
+  const l = Math.max(0, luk);
+  return 1 + Math.floor(l / 3) + 2 * Math.floor(l / 10);
 }
 
-export function critDamageFromLuk(luk: number): number {
-  return Math.max(0, luk);
+/**
+ * The ATK DEX gives every build, from the codex: +1 per 5 and one more per
+ * 20. A ranged weapon's own DEX ATK comes on top, through `statusAtk`.
+ */
+export function atkFromDex(dex: number): number {
+  const d = Math.max(0, dex);
+  return Math.floor(d / 5) + Math.floor(d / 20);
 }
 
-/** LUK's status ATK, melee and ranged alike: one per whole three. From the project owner. */
+/** LUK's status ATK, melee and ranged alike: one per whole three. From the project owner and the codex. */
 export function statusAtkFromLuk(luk: number): number {
   return Math.floor(Math.max(0, luk) / 3);
 }
 
-/** LUK's flee: one per whole ten. From the project owner, not yet measured. */
+/** LUK's flee: one per whole five, from the codex. */
 export function fleeFromLuk(luk: number): number {
-  return Math.floor(Math.max(0, luk) / 10);
+  return Math.floor(Math.max(0, luk) / 5);
 }
 
 /**

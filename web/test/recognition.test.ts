@@ -12,12 +12,13 @@ import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 import { fileURLToPath } from 'node:url';
 import {
-  aggregate, bindBaseStatIds, SLOTS,
+  aggregate, bindBaseStatIds, fitsSlot, SLOTS,
   type Build, type Dataset, type Item, type RollData, type StatDef,
 } from '@sim';
 import {
   decodeLayout, packIcons, provideAssets, type IconManifest, type Font, type RawLayout,
 } from '../src/recognition/assets.ts';
+import { reconcile } from '../src/build.ts';
 import { applyReadings } from '../src/recognition/apply.ts';
 import { recognise } from '../src/recognition/read.ts';
 import { readPNG, type Raster } from './png.ts';
@@ -367,4 +368,19 @@ test('a tooltip read alongside the equipment window reaches the totals', async (
   const withRoll = aggregate(build, dataset).byStat.get(moveSpeed.id)?.percent ?? 0;
   const without = aggregate(stripped, dataset).byStat.get(moveSpeed.id)?.percent ?? 0;
   assert.equal(withRoll - without, 9, 'the +9% move speed roll is counted');
+});
+
+test('a rune and an orb are two slots, and an orb saved in the old shared one moves across', () => {
+  const orb = dataset.itemList.find((i) => i.type === 'Scale Orb')!;
+  const rune = dataset.itemList.find((i) => i.type === 'Rune')!;
+  const runeSlot = SLOTS.find((s) => s.key === 'runeorb')!;
+  const orbSlot = SLOTS.find((s) => s.key === 'orb')!;
+  assert.ok(fitsSlot(rune, runeSlot) && !fitsSlot(rune, orbSlot));
+  assert.ok(fitsSlot(orb, orbSlot) && !fitsSlot(orb, runeSlot));
+
+  const saved = emptyBuild();
+  saved.slots.runeorb = { itemId: orb.id, refine: 0, cards: [] };
+  const back = reconcile(saved, dataset);
+  assert.equal(back.slots.orb.itemId, orb.id);
+  assert.equal(back.slots.runeorb.itemId, null);
 });

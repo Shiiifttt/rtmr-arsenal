@@ -19,7 +19,7 @@ import {
   goalScore, goalStatus, isTwoHanded, measure, priorityWeight, SLOTS, Suggester, tableForSlot,
   tradeValue, coveredBy, type Move, type SuggestOptions,
   collateralCost, COLLATERAL_WEIGHT, relevanceOf, statTone, type TotalsChange, sideGoals,
-  statusAtk, MARKET_ROUTE, boughtFromPlayers, sidePaidFor,
+  statusAtk, MARKET_ROUTE, boughtFromPlayers, sidePaidFor, tradeSummary,
 } from '../src/index.ts';
 import type {
   Build, Dataset, Goal, Item, RollData, SetRecord, SlotState, StatDef,
@@ -1297,22 +1297,26 @@ test('status ATK is one per point and one more per ten: STR for melee, DEX for r
   };
   // 1 point against 99: the link grows by the status ATK between them.
   assert.ok(Math.abs(link('atk_melee', 'str', 99) - link('atk_melee', 'str', 1) - 100 * 107 / 250) < 1e-9);
-  assert.ok(Math.abs(link('atk_ranged', 'dex', 99) - link('atk_ranged', 'dex', 1) - 100 * 107 / 250) < 1e-9);
-  // And each only from its own stat.
-  assert.equal(link('atk_melee', 'dex', 99), link('atk_melee', 'dex', 1));
-  assert.equal(link('atk_ranged', 'str', 99), link('atk_ranged', 'str', 1));
+  // Ranged, DEX is the weapon's stat and also gives its +1 per 5 and 20.
+  assert.ok(Math.abs(link('atk_ranged', 'dex', 99) - link('atk_ranged', 'dex', 1) - 100 * (107 + 23) / 250) < 1e-9);
+  // DEX gives everyone +1 per 5 and one more per 20 (the codex): 19 + 4.
+  assert.ok(Math.abs(link('atk_melee', 'dex', 99) - link('atk_melee', 'dex', 1) - 100 * 23 / 250) < 1e-9);
+  // And a ranged weapon leaves STR a fifth of a point each.
+  assert.ok(Math.abs(link('atk_ranged', 'str', 99) - link('atk_ranged', 'str', 1) - 100 * 19 / 250) < 1e-9);
 });
 
-test('LUK: 2 crit and 1% crit damage a point, 1 status ATK per 3, 1 flee per 10', () => {
+test('LUK, by the codex: crit 1 + 1 per 3 + 2 per 10, 1 status ATK per 3, 1 flee per 5', () => {
   const at = (luk: number, goal: Goal) => {
     const build = fresh100();
     build.baseStats.luk = luk;
     return measure(goal, aggregate(build, withLevels), build, withLevels);
   };
   const gain = (goal: Goal) => at(99, goal) - at(1, goal);
-  assert.equal(gain({ key: 'crit_rate', column: 'total', target: 0 }), 2 * 98);
-  assert.equal(gain({ key: 'crit_damage', column: 'percent', target: 0 }), 98);
-  assert.equal(gain({ key: 'flee', column: 'total', target: 0 }), 9);
+  // 1 + 33 + 18 at 99 LUK, against 1 at 1.
+  assert.equal(gain({ key: 'crit_rate', column: 'total', target: 0 }), 51);
+  // No Critical Damage from LUK: the codex has none.
+  assert.equal(gain({ key: 'crit_damage', column: 'percent', target: 0 }), 0);
+  assert.equal(gain({ key: 'flee', column: 'total', target: 0 }), 19);
   // 33 status ATK at 99 LUK, none at 1, in both links.
   for (const key of ['atk_melee', 'atk_ranged']) {
     assert.ok(Math.abs(gain({ key, column: 'percent', target: 0 }) - 100 * 33 / 250) < 1e-9);
@@ -1646,4 +1650,26 @@ test('a set is refined together, to reach a set refine no one piece can', () => 
   assert.ok(setRefine >= 18, `set refine ${setRefine}`);
   // The least that does it: past 18 there is nothing more to get.
   assert.ok(setRefine < 24, `set refine ${setRefine}`);
+});
+
+test('a sidegrade says what it trades: its biggest gains for its biggest losses', () => {
+  const goals: Goal[] = [
+    { key: 'agi', column: 'total', target: 100 },
+    { key: 'str', column: 'total', target: 100 },
+    { key: 'max_hp', column: 'percent', target: 0, side: { gain: 1, loss: 1, per: 100 } },
+    { key: 'flee', column: 'total', target: 400, guard: true },
+  ];
+  const t = tradeSummary(goals, [100, 100, 0, 400], [90, 101, 30, 300]);
+  assert.deepEqual(t.gains.map((g) => g.key), ['max_hp', 'str']);
+  assert.deepEqual(t.losses.map((g) => g.key), ['agi'], 'a guard is a line, not something traded');
+});
+
+test('penetration past 50 counts at half what the curve adds', () => {
+  const pen = (target: number): Goal => ({ key: 'def_pen', column: 'flat', target, open: true });
+  // Scored as surplus over a target of 0: 0->50 and 50->70 as the curve has them.
+  const value = (p: number) => -goalScore([pen(0)], [p]);
+  const low = value(50) - value(30);
+  const high = value(70) - value(50);
+  assert.ok(high > 0, 'still worth something');
+  assert.ok(high < low / 3, `20 points past 50 (${high.toFixed(3)}) well under 20 before it (${low.toFixed(3)})`);
 });
