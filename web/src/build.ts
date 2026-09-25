@@ -78,10 +78,12 @@ export function reconcile(saved: Build, dataset: Dataset): Build {
     [savedSlots.acc1, savedSlots.acc2] = [savedSlots.acc2, savedSlots.acc1];
   }
 
-  // The orb had no slot of its own until runes and orbs were split, so an
-  // orb saved in the old shared one moves across.
-  if (!savedSlots.orb?.itemId && !fits('runeorb', 'runeorb') && fits('runeorb', 'orb')) {
-    [savedSlots.orb, savedSlots.runeorb] = [savedSlots.runeorb, undefined as never];
+  // For a short while an orb had a slot of its own, beside the rune. An orb
+  // takes the rune's place, so one saved there comes back into the shared
+  // slot -- over the rune, since that is the one worn.
+  if (savedSlots.orb?.itemId) {
+    savedSlots.runeorb = savedSlots.orb;
+    delete savedSlots.orb;
   }
 
   for (const slot of SLOTS) {

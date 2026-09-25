@@ -370,17 +370,16 @@ test('a tooltip read alongside the equipment window reaches the totals', async (
   assert.equal(withRoll - without, 9, 'the +9% move speed roll is counted');
 });
 
-test('a rune and an orb are two slots, and an orb saved in the old shared one moves across', () => {
+test('a rune or an orb, in one slot: an orb saved in the short-lived orb slot comes back', () => {
   const orb = dataset.itemList.find((i) => i.type === 'Scale Orb')!;
   const rune = dataset.itemList.find((i) => i.type === 'Rune')!;
-  const runeSlot = SLOTS.find((s) => s.key === 'runeorb')!;
-  const orbSlot = SLOTS.find((s) => s.key === 'orb')!;
-  assert.ok(fitsSlot(rune, runeSlot) && !fitsSlot(rune, orbSlot));
-  assert.ok(fitsSlot(orb, orbSlot) && !fitsSlot(orb, runeSlot));
+  const slot = SLOTS.find((s) => s.key === 'runeorb')!;
+  assert.ok(fitsSlot(rune, slot) && fitsSlot(orb, slot));
+  assert.ok(!SLOTS.some((s) => s.key === 'orb'));
 
+  // The orb goes over the rune: it is the one worn.
   const saved = emptyBuild();
-  saved.slots.runeorb = { itemId: orb.id, refine: 0, cards: [] };
-  const back = reconcile(saved, dataset);
-  assert.equal(back.slots.orb.itemId, orb.id);
-  assert.equal(back.slots.runeorb.itemId, null);
+  saved.slots.runeorb = { itemId: rune.id, refine: 0, cards: [] };
+  saved.slots.orb = { itemId: orb.id, refine: 0, cards: [] };
+  assert.equal(reconcile(saved, dataset).slots.runeorb.itemId, orb.id);
 });

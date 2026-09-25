@@ -96,7 +96,7 @@ test('the slot order the link format depends on is unchanged', () => {
     'upper', 'middle', 'lower', 'armor', 'weapon', 'offhand', 'garment',
     'shoes', 'acc1', 'acc2', 'ammo', 'gem',
     'sh_armor', 'sh_shoes', 'sh_gloves', 'sh_acc', 'sh_manual', 'runeorb',
-    'cos_upper', 'cos_middle', 'cos_lower', 'cos_garment', 'orb',
+    'cos_upper', 'cos_middle', 'cos_lower', 'cos_garment',
   ]);
 });
 
