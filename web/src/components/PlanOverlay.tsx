@@ -16,8 +16,9 @@ import { LockedNote, MoveRow } from './GoalsPanel';
  * better rolls, and what is out of reach but worth working towards -- so an
  * easy refine or a long-term sun helmet is never crowded out by whatever
  * happens to score highest. Nothing is a step in a chain; each row is
- * measured from the build as it is, and applying one closes the overlay's
- * search for a fresh one.
+ * measured from the build as it is. Applying one keeps the overlay open and
+ * starts a fresh search from the build it leaves (see GoalsPanel), so
+ * upgrades can be taken one after another.
  */
 /** Nothing found yet: what the overlay shows before the first results land. */
 const NONE: PlanPaths = {

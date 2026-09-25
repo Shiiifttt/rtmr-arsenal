@@ -62,8 +62,8 @@ export function GoalsPanel({
   const allMet = goalStatus(suggester.goals, totals, build, dataset).every((s) => s.met);
 
   // The plan belongs to the build it was worked out for. Once anything
-  // changes -- a slot, a goal, an option -- it describes a different
-  // starting point, so it is dropped rather than shown stale.
+  // changes -- a suggestion applied, a slot, an option -- it describes a
+  // different starting point, so it is never shown stale.
   // The search itself runs in the background (see planner.ts) and fills
   // the overlay in as it goes; closing pauses it, and reopening on the same
   // build carries on from where it was.
@@ -72,16 +72,31 @@ export function GoalsPanel({
   } | null>(null);
   const current = plan && plan.for === build && plan.suggester === suggester ? plan : null;
   const found = usePlan(current?.key ?? null);
-  // A plan for a build that has since changed is not worth working on.
+  const startPlan = () => {
+    const key = planKey(build, suggester);
+    runPlan(key, build, suggester);
+    setPlan({ for: build, suggester, key, upgrading: allMet });
+  };
+  // Applying a suggestion changes the build under the open overlay. It stays
+  // open and searches again from the build as it now is, so a player can
+  // take one upgrade after another without reopening it each time.
   useEffect(() => {
-    if (plan && !current) { pausePlan(); setPlan(null); }
-  }, [plan, current]);
+    if (plan && !current) { pausePlan(); startPlan(); }
+  });
 
   // "More of this one, please" for a single goal, on the same terms: dropped
   // as soon as it would describe a build that is no longer the one on screen.
   const [focus, setFocus] =
     useState<{ for: Build; suggester: Suggester; goal: Goal; moves: Move[] } | null>(null);
   const focused = focus && focus.for === build && focus.suggester === suggester ? focus : null;
+  // The same for the one-goal window: recomputed for the build as it now is,
+  // and closed only if its goal has gone.
+  useEffect(() => {
+    if (!focus || focused) return;
+    const goal = goals.find((g) => g === focus.goal)
+      ?? goals.find((g) => g.key === focus.goal.key && g.column === focus.goal.column);
+    setFocus(goal ? { for: build, suggester, goal, moves: suggester.focusMoves(build, goal) } : null);
+  });
 
   const labelOf = (g: Goal) =>
     metrics.find((m) => m.key === g.key && m.column === g.column)?.label ?? g.key;
@@ -270,11 +285,7 @@ export function GoalsPanel({
 
           <div className="goal-actions">
             <button
-              onClick={() => {
-                const key = planKey(build, suggester);
-                runPlan(key, build, suggester);
-                setPlan({ for: build, suggester, key, upgrading: allMet });
-              }}
+              onClick={startPlan}
               title={allMet ? 'Every goal is met, so this looks for upgrades: changes '
                 + 'that raise a goal without lowering any' : undefined}
             >
@@ -286,11 +297,13 @@ export function GoalsPanel({
 
       {/* Over the build rather than in this panel: the rows are full
           suggestions, and they need the room the picker gets. */}
-      {current && (
+      {plan && (
         <PlanOverlay
-          paths={found.paths}
-          searching={!found.done}
-          upgrading={current.upgrading}
+          // Nothing from the build before: its rows would apply to a build
+          // that no longer exists, for the moment until the new search starts.
+          paths={current ? found.paths : null}
+          searching={!current || !found.done}
+          upgrading={current?.upgrading ?? allMet}
           dataset={dataset}
           build={build}
           goals={suggester.goals}
@@ -299,11 +312,11 @@ export function GoalsPanel({
           onClose={() => { pausePlan(); setPlan(null); }}
         />
       )}
-      {focused && (
+      {focus && (
         <GoalFocus
-          goal={focused.goal}
-          label={labelOf(focused.goal)}
-          moves={focused.moves}
+          goal={focus.goal}
+          label={labelOf(focus.goal)}
+          moves={focused ? focused.moves : []}
           dataset={dataset}
           build={build}
           goals={suggester.goals}

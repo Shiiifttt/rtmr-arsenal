@@ -195,7 +195,9 @@ The foot of the window counts the two ("11 free, 4 trades"). Each row is an
 alternative to the build as it stands rather than a step in a plan, so they do
 not build on each other, and each shows exactly what it costs: your goals
 inline, everything else behind "N gains · N losses". Equip takes one and the
-window closes, because the build it was worked out for no longer exists.
+window stays open, worked out again for the build it leaves -- as does the
+"Suggest changes" overlay, which searches again from the new build -- so
+upgrades can be taken one after another without reopening either.
 
 This is where an already-met goal gets its refines, too. Normal planning tunes
 refine against the gap left to a target, which is nothing once the target is
