@@ -1036,9 +1036,11 @@ test('sidegrades are trades that come out ahead, high effort included but marked
     { key: 'leech_hp_rate', column: 'percent' as const, target: 23 },
     ...goalsFromBuild(build, aggregate(build, withEffort), withEffort),
   ];
-  // As it was before the Necromancer drop: an MVP ring, far past this build.
+  // As it was before the Necromancer drop: an MVP ring, far past this build
+  // -- ten times its reach, inside the twenty the longer-term lists look to.
   const mvpOnly: Dataset = { ...withEffort, effort: new Map(withEffort.effort) };
-  mvpOnly.effort!.set(byName('Invoker\'s Ring').id, { effort: 5598072289, kill: 254458, via: 1871 });
+  mvpOnly.effort!.set(byName('Invoker\'s Ring').id,
+    { effort: reachOf(build, withEffort).effort! * 10, kill: 254458, via: 1871 });
   const s = new Suggester(mvpOnly, [...goals, ...allGoals({ ...build, goals: [] })],
     { className: null, maxLevel: 130, refine: 'auto' });
   const paths = s.upgradePaths(build);
@@ -1317,17 +1319,23 @@ test('a percent goal is weighed out of 100, so +1% from nothing is not a whole t
   assert.ok(gain(36, 57) < 0.11 && gain(36, 57) > 0.09);
 });
 
-test('losing Max HP % or Max SP % always costs something, and gaining it is no reason', () => {
+test('Max HP % counts both ways, Max SP % only when lost', () => {
   const build = satsujin();
   const goals = allGoals(build, dataset);
   const side = goals.filter((g) => g.side);
   assert.deepEqual(side.slice(0, 2).map((g) => g.key), ['max_hp', 'max_sp']);
   // Without the dataset there is nothing to anchor them to, so none.
   assert.ok(!allGoals(build).some((g) => g.side));
-  const hp = side[0];
-  const at = (v: number) => goalScore([hp], [v]);
-  assert.ok(at(hp.target - 50) > at(hp.target));
-  assert.equal(at(hp.target + 50), at(hp.target));
+  const [hp, sp] = side;
+  const at = (g: Goal, v: number) => goalScore([g], [v]);
+  assert.ok(at(hp, hp.target - 50) > at(hp, hp.target));
+  // More HP is worth having -- the project owner: it was valued too little.
+  assert.ok(at(hp, hp.target + 50) < at(hp, hp.target));
+  assert.ok(at(sp, sp.target - 50) > at(sp, sp.target));
+  assert.equal(at(sp, sp.target + 50), at(sp, sp.target));
+  // A far-off MVP card is not a longer-term goal for a mid-level character.
+  assert.ok(withEffort.effort!.get(byName('Vesper Card').id)!.effort
+    > 20 * reachOf(build, withEffort).effort!);
   // A loss is weighed, not ruled out: it never reads as a broken goal.
   assert.deepEqual(brokenGoals([hp], [hp.target], [hp.target - 50]), []);
   // A player's own goal on the stat is left to do the job.
@@ -1479,4 +1487,46 @@ test('quest-chain gear and lone-spawn drops are a long way off, Sky Garden is no
     build.slots[slot] = { itemId: byName(name).id, refine: 0, cards: [] };
   }
   assert.ok(reachOf(build, withEffort).effort! < effort('Rachel Jewel'));
+});
+
+test('the longer-term lists stop short of MVP cards and endgame monsters', () => {
+  const build = socketsEmpty();
+  const reach = reachOf(build, withEffort);
+  const e = (name: string) => withEffort.effort!.get(byName(name).id)!;
+  // Dedicated Scarf: 3% off a level 170 with millions of HP. Not a goal yet.
+  assert.ok(e('Dedicated Scarf').kill > 5 * reach.kill!);
+  assert.ok(e('Goblin King Card').effort > 20 * reach.effort!);
+  const s = new Suggester(withEffort, allGoals(build, withEffort),
+    { className: 'Satsujin', maxLevel: 175, refine: 'auto' });
+  const paths = s.upgradePaths(build);
+  const named = [...paths.far, ...paths.farm, ...paths.sides].map((m) => m.label).join(' | ');
+  assert.doesNotMatch(named, /Dedicated Scarf|Goblin King Card|Vesper Card/);
+  // And a +6 refine is assumed within reach from the start.
+  assert.ok(reach.refine >= 6);
+});
+
+test('a whole shadow set can be traded for another, with one change to win back what it cost', () => {
+  const build = socketsEmpty();
+  for (const [slot, name] of [['sh_armor', 'Fallen Civilization Armor'], ['sh_shoes', 'Fallen Civilization Shoes'],
+    ['sh_gloves', 'Fallen Civilization Gloves'], ['sh_acc', 'Fallen Civilization Pendant']]) {
+    build.slots[slot] = { itemId: byName(name).id, refine: 0, cards: [] };
+  }
+  build.goals = [
+    { key: 'agi', column: 'total', target: 74, open: true },
+    { key: 'melee_dmg_mult', column: 'percent', target: 7, open: true },
+    { key: 'def_pen', column: 'flat', target: 25, open: true },
+    { key: 'sp_cost', column: 'percent', target: -50, atMost: true, open: true },
+  ];
+  const s = new Suggester(withEffort, allGoals(build, withEffort),
+    { className: 'Satsujin', maxLevel: 100, refine: 'auto' });
+  const { sides } = s.upgradePaths(build);
+  // Fallen Civilization carries the SP cost; another set gives it up, and
+  // the pair wins it back somewhere the set does not reach.
+  const pair = sides.find((m) => m.kind === 'set' && / \+ /.test(m.label));
+  assert.ok(pair, `no paired set swap among: ${sides.map((m) => m.label).join(' | ')}`);
+  const slots = pair!.changes.map((c) => c.slot);
+  assert.ok(slots.includes('sh_armor') && slots.some((k) => !k.startsWith('sh_')));
+  // Each set once, paired or not.
+  const names = sides.filter((m) => m.kind === 'set').map((m) => /^Complete (.+?) set:/.exec(m.label)?.[1]);
+  assert.equal(new Set(names).size, names.length);
 });

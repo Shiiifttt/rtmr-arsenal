@@ -3,6 +3,7 @@ import { combine, defMultiplier, effectivePierce, FORMULAS, mdefMultiplier } fro
 import { skillTone, statTone, type Tone } from './format.ts';
 import { canEquip } from './jobs.ts';
 import { rollTableFor, type RollPick } from './rolls.ts';
+import { rankPlaystyles } from './presets.ts';
 import {
   carryInto, fitsCard, fitsSlot, isLocked, isTwoHanded, maxRefine, OFF_HAND,
   settleHeadgear,
@@ -206,6 +207,33 @@ const TARGET_TOTALS: { key: string; label: string; groups: string[] }[] = [
  * the damage. Folded into one goal they are weighed the way they stack.
  * Critical damage is left out: it only applies on a crit.
  */
+/** Chain links for how much a playstyle's skills gain from base stats. */
+const SKILL_RATIO_PHYS = 'skill_ratio_phys';
+const SKILL_RATIO_MAGIC = 'skill_ratio_magic';
+
+/**
+ * How far base stats raise a playstyle's skill ratios, as one percentage:
+ * the geometric mean over its skills of (base + stats) / base, less one.
+ * Each skill counts alike in relative terms, so a +8%-per-AGI skill and a
+ * +1%-per-AGI one pull by what they do to their own damage. The playstyle is
+ * the class's first with scaling of this kind (`scaling` in
+ * data/class-goals.json); none, and the link is 0 -- a plain damage chain.
+ */
+function skillRatio(kind: 'physical' | 'magic', totals: Totals, build: Build, data: Dataset): number {
+  // A class can have several styles of one kind -- an Assassin's katar,
+  // blades and axe are all physical -- so the one the base stats fit best.
+  const styles = (data.classGoals?.[build.className ?? ''] ?? []).filter((p) => p.scaling?.kind === kind);
+  const style = styles.length > 1 ? rankPlaystyles(styles, build.baseStats)[0]?.style : styles[0];
+  const skills = style?.scaling?.skills ?? [];
+  if (skills.length === 0) return 0;
+  const stat = (k: string) => measure({ key: k, column: 'total', target: 0 }, totals, build, data);
+  const logs = skills.map((sk) => {
+    const bonus = Object.entries(sk.per).reduce((acc, [k, per]) => acc + (per ?? 0) * stat(k), 0);
+    return Math.log((sk.base + bonus) / sk.base);
+  });
+  return 100 * (Math.exp(logs.reduce((a, b) => a + b, 0) / logs.length) - 1);
+}
+
 const DAMAGE_CHAINS: { key: string; label: string; factors: string[] }[] = [
   { key: 'phys_dmg_mult', label: 'Physical DMG (ATK% × target)', factors: ['atk', 'any_target_dmg'] },
   { key: 'melee_dmg_mult', label: 'Melee DMG (ATK% × target × melee)',
@@ -213,6 +241,17 @@ const DAMAGE_CHAINS: { key: string; label: string; factors: string[] }[] = [
   { key: 'ranged_dmg_mult', label: 'Ranged DMG (ATK% × target × ranged)',
     factors: ['atk', 'any_target_dmg', 'ranged_damage'] },
   { key: 'magic_dmg_mult', label: 'Magic DMG (MATK% × target)', factors: ['matk', 'any_target_magic'] },
+  // The same, with the skills' own scaling off base stats as one more link:
+  // a Satsujin's Full Moon is 500% +8% per AGI, so a point of AGI is some
+  // 0.65% more damage on top of its flee. See `skillRatio`.
+  { key: 'phys_skill_mult', label: 'Physical skill DMG (ATK% × target × stat scaling)',
+    factors: ['atk', 'any_target_dmg', SKILL_RATIO_PHYS] },
+  { key: 'ranged_skill_mult', label: 'Ranged skill DMG (ATK% × target × ranged × stat scaling)',
+    factors: ['atk', 'any_target_dmg', 'ranged_damage', SKILL_RATIO_PHYS] },
+  { key: 'melee_skill_mult', label: 'Melee skill DMG (ATK% × target × melee × stat scaling)',
+    factors: ['atk', 'any_target_dmg', 'melee_damage', SKILL_RATIO_PHYS] },
+  { key: 'magic_skill_mult', label: 'Magic skill DMG (MATK% × target × stat scaling)',
+    factors: ['matk', 'any_target_magic', SKILL_RATIO_MAGIC] },
 ];
 const CHAIN_BY_KEY = new Map(DAMAGE_CHAINS.map((c) => [c.key, c]));
 
@@ -251,10 +290,14 @@ function groupPercent(totals: Totals, data: Dataset, group: TargetGroup): number
 
 /** The stats a target goal or damage chain reads, for relevance. */
 function targetInputs(key: string): string[] {
+  // Which base stats a class's skills scale off is the class's business;
+  // for relevance, any of them may.
+  if (key === SKILL_RATIO_PHYS || key === SKILL_RATIO_MAGIC) return [...BASE_STAT_KEYS];
   if (key === RES_ELEMENTS) return RES_ELEMENT_KEYS;
   if (key === RES_RACES) return RES_RACE_KEYS;
   if (key === RES_DAMAGE) return RES_DAMAGE_INPUTS;
   if (key === KILL_SUSTAIN) return ['hp_on_kill', 'sp_on_kill'];
+  if (key === LEECH) return LEECH_INPUTS;
   const chain = CHAIN_BY_KEY.get(key);
   if (chain) return chain.factors.flatMap((f) => [f, ...targetInputs(f)]);
   const group = GROUP_BY_KEY.get(key);
@@ -314,6 +357,12 @@ export const RES_RACES = 'res_races';
 export const RES_DAMAGE = 'res_damage';
 /** HP and SP back per kill, as a percentage of a typical pool. */
 export const KILL_SUSTAIN = 'kill_sustain';
+/**
+ * Leech as what it returns on average: chance times amount, HP and SP
+ * together, in percent of damage dealt. The two halves come from different
+ * gear and multiply, so neither alone says anything.
+ */
+export const LEECH = 'leech';
 
 /**
  * The pool a kill's HP and SP are measured against: roughly a level 100
@@ -325,6 +374,7 @@ const KILL_POOL = { hp: 10000, sp: 500 };
 
 const RES_ELEMENT_KEYS = ELEMENTS.map((e) => `res_${e}`);
 const RES_RACE_KEYS = RACES.map((r) => `res_race_${r}`);
+const LEECH_INPUTS = ['leech_hp_rate', 'leech_hp_power', 'leech_sp_rate', 'leech_sp_power'];
 const RES_DAMAGE_INPUTS = ['damage_reduction', 'res_melee', 'res_ranged',
   'physical_damage_received', 'magic_damage_received'];
 
@@ -347,6 +397,9 @@ function sideMeasure(key: string, totals: Totals, data: Dataset): number | undef
       return resisted(pct('damage_reduction'))
         + mean([resisted(pct('res_melee')), resisted(pct('res_ranged'))])
         - mean([pct('physical_damage_received'), pct('magic_damage_received')]);
+    case LEECH:
+      return (pct('leech_hp_rate') * pct('leech_hp_power')
+        + pct('leech_sp_rate') * pct('leech_sp_power')) / 100;
     case KILL_SUSTAIN: {
       const flat = (k: string) => gearTotal(totals, data, k)?.flat ?? 0;
       return 100 * (flat('hp_on_kill') / KILL_POOL.hp + flat('sp_on_kill') / KILL_POOL.sp);
@@ -362,6 +415,7 @@ const SIDE_LABELS: Record<string, string> = {
   [RES_RACES]: 'Resistance vs races (avg)',
   [RES_DAMAGE]: 'Damage reduction (all)',
   [KILL_SUSTAIN]: 'HP/SP on kill (% of pool)',
+  [LEECH]: 'Leech (avg % of damage)',
 };
 
 /**
@@ -381,12 +435,17 @@ const SIDE_LABELS: Record<string, string> = {
  */
 const SIDE_RULES: { key: string; column: Goal['column']; side: NonNullable<Goal['side']>;
   physical?: boolean }[] = [
-  { key: 'max_hp', column: 'percent', side: { gain: 0, loss: 0.25, per: 100 } },
+  // Max HP both ways: from the project owner, it is worth more than a loss
+  // to avoid -- +10% about +2 AGI on a 74 AGI build. Max SP losses only.
+  { key: 'max_hp', column: 'percent', side: { gain: 0.3, loss: 0.3, per: 100 } },
   { key: 'max_sp', column: 'percent', side: { gain: 0, loss: 0.25, per: 100 } },
   { key: RES_ELEMENTS, column: 'percent', side: { gain: 0.5, loss: 0.5, per: 100 } },
   { key: RES_RACES, column: 'percent', side: { gain: 0.5, loss: 0.5, per: 100 } },
   { key: RES_DAMAGE, column: 'percent', side: { gain: 0.5, loss: 0.5, per: 100 } },
   { key: KILL_SUSTAIN, column: 'percent', side: { gain: 0.5, loss: 0.5, per: 100 } },
+  // Leech: how a physical build keeps its HP up between potions. Per 1% of
+  // damage returned on average -- Evil Wing Ears' 15% chance of 3% is 0.45%.
+  { key: LEECH, column: 'percent', side: { gain: 0.04, loss: 0.04, per: 1 }, physical: true },
   // A point of ASPD Limit about as much as +3 AGI on a 100 AGI build.
   { key: 'aspd_limit', column: 'flat', side: { gain: 0.03, loss: 0.03, per: 1 }, physical: true },
   // VIT and INT raise Max HP and SP and their regeneration, so they help any
@@ -424,7 +483,7 @@ export function sideGoals(build: Build, totals: Totals, data: Dataset): Goal[] {
 
 /** The stats the side goals read: never "not used by this build". */
 const SIDE_STATS = ['max_hp', 'max_sp', ...RES_ELEMENT_KEYS, ...RES_RACE_KEYS,
-  ...RES_DAMAGE_INPUTS, 'hp_on_kill', 'sp_on_kill', 'aspd_limit', 'perfect_dodge',
+  ...RES_DAMAGE_INPUTS, 'hp_on_kill', 'sp_on_kill', 'aspd_limit', 'perfect_dodge', ...LEECH_INPUTS,
   'vit', 'int'];
 
 /**
@@ -514,6 +573,9 @@ export interface UpgradePaths {
 
 /** What the suggestion overlay shows: the recommendations, by kind. */
 export type PlanPaths = UpgradePaths;
+
+/** How many set swaps are tried again with one change to win back what they cost. */
+const PAIR_SETS = 4;
 
 /** How many alternative sets are listed. */
 export const SET_ALTERNATIVES = 4;
@@ -616,10 +678,11 @@ export const REACH_EFFORT_FACTOR = 3;
  */
 export const REACH_KILL_FACTOR = 3;
 /**
- * The refine assumed reachable even with nothing refined yet. A guess at
- * the safe limit; this server's refine rates are not known.
+ * The refine assumed reachable even with nothing refined yet: the top of
+ * the HD ore tier. Was 4; the project owner counts a +6 Valkyrie Circlet an
+ * easy goal. This server's refine rates are still not known.
  */
-export const REACH_REFINE_FLOOR = 4;
+export const REACH_REFINE_FLOOR = 6;
 
 export function reachOf(build: Build, data: Dataset): Reach {
   const efforts: number[] = [];
@@ -847,6 +910,8 @@ export function measure(goal: Goal, totals: Totals, build: Build, data: Dataset)
   if (goal.key === SP_SUSTAIN) return spSustain(totals, data);
   const side = sideMeasure(goal.key, totals, data);
   if (side !== undefined) return side;
+  if (goal.key === SKILL_RATIO_PHYS) return skillRatio('physical', totals, build, data);
+  if (goal.key === SKILL_RATIO_MAGIC) return skillRatio('magic', totals, build, data);
   const group = GROUP_BY_KEY.get(goal.key);
   if (group) return groupPercent(totals, data, group);
   const total = TARGET_TOTALS.find((t) => t.key === goal.key);
@@ -2071,7 +2136,9 @@ export class Suggester {
     type Rated = { move: Move; value: number; rank: number; slot: string };
     const rated: Rated[] = [];
     const seen = new Set<string>();
-    const rate = (move: Move) => {
+    // Set swaps that give something up, for pairing below.
+    const setTrades: { move: Move; lost: Goal[]; worth: number }[] = [];
+    const rate = (move: Move, pairable = true) => {
       const key = stateKey(move);
       if (seen.has(key)) return;
       seen.add(key);
@@ -2083,6 +2150,12 @@ export class Suggester {
       if (!moved.some((d) => d < -EPSILON) || !moved.some((d) => d > EPSILON)) return;
       // A trade may cost a goal; it may not cross a guard's line.
       if (brokenGoals(this.goals, before, after).some((g) => g.guard)) return;
+      // Only swaps that break a set the build has complete: that set carried
+      // something, and winning it back is what pairing is for.
+      if (pairable && move.kind === 'set' && brokenSets(totalsBefore, aggregate(next, this.data)).length > 0) {
+        setTrades.push({ move, worth: tradeValue(held, before, after),
+          lost: held.filter((g, i) => !g.guard && !g.side && moved[i] < -EPSILON) });
+      }
       const value = tradeValue(held, before, after)
         - collateralCost(diffTotals(totalsBefore, aggregate(next, this.data), this.data), covered, this.data);
       if (value <= EPSILON) return;
@@ -2094,7 +2167,9 @@ export class Suggester {
         },
         value,
         rank: highEffort ? value * HIGH_EFFORT_DISCOUNT : value,
-        slot: move.kind === 'set' ? move.label : move.changes.map((c) => c.slot).join('+'),
+        // One row per set, paired with a win-back change or not, whichever
+        // comes out ahead.
+        slot: move.kind === 'set' ? `set:${setName(move) || move.label}` : move.changes.map((c) => c.slot).join('+'),
       });
     };
 
@@ -2150,6 +2225,35 @@ export class Suggester {
       for (const move of dedupe(found)) rate(move);
       yield lists();
     }
+
+    // One set for another usually costs something the old set carried --
+    // Fallen Civilization's SP cost -50% -- that one change elsewhere would
+    // win back. Judged alone, the swap is charged for all of it; so the best
+    // few are also tried with the single change, in a slot the set leaves
+    // alone, that does most for the pair as a whole.
+    const worthPairing = setTrades.sort((a, b) => b.worth - a.worth).slice(0, PAIR_SETS);
+    for (const { move, lost } of worthPairing) {
+      if (lost.length === 0) continue;
+      const next = applyChanges(build, move.changes, this.data);
+      const fixer = new Suggester(this.data, lost, { ...this.opts, reach });
+      fixer.pushing = true;
+      if (!fixer.active) continue;
+      const taken = new Set(move.changes.map((c) => c.slot));
+      let best: { fix: Move; value: number } | null = null;
+      for (const slot of SLOTS) {
+        if (taken.has(slot.key)) continue;
+        const card = fixer.cardMove(next, slot.key);
+        for (const fix of [...fixer.slotMoves(next, slot.key, 1, false, false), ...(card ? [card] : [])]) {
+          const value = tradeValue(held, before, this.values(applyChanges(next, fix.changes, this.data)));
+          if (!best || value > best.value) best = { fix, value };
+        }
+      }
+      if (best) {
+        rate({ ...move, label: `${move.label} + ${best.fix.label}`,
+          changes: [...move.changes, ...best.fix.changes] }, false);
+      }
+    }
+    if (worthPairing.length > 0) yield lists();
     if (seen.size === 0) yield lists();
   }
 
@@ -2370,8 +2474,11 @@ export class Suggester {
       // Taking off four or more pieces for a set is a different build, not a
       // suggestion. Pieces that go into empty slots take nothing off, so a
       // character with no shadow gear is offered a whole shadow set.
-      const displaced = placed.filter((c) => build.slots[c.slot]?.itemId).length;
-      if (displaced > 3) continue;
+      // The exception is one whole set for another: shadow gear is worn as a
+      // set, and trading Fallen Civilization for a different four is the
+      // decision a player is actually weighing, not a rebuild.
+      const displacedIds = placed.map((c) => build.slots[c.slot]?.itemId).filter((id): id is number => !!id);
+      if (displacedIds.length > 3 && !this.isWholeSet(build, displacedIds)) continue;
       // Tuned after placing, so set refine ("Set refine 18+") is judged with
       // every piece on rather than one piece at a time.
       const { changes, after } = this.tune(build, placed);
@@ -2390,6 +2497,12 @@ export class Suggester {
       });
     }
     return moves;
+  }
+
+  /** Are these worn pieces, all of them, members of one set the build has complete? */
+  private isWholeSet(build: Build, ids: number[]): boolean {
+    const complete = aggregate(build, this.data).setProgress.filter((p) => p.complete);
+    return complete.some((p) => ids.every((id) => this.data.items.get(id)?.sets.includes(p.set.index)));
   }
 
   /**
@@ -2643,7 +2756,28 @@ function anyTouches(effects: Effect[] | undefined, rel: Relevance): boolean {
 
 /** The reach with the grind and toughness limits off; refine still stops at +9. */
 function wideOf(reach: Reach | null): Reach {
-  return { effort: null, kill: null, refine: Math.max(reach?.refine ?? 0, REFINE_MOVE_CAP) };
+  return { effort: farOf(reach), kill: farKillOf(reach), refine: Math.max(reach?.refine ?? 0, REFINE_MOVE_CAP) };
+}
+
+/**
+ * How far past reach the longer-term lists look, in grind. Unlimited, they
+ * sent a level 100 character after a Vesper Card -- an MVP card some six
+ * hundred times its reach -- over gear it could use this month. Twenty
+ * times keeps the Sage gear and the quest-chain tomes, and a calibration.
+ */
+const FAR_EFFORT_FACTOR = 20;
+function farOf(reach: Reach | null): number | null {
+  return reach?.effort == null ? null : reach.effort * FAR_EFFORT_FACTOR;
+}
+
+/**
+ * And how much tougher a monster: a Dedicated Scarf, 3% off a level 170
+ * with 6.4 million effective HP, was being called worth target-farming for a
+ * character whose toughest reach is some 160 thousand. A calibration.
+ */
+const FAR_KILL_FACTOR = 5;
+function farKillOf(reach: Reach | null): number | null {
+  return reach?.kill == null ? null : reach.kill * FAR_KILL_FACTOR;
 }
 
 /**
@@ -2653,7 +2787,7 @@ function wideOf(reach: Reach | null): Reach {
  * the mark does not mention.
  */
 function anyGrind(reach: Reach | null): Reach | null {
-  return reach && { effort: null, kill: null, refine: reach.refine };
+  return reach && { effort: farOf(reach), kill: farKillOf(reach), refine: reach.refine };
 }
 
 /** What a change puts on that the slot did not have: the piece, and new cards. */

@@ -13,10 +13,10 @@ import { dirname, resolve } from 'node:path';
 
 import {
   aggregate, bindBaseStatIds, defaultBaseStats, goalMetrics, goalsFromPlaystyle, goalStatus,
-  rankPlaystyles, SLOTS, type Playstyle,
+  measure, rankPlaystyles, scalingFromDescription, SLOTS, type Playstyle,
 } from '../src/index.ts';
 import type {
-  BaseStats, Build, Dataset, Item, RollData, SetRecord, SlotState, StatDef,
+  BaseStats, Build, Dataset, Goal, Item, RollData, SetRecord, SlotState, StatDef,
 } from '../src/types.ts';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
@@ -121,7 +121,7 @@ test('every damage playstyle chases penetration to 25 and on to 70, right after 
       // Right after the main stat -- or after the damage chain, where the
       // project owner ranks it above penetration (melee% for a physical
       // Satsujin, 2026-09-25).
-      const chained = at === 2 && /_dmg_mult$/.test(s.goals[1].key);
+      const chained = at === 2 && /_(dmg|skill)_mult$/.test(s.goals[1].key);
       assert.ok(at === 1 || chained, `${cls} / ${s.name}`);
       assert.equal(s.goals[at].target, 25, `${cls} / ${s.name}`);
       assert.equal(s.goals[at].cap, 70, `${cls} / ${s.name}`);
@@ -139,4 +139,38 @@ test('Satsujin starts on the stats every piece feeds: STR and AGI, SP cost, no s
     assert.ok(style.goals.some((g) => g.key === 'sp_cost' && g.atMost && g.cap === -50), style.name);
     assert.ok(!keys(style).some((k) => k.startsWith('skill:')), style.name);
   }
+});
+
+test('every scaling entry reads its numbers off the skill\'s own description, at max level', () => {
+  const raw = load<{ cols: string[]; rows: unknown[][] }>('raw/db-skills.json');
+  const col = (name: string) => raw.cols.indexOf(name);
+  const byName = new Map(raw.rows.map((r) => [r[col('name')] as string, r]));
+  for (const [cls, styles] of Object.entries(presets)) {
+    for (const style of styles) {
+      for (const sk of style.scaling?.skills ?? []) {
+        const row = byName.get(sk.skill);
+        assert.ok(row, `${cls} / ${sk.skill}: no such skill`);
+        const read = scalingFromDescription(
+          String(row![col('desc')]), Number(row![col('max')]), sk.part);
+        assert.ok(read, `${cls} / ${sk.skill}: no stat scaling in its description`);
+        assert.equal(sk.base, read!.base, `${cls} / ${sk.skill} base`);
+        assert.deepEqual(sk.per, read!.per, `${cls} / ${sk.skill} per`);
+      }
+    }
+  }
+});
+
+test('a point of AGI raises a Satsujin\'s melee skill damage, not only its flee', () => {
+  const build: Build = { className: 'Satsujin', baseLevel: 100,
+    baseStats: { ...defaultBaseStats(), agi: 90, str: 99, dex: 21 }, slots: {} };
+  const more = { ...build, baseStats: { ...build.baseStats, agi: 99 } };
+  const chain: Goal = { key: 'melee_skill_mult', column: 'percent', target: 0 };
+  const data = { ...dataset, classGoals: presets };
+  const at = (b: Build) => measure(chain, aggregate(b, data), b, data);
+  // Some 0.4-0.7% per AGI on the AGI skills, averaged with Dragon Omamori's none.
+  const gained = (100 + at(more)) / (100 + at(build)) - 1;
+  assert.ok(gained > 0.03 && gained < 0.06, `+9 AGI is ${(gained * 100).toFixed(1)}% more`);
+  // A class with no scaling written has none to gain.
+  const other = { ...build, className: 'Assassin' };
+  assert.equal(at({ ...other, baseStats: more.baseStats }), at(other));
 });

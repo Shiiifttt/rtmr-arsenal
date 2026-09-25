@@ -33,6 +33,23 @@ export interface Playstyle {
    * counting (penetration, 70).
    */
   goals: (Omit<Goal, 'target'> & { target?: number })[];
+  /**
+   * The skills this playstyle deals its damage with, and how each scales off
+   * base stats, read from the skill descriptions at max level: Full Moon is
+   * "250 +50% per level +8% per AGI", so base 500 and { agi: 8 }. Feeds the
+   * skill-ratio link of a damage chain (`skill_ratio_phys` / `_magic`), so a
+   * point of AGI counts as the damage it adds, not only as AGI.
+   */
+  scaling?: { kind: 'physical' | 'magic'; skills: SkillScaling[] };
+}
+
+/** One skill's damage ratio: `base`% plus `per[stat]`% per point of that stat. */
+export interface SkillScaling {
+  skill: string;
+  /** Which damage line, where there are several: "Explosion" for Dragon Omamori. */
+  part?: string;
+  base: number;
+  per: Partial<Record<keyof BaseStats, number>>;
 }
 
 /** data/class-goals.json's `presets`: an empty list is a class with no combat. */
@@ -111,4 +128,57 @@ export function goalsFromPlaystyle(
       goal.target = g.target === undefined ? now : g.target;
       return goal;
     });
+}
+
+/**
+ * A skill's damage scaling, read off its description at max level: the line
+ * "Damage is 200+20% per level +5% per Agi." at level 5 is base 300 and
+ * { agi: 5 }. `part` picks another line ("Explosion: 200 +50% per level").
+ *
+ * Reads the wordings the server's descriptions use: a stat shared ("+1% per
+ * DEX and STR", "+1% per VIT/STR"), a second clause ("+2% per Str and 2% per
+ * Dex"), no base ("80% per level"), and "10% ATK per level". Null when the
+ * line names no base stat -- a skill that does not scale off one.
+ */
+export function scalingFromDescription(
+  desc: string, maxLevel: number, part?: string,
+): { part?: string; base: number; per: SkillScaling['per'] } | null {
+  for (const raw of desc.split('\n')) {
+    const line = raw.trim();
+    const head = /^([\w ]*?)(?: is|:)\s*/i.exec(line);
+    if (!head) continue;
+    const name = head[1].trim();
+    if (part ? name.toLowerCase() !== part.toLowerCase() : !/damage$/i.test(name)) continue;
+    const rest = line.slice(head[0].length);
+    const both = /^(\d+)\s*%?\s*\+\s*(\d+)\s*%\s*(?:atk\s*)?per level/i.exec(rest);
+    const levelOnly = /^(\d+)\s*%\s*(?:atk\s*)?per level/i.exec(rest);
+    const baseOnly = /^(\d+)\s*%?\s*\+/.exec(rest);
+    let base = 0;
+    let perLevel = 0;
+    if (both) { base = Number(both[1]); perLevel = Number(both[2]); }
+    else if (levelOnly) perLevel = Number(levelOnly[1]);
+    else if (baseOnly) base = Number(baseOnly[1]);
+    else continue;
+    const per: SkillScaling['per'] = {};
+    const stats = /(?:\+|\band)\s*(\d+)\s*%\s*per\s+(str|agi|vit|int|dex|luk)\b(?:\s*(?:\/|and)\s*(str|agi|vit|int|dex|luk)\b)?/gi;
+    const read = (text: string, add: boolean) => {
+      for (const m of text.matchAll(stats)) {
+        for (const s of [m[2], m[3]]) {
+          const key = s?.toLowerCase() as keyof BaseStats | undefined;
+          if (!key) continue;
+          if (per[key] === undefined) per[key] = Number(m[1]);
+          else if (add) per[key] = per[key]! + Number(m[1]);
+        }
+      }
+    };
+    read(rest, false);
+    // "Combo Ready adds +1% per DEX." -- a Satsujin's rotation hands Combo
+    // Ready out every Full Moon, so it is part of how the skill scales.
+    for (const other of desc.split('\n')) {
+      if (/^combo ready adds/i.test(other.trim())) read(other, true);
+    }
+    if (Object.keys(per).length === 0) continue;
+    return { ...(part ? { part: name } : {}), base: base + perLevel * maxLevel, per };
+  }
+  return null;
 }

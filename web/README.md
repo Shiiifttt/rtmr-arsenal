@@ -395,7 +395,9 @@ any character, each held where the build already is (`sideGoals` in
 
 | Side goal | Worth, per unit | Why |
 | --- | --- | --- |
-| Max HP %, Max SP % | losses only, 0.25 per 100% | every class uses both; crediting gains would let HP gear crowd out the goals |
+| Max HP % | 0.3 per 100%, both ways | every class lives on it: +10% is worth about +2 AGI to a 74 AGI build |
+| Max SP % | losses only, 0.25 per 100% | every class uses it; crediting gains would let SP gear crowd out the goals |
+| Leech (rate × power, HP and SP: avg % of damage returned) | 0.04 per 1%, both ways, physical builds only | how a physical build keeps its HP up; Evil Wing Ears' 15% chance of 3% is 0.45% |
 | Resistance vs elements, vs races (averages) | 0.5 per 100%, both ways; a negative member counts double | good side goals whatever the build; a hole like Godslayer's -50% vs every race is devastating |
 | Damage reduction (final, melee/ranged, physical/magic received) | 0.5 per 100%, both ways | the same, for everything at once |
 | HP/SP on kill, as % of a 10,000 HP / 500 SP pool | 0.5 per 100% | pays for a great deal of HP and SP costs (Wyrdbrand) |
@@ -490,3 +492,40 @@ Refine is capped at **+10**, which is this server's limit (`MAX_REFINE` in
 Base level is capped at **200** (`BASE_LEVEL_MAX` in `sim/src/types.ts`). That
 one is a guess — the highest gate anywhere in the data is "Base Level 130 or
 higher", and the dataset never states a ceiling.
+
+### How far the longer-term lists look
+
+"Longer-term goals", "Sidegrades" and "Worth target-farming" look past the
+build's reach, but not without limit: 20 times its reach in grind and 5 times
+in monster toughness (`FAR_EFFORT_FACTOR`, `FAR_KILL_FACTOR` in
+`sim/src/suggest.ts`). Unlimited, a level 100 character was sent after a
+Vesper Card and a Dedicated Scarf -- an MVP card and a drop off a level 170
+with millions of HP -- over gear it could use this month. A refine of +6 is
+assumed within reach from the start (`REACH_REFINE_FLOOR`), the top of the
+HD ore tier. All of these are calibrations.
+
+### Skills that scale off base stats
+
+A Satsujin's Full Moon is "250 +50% per level +8% per AGI": at 90 AGI a point
+of AGI is some 0.65% more damage, on top of its flee. Each class preset in
+`data/class-goals.json` lists the skills its playstyle deals damage with
+(`scaling`), read off their descriptions at max level by
+`scalingFromDescription` in `sim/src/presets.ts` -- a test re-reads every entry
+from the raw skill data, so a figure cannot drift from its tooltip. The
+damage chains gain a last link for them (`melee_skill_mult`,
+`ranged_skill_mult`, `phys_skill_mult`, `magic_skill_mult`): the geometric
+mean, over the playstyle's skills, of how far the build's stats raise each
+ratio. Where a class has several styles of one kind, the one its base stats
+fit best is used. "Combo Ready adds +N% per STAT" lines count, since a
+Satsujin's rotation hands Combo Ready out every Full Moon.
+
+### Trading one set for another
+
+A set suggestion that takes four or more pieces off is still left out -- that
+is a different build -- unless what it takes off is one complete set: trading
+Fallen Civilization for another shadow set is a decision players weigh. And
+since a replaced set usually carried something (Fallen Civilization's SP cost
+-50%), the best few such swaps are also tried together with the one change
+elsewhere that wins most of it back, and listed as one trade: "Complete
+Aggressive Orphan set + +6 Laevateinn with Pinguicula Card". Each set is
+listed once, paired or not, whichever comes out ahead.
