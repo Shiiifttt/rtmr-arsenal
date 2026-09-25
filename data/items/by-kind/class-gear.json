@@ -8736,12 +8736,16 @@
    },
    {
     "text": "Final damage taken +10%",
-    "stat": "Final damage taken",
-    "value": 10,
+    "stat": "Resistance vs Final",
+    "value": -10,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     30
+    ],
+    "stat_keys": [
+     "damage_reduction"
+    ]
    },
    {
     "text": "All Stats -5",
@@ -8775,12 +8779,16 @@
      "effects": [
       {
        "text": "Final damage taken -1%",
-       "stat": "Final damage taken",
-       "value": -1,
+       "stat": "Resistance vs Final",
+       "value": 1,
        "unit": "%",
        "parsed": true,
-       "stat_ids": [],
-       "stat_keys": []
+       "stat_ids": [
+        30
+       ],
+       "stat_keys": [
+        "damage_reduction"
+       ]
       },
       {
        "text": "1% chance to Autocast Queen's Brand when hit",
@@ -12106,7 +12114,16 @@
    },
    {
     "text": "Recover 1000 SP on kill",
-    "parsed": false
+    "stat": "SP on Kill",
+    "value": 1000,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     155
+    ],
+    "stat_keys": [
+     "sp_on_kill"
+    ]
    },
    {
     "text": "ASPD -20%",

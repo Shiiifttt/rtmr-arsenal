@@ -6561,7 +6561,16 @@
   "effects": [
    {
     "text": "Regain 100 SP on kill",
-    "parsed": false
+    "stat": "SP on Kill",
+    "value": 100,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     155
+    ],
+    "stat_keys": [
+     "sp_on_kill"
+    ]
    },
    {
     "text": "Leech 5 SP per attack",
@@ -14086,8 +14095,12 @@
     "value": 5,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     30
+    ],
+    "stat_keys": [
+     "damage_reduction"
+    ]
    }
   ],
   "piece_bonus": [],

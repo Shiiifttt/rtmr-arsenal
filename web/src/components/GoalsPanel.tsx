@@ -741,6 +741,11 @@ export function Deltas({ goals, before, after, labelOf }: {
     // looking at. The exception is a change that actually crosses it,
     // which is the one thing the guard exists to say.
     if (goal.guard && !broken.has(goal)) return null;
+    // A side goal and a guard on the same stat move together; once the guard
+    // breaks, its chip says it, and a second one would say it twice.
+    if (goal.side && [...broken].some((b) => b.key === goal.key && b.column === goal.column)) {
+      return null;
+    }
     const better = goal.atMost ? d < 0 : d > 0;
     return (
       <span

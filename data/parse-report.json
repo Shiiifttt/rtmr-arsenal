@@ -4,34 +4,34 @@
  "items_in_a_set": 875,
  "items_with_item_refine_scaling": 891,
  "sets_with_set_refine_scaling": 96,
- "effect_lines": 10207,
- "effect_lines_unstructured": 3951,
- "effect_parse_rate": 61.3,
+ "effect_lines": 10213,
+ "effect_lines_unstructured": 3934,
+ "effect_parse_rate": 61.5,
  "effect_parse_rate_by_kind": {
   "Weapon": {
    "lines": 2260,
-   "unstructured": 565,
-   "rate": 75.0
+   "unstructured": 562,
+   "rate": 75.1
   },
   "Armor": {
    "lines": 1506,
-   "unstructured": 189,
-   "rate": 87.5
+   "unstructured": 187,
+   "rate": 87.6
   },
   "Class gear": {
    "lines": 1377,
-   "unstructured": 509,
-   "rate": 63.0
+   "unstructured": 508,
+   "rate": 63.1
   },
   "Card": {
    "lines": 1058,
-   "unstructured": 217,
-   "rate": 79.5
+   "unstructured": 216,
+   "rate": 79.6
   },
   "Shadow gear": {
-   "lines": 991,
-   "unstructured": 326,
-   "rate": 67.1
+   "lines": 996,
+   "unstructured": 321,
+   "rate": 67.8
   },
   "Costume": {
    "lines": 759,
@@ -60,13 +60,13 @@
   },
   "Accessory": {
    "lines": 287,
-   "unstructured": 38,
-   "rate": 86.8
+   "unstructured": 37,
+   "rate": 87.1
   },
   "Headgear": {
-   "lines": 235,
-   "unstructured": 24,
-   "rate": 89.8
+   "lines": 236,
+   "unstructured": 20,
+   "rate": 91.5
   },
   "Relic": {
    "lines": 204,
@@ -481,12 +481,12 @@
  "element_overrides": 14,
  "evaluable_conditions": 69,
  "conditions_total": 388,
- "stats_registered": 154,
+ "stats_registered": 156,
  "stat_mapping": {
-  "mapped_to_stat_ids": 5636,
+  "mapped_to_stat_ids": 5674,
   "skill_modifiers": 947,
-  "unmapped": 226,
-  "coverage_percent": 82.8
+  "unmapped": 211,
+  "coverage_percent": 83.1
  },
  "unmapped_stat_names": [
   [
@@ -558,10 +558,6 @@
    2
   ],
   [
-   "Final Damage Taken",
-   2
-  ],
-  [
    "5%",
    2
   ],
@@ -574,19 +570,7 @@
    2
   ],
   [
-   "Bleed Resistance",
-   2
-  ],
-  [
-   "Physical Reduction",
-   2
-  ],
-  [
    "Arrow Shower Knockback",
-   2
-  ],
-  [
-   "Final damage taken",
    2
   ],
   [
@@ -658,10 +642,6 @@
    1
   ],
   [
-   "Resistance vs Dark element monsters",
-   1
-  ],
-  [
    "Critical Resistance",
    1
   ],
@@ -683,10 +663,6 @@
   ],
   [
    "Healing Power and Healing Received",
-   1
-  ],
-  [
-   "All Damage Reduction",
    1
   ],
   [
@@ -727,6 +703,30 @@
   ],
   [
    "Grants Resurrection: +1 level per set piece worn (max Lv 4). +4 refine: MDEF",
+   1
+  ],
+  [
+   "+7 refine: Max SP",
+   1
+  ],
+  [
+   "+9 refine: Max SP",
+   1
+  ],
+  [
+   "+4 refine: Total Flee",
+   1
+  ],
+  [
+   "+7 refine: Move Speed",
+   1
+  ],
+  [
+   "+9 refine: Move Speed",
+   1
+  ],
+  [
+   "Neutral damage reduction from all sizes",
    1
   ]
  ],

@@ -7520,8 +7520,12 @@
        "value": 2,
        "unit": "%",
        "parsed": true,
-       "stat_ids": [],
-       "stat_keys": []
+       "stat_ids": [
+        76
+       ],
+       "stat_keys": [
+        "res_dark"
+       ]
       }
      ]
     }
@@ -17119,7 +17123,29 @@
      "effects": [
       {
        "text": "On kill: recover 50 HP and 5 SP per refine.",
-       "parsed": false
+       "stat": "HP on Kill",
+       "value": 50,
+       "unit": null,
+       "parsed": true,
+       "stat_ids": [
+        154
+       ],
+       "stat_keys": [
+        "hp_on_kill"
+       ]
+      },
+      {
+       "text": "On kill: recover 50 HP and 5 SP per refine.",
+       "stat": "SP on Kill",
+       "value": 5,
+       "unit": null,
+       "parsed": true,
+       "stat_ids": [
+        155
+       ],
+       "stat_keys": [
+        "sp_on_kill"
+       ]
       }
      ]
     }
@@ -51169,7 +51195,29 @@
   "piece_bonus": [
    {
     "text": "Recover 10 HP and 1 SP per kill.",
-    "parsed": false
+    "stat": "HP on Kill",
+    "value": 10,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     154
+    ],
+    "stat_keys": [
+     "hp_on_kill"
+    ]
+   },
+   {
+    "text": "Recover 10 HP and 1 SP per kill.",
+    "stat": "SP on Kill",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     155
+    ],
+    "stat_keys": [
+     "sp_on_kill"
+    ]
    }
   ],
   "refine": {
@@ -51254,7 +51302,29 @@
   "piece_bonus": [
    {
     "text": "Recover 10 HP and 1 SP per kill.",
-    "parsed": false
+    "stat": "HP on Kill",
+    "value": 10,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     154
+    ],
+    "stat_keys": [
+     "hp_on_kill"
+    ]
+   },
+   {
+    "text": "Recover 10 HP and 1 SP per kill.",
+    "stat": "SP on Kill",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     155
+    ],
+    "stat_keys": [
+     "sp_on_kill"
+    ]
    }
   ],
   "refine": {
@@ -51339,7 +51409,29 @@
   "piece_bonus": [
    {
     "text": "Recover 10 HP and 1 SP per kill.",
-    "parsed": false
+    "stat": "HP on Kill",
+    "value": 10,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     154
+    ],
+    "stat_keys": [
+     "hp_on_kill"
+    ]
+   },
+   {
+    "text": "Recover 10 HP and 1 SP per kill.",
+    "stat": "SP on Kill",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     155
+    ],
+    "stat_keys": [
+     "sp_on_kill"
+    ]
    }
   ],
   "refine": {
@@ -51424,7 +51516,29 @@
   "piece_bonus": [
    {
     "text": "Recover 10 HP and 1 SP per kill.",
-    "parsed": false
+    "stat": "HP on Kill",
+    "value": 10,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     154
+    ],
+    "stat_keys": [
+     "hp_on_kill"
+    ]
+   },
+   {
+    "text": "Recover 10 HP and 1 SP per kill.",
+    "stat": "SP on Kill",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     155
+    ],
+    "stat_keys": [
+     "sp_on_kill"
+    ]
    }
   ],
   "refine": {

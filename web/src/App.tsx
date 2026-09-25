@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
-  aggregate, allGoals, applyChanges, carryInto, fitsCard, fitsSlot, rollTableFor,
+  aggregate, allGoals, applyChanges, carryInto, fitsCard, fitsSlot, rollTableFor, sideGoals,
   settleHeadgear, SLOTS, Suggester, swapHands, withLock,
   type Build, type Dataset, type Item, type Move, type SlotDef, type SlotState,
 } from '@sim';
@@ -175,9 +175,12 @@ export default function App() {
   // the relevance filters are worked out once rather than on every open.
   // The goals as ranked, with the guard rails after them: a suggestion is
   // judged against both, so both go to the suggester as one list.
+  // Side goals (HP, SP, resistances...) are held where the build is, so the list is
+  // rebuilt when those move -- and only then, not on every change.
   const goals = build.goals;
   const guards = build.guards;
-  const judged = useMemo(() => allGoals(build), [goals, guards]);
+  const side = dataset && totals ? JSON.stringify(sideGoals(build, totals, dataset)) : '';
+  const judged = useMemo(() => allGoals(build, dataset ?? undefined), [goals, guards, side]);
   const suggester = useMemo(() => (dataset ? new Suggester(dataset, judged, {
     className: prefs.mineOnly ? build.className : null,
     maxLevel: prefs.levelCap ? build.baseLevel : null,

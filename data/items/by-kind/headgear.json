@@ -7687,7 +7687,16 @@
   "effects": [
    {
     "text": "Recover 50 HP per kill",
-    "parsed": false
+    "stat": "HP on Kill",
+    "value": 50,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     154
+    ],
+    "stat_keys": [
+     "hp_on_kill"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -9132,20 +9141,28 @@
       {
        "text": "Physical Reduction +1%",
        "stat": "Physical Reduction",
-       "value": 1,
+       "value": -1,
        "unit": "%",
        "parsed": true,
-       "stat_ids": [],
-       "stat_keys": []
+       "stat_ids": [
+        53
+       ],
+       "stat_keys": [
+        "physical_damage_received"
+       ]
       },
       {
        "text": "Magic Reduction +1%",
        "stat": "Magic Reduction",
-       "value": 1,
+       "value": -1,
        "unit": "%",
        "parsed": true,
-       "stat_ids": [],
-       "stat_keys": []
+       "stat_ids": [
+        52
+       ],
+       "stat_keys": [
+        "magic_damage_received"
+       ]
       },
       {
        "text": "HP +1%",
@@ -11270,11 +11287,29 @@
    },
    {
     "text": "Recover 500 HP when killing an enemy.",
-    "parsed": false
+    "stat": "HP on Kill",
+    "value": 500,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     154
+    ],
+    "stat_keys": [
+     "hp_on_kill"
+    ]
    },
    {
     "text": "Recover 20 SP when killing an enemy.",
-    "parsed": false
+    "stat": "SP on Kill",
+    "value": 20,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     155
+    ],
+    "stat_keys": [
+     "sp_on_kill"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -11285,7 +11320,29 @@
      "effects": [
       {
        "text": "Amount increases by 100HP/5SP per Refine.",
-       "parsed": false
+       "stat": "HP on Kill",
+       "value": 100,
+       "unit": null,
+       "parsed": true,
+       "stat_ids": [
+        154
+       ],
+       "stat_keys": [
+        "hp_on_kill"
+       ]
+      },
+      {
+       "text": "Amount increases by 100HP/5SP per Refine.",
+       "stat": "SP on Kill",
+       "value": 5,
+       "unit": null,
+       "parsed": true,
+       "stat_ids": [
+        155
+       ],
+       "stat_keys": [
+        "sp_on_kill"
+       ]
       }
      ]
     }

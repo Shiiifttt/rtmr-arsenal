@@ -159,3 +159,27 @@ test('a build with nothing set round-trips to the same nothing', async () => {
   assert.equal(back?.guards, undefined);
   assert.equal(back?.manual, undefined);
 });
+
+test('a goal keeps a target of 0, and whether it is open, and its cap', async () => {
+  const goals: Build['goals'] = [
+    { key: 'atk', column: 'percent', target: 0, open: true },
+    { key: 'def_pen', column: 'flat', target: 25, open: true, cap: 70 },
+    { key: 'sp_cost', column: 'percent', target: 0, atMost: true, open: true, cap: -50 },
+    { key: 'crit_rate', column: 'flat', target: 0 },
+  ];
+  const back = await decodeBuild(await encodeBuild({ ...BUILD, goals }));
+  assert.deepEqual(back?.goals, goals);
+});
+
+test('a goal from an older link that dropped a target of 0 reads back as 0', async () => {
+  // [key, column] with the 0 target trimmed off the end, as links used to be written.
+  const row = [2, 'Satsujin', 100, [99, 74, 49, 1, 21, 1], [], [['atk', 1], ['sp_cost', 1, 0, 1]]];
+  const bytes = new TextEncoder().encode(JSON.stringify(row));
+  const z = new Uint8Array(await new Response(new Blob([bytes as BlobPart]).stream()
+    .pipeThrough(new CompressionStream('deflate-raw'))).arrayBuffer());
+  const back = await decodeBuild('c' + Buffer.from(z).toString('base64url'));
+  assert.deepEqual(back?.goals, [
+    { key: 'atk', column: 'percent', target: 0 },
+    { key: 'sp_cost', column: 'percent', target: 0, atMost: true },
+  ]);
+});

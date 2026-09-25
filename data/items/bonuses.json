@@ -9746,7 +9746,16 @@
   "effects": [
    {
     "text": "Regain 100 SP on kill",
-    "parsed": false
+    "stat": "SP on Kill",
+    "value": 100,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     155
+    ],
+    "stat_keys": [
+     "sp_on_kill"
+    ]
    },
    {
     "text": "Leech 5 SP per attack",
@@ -9775,7 +9784,6 @@
   "enchant": null,
   "lore": null,
   "unparsed": [
-   "Regain 100 SP on kill",
    "Leech 5 SP per attack"
   ]
  },
@@ -20985,11 +20993,29 @@
    },
    {
     "text": "Recover 75 HP per kill",
-    "parsed": false
+    "stat": "HP on Kill",
+    "value": 75,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     154
+    ],
+    "stat_keys": [
+     "hp_on_kill"
+    ]
    },
    {
     "text": "Recover 25 SP per kill",
-    "parsed": false
+    "stat": "SP on Kill",
+    "value": 25,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     155
+    ],
+    "stat_keys": [
+     "sp_on_kill"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -21000,10 +21026,7 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "unparsed": [
-   "Recover 75 HP per kill",
-   "Recover 25 SP per kill"
-  ]
+  "unparsed": []
  },
  {
   "id": 24229,
@@ -21639,8 +21662,12 @@
        "value": 2,
        "unit": "%",
        "parsed": true,
-       "stat_ids": [],
-       "stat_keys": []
+       "stat_ids": [
+        76
+       ],
+       "stat_keys": [
+        "res_dark"
+       ]
       }
      ]
     }
@@ -35004,8 +35031,12 @@
     "value": 5,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     30
+    ],
+    "stat_keys": [
+     "damage_reduction"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -45325,11 +45356,15 @@
       {
        "text": "Physical Damage Reduction +1% per refine",
        "stat": "Physical Damage Reduction",
-       "value": 1,
+       "value": -1,
        "unit": "%",
        "parsed": true,
-       "stat_ids": [],
-       "stat_keys": []
+       "stat_ids": [
+        53
+       ],
+       "stat_keys": [
+        "physical_damage_received"
+       ]
       },
       {
        "text": "SP Cost +2% per refine",
@@ -47686,7 +47721,29 @@
      "effects": [
       {
        "text": "On kill: recover 50 HP and 5 SP per refine.",
-       "parsed": false
+       "stat": "HP on Kill",
+       "value": 50,
+       "unit": null,
+       "parsed": true,
+       "stat_ids": [
+        154
+       ],
+       "stat_keys": [
+        "hp_on_kill"
+       ]
+      },
+      {
+       "text": "On kill: recover 50 HP and 5 SP per refine.",
+       "stat": "SP on Kill",
+       "value": 5,
+       "unit": null,
+       "parsed": true,
+       "stat_ids": [
+        155
+       ],
+       "stat_keys": [
+        "sp_on_kill"
+       ]
       }
      ]
     }
@@ -56960,12 +57017,16 @@
    },
    {
     "text": "Final Damage Taken- 3%",
-    "stat": "Final Damage Taken",
-    "value": -3,
+    "stat": "Resistance vs Final",
+    "value": 3,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     30
+    ],
+    "stat_keys": [
+     "damage_reduction"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -64282,7 +64343,16 @@
    },
    {
     "text": "Regens 150 SP per kill",
-    "parsed": false
+    "stat": "SP on Kill",
+    "value": 150,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     155
+    ],
+    "stat_keys": [
+     "sp_on_kill"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -64294,8 +64364,7 @@
   "enchant": null,
   "lore": null,
   "unparsed": [
-   "Enables SP Recovery while equipped.",
-   "Regens 150 SP per kill"
+   "Enables SP Recovery while equipped."
   ]
  },
  {
@@ -86784,7 +86853,16 @@
   "effects": [
    {
     "text": "Recovers 10 SP per kill",
-    "parsed": false
+    "stat": "SP on Kill",
+    "value": 10,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     155
+    ],
+    "stat_keys": [
+     "sp_on_kill"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -86795,9 +86873,7 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "unparsed": [
-   "Recovers 10 SP per kill"
-  ]
+  "unparsed": []
  },
  {
   "id": 4932,
@@ -89860,8 +89936,28 @@
     "value": 10,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     58,
+     61,
+     64,
+     67,
+     70,
+     73,
+     76,
+     79,
+     82
+    ],
+    "stat_keys": [
+     "res_water",
+     "res_earth",
+     "res_fire",
+     "res_wind",
+     "res_poison",
+     "res_holy",
+     "res_dark",
+     "res_ghost",
+     "res_undead"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -96854,7 +96950,16 @@
   "effects": [
    {
     "text": "Recover 50 HP per kill",
-    "parsed": false
+    "stat": "HP on Kill",
+    "value": 50,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     154
+    ],
+    "stat_keys": [
+     "hp_on_kill"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -96865,9 +96970,7 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "unparsed": [
-   "Recover 50 HP per kill"
-  ]
+  "unparsed": []
  },
  {
   "id": 7447,
@@ -101704,7 +101807,16 @@
    },
    {
     "text": "Recover 200 HP when enemy is killed",
-    "parsed": false
+    "stat": "HP on Kill",
+    "value": 200,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     154
+    ],
+    "stat_keys": [
+     "hp_on_kill"
+    ]
    },
    {
     "text": "Healing Received -40%",
@@ -101728,9 +101840,7 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "unparsed": [
-   "Recover 200 HP when enemy is killed"
-  ]
+  "unparsed": []
  },
  {
   "id": 1203,
@@ -103684,8 +103794,12 @@
     "value": 25,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     130
+    ],
+    "stat_keys": [
+     "res_status_bleeding"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -104620,11 +104734,15 @@
    {
     "text": "Physical Reduction +5%",
     "stat": "Physical Reduction",
-    "value": 5,
+    "value": -5,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     53
+    ],
+    "stat_keys": [
+     "physical_damage_received"
+    ]
    },
    {
     "text": "HP +5%",
@@ -104665,20 +104783,28 @@
       {
        "text": "Physical Reduction +1%",
        "stat": "Physical Reduction",
-       "value": 1,
+       "value": -1,
        "unit": "%",
        "parsed": true,
-       "stat_ids": [],
-       "stat_keys": []
+       "stat_ids": [
+        53
+       ],
+       "stat_keys": [
+        "physical_damage_received"
+       ]
       },
       {
        "text": "Magic Reduction +1%",
        "stat": "Magic Reduction",
-       "value": 1,
+       "value": -1,
        "unit": "%",
        "parsed": true,
-       "stat_ids": [],
-       "stat_keys": []
+       "stat_ids": [
+        52
+       ],
+       "stat_keys": [
+        "magic_damage_received"
+       ]
       },
       {
        "text": "HP +1%",
@@ -114486,8 +114612,28 @@
        "value": 2,
        "unit": "%",
        "parsed": true,
-       "stat_ids": [],
-       "stat_keys": []
+       "stat_ids": [
+        58,
+        61,
+        64,
+        67,
+        70,
+        73,
+        76,
+        79,
+        82
+       ],
+       "stat_keys": [
+        "res_water",
+        "res_earth",
+        "res_fire",
+        "res_wind",
+        "res_poison",
+        "res_holy",
+        "res_dark",
+        "res_ghost",
+        "res_undead"
+       ]
       }
      ]
     }
@@ -121882,7 +122028,16 @@
    },
    {
     "text": "SP +25 per kill",
-    "parsed": false
+    "stat": "SP on Kill",
+    "value": 25,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     155
+    ],
+    "stat_keys": [
+     "sp_on_kill"
+    ]
    },
    {
     "text": "Disables HP/SP Natural Regeneration",
@@ -121919,7 +122074,6 @@
   "lore": null,
   "unparsed": [
    "(2 Handed Sword)",
-   "SP +25 per kill",
    "Disables HP/SP Natural Regeneration"
   ]
  },
@@ -123923,12 +124077,16 @@
    },
    {
     "text": "Final Damage Taken -5%",
-    "stat": "Final Damage Taken",
-    "value": -5,
+    "stat": "Resistance vs Final",
+    "value": 5,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     30
+    ],
+    "stat_keys": [
+     "damage_reduction"
+    ]
    },
    {
     "text": "Flat DEF+15",
@@ -128422,7 +128580,29 @@
   "piece_bonus": [
    {
     "text": "Recover 10 HP and 1 SP per kill.",
-    "parsed": false
+    "stat": "HP on Kill",
+    "value": 10,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     154
+    ],
+    "stat_keys": [
+     "hp_on_kill"
+    ]
+   },
+   {
+    "text": "Recover 10 HP and 1 SP per kill.",
+    "stat": "SP on Kill",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     155
+    ],
+    "stat_keys": [
+     "sp_on_kill"
+    ]
    }
   ],
   "refine": {
@@ -128433,7 +128613,6 @@
   "enchant": null,
   "lore": null,
   "unparsed": [
-   "Recover 10 HP and 1 SP per kill.",
    "Recover extra 10 HP and 1 SP on kill"
   ]
  },
@@ -128448,7 +128627,29 @@
   "piece_bonus": [
    {
     "text": "Recover 10 HP and 1 SP per kill.",
-    "parsed": false
+    "stat": "HP on Kill",
+    "value": 10,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     154
+    ],
+    "stat_keys": [
+     "hp_on_kill"
+    ]
+   },
+   {
+    "text": "Recover 10 HP and 1 SP per kill.",
+    "stat": "SP on Kill",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     155
+    ],
+    "stat_keys": [
+     "sp_on_kill"
+    ]
    }
   ],
   "refine": {
@@ -128459,7 +128660,6 @@
   "enchant": null,
   "lore": null,
   "unparsed": [
-   "Recover 10 HP and 1 SP per kill.",
    "Recover extra 10 HP and 1 SP on kill"
   ]
  },
@@ -128474,7 +128674,29 @@
   "piece_bonus": [
    {
     "text": "Recover 10 HP and 1 SP per kill.",
-    "parsed": false
+    "stat": "HP on Kill",
+    "value": 10,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     154
+    ],
+    "stat_keys": [
+     "hp_on_kill"
+    ]
+   },
+   {
+    "text": "Recover 10 HP and 1 SP per kill.",
+    "stat": "SP on Kill",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     155
+    ],
+    "stat_keys": [
+     "sp_on_kill"
+    ]
    }
   ],
   "refine": {
@@ -128485,7 +128707,6 @@
   "enchant": null,
   "lore": null,
   "unparsed": [
-   "Recover 10 HP and 1 SP per kill.",
    "Recover extra 10 HP and 1 SP on kill"
   ]
  },
@@ -128500,7 +128721,29 @@
   "piece_bonus": [
    {
     "text": "Recover 10 HP and 1 SP per kill.",
-    "parsed": false
+    "stat": "HP on Kill",
+    "value": 10,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     154
+    ],
+    "stat_keys": [
+     "hp_on_kill"
+    ]
+   },
+   {
+    "text": "Recover 10 HP and 1 SP per kill.",
+    "stat": "SP on Kill",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     155
+    ],
+    "stat_keys": [
+     "sp_on_kill"
+    ]
    }
   ],
   "refine": {
@@ -128511,7 +128754,6 @@
   "enchant": null,
   "lore": null,
   "unparsed": [
-   "Recover 10 HP and 1 SP per kill.",
    "Recover extra 10 HP and 1 SP on kill"
   ]
  },
@@ -137158,7 +137400,16 @@
    },
    {
     "text": "Recover 1000 SP on kill",
-    "parsed": false
+    "stat": "SP on Kill",
+    "value": 1000,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     155
+    ],
+    "stat_keys": [
+     "sp_on_kill"
+    ]
    },
    {
     "text": "ASPD -20%",
@@ -137265,9 +137516,7 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "unparsed": [
-   "Recover 1000 SP on kill"
-  ]
+  "unparsed": []
  },
  {
   "id": 903035,
@@ -139044,12 +139293,16 @@
    },
    {
     "text": "Final damage taken +10%",
-    "stat": "Final damage taken",
-    "value": 10,
+    "stat": "Resistance vs Final",
+    "value": -10,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     30
+    ],
+    "stat_keys": [
+     "damage_reduction"
+    ]
    },
    {
     "text": "All Stats -5",
@@ -139083,12 +139336,16 @@
      "effects": [
       {
        "text": "Final damage taken -1%",
-       "stat": "Final damage taken",
-       "value": -1,
+       "stat": "Resistance vs Final",
+       "value": 1,
        "unit": "%",
        "parsed": true,
-       "stat_ids": [],
-       "stat_keys": []
+       "stat_ids": [
+        30
+       ],
+       "stat_keys": [
+        "damage_reduction"
+       ]
       },
       {
        "text": "1% chance to Autocast Queen's Brand when hit",
@@ -159240,8 +159497,12 @@
     "value": 25,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     130
+    ],
+    "stat_keys": [
+     "res_status_bleeding"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -159557,8 +159818,28 @@
     "value": 20,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     58,
+     61,
+     64,
+     67,
+     70,
+     73,
+     76,
+     79,
+     82
+    ],
+    "stat_keys": [
+     "res_water",
+     "res_earth",
+     "res_fire",
+     "res_wind",
+     "res_poison",
+     "res_holy",
+     "res_dark",
+     "res_ghost",
+     "res_undead"
+    ]
    },
    {
     "text": "Total Flee +20%",
@@ -162008,11 +162289,29 @@
    },
    {
     "text": "Recover 500 HP when killing an enemy.",
-    "parsed": false
+    "stat": "HP on Kill",
+    "value": 500,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     154
+    ],
+    "stat_keys": [
+     "hp_on_kill"
+    ]
    },
    {
     "text": "Recover 20 SP when killing an enemy.",
-    "parsed": false
+    "stat": "SP on Kill",
+    "value": 20,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     155
+    ],
+    "stat_keys": [
+     "sp_on_kill"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -162023,7 +162322,29 @@
      "effects": [
       {
        "text": "Amount increases by 100HP/5SP per Refine.",
-       "parsed": false
+       "stat": "HP on Kill",
+       "value": 100,
+       "unit": null,
+       "parsed": true,
+       "stat_ids": [
+        154
+       ],
+       "stat_keys": [
+        "hp_on_kill"
+       ]
+      },
+      {
+       "text": "Amount increases by 100HP/5SP per Refine.",
+       "stat": "SP on Kill",
+       "value": 5,
+       "unit": null,
+       "parsed": true,
+       "stat_ids": [
+        155
+       ],
+       "stat_keys": [
+        "sp_on_kill"
+       ]
       }
      ]
     }
@@ -162038,8 +162359,6 @@
   },
   "lore": null,
   "unparsed": [
-   "Recover 500 HP when killing an enemy.",
-   "Recover 20 SP when killing an enemy.",
    "Double Max HP/SP",
    "Disables HP/SP Regeneration."
   ]

@@ -417,7 +417,55 @@ DAMAGE_TAKEN = re.compile(
 # "Ranged Damage Taken" reads as a resistance by range, not by element.
 _RANGE_TAKEN = {"ranged": "Ranged Resistance", "long range": "Ranged Resistance",
                 "melee": "Melee Resistance", "short range": "Melee Resistance",
-                "short-range": "Melee Resistance"}
+                "short-range": "Melee Resistance",
+                # "Final Damage Taken -5%" is Final Damage Reduction +5%.
+                "final": "Final Damage Reduction"}
+
+# HP and SP back per kill. "Recover 500 HP when killing an enemy.", "Recover
+# 50 HP and 5 SP per kill.", "Regain 3 SP on kill", "On kill: recover 20 HP
+# and 2 SP per refine." Kills with magic only, or scaled by base level, are
+# left alone: those are a condition and a formula, not an amount.
+KILL_RECOVER = re.compile(
+    r"^(?P<prefix>on\s+kill\s*:\s*)?(?:recovers?|regains?|regens?|restores?)\s+"
+    r"(?P<a>\d+)\s*(?P<pa>hp|sp)(?:\s*(?:and|/)\s*(?P<b>\d+)\s*(?P<pb>hp|sp))?"
+    r"(?P<when>\s+(?:when\s+killing\s+(?:an?\s+)?(?:enemy|enemies|monsters?)|per\s+kill|"
+    r"on\s+kill|when\s+(?:an?\s+)?(?:enemy|monster)\s+is\s+killed))?"
+    r"(?P<refine>\s+per\s+refine)?\s*\.?$", re.I)
+# "SP 15 per kill".
+KILL_SHORT = re.compile(r"^(?P<pa>hp|sp)\s*\+?\s*(?P<a>\d+)\s+per\s+kill\s*\.?$", re.I)
+# Wyrdbrand, after its two kill lines: "Amount increases by 100HP/5SP per Refine."
+KILL_REFINE = re.compile(
+    r"^amount\s+increases\s+by\s+(?P<a>\d+)\s*(?P<pa>hp|sp)\s*(?:/|and)\s*"
+    r"(?P<b>\d+)\s*(?P<pb>hp|sp)\s+per\s+refine\s*\.?$", re.I)
+
+
+def parse_kill_recover(line: str) -> list[dict] | None:
+    """HP and SP recovered per kill, as the two stats they are."""
+    text = line.strip()
+    m = KILL_RECOVER.match(text)
+    per_refine = None
+    if m:
+        # "Recover 10 HP" alone is regen or a proc; only a kill says it is this.
+        if not (m.group("prefix") or m.group("when")):
+            return None
+        per_refine = 1 if m.group("refine") else None
+    else:
+        m = KILL_SHORT.match(text) or KILL_REFINE.match(text)
+        if not m:
+            return None
+        per_refine = 1 if KILL_REFINE.match(text) else None
+    groups = m.groupdict()
+    out = []
+    for value, pool in ((groups.get("a"), groups.get("pa")), (groups.get("b"), groups.get("pb"))):
+        if not value:
+            continue
+        stat = f"{pool.upper()} on Kill"
+        eff = {"text": text, "stat": stat, "value": int(value), "unit": None, "parsed": True,
+               **stat_registry.resolve(stat)}
+        if per_refine:
+            eff["per_refine"] = per_refine
+        out.append(eff)
+    return out or None
 # "Reflects 5% Melee Damage", "Reflect 10% short-range physical damage".
 REFLECT = re.compile(
     r"^reflects?\s+(?P<value>\d+(?:\.\d+)?)%\s+(?:of\s+)?(?:melee|short[\s-]range)"
@@ -660,6 +708,9 @@ def parse_line(line: str) -> list[dict]:
     leech = parse_leech(line)
     if leech:
         return leech
+    kill = parse_kill_recover(line)
+    if kill:
+        return kill
     element = parse_element(line)
     if element:
         return [element]

@@ -9063,12 +9063,16 @@
    },
    {
     "text": "Final Damage Taken -5%",
-    "stat": "Final Damage Taken",
-    "value": -5,
+    "stat": "Resistance vs Final",
+    "value": 5,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     30
+    ],
+    "stat_keys": [
+     "damage_reduction"
+    ]
    },
    {
     "text": "Flat DEF+15",

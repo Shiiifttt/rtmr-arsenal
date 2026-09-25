@@ -1,6 +1,6 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect } from 'react';
 import {
-  applyChanges, farmFor, type Build, type Dataset, type Goal, type Move, type PlanPaths,
+  farmFor, type Build, type Dataset, type Goal, type Move, type PlanPaths,
 } from '@sim';
 import { LockedNote, MoveRow } from './GoalsPanel';
 
@@ -11,17 +11,17 @@ import { LockedNote, MoveRow } from './GoalsPanel';
  * as `GoalFocus`: each row is a full suggestion -- pieces, cards, refine,
  * every stat it moves -- and needs the picker's width, not a side panel's.
  *
- * Laid out as paths rather than one list. With goals still short there is
- * a plan: steps that build on each other towards the targets. With every
- * goal met there is nothing to close, so what is shown is every way
- * forward, each on its own -- the best swap for each slot, refines on what
- * is worn, better rolls, and what is out of reach but worth working
- * towards -- so an easy refine or a long-term sun helmet is never crowded
- * out by whatever happens to score highest.
+ * Laid out as kinds of recommendation rather than one list, and every row
+ * on its own: the best swap for each slot, cards for what is worn, refines,
+ * better rolls, and what is out of reach but worth working towards -- so an
+ * easy refine or a long-term sun helmet is never crowded out by whatever
+ * happens to score highest. Nothing is a step in a chain; each row is
+ * measured from the build as it is, and applying one closes the overlay's
+ * search for a fresh one.
  */
 /** Nothing found yet: what the overlay shows before the first results land. */
 const NONE: PlanPaths = {
-  steps: [], near: [], refines: [], rolls: [], far: [], sides: [], farm: [], sets: [],
+  near: [], cards: [], refines: [], rolls: [], far: [], sides: [], farm: [], sets: [],
 };
 
 export function PlanOverlay({
@@ -47,20 +47,11 @@ export function PlanOverlay({
   }, [onClose]);
 
   const paths = found ?? NONE;
-  const { steps, near, refines, rolls, far, sides, farm, sets } = paths;
-  // The build each step starts from, which is how it will be applied.
-  const stepBuilds = useMemo(() => {
-    const out: Build[] = [];
-    let at = build;
-    for (const move of steps) {
-      out.push(at);
-      at = applyChanges(at, move.changes, dataset);
-    }
-    return out;
-  }, [steps, build, dataset]);
+  const { near, cards, refines, rolls, far, sides, farm, sets } = paths;
 
-  const title = upgrading ? 'Upgrades' : 'Suggested changes';
-  const nothing = [steps, near, refines, rolls, far, sides, farm, sets].every((l) => l.length === 0);
+  const title = upgrading ? 'Upgrades' : 'Recommendations';
+  const nothing = [near, cards, refines, rolls, far, sides, farm, sets]
+    .every((l) => l.length === 0);
   const row = (move: Move, action: string, onRowApply: () => void, from: Build, farm = false,
     rolled = false) => (
     <MoveRow
@@ -78,22 +69,20 @@ export function PlanOverlay({
     <div className="overlay" onMouseDown={(e) => {
       if (e.target === e.currentTarget) onClose();
     }}>
-      <div className="picker focus plan" role="dialog" aria-modal="true" aria-label={title}>
+      <div className="picker focus plan-overlay" role="dialog" aria-modal="true" aria-label={title}>
         <div className="picker-head">
           <h3>{title}</h3>
           <span className="focus-sub">
-            {upgrading ? 'raises a goal, lowers nothing you have' : 'towards the goals'}
+            {upgrading ? 'raises a goal, lowers nothing you have' : 'each on its own, towards the goals'}
           </span>
           {/* In the header rather than under the lists, so it says the search
               is still going without moving anything as results land. */}
           {searching && <span className="plan-searching" role="status">Searching…</span>}
           <div className="spacer" />
-          {steps.length > 1 && <button onClick={() => onApply(steps)}>Apply all steps</button>}
           <button onClick={onClose}>Close</button>
         </div>
 
         <div className="picker-list">
-          {nothing && searching && <div className="plan-searching plan-waiting">Searching…</div>}
           {nothing && !searching && (
             <div className="loading">
               {upgrading
@@ -111,16 +100,15 @@ export function PlanOverlay({
             {farm.map((move) => row(move, 'Equip', () => onApply([move]), build, true))}
           </Path>
 
-          <Path title="Steps" note={steps.length > 1
-            ? 'Each builds on the ones above, so they apply in order. A greedy plan: a good '
-              + 'route, not a proof of the best build.' : undefined}>
-            {steps.map((move, i) => row(move, i === 0 ? 'Apply' : 'Apply up to here',
-              () => onApply(steps.slice(0, i + 1)), stepBuilds[i]))}
+          <Path title="Recommended" note={'The best swap for each slot, and sets to finish, '
+            + 'that this build could get next and that lower nothing. Each is its own upgrade, '
+            + 'measured from the build as it is — not a step in a chain.'}>
+            {near.map((move) => row(move, 'Equip', () => onApply([move]), build))}
           </Path>
 
-          <Path title="Within reach" note={'The best swap for each slot that this build could '
-            + 'get next. Each is an alternative, measured from the build as it is.'}>
-            {near.map((move) => row(move, 'Equip', () => onApply([move]), build))}
+          <Path title="Cards for what you wear" note={'The best cards for the pieces already '
+            + 'on, empty sockets first of all. Often the cheapest upgrade there is.'}>
+            {cards.map((move) => row(move, 'Apply', () => onApply([move]), build, true))}
           </Path>
 
           <Path title="Other sets" note={'Sets worth finishing besides any taken above. A set '

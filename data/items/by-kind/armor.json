@@ -2467,8 +2467,28 @@
     "value": 20,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     58,
+     61,
+     64,
+     67,
+     70,
+     73,
+     76,
+     79,
+     82
+    ],
+    "stat_keys": [
+     "res_water",
+     "res_earth",
+     "res_fire",
+     "res_wind",
+     "res_poison",
+     "res_holy",
+     "res_dark",
+     "res_ghost",
+     "res_undead"
+    ]
    },
    {
     "text": "Total Flee +20%",
@@ -7851,11 +7871,29 @@
    },
    {
     "text": "Recover 75 HP per kill",
-    "parsed": false
+    "stat": "HP on Kill",
+    "value": 75,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     154
+    ],
+    "stat_keys": [
+     "hp_on_kill"
+    ]
    },
    {
     "text": "Recover 25 SP per kill",
-    "parsed": false
+    "stat": "SP on Kill",
+    "value": 25,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     155
+    ],
+    "stat_keys": [
+     "sp_on_kill"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -15153,10 +15191,16 @@
     "Dream Box · Varmundt's Orphanage",
     "",
     "",
-    [],
+    [
+     [
+      50,
+      "Distortion Essence",
+      7361
+     ]
+    ],
     "",
     "",
-    "sold",
+    "",
     null,
     null,
     8
@@ -15166,7 +15210,11 @@
    "icon_bits": 3,
    "no_source": 0,
    "source_mvp": 0,
-   "source_normal": 1
+   "source_normal": 1,
+   "how_override": {
+    "status": "unverified",
+    "reason": "Project owner, 2026-09-25: the Dream shop trades it for 50 Distortion Essence (it also drops in Rachel SS, which is hard content). The database lists it as sold from the Dream Box, with no item cost, which made it look as easy as a shop item."
+   }
   },
   "sets": [
    66
@@ -17432,11 +17480,15 @@
       {
        "text": "Physical Damage Reduction +1% per refine",
        "stat": "Physical Damage Reduction",
-       "value": 1,
+       "value": -1,
        "unit": "%",
        "parsed": true,
-       "stat_ids": [],
-       "stat_keys": []
+       "stat_ids": [
+        53
+       ],
+       "stat_keys": [
+        "physical_damage_received"
+       ]
       },
       {
        "text": "SP Cost +2% per refine",
@@ -34965,8 +35017,28 @@
     "value": 10,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     58,
+     61,
+     64,
+     67,
+     70,
+     73,
+     76,
+     79,
+     82
+    ],
+    "stat_keys": [
+     "res_water",
+     "res_earth",
+     "res_fire",
+     "res_wind",
+     "res_poison",
+     "res_holy",
+     "res_dark",
+     "res_ghost",
+     "res_undead"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -41720,8 +41792,12 @@
     "value": 25,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     130
+    ],
+    "stat_keys": [
+     "res_status_bleeding"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -41810,8 +41886,12 @@
     "value": 25,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     130
+    ],
+    "stat_keys": [
+     "res_status_bleeding"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -42125,11 +42205,15 @@
    {
     "text": "Physical Reduction +5%",
     "stat": "Physical Reduction",
-    "value": 5,
+    "value": -5,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     53
+    ],
+    "stat_keys": [
+     "physical_damage_received"
+    ]
    },
    {
     "text": "HP +5%",
@@ -47324,8 +47408,28 @@
        "value": 2,
        "unit": "%",
        "parsed": true,
-       "stat_ids": [],
-       "stat_keys": []
+       "stat_ids": [
+        58,
+        61,
+        64,
+        67,
+        70,
+        73,
+        76,
+        79,
+        82
+       ],
+       "stat_keys": [
+        "res_water",
+        "res_earth",
+        "res_fire",
+        "res_wind",
+        "res_poison",
+        "res_holy",
+        "res_dark",
+        "res_ghost",
+        "res_undead"
+       ]
       }
      ]
     }

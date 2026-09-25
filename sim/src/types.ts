@@ -385,6 +385,14 @@ export interface Goal {
    * goal's cap is the low side ("down to -60%"). Optional on any goal.
    */
   cap?: number;
+  /**
+   * Built in, never set by the player: a number every build cares about a
+   * little -- Max HP %, resistances, HP and SP on kill -- held where the build
+   * already is. Each unit of `per` lost costs `loss`, and gained is worth
+   * `gain`, against a top-priority goal's 1 per whole target. Never ranked,
+   * never "broken". See `sideGoals`.
+   */
+  side?: { gain: number; loss: number; per: number };
 }
 
 /**

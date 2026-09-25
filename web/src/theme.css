@@ -425,8 +425,8 @@ input:focus, select:focus, button:focus-visible {
 .picker.focus { width: min(680px, 100%); }
 /* The suggestion overlay fills in over a second or two; a fixed size keeps
    it from jumping as each section lands. The list scrolls inside. */
-.picker.plan { height: min(820px, 86vh); }
-.picker.plan .picker-list { flex: 1; }
+.picker.plan-overlay { height: min(820px, 86vh); }
+.picker.plan-overlay .picker-list { flex: 1; }
 .focus-sub { font-family: var(--mono); font-size: 11px; color: var(--text-faint); }
 .focus-list { margin: 4px 0; padding-left: 26px; gap: 10px; }
 .focus-list li { padding-right: 6px; }
@@ -815,6 +815,4 @@ input:focus, select:focus, button:focus-visible {
   animation: plan-pulse 1.6s ease-in-out infinite;
 }
 @keyframes plan-pulse { 50% { opacity: 0.45; } }
-/* Before anything is found: at the top, where the first results will land. */
-.plan-waiting { padding: 6px 10px; }
 @media (prefers-reduced-motion: reduce) { .plan-searching { animation: none; } }

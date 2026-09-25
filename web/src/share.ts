@@ -87,9 +87,16 @@ function pack(build: Build): unknown[] {
   return row;
 }
 
+/**
+ * [key, column, target, atMost, open, cap]. A target of 0 at the tail is
+ * trimmed like any other empty, which is why the reader defaults it to 0 --
+ * links written before that read back with the goal missing its target, and
+ * reconcile then dropped the goal. `open` and `cap` came later and sit past
+ * the old fields, so an older reader simply does not see them.
+ */
 function packGoal(goal: Goal): unknown[] {
   return trimTail([goal.key, COLUMNS.indexOf(goal.column), goal.target,
-    goal.atMost ? 1 : 0]);
+    goal.atMost ? 1 : 0, goal.open ? 1 : 0, goal.cap ?? 0]);
 }
 
 /** Drop trailing entries that carry nothing, since position restores them. */
@@ -152,8 +159,11 @@ function unpackGoal(row: unknown[]): Goal {
   return {
     key: row[0] as string,
     column: COLUMNS[(row[1] as number) ?? 0] ?? 'flat',
-    target: row[2] as number,
+    target: (row[2] as number) ?? 0,
     ...(row[3] ? { atMost: true } : {}),
+    ...(row[4] ? { open: true } : {}),
+    // A cap of 0 is a real cap, but not one any goal has: none stops at nothing.
+    ...(row[5] ? { cap: row[5] as number } : {}),
   };
 }
 

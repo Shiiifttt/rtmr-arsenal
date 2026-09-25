@@ -31121,12 +31121,16 @@
    },
    {
     "text": "Final Damage Taken- 3%",
-    "stat": "Final Damage Taken",
-    "value": -3,
+    "stat": "Resistance vs Final",
+    "value": 3,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     30
+    ],
+    "stat_keys": [
+     "damage_reduction"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -36126,7 +36130,16 @@
    },
    {
     "text": "Regens 150 SP per kill",
-    "parsed": false
+    "stat": "SP on Kill",
+    "value": 150,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     155
+    ],
+    "stat_keys": [
+     "sp_on_kill"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -57514,7 +57527,16 @@
    },
    {
     "text": "Recover 200 HP when enemy is killed",
-    "parsed": false
+    "stat": "HP on Kill",
+    "value": 200,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     154
+    ],
+    "stat_keys": [
+     "hp_on_kill"
+    ]
    },
    {
     "text": "Healing Received -40%",
@@ -67960,7 +67982,16 @@
    },
    {
     "text": "SP +25 per kill",
-    "parsed": false
+    "stat": "SP on Kill",
+    "value": 25,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     155
+    ],
+    "stat_keys": [
+     "sp_on_kill"
+    ]
    },
    {
     "text": "Disables HP/SP Natural Regeneration",

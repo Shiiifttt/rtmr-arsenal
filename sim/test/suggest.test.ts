@@ -18,7 +18,7 @@ import {
   REACH_KILL_FACTOR, REACH_REFINE_FLOOR, REFINE_MOVE_CAP, statsThatMatter,
   goalScore, goalStatus, isTwoHanded, measure, priorityWeight, SLOTS, Suggester, tableForSlot,
   tradeValue, coveredBy, type Move, type SuggestOptions,
-  collateralCost, COLLATERAL_WEIGHT, relevanceOf, statTone, type TotalsChange,
+  collateralCost, COLLATERAL_WEIGHT, relevanceOf, statTone, type TotalsChange, sideGoals,
 } from '../src/index.ts';
 import type {
   Build, Dataset, Goal, Item, RollData, SetRecord, SlotState, StatDef,
@@ -1206,23 +1206,22 @@ test('the overlay\'s search comes a section at a time, and ends where the one-sh
   const s = new Suggester(withLevels, goals, { className: 'Satsujin', maxLevel: 100, refine: 'auto' });
   const snaps = [...s.paths(build)];
   assert.ok(snaps.length > 3, 'more than one snapshot');
-  // Each snapshot is the one before with more filled in: the plan only
-  // ever gains steps, and no list empties once it has something.
+  // Each snapshot is the one before with more filled in: no list empties
+  // once it has something.
   for (let i = 1; i < snaps.length; i++) {
-    assert.ok(snaps[i].steps.length >= snaps[i - 1].steps.length);
-    for (const k of ['refines', 'rolls', 'sets', 'far'] as const) {
+    for (const k of ['near', 'cards', 'refines', 'rolls', 'far'] as const) {
       if (snaps[i - 1][k].length) assert.ok(snaps[i][k].length > 0, `${k} emptied`);
     }
   }
+  // Recommendations, not a chain: the same lists as the one-shot call, goal
+  // short or met, and every row measured from the build as it is.
   const end = snaps[snaps.length - 1];
-  assert.deepEqual(end.steps.map((m) => m.label), s.plan(build).map((m) => m.label));
-  assert.deepEqual(end.sets.map((m) => m.label), s.setAlternatives(build, end.steps).map((m) => m.label));
-
-  // With every goal met it streams the upgrade paths instead.
-  const met = new Suggester(withLevels, goals.map((g) => ({ ...g, target: g.atMost ? 0 : 0 })),
+  assert.deepEqual(end.near.map((m) => m.label), s.upgradePaths(build).near.map((m) => m.label));
+  const before = s.values(build);
+  for (const m of end.near) assert.deepEqual(m.before, before);
+  const met = new Suggester(withLevels, goals.map((g) => ({ ...g, target: 0 })),
     { className: 'Satsujin', maxLevel: 100, refine: 'auto' });
   const up = [...met.paths(build)].pop()!;
-  assert.deepEqual(up.steps, []);
   assert.deepEqual(up.near.map((m) => m.label), met.upgradePaths(build).near.map((m) => m.label));
 });
 
@@ -1293,4 +1292,144 @@ test('SP cost past -50% counts for nothing, even on a goal saved without a cap',
   // Penetration stops at 70 the same way.
   const pen: Goal = { key: 'def_pen', column: 'flat', target: 25, open: true };
   assert.equal(goalScore([pen], [70]), goalScore([pen], [90]));
+});
+
+test('a percent goal is weighed out of 100, so +1% from nothing is not a whole target', () => {
+  const atk: Goal = { key: 'atk', column: 'percent', target: 0, open: true };
+  const agi: Goal = { key: 'agi', column: 'total', target: 74, open: true };
+  // +14% ATK is 0.14 of a target, where it used to be fourteen of them.
+  assert.ok(Math.abs((goalScore([atk], [0]) - goalScore([atk], [14])) - 0.14) < 1e-9);
+  // So +3 AGI on a 74 AGI build is no longer a rounding error beside it.
+  const agiGain = goalScore([agi], [74]) - goalScore([agi], [77]);
+  assert.ok(agiGain > (goalScore([atk], [0]) - goalScore([atk], [3])));
+  // Penetration runs 0-100 and is weighed the same way, whatever its target.
+  const pen: Goal = { key: 'def_pen', column: 'flat', target: 25, open: true };
+  assert.ok(Math.abs((goalScore([pen], [5]) - goalScore([pen], [15])) - 0.1) < 1e-9);
+});
+
+test('losing Max HP % or Max SP % always costs something, and gaining it is no reason', () => {
+  const build = satsujin();
+  const goals = allGoals(build, dataset);
+  const side = goals.filter((g) => g.side);
+  assert.deepEqual(side.slice(0, 2).map((g) => g.key), ['max_hp', 'max_sp']);
+  // Without the dataset there is nothing to anchor them to, so none.
+  assert.ok(!allGoals(build).some((g) => g.side));
+  const hp = side[0];
+  const at = (v: number) => goalScore([hp], [v]);
+  assert.ok(at(hp.target - 50) > at(hp.target));
+  assert.equal(at(hp.target + 50), at(hp.target));
+  // A loss is weighed, not ruled out: it never reads as a broken goal.
+  assert.deepEqual(brokenGoals([hp], [hp.target], [hp.target - 50]), []);
+  // A player's own goal on the stat is left to do the job.
+  const own = { ...build, goals: [{ key: 'max_hp', column: 'percent' as const, target: 10 }] };
+  assert.ok(!allGoals(own, dataset).some((g) => g.side && g.key === 'max_hp'));
+  // And neither is ever "not used by this build".
+  const bare = emptyBuild();
+  const matters = statsThatMatter(bare, aggregate(bare, dataset), dataset);
+  assert.ok(matters.has('max_hp') && matters.has('max_sp'));
+});
+
+/** A level 100 Satsujin with most sockets empty, as shared by the project owner. */
+function socketsEmpty(): Build {
+  const build = emptyBuild();
+  build.className = 'Satsujin';
+  build.baseLevel = 100;
+  build.baseStats = { str: 99, agi: 74, vit: 49, int: 1, dex: 21, luk: 1 };
+  build.manual = { flee: 70 };
+  const put = (slot: string, itemId: number, cards: number[] = []) => {
+    build.slots[slot] = { itemId, refine: 0, cards };
+  };
+  put('upper', 2299); // Orc Helm
+  put('middle', 5068); // Evil Wing Ears
+  put('lower', 5445);
+  put('armor', 15448);
+  put('weapon', 13031); // Senbonzakura
+  put('garment', 2544);
+  put('shoes', 15450);
+  put('acc1', 15454);
+  put('acc2', 2671, [13743]);
+  build.locked = ['weapon'];
+  build.goals = [
+    { key: 'agi', column: 'total', target: 74, open: true },
+    { key: 'def_pen', column: 'flat', target: 25, open: true },
+    { key: 'str', column: 'total', target: 100, open: true },
+    { key: 'flee', column: 'total', target: 351, open: true },
+    { key: 'atk', column: 'percent', target: 0, open: true },
+    { key: 'sp_cost', column: 'percent', target: 0, atMost: true, open: true },
+    { key: 'any_target_dmg', column: 'percent', target: 0, open: true },
+    { key: 'melee_damage', column: 'percent', target: 7, open: true },
+  ];
+  return build;
+}
+
+test('empty sockets get cards of their own, and HP is not sold for a little ATK', () => {
+  const build = socketsEmpty();
+  const s = new Suggester(withEffort, allGoals(build, withEffort),
+    { className: 'Satsujin', maxLevel: 100, refine: 'auto' });
+  const found = [...s.paths(build)].at(-1)!;
+  // A short goal counts for more, and the best swap per slot is still listed.
+  assert.ok(found.near.length > 0);
+  assert.ok(found.cards.some((m) => m.label === 'Veins Ghoul Card in Evil Wing Ears'));
+  // Everything a card move does happens in a piece already worn.
+  for (const m of found.cards) {
+    assert.equal(m.kind, 'cards');
+    assert.equal(m.changes[0].state.itemId, build.slots[m.changes[0].slot].itemId);
+  }
+  // Black Acidus (HP -50%) and Pasana (SP -15%) used to lead the plan.
+  const named = [...found.near, ...found.cards].map((m) => m.label).join(' | ');
+  assert.doesNotMatch(named, /Black Acidus|Pasana/);
+});
+
+test('resistance, sustain on kill and ASPD Limit are read off the tooltips', () => {
+  const keysOf = (name: string, text: RegExp) => {
+    const item = byName(name);
+    const all = [...item.effects, ...item.refine.per_refine.flatMap((g) => g.effects)];
+    return all.filter((e) => text.test(e.text)).map((e) => [e.stat_keys, e.value]);
+  };
+  // Asprika: every element but Neutral, which the parser used to drop.
+  const [[asprika]] = keysOf('Asprika', /non-neutral/) as [[string[], number]][];
+  assert.equal((asprika as unknown as string[]).length, 9);
+  assert.ok(!(asprika as unknown as string[]).includes('res_neutral'));
+  // Wyrdbrand: HP and SP per kill, and more of both per refine.
+  assert.deepEqual(keysOf('Wyrdbrand', /killing/), [[['hp_on_kill'], 500], [['sp_on_kill'], 20]]);
+  assert.deepEqual(keysOf('Wyrdbrand', /Amount increases/), [[['hp_on_kill'], 100], [['sp_on_kill'], 5]]);
+  // "Final Damage Taken -5%" is Final Damage Reduction +5%.
+  assert.deepEqual(keysOf('Valkyrie Shield', /Final Damage Taken/), [[['damage_reduction'], 5]]);
+  // Dream Manteau costs 50 Distortion Essence, which is more than Asprika's souls.
+  const effort = (name: string) => withEffort.effort!.get(byName(name).id)!.effort;
+  assert.ok(effort('Dream Manteau') > effort('Asprika'));
+});
+
+test('side goals: resistances both ways, a negative one double, ASPD Limit only for hitting', () => {
+  const build = socketsEmpty();
+  const totals = aggregate(build, dataset);
+  const side = sideGoals(build, totals, dataset);
+  const keys = side.map((g) => g.key);
+  for (const k of ['res_elements', 'res_races', 'res_damage', 'kill_sustain', 'aspd_limit', 'vit', 'int']) {
+    assert.ok(keys.includes(k), k);
+  }
+  // A caster's goals leave ASPD Limit out.
+  const caster = { ...build, goals: [{ key: 'matk', column: 'percent' as const, target: 0 }] };
+  assert.ok(!sideGoals(caster, totals, dataset).some((g) => g.key === 'aspd_limit'));
+
+  const goals = allGoals(build, dataset);
+  const s = new Suggester(dataset, goals, { className: 'Satsujin', maxLevel: null, refine: null });
+  const put = (slot: string, name: string) =>
+    applyChanges(build, [{ slot, state: { itemId: byName(name).id, refine: 0, cards: [] } }], dataset);
+  const at = (b: Build) => s.values(b)[keys.indexOf('res_races') + goals.length - side.length];
+  // Godslayer's -50% against every race counts as -100.
+  let god = build;
+  for (const [slot, name] of [['sh_armor', 'Godslayer Armor'], ['sh_gloves', 'Godslayer Gloves'],
+    ['sh_shoes', 'Godslayer Shoes'], ['sh_acc', 'Godslayer Pendant']]) {
+    god = applyChanges(god, [{ slot, state: { itemId: byName(name).id, refine: 0, cards: [] } }], dataset);
+  }
+  assert.equal(at(god) - at(build), -100);
+  // Asprika is worth something for its resistances alone; the same
+  // resistances taken away cost as much.
+  const res = side.find((g) => g.key === 'res_elements')!;
+  assert.ok(goalScore([res], [res.target + 18]) < goalScore([res], [res.target]));
+  assert.ok(Math.abs((goalScore([res], [res.target - 18]) - goalScore([res], [res.target]))
+    - (goalScore([res], [res.target]) - goalScore([res], [res.target + 18]))) < 1e-9);
+  // And it is no longer something the build cannot use.
+  assert.ok(s.score(put('garment', 'Asprika')) < s.score(build));
 });

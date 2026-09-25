@@ -170,6 +170,12 @@ for _r in RACES:
 STATS.append(("res_melee", "Melee Resistance", "defence"))
 STATS.append(("res_ranged", "Ranged Resistance", "defence"))
 
+# HP and SP back per kill: "Recover 500 HP when killing an enemy". Sustain
+# rather than pool, and for many builds the thing that pays their SP costs.
+# Appended last, like the families above.
+STATS.append(("hp_on_kill", "HP on Kill", "resource"))
+STATS.append(("sp_on_kill", "SP on Kill", "resource"))
+
 INDEX = {key: i for i, (key, _, _) in enumerate(STATS)}
 
 # Stats that do not simply add up.
@@ -228,6 +234,8 @@ def _n(text: str) -> str:
     t = re.sub(r"\s+", " ", t)
     return t.strip()
 
+
+_NON_NEUTRAL = [f"res_{e}" for e in ELEMENTS if e != "neutral"]
 
 # One phrase -> one or more canonical keys.
 ALIASES: dict[str, list[str]] = {
@@ -338,6 +346,22 @@ ALIASES: dict[str, list[str]] = {
     "defense and magic defense penetration": ["def_pen", "mdef_pen"],
     "resistance to all elements": [f"res_{e}" for e in ELEMENTS],
     "all element resistance": [f"res_{e}" for e in ELEMENTS],
+    # Every element but Neutral, in the wordings the tooltips use: Asprika's
+    # "All non-neutral damage reduction +20%" was read and then dropped.
+    "all non-neutral damage reduction": _NON_NEUTRAL,
+    "non-neutral damage reduction": _NON_NEUTRAL,
+    "non-neutral resistance": _NON_NEUTRAL,
+    "all non-neutral resistance": _NON_NEUTRAL,
+    "all elements (except neutral) resistance": _NON_NEUTRAL,
+    "all damage reduction": ["damage_reduction"],
+    # Damage received, which is lower-is-better: the "Reduction" in the
+    # wording flips the sign, so "Physical Reduction +10%" is -10% received.
+    "physical reduction": ["physical_damage_received"],
+    "physical damage reduction": ["physical_damage_received"],
+    "magic reduction": ["magic_damage_received"],
+    "magic damage reduction": ["magic_damage_received"],
+    "bleed resistance": ["res_status_bleeding"],
+    "hp on kill": ["hp_on_kill"], "sp on kill": ["sp_on_kill"],
     "healing done and received": ["healing_power", "healing_received"],
     "variable casting time": ["variable_cast"],
     "fixed casting time": ["fixed_cast"],
@@ -598,8 +622,12 @@ def _targets(text: str) -> list[str]:
         if re.fullmatch(r"undead\s+race", w):
             out.append("undead race")
             continue
-        w = re.sub(r"\s*\b(element|elemental|monsters?|race|type|size|enemies|"
-                   r"enemy|targets?)\b\s*$", "", w).strip()
+        # Until nothing more comes off: "Dark element monsters" is two noise
+        # words deep, and one pass left "dark element", which is no element.
+        noise = re.compile(r"\s*\b(element|elemental|monsters?|race|type|size|enemies|"
+                           r"enemy|targets?)\b\s*$")
+        while noise.search(w):
+            w = noise.sub("", w).strip()
         if not w:
             continue
         # "Damage vs Dragons" names the same race as "vs Dragon".

@@ -9,7 +9,7 @@ import { test } from 'node:test';
 import { PlanRunner, type PlanMessage, type PlanRequest } from '../src/planjobs.ts';
 import type { PlanPaths, Suggester } from '@sim';
 
-const empty = { near: [], refines: [], rolls: [], far: [], sides: [], farm: [], sets: [] };
+const empty = { near: [], cards: [], refines: [], rolls: [], far: [], sides: [], farm: [], sets: [] };
 /** A stand-in suggester whose search yields `n` snapshots, counting its own progress. */
 function fake(n: number) {
   const progress = { made: 0 };

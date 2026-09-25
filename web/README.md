@@ -81,6 +81,12 @@ The build in front of you is saved as you work on it, in one slot. The
   it, so reordering fails there rather than silently loading someone's saved
   link into the wrong slots. Appending to `SLOTS` is safe.
 
+  "Empty tails left off" once cost goals their target: a target of 0 at the
+  end of a goal's row was trimmed, read back as missing, and the goal was
+  dropped on load. A missing target now reads as 0, which also rescues links
+  written before the fix, and a goal carries whether it is open and its cap,
+  after the old fields where an older reader does not look.
+
   The tag is what makes the format safe to change. Every format this has ever
   written still decodes, so a link someone saved a year ago keeps working;
   only the writing side moves.
@@ -167,10 +173,10 @@ Goals drive three things:
 - A **Recommended** tab in the picker: other pieces, pieces with their cards
   chosen (a four-socket weapon with four of the right card), better cards in
   what is already worn, and finishing a set that has a piece in that slot.
-- **Suggest changes**: a short plan across the whole build, applied step by
-  step or all at once.
+- **Suggest changes**: recommendations across the whole build, each its own
+  upgrade -- get this piece, card it, refine it -- rather than a chain.
 - **Clicking a goal's name**: the best ways to get more of that one number,
-  which is the question the plan cannot answer once every target is met.
+  whatever else it costs.
 
 **"Just give me more of this."** Click the name of any goal and a window opens
 over the build — the same overlay the item picker uses, since the rows are full
@@ -320,12 +326,24 @@ all count exactly as the stat panel counts them. Each goal is weighed as a
 fraction of its own target, so 10 missing crit is not drowned out by 1,000
 missing HP.
 
-The plan is **greedy**: each step is the best single move after the steps
-before it. That finds a good route quickly (about 100 ms), but it is not a
-search for the best possible build. Sets are handled as one move that puts on
-every missing piece, because until the last piece goes on no single swap
-looks like progress. Per-skill bonuses are not counted, so they cannot be
-goals.
+A percentage is weighed out of at least 100, whatever its target: it is a
+multiplier, so ATK +5% is a twentieth more damage whether the goal started at
+0 or at 40. Penetration is weighed the same way, since it runs 0–100. Before
+this, a percent goal starting at 0 counted each 1% as a whole target, and +14%
+ATK outscored +3 AGI by several hundred times. `scaleOf` in
+`sim/src/suggest.ts`.
+
+**Recommendations, not a plan.** "Suggest changes" lists independent
+upgrades, each measured from the build as it is: the best swap for every slot
+and the best couple of sets (**Recommended**), the best cards for each piece
+already worn, empty sockets first (**Cards for what you wear**), refines,
+better-rolled copies, other sets, trades, and what is further off. One row can
+still be several things at once -- a piece, with cards, at a refine -- but no
+row depends on another. It used to be a greedy plan of steps that built on
+each other; a chain hid every slot its first steps did not reach, and a player
+picks an upgrade, not a route. `Suggester.plan` still exists for the route.
+The same lists appear whether goals are short or met: a short goal simply
+counts for more in each.
 
 ### Guard rails
 
@@ -352,6 +370,29 @@ an ordinary goal ("SP sustain %").
 They live under "Guard rails" in the Goals panel, folded away, with each target
 editable and each removable. An absent `guards` field on a build means the
 defaults; an empty array means the player took them off and meant it.
+
+**Side goals: what every build cares about a little.** Besides the goals a
+player sets, every suggestion is weighed against a few numbers that matter to
+any character, each held where the build already is (`sideGoals` in
+`sim/src/suggest.ts`):
+
+| Side goal | Worth, per unit | Why |
+| --- | --- | --- |
+| Max HP %, Max SP % | losses only, 0.25 per 100% | every class uses both; crediting gains would let HP gear crowd out the goals |
+| Resistance vs elements, vs races (averages) | 0.5 per 100%, both ways; a negative member counts double | good side goals whatever the build; a hole like Godslayer's -50% vs every race is devastating |
+| Damage reduction (final, melee/ranged, physical/magic received) | 0.5 per 100%, both ways | the same, for everything at once |
+| HP/SP on kill, as % of a 10,000 HP / 500 SP pool | 0.5 per 100% | pays for a great deal of HP and SP costs (Wyrdbrand) |
+| ASPD Limit | 0.03 per point, physical builds only | what attack-speed builds run into; worth nothing to a caster |
+| VIT, INT (totals) | 0.003 per point | more HP, SP and regeneration for any build: a +6 Valkyrie Circlet is worth having |
+
+All of these weights are calibrations, not measurements. Side goals never
+rank and are never "broken" -- a little HP for a lot of damage is a trade to
+weigh, not one to rule out -- but "Recommended" and the other upgrade lists,
+which promise to lower nothing, leave anything that lowers one to the
+sidegrades. None of their stats is ever filed under "not used by this
+build". They are not stored on the build and cannot be removed; a goal of the
+player's own on the same number takes its place, and each can be chosen as an
+ordinary goal too.
 
 ### Filling a set
 

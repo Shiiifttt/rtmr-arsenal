@@ -7311,7 +7311,16 @@
   "effects": [
    {
     "text": "Recovers 10 SP per kill",
-    "parsed": false
+    "stat": "SP on Kill",
+    "value": 10,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     155
+    ],
+    "stat_keys": [
+     "sp_on_kill"
+    ]
    }
   ],
   "piece_bonus": [],
