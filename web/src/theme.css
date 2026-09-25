@@ -730,7 +730,10 @@ input:focus, select:focus, button:focus-visible {
 .move-main { flex: 1; min-width: 0; }
 /* What the suggestion puts on, so a recommendation reads like the picker
    rather than like a paragraph. */
-.move-icons { display: flex; gap: 3px; flex: none; }
+/* Three to a row, so a set and its win-back changes wrap rather than
+   squeezing the label. */
+.move-icons { display: flex; flex-wrap: wrap; align-content: flex-start; gap: 3px; flex: none;
+  max-width: 78px; }
 .move-icons .icon { width: 24px; height: 24px; cursor: help; }
 /* A piece the suggestion puts on: hover for its full tooltip. */
 .move-piece, .move-label { cursor: help; }

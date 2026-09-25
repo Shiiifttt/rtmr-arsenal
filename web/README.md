@@ -542,6 +542,16 @@ it is within reach; the rest are sidegrades like any other. One row, one
 decision: "Complete Aggressive Orphan set + +6 Laevateinn with Pinguicula Card
 + +6 Laevateinn with Pinguicula Card (Off-hand)".
 
+**Trades are also tried at up to +9.** A +9 Valkyrie Circlet is a trade for a
+Wyrdbrand where a +6 one is not, so each piece the trade search finds is tuned
+again with +9 allowed, and where the refine pays it is listed too. A refine
+past the build's usual counts as a stretch like a long grind: marked high
+effort and ranked at `HIGH_EFFORT_DISCOUNT`.
+
+**A set's row is titled by the set.** "Complete Aggressive Orphan set, set
+refine 18" -- the pieces, each at its refine, are the hoverable list under it,
+and a combination's icons show every part, three to a row.
+
 **A set is refined together.** Set refine is the sum over the pieces, so a
 threshold like Aggressive Orphan's "set refine 9+ and again at 18+" is out of
 any one piece's reach, and tuning one piece at a time left all four at +0.

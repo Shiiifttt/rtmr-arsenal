@@ -2106,10 +2106,16 @@ export class Suggester {
   private beyondReach(build: Build, move: Move, reach: Reach | null): boolean {
     if (!reach) return false;
     const near = new Suggester(this.data, [], { ...this.opts, reach });
-    return move.changes.some((c) => newIds(build, c).some((id) => {
-      const item = this.data.items.get(id);
-      return !!item && !near.allowed(item);
-    }));
+    return move.changes.some((c) => {
+      // A piece put on at a refine past the build's usual is a stretch too.
+      const worn = build.slots[c.slot];
+      const raised = c.state.itemId !== worn?.itemId ? c.state.refine : c.state.refine - (worn?.refine ?? 0);
+      if (raised > 0 && c.state.refine > reach.refine) return true;
+      return newIds(build, c).some((id) => {
+        const item = this.data.items.get(id);
+        return !!item && !near.allowed(item);
+      });
+    });
   }
 
   /**
@@ -2166,12 +2172,8 @@ export class Suggester {
     const retuned = (move: Move): Move => {
       if (move.kind !== 'set') return move;
       const { changes } = tuner.tune(build, move.changes);
-      const name = setName(move);
-      const pieces = changes.map((c) => {
-        const item = this.data.items.get(c.state.itemId ?? -1);
-        return item ? named(item, c.state) : c.slot;
-      });
-      return { ...move, changes, ...(name ? { label: `Complete ${name} set: ${pieces.join(', ')}` } : {}) };
+      const set = this.data.sets.find((x) => x.name === setName(move));
+      return { ...move, changes, ...(set ? { label: this.setTitle(build, set, changes) } : {}) };
     };
     const rate = (found: Move, pairable = true) => {
       const move = pairable ? retuned(found) : found;
@@ -2241,6 +2243,12 @@ export class Suggester {
       const inner = new Suggester(this.data, [goal], wideOpts);
       inner.pushing = true;
       if (!inner.active) continue;
+      // And the same at up to +9, where the refine pays: a +9 Valkyrie
+      // Circlet is a trade for a Wyrdbrand where a +6 one is not. Marked high
+      // effort past the build's usual refine, so ranked below what is close.
+      const refined = new Suggester(this.data, [goal],
+        { ...wideOpts, reach: wideOpts.reach && { ...wideOpts.reach, refine: Math.max(wideOpts.reach.refine, REFINE_MOVE_CAP) } });
+      refined.pushing = true;
       // Re-carding what is worn, which three new pieces for the slot would
       // otherwise crowd out: melee cards for the Hodremlins in a knife
       // already in the off hand is a trade worth seeing. Within reach as well
@@ -2257,6 +2265,16 @@ export class Suggester {
         }
       }
       found.push(...inner.setMoves(build));
+      // Each piece found, tuned again with +9 allowed: only where refine pays
+      // does it come back different.
+      for (const move of [...found]) {
+        if (move.kind !== 'item' || move.changes.length !== 1) continue;
+        const { changes } = refined.tune(build, move.changes);
+        const [c] = changes;
+        const item = this.data.items.get(c.state.itemId ?? -1);
+        if (!item || c.state.refine === move.changes[0].state.refine) continue;
+        found.push({ ...move, changes, label: move.label.replace(/^(\+\d+ )?/, `+${c.state.refine} `) });
+      }
       for (const move of dedupe(found)) rate(move);
       yield lists();
     }
@@ -2572,18 +2590,26 @@ export class Suggester {
       if (!this.respectsLocks(build, changes)) continue;
       const gain = baseline - scoreOf(this.goals, after);
       if (gain <= EPSILON) continue;
-      const names = missing.map((id) => {
-        const item = this.data.items.get(id);
-        const state = changes.find((c) => c.state.itemId === id)?.state;
-        return item ? (state ? named(item, state) : item.name) : `#${id}`;
-      });
       moves.push({
         kind: 'set',
-        label: `Complete ${set.name} set: ${names.join(', ')}`,
+        label: this.setTitle(build, set, changes),
         changes, gain, before, after,
       });
     }
     return moves;
+  }
+
+  /**
+   * "Complete Aggressive Orphan set, set refine 18": the set and what its
+   * refine comes to, and no more. The pieces, each at its refine, are the
+   * row's own list below it, where each can be hovered; naming them here as
+   * well said everything twice.
+   */
+  private setTitle(build: Build, set: SetRecord, changes: SlotChange[]): string {
+    const progress = aggregate(applyChanges(build, changes, this.data), this.data).setProgress
+      .find((p) => p.set.index === set.index);
+    const refine = progress?.setRefine ?? 0;
+    return `Complete ${set.name} set${refine > 0 ? `, set refine ${refine}` : ''}`;
   }
 
   /** Are these worn pieces, all of them, members of one set the build has complete? */
@@ -2949,7 +2975,7 @@ function emptyPaths(): UpgradePaths {
 
 /** "Ornstein's Gift" for a move that completes that set; '' for anything else. */
 function setName(move: Move): string {
-  return move.kind === 'set' ? /^Complete (.+?) set:/.exec(move.label)?.[1] ?? '' : '';
+  return move.kind === 'set' ? /^Complete (.+?) set\b/.exec(move.label)?.[1] ?? '' : '';
 }
 
 /** The moves that help, most first. */

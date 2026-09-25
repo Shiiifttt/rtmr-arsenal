@@ -555,7 +555,9 @@ export function MoveRow({ move, goals, action, onApply, dataset, build, note }: 
       }
       if (seen.size === 0 && p.item) out.push({ item: p.item, target: props });
     }
-    return out.slice(0, 4);
+    // A combination -- a set and the changes that win back what it cost --
+    // shows those changes too: the set's first pieces and the last two.
+    return out.length > 6 ? [...out.slice(0, 4), ...out.slice(-2)] : out;
   }, [pieces]);
 
   return (

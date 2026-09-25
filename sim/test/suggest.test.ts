@@ -1527,7 +1527,7 @@ test('a whole shadow set can be traded for another, with one change to win back 
   const slots = pair!.changes.map((c) => c.slot);
   assert.ok(slots.includes('sh_armor') && slots.some((k) => !k.startsWith('sh_')));
   // Each set once, paired or not.
-  const names = sides.filter((m) => m.kind === 'set').map((m) => /^Complete (.+?) set:/.exec(m.label)?.[1]);
+  const names = sides.filter((m) => m.kind === 'set').map((m) => /^Complete (.+?) set\b/.exec(m.label)?.[1]);
   assert.equal(new Set(names).size, names.length);
   // No combination crosses a guard -- one that wins SP back at -25% move
   // speed is not a fix -- and adds at most two changes.
