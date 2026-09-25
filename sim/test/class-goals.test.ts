@@ -107,17 +107,30 @@ test('goals from a playstyle start met, in the playstyle\'s order, bar a set tar
   // Penetration is the one goal with a number of its own, and a naked
   // character is short of it; everything else starts where the build is.
   assert.deepEqual(status.filter((s) => !s.met).map((s) => s.goal.key), ['def_pen']);
-  assert.equal(goals.find((g) => g.key === 'def_pen')?.target, 50);
+  assert.equal(goals.find((g) => g.key === 'def_pen')?.target, 25);
+  assert.equal(goals.find((g) => g.key === 'def_pen')?.cap, 70);
+  assert.ok(goals.every((g) => g.open), 'a preset target is a starting line, not a stopping point');
   assert.equal(goals.find((g) => g.key === 'agi')?.target, 90);
 });
 
-test('every damage playstyle chases penetration to 50, right after its main stat', () => {
+test('every damage playstyle chases penetration to 25 and on to 70, right after its main stat', () => {
   for (const [cls, styles] of Object.entries(presets)) {
     if (cls === 'Orphan') continue;
     for (const s of styles) {
       const at = s.goals.findIndex((g) => g.key === 'def_pen' || g.key === 'mdef_pen');
       assert.equal(at, 1, `${cls} / ${s.name}`);
-      assert.equal(s.goals[at].target, 50, `${cls} / ${s.name}`);
+      assert.equal(s.goals[at].target, 25, `${cls} / ${s.name}`);
+      assert.equal(s.goals[at].cap, 70, `${cls} / ${s.name}`);
     }
+  }
+});
+
+test('Satsujin starts on the stats every piece feeds: STR and AGI, SP cost, no skill lines', () => {
+  const [moon, magic] = presets.Satsujin;
+  const keys = (s: typeof moon) => s.goals.map((g) => g.key);
+  assert.ok(keys(moon).includes('agi') && keys(moon).includes('str'));
+  for (const style of [moon, magic]) {
+    assert.ok(style.goals.some((g) => g.key === 'sp_cost' && g.atMost), style.name);
+    assert.ok(!keys(style).some((k) => k.startsWith('skill:')), style.name);
   }
 });

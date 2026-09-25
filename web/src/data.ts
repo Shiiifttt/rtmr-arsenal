@@ -12,7 +12,8 @@ import {
  * the stat totals synchronous, which is what makes the UI feel immediate.
  */
 export async function loadDataset(base = './data'): Promise<Dataset> {
-  const [itemList, sets, stats, classes, classRules, rolls, armorTargets, effort, classGoals] =
+  const [itemList, sets, stats, classes, classRules, rolls, armorTargets, effort, classGoals,
+    levelReach] =
     await Promise.all([
       getJSON<Item[]>(`${base}/items/all.json`),
       getJSON<SetRecord[]>(`${base}/sets/all.json`),
@@ -36,6 +37,10 @@ export async function loadDataset(base = './data'): Promise<Dataset> {
       // my class" button, nothing else.
       getJSON<{ presets: ClassGoals }>(`${base}/class-goals.json`)
         .then((f) => f.presets).catch(() => null),
+      // What each level typically farms. Missing it means a build with no
+      // hard-to-get gear is not held to anything.
+      getJSON<Record<string, [number, number]>>(`${base}/mobs/level-reach.json`)
+        .catch(() => null),
     ]);
 
   bindBaseStatIds(stats);
@@ -55,6 +60,10 @@ export async function loadDataset(base = './data'): Promise<Dataset> {
         .map(([id, [e, kill, via]]) => [Number(id), { effort: e, kill, via }]))
       : null,
     classGoals,
+    levelReach: levelReach
+      ? new Map(Object.entries(levelReach)
+        .map(([level, [e, kill]]) => [Number(level), { effort: e, kill }]))
+      : null,
   };
 }
 

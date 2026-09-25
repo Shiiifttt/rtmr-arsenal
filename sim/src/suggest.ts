@@ -339,7 +339,18 @@ export interface UpgradePaths {
   sides: Move[];
   /** High-effort moves far enough ahead of the rest to target-farm. */
   farm: Move[];
+  /** Other sets worth finishing, beyond the one a list above already took. */
+  sets: Move[];
 }
+
+/** What the suggestion overlay shows: the upgrade paths, and a plan's steps. */
+export interface PlanPaths extends UpgradePaths {
+  /** Steps towards unmet goals, in order; empty once every goal is met. */
+  steps: Move[];
+}
+
+/** How many alternative sets are listed. */
+export const SET_ALTERNATIVES = 4;
 
 /**
  * What a piece past the build's reach is discounted by when ranked against
@@ -376,7 +387,8 @@ export function tradeValue(
   goals.forEach((goal, i) => {
     if (goal.guard) return;
     const scale = Math.max(Math.abs(goal.target), Math.abs(before[i]), 1);
-    const term = priorityWeight(i) * (goal.atMost ? -1 : 1) * (after[i] - before[i]) / scale;
+    const term = priorityWeight(i) * (goal.atMost ? -1 : 1)
+      * (capped(goal, after[i]) - capped(goal, before[i])) / scale;
     total += gainsOnly ? Math.max(0, term) : term;
   });
   return total;
@@ -449,13 +461,33 @@ export function reachOf(build: Build, data: Dataset): Reach {
     const sorted = [...xs].sort((a, b) => b - a);
     return sorted[1] ?? sorted[0];
   };
-  const effort = secondBest(efforts);
-  const kill = secondBest(kills);
+  // The character's level is a floor under what its gear says: whatever it
+  // wears, it can farm the monsters of its own level -- and a fresh
+  // character in starter gear would otherwise read as having no limit.
+  const floor = levelFloor(build.baseLevel, data);
+  const effort = maxOf(secondBest(efforts), floor?.effort);
+  const kill = maxOf(secondBest(kills), floor?.kill);
   return {
     effort: effort === undefined ? null : effort * REACH_EFFORT_FACTOR,
     kill: kill === undefined ? null : kill * REACH_KILL_FACTOR,
     refine: Math.max(REACH_REFINE_FLOOR, secondBest(refines) ?? 0),
   };
+}
+
+/** The larger of two numbers either of which may be missing. */
+function maxOf(a: number | undefined, b: number | undefined): number | undefined {
+  return a === undefined ? b : b === undefined ? a : Math.max(a, b);
+}
+
+/** What a character of this level typically farms; the nearest level below if missing. */
+function levelFloor(level: number, data: Dataset): { effort: number; kill: number } | undefined {
+  const table = data.levelReach;
+  if (!table) return undefined;
+  for (let l = level; l >= 1; l--) {
+    const row = table.get(l);
+    if (row) return row;
+  }
+  return undefined;
 }
 
 /**
@@ -504,7 +536,8 @@ export function goalsFromBuild(build: Build, totals: Totals, data: Dataset): Goa
     key: string, column: Goal['column'], sources: number, lower: boolean, fed?: number,
   ) => {
     if (sources < (wanted.has(key) ? 1 : FOCUS_MIN_SOURCES)) return;
-    const goal: Goal = { key, column, target: 0, ...(lower ? { atMost: true } : {}) };
+    // Open: the target is where the build is, not where the stat stops mattering.
+    const goal: Goal = { key, column, target: 0, open: true, ...(lower ? { atMost: true } : {}) };
     const value = measure(goal, totals, build, data);
     if (fed !== undefined && Math.abs(value) < Math.abs(fed) / 2) return;
     if (fed !== undefined && Math.sign(value) !== Math.sign(fed)) return;
@@ -683,6 +716,27 @@ function shortOf(goal: Goal, value: number): number {
   return goal.atMost ? value - goal.target : goal.target - value;
 }
 
+/** A goal's value with anything past its cap cut off: past it, more is nothing. */
+export function capped(goal: Goal, value: number): number {
+  if (goal.cap === undefined) return value;
+  return goal.atMost ? Math.max(value, goal.cap) : Math.min(value, goal.cap);
+}
+
+/**
+ * What an open goal's surplus is worth, as a fraction of its target: all of
+ * it up to the cap. Zero for a goal that is not open, or not yet met.
+ *
+ * A goal read off the build or a preset starts at where the build already
+ * is. Crediting what lies past that at a tenth, on a log, as an ordinary
+ * goal's surplus is, made it a line the build had reached and could stop
+ * at -- so penetration at a set 50 pulled every plan towards the one set
+ * that had it, and nothing past it counted.
+ */
+function openSurplus(goal: Goal, value: number): number {
+  if (!goal.open) return 0;
+  return Math.max(0, -shortOf(goal, capped(goal, value))) / scaleOf(goal);
+}
+
 /**
  * Goals are compared as fractions of their own target, so 10 missing crit
  * and 1,000 missing HP are weighed as what they are relative to what was
@@ -755,12 +809,14 @@ function scoreExcept(goals: Goal[], values: number[], skip: number): number {
   let score = 0;
   goals.forEach((goal, i) => {
     if (i === skip) return;
-    const short = shortOf(goal, values[i]) / scaleOf(goal);
+    const short = shortOf(goal, capped(goal, values[i])) / scaleOf(goal);
     // A guard that holds is worth nothing. Crediting the surplus would turn
     // "don't halve my HP" into "keep taking HP", which is a different thing
     // to ask for and one the player can ask for with an ordinary goal.
     if (short <= 0 && goal.guard) return;
-    score += weightOf(goal, i) * (short > 0 ? short : -SURPLUS_WEIGHT * Math.log1p(-short));
+    const surplus = goal.open ? openSurplus(goal, values[i])
+      : SURPLUS_WEIGHT * Math.log1p(Math.max(0, -short));
+    score += weightOf(goal, i) * (short > 0 ? short : -surplus);
   });
   return score;
 }
@@ -816,7 +872,10 @@ function improvesAny(goals: Goal[], before: number[], after: number[]): boolean 
 function shortfallOf(goals: Goal[], values: number[]): number {
   let total = 0;
   goals.forEach((goal, i) => {
-    total += weightOf(goal, i) * Math.max(0, shortOf(goal, values[i])) / scaleOf(goal);
+    // An open goal is not done at its target, so refine is tuned for its
+    // surplus too; an ordinary goal's surplus is left to the full score.
+    total += weightOf(goal, i) * (Math.max(0, shortOf(goal, values[i])) / scaleOf(goal)
+      - openSurplus(goal, values[i]));
   });
   return total;
 }
@@ -933,6 +992,11 @@ export class Suggester {
     this.setsTouching = new Set(this.sets.map((s) => s.index));
     this.cards = data.itemList.filter((i) =>
       i.kind === 'Card' && this.allowed(i) && touches(i, this.relevant));
+  }
+
+  /** The options it was built with, so the same suggester can be rebuilt elsewhere. */
+  get options(): SuggestOptions {
+    return this.opts;
   }
 
   get active(): boolean {
@@ -1423,7 +1487,7 @@ export class Suggester {
     const rated: { move: Move; push: number; cost: number; broken: number }[] = [];
     for (const move of dedupe(candidates)) {
       const after = this.values(applyChanges(build, move.changes, this.data));
-      const push = dir * (after[index] - before[index]) / scale;
+      const push = dir * (capped(mine, after[index]) - capped(mine, before[index])) / scale;
       // More of the stat is the whole question, so anything that does not
       // give more of it is not an answer, however good it is otherwise.
       if (push <= EPSILON) continue;
@@ -1480,8 +1544,18 @@ export class Suggester {
    * to cost it the SP efficiency it was built around.
    */
   upgradePaths(build: Build, perKind = 8): UpgradePaths {
-    const empty = { near: [], refines: [], rolls: [], far: [], sides: [], farm: [] };
-    if (!this.active) return empty;
+    return last(this.upgradeStream(build, perKind), emptyPaths());
+  }
+
+  /**
+   * `upgradePaths` a piece at a time: a snapshot after each slot, each list
+   * and each goal's trades, so a caller can show what is found as it is
+   * found. The last snapshot is the answer. Cheapest and closest first --
+   * within reach, sets, refines, rolls -- then what is further off.
+   */
+  *upgradeStream(build: Build, perKind = 8): Generator<UpgradePaths> {
+    const out = emptyPaths();
+    if (!this.active) { yield out; return; }
     const held = this.heldAt(build);
     const reach = this.reachFor(build);
     const make = (r: Reach | null) => {
@@ -1494,24 +1568,103 @@ export class Suggester {
     const best = (moves: Move[]) => moves
       .filter((m) => m.gain > EPSILON)
       .sort((a, b) => b.gain - a.gain);
-    const bestPerSlot = (s: Suggester, keep: (m: Move) => boolean) => SLOTS.flatMap((slot) => {
-      const top = best(s.slotMoves(build, slot.key, 3, false, false))
-        .find((m) => s.keeps(build, m) && keep(m));
-      return top ? [top] : [];
-    });
+    const topOf = (s: Suggester, slot: string, keep: (m: Move) => boolean) =>
+      best(s.slotMoves(build, slot, 3, false, false)).find((m) => s.keeps(build, m) && keep(m));
+    const snap = (): UpgradePaths => ({ ...out });
 
+    const perSlot: Move[] = [];
+    for (const slot of SLOTS) {
+      const top = topOf(near, slot.key, () => true);
+      if (!top) continue;
+      perSlot.push(top);
+      out.near = best([...perSlot]).slice(0, perKind);
+      yield snap();
+    }
     const nearSets = best(near.setMoves(build)).filter((m) => near.keeps(build, m));
-    const upgrades = best([...bestPerSlot(near, () => true), ...nearSets]).slice(0, perKind);
-    const far = best(bestPerSlot(wide, (m) => this.beyondReach(build, m, reach)))
-      .slice(0, perKind).map((m) => ({ ...m, highEffort: true }));
-    return {
-      near: upgrades,
-      refines: best(near.refineMoves(build)).filter((m) => near.keeps(build, m)).slice(0, perKind),
-      rolls: best(SLOTS.flatMap((slot) => near.rollMoves(build, slot.key)))
-        .filter((m) => near.keeps(build, m)).slice(0, 3),
-      far,
-      ...this.tradeOffs(build, upgrades, far, perKind),
-    };
+    const upgrades = best([...perSlot, ...nearSets]).slice(0, perKind);
+    out.near = upgrades;
+    out.sets = nearSets.filter((m) => !upgrades.some((u) => u.label === m.label))
+      .slice(0, SET_ALTERNATIVES);
+    yield snap();
+    out.refines = best(near.refineMoves(build)).filter((m) => near.keeps(build, m)).slice(0, perKind);
+    out.rolls = best(SLOTS.flatMap((slot) => near.rollMoves(build, slot.key)))
+      .filter((m) => near.keeps(build, m)).slice(0, 3);
+    yield snap();
+
+    const far: Move[] = [];
+    for (const slot of SLOTS) {
+      const top = topOf(wide, slot.key, (m) => this.beyondReach(build, m, reach));
+      if (!top) continue;
+      far.push({ ...top, highEffort: true });
+      out.far = best([...far]).slice(0, perKind);
+      yield snap();
+    }
+    for (const t of this.tradeOffStream(build, upgrades, out.far, perKind)) {
+      out.sides = t.sides;
+      out.farm = t.farm;
+      yield snap();
+    }
+  }
+
+  /**
+   * Everything the suggestion overlay shows, a section at a time.
+   *
+   * With every goal met, the upgrade paths. With goals short, the plan
+   * towards them, a step at a time, and around it refines, better rolls,
+   * other sets, what is out of reach and trades. Each snapshot is complete
+   * as far as it goes; the last is the answer. A generator so the work can
+   * be spread out -- the app runs it off the page, showing each snapshot as
+   * it lands -- and paused and picked up again where it stopped.
+   */
+  *paths(build: Build): Generator<PlanPaths> {
+    if (goalStatus(this.goals, aggregate(build, this.data), build, this.data).every((s) => s.met)) {
+      for (const p of this.upgradeStream(build)) yield { steps: [], ...p };
+      return;
+    }
+    const out: PlanPaths = { steps: [], ...emptyPaths() };
+    const snap = (): PlanPaths => ({ ...out });
+    yield snap();
+    for (const steps of this.planStream(build)) {
+      out.steps = steps;
+      yield snap();
+    }
+    // Refines the plan already takes are not listed twice.
+    const planned = new Set(out.steps.map((m) => m.label));
+    out.refines = this.refineUpgrades(build).filter((m) => !planned.has(m.label));
+    out.rolls = this.rollUpgrades(build);
+    yield snap();
+    out.sets = this.setAlternatives(build, out.steps);
+    yield snap();
+    out.far = this.stretchMoves(build);
+    yield snap();
+    for (const t of this.tradeOffStream(build, out.steps, out.far)) {
+      out.sides = t.sides;
+      out.farm = t.farm;
+      yield snap();
+    }
+  }
+
+  /**
+   * The best few sets to finish within reach, other than any in `taken`.
+   *
+   * A plan takes the one set that scores best and moves on, so a close
+   * second -- Fallen Civilization beside Dragon Claw -- is never seen. A
+   * set is a bigger decision than one swap, and which one depends on what
+   * the player can farm, so the runners-up are listed on their own. Each
+   * keeps every goal and complete set, as a plan step would.
+   */
+  setAlternatives(build: Build, taken: Move[] = [], limit = SET_ALTERNATIVES): Move[] {
+    if (!this.active) return [];
+    const held = this.withinReach(build);
+    const upgrading = goalStatus(this.goals, aggregate(build, this.data), build, this.data)
+      .every((s) => s.met);
+    const s = new Suggester(this.data, this.goals, held.opts);
+    s.pushing = held.pushing || upgrading;
+    const labels = new Set(taken.map((m) => m.label));
+    return s.setMoves(build)
+      .filter((m) => m.gain > EPSILON && !labels.has(m.label) && s.keeps(build, m))
+      .sort((a, b) => b.gain - a.gain)
+      .slice(0, limit);
   }
 
   /**
@@ -1558,7 +1711,14 @@ export class Suggester {
    * the within-reach swaps -- is called out in `farm`, if it drops anywhere.
    */
   tradeOffs(build: Build, upgrades: Move[], far: Move[], limit = 8): { sides: Move[]; farm: Move[] } {
-    if (!this.active) return { sides: [], farm: [] };
+    return last(this.tradeOffStream(build, upgrades, far, limit), { sides: [], farm: [] });
+  }
+
+  /** `tradeOffs` a goal at a time: the lists so far, after each goal's search. */
+  *tradeOffStream(
+    build: Build, upgrades: Move[], far: Move[], limit = 8,
+  ): Generator<{ sides: Move[]; farm: Move[] }> {
+    if (!this.active) { yield { sides: [], farm: [] }; return; }
     const held = this.heldAt(build);
     const reach = this.reachFor(build);
     const before = this.values(build);
@@ -1569,29 +1729,24 @@ export class Suggester {
     const covered = relevanceOf(this.goals, this.data);
     const totalsBefore = aggregate(build, this.data);
 
-    const candidates: Move[] = [];
-    for (const goal of held) {
-      if (goal.guard) continue;
-      const inner = new Suggester(this.data, [goal], wideOpts);
-      inner.pushing = true;
-      if (!inner.active) continue;
-      for (const slot of SLOTS) candidates.push(...inner.slotMoves(build, slot.key, 3, false, false));
-      candidates.push(...inner.setMoves(build));
-    }
-
-    const rated: { move: Move; value: number; rank: number; slot: string }[] = [];
-    for (const move of dedupe(candidates)) {
-      if (!this.respectsLocks(build, move.changes)) continue;
+    type Rated = { move: Move; value: number; rank: number; slot: string };
+    const rated: Rated[] = [];
+    const seen = new Set<string>();
+    const rate = (move: Move) => {
+      const key = stateKey(move);
+      if (seen.has(key)) return;
+      seen.add(key);
+      if (!this.respectsLocks(build, move.changes)) return;
       const next = applyChanges(build, move.changes, this.data);
       const after = this.values(next);
       const moved = held.map((g, i) => (g.guard ? 0 : (g.atMost ? -1 : 1) * (after[i] - before[i])));
       // Upgrades are listed as upgrades; this is for what costs something.
-      if (!moved.some((d) => d < -EPSILON) || !moved.some((d) => d > EPSILON)) continue;
+      if (!moved.some((d) => d < -EPSILON) || !moved.some((d) => d > EPSILON)) return;
       // A trade may cost a goal; it may not cross a guard's line.
-      if (brokenGoals(this.goals, before, after).some((g) => g.guard)) continue;
+      if (brokenGoals(this.goals, before, after).some((g) => g.guard)) return;
       const value = tradeValue(held, before, after)
         - collateralCost(diffTotals(totalsBefore, aggregate(next, this.data), this.data), covered, this.data);
-      if (value <= EPSILON) continue;
+      if (value <= EPSILON) return;
       const highEffort = this.beyondReach(build, move, reach);
       rated.push({
         move: {
@@ -1602,29 +1757,48 @@ export class Suggester {
         rank: highEffort ? value * HIGH_EFFORT_DISCOUNT : value,
         slot: move.kind === 'set' ? move.label : move.changes.map((c) => c.slot).join('+'),
       });
-    }
-    rated.sort((a, b) => b.rank - a.rank);
-    const perSlot = new Map<string, (typeof rated)[number]>();
-    for (const r of rated) if (!perSlot.has(r.slot)) perSlot.set(r.slot, r);
-    const sides = [...perSlot.values()].slice(0, limit);
-
-    // Farming on purpose: measured against everything that is not itself a
-    // long way off.
-    const valueOf = (m: Move) => tradeValue(held, before, m.after);
-    const close = Math.max(0, ...upgrades.map(valueOf), ...sides.filter((r) => !r.move.highEffort)
-      .map((r) => r.value));
-    const farm = [...far.map((m) => ({ move: m, value: valueOf(m) })),
-      ...sides.filter((r) => r.move.highEffort)]
-      .filter((r) => r.value >= STANDOUT_MIN && r.value >= STANDOUT_FACTOR * close
-        && this.farmable(build, r.move))
-      .sort((a, b) => b.value - a.value)
-      .slice(0, 3)
-      .map((r) => ({ ...r.move, highEffort: true, standout: true }));
-    const standing = new Set(farm.map((m) => m.label));
-    return {
-      sides: sides.map((r) => (standing.has(r.move.label) ? { ...r.move, standout: true } : r.move)),
-      farm,
     };
+
+    // The lists as they stand, from what has been rated so far.
+    const lists = () => {
+      const sorted = [...rated].sort((a, b) => b.rank - a.rank);
+      const perSlot = new Map<string, (typeof rated)[number]>();
+      for (const r of sorted) if (!perSlot.has(r.slot)) perSlot.set(r.slot, r);
+      const sides = [...perSlot.values()].slice(0, limit);
+
+      // Farming on purpose: measured against everything that is not itself a
+      // long way off.
+      const valueOf = (m: Move) => tradeValue(held, before, m.after);
+      const close = Math.max(0, ...upgrades.map(valueOf), ...sides.filter((r) => !r.move.highEffort)
+        .map((r) => r.value));
+      const farm = [...far.map((m) => ({ move: m, value: valueOf(m) })),
+        ...sides.filter((r) => r.move.highEffort)]
+        .filter((r) => r.value >= STANDOUT_MIN && r.value >= STANDOUT_FACTOR * close
+          && this.farmable(build, r.move))
+        .sort((a, b) => b.value - a.value)
+        .slice(0, 3)
+        .map((r) => ({ ...r.move, highEffort: true, standout: true }));
+      const standing = new Set(farm.map((m) => m.label));
+      return {
+        sides: sides.map((r) => (standing.has(r.move.label) ? { ...r.move, standout: true } : r.move)),
+        farm,
+      };
+    };
+
+    // A goal at a time, so the lists fill in as the search goes rather than
+    // all at the end.
+    for (const goal of held) {
+      if (goal.guard) continue;
+      const inner = new Suggester(this.data, [goal], wideOpts);
+      inner.pushing = true;
+      if (!inner.active) continue;
+      const found: Move[] = [];
+      for (const slot of SLOTS) found.push(...inner.slotMoves(build, slot.key, 3, false, false));
+      found.push(...inner.setMoves(build));
+      for (const move of dedupe(found)) rate(move);
+      yield lists();
+    }
+    if (seen.size === 0) yield lists();
   }
 
   /** Does the hardest new thing this move puts on drop from a monster? */
@@ -1775,9 +1949,14 @@ export class Suggester {
    * improvement when it is taken.
    */
   plan(build: Build, maxSteps = 6): Move[] {
-    if (!this.active) return [];
+    return last(this.planStream(build, maxSteps), []);
+  }
+
+  /** `plan` a step at a time: the steps so far, after each one is found. */
+  *planStream(build: Build, maxSteps = 6): Generator<Move[]> {
+    if (!this.active) return;
     const held = this.withinReach(build);
-    if (held !== this) return held.plan(build, maxSteps);
+    if (held !== this) { yield* held.planStream(build, maxSteps); return; }
     // Every goal already met -- as it is from the start with goals read off
     // the build -- means there is no gap to close, so the plan looks for
     // upgrades instead: anything that raises a goal and lowers none, until
@@ -1788,7 +1967,8 @@ export class Suggester {
     if (met(build) && !this.pushing) {
       const upgrading = new Suggester(this.data, this.goals, this.opts);
       upgrading.pushing = true;
-      return upgrading.plan(build, maxSteps);
+      yield* upgrading.planStream(build, maxSteps);
+      return;
     }
     const steps: Move[] = [];
     let current = build;
@@ -1813,8 +1993,8 @@ export class Suggester {
       if (!best || best.gain <= EPSILON) break;
       steps.push(best);
       current = applyChanges(current, best.changes, this.data);
+      yield [...steps];
     }
-    return steps;
   }
 
   /**
@@ -1832,10 +2012,14 @@ export class Suggester {
 
     for (const set of this.sets) {
       const missing = missingMembers(build, set);
-      // Four or more missing is a different build, not a suggestion.
-      if (missing.length === 0 || missing.length > 3) continue;
+      if (missing.length === 0) continue;
       const placed = this.completeSet(build, set, missing);
       if (!placed) continue;
+      // Taking off four or more pieces for a set is a different build, not a
+      // suggestion. Pieces that go into empty slots take nothing off, so a
+      // character with no shadow gear is offered a whole shadow set.
+      const displaced = placed.filter((c) => build.slots[c.slot]?.itemId).length;
+      if (displaced > 3) continue;
       // Tuned after placing, so set refine ("Set refine 18+") is judged with
       // every piece on rather than one piece at a time.
       const { changes, after } = this.tune(build, placed);
@@ -2150,12 +2334,29 @@ function withCards(name: string, state: SlotState, data: Dataset, cardsOnly: boo
   return cardsOnly ? `${cards} in ${name}` : `${name} with ${cards}`;
 }
 
+/** What a move leaves in the slots it touches, as one comparable string. */
+function stateKey(move: Move): string {
+  return JSON.stringify(move.changes.map((c) =>
+    [c.slot, c.state.itemId, c.state.cards, c.state.refine]));
+}
+
+/** The last thing a generator yields, or `fallback` if it yields nothing. */
+function last<T>(gen: Iterable<T>, fallback: T): T {
+  let out = fallback;
+  for (const v of gen) out = v;
+  return out;
+}
+
+/** Every list of the upgrade paths, empty. */
+function emptyPaths(): UpgradePaths {
+  return { near: [], refines: [], rolls: [], far: [], sides: [], farm: [], sets: [] };
+}
+
 /** The same end state reached twice is one suggestion, kept at its best. */
 function dedupe(moves: Move[]): Move[] {
   const seen = new Map<string, Move>();
   for (const move of moves) {
-    const key = JSON.stringify(move.changes.map((c) =>
-      [c.slot, c.state.itemId, c.state.cards, c.state.refine]));
+    const key = stateKey(move);
     const prior = seen.get(key);
     if (!prior || move.gain > prior.gain) seen.set(key, move);
   }

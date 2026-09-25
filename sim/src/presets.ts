@@ -28,8 +28,9 @@ export interface Playstyle {
   leans?: Partial<Record<keyof BaseStats, number>>;
   /**
    * In priority order, like the Goals panel. A `target` is a number worth
-   * reaching whatever the build has now -- 50 penetration -- and is kept
-   * only while the build is short of it.
+   * reaching whatever the build has now -- 25 penetration -- and is kept
+   * only while the build is short of it; a `cap` is where more stops
+   * counting (penetration, 70).
    */
   goals: (Omit<Goal, 'target'> & { target?: number })[];
 }
@@ -87,8 +88,10 @@ export function rankPlaystyles(
  * the planner looks for upgrades along the playstyle's priorities rather
  * than chasing a target the player never set. Rounded towards "met", as
  * `goalsFromBuild` does. The exception is a goal the file gives a target --
- * penetration at 50 is close to a must for any damage build -- which starts
- * short until the build reaches it. A goal on a metric this dataset no
+ * penetration at 25 is close to a must for any damage build -- which starts
+ * short until the build reaches it. Every goal is open: its target is a
+ * starting line, not a point past which the stat stops mattering, so more
+ * keeps counting in full up to the goal's cap. A goal on a metric this dataset no
  * longer offers is left out rather than added as a row nothing can move.
  */
 export function goalsFromPlaystyle(
@@ -98,7 +101,7 @@ export function goalsFromPlaystyle(
   return style.goals
     .filter((g) => offered.has(`${g.key}:${g.column}`))
     .map((g) => {
-      const goal: Goal = { ...g, target: 0 };
+      const goal: Goal = { ...g, target: 0, open: true };
       const value = measure(goal, totals, build, data);
       const now = (g.atMost ? Math.ceil(value * 100 - 1e-9) : Math.floor(value * 100 + 1e-9)) / 100;
       goal.target = g.target === undefined ? now

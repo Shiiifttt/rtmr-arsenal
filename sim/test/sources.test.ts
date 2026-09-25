@@ -22,10 +22,13 @@ const load = <T>(p: string): T => JSON.parse(readFileSync(resolve(DATA, p), 'utf
 const items = new Map(load<Item[]>('items/all.json').map((i) => [i.id, i]));
 const byId = (id: number) => items.get(id)!;
 
-test('a vendor, and a quest with what it costs', () => {
+test('an exchange, and a quest with what it costs', () => {
+  // Listed as sold by the database; the Einherjar Soul cost is a correction
+  // in crawler/acquisition.json.
   const gleipnir = acquisitionOf(byId(2633))!;
-  assert.equal(gleipnir.sold, true);
+  assert.equal(gleipnir.sold, false);
   assert.match(gleipnir.where, /Wish Maiden/);
+  assert.deepEqual(gleipnir.costs, [{ qty: 100, name: 'Einherjar Soul', id: 7362 }]);
 
   const circlet = acquisitionOf(byId(18827))!;
   assert.equal(circlet.sold, false);

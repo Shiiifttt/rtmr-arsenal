@@ -1053,11 +1053,13 @@ test('sidegrades are trades that come out ahead, high effort included but marked
 
   // Here something close by is worth nearly as much, so nothing is called out.
   assert.equal(paths.farm.length, 0);
-  // With only the one accessory free and nothing close by to compare
-  // against, the ring is worth farming on purpose -- off the MVP it drops from.
+  // With only the one accessory free, and leech the one goal -- nothing close
+  // by gives any -- the ring is worth farming on purpose, off the MVP it drops from.
   const alone: Build = { ...build, locked: SLOTS.map((x) => x.key).filter((k) => k !== 'acc1') };
-  const far = s.upgradePaths(alone).far;
-  const { farm } = s.tradeOffs(alone, [], far);
+  const leechOnly = new Suggester(mvpOnly, [goals[0], ...allGoals({ ...build, goals: [] })],
+    { className: null, maxLevel: 130, refine: 'auto' });
+  const far = leechOnly.upgradePaths(alone).far;
+  const { farm } = leechOnly.tradeOffs(alone, [], far);
   const called = farm.find((m) => m.label.startsWith("Invoker's Ring"));
   assert.ok(called?.standout && called.highEffort);
   assert.equal(farmFor(byName("Invoker's Ring").id, mvpOnly)?.mob, 'Fallen Bishop');
@@ -1112,4 +1114,114 @@ test('a loss on a stat no goal covers is charged to a trade, per 100% lost', () 
   // scale, and gains are no reason to trade.
   assert.equal(collateralCost([change('crit_rate', 'percent', -50), change('max_hp', 'flat', -500),
     change('hp_regen', 'percent', 40)], rel, dataset), 0);
+});
+
+/** With the per-level floor under the reach, too. */
+const withLevels: Dataset = {
+  ...withEffort,
+  levelReach: new Map(Object.entries(load<Record<string, [number, number]>>('mobs/level-reach.json'))
+    .map(([level, [effort, kill]]) => [Number(level), { effort, kill }])),
+};
+
+/** A fresh level 100 in starter gear: nothing worn says anything about reach. */
+function fresh100(): Build {
+  const build = emptyBuild();
+  build.baseLevel = 100;
+  build.className = 'Satsujin';
+  build.slots.weapon = { itemId: byName('Main Gauche').id, refine: 4, cards: [] };
+  build.slots.offhand = { itemId: byName('Buckler').id, refine: 4, cards: [] };
+  return build;
+}
+
+test('a fresh character is held to what its level farms, not to nothing', () => {
+  const build = fresh100();
+  const floor = withLevels.levelReach!.get(100)!;
+  const reach = reachOf(build, withLevels);
+  assert.equal(reach.kill, floor.kill * REACH_KILL_FACTOR);
+  assert.equal(reach.effort, floor.effort * REACH_EFFORT_FACTOR);
+  const held = new Suggester(withLevels, [demihuman], { ...OPEN, reach });
+  // Off a level 149 monster with 120,000 HP.
+  assert.equal(held.allowed(byName('Conquest Incarnate Card')), false);
+  // A shadow set farmed at level 65 is well within it.
+  assert.equal(held.allowed(byName('Fallen Civilization Armor')), true);
+
+  // A build whose gear says more than its level keeps its gear's reach.
+  const geared = satsujin();
+  const gearOnly = reachOf(geared, withEffort);
+  const both = reachOf(geared, withLevels);
+  assert.ok(both.kill! >= gearOnly.kill! && both.effort! >= gearOnly.effort!);
+});
+
+test('a set whose pieces all go into empty slots is offered, however many there are', () => {
+  const build = fresh100();
+  const goals: Goal[] = [
+    { key: 'str', column: 'total', target: 0 },
+    { key: 'sp_cost', column: 'percent', target: 0, atMost: true },
+  ];
+  const s = new Suggester(withLevels, goals,
+    { className: 'Satsujin', maxLevel: 100, refine: 'auto', reach: reachOf(build, withLevels) });
+  const civ = s.setMoves(build).find((m) => m.label.startsWith('Complete Fallen Civilization set'));
+  assert.ok(civ, 'four shadow pieces into four empty shadow slots');
+  assert.equal(civ!.changes.length, 4);
+  assert.ok(civ!.changes.every((c) => !build.slots[c.slot]?.itemId), 'nothing is taken off for it');
+});
+
+test('an open goal keeps counting past its target, in full, and stops at its cap', () => {
+  const pen: Goal = { key: 'def_pen', column: 'flat', target: 25, cap: 70, open: true };
+  const closed: Goal = { ...pen, open: false, cap: undefined };
+  const at = (g: Goal, v: number) => goalScore([g], [v]);
+  // Past the target an open goal is worth as much per point as short of it.
+  assert.ok(Math.abs((at(pen, 25) - at(pen, 35)) - (at(pen, 15) - at(pen, 25))) < 1e-9);
+  // An ordinary goal's surplus is a token by comparison.
+  assert.ok(at(closed, 25) - at(closed, 35) < (at(pen, 25) - at(pen, 35)) / 4);
+  // And nothing past the cap.
+  assert.equal(at(pen, 70), at(pen, 90));
+  assert.ok(at(pen, 69) > at(pen, 70));
+  // Read off the build, every goal is open.
+  const build = satsujin();
+  assert.ok(goalsFromBuild(build, aggregate(build, withEffort), withEffort).every((g) => g.open));
+});
+
+test('other sets are the runners-up, not the one the plan already took', () => {
+  const build = fresh100();
+  const goals: Goal[] = [
+    { key: 'str', column: 'total', target: 0, open: true },
+    { key: 'sp_cost', column: 'percent', target: 0, atMost: true, open: true },
+  ];
+  const s = new Suggester(withLevels, goals, { className: 'Satsujin', maxLevel: 100, refine: 'auto' });
+  const steps = s.plan(build, 2);
+  const sets = s.setAlternatives(build, steps);
+  assert.ok(sets.length > 1, 'more than one set is worth finishing on an empty shadow row');
+  assert.ok(sets.every((m) => m.kind === 'set' && m.gain > 0));
+  assert.ok(!sets.some((m) => steps.some((t) => t.label === m.label)));
+  for (let i = 1; i < sets.length; i++) assert.ok(sets[i - 1].gain >= sets[i].gain);
+});
+
+test('the overlay\'s search comes a section at a time, and ends where the one-shot calls do', () => {
+  const build = fresh100();
+  const goals: Goal[] = [
+    { key: 'str', column: 'total', target: 0, open: true },
+    { key: 'sp_cost', column: 'percent', target: -5, atMost: true, open: true },
+  ];
+  const s = new Suggester(withLevels, goals, { className: 'Satsujin', maxLevel: 100, refine: 'auto' });
+  const snaps = [...s.paths(build)];
+  assert.ok(snaps.length > 3, 'more than one snapshot');
+  // Each snapshot is the one before with more filled in: the plan only
+  // ever gains steps, and no list empties once it has something.
+  for (let i = 1; i < snaps.length; i++) {
+    assert.ok(snaps[i].steps.length >= snaps[i - 1].steps.length);
+    for (const k of ['refines', 'rolls', 'sets', 'far'] as const) {
+      if (snaps[i - 1][k].length) assert.ok(snaps[i][k].length > 0, `${k} emptied`);
+    }
+  }
+  const end = snaps[snaps.length - 1];
+  assert.deepEqual(end.steps.map((m) => m.label), s.plan(build).map((m) => m.label));
+  assert.deepEqual(end.sets.map((m) => m.label), s.setAlternatives(build, end.steps).map((m) => m.label));
+
+  // With every goal met it streams the upgrade paths instead.
+  const met = new Suggester(withLevels, goals.map((g) => ({ ...g, target: g.atMost ? 0 : 0 })),
+    { className: 'Satsujin', maxLevel: 100, refine: 'auto' });
+  const up = [...met.paths(build)].pop()!;
+  assert.deepEqual(up.steps, []);
+  assert.deepEqual(up.near.map((m) => m.label), met.upgradePaths(build).near.map((m) => m.label));
 });

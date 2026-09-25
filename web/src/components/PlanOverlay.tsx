@@ -1,5 +1,7 @@
 import { useEffect, useMemo } from 'react';
-import { applyChanges, farmFor, type Build, type Dataset, type Goal, type Move } from '@sim';
+import {
+  applyChanges, farmFor, type Build, type Dataset, type Goal, type Move, type PlanPaths,
+} from '@sim';
 import { LockedNote, MoveRow } from './GoalsPanel';
 
 /**
@@ -17,27 +19,18 @@ import { LockedNote, MoveRow } from './GoalsPanel';
  * towards -- so an easy refine or a long-term sun helmet is never crowded
  * out by whatever happens to score highest.
  */
-export interface PlanPaths {
-  /** Steps towards unmet goals, in order; empty once every goal is met. */
-  steps: Move[];
-  /** The best swaps within reach, each an alternative. */
-  near: Move[];
-  /** Worn pieces worth refining further, up to +9. */
-  refines: Move[];
-  /** Copies of worn pieces with rolls that suit the build better. */
-  rolls: Move[];
-  /** Out of reach for now, but where the build can head. */
-  far: Move[];
-  /** Trades that give more than they take. */
-  sides: Move[];
-  /** High-effort moves far enough ahead to farm on purpose. */
-  farm: Move[];
-}
+/** Nothing found yet: what the overlay shows before the first results land. */
+const NONE: PlanPaths = {
+  steps: [], near: [], refines: [], rolls: [], far: [], sides: [], farm: [], sets: [],
+};
 
 export function PlanOverlay({
-  paths, upgrading, dataset, build, goals, lockedSlots, onApply, onClose,
+  paths: found, searching, upgrading, dataset, build, goals, lockedSlots, onApply, onClose,
 }: {
-  paths: PlanPaths;
+  /** What the search has found so far; null before anything has come back. */
+  paths: PlanPaths | null;
+  /** Still looking: more may appear below. */
+  searching: boolean;
   /** Every goal was already met, so these are upgrades rather than fixes. */
   upgrading: boolean;
   dataset: Dataset;
@@ -53,7 +46,8 @@ export function PlanOverlay({
     return () => window.removeEventListener('keydown', onKey);
   }, [onClose]);
 
-  const { steps, near, refines, rolls, far, sides, farm } = paths;
+  const paths = found ?? NONE;
+  const { steps, near, refines, rolls, far, sides, farm, sets } = paths;
   // The build each step starts from, which is how it will be applied.
   const stepBuilds = useMemo(() => {
     const out: Build[] = [];
@@ -66,7 +60,7 @@ export function PlanOverlay({
   }, [steps, build, dataset]);
 
   const title = upgrading ? 'Upgrades' : 'Suggested changes';
-  const nothing = [steps, near, refines, rolls, far, sides, farm].every((l) => l.length === 0);
+  const nothing = [steps, near, refines, rolls, far, sides, farm, sets].every((l) => l.length === 0);
   const row = (move: Move, action: string, onRowApply: () => void, from: Build, farm = false,
     rolled = false) => (
     <MoveRow
@@ -96,7 +90,7 @@ export function PlanOverlay({
         </div>
 
         <div className="picker-list">
-          {nothing && (
+          {nothing && !searching && (
             <div className="loading">
               {upgrading
                 ? 'Nothing within these options raises a goal without lowering another.'
@@ -125,6 +119,11 @@ export function PlanOverlay({
             {near.map((move) => row(move, 'Equip', () => onApply([move]), build))}
           </Path>
 
+          <Path title="Other sets" note={'Sets worth finishing besides any taken above. A set '
+            + 'is a bigger step than one swap, so the runners-up are here to choose between.'}>
+            {sets.map((move) => row(move, 'Equip', () => onApply([move]), build, true))}
+          </Path>
+
           <Path title="Sidegrades" note={'Trades: more of one goal for less of another, where '
             + 'what it gives outweighs what it takes. High-effort ones are marked and ranked lower.'}>
             {sides.map((move) => row(move, 'Equip', () => onApply([move]), build, !!move.highEffort))}
@@ -146,6 +145,14 @@ export function PlanOverlay({
             {far.filter((m) => !farm.some((f) => f.label === m.label))
               .map((move) => row(move, 'Equip', () => onApply([move]), build, true))}
           </Path>
+
+          {/* The search fills the lists in as it goes; this says there is
+              more to come, so a short list is not read as the whole answer. */}
+          {searching && (
+            <div className="plan-searching" role="status">
+              {nothing ? 'Looking…' : 'Still looking — more suggestions will appear here as they are found.'}
+            </div>
+          )}
         </div>
       </div>
     </div>

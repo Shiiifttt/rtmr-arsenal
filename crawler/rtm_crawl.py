@@ -443,6 +443,8 @@ def stage_decode(raw_dir: Path, out_dir: Path) -> dict:
     write_json(out_dir / "mobs" / "all.json", mobs)
     write_spawns(out_dir / "mobs" / "spawns.json", mobs)
     write_json(out_dir / "mobs" / "armor-targets.json", armor_targets(mobs))
+    (out_dir / "mobs" / "level-reach.json").write_text(
+        json.dumps(level_reach(mobs), separators=(",", ":")), encoding="utf-8")
     effort = items_dir / "effort.json"
     effort.write_text(json.dumps(item_effort(items, mobs), separators=(",", ":")), encoding="utf-8")
 
@@ -782,6 +784,48 @@ def item_effort(items: list[dict], mobs: list[dict]) -> dict[str, list[int]]:
         e = effort(item["id"])
         if e is not None:
             out[str(item["id"])] = [round(e[0]), round(e[1]), e[2]]
+    return out
+
+
+LEVEL_BAND = 10
+"""How far below a character's level the monsters it farms are taken to be."""
+
+
+def level_reach(mobs: list[dict]) -> dict[str, list[int]]:
+    """What a character of each base level typically farms: [effort, kill].
+
+    The planner reads a build's reach off the gear it wears, which says
+    nothing for a fresh character in starter gear -- and "nothing" used to
+    mean "no limit", so a new level 100 was sent after Conquest Incarnate.
+    This is the floor under that: the median over ordinary monsters from
+    LEVEL_BAND below the level up to it, of the effective HP of one (kill)
+    and of what one of its drops costs to farm (effort, worked out as in
+    item_effort). Medians, so one freak spawn does not set the bar. A
+    yardstick like the rest, not a model.
+    """
+    rows = []
+    for m in mobs:
+        if m["is_mvp"] or not m["spawns"] or (m["level"] or 0) <= 1:
+            continue
+        most = max((s["count"] or 0) for s in m["spawns"])
+        ehp = effective_hp(m)
+        per_kill = ehp * (1 + SPARSE_SPAWNS / max(1, most))
+        costs = [per_kill / (d["chance_percent"] / 100)
+                 for d in m["drops"] if (d.get("chance_percent") or 0) > 0]
+        rows.append((m["level"], ehp, costs))
+
+    def median(xs: list[float]) -> float:
+        xs = sorted(xs)
+        return xs[len(xs) // 2] if xs else 0.0
+
+    out = {}
+    top = max((r[0] for r in rows), default=0)
+    for level in range(1, max(top, 200) + 1):
+        band = [r for r in rows if level - LEVEL_BAND <= r[0] <= level]
+        if not band:
+            continue
+        out[str(level)] = [round(median([c for r in band for c in r[2]])),
+                           round(median([r[1] for r in band]))]
     return out
 
 

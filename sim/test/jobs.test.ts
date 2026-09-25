@@ -38,7 +38,7 @@ const RULES: ClassRules = {
   classes: {
     Satsujin: {
       weapons: ['Dagger'],
-      off_hand: ['Shield', 'Round Shield', 'Square Shield', 'Arm Shield', 'Medium Shield'],
+      off_hand: ['Shield', 'Round Shield', 'Square Shield', 'Arm Shield', 'Medium Shield', 'Heavy Shield'],
       status: 'unverified',
       reason: 'dagger and a one-handed shield',
     },
@@ -68,7 +68,8 @@ test('a class rule closes what the sentence leaves open', () => {
   assert.equal(canEquip(DAGGER, 'Satsujin', RULES), true);
   assert.equal(canEquip(SWORD, 'Satsujin', RULES), false);
   assert.equal(canEquip(ROUND, 'Satsujin', RULES), true);
-  assert.equal(canEquip(HEAVY, 'Satsujin', RULES), false);
+  // The site files ordinary one-handed shields (Guard, Mirror Shield) as heavy.
+  assert.equal(canEquip(HEAVY, 'Satsujin', RULES), true);
   assert.equal(canEquip(ARMGUARD, 'Satsujin', RULES), false);
 });
 

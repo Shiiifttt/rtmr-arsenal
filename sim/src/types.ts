@@ -373,6 +373,18 @@ export interface Goal {
    * thing to rank against wanting more crit. See `GUARD_WEIGHT`.
    */
   guard?: boolean;
+  /**
+   * More keeps counting past the target, in full rather than as a token
+   * surplus. For the goals a build starts from -- a class preset, the
+   * build's own stats -- where the target is where the build is, not a
+   * point past which the stat stops mattering. See `openSurplus`.
+   */
+  open?: boolean;
+  /**
+   * Past this, more is worth nothing: penetration past 70, say. A ceiling
+   * goal's cap is the low side ("down to -60%"). Optional on any goal.
+   */
+  cap?: number;
 }
 
 /**
@@ -424,6 +436,12 @@ export interface Dataset {
    * missing from it are unknown, not cheap.
    */
   effort?: Map<number, ItemEffort> | null;
+  /**
+   * What a character of each base level typically farms, from
+   * data/mobs/level-reach.json: the floor under a build's reach, so a fresh
+   * character in starter gear is not read as having no limit at all.
+   */
+  levelReach?: Map<number, { effort: number; kill: number }> | null;
   /**
    * Starting goals per class, from data/class-goals.json. Absent means no
    * class has any, and the Goals panel offers only the build's own.

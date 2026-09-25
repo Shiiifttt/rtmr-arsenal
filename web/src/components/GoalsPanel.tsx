@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import {
   aggregate, applyChanges, brokenGoals, brokenSets, computedGoal, DEFAULT_GUARDS, diffTotals, goalLabel,
@@ -8,7 +8,9 @@ import {
   type Totals, type TotalsChange,
 } from '@sim';
 import { GoalFocus } from './GoalFocus';
-import { PlanOverlay, type PlanPaths } from './PlanOverlay';
+import { PlanOverlay } from './PlanOverlay';
+import { planKey } from '../planjobs';
+import { pausePlan, runPlan, usePlan } from '../planner';
 import { Icon } from './Icon';
 import { tooltipProps } from './ItemTooltip';
 
@@ -26,28 +28,6 @@ export interface SuggestPrefs {
 }
 
 export const DEFAULT_PREFS: SuggestPrefs = { mineOnly: true, levelCap: true, refine: 'auto' };
-
-/**
- * Everything the overlay shows. With every goal met, the upgrade paths --
- * no chain of steps, since there is nothing to close. With goals short, the
- * plan towards them, and around it refines, better rolls, trades, and what
- * is out of reach -- high effort is marked and ranked lower, never hidden.
- */
-function pathsFor(suggester: Suggester, build: Build, allMet: boolean): PlanPaths {
-  if (allMet) return { steps: [], ...suggester.upgradePaths(build) };
-  const steps = suggester.plan(build);
-  // Refines the plan already takes are not listed twice.
-  const planned = new Set(steps.map((m) => m.label));
-  const far = suggester.stretchMoves(build);
-  return {
-    steps,
-    near: [],
-    refines: suggester.refineUpgrades(build).filter((m) => !planned.has(m.label)),
-    rolls: suggester.rollUpgrades(build),
-    far,
-    ...suggester.tradeOffs(build, steps, far),
-  };
-}
 
 interface Props {
   dataset: Dataset;
@@ -83,10 +63,18 @@ export function GoalsPanel({
   // The plan belongs to the build it was worked out for. Once anything
   // changes -- a slot, a goal, an option -- it describes a different
   // starting point, so it is dropped rather than shown stale.
+  // The search itself runs in the background (see planner.ts) and fills
+  // the overlay in as it goes; closing pauses it, and reopening on the same
+  // build carries on from where it was.
   const [plan, setPlan] = useState<{
-    for: Build; suggester: Suggester; paths: PlanPaths; upgrading: boolean;
+    for: Build; suggester: Suggester; key: string; upgrading: boolean;
   } | null>(null);
   const current = plan && plan.for === build && plan.suggester === suggester ? plan : null;
+  const found = usePlan(current?.key ?? null);
+  // A plan for a build that has since changed is not worth working on.
+  useEffect(() => {
+    if (plan && !current) { pausePlan(); setPlan(null); }
+  }, [plan, current]);
 
   // "More of this one, please" for a single goal, on the same terms: dropped
   // as soon as it would describe a build that is no longer the one on screen.
@@ -176,11 +164,19 @@ export function GoalsPanel({
               aria-label={`Lower the priority of ${labelOf(s.goal)}`}
             >▼</button>
           </div>
+          {/* Four states in one button, since the row has no room for two:
+              at least, at least and more keeps counting, then the same two
+              for at most. */}
           <button
             className="goal-dir"
-            onClick={() => update(i, { atMost: !s.goal.atMost })}
-            title={s.goal.atMost ? 'At most — click for at least' : 'At least — click for at most'}
-          >{s.goal.atMost ? '≤' : '≥'}</button>
+            onClick={() => update(i, s.goal.open
+              ? { atMost: !s.goal.atMost, open: false }
+              : { open: true })}
+            title={`${s.goal.atMost ? 'At most' : 'At least'}${s.goal.open
+              ? `, and more keeps counting past it${s.goal.cap !== undefined
+                ? ` up to ${s.goal.cap}` : ''}` : ' — once reached, more counts for little'}`
+              + '\n\nClick to change'}
+          >{s.goal.atMost ? '≤' : '≥'}{s.goal.open ? '+' : ''}</button>
           <input
             type="number"
             className="goal-target"
@@ -273,9 +269,11 @@ export function GoalsPanel({
 
           <div className="goal-actions">
             <button
-              onClick={() => setPlan({
-                for: build, suggester, paths: pathsFor(suggester, build, allMet), upgrading: allMet,
-              })}
+              onClick={() => {
+                const key = planKey(build, suggester);
+                runPlan(key, build, suggester);
+                setPlan({ for: build, suggester, key, upgrading: allMet });
+              }}
               title={allMet ? 'Every goal is met, so this looks for upgrades: changes '
                 + 'that raise a goal without lowering any' : undefined}
             >
@@ -289,14 +287,15 @@ export function GoalsPanel({
           suggestions, and they need the room the picker gets. */}
       {current && (
         <PlanOverlay
-          paths={current.paths}
+          paths={found.paths}
+          searching={!found.done}
           upgrading={current.upgrading}
           dataset={dataset}
           build={build}
           goals={suggester.goals}
           lockedSlots={lockedSlots}
           onApply={onApply}
-          onClose={() => setPlan(null)}
+          onClose={() => { pausePlan(); setPlan(null); }}
         />
       )}
       {focused && (

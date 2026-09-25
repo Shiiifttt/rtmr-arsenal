@@ -59,5 +59,8 @@ export default defineConfig({
     alias: { '@sim': resolve(HERE, '../sim/src') },
   },
   server: { fs: { allow: [ROOT] } },
+  // The suggestion search runs in a module worker (src/planner.worker.ts),
+  // which imports the sim like the page does.
+  worker: { format: 'es' },
 });
 
