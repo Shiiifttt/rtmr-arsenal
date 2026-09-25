@@ -753,10 +753,29 @@ function shortOf(goal: Goal, value: number): number {
   return goal.atMost ? value - goal.target : goal.target - value;
 }
 
+/**
+ * Where more of a stat stops mattering, for a goal that does not say.
+ *
+ * From the project owner: SP cost is solved at -50%, and penetration past
+ * 70 is worth nothing. Built in rather than only on the presets, because a
+ * goal saved before, or read off the build, carries no cap of its own -- and
+ * a build at -62% SP cost was still being sent after more.
+ */
+const DEFAULT_CAPS: Record<string, number> = { sp_cost: -50, def_pen: 70, mdef_pen: 70 };
+
+/** A goal's cap: its own, or the stat's default, never short of its target. */
+export function goalCap(goal: Goal): number | undefined {
+  if (goal.cap !== undefined) return goal.cap;
+  const cap = DEFAULT_CAPS[goal.key];
+  if (cap === undefined) return undefined;
+  return goal.atMost ? Math.min(cap, goal.target) : Math.max(cap, goal.target);
+}
+
 /** A goal's value with anything past its cap cut off: past it, more is nothing. */
 export function capped(goal: Goal, value: number): number {
-  if (goal.cap === undefined) return value;
-  return goal.atMost ? Math.max(value, goal.cap) : Math.min(value, goal.cap);
+  const cap = goalCap(goal);
+  if (cap === undefined) return value;
+  return goal.atMost ? Math.max(value, cap) : Math.min(value, cap);
 }
 
 /**
@@ -1718,10 +1737,12 @@ export class Suggester {
    */
   private heldAt(build: Build): Goal[] {
     const values = this.values(build);
-    return this.goals.map((g, i) => ({
-      ...g,
-      target: g.atMost ? Math.min(g.target, values[i]) : Math.max(g.target, values[i]),
-    }));
+    // Held at the cap, not past it: at -62% SP cost with a cap of -50%,
+    // giving back 12% costs nothing and is not a loss to guard.
+    return this.goals.map((g, i) => {
+      const v = capped(g, values[i]);
+      return { ...g, cap: goalCap(g), target: g.atMost ? Math.min(g.target, v) : Math.max(g.target, v) };
+    });
   }
 
   /** The reach these options give, or the build's own when they give none. */

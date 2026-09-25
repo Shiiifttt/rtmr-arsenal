@@ -93,7 +93,7 @@ export function PlanOverlay({
         </div>
 
         <div className="picker-list">
-          {nothing && searching && <div className="loading plan-searching">Searching…</div>}
+          {nothing && searching && <div className="plan-searching plan-waiting">Searching…</div>}
           {nothing && !searching && (
             <div className="loading">
               {upgrading

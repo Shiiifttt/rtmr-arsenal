@@ -93,7 +93,8 @@ input:focus, select:focus, button:focus-visible {
 .col-totals { grid-area: totals; }
 @media (min-width: 1360px) {
   .columns {
-    grid-template-columns: minmax(520px, 780px) minmax(320px, 400px) minmax(320px, 1fr);
+    grid-template-columns: minmax(520px, 780px) minmax(320px, 400px) minmax(320px, 400px);
+    justify-content: center;
     grid-template-rows: auto;
     grid-template-areas: "gear character totals";
   }
@@ -814,4 +815,6 @@ input:focus, select:focus, button:focus-visible {
   animation: plan-pulse 1.6s ease-in-out infinite;
 }
 @keyframes plan-pulse { 50% { opacity: 0.45; } }
+/* Before anything is found: at the top, where the first results will land. */
+.plan-waiting { padding: 6px 10px; }
 @media (prefers-reduced-motion: reduce) { .plan-searching { animation: none; } }

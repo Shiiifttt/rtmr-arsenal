@@ -1282,3 +1282,15 @@ test('movement speed below -10% is a guard rail from the start', () => {
   assert.ok(g?.guard);
   assert.equal(g!.target, -10);
 });
+
+test('SP cost past -50% counts for nothing, even on a goal saved without a cap', () => {
+  const g: Goal = { key: 'sp_cost', column: 'percent', target: 0, atMost: true, open: true };
+  assert.equal(goalScore([g], [-50]), goalScore([g], [-80]));
+  assert.ok(goalScore([g], [-40]) > goalScore([g], [-50]));
+  // A goal that asks for more than the default keeps its own target.
+  const deep: Goal = { ...g, target: -70 };
+  assert.ok(goalScore([deep], [-70]) < goalScore([deep], [-60]));
+  // Penetration stops at 70 the same way.
+  const pen: Goal = { key: 'def_pen', column: 'flat', target: 25, open: true };
+  assert.equal(goalScore([pen], [70]), goalScore([pen], [90]));
+});

@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import {
-  aggregate, applyChanges, brokenGoals, brokenSets, computedGoal, DEFAULT_GUARDS, diffTotals, goalLabel,
+  aggregate, applyChanges, brokenGoals, brokenSets, computedGoal, DEFAULT_GUARDS, diffTotals, goalCap,
+  goalLabel,
   goalMetrics, goalsFromBuild, goalsFromPlaystyle, goalStatus, guardsOf, rankPlaystyles, statsThatMatter,
   isOffhandWeapon, SLOT_BY_KEY, SP_SUSTAIN,
   type Build, type Dataset, type Goal, type GoalMetric, type Item, type Move, type Suggester,
@@ -173,8 +174,8 @@ export function GoalsPanel({
               ? { atMost: !s.goal.atMost, open: false }
               : { open: true })}
             title={`${s.goal.atMost ? 'At most' : 'At least'}${s.goal.open
-              ? `, and more keeps counting past it${s.goal.cap !== undefined
-                ? ` up to ${s.goal.cap}` : ''}` : ' — once reached, more counts for little'}`
+              ? `, and more keeps counting past it${goalCap(s.goal) !== undefined
+                ? ` up to ${goalCap(s.goal)}` : ''}` : ' — once reached, more counts for little'}`
               + '\n\nClick to change'}
           >{s.goal.atMost ? '≤' : '≥'}{s.goal.open ? '+' : ''}</button>
           <input
