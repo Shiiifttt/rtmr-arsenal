@@ -128,3 +128,15 @@ test('a per-item correction replaces the sentence', () => {
   assert.equal(jobLimitFix(ARMGUARD, fixed)?.was, ARMGUARD.usable_by);
   assert.equal(jobLimitFix(HEAVY, fixed), null);
 });
+
+test('the slot being filled decides which list applies: a weapon in the off hand is judged as the off hand', () => {
+  // A one-handed weapon fits the off hand for dual wielders, but a class
+  // whose off hand takes shields only is not offered it there.
+  assert.equal(canEquip(DAGGER, 'Satsujin', RULES, 'weapon'), true);
+  assert.equal(canEquip(DAGGER, 'Satsujin', RULES, 'offhand'), false);
+  assert.equal(canEquip(ROUND, 'Satsujin', RULES, 'offhand'), true);
+  // Without a slot, the item's own slot decides, as before.
+  assert.equal(canEquip(DAGGER, 'Satsujin', RULES), true);
+  // A class with no rule for the slot keeps the sentence alone.
+  assert.equal(canEquip(SWORD, 'Rogue', RULES, 'offhand'), true);
+});

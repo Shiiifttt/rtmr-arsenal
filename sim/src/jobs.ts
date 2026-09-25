@@ -78,7 +78,7 @@ export function jobLimitFix(
  * type is "Card", never "Dagger".
  */
 export function canEquip(
-  item: Item, className: string | null, rules?: ClassRules | null,
+  item: Item, className: string | null, rules?: ClassRules | null, slotKey?: string,
 ): boolean {
   if (item.kind === 'Card') return true;
   if (!canUse(jobLimitOf(item, rules), className)) return false;
@@ -87,16 +87,26 @@ export function canEquip(
   const rule = rules?.classes?.[className];
   if (!rule) return true;
 
-  const allowed = slotAllowance(item, rule);
+  const allowed = slotAllowance(item, rule, slotKey);
   if (!allowed) return true;
   // A rule that names types cannot judge an item that has none.
   return item.type ? allowed.includes(item.type) : true;
 }
 
-/** The type list governing the slot this item goes in, if the rule has one. */
+/**
+ * The type list governing the slot this item goes in, if the rule has one.
+ *
+ * The slot being filled, when it is known, decides: a one-handed weapon
+ * fits the off hand for dual wielders, and judged by its own slot it was
+ * checked against the weapon list -- so a Dracomancer, whose off hand takes
+ * shields only, was offered bone swords there.
+ */
 function slotAllowance(
-  item: Item, rule: NonNullable<ClassRules['classes'][string]>,
+  item: Item, rule: NonNullable<ClassRules['classes'][string]>, slotKey?: string,
 ): string[] | null {
+  if (slotKey === 'offhand' && rule.off_hand) return rule.off_hand;
+  if (slotKey === 'weapon' && rule.weapons) return rule.weapons;
+  if (slotKey === 'ammo' && rule.ammunition) return rule.ammunition;
   const slots = item.equip_slots ?? [];
   if (rule.weapons && slots.some((s) => WEAPON_SLOTS.includes(s))) return rule.weapons;
   if (rule.off_hand && slots.some((s) => OFF_HAND_SLOTS.includes(s))) return rule.off_hand;

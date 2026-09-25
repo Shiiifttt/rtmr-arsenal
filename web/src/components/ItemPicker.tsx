@@ -92,7 +92,7 @@ export function ItemPicker({
       // which is right: it is wearable at every level, not at none.
       if (lo !== null && Number.isFinite(lo) && item.required_level < lo) return false;
       if (hi !== null && Number.isFinite(hi) && item.required_level > hi) return false;
-      if (onlyUsable && !canEquip(item, className, dataset.classRules)) return false;
+      if (onlyUsable && !canEquip(item, className, dataset.classRules, socket === null ? slot.key : undefined)) return false;
       if (!q) return true;
       // Search the effect text too, so "per refine" or "Double Attack"
       // finds the gear that does it, not just gear named after it.

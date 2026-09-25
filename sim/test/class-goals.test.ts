@@ -13,7 +13,7 @@ import { dirname, resolve } from 'node:path';
 
 import {
   aggregate, bindBaseStatIds, canEquip, defaultBaseStats, goalMetrics, goalsFromPlaystyle, goalStatus,
-  measure, rankPlaystyles, scalingFromDescription, SLOTS, type Playstyle,
+  measure, rankPlaystyles, scalingFromDescription, SLOTS, Suggester, type Playstyle,
 } from '../src/index.ts';
 import type {
   BaseStats, Build, ClassRules, Dataset, Goal, Item, RollData, SetRecord, SlotState, StatDef,
@@ -109,6 +109,21 @@ test('Dracomancer holds a spear, wyrm spear or bone sword, and a shield in the o
   // Daggers, axes, a two-handed sword and one-handed swords all ship open to it.
   for (const no of ['Belena', 'Mjolnir', 'Orc Warlord Greatsword', 'Main Gauche', 'Sword']) {
     assert.ok(!can(no), no);
+  }
+  // A bone sword is a one-handed weapon, so it fits the off hand -- but not
+  // a Dracomancer's, which takes shields only.
+  const bone = itemList.find((i) => i.name === 'Black Bone Sword')!;
+  assert.ok(canEquip(bone, 'Dracomancer', rules, 'weapon'));
+  assert.ok(!canEquip(bone, 'Dracomancer', rules, 'offhand'));
+  const s = new Suggester({ ...dataset, classRules: rules }, [{ key: 'str', column: 'total', target: 200 }],
+    { className: 'Dracomancer', maxLevel: null, refine: null });
+  const build = { className: 'Dracomancer', baseLevel: 150, baseStats: defaultBaseStats(),
+    slots: { weapon: { itemId: itemList.find((i) => i.name === 'Glaive')!.id, refine: 0, cards: [] } } } as Build;
+  for (const m of s.slotMoves(build, 'offhand', 30)) {
+    for (const c of m.changes.filter((ch) => ch.slot === 'offhand')) {
+      const put = itemList.find((i) => i.id === c.state.itemId);
+      assert.ok(!put || put.kind !== 'Weapon', `${m.label} puts a weapon in the off hand`);
+    }
   }
 });
 

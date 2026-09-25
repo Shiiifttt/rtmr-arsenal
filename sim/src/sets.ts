@@ -36,8 +36,12 @@ export interface SetFill {
 }
 
 export interface FillOptions {
-  /** Reject a member outright -- the suggester's class and level filters. */
-  allowed?: (item: Item) => boolean;
+  /**
+   * Reject a member -- the suggester's class and level filters. Asked once
+   * without a slot, and again for each slot it could go in: a class may take
+   * a piece in one hand and not the other.
+   */
+  allowed?: (item: Item, slotKey?: string) => boolean;
   /** How a placed piece ends up in its slot. Defaults to a plain swap in. */
   place?: (state: SlotState, item: Item, slot: SlotDef) => SlotState;
   /**
@@ -110,6 +114,7 @@ export function fillSet(
     // A piece: prefer an empty slot, then any slot not already holding a
     // member of this set or claimed by an earlier piece of it.
     const options = free.filter((s) => fitsSlot(item, s) && !taken.has(s.key)
+      && (!opts.allowed || opts.allowed(item, s.key))
       && !members.has(stateOf(s.key).itemId ?? -1));
     const slot = options.find((s) => !stateOf(s.key).itemId) ?? options[0];
     if (!slot) {

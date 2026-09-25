@@ -1507,8 +1507,9 @@ export class Suggester {
     return scoreOf(this.goals, this.values(build));
   }
 
-  allowed(item: Item): boolean {
-    if (!canEquip(item, this.opts.className, this.data.classRules)) return false;
+  /** `slotKey`, when given, is the slot it would go in: see `canEquip`. */
+  allowed(item: Item, slotKey?: string): boolean {
+    if (!canEquip(item, this.opts.className, this.data.classRules, slotKey)) return false;
     if (this.opts.maxLevel !== null && item.required_level > this.opts.maxLevel) return false;
     const reach = this.opts.reach;
     if (reach) {
@@ -1655,7 +1656,7 @@ export class Suggester {
     const tried: { item: Item; state: SlotState; score: number; after: number[] }[] = [];
     for (const item of this.data.itemList) {
       if (item.id === current.itemId) continue;
-      if (!fitsSlot(item, slot) || !this.allowed(item)) continue;
+      if (!fitsSlot(item, slot) || !this.allowed(item, slot.key)) continue;
       if (!this.mayMatter(item) && !(cardsFit && item.card_slots > 0)) continue;
       const tuned = this.tune(build, [{ slot: slotKey, state: this.place(current, item, slot) }]);
       const { state } = tuned.changes[0];
@@ -1898,7 +1899,7 @@ export class Suggester {
     const cards = current.cards.filter((c): c is number => !!c);
 
     const pieces = this.data.itemList
-      .filter((i) => i.card_slots > have && fitsSlot(i, slot) && this.allowed(i))
+      .filter((i) => i.card_slots > have && fitsSlot(i, slot) && this.allowed(i, slot.key))
       .sort((a, b) => b.card_slots - a.card_slots
         || b.required_level - a.required_level || a.name.localeCompare(b.name))
       .slice(0, limit);
@@ -2786,7 +2787,7 @@ export class Suggester {
    */
   private completeSet(build: Build, set: SetRecord, missing: number[]): SlotChange[] | null {
     const fill = fillSet(build, set, missing, this.data, {
-      allowed: (item) => this.allowed(item),
+      allowed: (item, slotKey) => this.allowed(item, slotKey),
       place: (state, item, slot) => this.place(state, item, slot),
     });
     return fill.blocked.length > 0 ? null : fill.changes;
