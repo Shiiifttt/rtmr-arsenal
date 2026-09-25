@@ -105,7 +105,7 @@ test('Dracomancer: Crescent Dive is physical, Geirskogul magic, and neither want
 test('Dracomancer holds a spear, wyrm spear or bone sword, and a shield in the off hand', () => {
   const rules = load<ClassRules>('class-rules.json');
   const can = (name: string) => canEquip(itemList.find((i) => i.name === name)!, 'Dracomancer', rules);
-  for (const ok of ['Glaive', 'Draco Horn', 'Black Bone Sword', 'Guard', 'Buckler']) assert.ok(can(ok), ok);
+  for (const ok of ['Glaive', 'Draco Horn', 'Giant Nail', 'Black Bone Sword', 'Guard', 'Buckler']) assert.ok(can(ok), ok);
   // Daggers, axes, a two-handed sword and one-handed swords all ship open to it.
   for (const no of ['Belena', 'Mjolnir', 'Orc Warlord Greatsword', 'Main Gauche', 'Sword']) {
     assert.ok(!can(no), no);
