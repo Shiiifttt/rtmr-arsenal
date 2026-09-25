@@ -213,10 +213,10 @@ test('puts what it read into the right build slots', async () => {
     `neither weapon should be left out: ${JSON.stringify(skipped)}`,
   );
 
-  // The accessories are not mirrored: the left column is the left hand's,
-  // which is Accessory 2 -- and Megingjard is a left-only accessory.
-  assert.equal(where.acc2, 'Megingjard');
-  assert.equal(where.acc1, 'Stormwalker Ring');
+  // The left column's accessory is Accessory 1, the left one -- and
+  // Megingjard is a left-only accessory.
+  assert.equal(where.acc1, 'Megingjard');
+  assert.equal(where.acc2, 'Stormwalker Ring');
 });
 
 test('reading the same window twice does not fight with itself', async () => {

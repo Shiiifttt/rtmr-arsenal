@@ -655,6 +655,15 @@ export function tradeValue(
 export const COLLATERAL_WEIGHT = 0.25;
 
 /**
+ * Regeneration comes in big percentages that are worth far less than their
+ * size: a Bullhorn Ring's HP Regen +50% was charged more than a Gleipnir's
+ * +7 AGI was worth, so no Sky Garden accessory was ever offered for it. A
+ * fifth of the rate, and VIT and INT, which drive regeneration, count as
+ * side goals of their own.
+ */
+const COLLATERAL_SCALE: Record<string, number> = { hp_regen: 0.2, sp_regen: 0.2 };
+
+/**
  * The losses a change inflicts outside the goals, as a trade cost.
  *
  * Percent columns only: they share a scale, where a flat 200 HP and a flat
@@ -668,7 +677,7 @@ export function collateralCost(changes: TotalsChange[], rel: Relevance, data: Da
     if (c.tone !== 'bad' || c.column !== 'percent' || c.key.startsWith(SKILL_PREFIX)) continue;
     const id = data.stats.find((s) => s.key === c.key)?.id;
     if (id === undefined || rel.ids.has(id)) continue;
-    cost += COLLATERAL_WEIGHT * Math.abs(c.delta) / 100;
+    cost += COLLATERAL_WEIGHT * (COLLATERAL_SCALE[c.key] ?? 1) * Math.abs(c.delta) / 100;
   }
   return cost;
 }

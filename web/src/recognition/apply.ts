@@ -53,10 +53,10 @@ export interface Applied {
 const HINTS: Record<string, string[]> = {
   'left-2': ['weapon', 'offhand'],
   'right-2': ['offhand', 'weapon'],
-  // Accessories are not mirrored: Megingjard, typed "Left Accessory", sits
-  // in the left column of a real capture. Accessory 2 is the left one.
-  'left-4': ['acc2', 'acc1'],
-  'right-4': ['acc1', 'acc2'],
+  // Megingjard, typed "Left Accessory", sits in the left column of a real
+  // capture, and Accessory 1 is the left one.
+  'left-4': ['acc1', 'acc2'],
+  'right-4': ['acc2', 'acc1'],
 };
 
 export function applyReadings(

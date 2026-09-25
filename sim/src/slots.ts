@@ -55,15 +55,16 @@ export const SLOTS: SlotDef[] = [
     accepts: ['Garment'], cardTargets: ['Garment'] },
   { key: 'shoes', label: 'Shoes', group: 'gear',
     accepts: ['Shoes'], cardTargets: ['Shoes'] },
-  // Accessory 1 is the right hand's and 2 the left's, as the game's own
-  // window has them. Most accessories go on either; the ones typed "Left
-  // Accessory" or "Right Accessory" (Gleipnir is left) only on their own.
-  { key: 'acc1', label: 'Accessory 1 (right)', group: 'gear',
-    accepts: ['Accessory'], cardTargets: ['Accessory'],
-    notTypes: ['Left Accessory', 'Unchained Left'] },
-  { key: 'acc2', label: 'Accessory 2 (left)', group: 'gear',
+  // Accessory 1 is the left one and 2 the right, as the game's own window
+  // has them (the project owner: "confusing, I know"). Most accessories go
+  // on either; the ones typed "Left Accessory" (Gleipnir, Megingjard) or
+  // "Right Accessory" (Andvarinaut) only on their own side.
+  { key: 'acc1', label: 'Accessory 1 (left)', group: 'gear',
     accepts: ['Accessory'], cardTargets: ['Accessory'],
     notTypes: ['Right Accessory', 'Unchained Right'] },
+  { key: 'acc2', label: 'Accessory 2 (right)', group: 'gear',
+    accepts: ['Accessory'], cardTargets: ['Accessory'],
+    notTypes: ['Left Accessory', 'Unchained Left'] },
   { key: 'ammo', label: 'Ammunition', group: 'gear',
     accepts: ['Ammunition'], cardTargets: [] },
   // One class gem, worn in a slot of its own. The server files every gem

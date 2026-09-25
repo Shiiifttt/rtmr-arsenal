@@ -1109,9 +1109,13 @@ test('a loss on a stat no goal covers is charged to a trade, per 100% lost', () 
   const change = (key: string, column: 'flat' | 'percent', delta: number): TotalsChange => ({
     key, column, label: key, delta, unit: column === 'percent' ? '%' : '', tone: statTone(key, delta),
   });
-  // -160% HP and SP regen: the case that read as a free sidegrade.
-  assert.equal(collateralCost([change('hp_regen', 'percent', -80), change('sp_regen', 'percent', -80)],
-    rel, dataset), COLLATERAL_WEIGHT * 1.6);
+  // -160% HP and SP regen: the case that read as a free sidegrade. Charged,
+  // at a fifth of the rate -- regeneration's percentages run large.
+  assert.ok(Math.abs(collateralCost([change('hp_regen', 'percent', -80), change('sp_regen', 'percent', -80)],
+    rel, dataset) - COLLATERAL_WEIGHT * 0.2 * 1.6) < 1e-9);
+  // Any other stat at the full rate.
+  assert.equal(collateralCost([change('healing_received', 'percent', -40)], rel, dataset),
+    COLLATERAL_WEIGHT * 0.4);
   // The goal's own stat is the goals' business, flat columns have no shared
   // scale, and gains are no reason to trade.
   assert.equal(collateralCost([change('crit_rate', 'percent', -50), change('max_hp', 'flat', -500),
@@ -1462,9 +1466,9 @@ test('side goals: resistances both ways, a negative one double, ASPD Limit only 
 test('left and right accessories go on their own side; Sky Garden gear never rolls', () => {
   const acc1 = SLOTS.find((s) => s.key === 'acc1')!;
   const acc2 = SLOTS.find((s) => s.key === 'acc2')!;
-  // Accessory 1 is the right hand's, 2 the left's. Gleipnir is left-only.
-  assert.ok(!fitsSlot(byName('Gleipnir'), acc1) && fitsSlot(byName('Gleipnir'), acc2));
-  assert.ok(fitsSlot(byName('Andvarinaut'), acc1) && !fitsSlot(byName('Andvarinaut'), acc2));
+  // Accessory 1 is the left one, 2 the right. Gleipnir is left-only.
+  assert.ok(fitsSlot(byName('Gleipnir'), acc1) && !fitsSlot(byName('Gleipnir'), acc2));
+  assert.ok(!fitsSlot(byName('Andvarinaut'), acc1) && fitsSlot(byName('Andvarinaut'), acc2));
   assert.ok(fitsSlot(byName('Arch Ring'), acc1) && fitsSlot(byName('Arch Ring'), acc2));
   // Armor, garments and shoes roll whether dropped or not -- but not from Sky Garden.
   for (const [slot, name] of [['garment', 'Asprika'], ['armor', 'Brynhild'], ['shoes', 'Sleipnir']]) {
@@ -1483,7 +1487,7 @@ test('quest-chain gear and lone-spawn drops are a long way off, Sky Garden is no
   assert.ok(effort('Rachel Jewel') > 2 * effort('Laevateinn'));
   // And a build in three Sky Garden pieces is not thereby within its reach.
   const build = socketsEmpty();
-  for (const [slot, name] of [['upper', 'Wyrdbrand'], ['garment', 'Asprika'], ['acc2', 'Gleipnir']]) {
+  for (const [slot, name] of [['upper', 'Wyrdbrand'], ['garment', 'Asprika'], ['acc1', 'Gleipnir']]) {
     build.slots[slot] = { itemId: byName(name).id, refine: 0, cards: [] };
   }
   assert.ok(reachOf(build, withEffort).effort! < effort('Rachel Jewel'));

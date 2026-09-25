@@ -339,13 +339,12 @@ this, a percent goal starting at 0 counted each 1% as a whole target, and +14%
 ATK outscored +3 AGI by several hundred times. `scaleOf` in
 `sim/src/suggest.ts`.
 
-**Accessories have sides.** Accessory 1 is the right hand's and 2 the
-left's, as in the game. Most accessories go on either; the ones typed "Left
-Accessory" (Gleipnir, Megingjard) or "Right Accessory" (Andvarinaut) only on
-their own side, and a saved build with one on the wrong side has the two
-swapped when it loads. The screenshot reader puts the equipment window's
-left-column accessory in Accessory 2: accessories there are not mirrored the
-way the weapons are.
+**Accessories have sides.** Accessory 1 is the left one and 2 the right, as
+the game's window has them. Most accessories go on either; the ones typed
+"Left Accessory" (Gleipnir, Megingjard) or "Right Accessory" (Andvarinaut)
+only on their own side, and a saved build with one on the wrong side has the
+two swapped when it loads. The screenshot reader puts the equipment window's
+left-column accessory in Accessory 1.
 
 **Sky Garden gear never rolls** random options, whatever its slot:
 `never_from` in `crawler/rolls.json`.
