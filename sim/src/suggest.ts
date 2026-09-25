@@ -1,5 +1,5 @@
 import { aggregate, BASE_STAT_IDS, skillKey } from './aggregate.ts';
-import { combine, FORMULAS } from './derived.ts';
+import { combine, defMultiplier, effectivePierce, FORMULAS, mdefMultiplier } from './derived.ts';
 import { skillTone, statTone, type Tone } from './format.ts';
 import { canEquip } from './jobs.ts';
 import { rollTableFor, type RollPick } from './rolls.ts';
@@ -564,7 +564,7 @@ export function tradeValue(
     const scale = Math.max(scaleOf(goal), Math.abs(before[i]));
     const term = goal.side ? sideWorth(goal, before[i], after[i])
       : priorityWeight(i) * (goal.atMost ? -1 : 1)
-        * (capped(goal, after[i]) - capped(goal, before[i])) / scale;
+        * (scored(goal, after[i]) - scored(goal, before[i])) / scale;
     total += gainsOnly ? Math.max(0, term) : term;
   });
   return total;
@@ -603,8 +603,12 @@ export function collateralCost(changes: TotalsChange[], rel: Relevance, data: Da
 /** The furthest a suggestion refines a piece already worn. See `refineMoves`. */
 export const REFINE_MOVE_CAP = 9;
 
-/** How far past the build's own gear a suggestion may reach, in grind. */
-export const REACH_EFFORT_FACTOR = 5;
+/**
+ * How far past the build's own gear a suggestion may reach, in grind. Was 5,
+ * until a build wearing three Sky Garden pieces (easy, from the project
+ * owner) had Rachel Jewel (rare) within reach. A calibration.
+ */
+export const REACH_EFFORT_FACTOR = 3;
 /**
  * How much tougher a monster may be than the ones the build already farms.
  * Tighter than the grind: a longer grind is patience, a monster three times
@@ -918,6 +922,39 @@ export function goalCap(goal: Goal): number | undefined {
   return goal.atMost ? Math.min(cap, goal.target) : Math.max(cap, goal.target);
 }
 
+/**
+ * Penetration as the damage it lets through, in percent over none, against
+ * the average level 130+ monster (208 DEF, 116 MDEF -- data/mobs/armor-targets.json).
+ *
+ * Read as a straight line, every point to 70 was worth the same, and three
+ * Hodremlin Cards taking a build from 36 to 57 penetration outranked three
+ * melee +3% cards. Through the in-game pierce curve and renewal's DEF
+ * formula, 5 to 25 is some +17% damage, but 36 to 57 only +10% -- less than
+ * the +9% melee is on every hit, once melee is ranked above it.
+ */
+const REF_DEF = 208;
+const REF_MDEF = 116;
+const PEN_DAMAGE: Record<string, (pen: number) => number> = {
+  def_pen: (p) => 100 * (defMultiplier(REF_DEF, effectivePierce(p)) / defMultiplier(REF_DEF, 0) - 1),
+  mdef_pen: (p) => 100 * (mdefMultiplier(REF_MDEF, effectivePierce(p)) / mdefMultiplier(REF_MDEF, 0) - 1),
+};
+
+/**
+ * A goal's value as scoring weighs it: capped, and for penetration turned
+ * into the damage it adds. The goal list still shows the raw figure.
+ */
+function scored(goal: Goal, value: number): number {
+  const c = capped(goal, value);
+  return PEN_DAMAGE[goal.key]?.(c) ?? c;
+}
+
+/** How far short of its target a goal is, as scoring weighs it; negative past it. */
+function gapOf(goal: Goal, value: number): number {
+  const at = scored(goal, value);
+  const target = scored(goal, goal.target);
+  return goal.atMost ? at - target : target - at;
+}
+
 /** A goal's value with anything past its cap cut off: past it, more is nothing. */
 export function capped(goal: Goal, value: number): number {
   const cap = goalCap(goal);
@@ -937,7 +974,7 @@ export function capped(goal: Goal, value: number): number {
  */
 function openSurplus(goal: Goal, value: number): number {
   if (!goal.open) return 0;
-  return Math.max(0, -shortOf(goal, capped(goal, value))) / scaleOf(goal);
+  return Math.max(0, -gapOf(goal, value)) / scaleOf(goal);
 }
 
 /**
@@ -1044,7 +1081,7 @@ function scoreExcept(goals: Goal[], values: number[], skip: number): number {
   goals.forEach((goal, i) => {
     if (i === skip) return;
     if (goal.side) { score -= sideWorth(goal, goal.target, values[i]); return; }
-    const short = shortOf(goal, capped(goal, values[i])) / scaleOf(goal);
+    const short = gapOf(goal, values[i]) / scaleOf(goal);
     // A guard that holds is worth nothing. Crediting the surplus would turn
     // "don't halve my HP" into "keep taking HP", which is a different thing
     // to ask for and one the player can ask for with an ordinary goal.
@@ -1119,7 +1156,7 @@ function shortfallOf(goals: Goal[], values: number[]): number {
     if (goal.side) { total -= Math.min(0, sideWorth(goal, goal.target, values[i])); return; }
     // An open goal is not done at its target, so refine is tuned for its
     // surplus too; an ordinary goal's surplus is left to the full score.
-    total += weightOf(goal, i) * (Math.max(0, shortOf(goal, values[i])) / scaleOf(goal)
+    total += weightOf(goal, i) * (Math.max(0, gapOf(goal, values[i])) / scaleOf(goal)
       - openSurplus(goal, values[i]));
   });
   return total;
@@ -1746,7 +1783,7 @@ export class Suggester {
     const rated: { move: Move; push: number; cost: number; broken: number }[] = [];
     for (const move of dedupe(candidates)) {
       const after = this.values(applyChanges(build, move.changes, this.data));
-      const push = dir * (capped(mine, after[index]) - capped(mine, before[index])) / scale;
+      const push = dir * (scored(mine, after[index]) - scored(mine, before[index])) / scale;
       // More of the stat is the whole question, so anything that does not
       // give more of it is not an answer, however good it is otherwise.
       if (push <= EPSILON) continue;
@@ -2094,8 +2131,21 @@ export class Suggester {
       const inner = new Suggester(this.data, [goal], wideOpts);
       inner.pushing = true;
       if (!inner.active) continue;
+      // Re-carding what is worn, which three new pieces for the slot would
+      // otherwise crowd out: melee cards for the Hodremlins in a knife
+      // already in the off hand is a trade worth seeing. Within reach as well
+      // as past it, or the best cards anywhere (Bestia) hide the ones a
+      // player can actually get.
+      const close = new Suggester(this.data, [goal], { ...this.opts, reach });
+      close.pushing = true;
       const found: Move[] = [];
-      for (const slot of SLOTS) found.push(...inner.slotMoves(build, slot.key, 3, false, false));
+      for (const slot of SLOTS) {
+        found.push(...inner.slotMoves(build, slot.key, 3, false, false));
+        for (const s of [close, inner]) {
+          const cards = s.cardMove(build, slot.key);
+          if (cards) found.push(cards);
+        }
+      }
       found.push(...inner.setMoves(build));
       for (const move of dedupe(found)) rate(move);
       yield lists();

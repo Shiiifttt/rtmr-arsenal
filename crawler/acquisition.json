@@ -18,7 +18,11 @@
   "",
   "'drops' adds a monster drop the database does not list yet, by item and",
   "monster name, with its chance in percent. It is written onto both the",
-  "item and the monster, and replaces any chance already listed for that pair."
+  "item and the monster, and replaces any chance already listed for that pair.",
+  "",
+  "'quest': true in place of costs marks an item behind a long quest chain,",
+  "which the data knows nothing about; it counts as QUEST_EFFORT in",
+  "crawler/rtm_crawl.py rather than as unknown, which read as within reach."
  ],
  "drops": [
   {
@@ -30,6 +34,12 @@
   }
  ],
  "entries": [
+  {
+   "names": ["Equilibrium Tome", "Celestial Tome", "Unleashed Manual"],
+   "status": "unverified",
+   "quest": true,
+   "reason": "Project owner, 2026-09-25: behind big quest chains, so hard to get. The database lists no cost (or, for the Unleashed Manual, only a rare drop), and an unknown cost read as within reach."
+  },
   {
    "names": ["Dream Manteau", "Dream Armor", "Dream Shoes", "Dream Ring", "Dream Pouch"],
    "status": "unverified",

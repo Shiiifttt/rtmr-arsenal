@@ -1168,12 +1168,17 @@ test('a set whose pieces all go into empty slots is offered, however many there 
 
 test('an open goal keeps counting past its target, in full, and stops at its cap', () => {
   const pen: Goal = { key: 'def_pen', column: 'flat', target: 25, cap: 70, open: true };
-  const closed: Goal = { ...pen, open: false, cap: undefined };
+  const hit: Goal = { key: 'hit', column: 'flat', target: 25, cap: 70, open: true };
+  const closed: Goal = { ...hit, open: false, cap: undefined };
   const at = (g: Goal, v: number) => goalScore([g], [v]);
   // Past the target an open goal is worth as much per point as short of it.
-  assert.ok(Math.abs((at(pen, 25) - at(pen, 35)) - (at(pen, 15) - at(pen, 25))) < 1e-9);
+  assert.ok(Math.abs((at(hit, 25) - at(hit, 35)) - (at(hit, 15) - at(hit, 25))) < 1e-9);
   // An ordinary goal's surplus is a token by comparison.
-  assert.ok(at(closed, 25) - at(closed, 35) < (at(pen, 25) - at(pen, 35)) / 4);
+  assert.ok(at(closed, 25) - at(closed, 35) < (at(hit, 25) - at(hit, 35)) / 4);
+  // Penetration keeps counting past 25 too, but each point for the damage it
+  // adds, which is less the further up the pierce curve it is.
+  assert.ok(at(pen, 35) < at(pen, 25));
+  assert.ok(at(pen, 25) - at(pen, 35) < at(pen, 15) - at(pen, 25));
   // And nothing past the cap.
   assert.equal(at(pen, 70), at(pen, 90));
   assert.ok(at(pen, 69) > at(pen, 70));
@@ -1302,9 +1307,14 @@ test('a percent goal is weighed out of 100, so +1% from nothing is not a whole t
   // So +3 AGI on a 74 AGI build is no longer a rounding error beside it.
   const agiGain = goalScore([agi], [74]) - goalScore([agi], [77]);
   assert.ok(agiGain > (goalScore([atk], [0]) - goalScore([atk], [3])));
-  // Penetration runs 0-100 and is weighed the same way, whatever its target.
+  // Penetration is weighed as the damage it lets through, out of 100: from
+  // 5 to 25 is some +17% against a level 130 monster's DEF, and from 36 to
+  // 57 -- three Hodremlin Cards -- only about +10%, less than three +3%
+  // melee cards give on every hit.
   const pen: Goal = { key: 'def_pen', column: 'flat', target: 25, open: true };
-  assert.ok(Math.abs((goalScore([pen], [5]) - goalScore([pen], [15])) - 0.1) < 1e-9);
+  const gain = (a: number, b: number) => goalScore([pen], [a]) - goalScore([pen], [b]);
+  assert.ok(Math.abs(gain(5, 25) - 0.167) < 0.005);
+  assert.ok(gain(36, 57) < 0.11 && gain(36, 57) > 0.09);
 });
 
 test('losing Max HP % or Max SP % always costs something, and gaining it is no reason', () => {
@@ -1439,4 +1449,34 @@ test('side goals: resistances both ways, a negative one double, ASPD Limit only 
     - (goalScore([res], [res.target]) - goalScore([res], [res.target + 18]))) < 1e-9);
   // And it is no longer something the build cannot use.
   assert.ok(s.score(put('garment', 'Asprika')) < s.score(build));
+});
+
+test('left and right accessories go on their own side; Sky Garden gear never rolls', () => {
+  const acc1 = SLOTS.find((s) => s.key === 'acc1')!;
+  const acc2 = SLOTS.find((s) => s.key === 'acc2')!;
+  // Accessory 1 is the right hand's, 2 the left's. Gleipnir is left-only.
+  assert.ok(!fitsSlot(byName('Gleipnir'), acc1) && fitsSlot(byName('Gleipnir'), acc2));
+  assert.ok(fitsSlot(byName('Andvarinaut'), acc1) && !fitsSlot(byName('Andvarinaut'), acc2));
+  assert.ok(fitsSlot(byName('Arch Ring'), acc1) && fitsSlot(byName('Arch Ring'), acc2));
+  // Armor, garments and shoes roll whether dropped or not -- but not from Sky Garden.
+  for (const [slot, name] of [['garment', 'Asprika'], ['armor', 'Brynhild'], ['shoes', 'Sleipnir']]) {
+    assert.equal(rollTableFor(dataset.rolls, slot, byName(name)), null, name);
+  }
+  assert.ok(rollTableFor(dataset.rolls, 'garment', byName('Tendrillion Skin')));
+});
+
+test('quest-chain gear and lone-spawn drops are a long way off, Sky Garden is not', () => {
+  const effort = (name: string) => withEffort.effort!.get(byName(name).id)!.effort;
+  for (const name of ['Equilibrium Tome', 'Celestial Tome', 'Unleashed Manual']) {
+    assert.ok(effort(name) > 10 * effort('Laevateinn'), name);
+  }
+  // Rachel Jewel is 1% off a monster that spawns one to a map: rarer than
+  // 400 souls off maps full of avatars.
+  assert.ok(effort('Rachel Jewel') > 2 * effort('Laevateinn'));
+  // And a build in three Sky Garden pieces is not thereby within its reach.
+  const build = socketsEmpty();
+  for (const [slot, name] of [['upper', 'Wyrdbrand'], ['garment', 'Asprika'], ['acc2', 'Gleipnir']]) {
+    build.slots[slot] = { itemId: byName(name).id, refine: 0, cards: [] };
+  }
+  assert.ok(reachOf(build, withEffort).effort! < effort('Rachel Jewel'));
 });

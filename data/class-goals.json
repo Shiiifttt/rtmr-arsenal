@@ -342,17 +342,17 @@
    {
     "name": "Moon (AGI/flee)",
     "confidence": "from play",
-    "basis": "Full Moon +8%/AGI, New Moon +5%/AGI, Million Stab +1%/AGI, Dragon Omamori +5%/STR on combo. From play: dagger + shield, AGI and flee; STR over INT means this rather than magic. From the project owner: STR and AGI both, SP cost too since the build runs dry, and no skill damage lines by default -- few pieces carry them, and they crowded out the stats every piece feeds.",
+    "basis": "Full Moon +8%/AGI, New Moon +5%/AGI, Million Stab +1%/AGI, Dragon Omamori +5%/STR on combo. From play: dagger + shield, AGI and flee; STR over INT means this rather than magic. From the project owner: STR and AGI both, SP cost too since the build runs dry, and no skill damage lines by default -- few pieces carry them, and they crowded out the stats every piece feeds. Melee damage (ATK% x target x melee) second, 2026-09-25: melee% is quite powerful for a physical Satsujin.",
     "leans": {
      "agi": 1,
      "str": 1
     },
     "goals": [
      { "key": "agi", "column": "total" },
+     { "key": "melee_dmg_mult", "column": "percent" },
      { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
      { "key": "str", "column": "total" },
      { "key": "flee", "column": "total" },
-     { "key": "melee_dmg_mult", "column": "percent" },
      { "key": "sp_cost", "column": "percent", "atMost": true, "cap": -50 }
     ]
    },

@@ -118,7 +118,11 @@ test('every damage playstyle chases penetration to 25 and on to 70, right after 
     if (cls === 'Orphan') continue;
     for (const s of styles) {
       const at = s.goals.findIndex((g) => g.key === 'def_pen' || g.key === 'mdef_pen');
-      assert.equal(at, 1, `${cls} / ${s.name}`);
+      // Right after the main stat -- or after the damage chain, where the
+      // project owner ranks it above penetration (melee% for a physical
+      // Satsujin, 2026-09-25).
+      const chained = at === 2 && /_dmg_mult$/.test(s.goals[1].key);
+      assert.ok(at === 1 || chained, `${cls} / ${s.name}`);
       assert.equal(s.goals[at].target, 25, `${cls} / ${s.name}`);
       assert.equal(s.goals[at].cap, 70, `${cls} / ${s.name}`);
     }

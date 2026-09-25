@@ -40,6 +40,10 @@ def build(source: Path = SOURCE, stats_path: Path = STATS) -> dict:
     # as "no condition" and hand the roll to every item in the slot.
     known_gates = {"dropped"}
 
+    never = doc.get("never_from", [])
+    if not isinstance(never, list) or not all(isinstance(p, str) and p.strip() for p in never):
+        problems.append("'never_from' must be a list of place names")
+
     for table in doc.get("tables", []):
         where = f"table {table.get('key')!r}"
         for gate in table.get("requires", {}):

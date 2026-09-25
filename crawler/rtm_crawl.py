@@ -590,12 +590,21 @@ too, so a 3% card is some thirty kills spread over a day or more of
 camping. Calibrated so Mistress Card lands just past a sun helmet, which is
 where players place it. A calibration, not a model."""
 
-SPARSE_SPAWNS = 10
+SPARSE_SPAWNS = 40
 """How many spawns on a map it takes before finding the next one stops
 being the slow part. A kill costs 1 + SPARSE_SPAWNS / spawns times its HP:
-70 on a map is barely slower than the HP alone, 3 is four times slower,
-and a lone spawn eleven times -- the walking between them is the cost. The
-data has no map sizes, so this is spawns per map, not true density."""
+70 on a map is under twice the HP alone, 20 three times, and a lone spawn
+41 times -- the walking between them is the cost. Raised from 10 on the
+project owner's word, 2026-09-25: Rachel Jewel, 1% off a Rachel Kidnapper
+that spawns one to a map, is rare to farm, while Sky Garden's 300 souls off
+maps of 20 avatars are easy; at 10 a kidnapper hunted down cost what eight
+avatars did. The data has no map sizes, so this is spawns per map, not true
+density."""
+
+QUEST_EFFORT = 500_000_000
+"""What an item behind a long quest chain counts as: some 700 Distortion
+Essence, most of the way to the Sage gear's 1,000. The data has no quests, so the
+chain is named by hand in crawler/acquisition.json. A calibration."""
 
 
 def apply_acquisition(items: list[dict], path: Path) -> None:
@@ -616,7 +625,7 @@ def apply_acquisition(items: list[dict], path: Path) -> None:
     applied = 0
     for entry in spec.get("entries", []):
         costs = []
-        for qty, name in entry["costs"]:
+        for qty, name in entry.get("costs", []):
             match = by_name.get(name)
             if not match:
                 print(f"  ! acquisition: no item called {name!r}", file=sys.stderr)
@@ -628,7 +637,12 @@ def apply_acquisition(items: list[dict], path: Path) -> None:
                 how = list(how) if isinstance(how, list) else ["", "", "", [], "", "", ""]
                 how += [None] * max(0, 7 - len(how))
                 how[3] = costs
-                how[6] = ""  # an exchange, not a zeny purchase
+                if entry.get("quest"):
+                    # A quest chain: no costs to add up, and not a purchase.
+                    how[0] = how[0] or "Quest chain"
+                    how[6] = "quest"
+                else:
+                    how[6] = ""  # an exchange, not a zeny purchase
                 item["raw"]["how"] = how
                 item["raw"]["how_override"] = {
                     "status": entry.get("status"), "reason": entry.get("reason")}
@@ -765,7 +779,9 @@ def item_effort(items: list[dict], mobs: list[dict]) -> dict[str, list[int]]:
         how = (item.get("raw") or {}).get("how")
         if isinstance(how, list) and how and how[0]:
             costs = how[3] if len(how) > 3 and isinstance(how[3], list) else []
-            if not costs and len(how) > 6 and how[6] == "sold":
+            if not costs and len(how) > 6 and how[6] == "quest":
+                take((QUEST_EFFORT, 0.0, -2))
+            elif not costs and len(how) > 6 and how[6] == "sold":
                 take((SOLD_EFFORT, 0.0, 0))
             elif costs and depth < 6:
                 total, toughest = 0.0, 0.0

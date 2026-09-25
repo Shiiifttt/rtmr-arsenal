@@ -66,8 +66,20 @@ export function reconcile(saved: Build, dataset: Dataset): Build {
     if (typeof value === 'number') fresh.baseStats[key] = clampBaseStat(value);
   }
 
+  // Accessories learned their sides after builds were saved with Gleipnir
+  // in the right hand. Swapping the two keeps the piece rather than
+  // dropping it for being on the wrong side -- when the swap is what fits.
+  const savedSlots = { ...(saved.slots ?? {}) };
+  const fits = (key: string, into: string) => {
+    const item = dataset.items.get(savedSlots[key]?.itemId ?? -1);
+    return !item || fitsSlot(item, SLOT_BY_KEY.get(into)!);
+  };
+  if ((!fits('acc1', 'acc1') || !fits('acc2', 'acc2')) && fits('acc1', 'acc2') && fits('acc2', 'acc1')) {
+    [savedSlots.acc1, savedSlots.acc2] = [savedSlots.acc2, savedSlots.acc1];
+  }
+
   for (const slot of SLOTS) {
-    const state = saved.slots?.[slot.key];
+    const state = savedSlots[slot.key];
     if (!state?.itemId) continue;
     const item = dataset.items.get(state.itemId);
     if (!item || !fitsSlot(item, slot)) continue;

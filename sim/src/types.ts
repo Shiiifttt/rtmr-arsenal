@@ -244,6 +244,8 @@ export interface RollData {
   /** "unverified" while the ranges come from description rather than testing. */
   status: 'verified' | 'unverified';
   note?: string[];
+  /** Places whose gear never rolls, whatever its slot: "Sky Garden". */
+  never_from?: string[];
   tables: RollTable[];
 }
 

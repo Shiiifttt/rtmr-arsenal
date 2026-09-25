@@ -328,10 +328,25 @@ missing HP.
 
 A percentage is weighed out of at least 100, whatever its target: it is a
 multiplier, so ATK +5% is a twentieth more damage whether the goal started at
-0 or at 40. Penetration is weighed the same way, since it runs 0–100. Before
+0 or at 40. Penetration is weighed as the damage it lets through, out of 100,
+against the average level 130+ monster (208 DEF, 116 MDEF): through the
+in-game pierce curve and renewal's DEF formula, 5 to 25 penetration is some
++17% damage, but 36 to 57 only +10%, so penetration stops outbidding melee%
+once there is a fair amount of it. The goal list still shows the raw figure. Before
 this, a percent goal starting at 0 counted each 1% as a whole target, and +14%
 ATK outscored +3 AGI by several hundred times. `scaleOf` in
 `sim/src/suggest.ts`.
+
+**Accessories have sides.** Accessory 1 is the right hand's and 2 the
+left's, as in the game. Most accessories go on either; the ones typed "Left
+Accessory" (Gleipnir, Megingjard) or "Right Accessory" (Andvarinaut) only on
+their own side, and a saved build with one on the wrong side has the two
+swapped when it loads. The screenshot reader puts the equipment window's
+left-column accessory in Accessory 2: accessories there are not mirrored the
+way the weapons are.
+
+**Sky Garden gear never rolls** random options, whatever its slot:
+`never_from` in `crawler/rolls.json`.
 
 **Recommendations, not a plan.** "Suggest changes" lists independent
 upgrades, each measured from the build as it is: the best swap for every slot

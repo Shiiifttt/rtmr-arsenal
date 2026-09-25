@@ -55,6 +55,17 @@ export function rollsApply(table: RollTable, item: Item): boolean {
 }
 
 /**
+ * Gear from a place that never hands out rolls: Sky Garden's exchanges, on
+ * the project owner's word. Read off where the item is got, so a new Sky
+ * Garden piece is covered without being named.
+ */
+function neverRolls(data: RollData | null | undefined, item: Item): boolean {
+  const how = item.raw?.how;
+  const where = Array.isArray(how) && typeof how[0] === 'string' ? how[0].toLowerCase() : '';
+  return !!where && (data?.never_from ?? []).some((p) => where.includes(p.toLowerCase()));
+}
+
+/**
  * Does this item roll this one roll? Only a gated roll can say no, and only
  * by the item's description not naming it: most drops roll stats, and only
  * the few that say "Skill Random Mods" roll a skill modifier as well.
@@ -79,7 +90,7 @@ export function rollTableFor(
 ): RollTable | null {
   const table = tableForSlot(data, slotKey);
   if (!table || !item) return null;
-  if (!rollsApply(table, item)) return null;
+  if (neverRolls(data, item) || !rollsApply(table, item)) return null;
   const rolls = table.rolls.filter((r) => rollApplies(r, item));
   if (rolls.length === table.rolls.length) return table;
   if (rolls.length === 0) return null;

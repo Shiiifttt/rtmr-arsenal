@@ -23,7 +23,15 @@
     "'requires' on a roll gates that one roll on the item: 'says' lists phrases,",
     "any of which the item's description must contain (case aside). Normal gear",
     "rolls a skill modifier only when it says so -- Vesper Cores, Kafra Ring,",
-    "Sombrero, Death Hand, Honor of the Fallen, Temporal Manteau."
+    "Sombrero, Death Hand, Honor of the Fallen, Temporal Manteau.",
+    "",
+    "'never_from' names places whose gear never rolls, whatever its slot's",
+    "table says: matched against where the item is got (the crawl's vendor",
+    "or exchange line), case aside. From the project owner, 2026-09-25: Sky",
+    "Garden equipment cannot roll random options."
+  ],
+  "never_from": [
+    "Sky Garden"
   ],
   "tables": [
     {

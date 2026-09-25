@@ -26,6 +26,8 @@ export interface SlotDef {
    * "Shadow accessory" but are worn in different places.
    */
   types?: string[];
+  /** Item types that may not go here: a left-only accessory in the right slot. */
+  notTypes?: string[];
 }
 
 export const SLOTS: SlotDef[] = [
@@ -53,10 +55,15 @@ export const SLOTS: SlotDef[] = [
     accepts: ['Garment'], cardTargets: ['Garment'] },
   { key: 'shoes', label: 'Shoes', group: 'gear',
     accepts: ['Shoes'], cardTargets: ['Shoes'] },
-  { key: 'acc1', label: 'Accessory 1', group: 'gear',
-    accepts: ['Accessory'], cardTargets: ['Accessory'] },
-  { key: 'acc2', label: 'Accessory 2', group: 'gear',
-    accepts: ['Accessory'], cardTargets: ['Accessory'] },
+  // Accessory 1 is the right hand's and 2 the left's, as the game's own
+  // window has them. Most accessories go on either; the ones typed "Left
+  // Accessory" or "Right Accessory" (Gleipnir is left) only on their own.
+  { key: 'acc1', label: 'Accessory 1 (right)', group: 'gear',
+    accepts: ['Accessory'], cardTargets: ['Accessory'],
+    notTypes: ['Left Accessory', 'Unchained Left'] },
+  { key: 'acc2', label: 'Accessory 2 (left)', group: 'gear',
+    accepts: ['Accessory'], cardTargets: ['Accessory'],
+    notTypes: ['Right Accessory', 'Unchained Right'] },
   { key: 'ammo', label: 'Ammunition', group: 'gear',
     accepts: ['Ammunition'], cardTargets: [] },
   // One class gem, worn in a slot of its own. The server files every gem
@@ -105,6 +112,7 @@ export function fitsSlot(item: Item, slot: SlotDef): boolean {
   if (item.kind === 'Card') return false;
   if (slot.kinds && !slot.kinds.includes(item.kind)) return false;
   if (slot.types && !(item.type && slot.types.includes(item.type))) return false;
+  if (slot.notTypes && item.type && slot.notTypes.includes(item.type)) return false;
   // Costume pieces must never land in a real gear slot, and vice versa.
   if (slot.group !== 'costume' && item.kind === 'Costume') return false;
   return item.equip_slots.some((s) => slot.accepts.includes(s));

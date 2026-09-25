@@ -88,8 +88,9 @@ export function rankPlaystyles(
  * the planner looks for upgrades along the playstyle's priorities rather
  * than chasing a target the player never set. Rounded towards "met", as
  * `goalsFromBuild` does. The exception is a goal the file gives a target --
- * penetration at 25 is close to a must for any damage build -- which starts
- * short until the build reaches it. Every goal is open: its target is a
+ * penetration at 25 is close to a must for any damage build -- which keeps
+ * that target: short until the build reaches it, and a floor, not the
+ * build's own figure, once it is past. Every goal is open: its target is a
  * starting line, not a point past which the stat stops mattering, so more
  * keeps counting in full up to the goal's cap. A goal on a metric this dataset no
  * longer offers is left out rather than added as a row nothing can move.
@@ -104,8 +105,10 @@ export function goalsFromPlaystyle(
       const goal: Goal = { ...g, target: 0, open: true };
       const value = measure(goal, totals, build, data);
       const now = (g.atMost ? Math.ceil(value * 100 - 1e-9) : Math.floor(value * 100 + 1e-9)) / 100;
-      goal.target = g.target === undefined ? now
-        : g.atMost ? Math.min(g.target, now) : Math.max(g.target, now);
+      // A target the file gives is the line that matters, above or below it:
+      // penetration at 55 that falls to 34 is still past 25, and holding it
+      // at 55 called every trade for melee cards a broken goal.
+      goal.target = g.target === undefined ? now : g.target;
       return goal;
     });
 }
