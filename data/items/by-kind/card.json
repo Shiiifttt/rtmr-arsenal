@@ -5580,7 +5580,16 @@
      },
      {
       "text": "Immune to Knockback",
-      "parsed": false
+      "stat": "Immune to Knockback",
+      "value": 1,
+      "unit": null,
+      "parsed": true,
+      "stat_ids": [
+       138
+      ],
+      "stat_keys": [
+       "prevents_knockback"
+      ]
      }
     ]
    },
@@ -13555,7 +13564,16 @@
   "effects": [
    {
     "text": "Immune to Curse",
-    "parsed": false
+    "stat": "Immune to Curse",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     125
+    ],
+    "stat_keys": [
+     "res_status_curse"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -14947,7 +14965,16 @@
   "effects": [
    {
     "text": "Immune to Blind",
-    "parsed": false
+    "stat": "Immune to Blind",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     128
+    ],
+    "stat_keys": [
+     "res_status_blind"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -21779,7 +21806,16 @@
   "effects": [
    {
     "text": "Immune to Freeze",
-    "parsed": false
+    "stat": "Immune to Freeze",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     122
+    ],
+    "stat_keys": [
+     "res_status_freeze"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -29681,7 +29717,16 @@
   "effects": [
    {
     "text": "Immune to Bleeding",
-    "parsed": false
+    "stat": "Immune to Bleeding",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     130
+    ],
+    "stat_keys": [
+     "res_status_bleeding"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -32256,7 +32301,10 @@
   "effects": [
    {
     "text": "Water Element Armor",
-    "parsed": false
+    "parsed": true,
+    "sets_element": "Water",
+    "stat_ids": [],
+    "stat_keys": []
    },
    {
     "text": "Immune to Freeze HP+5%",
@@ -32338,7 +32386,29 @@
   "effects": [
    {
     "text": "Immune to Poison and Bleeding",
-    "parsed": false
+    "stat": "Immune to Poison",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     129
+    ],
+    "stat_keys": [
+     "res_status_poison_status"
+    ]
+   },
+   {
+    "text": "Immune to Poison and Bleeding",
+    "stat": "Immune to Bleeding",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     130
+    ],
+    "stat_keys": [
+     "res_status_bleeding"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -35655,7 +35725,16 @@
   "effects": [
    {
     "text": "Immune to Freeze",
-    "parsed": false
+    "stat": "Immune to Freeze",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     122
+    ],
+    "stat_keys": [
+     "res_status_freeze"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -39071,7 +39150,10 @@
   "effects": [
    {
     "text": "Changes armor element to Wind",
-    "parsed": false
+    "parsed": true,
+    "sets_element": "Wind",
+    "stat_ids": [],
+    "stat_keys": []
    },
    {
     "text": "Move Speed +5%",
@@ -39088,7 +39170,16 @@
    },
    {
     "text": "Immune to Knockback",
-    "parsed": false
+    "stat": "Immune to Knockback",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     138
+    ],
+    "stat_keys": [
+     "prevents_knockback"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -41718,7 +41809,10 @@
   "effects": [
    {
     "text": "Armor Element becomes Holy",
-    "parsed": false
+    "parsed": true,
+    "sets_element": "Holy",
+    "stat_ids": [],
+    "stat_keys": []
    }
   ],
   "piece_bonus": [],
@@ -42650,7 +42744,10 @@
   "effects": [
    {
     "text": "Changed armor element to Undead",
-    "parsed": false
+    "parsed": true,
+    "sets_element": "Undead",
+    "stat_ids": [],
+    "stat_keys": []
    },
    {
     "text": "STR+3",
@@ -50663,7 +50760,16 @@
   "effects": [
    {
     "text": "Immune to Knockback",
-    "parsed": false
+    "stat": "Immune to Knockback",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     138
+    ],
+    "stat_keys": [
+     "prevents_knockback"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -51508,7 +51614,16 @@
     "effects": [
      {
       "text": "Immune to Knockback",
-      "parsed": false
+      "stat": "Immune to Knockback",
+      "value": 1,
+      "unit": null,
+      "parsed": true,
+      "stat_ids": [
+       138
+      ],
+      "stat_keys": [
+       "prevents_knockback"
+      ]
      }
     ],
     "requires": {
@@ -51559,7 +51674,42 @@
     "effects": [
      {
       "text": "Immune to Curse, Bleeding and Stone",
-      "parsed": false
+      "stat": "Immune to Curse",
+      "value": 100,
+      "unit": "%",
+      "parsed": true,
+      "stat_ids": [
+       125
+      ],
+      "stat_keys": [
+       "res_status_curse"
+      ]
+     },
+     {
+      "text": "Immune to Curse, Bleeding and Stone",
+      "stat": "Immune to Bleeding",
+      "value": 100,
+      "unit": "%",
+      "parsed": true,
+      "stat_ids": [
+       130
+      ],
+      "stat_keys": [
+       "res_status_bleeding"
+      ]
+     },
+     {
+      "text": "Immune to Curse, Bleeding and Stone",
+      "stat": "Immune to Stone",
+      "value": 100,
+      "unit": "%",
+      "parsed": true,
+      "stat_ids": [
+       124
+      ],
+      "stat_keys": [
+       "res_status_stone"
+      ]
      }
     ],
     "requires": {
@@ -52076,7 +52226,10 @@
   "effects": [
    {
     "text": "Changed armor element to Fire",
-    "parsed": false
+    "parsed": true,
+    "sets_element": "Fire",
+    "stat_ids": [],
+    "stat_keys": []
    },
    {
     "text": "DEF+5",
@@ -52093,7 +52246,16 @@
    },
    {
     "text": "Immune to Petrify",
-    "parsed": false
+    "stat": "Immune to Petrify",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     124
+    ],
+    "stat_keys": [
+     "res_status_stone"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -52423,7 +52585,16 @@
   "effects": [
    {
     "text": "Immunity to Stone",
-    "parsed": false
+    "stat": "Immune to Stone",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     124
+    ],
+    "stat_keys": [
+     "res_status_stone"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -56158,7 +56329,16 @@
   "effects": [
    {
     "text": "Immune to Freeze",
-    "parsed": false
+    "stat": "Immune to Freeze",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     122
+    ],
+    "stat_keys": [
+     "res_status_freeze"
+    ]
    },
    {
     "text": "Wind Element Resistance +10%",
@@ -60530,7 +60710,16 @@
    },
    {
     "text": "Immune to Poison Status",
-    "parsed": false
+    "stat": "Immune to Poison",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     129
+    ],
+    "stat_keys": [
+     "res_status_poison_status"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -65101,11 +65290,29 @@
   "effects": [
    {
     "text": "Immune to Silence",
-    "parsed": false
+    "stat": "Immune to Silence",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     126
+    ],
+    "stat_keys": [
+     "res_status_silence"
+    ]
    },
    {
     "text": "Immune to Sleep",
-    "parsed": false
+    "stat": "Immune to Sleep",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     127
+    ],
+    "stat_keys": [
+     "res_status_sleep"
+    ]
    },
    {
     "text": "MaxHP -20%",

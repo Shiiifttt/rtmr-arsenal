@@ -275,11 +275,31 @@ LEECH = re.compile(
     r"^(?P<rate>\d+(?:\.\d+)?)%?\s*(?:chance\s+)?to\s+(?:leech|drain)\s+"
     r"(?P<power>\d+(?:\.\d+)?)%\s*(?:of\s+)?(?P<rest>.*)$", re.I)
 
-# Armour that overrides the wearer's element says so flatly, either alone
-# ("Dark Element") or inside a set bonus ("Armor is Dark Element").
-ELEMENT_SET = re.compile(
-    r"^(?:armou?r\s+is\s+)?(?P<elem>neutral|water|earth|fire|wind|poison|holy|"
-    r"dark|shadow|ghost|undead)\s+element\.?$", re.I)
+# Armour that overrides the wearer's element. The tooltips word it half a
+# dozen ways, and a line nobody matched left the wearer Neutral in the
+# planner and the combat sim alike (Scylla Card's Fire, 2026-09-26):
+#   "Dark Element", "Armor is Dark Element", "Armor becomes Ghost Element",
+#   "Water Element Armor", "Changed armor element to Fire",
+#   "Changes armor element to Wind", "Armor Element becomes Holy".
+_ELEM = r"(?P<elem>neutral|water|earth|fire|wind|poison|holy|dark|shadow|ghost|undead)"
+ELEMENT_SET = [
+    re.compile(rf"^(?:armou?r\s+(?:is|becomes)\s+)?{_ELEM}\s+element(?:\s+armou?r)?\.?$", re.I),
+    re.compile(rf"^chang(?:ed|es)\s+armou?r\s+element\s+to\s+{_ELEM}\.?$", re.I),
+    re.compile(rf"^armou?r\s+element\s+becomes\s+{_ELEM}\.?$", re.I),
+]
+
+# "Immune to Petrify", "Immune to Poison, Blind and Silence", "Immunity to
+# Stone", "Grants immunity to Knockback." A status immunity is 100% of its
+# resistance; knockback is the Prevents Knockback flag.
+IMMUNE = re.compile(
+    r"^(?:grants\s+)?immun(?:e|ity)\s+to\s+(?P<list>[a-z ,]+?)(?:\s+status)?\.?$", re.I)
+# Tooltip words for a status -> the registry's status key.
+_IMMUNE_WORDS = {
+    "petrify": "stone", "petrification": "stone", "stone": "stone", "stun": "stun",
+    "freeze": "freeze", "freezing": "freeze", "curse": "curse", "silence": "silence",
+    "sleep": "sleep", "blind": "blind", "poison": "poison_status", "bleeding": "bleeding",
+    "confusion": "confusion",
+}
 
 # Conditions a character sheet can actually answer.
 # "If Base AGI is over 98", "If INT is above 98", "If VIT is 99",
@@ -392,6 +412,25 @@ def parse_requirement(text: str) -> dict | None:
             req["min"] = n
         return req
     return None
+
+
+PER_SKILL_LEVEL = re.compile(
+    r"^(?:per|every) (?:skill )?level of (?P<skills>.+?)(?: boosts)?$", re.I)
+
+
+def parse_per_skill_level(text: str) -> dict | None:
+    """'Per Level of Blade Mastery:' -- the block repeats once per skill level.
+
+    'Sleight Mastery and Card Mastery' counts the levels of both; 'Ominous
+    Presence or Advanced Scythe Mastery' counts whichever is higher.
+    """
+    m = PER_SKILL_LEVEL.match(text.strip().rstrip(":").strip())
+    if not m:
+        return None
+    names = m.group("skills")
+    combine = "best" if re.search(r"\bor\b", names, re.I) else "sum"
+    skills = [s.strip() for s in re.split(r"\s+(?:and|or)\s+", names, flags=re.I)]
+    return {"skills": [s for s in skills if s], "combine": combine}
 
 
 def _is_heading(line: str) -> bool:
@@ -628,9 +667,36 @@ def parse_leech(line: str) -> list[dict] | None:
     ]
 
 
+def parse_immunity(line: str) -> list[dict] | None:
+    """Status immunities, each as 100% of its resistance.
+
+    Every word in the list has to be known, or the line is left unparsed and
+    reported: "Immune to Freeze and Burning" names a status the registry has
+    no stat for, and half-reading it would hide that.
+    """
+    m = IMMUNE.match(line.strip())
+    if not m:
+        return None
+    words = [w.strip().lower() for w in re.split(r",|\band\b", m.group("list")) if w.strip()]
+    out = []
+    for word in words:
+        if word == "knockback":
+            key, value, unit = "prevents_knockback", 1, None
+        elif word in _IMMUNE_WORDS:
+            key, value, unit = f"res_status_{_IMMUNE_WORDS[word]}", 100, "%"
+        else:
+            return None
+        if key not in stat_registry.INDEX:
+            return None
+        out.append({"text": line.strip(), "stat": f"Immune to {word.title()}", "value": value,
+                    "unit": unit, "parsed": True,
+                    "stat_ids": [stat_registry.INDEX[key]], "stat_keys": [key]})
+    return out or None
+
+
 def parse_element(line: str) -> dict | None:
     """An armour piece that overrides the wearer's element."""
-    m = ELEMENT_SET.match(line.strip())
+    m = next((p.match(line.strip()) for p in ELEMENT_SET if p.match(line.strip())), None)
     if not m:
         return None
     elem = m.group("elem").capitalize()
@@ -714,6 +780,9 @@ def parse_line(line: str) -> list[dict]:
     element = parse_element(line)
     if element:
         return [element]
+    immune = parse_immunity(line)
+    if immune:
+        return immune
     m = REFLECT.match(line.strip())
     if m:
         value = float(m.group("value"))
@@ -1066,6 +1135,9 @@ def parse_description(desc: str) -> dict:
             requires = parse_requirement(condition)
             if requires:
                 pending_cond["requires"] = requires
+            per_skill = parse_per_skill_level(condition)
+            if per_skill:
+                pending_cond["per_skill_level"] = per_skill
             result["conditional"].append(pending_cond)
             section, pending_scope = "pending", "other"
             continue
@@ -1468,8 +1540,8 @@ SLOT_GROUPS = {
 }
 
 
-def build_class_rules(rules: dict, items: list[dict],
-                      classes: list[str]) -> tuple[dict, dict]:
+def build_class_rules(rules: dict, items: list[dict], classes: list[str],
+                      skills: dict | None = None) -> tuple[dict, dict]:
     """Resolve the hand-written class rules against the crawled data.
 
     Returns the payload the app loads and a report of what was applied and
@@ -1532,6 +1604,13 @@ def build_class_rules(rules: dict, items: list[dict],
         applied.append({"item": name, "status": patch.get("status", "unverified"),
                         "changed": ["usable_by"]})
 
+    trees = rules.get("trees") or {}
+    for name, link in trees.items():
+        if name not in known:
+            stale.append(f"tree {name}")
+        elif link.get("from") not in known:
+            stale.append(f"tree {name} from {link.get('from')}")
+
     report = {
         "class_rules_applied": applied,
         "class_rules_unverified": [a.get("class") or a.get("item") for a in applied
@@ -1539,7 +1618,44 @@ def build_class_rules(rules: dict, items: list[dict],
         "class_rules_stale": stale,
         "class_rules_unknown_types": unknown_types,
     }
-    return {"classes": out_classes, "items": out_items}, report
+    return {"classes": out_classes, "items": out_items,
+            "skills": class_skills(skills, trees, classes)}, report
+
+
+STARTER_CLASS = "Orphan"
+"""Every class starts here, so its skills are under all of them."""
+
+
+def class_skills(skills: dict | None, trees: dict,
+                 classes: list[str]) -> dict[str, dict[str, int]]:
+    """Every skill each class has, with its highest level.
+
+    The skill payload files a skill under the class that learns it, so the
+    jobs a class evolves from ('trees' in class-rules.json) are walked back
+    to collect what it inherits. Where several of those jobs teach the same
+    skill, the highest level wins.
+    """
+    if not skills:
+        return {}
+    col = {c: i for i, c in enumerate(skills["cols"])}
+    own: dict[str, dict[str, int]] = defaultdict(dict)
+    for row in skills["rows"]:
+        cls = skills["classes"][row[col["cls"]]]
+        name, top = row[col["name"]], row[col["max"]] or 0
+        own[cls][name] = max(own[cls].get(name, 0), top)
+
+    out: dict[str, dict[str, int]] = {}
+    for cls in classes:
+        line, at = [STARTER_CLASS], cls
+        while at and at not in line:
+            line.append(at)
+            at = (trees.get(at) or {}).get("from")
+        merged: dict[str, int] = {}
+        for job in line:
+            for name, top in own.get(job, {}).items():
+                merged[name] = max(merged.get(name, 0), top)
+        out[cls] = merged
+    return out
 
 
 def build(items: list[dict], overrides: dict | None = None) -> tuple[list[dict], list[dict], dict]:
@@ -1761,8 +1877,10 @@ def main() -> int:
     # of them, so a rule can be withdrawn by editing one file.
     classes_path = data / "classes.json"
     classes = json.loads(classes_path.read_text("utf-8")) if classes_path.exists() else []
+    skills_path = data / "raw" / "db-skills.json"
+    skills = json.loads(skills_path.read_text("utf-8")) if skills_path.exists() else None
     class_rules, class_report = build_class_rules(
-        load_overrides(root / "crawler" / "class-rules.json"), items, classes)
+        load_overrides(root / "crawler" / "class-rules.json"), items, classes, skills)
     _write(data / "class-rules.json", class_rules)
     report.update(class_report)
 

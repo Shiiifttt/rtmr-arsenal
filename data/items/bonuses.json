@@ -1137,7 +1137,14 @@
        "luk"
       ]
      }
-    ]
+    ],
+    "per_skill_level": {
+     "skills": [
+      "Sleight Mastery",
+      "Card Mastery"
+     ],
+     "combine": "sum"
+    }
    }
   ],
   "enchant": null,
@@ -7091,7 +7098,13 @@
       "text": "Shadowseer Only",
       "parsed": false
      }
-    ]
+    ],
+    "per_skill_level": {
+     "skills": [
+      "Spectral Mastery"
+     ],
+     "combine": "sum"
+    }
    }
   ],
   "enchant": null,
@@ -13023,7 +13036,16 @@
    },
    {
     "text": "Immune to Confusion",
-    "parsed": false
+    "stat": "Immune to Confusion",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     131
+    ],
+    "stat_keys": [
+     "res_status_confusion"
+    ]
    },
    {
     "text": "Tankard",
@@ -13039,7 +13061,6 @@
   "enchant": null,
   "lore": "A tankard once used by someone who could hold their liquor without losing control.",
   "unparsed": [
-   "Immune to Confusion",
    "Tankard",
    "Bleeding can affect Boss monsters"
   ]
@@ -13618,7 +13639,16 @@
   "piece_bonus": [
    {
     "text": "Immune to Poison.",
-    "parsed": false
+    "stat": "Immune to Poison",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     129
+    ],
+    "stat_keys": [
+     "res_status_poison_status"
+    ]
    }
   ],
   "refine": {
@@ -13784,7 +13814,6 @@
   "enchant": null,
   "lore": "Shadow gear worn by an orphan who fought resiliently for a future that was already doomed.",
   "unparsed": [
-   "Immune to Poison.",
    "Immunity to Poison, Bleeding and Burning is removed.",
    "Their negative effects are neutralized.",
    "5% chance each to afflict yourself with Poison, Bleeding or Burning."
@@ -14167,7 +14196,16 @@
   "piece_bonus": [
    {
     "text": "Immune to Bleeding.",
-    "parsed": false
+    "stat": "Immune to Bleeding",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     130
+    ],
+    "stat_keys": [
+     "res_status_bleeding"
+    ]
    }
   ],
   "refine": {
@@ -14333,7 +14371,6 @@
   "enchant": null,
   "lore": "Shadow gear worn by an orphan who fought resiliently for a future that was already doomed.",
   "unparsed": [
-   "Immune to Bleeding.",
    "Immunity to Poison, Bleeding and Burning is removed.",
    "Their negative effects are neutralized.",
    "5% chance each to afflict yourself with Poison, Bleeding or Burning."
@@ -20808,7 +20845,16 @@
   "piece_bonus": [
    {
     "text": "Immune to Blind",
-    "parsed": false
+    "stat": "Immune to Blind",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     128
+    ],
+    "stat_keys": [
+     "res_status_blind"
+    ]
    }
   ],
   "refine": {
@@ -20829,9 +20875,6 @@
   "enchant": null,
   "lore": null,
   "unparsed": [
-   "Immune to Blind",
-   "Immune to Curse",
-   "Immune to Stone",
    "Refined to +20 Total: Immune to Stun Refined to +40 Total: Immune to Freeze"
   ]
  },
@@ -20869,7 +20912,16 @@
   "piece_bonus": [
    {
     "text": "Immune to Silence",
-    "parsed": false
+    "stat": "Immune to Silence",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     126
+    ],
+    "stat_keys": [
+     "res_status_silence"
+    ]
    }
   ],
   "refine": {
@@ -20890,9 +20942,6 @@
   "enchant": null,
   "lore": null,
   "unparsed": [
-   "Immune to Silence",
-   "Immune to Curse",
-   "Immune to Stone",
    "Refined to +20 Total: Immune to Stun Refined to +40 Total: Immune to Freeze"
   ]
  },
@@ -20907,7 +20956,16 @@
   "piece_bonus": [
    {
     "text": "Immune to Bleeding",
-    "parsed": false
+    "stat": "Immune to Bleeding",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     130
+    ],
+    "stat_keys": [
+     "res_status_bleeding"
+    ]
    }
   ],
   "refine": {
@@ -20928,9 +20986,6 @@
   "enchant": null,
   "lore": null,
   "unparsed": [
-   "Immune to Bleeding",
-   "Immune to Curse",
-   "Immune to Stone",
    "Refined to +20 Total: Immune to Stun Refined to +40 Total: Immune to Freeze"
   ]
  },
@@ -20945,7 +21000,16 @@
   "piece_bonus": [
    {
     "text": "Immune to Poison",
-    "parsed": false
+    "stat": "Immune to Poison",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     129
+    ],
+    "stat_keys": [
+     "res_status_poison_status"
+    ]
    }
   ],
   "refine": {
@@ -20966,9 +21030,6 @@
   "enchant": null,
   "lore": null,
   "unparsed": [
-   "Immune to Poison",
-   "Immune to Curse",
-   "Immune to Stone",
    "Refined to +20 Total: Immune to Stun Refined to +40 Total: Immune to Freeze"
   ]
  },
@@ -21638,9 +21699,7 @@
   "conditional": [],
   "enchant": null,
   "lore": "Shadow gear worn by an orphan who got used to the desecrated castle.",
-  "unparsed": [
-   "Immunity to Curse status."
-  ]
+  "unparsed": []
  },
  {
   "id": 28160,
@@ -21677,9 +21736,7 @@
   "conditional": [],
   "enchant": null,
   "lore": "Shadow gear worn by an orphan who got used to the desecrated castle.",
-  "unparsed": [
-   "Immunity to Curse status."
-  ]
+  "unparsed": []
  },
  {
   "id": 28161,
@@ -21716,9 +21773,7 @@
   "conditional": [],
   "enchant": null,
   "lore": "Shadow gear worn by an orphan who got used to the desecrated castle.",
-  "unparsed": [
-   "Immunity to Curse status."
-  ]
+  "unparsed": []
  },
  {
   "id": 28159,
@@ -21755,9 +21810,7 @@
   "conditional": [],
   "enchant": null,
   "lore": "Shadow gear worn by an orphan who got used to the desecrated castle.",
-  "unparsed": [
-   "Immunity to Curse status."
-  ]
+  "unparsed": []
  },
  {
   "id": 28162,
@@ -21786,7 +21839,6 @@
   "enchant": null,
   "lore": "Shadow gear worn by an orphan who got used to the cold touch of death.",
   "unparsed": [
-   "Immune to Freezing",
    "(different from Freeze)",
    "+0.1% chance to Freeze the attacker when hit by any attack"
   ]
@@ -21818,7 +21870,6 @@
   "enchant": null,
   "lore": "Shadow gear worn by an orphan who got used to the cold touch of death.",
   "unparsed": [
-   "Immune to Freezing",
    "(different from Freeze)",
    "+0.1% chance to Freeze the attacker when hit by any attack"
   ]
@@ -21834,7 +21885,16 @@
   "piece_bonus": [
    {
     "text": "Immune to Freeze status",
-    "parsed": false
+    "stat": "Immune to Freeze",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     122
+    ],
+    "stat_keys": [
+     "res_status_freeze"
+    ]
    }
   ],
   "refine": {
@@ -21845,8 +21905,6 @@
   "enchant": null,
   "lore": "Shadow gear worn by an orphan who got used to the cold touch of death.",
   "unparsed": [
-   "Immune to Freeze status",
-   "Immune to Freezing",
    "(different from Freeze)",
    "+0.1% chance to Freeze the attacker when hit by any attack"
   ]
@@ -21878,7 +21936,6 @@
   "enchant": null,
   "lore": "Shadow gear worn by an orphan who got used to the cold touch of death.",
   "unparsed": [
-   "Immune to Freezing",
    "(different from Freeze)",
    "+0.1% chance to Freeze the attacker when hit by any attack"
   ]
@@ -30585,7 +30642,16 @@
   "effects": [
    {
     "text": "Immune to Curse",
-    "parsed": false
+    "stat": "Immune to Curse",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     125
+    ],
+    "stat_keys": [
+     "res_status_curse"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -30596,9 +30662,7 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "unparsed": [
-   "Immune to Curse"
-  ]
+  "unparsed": []
  },
  {
   "id": 4065,
@@ -31514,7 +31578,16 @@
   "effects": [
    {
     "text": "Immune to Blind.",
-    "parsed": false
+    "stat": "Immune to Blind",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     128
+    ],
+    "stat_keys": [
+     "res_status_blind"
+    ]
    },
    {
     "text": "Perfect Hit Rate +10%",
@@ -31538,9 +31611,7 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "unparsed": [
-   "Immune to Blind."
-  ]
+  "unparsed": []
  },
  {
   "id": 13081,
@@ -33144,7 +33215,13 @@
       "text": "Shadowseer Only",
       "parsed": false
      }
-    ]
+    ],
+    "per_skill_level": {
+     "skills": [
+      "Spectral Mastery"
+     ],
+     "combine": "sum"
+    }
    }
   ],
   "enchant": null,
@@ -36410,7 +36487,16 @@
   "effects": [
    {
     "text": "Immune to Blind",
-    "parsed": false
+    "stat": "Immune to Blind",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     128
+    ],
+    "stat_keys": [
+     "res_status_blind"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -36421,9 +36507,7 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "unparsed": [
-   "Immune to Blind"
-  ]
+  "unparsed": []
  },
  {
   "id": 4506,
@@ -50877,7 +50961,16 @@
   "effects": [
    {
     "text": "Immune to Freeze",
-    "parsed": false
+    "stat": "Immune to Freeze",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     122
+    ],
+    "stat_keys": [
+     "res_status_freeze"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -50888,9 +50981,7 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "unparsed": [
-   "Immune to Freeze"
-  ]
+  "unparsed": []
  },
  {
   "id": 29924,
@@ -52073,9 +52164,7 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "unparsed": [
-   "Immune to Knockback"
-  ]
+  "unparsed": []
  },
  {
   "id": 16102,
@@ -52144,8 +52233,7 @@
   "enchant": null,
   "lore": null,
   "unparsed": [
-   "Enables Backslide",
-   "Immune to Knockback"
+   "Enables Backslide"
   ]
  },
  {
@@ -52206,9 +52294,7 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "unparsed": [
-   "Immune to Knockback"
-  ]
+  "unparsed": []
  },
  {
   "id": 4423,
@@ -52616,7 +52702,42 @@
   "effects": [
    {
     "text": "Immune to Poison, Blind and Silence",
-    "parsed": false
+    "stat": "Immune to Poison",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     129
+    ],
+    "stat_keys": [
+     "res_status_poison_status"
+    ]
+   },
+   {
+    "text": "Immune to Poison, Blind and Silence",
+    "stat": "Immune to Blind",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     128
+    ],
+    "stat_keys": [
+     "res_status_blind"
+    ]
+   },
+   {
+    "text": "Immune to Poison, Blind and Silence",
+    "stat": "Immune to Silence",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     126
+    ],
+    "stat_keys": [
+     "res_status_silence"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -52627,9 +52748,7 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "unparsed": [
-   "Immune to Poison, Blind and Silence"
-  ]
+  "unparsed": []
  },
  {
   "id": 4418,
@@ -53882,7 +54001,16 @@
    },
    {
     "text": "Immune to Knockback.",
-    "parsed": false
+    "stat": "Immune to Knockback",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     138
+    ],
+    "stat_keys": [
+     "prevents_knockback"
+    ]
    },
    {
     "text": "HP+150",
@@ -53906,9 +54034,7 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "unparsed": [
-   "Immune to Knockback."
-  ]
+  "unparsed": []
  },
  {
   "id": 20717,
@@ -63296,7 +63422,16 @@
   "effects": [
    {
     "text": "Immune to Bleeding",
-    "parsed": false
+    "stat": "Immune to Bleeding",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     130
+    ],
+    "stat_keys": [
+     "res_status_bleeding"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -63307,9 +63442,7 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "unparsed": [
-   "Immune to Bleeding"
-  ]
+  "unparsed": []
  },
  {
   "id": 20730,
@@ -64537,7 +64670,13 @@
       "text": "Shadowseer Only",
       "parsed": false
      }
-    ]
+    ],
+    "per_skill_level": {
+     "skills": [
+      "Spectral Mastery"
+     ],
+     "combine": "sum"
+    }
    }
   ],
   "enchant": null,
@@ -67716,7 +67855,10 @@
   "effects": [
    {
     "text": "Water Element Armor",
-    "parsed": false
+    "parsed": true,
+    "sets_element": "Water",
+    "stat_ids": [],
+    "stat_keys": []
    },
    {
     "text": "Immune to Freeze HP+5%",
@@ -67736,9 +67878,7 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "unparsed": [
-   "Water Element Armor"
-  ]
+  "unparsed": []
  },
  {
   "id": 30142,
@@ -68098,7 +68238,29 @@
   "effects": [
    {
     "text": "Immune to Poison and Bleeding",
-    "parsed": false
+    "stat": "Immune to Poison",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     129
+    ],
+    "stat_keys": [
+     "res_status_poison_status"
+    ]
+   },
+   {
+    "text": "Immune to Poison and Bleeding",
+    "stat": "Immune to Bleeding",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     130
+    ],
+    "stat_keys": [
+     "res_status_bleeding"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -68109,9 +68271,7 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "unparsed": [
-   "Immune to Poison and Bleeding"
-  ]
+  "unparsed": []
  },
  {
   "id": 1290,
@@ -75312,7 +75472,16 @@
    },
    {
     "text": "Immunity to Poison",
-    "parsed": false
+    "stat": "Immune to Poison",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     129
+    ],
+    "stat_keys": [
+     "res_status_poison_status"
+    ]
    },
    {
     "text": "Tankard",
@@ -75328,7 +75497,6 @@
   "enchant": null,
   "lore": "A tankard once used by someone who lost control after the very first sip.",
   "unparsed": [
-   "Immunity to Poison",
    "Tankard",
    "Bleeding can affect Boss monsters"
   ]
@@ -76412,7 +76580,16 @@
   "effects": [
    {
     "text": "Immune to Freeze",
-    "parsed": false
+    "stat": "Immune to Freeze",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     122
+    ],
+    "stat_keys": [
+     "res_status_freeze"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -76423,9 +76600,7 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "unparsed": [
-   "Immune to Freeze"
-  ]
+  "unparsed": []
  },
  {
   "id": 4112,
@@ -77134,7 +77309,13 @@
        "vit"
       ]
      }
-    ]
+    ],
+    "per_skill_level": {
+     "skills": [
+      "Axe Mastery"
+     ],
+     "combine": "sum"
+    }
    }
   ],
   "enchant": null,
@@ -77224,7 +77405,13 @@
        "dex"
       ]
      }
-    ]
+    ],
+    "per_skill_level": {
+     "skills": [
+      "Bow Mastery"
+     ],
+     "combine": "sum"
+    }
    }
   ],
   "enchant": null,
@@ -77367,7 +77554,13 @@
        "agi"
       ]
      }
-    ]
+    ],
+    "per_skill_level": {
+     "skills": [
+      "Blade Mastery"
+     ],
+     "combine": "sum"
+    }
    }
   ],
   "enchant": null,
@@ -77457,7 +77650,13 @@
        "luk"
       ]
      }
-    ]
+    ],
+    "per_skill_level": {
+     "skills": [
+      "Katar Mastery"
+     ],
+     "combine": "sum"
+    }
    }
   ],
   "enchant": null,
@@ -77551,7 +77750,13 @@
        "dex"
       ]
      }
-    ]
+    ],
+    "per_skill_level": {
+     "skills": [
+      "Judgment Mastery"
+     ],
+     "combine": "sum"
+    }
    }
   ],
   "enchant": null,
@@ -77643,7 +77848,13 @@
        "str"
       ]
      }
-    ]
+    ],
+    "per_skill_level": {
+     "skills": [
+      "Scythe Mastery"
+     ],
+     "combine": "sum"
+    }
    }
   ],
   "enchant": null,
@@ -77733,7 +77944,13 @@
        "int"
       ]
      }
-    ]
+    ],
+    "per_skill_level": {
+     "skills": [
+      "Blade Mastery"
+     ],
+     "combine": "sum"
+    }
    }
   ],
   "enchant": null,
@@ -77958,7 +78175,13 @@
        "vit"
       ]
      }
-    ]
+    ],
+    "per_skill_level": {
+     "skills": [
+      "Spear Mastery"
+     ],
+     "combine": "sum"
+    }
    }
   ],
   "enchant": null,
@@ -78041,7 +78264,13 @@
        "dex"
       ]
      }
-    ]
+    ],
+    "per_skill_level": {
+     "skills": [
+      "Whip Mastery"
+     ],
+     "combine": "sum"
+    }
    }
   ],
   "enchant": null,
@@ -82121,7 +82350,10 @@
   "effects": [
    {
     "text": "Changes armor element to Wind",
-    "parsed": false
+    "parsed": true,
+    "sets_element": "Wind",
+    "stat_ids": [],
+    "stat_keys": []
    },
    {
     "text": "Move Speed +5%",
@@ -82138,7 +82370,16 @@
    },
    {
     "text": "Immune to Knockback",
-    "parsed": false
+    "stat": "Immune to Knockback",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     138
+    ],
+    "stat_keys": [
+     "prevents_knockback"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -82149,10 +82390,7 @@
   "conditional": [],
   "enchant": null,
   "lore": "Mad Drinker's housekeeper. The sound of her voice had every maid ready to take orders and follow them with efficiency.",
-  "unparsed": [
-   "Changes armor element to Wind",
-   "Immune to Knockback"
-  ]
+  "unparsed": []
  },
  {
   "id": 7004,
@@ -87076,7 +87314,14 @@
        "Roaring Overslash"
       ]
      }
-    ]
+    ],
+    "per_skill_level": {
+     "skills": [
+      "Ominous Presence",
+      "Advanced Scythe Mastery"
+     ],
+     "combine": "best"
+    }
    }
   ],
   "enchant": null,
@@ -87590,7 +87835,10 @@
   "effects": [
    {
     "text": "Armor becomes Ghost Element",
-    "parsed": false
+    "parsed": true,
+    "sets_element": "Ghost",
+    "stat_ids": [],
+    "stat_keys": []
    },
    {
     "text": "HP-2% per VIT",
@@ -87610,7 +87858,6 @@
   "enchant": null,
   "lore": null,
   "unparsed": [
-   "Armor becomes Ghost Element",
    "HP-2% per VIT",
    "SP-2% per INT"
   ]
@@ -87758,9 +88005,7 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "unparsed": [
-   "Immune to Bleeding"
-  ]
+  "unparsed": []
  },
  {
   "id": 1304,
@@ -87921,9 +88166,7 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "unparsed": [
-   "Immune to Bleeding"
-  ]
+  "unparsed": []
  },
  {
   "id": 5094,
@@ -87947,8 +88190,7 @@
   "enchant": null,
   "lore": null,
   "unparsed": [
-   "Ignore Weapon Size Penalty and Reflected Damage",
-   "Immune to Bleeding"
+   "Ignore Weapon Size Penalty and Reflected Damage"
   ]
  },
  {
@@ -88018,7 +88260,10 @@
   "effects": [
    {
     "text": "Changed armor element to Undead",
-    "parsed": false
+    "parsed": true,
+    "sets_element": "Undead",
+    "stat_ids": [],
+    "stat_keys": []
    },
    {
     "text": "STR+3",
@@ -88042,9 +88287,7 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "unparsed": [
-   "Changed armor element to Undead"
-  ]
+  "unparsed": []
  },
  {
   "id": 2715,
@@ -88076,9 +88319,7 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "unparsed": [
-   "Immune to Bleeding"
-  ]
+  "unparsed": []
  },
  {
   "id": 4085,
@@ -101412,7 +101653,16 @@
   "effects": [
    {
     "text": "Immune to Knockback",
-    "parsed": false
+    "stat": "Immune to Knockback",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     138
+    ],
+    "stat_keys": [
+     "prevents_knockback"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -101423,9 +101673,7 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "unparsed": [
-   "Immune to Knockback"
-  ]
+  "unparsed": []
  },
  {
   "id": 13070,
@@ -102222,7 +102470,13 @@
       "text": "Shadowseer Only",
       "parsed": false
      }
-    ]
+    ],
+    "per_skill_level": {
+     "skills": [
+      "Spectral Mastery"
+     ],
+     "combine": "sum"
+    }
    }
   ],
   "enchant": null,
@@ -103231,7 +103485,16 @@
     "effects": [
      {
       "text": "Immune to Knockback",
-      "parsed": false
+      "stat": "Immune to Knockback",
+      "value": 1,
+      "unit": null,
+      "parsed": true,
+      "stat_ids": [
+       138
+      ],
+      "stat_keys": [
+       "prevents_knockback"
+      ]
      }
     ],
     "requires": {
@@ -103282,7 +103545,42 @@
     "effects": [
      {
       "text": "Immune to Curse, Bleeding and Stone",
-      "parsed": false
+      "stat": "Immune to Curse",
+      "value": 100,
+      "unit": "%",
+      "parsed": true,
+      "stat_ids": [
+       125
+      ],
+      "stat_keys": [
+       "res_status_curse"
+      ]
+     },
+     {
+      "text": "Immune to Curse, Bleeding and Stone",
+      "stat": "Immune to Bleeding",
+      "value": 100,
+      "unit": "%",
+      "parsed": true,
+      "stat_ids": [
+       130
+      ],
+      "stat_keys": [
+       "res_status_bleeding"
+      ]
+     },
+     {
+      "text": "Immune to Curse, Bleeding and Stone",
+      "stat": "Immune to Stone",
+      "value": 100,
+      "unit": "%",
+      "parsed": true,
+      "stat_ids": [
+       124
+      ],
+      "stat_keys": [
+       "res_status_stone"
+      ]
      }
     ],
     "requires": {
@@ -103316,9 +103614,7 @@
   "enchant": null,
   "lore": null,
   "unparsed": [
-   "Immune to Knockback",
-   "Cast can't be Interrupted",
-   "Immune to Curse, Bleeding and Stone"
+   "Cast can't be Interrupted"
   ]
  },
  {
@@ -104857,7 +105153,10 @@
   "effects": [
    {
     "text": "Changed armor element to Fire",
-    "parsed": false
+    "parsed": true,
+    "sets_element": "Fire",
+    "stat_ids": [],
+    "stat_keys": []
    },
    {
     "text": "DEF+5",
@@ -104874,7 +105173,16 @@
    },
    {
     "text": "Immune to Petrify",
-    "parsed": false
+    "stat": "Immune to Petrify",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     124
+    ],
+    "stat_keys": [
+     "res_status_stone"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -104885,10 +105193,7 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "unparsed": [
-   "Changed armor element to Fire",
-   "Immune to Petrify"
-  ]
+  "unparsed": []
  },
  {
   "id": 1185,
@@ -105584,7 +105889,16 @@
   "effects": [
    {
     "text": "Immunity to Stone",
-    "parsed": false
+    "stat": "Immune to Stone",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     124
+    ],
+    "stat_keys": [
+     "res_status_stone"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -105595,9 +105909,7 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "unparsed": [
-   "Immunity to Stone"
-  ]
+  "unparsed": []
  },
  {
   "id": 28764,
@@ -110689,7 +111001,13 @@
       "text": "Shadowseer Only",
       "parsed": false
      }
-    ]
+    ],
+    "per_skill_level": {
+     "skills": [
+      "Spectral Mastery"
+     ],
+     "combine": "sum"
+    }
    }
   ],
   "enchant": null,
@@ -111819,7 +112137,16 @@
   "effects": [
    {
     "text": "Immune to Freeze",
-    "parsed": false
+    "stat": "Immune to Freeze",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     122
+    ],
+    "stat_keys": [
+     "res_status_freeze"
+    ]
    },
    {
     "text": "Wind Element Resistance +10%",
@@ -111843,9 +112170,7 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "unparsed": [
-   "Immune to Freeze"
-  ]
+  "unparsed": []
  },
  {
   "id": 4039,
@@ -115561,7 +115886,16 @@
    },
    {
     "text": "Immune to Poison Status",
-    "parsed": false
+    "stat": "Immune to Poison",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     129
+    ],
+    "stat_keys": [
+     "res_status_poison_status"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -115572,9 +115906,7 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "unparsed": [
-   "Immune to Poison Status"
-  ]
+  "unparsed": []
  },
  {
   "id": 15105,
@@ -118668,7 +119000,16 @@
   "effects": [
    {
     "text": "Grants immunity to Knockback.",
-    "parsed": false
+    "stat": "Immune to Knockback",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     138
+    ],
+    "stat_keys": [
+     "prevents_knockback"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -118689,9 +119030,7 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "unparsed": [
-   "Grants immunity to Knockback."
-  ]
+  "unparsed": []
  },
  {
   "id": 24087,
@@ -122251,7 +122590,13 @@
       "text": "Shadowseer Only",
       "parsed": false
      }
-    ]
+    ],
+    "per_skill_level": {
+     "skills": [
+      "Spectral Mastery"
+     ],
+     "combine": "sum"
+    }
    }
   ],
   "enchant": null,
@@ -130931,7 +131276,16 @@
      },
      {
       "text": "Immune to Knockback",
-      "parsed": false
+      "stat": "Immune to Knockback",
+      "value": 1,
+      "unit": null,
+      "parsed": true,
+      "stat_ids": [
+       138
+      ],
+      "stat_keys": [
+       "prevents_knockback"
+      ]
      }
     ]
    },
@@ -131210,7 +131564,6 @@
   "lore": "She was still making it when the house went quiet. You found it on the floor, and what you did with it that day is what you became. Years later a light guided you home: and when it was finally over, she thanked you.",
   "unparsed": [
    "The scarf you reached for that night decides what this card gives you.",
-   "Immune to Knockback",
    "Cast cannot be interrupted"
   ]
  },
@@ -131641,7 +131994,16 @@
    },
    {
     "text": "Immune to Knockback",
-    "parsed": false
+    "stat": "Immune to Knockback",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     138
+    ],
+    "stat_keys": [
+     "prevents_knockback"
+    ]
    },
    {
     "text": "Permanent Endure Effect",
@@ -131676,7 +132038,6 @@
   "enchant": null,
   "lore": "Fur-lined boots with the glima victory-stave carved into the heel. The wearer cannot be thrown.",
   "unparsed": [
-   "Immune to Knockback",
    "Permanent Endure Effect",
    "2 Pieces: Grants skill Fjotur",
    "4 Pieces: Grants skill Einherjar"
@@ -139169,7 +139530,42 @@
   "effects": [
    {
     "text": "Immune to Poison, Silence and Stun",
-    "parsed": false
+    "stat": "Immune to Poison",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     129
+    ],
+    "stat_keys": [
+     "res_status_poison_status"
+    ]
+   },
+   {
+    "text": "Immune to Poison, Silence and Stun",
+    "stat": "Immune to Silence",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     126
+    ],
+    "stat_keys": [
+     "res_status_silence"
+    ]
+   },
+   {
+    "text": "Immune to Poison, Silence and Stun",
+    "stat": "Immune to Stun",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     123
+    ],
+    "stat_keys": [
+     "res_status_stun"
+    ]
    },
    {
     "text": "King's Regen cast time removed (need to remove the buff if unequipped)",
@@ -139295,7 +139691,6 @@
   "enchant": null,
   "lore": null,
   "unparsed": [
-   "Immune to Poison, Silence and Stun",
    "King's Regen cast time removed (need to remove the buff if unequipped)",
    "Queen's Barrier the entire party when using Bishop's Guard",
    "Queen's Gambit leeches 5% of the damage dealt."
@@ -158266,7 +158661,16 @@
    },
    {
     "text": "Immune to Knockback",
-    "parsed": false
+    "stat": "Immune to Knockback",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     138
+    ],
+    "stat_keys": [
+     "prevents_knockback"
+    ]
    },
    {
     "text": "Healing received -10%",
@@ -158316,7 +158720,6 @@
   },
   "lore": null,
   "unparsed": [
-   "Immune to Knockback",
    "Double Max HP/SP",
    "Disables HP/SP Regeneration."
   ]
@@ -168222,7 +168625,29 @@
     "effects": [
      {
       "text": "Immunity to blind and stun.",
-      "parsed": false
+      "stat": "Immune to Blind",
+      "value": 100,
+      "unit": "%",
+      "parsed": true,
+      "stat_ids": [
+       128
+      ],
+      "stat_keys": [
+       "res_status_blind"
+      ]
+     },
+     {
+      "text": "Immunity to blind and stun.",
+      "stat": "Immune to Stun",
+      "value": 100,
+      "unit": "%",
+      "parsed": true,
+      "stat_ids": [
+       123
+      ],
+      "stat_keys": [
+       "res_status_stun"
+      ]
      }
     ]
    },
@@ -168243,7 +168668,6 @@
   "enchant": null,
   "lore": null,
   "unparsed": [
-   "Immunity to blind and stun.",
    "Drains target HP every second.",
    "Damage: target VIT x (Toxin Lv -3) + 2% of your Max HP (taken when applied)."
   ]
@@ -168265,7 +168689,29 @@
     "effects": [
      {
       "text": "Immunity to silence and curse.",
-      "parsed": false
+      "stat": "Immune to Silence",
+      "value": 100,
+      "unit": "%",
+      "parsed": true,
+      "stat_ids": [
+       126
+      ],
+      "stat_keys": [
+       "res_status_silence"
+      ]
+     },
+     {
+      "text": "Immunity to silence and curse.",
+      "stat": "Immune to Curse",
+      "value": 100,
+      "unit": "%",
+      "parsed": true,
+      "stat_ids": [
+       125
+      ],
+      "stat_keys": [
+       "res_status_curse"
+      ]
      }
     ]
    },
@@ -168286,7 +168732,6 @@
   "enchant": null,
   "lore": null,
   "unparsed": [
-   "Immunity to silence and curse.",
    "Target's skills have a 50% chance to fail.",
    "Application chance decreases based on target's INT."
   ]
@@ -176865,11 +177310,29 @@
   "effects": [
    {
     "text": "Immune to Silence",
-    "parsed": false
+    "stat": "Immune to Silence",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     126
+    ],
+    "stat_keys": [
+     "res_status_silence"
+    ]
    },
    {
     "text": "Immune to Sleep",
-    "parsed": false
+    "stat": "Immune to Sleep",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     127
+    ],
+    "stat_keys": [
+     "res_status_sleep"
+    ]
    },
    {
     "text": "MaxHP -20%",
@@ -176893,10 +177356,7 @@
   "conditional": [],
   "enchant": null,
   "lore": "He cut the seals and knelt to read them back. The stone has not answered in a long time. Nobody has told him, and he does not stop.",
-  "unparsed": [
-   "Immune to Silence",
-   "Immune to Sleep"
-  ]
+  "unparsed": []
  },
  {
   "id": 32507,
@@ -177335,7 +177795,10 @@
   "effects": [
    {
     "text": "Armor Element becomes Holy",
-    "parsed": false
+    "parsed": true,
+    "sets_element": "Holy",
+    "stat_ids": [],
+    "stat_keys": []
    }
   ],
   "piece_bonus": [],
@@ -177346,9 +177809,7 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "unparsed": [
-   "Armor Element becomes Holy"
-  ]
+  "unparsed": []
  },
  {
   "id": 32510,
@@ -180580,7 +181041,13 @@
        "max_hp"
       ]
      }
-    ]
+    ],
+    "per_skill_level": {
+     "skills": [
+      "Improve Defense"
+     ],
+     "combine": "sum"
+    }
    },
    {
     "condition": "Per Level of Improve Wisdom",
@@ -180598,7 +181065,13 @@
        "max_sp"
       ]
      }
-    ]
+    ],
+    "per_skill_level": {
+     "skills": [
+      "Improve Wisdom"
+     ],
+     "combine": "sum"
+    }
    },
    {
     "condition": "Per Level of Increase SP Recovery",
@@ -180616,7 +181089,13 @@
        "sp_regen"
       ]
      }
-    ]
+    ],
+    "per_skill_level": {
+     "skills": [
+      "Increase SP Recovery"
+     ],
+     "combine": "sum"
+    }
    }
   ],
   "enchant": null,

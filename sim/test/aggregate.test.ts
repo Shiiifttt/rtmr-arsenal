@@ -18,7 +18,7 @@ import {
   fitsSlot, maxRefine, MAX_REFINE, SLOTS,
 } from '../src/index.ts';
 import type {
-  Build, Dataset, Item, RollData, SetRecord, SlotState, StatDef, StatTotal,
+  Build, ClassRules, Dataset, Item, RollData, SetRecord, SlotState, StatDef, StatTotal,
 } from '../src/types.ts';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
@@ -319,6 +319,23 @@ test('one element wins, and the losing claims are still reported', () => {
     'exactly one claim applies',
   );
   assert.equal(totals.element, totals.elementClaims[0].element, 'the first wins');
+});
+
+test('a per-skill-level block counts at the max level of a skill the class learns', () => {
+  // Master Dagger: "Per Level of Blade Mastery: ... AGI+1". A Satsujin has
+  // Blade Mastery 10 from Assassin; a class without it gets nothing.
+  const dagger = itemList.find((i) => i.name === 'Master Dagger')!;
+  const withRules: Dataset = { ...dataset, classRules: load<ClassRules>('class-rules.json') };
+  const agi = (className: string | null) => {
+    const build = emptyBuild();
+    build.className = className;
+    build.slots.weapon = { itemId: dagger.id, refine: 0, cards: [] };
+    return aggregate(build, withRules);
+  };
+  assert.equal(agi('Satsujin').byStat.get(statId('agi'))?.flat, 10);
+  const none = agi('Judge');
+  assert.equal(none.byStat.get(statId('agi'))?.flat ?? 0, 0);
+  assert.ok(none.uncounted.some((u) => u.reason.includes('does not learn Blade Mastery')));
 });
 
 test('a base-stat condition applies only once the points are there', () => {

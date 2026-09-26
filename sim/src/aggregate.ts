@@ -57,6 +57,8 @@ export function aggregate(build: Build, data: Dataset): Totals {
   const base = build.baseStats ?? defaultBaseStats();
   const level = build.baseLevel ?? BASE_LEVEL_DEFAULT;
   const elementClaims: ElementClaim[] = [];
+  const classSkills = build.className
+    ? data.classRules?.skills?.[build.className] : undefined;
 
   // "ATK +1 every 20 flee" cannot be answered until everything else is in,
   // so these are set aside and applied in a second pass below.
@@ -183,12 +185,14 @@ export function aggregate(build: Build, data: Dataset): Totals {
    * count is applied here -- otherwise they would add once, as if at +1.
    * Below the first step they contribute nothing, and say so.
    */
-  const addScaling = (effects: Effect[] | undefined, label: string, refine: number) => {
+  const addScaling = (
+    effects: Effect[] | undefined, label: string, refine: number, mult = 1,
+  ) => {
     for (const eff of effects ?? []) {
       const per = eff.per_set_refine ?? eff.per_refine;
-      if (per === undefined) { add(eff, label); continue; }
+      if (per === undefined) { add(eff, label, mult); continue; }
       const steps = Math.floor(refine / per);
-      if (steps > 0) add(eff, label, steps);
+      if (steps > 0) add(eff, label, steps * mult);
       else uncounted.push({ label, text: eff.text, reason: `needs refine ${per} (have ${refine})` });
     }
   };
@@ -231,6 +235,27 @@ export function aggregate(build: Build, data: Dataset): Totals {
             uncounted.push({
               label, text: eff.text,
               reason: `needs a base stat at ${min}+ (none yet)`,
+            });
+          }
+        }
+        continue;
+      }
+      if (cond.per_skill_level) {
+        // "Per Level of Blade Mastery:" -- a class that learns the skill is
+        // taken to have maxed it. One that does not gets nothing from it.
+        const { skills: names, combine } = cond.per_skill_level;
+        const levels = names.map((n) => classSkills?.[n] ?? 0);
+        const steps = combine === 'best'
+          ? Math.max(0, ...levels) : levels.reduce((a, b) => a + b, 0);
+        if (steps > 0) {
+          addScaling(cond.effects, `${label} (${cond.condition}, Lv ${steps})`, refine, steps);
+        } else {
+          for (const eff of cond.effects) {
+            uncounted.push({
+              label, text: eff.text,
+              reason: build.className
+                ? `${build.className} does not learn ${names.join(combine === 'best' ? ' or ' : ' and ')}`
+                : `conditional: ${cond.condition} (no class picked)`,
             });
           }
         }

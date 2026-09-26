@@ -5714,7 +5714,16 @@
    },
    {
     "text": "Immune to Knockback",
-    "parsed": false
+    "stat": "Immune to Knockback",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     138
+    ],
+    "stat_keys": [
+     "prevents_knockback"
+    ]
    },
    {
     "text": "Healing received -10%",
@@ -10996,7 +11005,16 @@
   "effects": [
    {
     "text": "Immune to Blind.",
-    "parsed": false
+    "stat": "Immune to Blind",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     128
+    ],
+    "stat_keys": [
+     "res_status_blind"
+    ]
    },
    {
     "text": "Perfect Hit Rate +10%",
@@ -21726,7 +21744,16 @@
    },
    {
     "text": "Immune to Knockback",
-    "parsed": false
+    "stat": "Immune to Knockback",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     138
+    ],
+    "stat_keys": [
+     "prevents_knockback"
+    ]
    },
    {
     "text": "Permanent Endure Effect",
@@ -21824,7 +21851,42 @@
   "effects": [
    {
     "text": "Immune to Poison, Blind and Silence",
-    "parsed": false
+    "stat": "Immune to Poison",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     129
+    ],
+    "stat_keys": [
+     "res_status_poison_status"
+    ]
+   },
+   {
+    "text": "Immune to Poison, Blind and Silence",
+    "stat": "Immune to Blind",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     128
+    ],
+    "stat_keys": [
+     "res_status_blind"
+    ]
+   },
+   {
+    "text": "Immune to Poison, Blind and Silence",
+    "stat": "Immune to Silence",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     126
+    ],
+    "stat_keys": [
+     "res_status_silence"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -34171,7 +34233,10 @@
   "effects": [
    {
     "text": "Armor becomes Ghost Element",
-    "parsed": false
+    "parsed": true,
+    "sets_element": "Ghost",
+    "stat_ids": [],
+    "stat_keys": []
    },
    {
     "text": "HP-2% per VIT",

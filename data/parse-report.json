@@ -4,9 +4,9 @@
  "items_in_a_set": 875,
  "items_with_item_refine_scaling": 891,
  "sets_with_set_refine_scaling": 96,
- "effect_lines": 10213,
- "effect_lines_unstructured": 3934,
- "effect_parse_rate": 61.5,
+ "effect_lines": 10222,
+ "effect_lines_unstructured": 3893,
+ "effect_parse_rate": 61.9,
  "effect_parse_rate_by_kind": {
   "Weapon": {
    "lines": 2260,
@@ -14,24 +14,24 @@
    "rate": 75.1
   },
   "Armor": {
-   "lines": 1506,
-   "unstructured": 187,
-   "rate": 87.6
+   "lines": 1508,
+   "unstructured": 182,
+   "rate": 87.9
   },
   "Class gear": {
-   "lines": 1377,
-   "unstructured": 508,
-   "rate": 63.1
+   "lines": 1379,
+   "unstructured": 506,
+   "rate": 63.3
   },
   "Card": {
-   "lines": 1058,
-   "unstructured": 216,
-   "rate": 79.6
+   "lines": 1061,
+   "unstructured": 194,
+   "rate": 81.7
   },
   "Shadow gear": {
    "lines": 996,
-   "unstructured": 321,
-   "rate": 67.8
+   "unstructured": 314,
+   "rate": 68.5
   },
   "Costume": {
    "lines": 759,
@@ -39,9 +39,9 @@
    "rate": 0.1
   },
   "Other": {
-   "lines": 443,
-   "unstructured": 314,
-   "rate": 29.1
+   "lines": 445,
+   "unstructured": 312,
+   "rate": 29.9
   },
   "Material": {
    "lines": 404,
@@ -55,13 +55,13 @@
   },
   "Shield": {
    "lines": 293,
-   "unstructured": 38,
-   "rate": 87.0
+   "unstructured": 37,
+   "rate": 87.4
   },
   "Accessory": {
    "lines": 287,
-   "unstructured": 37,
-   "rate": 87.1
+   "unstructured": 35,
+   "rate": 87.8
   },
   "Headgear": {
    "lines": 236,
@@ -478,15 +478,15 @@
  "overrides_stale": [],
  "enchantable_items": 69,
  "per_stat_count_blocks": 4,
- "element_overrides": 14,
+ "element_overrides": 20,
  "evaluable_conditions": 69,
  "conditions_total": 388,
  "stats_registered": 156,
  "stat_mapping": {
-  "mapped_to_stat_ids": 5676,
+  "mapped_to_stat_ids": 5726,
   "skill_modifiers": 947,
   "unmapped": 209,
-  "coverage_percent": 83.1
+  "coverage_percent": 83.2
  },
  "unmapped_stat_names": [
   [
@@ -955,5 +955,7 @@
   "Polymath Gem of All Schools"
  ],
  "class_rules_stale": [],
- "class_rules_unknown_types": []
+ "class_rules_unknown_types": [
+  "Satsujin.off_hand: Dagger"
+ ]
 }

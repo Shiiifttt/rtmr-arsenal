@@ -1584,7 +1584,16 @@
    },
    {
     "text": "Immune to Confusion",
-    "parsed": false
+    "stat": "Immune to Confusion",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     131
+    ],
+    "stat_keys": [
+     "res_status_confusion"
+    ]
    },
    {
     "text": "Tankard",
@@ -6133,7 +6142,16 @@
    },
    {
     "text": "Immunity to Poison",
-    "parsed": false
+    "stat": "Immune to Poison",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     129
+    ],
+    "stat_keys": [
+     "res_status_poison_status"
+    ]
    },
    {
     "text": "Tankard",

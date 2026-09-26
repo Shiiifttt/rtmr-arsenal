@@ -6246,7 +6246,29 @@
     "effects": [
      {
       "text": "Immunity to blind and stun.",
-      "parsed": false
+      "stat": "Immune to Blind",
+      "value": 100,
+      "unit": "%",
+      "parsed": true,
+      "stat_ids": [
+       128
+      ],
+      "stat_keys": [
+       "res_status_blind"
+      ]
+     },
+     {
+      "text": "Immunity to blind and stun.",
+      "stat": "Immune to Stun",
+      "value": 100,
+      "unit": "%",
+      "parsed": true,
+      "stat_ids": [
+       123
+      ],
+      "stat_keys": [
+       "res_status_stun"
+      ]
      }
     ]
    },
@@ -8839,7 +8861,29 @@
     "effects": [
      {
       "text": "Immunity to silence and curse.",
-      "parsed": false
+      "stat": "Immune to Silence",
+      "value": 100,
+      "unit": "%",
+      "parsed": true,
+      "stat_ids": [
+       126
+      ],
+      "stat_keys": [
+       "res_status_silence"
+      ]
+     },
+     {
+      "text": "Immunity to silence and curse.",
+      "stat": "Immune to Curse",
+      "value": 100,
+      "unit": "%",
+      "parsed": true,
+      "stat_ids": [
+       125
+      ],
+      "stat_keys": [
+       "res_status_curse"
+      ]
      }
     ]
    },

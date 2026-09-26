@@ -15400,7 +15400,42 @@
   "effects": [
    {
     "text": "Immune to Poison, Silence and Stun",
-    "parsed": false
+    "stat": "Immune to Poison",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     129
+    ],
+    "stat_keys": [
+     "res_status_poison_status"
+    ]
+   },
+   {
+    "text": "Immune to Poison, Silence and Stun",
+    "stat": "Immune to Silence",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     126
+    ],
+    "stat_keys": [
+     "res_status_silence"
+    ]
+   },
+   {
+    "text": "Immune to Poison, Silence and Stun",
+    "stat": "Immune to Stun",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     123
+    ],
+    "stat_keys": [
+     "res_status_stun"
+    ]
    },
    {
     "text": "King's Regen cast time removed (need to remove the buff if unequipped)",
@@ -29422,7 +29457,16 @@
   "effects": [
    {
     "text": "Grants immunity to Knockback.",
-    "parsed": false
+    "stat": "Immune to Knockback",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     138
+    ],
+    "stat_keys": [
+     "prevents_knockback"
+    ]
    }
   ],
   "piece_bonus": [],

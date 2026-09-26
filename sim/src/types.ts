@@ -116,6 +116,11 @@ export interface Item {
     requires?: Requirement;
     /** "For each base stat over 98:" — multiplier is how many stats clear it. */
     per_stat_count?: { min: number };
+    /**
+     * "Per Level of Blade Mastery:" -- the block counts once per level of the
+     * named skills: the levels summed ("A and B"), or the best one ("A or B").
+     */
+    per_skill_level?: { skills: string[]; combine: 'sum' | 'best' };
     effects: Effect[];
   }[];
   /**
@@ -434,6 +439,12 @@ export interface ClassRules {
     status: string;
     reason: string;
   }>;
+  /**
+   * Each class's skills with their top level, counting those learned in the
+   * jobs it evolved from. A player is taken to have maxed every one, which
+   * is what a "Per Level of" bonus is read at. Absent in older builds.
+   */
+  skills?: Record<string, Record<string, number>>;
 }
 
 export interface Dataset {

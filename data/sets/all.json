@@ -3328,11 +3328,29 @@
    },
    {
     "text": "Immune to Curse",
-    "parsed": false
+    "stat": "Immune to Curse",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     125
+    ],
+    "stat_keys": [
+     "res_status_curse"
+    ]
    },
    {
     "text": "Immune to Stone",
-    "parsed": false
+    "stat": "Immune to Stone",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     124
+    ],
+    "stat_keys": [
+     "res_status_stone"
+    ]
    }
   ],
   "set_refine": {
@@ -3465,7 +3483,16 @@
    },
    {
     "text": "Immunity to Curse status.",
-    "parsed": false
+    "stat": "Immune to Curse",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     125
+    ],
+    "stat_keys": [
+     "res_status_curse"
+    ]
    }
   ],
   "set_refine": {
@@ -3537,7 +3564,16 @@
    },
    {
     "text": "Immune to Freezing",
-    "parsed": false
+    "stat": "Immune to Freezing",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     122
+    ],
+    "stat_keys": [
+     "res_status_freeze"
+    ]
    },
    {
     "text": "(different from Freeze)",
@@ -8118,7 +8154,16 @@
    },
    {
     "text": "Immune to Knockback",
-    "parsed": false
+    "stat": "Immune to Knockback",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     138
+    ],
+    "stat_keys": [
+     "prevents_knockback"
+    ]
    }
   ],
   "set_refine": {
@@ -14339,7 +14384,16 @@
    },
    {
     "text": "Immune to Bleeding",
-    "parsed": false
+    "stat": "Immune to Bleeding",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     130
+    ],
+    "stat_keys": [
+     "res_status_bleeding"
+    ]
    }
   ],
   "set_refine": {

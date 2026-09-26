@@ -5646,7 +5646,13 @@
        "max_hp"
       ]
      }
-    ]
+    ],
+    "per_skill_level": {
+     "skills": [
+      "Improve Defense"
+     ],
+     "combine": "sum"
+    }
    },
    {
     "condition": "Per Level of Improve Wisdom",
@@ -5664,7 +5670,13 @@
        "max_sp"
       ]
      }
-    ]
+    ],
+    "per_skill_level": {
+     "skills": [
+      "Improve Wisdom"
+     ],
+     "combine": "sum"
+    }
    },
    {
     "condition": "Per Level of Increase SP Recovery",
@@ -5682,7 +5694,13 @@
        "sp_regen"
       ]
      }
-    ]
+    ],
+    "per_skill_level": {
+     "skills": [
+      "Increase SP Recovery"
+     ],
+     "combine": "sum"
+    }
    }
   ],
   "enchant": null,

@@ -2064,7 +2064,14 @@
        "luk"
       ]
      }
-    ]
+    ],
+    "per_skill_level": {
+     "skills": [
+      "Sleight Mastery",
+      "Card Mastery"
+     ],
+     "combine": "sum"
+    }
    }
   ],
   "enchant": null,
@@ -15191,7 +15198,13 @@
       "text": "Shadowseer Only",
       "parsed": false
      }
-    ]
+    ],
+    "per_skill_level": {
+     "skills": [
+      "Spectral Mastery"
+     ],
+     "combine": "sum"
+    }
    }
   ],
   "enchant": null,
@@ -28213,7 +28226,16 @@
    },
    {
     "text": "Immune to Confusion",
-    "parsed": false
+    "stat": "Immune to Confusion",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     131
+    ],
+    "stat_keys": [
+     "res_status_confusion"
+    ]
    },
    {
     "text": "Tankard",
@@ -29636,7 +29658,16 @@
   "piece_bonus": [
    {
     "text": "Immune to Poison.",
-    "parsed": false
+    "stat": "Immune to Poison",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     129
+    ],
+    "stat_keys": [
+     "res_status_poison_status"
+    ]
    }
   ],
   "refine": {
@@ -30350,7 +30381,16 @@
   "piece_bonus": [
    {
     "text": "Immune to Bleeding.",
-    "parsed": false
+    "stat": "Immune to Bleeding",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     130
+    ],
+    "stat_keys": [
+     "res_status_bleeding"
+    ]
    }
   ],
   "refine": {
@@ -45433,7 +45473,16 @@
   "piece_bonus": [
    {
     "text": "Immune to Blind",
-    "parsed": false
+    "stat": "Immune to Blind",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     128
+    ],
+    "stat_keys": [
+     "res_status_blind"
+    ]
    }
   ],
   "refine": {
@@ -45595,7 +45644,16 @@
   "piece_bonus": [
    {
     "text": "Immune to Silence",
-    "parsed": false
+    "stat": "Immune to Silence",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     126
+    ],
+    "stat_keys": [
+     "res_status_silence"
+    ]
    }
   ],
   "refine": {
@@ -45685,7 +45743,16 @@
   "piece_bonus": [
    {
     "text": "Immune to Bleeding",
-    "parsed": false
+    "stat": "Immune to Bleeding",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     130
+    ],
+    "stat_keys": [
+     "res_status_bleeding"
+    ]
    }
   ],
   "refine": {
@@ -45775,7 +45842,16 @@
   "piece_bonus": [
    {
     "text": "Immune to Poison",
-    "parsed": false
+    "stat": "Immune to Poison",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     129
+    ],
+    "stat_keys": [
+     "res_status_poison_status"
+    ]
    }
   ],
   "refine": {
@@ -47753,7 +47829,16 @@
   "piece_bonus": [
    {
     "text": "Immune to Freeze status",
-    "parsed": false
+    "stat": "Immune to Freeze",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     122
+    ],
+    "stat_keys": [
+     "res_status_freeze"
+    ]
    }
   ],
   "refine": {
@@ -70830,7 +70915,16 @@
   "effects": [
    {
     "text": "Immune to Curse",
-    "parsed": false
+    "stat": "Immune to Curse",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     125
+    ],
+    "stat_keys": [
+     "res_status_curse"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -73013,7 +73107,16 @@
   "effects": [
    {
     "text": "Immune to Blind.",
-    "parsed": false
+    "stat": "Immune to Blind",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     128
+    ],
+    "stat_keys": [
+     "res_status_blind"
+    ]
    },
    {
     "text": "Perfect Hit Rate +10%",
@@ -76649,7 +76752,13 @@
       "text": "Shadowseer Only",
       "parsed": false
      }
-    ]
+    ],
+    "per_skill_level": {
+     "skills": [
+      "Spectral Mastery"
+     ],
+     "combine": "sum"
+    }
    }
   ],
   "enchant": null,
@@ -85424,7 +85533,16 @@
   "effects": [
    {
     "text": "Immune to Blind",
-    "parsed": false
+    "stat": "Immune to Blind",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     128
+    ],
+    "stat_keys": [
+     "res_status_blind"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -118693,7 +118811,16 @@
   "effects": [
    {
     "text": "Immune to Freeze",
-    "parsed": false
+    "stat": "Immune to Freeze",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     122
+    ],
+    "stat_keys": [
+     "res_status_freeze"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -122739,7 +122866,42 @@
   "effects": [
    {
     "text": "Immune to Poison, Blind and Silence",
-    "parsed": false
+    "stat": "Immune to Poison",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     129
+    ],
+    "stat_keys": [
+     "res_status_poison_status"
+    ]
+   },
+   {
+    "text": "Immune to Poison, Blind and Silence",
+    "stat": "Immune to Blind",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     128
+    ],
+    "stat_keys": [
+     "res_status_blind"
+    ]
+   },
+   {
+    "text": "Immune to Poison, Blind and Silence",
+    "stat": "Immune to Silence",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     126
+    ],
+    "stat_keys": [
+     "res_status_silence"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -125335,7 +125497,16 @@
    },
    {
     "text": "Immune to Knockback.",
-    "parsed": false
+    "stat": "Immune to Knockback",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     138
+    ],
+    "stat_keys": [
+     "prevents_knockback"
+    ]
    },
    {
     "text": "HP+150",
@@ -147970,7 +148141,16 @@
   "effects": [
    {
     "text": "Immune to Bleeding",
-    "parsed": false
+    "stat": "Immune to Bleeding",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     130
+    ],
+    "stat_keys": [
+     "res_status_bleeding"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -151109,7 +151289,13 @@
       "text": "Shadowseer Only",
       "parsed": false
      }
-    ]
+    ],
+    "per_skill_level": {
+     "skills": [
+      "Spectral Mastery"
+     ],
+     "combine": "sum"
+    }
    }
   ],
   "enchant": null,
@@ -158576,7 +158762,10 @@
   "effects": [
    {
     "text": "Water Element Armor",
-    "parsed": false
+    "parsed": true,
+    "sets_element": "Water",
+    "stat_ids": [],
+    "stat_keys": []
    },
    {
     "text": "Immune to Freeze HP+5%",
@@ -159347,7 +159536,29 @@
   "effects": [
    {
     "text": "Immune to Poison and Bleeding",
-    "parsed": false
+    "stat": "Immune to Poison",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     129
+    ],
+    "stat_keys": [
+     "res_status_poison_status"
+    ]
+   },
+   {
+    "text": "Immune to Poison and Bleeding",
+    "stat": "Immune to Bleeding",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     130
+    ],
+    "stat_keys": [
+     "res_status_bleeding"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -176489,7 +176700,16 @@
    },
    {
     "text": "Immunity to Poison",
-    "parsed": false
+    "stat": "Immune to Poison",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     129
+    ],
+    "stat_keys": [
+     "res_status_poison_status"
+    ]
    },
    {
     "text": "Tankard",
@@ -179205,7 +179425,16 @@
   "effects": [
    {
     "text": "Immune to Freeze",
-    "parsed": false
+    "stat": "Immune to Freeze",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     122
+    ],
+    "stat_keys": [
+     "res_status_freeze"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -180797,7 +181026,13 @@
        "vit"
       ]
      }
-    ]
+    ],
+    "per_skill_level": {
+     "skills": [
+      "Axe Mastery"
+     ],
+     "combine": "sum"
+    }
    }
   ],
   "enchant": null,
@@ -180936,7 +181171,13 @@
        "dex"
       ]
      }
-    ]
+    ],
+    "per_skill_level": {
+     "skills": [
+      "Bow Mastery"
+     ],
+     "combine": "sum"
+    }
    }
   ],
   "enchant": null,
@@ -181168,7 +181409,13 @@
        "agi"
       ]
      }
-    ]
+    ],
+    "per_skill_level": {
+     "skills": [
+      "Blade Mastery"
+     ],
+     "combine": "sum"
+    }
    }
   ],
   "enchant": null,
@@ -181307,7 +181554,13 @@
        "luk"
       ]
      }
-    ]
+    ],
+    "per_skill_level": {
+     "skills": [
+      "Katar Mastery"
+     ],
+     "combine": "sum"
+    }
    }
   ],
   "enchant": null,
@@ -181450,7 +181703,13 @@
        "dex"
       ]
      }
-    ]
+    ],
+    "per_skill_level": {
+     "skills": [
+      "Judgment Mastery"
+     ],
+     "combine": "sum"
+    }
    }
   ],
   "enchant": null,
@@ -181589,7 +181848,13 @@
        "str"
       ]
      }
-    ]
+    ],
+    "per_skill_level": {
+     "skills": [
+      "Scythe Mastery"
+     ],
+     "combine": "sum"
+    }
    }
   ],
   "enchant": null,
@@ -181728,7 +181993,13 @@
        "int"
       ]
      }
-    ]
+    ],
+    "per_skill_level": {
+     "skills": [
+      "Blade Mastery"
+     ],
+     "combine": "sum"
+    }
    }
   ],
   "enchant": null,
@@ -182162,7 +182433,13 @@
        "vit"
       ]
      }
-    ]
+    ],
+    "per_skill_level": {
+     "skills": [
+      "Spear Mastery"
+     ],
+     "combine": "sum"
+    }
    }
   ],
   "enchant": null,
@@ -182292,7 +182569,13 @@
        "dex"
       ]
      }
-    ]
+    ],
+    "per_skill_level": {
+     "skills": [
+      "Whip Mastery"
+     ],
+     "combine": "sum"
+    }
    }
   ],
   "enchant": null,
@@ -191650,7 +191933,10 @@
   "effects": [
    {
     "text": "Changes armor element to Wind",
-    "parsed": false
+    "parsed": true,
+    "sets_element": "Wind",
+    "stat_ids": [],
+    "stat_keys": []
    },
    {
     "text": "Move Speed +5%",
@@ -191667,7 +191953,16 @@
    },
    {
     "text": "Immune to Knockback",
-    "parsed": false
+    "stat": "Immune to Knockback",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     138
+    ],
+    "stat_keys": [
+     "prevents_knockback"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -202519,7 +202814,14 @@
        "Roaring Overslash"
       ]
      }
-    ]
+    ],
+    "per_skill_level": {
+     "skills": [
+      "Ominous Presence",
+      "Advanced Scythe Mastery"
+     ],
+     "combine": "best"
+    }
    }
   ],
   "enchant": null,
@@ -203388,7 +203690,10 @@
   "effects": [
    {
     "text": "Armor becomes Ghost Element",
-    "parsed": false
+    "parsed": true,
+    "sets_element": "Ghost",
+    "stat_ids": [],
+    "stat_keys": []
    },
    {
     "text": "HP-2% per VIT",
@@ -204623,7 +204928,10 @@
   "effects": [
    {
     "text": "Changed armor element to Undead",
-    "parsed": false
+    "parsed": true,
+    "sets_element": "Undead",
+    "stat_ids": [],
+    "stat_keys": []
    },
    {
     "text": "STR+3",
@@ -234744,7 +235052,16 @@
   "effects": [
    {
     "text": "Immune to Knockback",
-    "parsed": false
+    "stat": "Immune to Knockback",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     138
+    ],
+    "stat_keys": [
+     "prevents_knockback"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -236506,7 +236823,13 @@
       "text": "Shadowseer Only",
       "parsed": false
      }
-    ]
+    ],
+    "per_skill_level": {
+     "skills": [
+      "Spectral Mastery"
+     ],
+     "combine": "sum"
+    }
    }
   ],
   "enchant": null,
@@ -238656,7 +238979,16 @@
     "effects": [
      {
       "text": "Immune to Knockback",
-      "parsed": false
+      "stat": "Immune to Knockback",
+      "value": 1,
+      "unit": null,
+      "parsed": true,
+      "stat_ids": [
+       138
+      ],
+      "stat_keys": [
+       "prevents_knockback"
+      ]
      }
     ],
     "requires": {
@@ -238707,7 +239039,42 @@
     "effects": [
      {
       "text": "Immune to Curse, Bleeding and Stone",
-      "parsed": false
+      "stat": "Immune to Curse",
+      "value": 100,
+      "unit": "%",
+      "parsed": true,
+      "stat_ids": [
+       125
+      ],
+      "stat_keys": [
+       "res_status_curse"
+      ]
+     },
+     {
+      "text": "Immune to Curse, Bleeding and Stone",
+      "stat": "Immune to Bleeding",
+      "value": 100,
+      "unit": "%",
+      "parsed": true,
+      "stat_ids": [
+       130
+      ],
+      "stat_keys": [
+       "res_status_bleeding"
+      ]
+     },
+     {
+      "text": "Immune to Curse, Bleeding and Stone",
+      "stat": "Immune to Stone",
+      "value": 100,
+      "unit": "%",
+      "parsed": true,
+      "stat_ids": [
+       124
+      ],
+      "stat_keys": [
+       "res_status_stone"
+      ]
      }
     ],
     "requires": {
@@ -241967,7 +242334,10 @@
   "effects": [
    {
     "text": "Changed armor element to Fire",
-    "parsed": false
+    "parsed": true,
+    "sets_element": "Fire",
+    "stat_ids": [],
+    "stat_keys": []
    },
    {
     "text": "DEF+5",
@@ -241984,7 +242354,16 @@
    },
    {
     "text": "Immune to Petrify",
-    "parsed": false
+    "stat": "Immune to Petrify",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     124
+    ],
+    "stat_keys": [
+     "res_status_stone"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -243593,7 +243972,16 @@
   "effects": [
    {
     "text": "Immunity to Stone",
-    "parsed": false
+    "stat": "Immune to Stone",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     124
+    ],
+    "stat_keys": [
+     "res_status_stone"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -255403,7 +255791,13 @@
       "text": "Shadowseer Only",
       "parsed": false
      }
-    ]
+    ],
+    "per_skill_level": {
+     "skills": [
+      "Spectral Mastery"
+     ],
+     "combine": "sum"
+    }
    }
   ],
   "enchant": null,
@@ -257702,7 +258096,16 @@
   "effects": [
    {
     "text": "Immune to Freeze",
-    "parsed": false
+    "stat": "Immune to Freeze",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     122
+    ],
+    "stat_keys": [
+     "res_status_freeze"
+    ]
    },
    {
     "text": "Wind Element Resistance +10%",
@@ -265751,7 +266154,16 @@
    },
    {
     "text": "Immune to Poison Status",
-    "parsed": false
+    "stat": "Immune to Poison",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     129
+    ],
+    "stat_keys": [
+     "res_status_poison_status"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -272075,7 +272487,16 @@
   "effects": [
    {
     "text": "Grants immunity to Knockback.",
-    "parsed": false
+    "stat": "Immune to Knockback",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     138
+    ],
+    "stat_keys": [
+     "prevents_knockback"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -279673,7 +280094,13 @@
       "text": "Shadowseer Only",
       "parsed": false
      }
-    ]
+    ],
+    "per_skill_level": {
+     "skills": [
+      "Spectral Mastery"
+     ],
+     "combine": "sum"
+    }
    }
   ],
   "enchant": null,
@@ -299389,7 +299816,16 @@
      },
      {
       "text": "Immune to Knockback",
-      "parsed": false
+      "stat": "Immune to Knockback",
+      "value": 1,
+      "unit": null,
+      "parsed": true,
+      "stat_ids": [
+       138
+      ],
+      "stat_keys": [
+       "prevents_knockback"
+      ]
      }
     ]
    },
@@ -300333,7 +300769,16 @@
    },
    {
     "text": "Immune to Knockback",
-    "parsed": false
+    "stat": "Immune to Knockback",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     138
+    ],
+    "stat_keys": [
+     "prevents_knockback"
+    ]
    },
    {
     "text": "Permanent Endure Effect",
@@ -310444,7 +310889,42 @@
   "effects": [
    {
     "text": "Immune to Poison, Silence and Stun",
-    "parsed": false
+    "stat": "Immune to Poison",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     129
+    ],
+    "stat_keys": [
+     "res_status_poison_status"
+    ]
+   },
+   {
+    "text": "Immune to Poison, Silence and Stun",
+    "stat": "Immune to Silence",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     126
+    ],
+    "stat_keys": [
+     "res_status_silence"
+    ]
+   },
+   {
+    "text": "Immune to Poison, Silence and Stun",
+    "stat": "Immune to Stun",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     123
+    ],
+    "stat_keys": [
+     "res_status_stun"
+    ]
    },
    {
     "text": "King's Regen cast time removed (need to remove the buff if unequipped)",
@@ -343567,7 +344047,16 @@
    },
    {
     "text": "Immune to Knockback",
-    "parsed": false
+    "stat": "Immune to Knockback",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     138
+    ],
+    "stat_keys": [
+     "prevents_knockback"
+    ]
    },
    {
     "text": "Healing received -10%",
@@ -366808,7 +367297,29 @@
     "effects": [
      {
       "text": "Immunity to blind and stun.",
-      "parsed": false
+      "stat": "Immune to Blind",
+      "value": 100,
+      "unit": "%",
+      "parsed": true,
+      "stat_ids": [
+       128
+      ],
+      "stat_keys": [
+       "res_status_blind"
+      ]
+     },
+     {
+      "text": "Immunity to blind and stun.",
+      "stat": "Immune to Stun",
+      "value": 100,
+      "unit": "%",
+      "parsed": true,
+      "stat_ids": [
+       123
+      ],
+      "stat_keys": [
+       "res_status_stun"
+      ]
      }
     ]
    },
@@ -366906,7 +367417,29 @@
     "effects": [
      {
       "text": "Immunity to silence and curse.",
-      "parsed": false
+      "stat": "Immune to Silence",
+      "value": 100,
+      "unit": "%",
+      "parsed": true,
+      "stat_ids": [
+       126
+      ],
+      "stat_keys": [
+       "res_status_silence"
+      ]
+     },
+     {
+      "text": "Immunity to silence and curse.",
+      "stat": "Immune to Curse",
+      "value": 100,
+      "unit": "%",
+      "parsed": true,
+      "stat_ids": [
+       125
+      ],
+      "stat_keys": [
+       "res_status_curse"
+      ]
      }
     ]
    },
@@ -387465,11 +387998,29 @@
   "effects": [
    {
     "text": "Immune to Silence",
-    "parsed": false
+    "stat": "Immune to Silence",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     126
+    ],
+    "stat_keys": [
+     "res_status_silence"
+    ]
    },
    {
     "text": "Immune to Sleep",
-    "parsed": false
+    "stat": "Immune to Sleep",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     127
+    ],
+    "stat_keys": [
+     "res_status_sleep"
+    ]
    },
    {
     "text": "MaxHP -20%",
@@ -388618,7 +389169,10 @@
   "effects": [
    {
     "text": "Armor Element becomes Holy",
-    "parsed": false
+    "parsed": true,
+    "sets_element": "Holy",
+    "stat_ids": [],
+    "stat_keys": []
    }
   ],
   "piece_bonus": [],
@@ -395669,7 +396223,13 @@
        "max_hp"
       ]
      }
-    ]
+    ],
+    "per_skill_level": {
+     "skills": [
+      "Improve Defense"
+     ],
+     "combine": "sum"
+    }
    },
    {
     "condition": "Per Level of Improve Wisdom",
@@ -395687,7 +396247,13 @@
        "max_sp"
       ]
      }
-    ]
+    ],
+    "per_skill_level": {
+     "skills": [
+      "Improve Wisdom"
+     ],
+     "combine": "sum"
+    }
    },
    {
     "condition": "Per Level of Increase SP Recovery",
@@ -395705,7 +396271,13 @@
        "sp_regen"
       ]
      }
-    ]
+    ],
+    "per_skill_level": {
+     "skills": [
+      "Increase SP Recovery"
+     ],
+     "combine": "sum"
+    }
    }
   ],
   "enchant": null,
