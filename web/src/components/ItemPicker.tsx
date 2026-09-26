@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import {
-  canEquip, goalLabel, isLocked,
+  canEquip, goalHint, goalLabel, isLocked,
   type Build, type Dataset, type Goal, type Item, type Move, type SlotDef, type Suggester,
 } from '@sim';
 import { Deltas, MoveRow } from './GoalsPanel';
@@ -79,6 +79,7 @@ export function ItemPicker({
     [smart, suggester, build, slot.key, socket, candidates],
   );
   const labelOf = (g: Goal) => goalLabel(g, dataset);
+  const hintOf = (g: Goal) => goalHint(g, dataset);
 
   const results = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -304,6 +305,7 @@ export function ItemPicker({
                     before={before}
                     after={scores.get(item.id)!.after}
                     labelOf={labelOf}
+                    hintOf={hintOf}
                   />
                 )}
               </div>

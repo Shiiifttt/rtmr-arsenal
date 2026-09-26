@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import {
   aggregate, applyChanges, brokenGoals, brokenSets, tradeSummary, computedGoal, DEFAULT_GUARDS, diffTotals, FORMULAS,
   goalCap,
+  goalHint,
   goalLabel,
   goalMetrics, goalsFromBuild, goalsFromPlaystyle, goalStatus, guardsOf, rankPlaystyles, statsThatMatter,
   isOffhandWeapon, SLOT_BY_KEY, SP_SUSTAIN,
@@ -101,8 +102,9 @@ export function GoalsPanel({
 
   const labelOf = (g: Goal) =>
     metrics.find((m) => m.key === g.key && m.column === g.column)?.label ?? g.key;
+  const hintOf = (g: Goal) => goalHint(g, dataset);
 
-  const update = (i: number, patch: Partial<Goal>) =>
+  const update =(i: number, patch: Partial<Goal>) =>
     onGoals(goals.map((g, j) => (j === i ? { ...g, ...patch } : g)));
 
   /** Swap a goal with its neighbour: the order is the priority. */
@@ -158,8 +160,8 @@ export function GoalsPanel({
         >
           <button
             className="goal-name"
-            title={`${labelOf(s.goal)}\n\nClick for the best ways to get more of it, `
-              + 'whatever it costs the other goals'}
+            title={`${labelOf(s.goal)}${hintOf(s.goal) ? `\n\n${hintOf(s.goal)}` : ''}`
+              + '\n\nClick for the best ways to get more of it, whatever it costs the other goals'}
             onClick={() => setFocus({
               for: build, suggester, goal: s.goal, moves: suggester.focusMoves(build, s.goal),
             })}
@@ -227,7 +229,7 @@ export function GoalsPanel({
         {groups.map(([category, list]) => (
           <optgroup key={category} label={category.replace(/_/g, ' ')}>
             {list.map((m) => (
-              <option key={metricValue(m)} value={metricValue(m)}>{m.label}</option>
+              <option key={metricValue(m)} value={metricValue(m)} title={m.hint}>{m.label}</option>
             ))}
           </optgroup>
         ))}
@@ -472,9 +474,9 @@ function guardHint(key: string): string {
       + 'for their bonuses, and past -10% a character feels awful to play.';
   }
   return key === SP_SUSTAIN
-    ? 'Casts you can afford, against having no gear bonus at all: Max SP % '
-      + 'weighed against SP Cost %.\n\nSo -60% Max SP is fine alongside -60% '
-      + 'SP cost — the two cancel — and it is only the ratio that is guarded.'
+    ? 'How long your SP lasts, against having no gear bonus at all: Max SP % '
+      + 'weighed against SP Cost %, with SP leech on top.\n\nSo -60% Max SP is fine '
+      + 'alongside -60% SP cost — the two cancel — and it is only the ratio that is guarded.'
     : 'Max HP from gear, as a percentage. Shadow gear in particular buys its '
       + 'bonuses with HP, and enough of it stacked leaves a character that '
       + 'cannot take a hit.';
@@ -519,7 +521,7 @@ export function MoveRow({ move, goals, action, onApply, dataset, build, note }: 
   // Goals this move would take below their target. Said first, because it is
   // the one consequence a player would not forgive being buried.
   const broken = brokenGoals(goals, move.before, move.after);
-  // A goal's name without its working: "Melee DMG %", not the formula.
+  // A goal's name without its working: "HP/SP on kill %", not what it is out of.
   const shortLabel = (g: Goal) => goalLabel(g, dataset).replace(/\s*\([^)]*\)/g, '');
   // What a sidegrade trades, in a few words: the goals it gains and loses most.
   const traded = useMemo(() => {
@@ -659,7 +661,8 @@ export function MoveRow({ move, goals, action, onApply, dataset, build, note }: 
         {note && <div className="move-note">{note}</div>}
         <div className="deltas">
           {computed.map(({ g, d }, i) => (
-            <span key={`g${i}`} className={`delta ${(g.atMost ? d < 0 : d > 0) ? 'up' : 'down'}`}>
+            <span key={`g${i}`} className={`delta ${(g.atMost ? d < 0 : d > 0) ? 'up' : 'down'}`}
+              title={goalHint(g, dataset)}>
               {d > 0 ? '+' : ''}{fmt(d)}{g.column === 'percent' ? '%' : ''}{' '}
               {goalLabel(g, dataset).replace(/ %$/, '')}
             </span>
@@ -766,11 +769,12 @@ function EffectsButton({ changes, matters }: {
 }
 
 /** Each goal the change moves, and by how much, coloured by direction. */
-export function Deltas({ goals, before, after, labelOf }: {
+export function Deltas({ goals, before, after, labelOf, hintOf }: {
   goals: Goal[];
   before: number[];
   after: number[];
   labelOf: (g: Goal) => string;
+  hintOf?: (g: Goal) => string | undefined;
 }) {
   const broken = new Set(brokenGoals(goals, before, after));
   const chips = goals.map((goal, i) => {
@@ -791,7 +795,7 @@ export function Deltas({ goals, before, after, labelOf }: {
       <span
         key={i}
         className={`delta ${better ? 'up' : 'down'}${broken.has(goal) ? ' below' : ''}`}
-        title={broken.has(goal) ? 'This drops below the target you set' : undefined}
+        title={broken.has(goal) ? 'This drops below the target you set' : hintOf?.(goal)}
       >
         {d > 0 ? '+' : ''}{fmt(d)}{goal.column === 'percent' ? '%' : ''}{' '}
         {/* The number already carries the %, so the label need not repeat it. */}

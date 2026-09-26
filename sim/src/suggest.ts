@@ -41,6 +41,8 @@ export interface GoalMetric {
   key: string;
   column: Goal['column'];
   label: string;
+  /** What the number is made of, for a hover. Only where the label cannot say it. */
+  hint?: string;
   /** For grouping in a picker; "derived" for totals worked out from the sheet. */
   category: string;
 }
@@ -69,15 +71,20 @@ export function goalMetrics(data: Dataset): GoalMetric[] {
     const def = data.stats.find((s) => s.key === key);
     if (def) out.push({ key, column: 'total', label: `${def.name} (total)`, category: 'derived' });
   }
-  out.push({ key: SP_SUSTAIN, column: 'total', label: 'SP sustain %', category: 'derived' });
+  out.push({ key: HP_SUSTAIN, column: 'total', label: 'HP sustain %', hint: SIDE_HINTS[HP_SUSTAIN],
+    category: 'derived' });
+  out.push({ key: SP_SUSTAIN, column: 'total', label: 'SP sustain %', hint: SIDE_HINTS[SP_SUSTAIN],
+    category: 'derived' });
   for (const c of DAMAGE_CHAINS) {
-    out.push({ key: c.key, column: 'percent', label: `${c.label} %`, category: 'damage (combined)' });
+    out.push({ key: c.key, column: 'percent', label: `${c.label} %`, hint: c.hint,
+      category: 'damage (combined)' });
   }
   for (const t of TARGET_TOTALS) {
     out.push({ key: t.key, column: 'percent', label: `${t.label} %`, category: 'damage vs any target' });
   }
   for (const [key, label] of Object.entries(SIDE_LABELS)) {
-    out.push({ key, column: 'percent', label: `${label} %`, category: 'resistance and sustain' });
+    out.push({ key, column: 'percent', label: `${label} %`, hint: SIDE_HINTS[key],
+      category: 'resistance and sustain' });
   }
   for (const g of TARGET_GROUPS) {
     out.push({ key: g.key, column: 'percent', label: `${g.label} %`, category: 'damage vs any target' });
@@ -131,16 +138,52 @@ export const SKILL_PREFIX = 'skill:';
  * -50 means half the casts. Flat Max SP is deliberately not in it: this is
  * a reading of what the gear is doing to the ratio, and a flat bonus moves
  * the pool by an amount that depends on a base the planner does not know.
+ *
+ * SP leech tops the bar up as you fight, so it multiplies in as well (the
+ * project owner, 2026-09-26) -- see `LEECH_SUSTAIN`.
  */
 export const SP_SUSTAIN = 'sp_sustain';
+
+/**
+ * How long your HP holds, relative to having none of the bonuses: Max HP %,
+ * times how much less damage gets through (damage reduction and the element
+ * and race resistances), times HP leech. The project owner's definition,
+ * 2026-09-26. Flat Max HP is left out, as flat Max SP is above.
+ */
+export const HP_SUSTAIN = 'hp_sustain';
+
+/**
+ * What 1% of damage leeched back on average is worth, as a percentage of
+ * the pool: 8, the same exchange the side goals make (leech 0.08 per 1%,
+ * Max HP 1.0 per 100%). A calibration, not a measurement.
+ */
+const LEECH_SUSTAIN = 8;
+
+/** Average leech of one kind, in % of damage dealt: chance times amount. */
+function leechOf(totals: Totals, data: Dataset, kind: 'hp' | 'sp'): number {
+  const pct = (k: string) => percentOf(totals, data, k);
+  return pct(`leech_${kind}_rate`) * pct(`leech_${kind}_power`) / 100;
+}
 
 function spSustain(totals: Totals, data: Dataset): number {
   const pool = gearTotal(totals, data, 'max_sp')?.percent ?? 0;
   const cost = gearTotal(totals, data, 'sp_cost')?.percent ?? 0;
+  const leech = 1 + LEECH_SUSTAIN * leechOf(totals, data, 'sp') / 100;
   // A cost reduction of 100% or more would be free casting, which nothing on
   // this server grants; the floor keeps a corrupt or stacked total from
   // dividing by nothing rather than modelling anything.
-  return 100 * ((1 + pool / 100) / Math.max(0.01, 1 + cost / 100) - 1);
+  return 100 * ((1 + pool / 100) / Math.max(0.01, 1 + cost / 100) * leech - 1);
+}
+
+function hpSustain(totals: Totals, data: Dataset): number {
+  const pool = 1 + (gearTotal(totals, data, 'max_hp')?.percent ?? 0) / 100;
+  // Each resistance lets through (1 - r) of what is left, and they stack.
+  // Read as the side goals read them, a negative one counting double; the
+  // floor stops a stacked 100% from reading as never taking damage.
+  const through = [RES_DAMAGE, RES_ELEMENTS, RES_RACES]
+    .reduce((acc, k) => acc * (1 - (sideMeasure(k, totals, data) ?? 0) / 100), 1);
+  const leech = 1 + LEECH_SUSTAIN * leechOf(totals, data, 'hp') / 100;
+  return 100 * (pool / Math.max(0.05, through) * leech - 1);
 }
 
 // ---- damage against a kind of target -------------------------------------
@@ -279,25 +322,57 @@ function atkLink(stat: 'str' | 'dex', totals: Totals, build: Build, data: Datase
   return 100 * Math.max(0, weighed) / ATK_REST;
 }
 
-const DAMAGE_CHAINS: { key: string; label: string; factors: string[] }[] = [
-  { key: 'phys_dmg_mult', label: 'Physical DMG (ATK × ATK% × target)',
-    factors: [ATK_MELEE, 'atk', 'any_target_dmg'] },
-  { key: 'melee_dmg_mult', label: 'Melee DMG (ATK × ATK% × target × melee)',
-    factors: [ATK_MELEE, 'atk', 'any_target_dmg', 'melee_damage'] },
-  { key: 'ranged_dmg_mult', label: 'Ranged DMG (ATK × ATK% × target × ranged)',
-    factors: [ATK_RANGED, 'atk', 'any_target_dmg', 'ranged_damage'] },
-  { key: 'magic_dmg_mult', label: 'Magic DMG (MATK% × target)', factors: ['matk', 'any_target_magic'] },
+/** The hover lines for each link a chain can have. */
+const LINK_HINTS: Record<string, string> = {
+  [ATK_MELEE]: 'ATK: status ATK from STR (and LUK and DEX), weapon ATK and flat ATK bonuses',
+  [ATK_RANGED]: 'ATK: status ATK from DEX (and LUK and STR), weapon ATK and flat ATK bonuses',
+  atk: 'ATK %',
+  matk: 'MATK %',
+  any_target_dmg: 'Damage vs any target: your weakest race, size and element bonus, '
+    + 'so it holds whatever you hit',
+  any_target_magic: 'Magic damage vs any target: your weakest race, size and element bonus',
+  melee_damage: 'Melee damage %',
+  ranged_damage: 'Ranged damage %',
+  [SKILL_RATIO_PHYS]: "Stat scaling: what your class's skills gain from base stats "
+    + "(a Satsujin's Full Moon is +8% per AGI)",
+  [SKILL_RATIO_MAGIC]: "Stat scaling: what your class's skills gain from base stats",
+};
+
+function chainHint(what: string, factors: string[]): string {
+  return `How much harder ${what} hit, as one number: each of these multiplies the `
+    + `damage, so they are multiplied together.\n\n${factors.map((f) => `• ${LINK_HINTS[f]}`).join('\n')}`;
+}
+
+const DAMAGE_CHAINS: { key: string; label: string; hint: string; factors: string[] }[] = [
+  // Without the skills' own stat scaling: a normal hit, or a skill that has none.
+  ...[
+    { key: 'phys_dmg_mult', name: 'Physical', factors: [ATK_MELEE, 'atk', 'any_target_dmg'] },
+    { key: 'melee_dmg_mult', name: 'Melee',
+      factors: [ATK_MELEE, 'atk', 'any_target_dmg', 'melee_damage'] },
+    { key: 'ranged_dmg_mult', name: 'Ranged',
+      factors: [ATK_RANGED, 'atk', 'any_target_dmg', 'ranged_damage'] },
+    { key: 'magic_dmg_mult', name: 'Magic', factors: ['matk', 'any_target_magic'] },
+  ].map((c) => ({
+    key: c.key, factors: c.factors,
+    label: `Overall ${c.name.toLowerCase()} damage, before skill scaling`,
+    hint: chainHint(`${c.name.toLowerCase()} attacks`, c.factors)
+      + '\n\nLeaves out what skills gain from base stats; see the one without "before skill scaling".',
+  })),
   // The same, with the skills' own scaling off base stats as one more link:
   // a Satsujin's Full Moon is 500% +8% per AGI, so a point of AGI is some
   // 0.65% more damage on top of its flee. See `skillRatio`.
-  { key: 'phys_skill_mult', label: 'Physical skill DMG (ATK × ATK% × target × stat scaling)',
-    factors: [ATK_MELEE, 'atk', 'any_target_dmg', SKILL_RATIO_PHYS] },
-  { key: 'ranged_skill_mult', label: 'Ranged skill DMG (ATK × ATK% × target × ranged × stat scaling)',
-    factors: [ATK_RANGED, 'atk', 'any_target_dmg', 'ranged_damage', SKILL_RATIO_PHYS] },
-  { key: 'melee_skill_mult', label: 'Melee skill DMG (ATK × ATK% × target × melee × stat scaling)',
-    factors: [ATK_MELEE, 'atk', 'any_target_dmg', 'melee_damage', SKILL_RATIO_PHYS] },
-  { key: 'magic_skill_mult', label: 'Magic skill DMG (MATK% × target × stat scaling)',
-    factors: ['matk', 'any_target_magic', SKILL_RATIO_MAGIC] },
+  ...[
+    { key: 'phys_skill_mult', name: 'Physical', factors: [ATK_MELEE, 'atk', 'any_target_dmg', SKILL_RATIO_PHYS] },
+    { key: 'ranged_skill_mult', name: 'Ranged',
+      factors: [ATK_RANGED, 'atk', 'any_target_dmg', 'ranged_damage', SKILL_RATIO_PHYS] },
+    { key: 'melee_skill_mult', name: 'Melee',
+      factors: [ATK_MELEE, 'atk', 'any_target_dmg', 'melee_damage', SKILL_RATIO_PHYS] },
+    { key: 'magic_skill_mult', name: 'Magic', factors: ['matk', 'any_target_magic', SKILL_RATIO_MAGIC] },
+  ].map((c) => ({
+    key: c.key, factors: c.factors,
+    label: `Overall ${c.name.toLowerCase()} damage`,
+    hint: chainHint(`your ${c.name.toLowerCase()} skills`, c.factors),
+  })),
 ];
 const CHAIN_BY_KEY = new Map(DAMAGE_CHAINS.map((c) => [c.key, c]));
 
@@ -310,7 +385,7 @@ const GROUP_OF_MEMBER = new Map(TARGET_GROUPS.flatMap((g) => g.members.map((m) =
  * shown from the goal values instead -- see `computedGoal`.
  */
 export function computedGoal(key: string): boolean {
-  return key === SP_SUSTAIN || GROUP_BY_KEY.has(key) || TARGET_TOTALS.some((t) => t.key === key)
+  return key === SP_SUSTAIN || key === HP_SUSTAIN || GROUP_BY_KEY.has(key) || TARGET_TOTALS.some((t) => t.key === key)
     || CHAIN_BY_KEY.has(key) || key in SIDE_LABELS
     || !!GROUP_OF_MEMBER.get(key)?.all;
 }
@@ -346,6 +421,11 @@ function targetInputs(key: string): string[] {
   if (key === RES_DAMAGE) return RES_DAMAGE_INPUTS;
   if (key === KILL_SUSTAIN) return ['hp_on_kill', 'sp_on_kill'];
   if (key === LEECH) return LEECH_INPUTS;
+  if (key === SP_SUSTAIN) return ['max_sp', 'sp_cost', 'leech_sp_rate', 'leech_sp_power'];
+  if (key === HP_SUSTAIN) {
+    return ['max_hp', 'leech_hp_rate', 'leech_hp_power',
+      ...RES_DAMAGE_INPUTS, ...RES_ELEMENT_KEYS, ...RES_RACE_KEYS, 'res_race_all_races'];
+  }
   const chain = CHAIN_BY_KEY.get(key);
   if (chain) return chain.factors.flatMap((f) => [f, ...targetInputs(f)]);
   const group = GROUP_BY_KEY.get(key);
@@ -459,11 +539,44 @@ function sideMeasure(key: string, totals: Totals, data: Dataset): number | undef
 
 /** Labels for the side measures, which have no line of their own in the registry. */
 const SIDE_LABELS: Record<string, string> = {
-  [RES_ELEMENTS]: 'Resistance vs elements (avg)',
-  [RES_RACES]: 'Resistance vs races (avg)',
-  [RES_DAMAGE]: 'Damage reduction (all)',
-  [KILL_SUSTAIN]: 'HP/SP on kill (% of pool)',
-  [LEECH]: 'Leech (avg % of damage)',
+  [RES_ELEMENTS]: 'Resistance vs elements',
+  [RES_RACES]: 'Resistance vs races',
+  [RES_DAMAGE]: 'Damage reduction',
+  [KILL_SUSTAIN]: 'HP/SP on kill',
+  [LEECH]: 'Leech',
+};
+
+/** The hovers for the side measures and SP sustain: what the number is made of. */
+const SIDE_HINTS: Record<string, string> = {
+  [SP_SUSTAIN]: 'How long your SP lasts, against having none of these bonuses. Each '
+    + 'multiplies it:\n\n'
+    + '• Max SP %\n'
+    + '• SP cost: -50% cost is twice the casts\n'
+    + `• SP leech: 1% of damage leeched back on average counts as +${LEECH_SUSTAIN}%\n\n`
+    + '0 is unchanged; -50 is half as long. -60% Max SP with -60% SP Cost comes out '
+    + 'at 0, because both sides moved together. Flat Max SP is left out.',
+  [HP_SUSTAIN]: 'How long your HP lasts, against having none of these bonuses. Each '
+    + 'multiplies it:\n\n'
+    + '• Max HP %\n'
+    + '• Damage reduction, and your average element and race resistance: 50% less '
+    + 'damage taken is twice as long (a negative one counts double)\n'
+    + `• HP leech: 1% of damage leeched back on average counts as +${LEECH_SUSTAIN}%\n\n`
+    + '0 is unchanged. Flat Max HP is left out.',
+  [RES_ELEMENTS]: 'Your average resistance across the ten elements.\n\n'
+    + 'A negative resistance counts double: taking more damage from one element hurts '
+    + 'more than the same amount of resistance helps.',
+  [RES_RACES]: 'Your average resistance across the races, with "all races" added to each.\n\n'
+    + 'A negative resistance counts double.',
+  [RES_DAMAGE]: 'Damage reduction against everything: final reduction, plus the average '
+    + 'of melee and ranged reduction, less the average of physical and magic damage received.\n\n'
+    + 'A negative reduction counts double.',
+  [KILL_SUSTAIN]: 'HP and SP back per kill, as a percentage of a typical pool '
+    + `(${KILL_POOL.hp.toLocaleString('en')} HP and ${KILL_POOL.sp} SP), the two added together.\n\n`
+    + `Wyrdbrand's 500 HP and 20 SP a kill is 5% + 4% = 9%.`,
+  [LEECH]: 'What leech returns on average, as a percentage of the damage you deal: '
+    + 'chance × amount, for HP and SP added together.\n\n'
+    + 'Chance and amount usually come from different gear, and neither does anything '
+    + 'without the other.',
 };
 
 /**
@@ -998,9 +1111,15 @@ export function goalLabel(goal: Goal, data: Dataset): string {
     ?? goal.key;
 }
 
+/** The hover for a goal's name, where it has one. */
+export function goalHint(goal: Goal, data: Dataset): string | undefined {
+  return goalMetrics(data).find((m) => m.key === goal.key && m.column === goal.column)?.hint;
+}
+
 /** The number a goal is measured against, read off a finished build. */
 export function measure(goal: Goal, totals: Totals, build: Build, data: Dataset): number {
   if (goal.key === SP_SUSTAIN) return spSustain(totals, data);
+  if (goal.key === HP_SUSTAIN) return hpSustain(totals, data);
   const side = sideMeasure(goal.key, totals, data);
   if (side !== undefined) return side;
   if (goal.key === SKILL_RATIO_PHYS) return skillRatio('physical', totals, build, data);
