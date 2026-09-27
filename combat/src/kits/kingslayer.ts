@@ -31,7 +31,7 @@ import { defMultiplier, effectivePierce } from '../../../sim/src/derived.ts';
 import { attrFix, magicDamage, physicalCardFix, physicalDamage, refineAtk, TUNE } from '../formulas.ts';
 import type { Fighter, MobSkill, Monster } from '../model.ts';
 import {
-  canUse, dot, followUpComing, grant, has, readyAt, stacks, strike,
+  canUse, dot, followUpComing, grant, has, readyAt, say, stacks, strike,
   type Action, type Fight, type Kit,
 } from '../engine.ts';
 import {
@@ -99,10 +99,29 @@ function setCounters(fight: Fight, n: number) {
  * magic or a blocked hit). A rollout weighs the chance in.
  */
 function onHurt(fight: Fight, hit: { physical: boolean }) {
+  gemAutocast(fight);
   if (!hit.physical || !has(fight, 'duelStance')) return;
   const p = Math.min(1, (25 + 15 * lv(fight.f, 'Duel Stance')) / 100);
   if (fight.rng.expect) setCounters(fight, counters(fight) + p);
   else if (fight.rng.chance(p)) setCounters(fight, counters(fight) + 1);
+}
+
+/**
+ * Bulwark Gem of the Weak: "1% chance to Autocast Shield Boomerang and
+ * King's Chains when hit" -- both, free, the chain lifted by the combo. The
+ * chance is read from the gear's text; a rollout (expected-value mode) skips it.
+ */
+const autocastChance = new WeakMap<Fighter, number>();
+function gemAutocast(fight: Fight) {
+  let p = autocastChance.get(fight.f);
+  if (p === undefined) {
+    const m = /(\d+(?:\.\d+)?)%\s+chance\s+to\s+Autocast\s+Shield\s+Boomerang\s+and\s+King's\s+Chains\s+when\s+hit/i.exec(fight.f.gearText ?? '');
+    autocastChance.set(fight.f, p = m ? Number(m[1]) / 100 : 0);
+  }
+  if (!p || fight.rng.expect || !hasShield(fight) || !fight.rng.chance(p)) return;
+  fight.log && say(fight, "Bulwark Gem autocasts Shield Boomerang and King's Chains");
+  shieldBoomerang.resolve(fight);
+  kingsChains.resolve(fight);
 }
 
 // ---- damage helpers -----------------------------------------------------------------
@@ -160,7 +179,7 @@ const fortressLevel = (fight: Fight) => (has(fight, 'fortress') ? fight.me.buffs
 const comboGem = new WeakMap<Fighter, boolean>();
 const hasComboGem = (f: Fighter) => {
   let v = comboGem.get(f);
-  if (v === undefined) comboGem.set(f, v = /Shield Boomerang can combo into King's Chains/i.test(f.gearText ?? ''));
+  if (v === undefined) comboGem.set(f, v = /Shield\s+Boomerang\s+can\s+combo\s+into\s+King's\s+Chains/i.test(f.gearText ?? ''));
   return v;
 };
 
@@ -308,6 +327,7 @@ const queensGambit: Action = {
   // not once they are high (the project owner, 2026-09-27). Never below 65%
   // HP, so the cost leaves 40%.
   ready: (fight) => learned("Queen's Gambit")(fight) && optionOn(fight, 'queensGambit')
+    && castIsSafe(fight, cast("Queen's Gambit")(fight))
     && counters(fight) <= 5 && fight.me.hp >= 0.65 * fight.f.maxHp,
   castMs: cast("Queen's Gambit"),
   cooldownMs: cooldown("Queen's Gambit"),
@@ -341,7 +361,11 @@ const retribution: Action = {
   id: 'Retribution',
   isSkill: true,
   offensive: true,
-  ready: (fight) => learned('Retribution')(fight) && counters(fight) >= 1 && optionOn(fight, 'spendCounters'),
+  // Only with enough counters to be worth what King's Chains loses (+VIT%
+  // a counter): option retributionAt, 10 by default -- which also brings
+  // Finisher Ready.
+  ready: (fight) => learned('Retribution')(fight) && optionOn(fight, 'spendCounters')
+    && counters(fight) >= (typeof fight.options.retributionAt === 'number' ? fight.options.retributionAt : 10),
   castMs: cast('Retribution'),
   cooldownMs: cooldown('Retribution'),
   spCost: spCost('Retribution'),
@@ -438,7 +462,7 @@ const dragonBreath: Action = {
   id: 'Dragon Breath',
   isSkill: true,
   offensive: true,
-  ready: learned('Dragon Breath'),
+  ready: (fight) => learned('Dragon Breath')(fight) && castIsSafe(fight, cast('Dragon Breath')(fight)),
   castMs: cast('Dragon Breath'),
   cooldownMs: cooldown('Dragon Breath'),
   spCost: spCost('Dragon Breath'),
@@ -580,7 +604,26 @@ function fastGroundDueSoon(fight: Fight, within: number): boolean {
   const actors = [{ m: fight.m, st: fight.mob }, ...fight.mob.adds.map((a) => ({ m: a.m, st: a.st }))];
   return actors.some(({ m, st }) => m.skills.some((sk) => sk.targets === 'aoe' && sk.avoid.includes('walk') && !sk.noGambit
     && sk.castMs <= FAST_CAST_MS && sk.type !== 'none' && sk.type !== 'status'
-    && st.cds[sk.skill] !== undefined && st.cds[sk.skill] + sk.ai.delayMs <= fight.t + within));
+    // Only a skill the monster fires at once when it can (Heartless's Magnus,
+    // 90% a try) can be timed; a rare one is never "due", or it would hold
+    // every cast back all fight. And past 2 s overdue, it is not coming yet.
+    && sk.ai.rate >= 0.5
+    && (st.cds[sk.skill] !== undefined
+      ? st.cds[sk.skill] + sk.ai.delayMs <= fight.t + within && fight.t <= st.cds[sk.skill] + sk.ai.delayMs + 2000
+      // Never cast yet: due at the pull -- Heartless opens with Magnus every
+      // time (the project owner, 2026-09-27; option openerGambit).
+      : optionOn(fight, 'openerGambit') && fight.t < 1500)));
+}
+
+/**
+ * A cast of `ms` will finish before a fast ground spell can land on it --
+ * or King's Gambit covers it: Magnus's 0.3 s cast cancels Queen's Gambit
+ * mid-cast (the project owner, 2026-09-27).
+ */
+function castIsSafe(fight: Fight, ms: number): boolean {
+  if (ms <= 0 || !optionOn(fight, 'safeCasts')) return true;
+  const covered = (fight.me.buffs.landProtector?.until ?? -1) >= fight.t + ms;
+  return covered || (!fight.mob.cast && !fastGroundDueSoon(fight, ms + 300));
 }
 const preGambit: Action = {
   id: "Pre-cast King's Gambit",
@@ -702,8 +745,21 @@ const ORDER = [
   'Attack',
 ];
 
+/** It answers with Pneuma or Safety Wall (Angel of Genesis): a Rook's Smash opener only lands in the ward. */
+const castsWards = (m: Monster) => m.skills.some((sk) => /PNEUMA|SAFETYWALL/.test(sk.skill));
+
+/** The priority list, or a profile's own (option order: the same ids, reordered). */
+export const KINGSLAYER_ORDER = ORDER;
 function priority(fight: Fight): Action {
-  for (const id of ORDER) {
+  const order = Array.isArray(fight.options.order) ? fight.options.order as string[] : ORDER;
+  for (const id of order) {
+    // With no counter King's Chains cannot follow a Shield Boomerang: open
+    // with Rook's Smash (3 counters) instead (the project owner, 2026-09-27).
+    // At the pull only: later, hits in Duel Stance refill counters quickly
+    // and a Rook's Smash would drag you into melee for nothing.
+    if (id === 'Shield Boomerang' && fight.t < 3000 && optionOn(fight, 'rookOpener') && !castsWards(fight.m) && counters(fight) < 1 && hasComboGem(fight.f) && canUse(fight, rule("Rook's Smash"))) {
+      return rule("Rook's Smash");
+    }
     const a = rule(id);
     if (canUse(fight, a)) return a;
   }
@@ -719,6 +775,8 @@ function react(fight: Fight, s: MobSkill, from: Monster): { action: string; at: 
   const ready = (id: string) => lv(fight.f, id) > 0 && readyAt(fight, id) <= endsAt - 50
     && rule(id).spCost(fight) <= fight.me.sp;
   const ground = s.targets === 'aoe' && s.avoid.includes('walk');
+  // King's Gambit already down and lasting past it: nothing to do.
+  if (ground && !s.noGambit && (fight.me.buffs.landProtector?.until ?? -1) >= endsAt) return null;
   // King's Gambit cancels a ground spell outright, and the rest of its waves
   // -- when the cast bar leaves time to see it and answer (the owner: Magnus's
   // 0.3s does not; that one is pre-cast, preGambit).

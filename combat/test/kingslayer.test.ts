@@ -63,12 +63,12 @@ test("King's Gambit cancels a ground spell; Pawn's Rod a spell cast at you", asy
   const a = newFight(f, magnus, kingslayer, priorityPolicy, { seed: 1, limitMs: 20_000, log: true });
   run(a);
   // Magnus's 0.3s cast is too fast to answer: the Gambit goes down before it
-  // (the project owner) -- timed from the first cast, which cannot be called --
-  // and a wave is stopped by it or by Hiding.
+  // (the project owner) -- at the pull, since Heartless opens with it, then
+  // timed from the last cast -- and a wave is stopped by it or by Hiding.
   const log = a.log!.join('\n');
   const first = log.search(/Magnus Exorcismus/);
   const gambit = log.search(/uses Pre-cast King's Gambit/);
-  assert.ok(first >= 0 && gambit > first, 'the Gambit only after the first Magnus');
+  assert.ok(first >= 0 && gambit >= 0 && gambit < first, 'the Gambit is down before the opening Magnus');
   assert.match(log, /avoids Magnus Exorcismus \((King's Gambit|Hiding)\)/);
 
   const zealot = buildMonster(findMobs('Njord Zealot')[0]);

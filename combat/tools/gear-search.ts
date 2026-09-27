@@ -8,8 +8,8 @@
  *     --profile profiles/kingslayer-jorm.json --vs Heartless \
  *     [--lock offhand] [--screen 60] [--confirm 400] [--passes 3] [--time 300] \
  *     [--set "shoes=Temporal STR Boots+6; stat.str=99"] [--only garment,upper,stats]
- *     [--exclude "Dark Illusion Card"] [--keep-stats str]
- *     [--proxy-test] [--healing] [--allow-ss] [--no-race] [--no-stats] [--workers N] [--out data/gear-search/kingslayer-heartless.json]
+ *     [--only rotation,order  (the rotation optimizer)] [--exclude "Dark Illusion Card"] [--keep-stats str]
+ *     [--per-target [--swap-cost 0.1]] [--proxy-test] [--no-pairs] [--healing] [--allow-ss] [--no-race] [--no-stats] [--workers N] [--out data/gear-search/kingslayer-heartless.json]
  *
  * The rules (the project owner, 2026-09-27):
  *   - Any drop is fine, but an easier piece beats an MVP-only one: an
@@ -111,6 +111,12 @@ const keepStats = new Set((one('keep-stats') ?? '').split(',').map((x) => x.trim
 const className = start.className ?? null;
 const level = start.baseLevel;
 const kit = kitFor(className ?? '');
+/** The kit's written priority order, where it exports one. */
+const kitOrder: string[] | null = await (async () => {
+  const mod = await import(`../src/kits/${(className ?? '').toLowerCase()}.ts`).catch(() => null);
+  const o = mod && Object.entries(mod).find(([k]) => /_ORDER$/.test(k))?.[1];
+  return Array.isArray(o) ? o as string[] : null;
+})();
 const targets: Monster[] = (one('vs') ?? 'Heartless').split(',').flatMap((q) => findMobs(q.trim()).map(buildMonster));
 const screenN = Number(one('screen') ?? 60);
 const confirmN = Number(one('confirm') ?? 400);
@@ -214,7 +220,8 @@ function rollVariants(item: Item, slotKey: string): { label: string; rolls: Reco
 
 /** One slot's worth of gear: the piece and what is in it. */
 type SlotState = NonNullable<Build['slots'][string]>;
-interface State { build: Build; options: Record<string, unknown> }
+/** only: fight just these targets (indices into targets) -- the per-target phase. */
+interface State { build: Build; options: Record<string, unknown>; only?: number[] }
 interface Move { label: string; slots?: Record<string, SlotState>; options?: Record<string, unknown>; stats?: Build['baseStats'] }
 
 const refines = (item: Item) => (item.refineable ? [...new Set([Math.min(6, maxRefine(item)), Math.min(9, maxRefine(item))])] : [0]);
@@ -327,7 +334,7 @@ const OPTION_CHOICES: Record<string, unknown[]> = {
   bishopsTax: [true, false], taxHp: [0.5, 0.75, 0.35], sneakAttack: [true, false], preGambit: [true, false],
   deltaFiller: [false, true], queensBrand: [false, true], queensGambit: [true, false], reflectCare: [true, false],
   heal: [true, false], rogueFillers: [false, true], fortress: [3, 2, 1], rooksWall: [false, true], autoAttack: [false, true],
-  rooksSmash: [true, false], keepRange: [true, false], spendCounters: [true, false], windSlash: [false, true],
+  rooksSmash: [true, false], keepRange: [true, false], spendCounters: [true, false], windSlash: [false, true], retributionAt: [10, 6, 1], openerGambit: [true, false], safeCasts: [true, false], rookOpener: [true, false],
 };
 /** Play styles that take several switches at once. */
 const OPTION_SETS: Record<string, Record<string, unknown>> = {
@@ -347,11 +354,31 @@ function optionMoves(options: Record<string, unknown>): Move[] {
   return out;
 }
 
+/**
+ * The rotation's priority order (a kit's ORDER, as option order): each skill
+ * moved up or down one or two places. Reactions (dodges) are not in it.
+ * --only order searches just this; with rotation, the whole rotation.
+ */
+function orderMoves(options: Record<string, unknown>): Move[] {
+  const base = (Array.isArray(options.order) ? options.order : kitOrder) as string[];
+  if (!base?.length) return [];
+  const out: Move[] = [];
+  for (let i = 0; i < base.length; i++) {
+    for (const d of [-2, -1, 1, 2]) {
+      const j = i + d;
+      if (j < 0 || j >= base.length) continue;
+      const o = [...base]; const [x] = o.splice(i, 1); o.splice(j, 0, x);
+      out.push({ label: `order: ${x} ${d < 0 ? 'up' : 'down'} ${Math.abs(d)} (before ${d < 0 ? base[j] : base[j + 1] ?? 'end'})`, options: { order: o } });
+    }
+  }
+  return out;
+}
+
 const apply = (s: State, m: Move): State => {
   const build: Build = structuredClone(s.build);
   for (const [k, v] of Object.entries(m.slots ?? {})) build.slots[k] = structuredClone(v);
   if (m.stats) build.baseStats = { ...m.stats };
-  return { build, options: { ...s.options, ...(m.options ?? {}) } };
+  return { build, options: { ...s.options, ...(m.options ?? {}) }, ...(s.only ? { only: s.only } : {}) };
 };
 
 /** The score's handicap: new MVP-only pieces and cards, new +9s, pieces made from a +9. */
@@ -384,7 +411,8 @@ async function fight(s: State, n: number, seed: number): Promise<Score> {
   const f = await buildFighter({ ...profile, build: s.build }, { passives: kit.passives, aliases: kit.aliases, maxLevels: kit.maxLevels() });
   let win = 0; let loss = 0; let dps = 0; let ttk = 0; let ttkN = 0;
   const deaths: Record<string, number> = {};
-  for (const m of targets) {
+  const fought = s.only ? s.only.map((i) => targets[i]) : targets;
+  for (const m of fought) {
     const r = simulate(f, m, kit.kit, {
       iterations: n, seed, policy, options: s.options, limitMs: timeS * 1000,
       items: loadout({ carried: profile.consumables ?? DEFAULT_CONSUMABLES, healing: flag('healing') || !!profile.healing,
@@ -394,7 +422,7 @@ async function fight(s: State, n: number, seed: number): Promise<Score> {
     if (r.ttk) { ttk += r.ttk.p50; ttkN++; }
     for (const [k, v] of Object.entries(r.deaths)) deaths[k] = (deaths[k] ?? 0) + v;
   }
-  const k = targets.length;
+  const k = fought.length;
   win /= k; loss /= k; dps /= k;
   const top = Object.entries(deaths).sort((a, b) => b[1] - a[1]).slice(0, 2).map(([c, v]) => `${c} x${v}`).join(', ');
   // Once every fight is a win, speed is what is left to gain: 0.01 of score
@@ -475,6 +503,18 @@ class Pool {
 
 // ---- the search -----------------------------------------------------------------
 
+/**
+ * The per-target phase: a swap away from the shared build costs this much
+ * score a slot (--swap-cost, a share of that target's DPS: 0.1 = a swap must
+ * buy ~10% faster kills). Stats stay put -- no respec mid-dungeon.
+ */
+let swapBase: Build | null = null;
+let swapPenalty = 0;
+const slotSig = (st: Build['slots'][string]) => st?.itemId ? `${st.itemId}+${st.refine}:${(st.cards ?? []).join(',')}` : '';
+const swappedSlots = (b: Build) => (swapBase ? Object.keys({ ...swapBase.slots, ...b.slots })
+  .filter((k) => slotSig(swapBase!.slots[k]) !== slotSig(b.slots[k])) : []);
+function swapCharge(b: Build): number { return swapPenalty * swappedSlots(b).length; }
+
 async function main() {
 const workers = Math.max(1, Number(one('workers') ?? Math.max(1, availableParallelism() - 1)));
 const pool = new Pool(workers);
@@ -487,7 +527,7 @@ async function fingerprint(st: State): Promise<string> {
   const f = await buildFighter({ ...profile, build: st.build }, { passives: kit.passives, aliases: kit.aliases, maxLevels: kit.maxLevels() });
   const { name: _n, notes: _no, gearText, skillMods, ...rest } = f as typeof f & { notes: unknown };
   const skillBonus = Object.keys(f.skillLevels).map((sk) => mods.map((m) => { const x = skillMods(sk, m); return `${x.flat},${x.percent}`; }).join('|'));
-  return JSON.stringify([rest, skillBonus, /Shield Boomerang can combo into King's Chains/i.test(gearText ?? ''), st.options]);
+  return JSON.stringify([rest, skillBonus, /Shield Boomerang can combo into King's Chains/i.test(gearText ?? ''), st.options, st.only ?? null]);
 }
 let fought = 0; let shared = 0;
 /** n = 0: the estimate (one expected-value fight a target), not a screen. */
@@ -498,7 +538,7 @@ async function fightAll(states: State[], n: number, seed: number): Promise<Score
   keys.forEach((k, i) => { if (!cache.has(k) && !todo.has(k)) todo.set(k, states[i]); });
   fought += todo.size; shared += states.length - todo.size;
   await Promise.all([...todo].map(([k, st]) => pool.run(st, n, seed, n === 0).then((sc) => { cache.set(k, sc); })));
-  return states.map((st, i) => { const sc = cache.get(keys[i])!; return { ...sc, value: sc.value - penalty(st.build) }; });
+  return states.map((st, i) => { const sc = cache.get(keys[i])!; return { ...sc, value: sc.value - penalty(st.build) - swapCharge(st.build) }; });
 }
 /**
  * Screening in two rounds: every candidate on a third of the fights, then
@@ -579,24 +619,67 @@ if (flag('proxy-test')) {
   return;
 }
 
+
+
+/**
+ * Pairs: once no single change helps, two can -- a rotation switch that only
+ * pays with a piece, a stat spread that only pays with a set. The runners-up
+ * of this pass's screens (the top 3 of each group, within 0.05 of the build
+ * they were screened on) are paired across groups and screened like any
+ * other candidates. --no-pairs skips it.
+ */
+let runnersUp: { m: Move; gap: number }[] = [];
+const touches = (m: Move) => [...Object.keys(m.slots ?? {}), ...(m.stats ? ['stats'] : []), ...Object.keys(m.options ?? {}).map((k) => `opt:${k}`)];
+function pairMoves(): Move[] {
+  const pool2 = runnersUp.sort((a, b) => b.gap - a.gap).slice(0, 40).map((x) => x.m);
+  const out: Move[] = [];
+  for (let i = 0; i < pool2.length; i++) {
+    for (let j = i + 1; j < pool2.length; j++) {
+      const a = pool2[i]; const b = pool2[j];
+      const ta = touches(a);
+      if (touches(b).some((t) => ta.includes(t))) continue;
+      out.push({ label: `${a.label}  +  ${b.label}`, slots: { ...(a.slots ?? {}), ...(b.slots ?? {}) },
+        options: { ...(a.options ?? {}), ...(b.options ?? {}) }, stats: a.stats ?? b.stats });
+    }
+  }
+  return out;
+}
+
+/** Hill-climb from `state` until nothing (single or paired) helps. */
+async function climb(tag = ''): Promise<void> {
 for (let pass = 1; pass <= passes; pass++) {
   let improved = false;
+  runnersUp = [];
   await probeRollStat();
   const groups: { name: string; moves: () => Move[] }[] = [
     ...(searching('rotation') ? [{ name: 'rotation', moves: () => optionMoves(state.options) }] : []),
-    ...(flag('no-stats') || !searching('stats') ? [] : [{ name: 'stats', moves: () => statMoves(state.build) }]),
+    ...(searching('order') || (only?.has('rotation') ?? false) ? [{ name: 'order', moves: () => orderMoves(state.options) }] : []),
+    ...(flag('no-stats') || !searching('stats') || swapBase ? [] : [{ name: 'stats', moves: () => statMoves(state.build) }]),
     ...(searching('sets') ? [{ name: 'sets', moves: () => setMoves(state.build) }] : []),
     ...SLOTS.filter((s) => searching(s.key)).flatMap((s) => [
       { name: `${s.label} piece`, moves: () => itemMoves(state.build, s) },
       { name: `${s.label} cards`, moves: () => cardMoves(state.build, s) },
     ]),
   ];
-  for (const g of groups) {
+  // Pairs go last, and only once the singles are spent.
+  const pairGroup = { name: 'pairs', moves: () => pairMoves() };
+  for (let gi = 0; gi <= groups.length; gi++) {
+    if (gi === groups.length && (improved || flag('no-pairs'))) break;
+    const g = gi === groups.length ? pairGroup : groups[gi];
     const moves = g.moves();
     if (!moves.length) continue;
     seedBase++;
     const { base, scored } = await screen(moves, seedBase);
+    if (g.name !== 'pairs') {
+      for (const x of [...scored].sort((a, b) => b.s.value - a.s.value).slice(0, 3)) {
+        if (x.s.value > base.value - 0.05) runnersUp.push({ m: x.m, gap: x.s.value - base.value });
+      }
+    }
     const best = scored.filter((x) => x.s.value > base.value).sort((a, b) => b.s.value - a.s.value).slice(0, 4);
+    if (flag('verbose')) {
+      const top = [...scored].sort((a, b) => b.s.value - a.s.value)[0];
+      console.log(`  ${tag}${g.name}: ${moves.length} tried; best ${top ? `${(top.s.value - base.value >= 0 ? '+' : '')}${(top.s.value - base.value).toFixed(3)} ${top.m.label}` : '-'}`);
+    }
     if (!best.length) continue;
     // Fresh seeds, more fights: the current build and the finalists.
     const confirmSeed = 20_000 + seedBase;
@@ -611,9 +694,38 @@ for (let pass = 1; pass <= passes; pass++) {
     state = apply(state, chosen.m);
     steps.push({ move: chosen.m.label, before: now, after: chosen.s, tried: moves.length });
     improved = true;
-    console.log(`pass ${pass}  ${chosen.m.label.padEnd(64)} ${show(now)}  ->  ${show(chosen.s)}   [${moves.length} tried]`);
+    console.log(`${tag}pass ${pass}  ${chosen.m.label.padEnd(64)} ${show(now)}  ->  ${show(chosen.s)}   [${moves.length} tried]`);
   }
   if (!improved) break;
+}
+}
+await climb();
+
+// --per-target: the shared build is the generalist; now each target gets
+// the swaps worth their cost, from it.
+const perTarget: { target: string; shared: Score; own: Score; swaps: string[]; options: Record<string, unknown> }[] = [];
+if (flag('per-target') && targets.length > 1) {
+  const shared = state;
+  const cost = Number(one('swap-cost') ?? 0.1);
+  for (let t = 0; t < targets.length; t++) {
+    state = { ...shared, only: [t] };
+    const [g0] = await fightAll([state], confirmN, 31_000 + t);
+    swapBase = shared.build; swapPenalty = cost * 0.3 * (g0.dps / 20_000);
+    console.log(`\n-- ${targets[t].name}: shared build ${show(g0)}; a swap must be worth ${(cost * 100).toFixed(0)}% faster kills`);
+    await climb(`${targets[t].name}: `);
+    const [own] = await fightAll([state], confirmN, 31_000 + t);
+    const optDiff = Object.fromEntries(Object.entries(state.options).filter(([k, v]) => shared.options[k] !== v));
+    perTarget.push({ target: targets[t].name, shared: g0, own, swaps: swappedSlots(state.build).map((k) => {
+      const st = state.build.slots[k]; const it = st?.itemId ? data.items.get(st.itemId)?.name : '-';
+      return `${k}: ${it}${st?.refine ? ` +${st.refine}` : ''}${(st?.cards ?? []).filter(Boolean).length ? ` [${st!.cards.filter(Boolean).map((c) => data.items.get(c!)?.name).join(', ')}]` : ''}`;
+    }), options: optDiff });
+    swapBase = null; swapPenalty = 0;
+  }
+  state = shared;
+  console.log('\nper target (shared build -> with its swaps):');
+  for (const r of perTarget) {
+    console.log(`  ${r.target.padEnd(24)} ${show(r.shared)}  ->  ${show(r.own)}   ${r.swaps.length} swap(s)${r.swaps.length ? `: ${r.swaps.join('; ')}` : ''}${Object.keys(r.options).length ? `  rotation ${JSON.stringify(r.options)}` : ''}`);
+  }
 }
 
 const [final] = await fightAll([state], confirmN * 2, 99_999);
@@ -631,7 +743,7 @@ if (out) {
   writeFileSync(path, `${JSON.stringify({
     profile: profile.name, targets: targets.map((m) => m.name),
     rules: { screenN, confirmN, timeS, locked: [...locked], penalty: PENALTY, topStats },
-    start: profile.build, steps, final, options: state.options, link,
+    start: profile.build, steps, final, options: state.options, link, perTarget,
   }, null, 1)}\n`);
 }
 }
