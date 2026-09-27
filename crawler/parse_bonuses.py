@@ -478,6 +478,31 @@ KILL_REFINE = re.compile(
     r"(?P<b>\d+)\s*(?P<pb>hp|sp)\s+per\s+refine\s*\.?$", re.I)
 
 
+# HP and SP back on every hit, a flat amount: "Leech 5 HP per hit", "Drains 10
+# HP per hit with physical damage", "Recover 7 HP on auto attacks", "Drains 50
+# HP with each attack", "Recover 1 SP on auto attacks per 2 refines". Also
+# the weapon random option bHPDrainValue. Percent leech is parse_leech's.
+HIT_RECOVER = re.compile(
+    r"^(?:leech(?:es)?|drains?|recovers?|regains?|restores?)\s+(?P<a>\d+)\s*(?P<pa>hp|sp)\s+"
+    r"(?:per\s+(?:hit|attack)|on\s+(?:each\s+)?(?:hit|auto\s+attacks?)|with\s+each\s+attack)"
+    r"(?:\s+with\s+physical\s+damage)?"
+    r"(?P<refine>\s+per\s+(?:(?P<n>\d+)\s+)?refines?)?\s*\.?$", re.I)
+
+
+def parse_hit_recover(line: str) -> list[dict] | None:
+    """A flat HP or SP gain on every hit, as hp_per_hit / sp_per_hit."""
+    text = line.strip()
+    m = HIT_RECOVER.match(text)
+    if not m:
+        return None
+    stat = f"{m.group('pa').upper()} per Hit"
+    eff = {"text": text, "stat": stat, "value": int(m.group("a")), "unit": None, "parsed": True,
+           **stat_registry.resolve(stat)}
+    if m.group("refine"):
+        eff["per_refine"] = int(m.group("n") or 1)
+    return [eff]
+
+
 def parse_kill_recover(line: str) -> list[dict] | None:
     """HP and SP recovered per kill, as the two stats they are."""
     text = line.strip()
@@ -777,6 +802,9 @@ def parse_line(line: str) -> list[dict]:
     kill = parse_kill_recover(line)
     if kill:
         return kill
+    hit = parse_hit_recover(line)
+    if hit:
+        return hit
     element = parse_element(line)
     if element:
         return [element]

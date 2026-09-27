@@ -2323,7 +2323,16 @@
       },
       {
        "text": "Recover 3 HP per hit",
-       "parsed": false
+       "stat": "HP per Hit",
+       "value": 3,
+       "unit": null,
+       "parsed": true,
+       "stat_ids": [
+        156
+       ],
+       "stat_keys": [
+        "hp_per_hit"
+       ]
       }
      ]
     }

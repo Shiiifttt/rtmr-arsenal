@@ -1,6 +1,6 @@
 import {
   bindBaseStatIds, readSpawns,
-  type ClassGoals, type ClassRules, type Dataset, type Item, type MobInfo, type RollData,
+  type ClassGoals, type ClassRules, type Dataset, type Item, type JobTables, type MobInfo, type RollData,
   type SetRecord, type SpawnFile, type StatDef,
 } from '@sim';
 
@@ -13,7 +13,7 @@ import {
  */
 export async function loadDataset(base = './data'): Promise<Dataset> {
   const [itemList, sets, stats, classes, classRules, rolls, armorTargets, effort, classGoals,
-    levelReach] =
+    levelReach, jobs] =
     await Promise.all([
       getJSON<Item[]>(`${base}/items/all.json`),
       getJSON<SetRecord[]>(`${base}/sets/all.json`),
@@ -41,6 +41,9 @@ export async function loadDataset(base = './data'): Promise<Dataset> {
       // hard-to-get gear is not held to anything.
       getJSON<Record<string, [number, number]>>(`${base}/mobs/level-reach.json`)
         .catch(() => null),
+      // Each class's job HP / SP table. Missing it costs Max HP and Max SP
+      // in the derived totals, nothing else.
+      getJSON<JobTables>(`${base}/jobs.json`).catch(() => null),
     ]);
 
   bindBaseStatIds(stats);
@@ -64,6 +67,7 @@ export async function loadDataset(base = './data'): Promise<Dataset> {
       ? new Map(Object.entries(levelReach)
         .map(([level, [e, kill]]) => [Number(level), { effort: e, kill }]))
       : null,
+    jobs,
   };
 }
 

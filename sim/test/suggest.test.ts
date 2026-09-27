@@ -1000,7 +1000,8 @@ test('a skill-damage roll is aimed at a skill the goals name', () => {
   build.slots.acc1 = { itemId: acc.id, refine: 0, cards: [] };
   const goal: Goal = { key: 'skill:Back Stab|damage', column: 'percent', target: 50 };
   const [move] = new Suggester(dataset, [goal], OPEN).rollMoves(build, 'acc1');
-  assert.equal(move.changes[0].state.rolls?.skill?.skill, 'Back Stab');
+  // The server's shadow group names each skill: the Back Stab option.
+  assert.equal(move.changes[0].state.rolls?.skill?.option, 'back_stab_damage');
   assert.equal(move.after[0], 5);
 });
 

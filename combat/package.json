@@ -1,0 +1,11 @@
+{
+  "name": "rtmr-combat",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Local-only combat simulator: a TAS-played character against one monster, headless and seeded.",
+  "scripts": {
+    "sim": "node --experimental-strip-types --no-warnings --import ./register.mjs src/cli.ts",
+    "test": "node --experimental-strip-types --no-warnings --import ./register.mjs --test test/*.test.ts"
+  }
+}

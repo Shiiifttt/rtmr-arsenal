@@ -38,7 +38,7 @@ def build(source: Path = SOURCE, stats_path: Path = STATS) -> dict:
     seen_slots: dict[str, str] = {}
     # Gates the planner knows how to answer. A typo here would otherwise read
     # as "no condition" and hand the roll to every item in the slot.
-    known_gates = {"dropped", "types"}
+    known_gates = {"dropped", "types", "listed"}
 
     never = doc.get("never_from", [])
     if not isinstance(never, list) or not all(isinstance(p, str) and p.strip() for p in never):
@@ -51,8 +51,10 @@ def build(source: Path = SOURCE, stats_path: Path = STATS) -> dict:
                 problems.append(
                     f"{where}: unknown condition {gate!r} "
                     f"(the planner only understands {sorted(known_gates)})")
-        typed = "types" in table.get("requires", {})
-        if typed and not (isinstance(table["requires"]["types"], list) and table["requires"]["types"]):
+        # Typed and listed tables share their slots with the slot's ordinary one.
+        typed = "types" in table.get("requires", {}) or bool(table.get("requires", {}).get("listed"))
+        if "types" in table.get("requires", {}) and not (
+                isinstance(table["requires"]["types"], list) and table["requires"]["types"]):
             problems.append(f"{where}: 'types' must be a non-empty list of item types")
         for slot in table.get("slots", []):
             # A table gated on item types shares its slot with the slot's
@@ -87,6 +89,12 @@ def build(source: Path = SOURCE, stats_path: Path = STATS) -> dict:
                 for grant in option.get("grants", []):
                     problems += check_grant(grant, id_by_key, where, option)
 
+    # The server's per-item map must name tables that exist.
+    tables = {t.get("key") for t in doc.get("tables", [])}
+    for item_id, key in (doc.get("items") or {}).items():
+        if key not in tables:
+            problems.append(f"item {item_id}: no table {key!r}")
+
     if problems:
         raise RollError("\n".join(problems))
 
@@ -116,12 +124,17 @@ def check_grant(grant: dict, id_by_key: dict, where: str, option: dict) -> list[
     """Bind a grant to a stat id, or say why it cannot be counted."""
     label = f"{where} option {option['key']!r}"
 
+    if grant.get("uncounted"):
+        # Shown, not totalled: the planner has no stat for it.
+        grant["stat_id"] = None
+        return []
+
     if grant.get("skill"):
         # A skill modifier has no stat to add into. It is carried through so
         # the planner can show the line, and totalled against its skill.
         # 'skill_name' fixes the skill; 'metric' is what it raises.
         grant["stat_id"] = None
-        if grant.get("metric") not in (None, "damage", "level"):
+        if grant.get("metric") not in (None, "damage", "level", "cooldown"):
             return [f"{label}: unknown skill metric {grant['metric']!r}"]
         return []
 

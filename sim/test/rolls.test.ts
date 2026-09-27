@@ -19,7 +19,7 @@ import { fileURLToPath } from 'node:url';
 import {
   aggregate, BASE_LEVEL_DEFAULT, bindBaseStatIds, carryInto, clampRoll,
   defaultBaseStats,
-  defaultValues, fitsSlot, rollEffects, rollsApply, rollTableFor,
+  defaultValues, fitsSlot, reconcileRolls, rollEffects, rollsApply, rollTableFor,
   SLOTS, SLOT_BY_KEY, tableForSlot,
 } from '../src/index.ts';
 import type {
@@ -74,9 +74,10 @@ test('every slot a roll table claims is a real slot', () => {
 
 test('no slot is claimed by two ordinary tables', () => {
   // A table gated on item types shares its slot: orbs beside the runes.
+  // So does one only the server's per-item map reaches (Astrologika).
   const seen = new Map<string, string>();
   for (const table of rolls.tables) {
-    if (table.requires?.types) continue;
+    if (table.requires?.types || table.requires?.listed) continue;
     for (const slot of table.slots) {
       assert.equal(seen.get(slot), undefined,
         `${slot} is claimed by both ${seen.get(slot)} and ${table.key}`);
@@ -92,7 +93,7 @@ test('every grant is bound to a stat, or is a skill modifier', () => {
       for (const option of roll.options) {
         assert.ok(option.grants.length > 0, `${option.key} grants nothing`);
         for (const grant of option.grants) {
-          if (grant.skill) continue;
+          if (grant.skill || grant.uncounted) continue;
           assert.ok(
             grant.stat_id !== undefined && grant.stat_id !== null
               && ids.has(grant.stat_id),
@@ -143,10 +144,10 @@ test('"damage reduced" lands as a negative on damage received', () => {
   const option = armor.rolls.find((r) => r.key === 'mitigation')!
     .options.find((o) => o.key === 'physical_reduced')!;
   const [effect] = rollEffects(armor, {
-    mitigation: { option: option.key, values: [5] },
+    mitigation: { option: option.key, values: [3] },
   });
-  assert.equal(effect.value, -5,
-    'typed as 5% reduced, stored as -5% received');
+  assert.equal(effect.value, -3,
+    'typed as 3% reduced, stored as -3% received');
   assert.deepEqual(effect.stat_keys, ['physical_damage_received']);
 });
 
@@ -162,21 +163,59 @@ test('one option can grant two stats at once', () => {
     effects.map((e) => e.stat_keys?.[0]),
     ['leech_hp_rate', 'leech_hp_power'],
   );
+  // The live game's 10-20% chance, 1-2% power (kept over the 2023 server file).
   assert.deepEqual(effects.map((e) => e.value), [10, 1], 'both at their minimum');
 });
 
 test('a skill modifier counts against its skill, never a stat', () => {
-  const pick: RollPick = { option: 'skill_mod', values: [5], skill: 'Bash' };
+  // The server's shadow group names every skill it can roll.
+  const pick: RollPick = { option: 'back_stab_damage', values: [5] };
   const [effect] = rollEffects(shadow, { skill: pick });
   assert.deepEqual(effect.stat_ids, [], 'no stat to add it into');
-  assert.deepEqual(effect.skills, ['Bash']);
+  assert.deepEqual(effect.skills, ['Back Stab']);
   assert.equal(effect.skill_metric, 'damage');
-  assert.match(effect.text, /Bash damage \+5%/);
+  assert.match(effect.text, /Back Stab damage \+5%/);
 });
 
-test('a skill modifier with no skill named is reported, not counted', () => {
-  const [effect] = rollEffects(shadow, { skill: { option: 'skill_mod', values: [5] } });
-  assert.equal(effect.parsed, false);
+test('a skill typed against the old free-form roll finds its named option', () => {
+  const kept = reconcileRolls({ skill: { option: 'skill_mod', values: [5], skill: 'New Moon' } }, shadow);
+  assert.equal(kept.skill?.option, 'new_moon_damage');
+  // No skill named: nothing to find.
+  assert.deepEqual(reconcileRolls({ skill: { option: 'skill_mod', values: [5] } }, shadow), {});
+});
+
+test('the server names the table an item rolls, whatever its slot', () => {
+  // Temporal Manteau rolls the shadow group (a stat and a skill), not a garment's.
+  const manteau = itemList.find((i) => i.name === 'Temporal Manteau')!;
+  assert.equal(rollTableFor(rolls, 'garment', manteau)?.key, 'shadow');
+  // A dropped dagger rolls the dagger group, in either hand.
+  const dagger = itemList.find((i) => rolls.items?.[String(i.id)] === 'weapon_dagger')!;
+  assert.equal(rollTableFor(rolls, 'weapon', dagger)?.key, 'weapon_dagger');
+  // Astrologika is reached only through the map: a headgear it does not
+  // name rolls a headgear's table.
+  const astro = rolls.tables.find((t) => t.key === 'astrologika')!;
+  const hat = itemList.find((i) => (i.drops?.length ?? 0) > 0 && i.kind === 'Headgear'
+    && !rolls.items?.[String(i.id)])!;
+  assert.equal(rollsApply(astro, hat), false);
+  assert.notEqual(rollTableFor(rolls, 'upper', hat)?.key, 'astrologika');
+});
+
+test('weapons roll: a dropped weapon the server does not name falls back to its type', () => {
+  const unnamed = itemList.find((i) => i.kind === 'Weapon' && i.type === 'Katar'
+    && (i.drops?.length ?? 0) > 0 && !rolls.items?.[String(i.id)]);
+  if (unnamed) assert.equal(rollTableFor(rolls, 'weapon', unnamed)?.key, 'weapon_katar');
+  // Bought, not dropped: no rolls.
+  const bought = itemList.find((i) => i.kind === 'Weapon' && i.type === 'Katar'
+    && !(i.drops?.length) && !rolls.items?.[String(i.id)]);
+  if (bought) assert.equal(rollTableFor(rolls, 'weapon', bought), null);
+});
+
+test('a flat HP-per-hit roll counts as HP per Hit', () => {
+  const table = rolls.tables.find((t) => t.key === 'weapon_dagger')!;
+  const roll = table.rolls.find((r) => r.options.some((o) => o.key === 'hp_gained_per_hit'))!;
+  const [effect] = rollEffects(table, { [roll.key]: { option: 'hp_gained_per_hit', values: [2] } });
+  assert.deepEqual(effect.stat_keys, ['hp_per_hit']);
+  assert.equal(effect.value, 2);
 });
 
 // ---- through the aggregator ----------------------------------------------

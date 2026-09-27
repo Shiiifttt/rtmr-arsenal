@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   aggregate, allGoals, applyChanges, carryInto, fitsCard, fitsSlot, rollTableFor, sideGoals,
   settleHeadgear, SLOTS, Suggester, swapHands, withLock,
@@ -17,6 +17,14 @@ import { RollImport } from './components/RollImport';
 import { SourcesPanel } from './components/SourcesPanel';
 import { ItemTooltipLayer } from './components/ItemTooltip';
 import { DEFAULT_PREFS, GoalsPanel, type SuggestPrefs } from './components/GoalsPanel';
+
+/**
+ * The combat sim's panel, on the dev server only. `import.meta.env.DEV` is
+ * a literal false in a build, so this and the chunk it would load are
+ * dropped from the site entirely; the sim itself runs in node behind the
+ * dev server (see combatPlugin in vite.config.ts).
+ */
+const CombatPanel = import.meta.env.DEV ? lazy(() => import('./components/CombatPanel')) : null;
 
 // Kept apart from the build: these are how the player likes suggestions
 // narrowed, not part of any one character.
@@ -49,6 +57,7 @@ export default function App() {
   const [picking, setPicking] = useState<Picking | null>(null);
   const [importing, setImporting] = useState(false);
   const [builds, setBuilds] = useState(false);
+  const [fighting, setFighting] = useState(false);
   /** Open the Builds panel with the share link already made. */
   const [wantLink, setWantLink] = useState(false);
   /** Brief acknowledgement on the toolbar's Share button. */
@@ -265,6 +274,12 @@ export default function App() {
           {equippedCount} equipped
         </span>
         <div className="spacer" />
+        {CombatPanel && (
+          <button onClick={() => setFighting(true)}
+            title="Fight this build in the combat sim (dev server only)">
+            Simulate
+          </button>
+        )}
         <button onClick={() => setBuilds(true)}>
           Builds
         </button>
@@ -419,6 +434,12 @@ export default function App() {
           onLoad={(next) => { setBuild(next); ownIt(); }}
           onClose={() => { setBuilds(false); setWantLink(false); }}
         />
+      )}
+
+      {CombatPanel && fighting && (
+        <Suspense fallback={null}>
+          <CombatPanel build={build} onClose={() => setFighting(false)} />
+        </Suspense>
       )}
 
       {importing && (

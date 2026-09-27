@@ -1,0 +1,162 @@
+{
+ "profile": "Example Satsujin (Moon, dagger + shield)",
+ "targets": [
+  "Njord Zealot",
+  "Converted Zealot",
+  "Godly Seeker",
+  "Burning Fury",
+  "Desperate Njord",
+  "Tortured Maiden"
+ ],
+ "rules": {
+  "screenN": 60,
+  "confirmN": 400,
+  "timeS": 300,
+  "locked": [
+   "none"
+  ],
+  "penalty": 0.03,
+  "topStats": [
+   "agi",
+   "str",
+   "dex"
+  ]
+ },
+ "start": {
+  "className": "Satsujin",
+  "baseLevel": 136,
+  "baseStats": {
+   "str": 70,
+   "agi": 99,
+   "vit": 28,
+   "int": 1,
+   "dex": 45,
+   "luk": 1
+  },
+  "slots": {
+   "upper": {
+    "item": "Wyrdbrand"
+   },
+   "middle": {
+    "item": "Evil Wing Ears"
+   },
+   "lower": {
+    "item": "Candy Cane in Mouth"
+   },
+   "armor": {
+    "item": "Bullhorn Armor"
+   },
+   "weapon": {
+    "item": "Murder Knife",
+    "refine": 4
+   },
+   "offhand": {
+    "item": "Castle Armguard"
+   },
+   "garment": {
+    "item": "Asprika"
+   },
+   "shoes": {
+    "item": "Temporal AGI Boots"
+   },
+   "acc1": {
+    "item": "Gleipnir"
+   },
+   "acc2": {
+    "item": "Arch Ring"
+   }
+  }
+ },
+ "steps": [
+  {
+   "move": "Feral Instinct set +6",
+   "before": {
+    "win": 0,
+    "loss": 0.9787499999999999,
+    "dps": 4881.843376181974,
+    "ttk": null,
+    "value": 0.022647811253939946,
+    "deaths": "Cloud Kill x395, Tortured Maiden: attack x357"
+   },
+   "after": {
+    "win": 0,
+    "loss": 0.17666666666666667,
+    "dps": 7590.575279632911,
+    "ttk": null,
+    "value": 0.27230191759877637,
+    "deaths": "Njord Zealot: Fire Storm x84, Converted Zealot: Cloud Kill x69"
+   },
+   "tried": 342
+  },
+  {
+   "move": "Upper Headgear: Boy's Cap +6",
+   "before": {
+    "win": 0,
+    "loss": 0.17208333333333334,
+    "dps": 7583.1334807641715,
+    "ttk": null,
+    "value": 0.2736521116025472,
+    "deaths": "Njord Zealot: Fire Storm x88, Converted Zealot: Cloud Kill x60"
+   },
+   "after": {
+    "win": 0,
+    "loss": 0.02291666666666667,
+    "dps": 4945.036312223395,
+    "ttk": null,
+    "value": 0.30960845437407797,
+    "deaths": "Sonic Wave x20, Burning Fury: attack x16"
+   },
+   "tried": 419
+  },
+  {
+   "move": "Upper Headgear: Bruised Drunkard Card x2",
+   "before": {
+    "win": 0,
+    "loss": 0.024999999999999998,
+    "dps": 4964.678238722095,
+    "ttk": null,
+    "value": 0.309048927462407,
+    "deaths": "Sonic Wave x23, Burning Fury: attack x16"
+   },
+   "after": {
+    "win": 0,
+    "loss": 0,
+    "dps": 7255.337847222222,
+    "ttk": null,
+    "value": 0.3241844594907407,
+    "deaths": ""
+   },
+   "tried": 75
+  },
+  {
+   "move": "Lower Headgear: Calm Scarf +0",
+   "before": {
+    "win": 0,
+    "loss": 0,
+    "dps": 7378.553819444444,
+    "ttk": null,
+    "value": 0.32459517939814814,
+    "deaths": ""
+   },
+   "after": {
+    "win": 0,
+    "loss": 0,
+    "dps": 10770.916666666666,
+    "ttk": null,
+    "value": 0.33590305555555555,
+    "deaths": ""
+   },
+   "tried": 99
+  }
+ ],
+ "final": {
+  "win": 0,
+  "loss": 0,
+  "dps": 10372.384375,
+  "ttk": null,
+  "value": 0.3345746145833333,
+  "deaths": ""
+ },
+ "options": {},
+ "link": "http://localhost:5173/#b=crc4xbsMwDAXQu3D-g0iRsnSOjgRhCEnhukm9yL1_IKM3aCYCJPj-dwF99HP8fu8HgXOBLwmtQSoYauCAe4IlLihwTklbyfibEXCGpVIDLshcqwQ8g0117hScU1NowA3CzQJeIKYTXiCS0vyokJJzwBukLPPGAlFjmamzA42znwTq205wnsk0HvvzSaDHfmzrWG9ffT_Geu8_ffskuEVcBfMl6RskvaT8Bskuyf4rRbwA"
+}

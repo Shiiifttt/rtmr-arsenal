@@ -1,0 +1,806 @@
+/**
+ * Kingslayer: the Duelist line's final job (server job slot Shadow Chaser).
+ *
+ * Numbers come from the tooltips (data/raw/db-skills.json), which the
+ * project owner says are more accurate than the 2023 server code
+ * (2026-09-26). The code fills in only what a tooltip leaves unsaid -- how the
+ * shield's weight and refine count, how a hit earns a Duel Counter, what
+ * Finisher Ready does -- per .claude/scratch/kingslayer-server.md.
+ *
+ * From the project owner (2026-09-26):
+ *   - Main buffs up before the pull (long casts): Bishop's Guard, Knight's
+ *     Regen, King's Fortress. Rook's Wall and Queen's Barrier optional.
+ *   - Shield build: max Duel Counters, Shield Boomerang into King's Chains
+ *     (Bulwark Gem combo), fillers Rook's Smash, Queen's Brand and the Rogue
+ *     skills. Dodge with Pawn's Rod, King's Gambit, Hiding and Decoy.
+ *   - Queen's Gambit build: Nopaew Lufrewop, an Auto Guard 10 shield.
+ *   - Hiding -> Sneak Attack and Bishop's Tax raise damage for the big hits.
+ *   - Check Mate: not used (heavy SP investment; 250k cap live). Riposte:
+ *     clunky. Both are off unless a profile turns them on.
+ *
+ * Confirmed by the project owner (2026-09-26): King's Chains spends 1
+ * counter, Queen's Brand 3 (the 2023 code: 5); Queen's Gambit lands 9 hits.
+ *
+ * Assumptions to confirm (README open questions):
+ *   - Shield skills: base ATK + the shield's weight / 9 (weight in the
+ *     server's 0.1 units) in place of weapon ATK, +10 per shield refine after
+ *     DEF (2023 code); element as the tooltip, the weapon's.
+ */
+import type { Passives } from '../character.ts';
+import { defMultiplier, effectivePierce } from '../../../sim/src/derived.ts';
+import { attrFix, magicDamage, physicalCardFix, physicalDamage, refineAtk, TUNE } from '../formulas.ts';
+import type { Fighter, MobSkill, Monster } from '../model.ts';
+import {
+  canUse, dot, followUpComing, grant, has, readyAt, stacks, strike,
+  type Action, type Fight, type Kit,
+} from '../engine.ts';
+import {
+  assessThreat, attackAction, breakSight, hidingAction, lv, morrocsMark, optionOn, orphanHeal, pullOffWard, stayHidden,
+  toolkit, waitAction, walkOut, wardUp,
+} from './common.ts';
+
+const TREE = ['Kingslayer', 'Duelist', 'Rogue', 'Thief', 'Orphan'];
+
+const element = (fight: Fight) => fight.f.weapon?.element ?? 'Neutral';
+const T = toolkit(TREE, element);
+const { cast, cooldown, spCost, learned } = T;
+
+export const ALIASES: Record<string, string[]> = {};
+
+const SKILLS = [
+  "King's Chains", 'Shield Boomerang', "Rook's Smash", "Queen's Brand", "Queen's Gambit", 'Retribution',
+  'Check Mate', 'Delta Skyfall', 'Wind Slash', 'Overpower', 'Face-Off', 'Sneak Attack', "Bishop's Tax",
+  'Decoy', 'Riposte', "Pawn's Rod", "King's Gambit", "Queen's Barrier", "Rook's Wall", 'Reflect Shield',
+  "Bishop's Guard", "Knight's Regen", "King's Fortress", 'Duel Stance', 'Ready to Rip', 'Hiding',
+  "Morroc's Mark", 'Shield Mastery', 'Blade Mastery', 'Improve Dodge', 'Improve Defense', 'Improve Wisdom',
+  'Increase SP Recovery', 'Heal',
+];
+
+export function maxLevels(): Record<string, number> {
+  return Object.fromEntries(SKILLS.map((n) => [n, T.sk(n).row.max]));
+}
+
+export function passives(
+  levels: Record<string, number>, weaponType: string | null, baseLevel: number,
+): Passives {
+  const L = (n: string) => levels[n] ?? 0;
+  const blade = weaponType === 'Dagger' || weaponType === 'Sword' || weaponType === 'One-Handed Sword';
+  return {
+    // Blade Mastery: "3 Atk ... per level", swords and daggers.
+    masteryAtk: blade ? 3 * L('Blade Mastery') : 0,
+    hit: 0,
+    // Improve Dodge: "4 flee per level".
+    flee: 4 * L('Improve Dodge'),
+    // Improve Defense "1 HP per skill level, per Base Level"; Shield Mastery
+    // "25 HP per level"; Bishop's Guard "500 per level" (up the whole fight).
+    hpFlat: L('Improve Defense') * baseLevel + 25 * L('Shield Mastery') + 500 * L("Bishop's Guard"),
+    spFlat: Math.floor((L('Improve Wisdom') * 2 * baseLevel) / 3),
+    // Duel Stance "Increase Max HP by 2% per level", held all fight.
+    hpPercent: 2 * L('Duel Stance'),
+    spRegen: { flat: 2 * L('Increase SP Recovery'), maxShare: 0.001 * L('Increase SP Recovery') },
+    notes: [
+      'passives: Blade Mastery (ATK), Improve Dodge (flee), Improve Defense + Shield Mastery + Bishop\'s Guard (HP), '
+        + 'Duel Stance (Max HP %), Improve Wisdom (SP); Bishop\'s Guard\'s VIT DEF bonus not modelled',
+    ],
+  };
+}
+
+// ---- Duel Counters --------------------------------------------------------------
+
+const MAX_COUNTERS = 10;
+const counters = (fight: Fight) => stacks(fight, 'counters');
+function setCounters(fight: Fight, n: number) {
+  fight.me.buffs.counters = { until: 1e12, stacks: Math.max(0, Math.min(MAX_COUNTERS, n)) };
+}
+
+/**
+ * Duel Stance: a physical hit that damages you gives a counter at 25 + 15%
+ * per level (the tooltip; the 2023 code agrees: once per attack, never for
+ * magic or a blocked hit). A rollout weighs the chance in.
+ */
+function onHurt(fight: Fight, hit: { physical: boolean }) {
+  if (!hit.physical || !has(fight, 'duelStance')) return;
+  const p = Math.min(1, (25 + 15 * lv(fight.f, 'Duel Stance')) / 100);
+  if (fight.rng.expect) setCounters(fight, counters(fight) + p);
+  else if (fight.rng.chance(p)) setCounters(fight, counters(fight) + 1);
+}
+
+// ---- damage helpers -----------------------------------------------------------------
+
+/** A weapon skill hit off the weapon. */
+const weaponHit = (fight: Fight, name: string, ratio: number, o: { ranged?: boolean } = {}) =>
+  T.physical(fight, name, ratio, o);
+
+/**
+ * A shield skill hit (King's Chains, Shield Boomerang). Fitted to the
+ * project owner's dummy readings (2026-09-26, profiles/kingslayer-dummy.json:
+ * King's Chains 7,155 a shown hit, Shield Boomerang 6,269): the base is the
+ * shield's weight / 9 (weight in the server's 0.1 units, as the 2023 code)
+ * plus mastery and equip ATK, times ATK% -- no status ATK, no STR bonus, and
+ * not the doubled skill ATK weapon skills get. Then the ratio, long-range
+ * damage, DEF, the skill's gear bonus, and 10 per shield refine on top.
+ * Gives 7,163 and 6,179.
+ */
+function shieldHit(fight: Fight, name: string, ratio: number, mult = 1) {
+  const f = fight.f; const s = f.shield!;
+  const base = Math.floor((s.weight * 10) / 9) + f.masteryAtk + f.equipAtk;
+  // Always Neutral, whatever the weapon (the project owner, 2026-09-27).
+  const hit = plainHit(fight, name, base, ratio, true, 'Neutral');
+  return (crit: boolean) => (hit(crit) + 10 * s.refine) * mult;
+}
+
+/**
+ * A hit on a fixed base rather than the full ATK: base x ATK% x cards x
+ * element x long/short-range damage x ratio, then DEF and the skill's gear
+ * bonus. No status ATK, no STR bonus on the weapon, no doubled skill ATK --
+ * what the owner's shield and Rook's Smash readings fit.
+ */
+function plainHit(fight: Fight, name: string, base: number, ratio: number, ranged: boolean, ele = element(fight)) {
+  const f = fight.f; const m = fight.m;
+  const skillDamage = f.skillMods(name, 'damage').percent;
+  return (_crit: boolean) => {
+    let dmg = base * (1 + f.atkPercent / 100) * physicalCardFix(f, m) * attrFix(ele, m.element, m.elementLevel);
+    dmg *= 1 + (ranged ? f.dmg.ranged_damage ?? 0 : f.dmg.melee_damage ?? 0) / 100;
+    dmg *= ratio / 100;
+    dmg = dmg * defMultiplier(m.def, effectivePierce(f.defPen)) - m.softDef;
+    return Math.max(1, dmg) * (1 + skillDamage / 100);
+  };
+}
+
+/** Shield Mastery "+10% per level" and King's Fortress Lv3 "+1% per STR and 2% per VIT" on shield skills. */
+function shieldBonus(fight: Fight): number {
+  const s = fight.f.stats;
+  return 10 * lv(fight.f, 'Shield Mastery') + (fortressLevel(fight) >= 3 ? s.str + 2 * s.vit : 0);
+}
+
+const hasShield = (fight: Fight) => !!fight.f.shield;
+const bladeInHand = (fight: Fight) => ['Dagger', 'Sword', 'One-Handed Sword'].includes(fight.f.weapon?.type ?? '');
+const fortressLevel = (fight: Fight) => (has(fight, 'fortress') ? fight.me.buffs.fortress.stacks : 0);
+/** The Bulwark Gem's "Shield Boomerang can combo into King's Chains within 3 s for 50% more damage". */
+const hasComboGem = (f: Fighter) => /Shield Boomerang can combo into King's Chains/i.test(f.gearText ?? '');
+
+// ---- attacks -------------------------------------------------------------------------
+
+// Sword and shield at 1 AGI swing too slowly to be worth the time: off
+// unless a profile sets autoAttack (the project owner, 2026-09-27).
+const swing = attackAction(T);
+const attack: Action = { ...swing, ready: (fight) => fight.options.autoAttack === true };
+const orphan = orphanHeal(T);
+const heal: Action = { ...orphan, ready: (fight) => optionOn(fight, 'heal') && orphan.ready!(fight) };
+
+const kingsChains: Action = {
+  id: "King's Chains",
+  isSkill: true,
+  offensive: true,
+  // With the Bulwark Gem it always follows Shield Boomerang, even at a little
+  // downtime: the x1.5 is worth it (the project owner, 2026-09-27).
+  ready: (fight) => learned("King's Chains")(fight) && hasShield(fight) && counters(fight) >= 1
+    && (!hasComboGem(fight.f) || has(fight, 'sbCombo') || !optionOn(fight, 'alwaysCombo')),
+  castMs: cast("King's Chains"),
+  cooldownMs: cooldown("King's Chains"),
+  spCost: spCost("King's Chains"),
+  resolve(fight) {
+    const f = fight.f; const s = f.stats; const l = lv(f, "King's Chains");
+    // Counters as they were when it went off: the owner's reading at 10
+    // fits 10 in the ratio, not the 9 left after its cost.
+    const held = counters(fight);
+    setCounters(fight, held - 1);
+    const missing = Math.floor(((f.maxHp - fight.me.hp) * 100) / f.maxHp);
+    // "200+10% per level +1% per VIT/STR", "Extra 1% per VIT per Duel
+    // Counter", "Extra 1% per Soft DEF and Hard DEF", "Finisher Ready: extra
+    // 30% per missing HP %".
+    const ratio = 200 + 10 * l + s.vit + s.str + s.vit * held + f.softDef + f.def
+      + shieldBonus(fight) + (has(fight, 'finisher') ? 30 * missing : 0);
+    const combo = has(fight, 'sbCombo') ? 1.5 : 1;
+    if (combo > 1) delete fight.me.buffs.sbCombo;
+    // "Throws a rebounding shield 4 times": one roll shown as four; ignores flee.
+    strike(fight, "King's Chains", { hits: 4, split: true, canMiss: false, critBonus: null, kind: 'ranged',
+      damage: shieldHit(fight, "King's Chains", ratio, combo) });
+  },
+};
+
+/**
+ * King's Chains will be ready, with a counter to spend, within `ms`: the
+ * window a Shield Boomerang, Bishop's Tax or Sneak Attack is spent to lift.
+ */
+function comboSoon(fight: Fight, ms: number): boolean {
+  return learned("King's Chains")(fight) && hasShield(fight) && counters(fight) >= 1
+    && readyAt(fight, "King's Chains") <= fight.t + ms;
+}
+
+const shieldBoomerang: Action = {
+  id: 'Shield Boomerang',
+  isSkill: true,
+  offensive: true,
+  // Thrown freely; King's Chains is the one that waits for it (the project
+  // owner, 2026-09-27).
+  ready: (fight) => learned('Shield Boomerang')(fight) && hasShield(fight),
+  castMs: () => 0,
+  cooldownMs: cooldown('Shield Boomerang'),
+  spCost: spCost('Shield Boomerang'),
+  resolve(fight) {
+    const f = fight.f; const l = lv(f, 'Shield Boomerang');
+    // "Damage is 200+20% per level +1% per vit".
+    const ratio = 200 + 20 * l + f.stats.vit + shieldBonus(fight);
+    strike(fight, 'Shield Boomerang', { hits: 1, canMiss: true, critBonus: null, kind: 'ranged',
+      damage: shieldHit(fight, 'Shield Boomerang', ratio) });
+    if (hasComboGem(f)) grant(fight, 'sbCombo', 3000);
+  },
+};
+
+const rooksSmash: Action = {
+  id: "Rook's Smash",
+  isSkill: true,
+  offensive: true,
+  ready: (fight) => learned("Rook's Smash")(fight) && hasShield(fight) && optionOn(fight, 'rooksSmash'),
+  castMs: () => 0,
+  cooldownMs: cooldown("Rook's Smash"),
+  spCost: spCost("Rook's Smash"),
+  resolve(fight) {
+    const f = fight.f; const l = lv(f, "Rook's Smash");
+    // "Generates up to 3 Duel Counters under Duel Stance", before it lands.
+    if (has(fight, 'duelStance')) setCounters(fight, Math.max(counters(fight), 3));
+    // "150+5% per level + 1% per Str", "Extra 25% Damage per Duel Counter",
+    // "Additional Damage equal 1/5 HP", "Dealing 2 hits, with full damage on each".
+    const ratio = 150 + 5 * l + f.stats.str + 25 * counters(fight);
+    // HP / 5 is added after the ratio and the element (battle.cpp
+    // battle_calc_skill_constant_addition): no element, no cards, but the
+    // monster's DEF still cuts it with the rest of the hit.
+    const hpPart = (fight.me.hp / 5) * defMultiplier(fight.m.def, effectivePierce(fight.f.defPen));
+    // The weapon's part is small: at full HP the owner's hit is 5,876 against
+    // HP / 5 = 5,606. It fits the weapon's own ATK + refine + equip ATK
+    // (x ATK%, the ratio at 10 counters and long-range damage): ~277 to ~272.
+    const w = f.weapon;
+    const weaponBase = (w ? w.atk + refineAtk(w.level, w.refine) : 0) + f.equipAtk;
+    const weaponPart = plainHit(fight, "Rook's Smash", weaponBase, ratio, true);
+    // The second hit lands twice on a target the first did not knock back
+    // (the project owner's dummy, 2026-09-27: 5,876 + 5,881 + 5,881): a
+    // boss, or the dummy. Anything else is pushed away after two.
+    const hits = fight.m.boss || fight.m.dummy || fight.m.noKnockback ? 3 : 2;
+    for (let i = 0; i < hits; i++) {
+      strike(fight, "Rook's Smash", { hits: 1, canMiss: true, critBonus: null, kind: 'ranged',
+        damage: (crit) => weaponPart(crit) + hpPart });
+    }
+  },
+};
+
+/** Queen's Brand "Requires 3 Duel Counters to cast" -- and spends them (the project owner). */
+const BRAND_COUNTERS = 3;
+const queensBrand: Action = {
+  id: "Queen's Brand",
+  isSkill: true,
+  offensive: true,
+  // ~30 damage per SP on one target (the sim, 2026-09-27) against ~125 for
+  // King's Chains, and its 3 counters feed King's Chains and Retribution:
+  // a profile can set queensBrand: false to keep them for those.
+  ready: (fight) => learned("Queen's Brand")(fight) && bladeInHand(fight) && counters(fight) >= BRAND_COUNTERS
+    && optionOn(fight, 'spendCounters') && optionOn(fight, 'queensBrand'),
+  castMs: cast("Queen's Brand"),
+  cooldownMs: cooldown("Queen's Brand"),
+  spCost: spCost("Queen's Brand"),
+  resolve(fight) {
+    const f = fight.f; const l = lv(f, "Queen's Brand");
+    setCounters(fight, counters(fight) - BRAND_COUNTERS);
+    // "250+15% per level + 3% per Vit", "Extra 30% Damage per Duel Counter",
+    // "If on Duel Stance, bonus damage by 1/20 of current HP".
+    const ratio = 250 + 15 * l + 3 * f.stats.vit + 30 * counters(fight);
+    const hpPart = has(fight, 'duelStance') ? fight.me.hp / 20 : 0;
+    strike(fight, "Queen's Brand", { hits: 3, split: true, canMiss: true, critBonus: null, kind: 'melee',
+      damage: (crit) => weaponHit(fight, "Queen's Brand", ratio)(crit) + hpPart });
+  },
+};
+
+/** Queen's Gambit's hits per cast: 9 (the project owner; the 2023 unit ticks every 100 ms for 0.95 s). */
+const QG_TICKS = 9;
+const queensGambit: Action = {
+  id: "Queen's Gambit",
+  isSkill: true,
+  offensive: true,
+  // "Defense decreases by 50% during cast time."
+  castDefCut: 0.5,
+  // Risky (25% Max HP, DEF halved while casting): the opener, or right after
+  // Rook's Smash and Delta Skyfall to take counters up, or to refill them --
+  // not once they are high (the project owner, 2026-09-27). Never below 65%
+  // HP, so the cost leaves 40%.
+  ready: (fight) => learned("Queen's Gambit")(fight) && optionOn(fight, 'queensGambit')
+    && counters(fight) <= 5 && fight.me.hp >= 0.65 * fight.f.maxHp,
+  castMs: cast("Queen's Gambit"),
+  cooldownMs: cooldown("Queen's Gambit"),
+  spCost: spCost("Queen's Gambit"),
+  // "Requires Extra 25% Max HP to cast."
+  hpCost: (fight) => Math.floor(0.25 * fight.f.maxHp),
+  resolve(fight) {
+    const f = fight.f; const l = lv(f, "Queen's Gambit");
+    // "Damage is ATK+MATK divided by 2. Extra 25% damage per level. Extra
+    // 0.5% per INT damage." The owner's reading (~1,929 a hit) fits ATK +
+    // MATK with no halving (as the 2023 code), at 100 + 25% a level + INT/2.
+    const ratio = 100 + 25 * l + 0.5 * f.stats.int;
+    const skillDamage = f.skillMods("Queen's Gambit", 'damage').percent;
+    const ele = element(fight);
+    strike(fight, "Queen's Gambit", {
+      hits: QG_TICKS, canMiss: false, critBonus: null, kind: 'magic',
+      damage: (crit) => {
+        const atk = physicalDamage(f, fight.m, {
+          ratio: 100, element: ele, statusElement: 'Neutral', ranged: false, crit, skillDamage: 0,
+        }, fight.rng);
+        const matk = magicDamage(f, fight.m, { ratio: 100, element: ele, skillDamage: 0, bonus: 0 }, fight.rng);
+        return (atk + matk) * (ratio / 100) * (1 + skillDamage / 100);
+      },
+    });
+    // "Gives you 5 Duel Counters if it hits enemies."
+    setCounters(fight, counters(fight) + 5);
+  },
+};
+
+const retribution: Action = {
+  id: 'Retribution',
+  isSkill: true,
+  offensive: true,
+  ready: (fight) => learned('Retribution')(fight) && counters(fight) >= 1 && optionOn(fight, 'spendCounters'),
+  castMs: cast('Retribution'),
+  cooldownMs: cooldown('Retribution'),
+  spCost: spCost('Retribution'),
+  resolve(fight) {
+    const f = fight.f; const l = lv(f, 'Retribution');
+    const spent = Math.floor(counters(fight));
+    setCounters(fight, 0);
+    // "Damage is 200+50% per level + 5% per VIT", "Extra 3% per VIT damage per counter".
+    const ratio = 200 + 50 * l + 5 * f.stats.vit + 3 * f.stats.vit * spent;
+    strike(fight, 'Retribution', { hits: 1, canMiss: true, critBonus: null, kind: 'melee',
+      damage: weaponHit(fight, 'Retribution', ratio) });
+    // "10 counters also grant Finisher Ready for 5s": half damage taken, and
+    // King's Chains +30% per missing HP % (2023 code).
+    if (spent >= MAX_COUNTERS) grant(fight, 'finisher', 5000);
+  },
+};
+
+const checkMate: Action = {
+  id: 'Check Mate',
+  isSkill: true,
+  offensive: true,
+  ready: (fight) => learned('Check Mate')(fight) && fight.options.checkMate === true,
+  castMs: cast('Check Mate'),
+  cooldownMs: cooldown('Check Mate'),
+  // The SP column is paid first; the rest of your SP goes into the blow.
+  spCost: spCost('Check Mate'),
+  resolve(fight) {
+    const f = fight.f;
+    // "200+1% per Current SP +10% of Max HP", "Doubled Damage with 6 or more
+    // Duel Counters", "capped at 250,000 before debuffs" (live, the owner).
+    const ratio = 200 + fight.me.sp;
+    fight.me.sp = 0;
+    const doubled = counters(fight) >= 6 ? 2 : 1;
+    const hpPart = 0.1 * f.maxHp;
+    strike(fight, 'Check Mate', { hits: 1, canMiss: false, critBonus: null, kind: 'melee',
+      damage: (crit) => Math.min(250_000, (weaponHit(fight, 'Check Mate', ratio)(crit) + hpPart) * doubled) });
+  },
+};
+
+/** A plain weapon filler read straight from its tooltip line. */
+function filler(id: string, ratio: (fight: Fight) => number,
+  o: { ranged?: boolean; ignoreFlee?: boolean; crit?: boolean; blade?: boolean; rogue?: boolean } = {}): Action {
+  return {
+    id,
+    isSkill: true,
+    offensive: true,
+    // The Rogue fillers cost more SP than their damage is worth, and a player
+    // keeps to the Kingslayer's own attacks (the project owner, 2026-09-27):
+    // off unless a profile sets rogueFillers.
+    ready: (fight) => learned(id)(fight) && (!o.blade || bladeInHand(fight))
+      // Wind Slash alone (option windSlash): the one ranged Rogue filler,
+      // so it keeps you out of melee behind Rook's Wall.
+      && (!o.rogue || fight.options.rogueFillers === true || (id === 'Wind Slash' && fight.options.windSlash === true)),
+    castMs: cast(id),
+    cooldownMs: cooldown(id),
+    spCost: spCost(id),
+    resolve(fight) {
+      strike(fight, id, { hits: 1, canMiss: !o.ignoreFlee, critBonus: o.crit ? 0 : null,
+        kind: o.ranged ? 'ranged' : 'melee', damage: weaponHit(fight, id, ratio(fight), { ranged: o.ranged }) });
+    },
+  };
+}
+const L = (fight: Fight, n: string) => lv(fight.f, n);
+// "Damage is 150+25% per level +2% per STR", "can CRIT", range 5+.
+const windSlash = filler('Wind Slash', (x) => 150 + 25 * L(x, 'Wind Slash') + 2 * x.f.stats.str, { ranged: true, crit: true, blade: true, rogue: true });
+// "Damage is 230+10% per level + 3% per AGI", sword or dagger. With Rook's
+// Smash it fills counters to 5 (the project owner, 2026-09-27; the 2023 code:
+// +1 a hit, up to 5).
+const deltaBase = filler('Delta Skyfall', (x) => 230 + 10 * L(x, 'Delta Skyfall') + 3 * x.f.stats.agi, { ranged: true, blade: true });
+const deltaSkyfall: Action = {
+  ...deltaBase,
+  // As a filler it is poor per SP (~23 damage a point on Heartless, against
+  // 77 for King's Chains): cast to build counters, unless deltaFiller is set.
+  ready: (fight) => deltaBase.ready!(fight)
+    && (fight.options.deltaFiller === true || (has(fight, 'duelStance') && counters(fight) < 5)),
+  resolve(fight) {
+    deltaBase.resolve(fight);
+    if (has(fight, 'duelStance') && counters(fight) < 5) setCounters(fight, Math.min(5, counters(fight) + 3));
+  },
+};
+// "Damage is 160+10% per level +2% per STR", "Ignores flee".
+const overpower = filler('Overpower', (x) => 160 + 10 * L(x, 'Overpower') + 2 * x.f.stats.str, { ignoreFlee: true, rogue: true });
+// "Damage is 200+25% per level +1% per STR" (the wall double is left out).
+const faceOff = filler('Face-Off', (x) => 200 + 25 * L(x, 'Face-Off') + x.f.stats.str, { rogue: true });
+
+/**
+ * Dragon Breath, from gear (the Old Dragon shadow set grants Lv10; its
+ * pendant alone Lv5): "Damage is 100+30% per level +5% per VIT", Fire,
+ * "guaranteed damage" (ignores flee), "Boosted by Long Range amplifiers",
+ * 0.5 s + 0.5 s cast, 10 s cooldown. The 2023 code runs it as a weapon hit
+ * that DEF still cuts. Dragon Pact (granted with it) is taken as up.
+ */
+const dragonBreath: Action = {
+  id: 'Dragon Breath',
+  isSkill: true,
+  offensive: true,
+  ready: learned('Dragon Breath'),
+  castMs: cast('Dragon Breath'),
+  cooldownMs: cooldown('Dragon Breath'),
+  spCost: spCost('Dragon Breath'),
+  resolve(fight) {
+    const f = fight.f; const l = L(fight, 'Dragon Breath');
+    const ratio = 100 + 30 * l + 5 * f.stats.vit;
+    const skillDamage = f.skillMods('Dragon Breath', 'damage').percent;
+    strike(fight, 'Dragon Breath', { hits: 1, canMiss: false, critBonus: null, kind: 'ranged',
+      damage: (crit) => physicalDamage(f, fight.m, {
+        ratio, element: 'Fire', statusElement: 'Neutral', ranged: true, crit, skillDamage,
+      }, fight.rng) });
+  },
+};
+
+/**
+ * Decoy: a dodge for a skill cast at you, the way Hiding is (the project
+ * owner, 2026-09-27) -- you dash back and hide as the clone goes off, so
+ * the cast finds nobody. Not a filler.
+ */
+const decoy: Action = {
+  id: 'Decoy',
+  isSkill: true,
+  offensive: false,
+  reactive: true,
+  ready: learned('Decoy'),
+  castMs: cast('Decoy'),
+  cooldownMs: cooldown('Decoy'),
+  spCost: spCost('Decoy'),
+  resolve(fight) {
+    const s = fight.f.stats;
+    // "Damage is 200+25% per level +1% per INT and LUK." The clone explodes; you dash back.
+    strike(fight, 'Decoy', { hits: 1, canMiss: true, critBonus: null, kind: 'ranged',
+      damage: weaponHit(fight, 'Decoy', 200 + 25 * L(fight, 'Decoy') + s.int + s.luk, { ranged: true }) });
+    grant(fight, 'hidden', 1000);
+  },
+};
+
+const sneakAttack: Action = {
+  id: 'Sneak Attack',
+  isSkill: true,
+  offensive: true,
+  // "Only usable while in Hiding status and will cancel Hiding once used."
+  ready: (fight) => learned('Sneak Attack')(fight) && has(fight, 'hidden') && !followUpComing(fight),
+  castMs: () => 0,
+  cooldownMs: cooldown('Sneak Attack'),
+  spCost: spCost('Sneak Attack'),
+  resolve(fight) {
+    const f = fight.f;
+    // "Damage is 150+15% per level + Flat Dex"; "the enemy receives more damage for 5s", "15%".
+    strike(fight, 'Sneak Attack', { hits: 1, canMiss: true, critBonus: null, kind: 'melee',
+      damage: (crit) => weaponHit(fight, 'Sneak Attack', 150 + 15 * L(fight, 'Sneak Attack'))(crit) + f.stats.dex });
+    fight.mob.buffs.raid = { until: fight.t + 5000, stacks: 1, value: 15 };
+  },
+};
+
+/** Hiding as an opening for Sneak Attack, not as a dodge. Shares Hiding's cooldown. */
+const hideToStrike: Action = {
+  id: 'Hide to strike',
+  isSkill: true,
+  offensive: false,
+  ready: (fight) => learned('Hiding')(fight) && learned('Sneak Attack')(fight) && optionOn(fight, 'sneakAttack')
+    && readyAt(fight, 'Hiding') <= fight.t && readyAt(fight, 'Sneak Attack') <= fight.t
+    && !has(fight, 'hidden') && !has(fight, 'revealed') && !fight.mob.cast && comboSoon(fight, 3000),
+  castMs: () => 0,
+  delayMs: () => 100,
+  cooldownMs: () => 0,
+  spCost: (fight) => 15 + Math.floor(0.05 * fight.f.maxSp),
+  resolve(fight) {
+    grant(fight, 'hidden', 2000);
+    fight.me.cds.Hiding = fight.t + T.cooldown('Hiding')(fight);
+  },
+};
+
+const bishopsTax: Action = {
+  id: "Bishop's Tax",
+  isSkill: true,
+  offensive: true,
+  // Just before the Shield Boomerang -> King's Chains combo it is there to
+  // lift: at Lv5 its 12 s cover two of them (the project owner, 2026-09-27).
+  // With HP to spare: at half or more by default (option taxHp, a share of
+  // Max HP; the owner's first rule was 75%).
+  ready: (fight) => learned("Bishop's Tax")(fight) && optionOn(fight, 'bishopsTax')
+    && fight.me.hp >= (typeof fight.options.taxHp === 'number' ? fight.options.taxHp : 0.5) * fight.f.maxHp
+    && comboSoon(fight, 3000),
+  castMs: cast("Bishop's Tax"),
+  cooldownMs: cooldown("Bishop's Tax"),
+  spCost: spCost("Bishop's Tax"),
+  // "Requires 25% extra Max HP to cast".
+  hpCost: (fight) => Math.floor(0.25 * fight.f.maxHp),
+  resolve(fight) {
+    const f = fight.f; const l = L(fight, "Bishop's Tax");
+    // "Damage is 200+30% per level + 2% per Dex", "Enemies hit receive 15%
+    // extra damage", "3s to 12s by level".
+    strike(fight, "Bishop's Tax", { hits: 1, canMiss: true, critBonus: null, kind: 'melee',
+      damage: weaponHit(fight, "Bishop's Tax", 200 + 30 * l + 2 * f.stats.dex) });
+    fight.mob.buffs.tax = { until: fight.t + (3 + (9 * (l - 1)) / 4) * 1000, stacks: 1, value: 15 };
+  },
+};
+
+// ---- defence ---------------------------------------------------------------------------
+
+const hiding = hidingAction(T);
+
+const pawnsRod: Action = {
+  id: "Pawn's Rod",
+  isSkill: true,
+  offensive: false,
+  reactive: true,
+  ready: learned("Pawn's Rod"),
+  castMs: cast("Pawn's Rod"),
+  cooldownMs: cooldown("Pawn's Rod"),
+  spCost: spCost("Pawn's Rod"),
+  // "Timing duration is 1.5 seconds."
+  resolve(fight) { grant(fight, 'magicRod', 1500); },
+};
+
+const kingsGambit: Action = {
+  id: "King's Gambit",
+  isSkill: true,
+  offensive: false,
+  reactive: true,
+  ready: learned("King's Gambit"),
+  castMs: () => 0,
+  cooldownMs: cooldown("King's Gambit"),
+  spCost: spCost("King's Gambit"),
+  // "Duration is 1,5s + 0.25s per level"; ground spells on it are cancelled.
+  resolve(fight) { grant(fight, 'landProtector', 1500 + 250 * L(fight, "King's Gambit")); },
+};
+
+/**
+ * King's Gambit put down before a ground spell too fast to answer (Magnus
+ * Exorcismus, 0.3s): the project owner (2026-09-27) pre-casts it and hopes it
+ * soaks one or two casts. The first cast cannot be called; from then on the
+ * reuse delay is counted from the last one seen, and the Gambit goes down
+ * when it runs out inside the Gambit's duration. Shares the Gambit's cooldown.
+ */
+const FAST_CAST_MS = 500;
+function fastGroundDueSoon(fight: Fight, within: number): boolean {
+  const actors = [{ m: fight.m, st: fight.mob }, ...fight.mob.adds.map((a) => ({ m: a.m, st: a.st }))];
+  return actors.some(({ m, st }) => m.skills.some((sk) => sk.targets === 'aoe' && sk.avoid.includes('walk') && !sk.noGambit
+    && sk.castMs <= FAST_CAST_MS && sk.type !== 'none' && sk.type !== 'status'
+    && st.cds[sk.skill] !== undefined && st.cds[sk.skill] + sk.ai.delayMs <= fight.t + within));
+}
+const preGambit: Action = {
+  id: "Pre-cast King's Gambit",
+  isSkill: true,
+  offensive: false,
+  ready: (fight) => learned("King's Gambit")(fight) && readyAt(fight, "King's Gambit") <= fight.t
+    && !has(fight, 'landProtector') && optionOn(fight, 'preGambit')
+    && fastGroundDueSoon(fight, 1500 + 250 * L(fight, "King's Gambit") - 300),
+  castMs: () => 0,
+  cooldownMs: () => 0,
+  spCost: spCost("King's Gambit"),
+  resolve(fight) {
+    kingsGambit.resolve(fight);
+    fight.me.cds["King's Gambit"] = fight.t + cooldown("King's Gambit")(fight);
+  },
+};
+
+const queensBarrier: Action = {
+  id: "Queen's Barrier",
+  isSkill: true,
+  offensive: false,
+  reactive: true,
+  ready: (fight) => learned("Queen's Barrier")(fight) && !has(fight, 'barrier'),
+  castMs: cast("Queen's Barrier"),
+  cooldownMs: cooldown("Queen's Barrier"),
+  spCost: spCost("Queen's Barrier"),
+  resolve(fight) {
+    // "[Lv 5]: Barrier: 10% MaxHP, Blocks 5 Hits", "up to 15 seconds".
+    const l = L(fight, "Queen's Barrier");
+    fight.me.buffs.barrier = { until: fight.t + 15_000, stacks: l, value: 0.02 * l * fight.f.maxHp };
+  },
+};
+
+// ---- the rotation --------------------------------------------------------------------------
+
+/**
+ * Step back out of the monster's short range (3 cells) so Rook's Wall
+ * counts again: only with the wall up. 3 cells at Rook's Wall's slowed walk
+ * (walk speed 200 under Defender in the server code, against 150).
+ */
+const stepBack: Action = {
+  id: 'Step back',
+  isSkill: false,
+  offensive: false,
+  ready: (fight) => has(fight, 'close') && has(fight, 'defender') && optionOn(fight, 'keepRange'),
+  castMs: () => 0,
+  delayMs: (fight) => 3 * (has(fight, 'defender') ? 200 : 150),
+  cooldownMs: () => 0,
+  spCost: () => 0,
+  resolve(fight) { delete fight.me.buffs.close; },
+};
+
+const ACTIONS: Action[] = [
+  attack, waitAction, heal, dragonBreath, kingsChains, shieldBoomerang, rooksSmash, queensBrand, queensGambit, retribution, checkMate,
+  windSlash, deltaSkyfall, overpower, faceOff, decoy, sneakAttack, hideToStrike, bishopsTax,
+  hiding, pawnsRod, kingsGambit, preGambit, queensBarrier, walkOut, breakSight, morrocsMark, stayHidden, pullOffWard, stepBack,
+].map(withRules);
+const rule = (id: string) => ACTIONS.find((a) => a.id === id)!;
+
+/**
+ * Hard rules: hidden with a monster chain still coming, stay in. Otherwise
+ * the TAS is free; the shield build's "keep max counters" is the profile
+ * option spendCounters: false.
+ */
+/** What a ward would stop: Pneuma the long-range hits, Safety Wall the melee skills. */
+const LONG_RANGE = new Set(["King's Chains", 'Shield Boomerang', "Rook's Smash", 'Delta Skyfall', 'Wind Slash', 'Dragon Breath']);
+const MELEE_SKILLS = new Set(['Retribution', "Queen's Brand", 'Sneak Attack', "Bishop's Tax", 'Overpower', 'Face-Off', 'Check Mate']);
+
+/**
+ * Skills that leave you next to the monster: melee range (Retribution 3
+ * cells, Bishop's Tax and Sneak Attack 1), and Rook's Smash, which slides
+ * you onto the target -- and leaves you there when it cannot be knocked
+ * back (Heartless, bosses). Up close a monster's hits are short range, so
+ * Rook's Wall stops counting until you step back (engine 'close').
+ */
+const CLOSE_SKILLS = new Set(['Retribution', "Bishop's Tax", 'Sneak Attack', "Queen's Brand", 'Check Mate', 'Overpower', 'Face-Off']);
+const leavesYouClose = (fight: Fight, id: string) => CLOSE_SKILLS.has(id)
+  || (id === "Rook's Smash" && (fight.m.noKnockback || fight.m.boss));
+
+function withRules(a: Action): Action {
+  if (a.reactive || !(a.offensive || a.isSkill)) return a;
+  const own = a.ready;
+  const resolve = (fight: Fight) => {
+    a.resolve(fight);
+    if (leavesYouClose(fight, a.id)) grant(fight, 'close', 1e12);
+  };
+  return {
+    ...a,
+    resolve,
+    ready: (fight) => {
+      // Nothing into a ward: pull the monster off it first (pullOffWard).
+      if (LONG_RANGE.has(a.id) && wardUp(fight, 'pneuma')) return false;
+      if (MELEE_SKILLS.has(a.id) && wardUp(fight, 'safetywall')) return false;
+      // Its Reflect Shield sends part of a melee hit back: only with HP to
+      // take it (Heartless keeps it up nearly all fight).
+      if (MELEE_SKILLS.has(a.id) && fight.mob.buffs.reflectshield && fight.mob.buffs.reflectshield.until > fight.t
+        && fight.me.hp < 0.7 * fight.f.maxHp && optionOn(fight, 'reflectCare')) return false;
+      if (a.id === 'Sneak Attack') return own?.(fight) ?? true;
+      if (has(fight, 'hidden') && followUpComing(fight)) return false;
+      // Hidden to strike: only Sneak Attack comes out of it.
+      if (has(fight, 'hidden') && readyAt(fight, 'Sneak Attack') <= fight.t && optionOn(fight, 'sneakAttack')) return false;
+      return own?.(fight) ?? true;
+    },
+  };
+}
+
+/**
+ * The burst (the project owner, 2026-09-27): Hiding (a dodge, or on purpose)
+ * -> Sneak Attack -> Bishop's Tax if healthy -> Shield Boomerang -> King's
+ * Chains. Counters: Rook's Smash and Delta Skyfall to 5, Queen's Gambit on
+ * top while they are low, then hits taken in Duel Stance hold them at 10.
+ */
+const ORDER = [
+  'Stay hidden', "Morroc's Mark", "Pre-cast King's Gambit", 'Step back', 'Heal', 'Pull it off the ward',
+  'Sneak Attack', "Bishop's Tax", "King's Chains", 'Shield Boomerang', 'Hide to strike',
+  "Rook's Smash", 'Dragon Breath', 'Delta Skyfall', "Queen's Gambit",
+  'Retribution', "Queen's Brand",
+  'Wind Slash', 'Overpower', 'Face-Off',
+  'Attack',
+];
+
+function priority(fight: Fight): Action {
+  for (const id of ORDER) {
+    const a = rule(id);
+    if (canUse(fight, a)) return a;
+  }
+  return rule('Wait');
+}
+
+// ---- reacting to a cast bar ---------------------------------------------------------------
+
+function react(fight: Fight, s: MobSkill, from: Monster): { action: string; at: number } | null {
+  const t = assessThreat(fight, s, from);
+  if (!t.heavy) return null;
+  const { endsAt } = t;
+  const ready = (id: string) => lv(fight.f, id) > 0 && readyAt(fight, id) <= endsAt - 50
+    && rule(id).spCost(fight) <= fight.me.sp;
+  const ground = s.targets === 'aoe' && s.avoid.includes('walk');
+  // King's Gambit cancels a ground spell outright, and the rest of its waves
+  // -- when the cast bar leaves time to see it and answer (the owner: Magnus's
+  // 0.3s does not; that one is pre-cast, preGambit).
+  if (ground && !s.noGambit && ready("King's Gambit") && s.castMs > FAST_CAST_MS) {
+    return { action: "King's Gambit", at: Math.max(fight.t, endsAt - 100) };
+  }
+  if (t.canWalk && s.targets === 'aoe') return { action: 'Walk out', at: fight.t + TUNE.reactionMs };
+  // Pawn's Rod: a spell cast at you; it has a 0.5s cast, then 1.5s of cover.
+  const rodCast = rule("Pawn's Rod").castMs(fight);
+  if (s.type === 'magic' && s.targets === 'single' && ready("Pawn's Rod") && t.lead >= rodCast) {
+    return { action: "Pawn's Rod", at: Math.max(fight.t, endsAt - rodCast - 700) };
+  }
+  if (t.hideWorks && t.hideReady && (t.hideCovers || !t.canWalk)) {
+    return { action: 'Hiding', at: Math.max(fight.t, endsAt - 150) };
+  }
+  // Decoy: Hiding's stand-in for a cast at you, when its cast fits the bar.
+  const decoyCast = rule('Decoy').castMs(fight);
+  if (s.targets === 'single' && t.hideWorks && ready('Decoy') && t.lead >= decoyCast) {
+    return { action: 'Decoy', at: Math.max(fight.t, endsAt - decoyCast - 150) };
+  }
+  if (t.canLos) return { action: 'Break line of sight', at: fight.t + TUNE.reactionMs };
+  if (t.canWalk) return { action: 'Walk out', at: fight.t + TUNE.reactionMs };
+  // Nothing dodges it: soak it with Queen's Barrier.
+  if (ready("Queen's Barrier") && !has(fight, 'barrier') && t.lead >= rule("Queen's Barrier").castMs(fight)) {
+    return { action: "Queen's Barrier", at: Math.max(fight.t, endsAt - 400) };
+  }
+  return null;
+}
+
+// ---- before the pull ------------------------------------------------------------------------
+
+function prep(fight: Fight) {
+  const f = fight.f;
+  if (lv(f, 'Duel Stance') > 0) grant(fight, 'duelStance', 1e12);
+  setCounters(fight, typeof fight.options.startCounters === 'number' ? fight.options.startCounters : 0);
+  // King's Fortress: one level at a time. Lv3 (shield skills) unless the profile picks 1 (HP) or 2 (SP).
+  const fort = typeof fight.options.fortress === 'number' ? fight.options.fortress : 3;
+  if (lv(f, "King's Fortress") >= fort && hasShield(fight)) {
+    fight.me.buffs.fortress = { until: 1e12, stacks: fort };
+    // "[Lv 1]: Regen 1% HP every 2 seconds." "[Lv 2]: Regen 1% SP every 2 seconds."
+    if (fort === 1) dot(fight, "King's Fortress", 2000, 1e12, 0.01 * f.maxHp, false, true);
+  }
+  // Knight's Regen: "1+1% Max HP per level" every 5 s, "60+60s per level".
+  const kr = lv(f, "Knight's Regen");
+  if (kr > 0) dot(fight, "Knight's Regen", 5000, (60 + 60 * kr) * 1000, (1 + kr) / 100 * f.maxHp, false, true);
+  // Reflect Shield: "10+4% per level" of melee damage back.
+  if (lv(f, 'Reflect Shield') > 0 && hasShield(fight) && optionOn(fight, 'reflectShield')) {
+    fight.me.buffs.reflectshield = { until: 1e12, stacks: 1, value: 10 + 4 * lv(f, 'Reflect Shield') };
+  }
+  // Rook's Wall: "10% Ranged Reduction per Level" -- a toggle, off unless the profile turns it on.
+  if (fight.options.rooksWall === true && lv(f, "Rook's Wall") > 0 && hasShield(fight)) {
+    fight.me.buffs.defender = { until: 1e12, stacks: 1, value: 10 * lv(f, "Rook's Wall") };
+  }
+}
+
+function prepNotes(fight: Fight): string[] {
+  const out: string[] = [];
+  if (has(fight, 'duelStance')) out.push('Duel Stance');
+  out.push("Bishop's Guard");
+  if (fight.me.dots.some((d) => d.name === "Knight's Regen")) out.push("Knight's Regen");
+  if (has(fight, 'fortress')) out.push(`King's Fortress Lv${fight.me.buffs.fortress.stacks}`);
+  if (has(fight, 'reflectshield')) out.push(`Reflect Shield ${fight.me.buffs.reflectshield.value}%`);
+  if (has(fight, 'defender')) out.push("Rook's Wall");
+  if (hasComboGem(fight.f)) out.push('Bulwark Gem combo');
+  return out;
+}
+
+const ROLES: Record<string, string> = {
+  "King's Chains": 'Shield', 'Shield Boomerang': 'Shield',
+  Retribution: 'Counters', "Queen's Brand": 'Counters', "Rook's Smash": 'Counters', "Queen's Gambit": 'Counters',
+  'Check Mate': 'Finisher',
+  'Sneak Attack': 'Openers', "Bishop's Tax": 'Openers',
+  'Wind Slash': 'Fillers', 'Delta Skyfall': 'Fillers', 'Dragon Breath': 'Fillers', Overpower: 'Fillers', 'Face-Off': 'Fillers', Decoy: 'Dodges',
+  'Reflect Shield': 'Reflect', Attack: 'Auto-attacks',
+};
+
+export const kingslayer: Kit = {
+  className: 'Kingslayer',
+  actions: ACTIONS,
+  roles: ROLES,
+  cycleAnchor: 'Shield Boomerang',
+  coreRoles: ['Shield', 'Counters'],
+  magicActions: [],
+  priority,
+  react,
+  prep,
+  prepNotes,
+  onHurt,
+};
+

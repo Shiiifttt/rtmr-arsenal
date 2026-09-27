@@ -24890,7 +24890,16 @@
   "effects": [
    {
     "text": "Drains 50 HP with each attack",
-    "parsed": false
+    "stat": "HP per Hit",
+    "value": 50,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     156
+    ],
+    "stat_keys": [
+     "hp_per_hit"
+    ]
    },
    {
     "text": "Leech power +5% (no rate)",
@@ -30544,7 +30553,16 @@
      "effects": [
       {
        "text": "Recover 1 SP on auto attacks per refine",
-       "parsed": false
+       "stat": "SP per Hit",
+       "value": 1,
+       "unit": null,
+       "parsed": true,
+       "stat_ids": [
+        157
+       ],
+       "stat_keys": [
+        "sp_per_hit"
+       ]
       }
      ]
     },

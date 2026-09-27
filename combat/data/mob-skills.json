@@ -1,0 +1,98 @@
+{
+  "_about": [
+    "Overrides on top of the server's monster AI. What a monster casts, when and how often, now comes from the server snapshot (server-mobs.json, mob_skill_db); what each skill does comes from skill-effects.json (read from the server source).",
+    "Put here only what the project owner has seen in game that differs from the 2023 snapshot, or confirmed numbers. Keys: mobs.<monster name>.<AEGIS skill> = fields of a MobSkill to replace (see model.ts), or skills.<AEGIS> for every monster that has it.",
+    "Set \"verified\": true on an entry once its numbers match a reading."
+  ],
+  "skills": {
+    "PR_MAGNUS": {
+      "hits": 1,
+      "ratio": 180,
+      "verified": true,
+      "note": "Project owner, 2026-09-27: Heartless's Magnus hits a Holy-armoured Kingslayer (MDEF 33+188) for ~1,920 a wave. The server's 10 hits a wave are display only; one wave fits 180% of MATK at the element table's Holy-vs-Holy 50%. Without Holy armour that is ~3,840 a wave, which is why the owner calls Holy armour a given against Heartless."
+    },
+    "CR_GRANDCROSS": {
+      "avoid": [
+        "hide",
+        "walk",
+        "diag"
+      ],
+      "note": "Project owner, 2026-09-27: a cross-shaped area -- stand diagonal to the caster and it misses. The TAS does, unless stunned, frozen or rooted in place."
+    },
+    "NPC_GRANDDARKNESS": {
+      "avoid": [
+        "hide",
+        "walk",
+        "diag"
+      ],
+      "note": "Project owner, 2026-09-27: a cross-shaped area -- stand diagonal to the caster and it misses. The TAS does, unless stunned, frozen or rooted in place."
+    },
+    "NPC_EARTHQUAKE": {
+      "avoid": [
+        "hide",
+        "walk"
+      ],
+      "noGambit": true,
+      "note": "Project owner, 2026-09-27: King's Gambit cannot stop it (server IgnoreLandProtector). Hiding dodges it unless the boss reveals you (boss-protocol swings break Hiding: engine hidingStops), or run out."
+    }
+  },
+  "mobs": {
+    "Tortured Maiden": {
+      "NPC_VAMPIRE_GIFT": {
+        "hideBlocks": true,
+        "note": "Patch 15 (the project owner, 2026-09-26): it no longer reaches you through Hiding. The 2023 snapshot had no hide check on it."
+      }
+    },
+    "Jormungandr": {
+      "RK_DRAGONBREATH": {
+        "avoid": [
+          "hide",
+          "kawarimi",
+          "los"
+        ],
+        "note": "Project owner, 2026-09-27: Jormungandr's lair has cover; the long casts are line-of-sighted."
+      },
+      "SP_SWHOO": {
+        "avoid": [
+          "hide",
+          "los"
+        ],
+        "note": "Project owner, 2026-09-27: Jormungandr's lair has cover; the long casts are line-of-sighted."
+      },
+      "SA_COMA": {
+        "avoid": [
+          "hide",
+          "los"
+        ],
+        "note": "Project owner, 2026-09-27: Jormungandr's lair has cover; the long casts are line-of-sighted."
+      },
+      "NPC_WIDEHELLDIGNITY": {
+        "avoid": [
+          "hide",
+          "los"
+        ],
+        "note": "Project owner, 2026-09-27: Jormungandr's lair has cover; the long casts are line-of-sighted."
+      },
+      "WL_EARTHSTRAIN": {
+        "avoid": [
+          "hide",
+          "walk",
+          "kawarimi",
+          "los"
+        ],
+        "note": "Project owner, 2026-09-27: Jormungandr's lair has cover; the long casts are line-of-sighted."
+      },
+      "WL_CHAINLIGHTNING": {
+        "avoid": [
+          "hide",
+          "los"
+        ],
+        "note": "Project owner, 2026-09-27: Jormungandr's lair has cover; the long casts are line-of-sighted."
+      }
+    }
+  },
+  "notes": {
+    "Njord Zealot": "The owner's \"Valley of Death\" is WM_DEADHILLHERE (Dead Hill Here): on the server it only revives a dead player, so it does nothing in a fight (skill.cpp:11388-11400).",
+    "Godly Seeker": "The owner saw Autumn Blood come below 50% HP; the snapshot calls it below 65% (myhpltmaxrate 65). The snapshot is used until a reading says otherwise."
+  }
+}

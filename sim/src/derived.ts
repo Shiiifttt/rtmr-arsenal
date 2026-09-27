@@ -180,6 +180,10 @@ interface Formula {
   compounds?: boolean;
   /** A hard wall the finished figure never passes: ASPD's 190. */
   max?: number;
+  /** A wall that depends on the build: Max HP's 50,000 and what raises it. */
+  cap?: (ctx: DerivedContext) => number;
+  /** Only for builds this can be worked out for: Max HP needs the class's job table. */
+  applies?: (ctx: DerivedContext) => boolean;
   /**
    * The stats the formula reads besides its own gear column, so a goal on
    * the total knows what else moves it: flee from AGI.
@@ -192,9 +196,51 @@ interface Formula {
    * being assumed.
    */
   compute: (
-    baseLevel: number, stats: BaseStats, stat: (key: string) => number,
+    baseLevel: number, stats: BaseStats, stat: (key: string) => number, ctx: DerivedContext,
   ) => number;
 }
+
+/**
+ * What a formula may need beyond the stats: the class and its job table
+ * (Max HP / SP), the class's skills at their max (every skill is maxed), and
+ * what is worn.
+ */
+export interface DerivedContext {
+  /** The class's server job base HP / SP at this level; absent when the class has no known job. */
+  jobHp?: number;
+  /** The live correction to it (LIVE_HP_FIX), 1 where none is known. */
+  jobHpFix?: number;
+  jobSp?: number;
+  /** Skill -> level, every skill at max. */
+  skills: Record<string, number>;
+  /** A shield in the off hand (Shield Mastery). */
+  shield: boolean;
+  /** Names of everything worn, cards included (the HP cap's raisers). */
+  worn: string[];
+}
+
+const NO_CONTEXT: DerivedContext = { skills: {}, shield: false, worn: [] };
+
+/**
+ * Max HP / SP before gear, the server's way (RTM status.cpp:4031-4040): the
+ * job's base for the level x (1 + VIT or INT %) x 1.25 (transcendent jobs).
+ * Gear flat then adds, gear percent multiplies; buffs and stances sit
+ * outside, in the skills box.
+ */
+export function jobPool(jobBase: number, stat: number, fix = 1): number {
+  return Math.floor(jobBase * (1 + Math.max(1, stat) / 100) * 1.25 * fix);
+}
+
+/**
+ * Where the live server's job HP differs from the 2023 table, fitted to the
+ * project owner's readings, by server job. Scales the job part only, until a
+ * reading with no gear says whether the base or the percents moved.
+ *   Shadow_Chaser (Kingslayer): 21,550 with no buffs, Lv130, VIT 118, +43%
+ *     gear, Improve Defense 1,300, Shield Mastery 250 (2026-09-27) -> x1.103.
+ *   Warlock (Satsujin): 8,500 before stance, Lv136, VIT 31, +18% gear,
+ *     Improve Defense 1,360 (2026-09-26) -> x0.952.
+ */
+export const LIVE_HP_FIX: Record<string, number> = { Shadow_Chaser: 1.103, Warlock: 0.952 };
 
 export const FORMULAS: Formula[] = [
   {
@@ -241,6 +287,37 @@ export const FORMULAS: Formula[] = [
       + 'Card Mastery and Sleight Mastery.',
     compute: (_level, _stats, stat) => 180 + Math.floor(Math.max(0, stat('agi')) / 40),
   },
+  {
+    key: 'max_hp',
+    label: 'Max HP',
+    formula: 'job base HP x (1 + total VIT %) x 1.25 (x the live correction) + Improve Defense (1 per level per base level)'
+      + ' + Shield Mastery (25 per level, with a shield)',
+    // One reading so far: a Satsujin, 8,500 against 8,851 here.
+    verified: false,
+    inputs: ['vit'],
+    manualHint: 'Max HP from buffs and stances, as the HP they add: Bishop\'s Guard +500 a level, '
+      + 'Duel Stance or Moonlight Stance +2% a level of the total.',
+    applies: (ctx) => !!ctx.jobHp,
+    // Codex: 50,000; two Valhalla Knight Cards +5,000; Heimdall's Legacy +10,000.
+    cap: (ctx) => 50_000 + (ctx.worn.filter((n) => n === 'Valhalla Knight Card').length >= 2 ? 5_000 : 0)
+      + (ctx.worn.includes("Heimdall's Legacy") ? 10_000 : 0),
+    compute: (level, _stats, stat, ctx) => jobPool(ctx.jobHp ?? 0, stat('vit'), ctx.jobHpFix ?? 1)
+      + (ctx.skills['Improve Defense'] ?? 0) * level
+      + (ctx.shield ? 25 * (ctx.skills['Shield Mastery'] ?? 0) : 0),
+  },
+  {
+    key: 'max_sp',
+    label: 'Max SP',
+    formula: 'job base SP x (1 + total INT %) x 1.25 + Improve Wisdom (2 per level per 3 base levels)',
+    verified: false,
+    inputs: ['int'],
+    manualHint: 'Max SP from buffs.',
+    applies: (ctx) => !!ctx.jobSp,
+    // Codex: 25,000, and nothing raises it.
+    max: 25_000,
+    compute: (level, _stats, stat, ctx) => jobPool(ctx.jobSp ?? 0, stat('int'))
+      + Math.floor(((ctx.skills['Improve Wisdom'] ?? 0) * 2 * level) / 3),
+  },
 ];
 
 /**
@@ -283,6 +360,7 @@ export function derivedStats(
   stats: BaseStats,
   gear: (key: string) => StatTotal | undefined,
   manual: Record<string, number> = {},
+  ctx: DerivedContext = NO_CONTEXT,
 ): DerivedStat[] {
   // Available to any formula that wants the figure with equipment in it.
   // Flee does not -- see baseFlee -- but the two readings differ by a lot,
@@ -293,8 +371,8 @@ export function derivedStats(
     return combine(points, total?.flat ?? 0, total?.percent ?? 0);
   };
 
-  return FORMULAS.map((f) => {
-    const base = f.compute(baseLevel, stats, statTotal);
+  return FORMULAS.filter((f) => !f.applies || f.applies(ctx)).map((f) => {
+    const base = f.compute(baseLevel, stats, statTotal, ctx);
     const total = gear(f.key);
     const flat = total?.flat ?? 0;
     const parts = (total?.sources ?? []).filter((s) => s.unit === '%').map((s) => s.value);
@@ -312,7 +390,7 @@ export function derivedStats(
       // The manual box sits outside the percent: skill flee is added to the
       // finished figure rather than scaled by a Total Flee bonus. Gear flat
       // is still inside it -- see combine.
-      total: Math.min(f.max ?? Infinity, combine(base, flat, percent) + extra),
+      total: Math.min(f.max ?? Infinity, f.cap?.(ctx) ?? Infinity, combine(base, flat, percent) + extra),
       formula: f.formula,
       manualHint: f.manualHint,
       verified: f.verified,

@@ -205,8 +205,13 @@ export interface RollGrant {
    * orb's Dragon Soul level -- so the player is not asked to type it.
    */
   skill_name?: string;
-  /** What a skill roll raises: 'damage' unless it says ('level'). */
+  /** What a skill roll raises: 'damage' unless it says ('level', 'cooldown'). */
   metric?: string;
+  /**
+   * Shown but not totalled: an effect the planner has no stat for (flat HP
+   * gained per hit). Has neither `stat` nor `skill`.
+   */
+  uncounted?: boolean;
 }
 
 export interface RollOption {
@@ -251,18 +256,27 @@ export interface RollTable {
    * depending on what is in it. `types`: item types the table is for, ahead
    * of the slot's ordinary table -- a Dracomancer orb rolls its own two.
    */
-  requires?: { dropped?: boolean; types?: string[] };
+  requires?: { dropped?: boolean; types?: string[]; listed?: boolean };
   rolls: RollDef[];
 }
 
 export interface RollData {
   version: number;
-  /** "unverified" while the ranges come from description rather than testing. */
-  status: 'verified' | 'unverified';
+  /**
+   * "unverified" while the ranges come from description rather than testing;
+   * "server" when they are read from the server's own files (2023 snapshot).
+   */
+  status: 'verified' | 'unverified' | 'server';
   note?: string[];
   /** Places whose gear never rolls, whatever its slot: "Sky Garden". */
   never_from?: string[];
   tables: RollTable[];
+  /**
+   * Item id -> table key, from the server's drop lists: which group each
+   * item rolls. Checked before the slot and type rules, which remain for
+   * items the server does not know.
+   */
+  items?: Record<string, string>;
 }
 
 /** One filled equipment slot. */
@@ -479,6 +493,18 @@ export interface Dataset {
    * class has any, and the Goals panel offers only the build's own.
    */
   classGoals?: ClassGoals | null;
+  /**
+   * Each class's server job and that job's base HP / SP by level, from
+   * data/jobs.json (combat/tools/import-server.ts). Absent: no Max HP / SP.
+   */
+  jobs?: JobTables | null;
+}
+
+export interface JobTables {
+  /** RTM class -> server job ("Kingslayer" -> "Shadow_Chaser"). */
+  classes: Record<string, string>;
+  /** Server job -> base HP / SP, indexed by base level. */
+  jobs: Record<string, { hp: number[]; sp: number[] }>;
 }
 
 export interface ItemEffort {

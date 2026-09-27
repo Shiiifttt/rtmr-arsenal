@@ -6587,7 +6587,16 @@
    },
    {
     "text": "Leech 5 SP per attack",
-    "parsed": false
+    "stat": "SP per Hit",
+    "value": 5,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     157
+    ],
+    "stat_keys": [
+     "sp_per_hit"
+    ]
    },
    {
     "text": "Max SP -50%",
@@ -15832,7 +15841,16 @@
   "effects": [
    {
     "text": "Drains 10 HP per hit with physical damage",
-    "parsed": false
+    "stat": "HP per Hit",
+    "value": 10,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     156
+    ],
+    "stat_keys": [
+     "hp_per_hit"
+    ]
    }
   ],
   "piece_bonus": [],

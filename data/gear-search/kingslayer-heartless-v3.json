@@ -1,0 +1,181 @@
+{
+ "profile": "Kingslayer: gear search vs Heartless, v2 (2026-09-27)",
+ "targets": [
+  "Heartless"
+ ],
+ "rules": {
+  "screenN": 60,
+  "confirmN": 400,
+  "timeS": 300,
+  "locked": [
+   "offhand"
+  ],
+  "penalty": 0.03,
+  "topStats": [
+   "vit",
+   "dex",
+   "str"
+  ]
+ },
+ "start": "http://localhost:5173/#b=cfVNNj5swEP0rkS97GVWesQ12jt1j1UPPCCELHLCWEIRhtau2_72ynWQTqckFiec38958VQTsh5_6MNpPtzBAwaHSHBCMAaXAcMAaqoqDQCKCAqr4y5bTOCID1rkPBhXWNWSMGLCj_WiGmUFFV1gwYGFuFte7KfJ5Xcc3BMULDRwqFKpMWQiULhMkORcREUDEuUkQoU7yYbUrA_bu1y8ZF07b0rpbAzK9HP3qe7v608SAzcNn8K0dm8V1W-u67D7yJCCaAgxUUhiC-89d0Q8KXOzUu67p7NH27qoeXyUDNsxNb_3kumZ2SzMk5yIrKyBEAg2VRKGvUiJJ9b49p7yxTDmwAFRSFHEqEgsD8fOoP-7dhtyCw-iiPZPgsIXV-ikbHJ1rh9gRgrNCmZovk4Iw8jZ5WJev5mmgQsQuGaACTR5pKdMAEcFwwaUGUefcmgp-XaU7r-d0KBKJnpNkIuFzkkok8ZxUAEnMm_iYVCaSepIpwZftQBCxD_F8ModugPOuhDc_js1xG9fIx5J_0-WF0rlDM8dz4UAqglDyNLEYs_-1OTe9hN33xU7dn8vOIfBLeKbF234Ju9fB-inc0BTd814H177tftrV_S9X5w7RxjmojvX_vtS5R6V4vokws70u_tb_AA",
+ "steps": [
+  {
+   "move": "rotation: bishopsTax = false",
+   "before": {
+    "win": 0.96,
+    "loss": 0.0325,
+    "dps": 12112.514711749178,
+    "ttk": 39.04161036473668,
+    "value": 1.4319377206762376,
+    "deaths": "Heartless: attack x5, Knuckle Arrow x5"
+   },
+   "after": {
+    "win": 0.99,
+    "loss": 0,
+    "dps": 11670.431356364728,
+    "ttk": 41.368610364736675,
+    "value": 1.465056470345471,
+    "deaths": ""
+   },
+   "tried": 20
+  },
+  {
+   "move": "Aggressive Orphan set +6",
+   "before": {
+    "win": 0.9875,
+    "loss": 0,
+    "dps": 11756.596976540442,
+    "ttk": 41.216610364736674,
+    "value": 1.4638489546481068,
+    "deaths": ""
+   },
+   "after": {
+    "win": 0.9825,
+    "loss": 0.0175,
+    "dps": 13253.260409423636,
+    "ttk": 36.124755099641234,
+    "value": 1.4760489061413544,
+    "deaths": "Knuckle Arrow x3, Magnus Exorcismus x3"
+   },
+   "tried": 332
+  },
+  {
+   "move": "Accessory 2 (right): Corsair Ring +0 (vit)",
+   "before": {
+    "win": 0.9825,
+    "loss": 0.0175,
+    "dps": 13274.162852978292,
+    "ttk": 36.11984415431715,
+    "value": 1.4763624427946744,
+    "deaths": "Knuckle Arrow x3, Heartless: attack x2"
+   },
+   "after": {
+    "win": 0.9875,
+    "loss": 0.0125,
+    "dps": 13563.282396302347,
+    "ttk": 35.94984415431715,
+    "value": 1.4871992359445352,
+    "deaths": "Knuckle Arrow x2, Heartless: attack x2"
+   },
+   "tried": 289
+  },
+  {
+   "move": "Shoes: Empathy Card x1",
+   "before": {
+    "win": 0.9825,
+    "loss": 0.0175,
+    "dps": 13568.934174769774,
+    "ttk": 35.936599253958384,
+    "value": 1.4807840126215466,
+    "deaths": "Knuckle Arrow x3, Magnus Exorcismus x3"
+   },
+   "after": {
+    "win": 0.9975,
+    "loss": 0,
+    "dps": 13010.852100361893,
+    "ttk": 36.43484415431715,
+    "value": 1.4926627815054285,
+    "deaths": ""
+   },
+   "tried": 92
+  },
+  {
+   "move": "rotation: heal = false",
+   "before": {
+    "win": 0.9925,
+    "loss": 0.0075,
+    "dps": 12922.631820140923,
+    "ttk": 36.60475509964123,
+    "value": 1.484089477302114,
+    "deaths": "Magnus Exorcismus x2, Knuckle Arrow x1"
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 13026.823093081735,
+    "ttk": 36.222666044965315,
+    "value": 1.495402346396226,
+    "deaths": ""
+   },
+   "tried": 20
+  },
+  {
+   "move": "False God set +6",
+   "before": {
+    "win": 0.9925,
+    "loss": 0.0075,
+    "dps": 13021.792463698448,
+    "ttk": 35.99742114460655,
+    "value": 1.4855768869554768,
+    "deaths": "Knuckle Arrow x2, Magnus Exorcismus x1"
+   },
+   "after": {
+    "win": 0.9975,
+    "loss": 0,
+    "dps": 13367.269178857901,
+    "ttk": 35.28379755420367,
+    "value": 1.4980090376828685,
+    "deaths": ""
+   },
+   "tried": 332
+  },
+  {
+   "move": "Middle Headgear: Dark Flare +0 (vit)",
+   "before": {
+    "win": 0.99,
+    "loss": 0,
+    "dps": 13312.61365301209,
+    "ttk": 35.31851086967005,
+    "value": 1.4896892047951813,
+    "deaths": ""
+   },
+   "after": {
+    "win": 0.995,
+    "loss": 0,
+    "dps": 13792.115690583572,
+    "ttk": 35.05851086967005,
+    "value": 1.5018817353587535,
+    "deaths": ""
+   },
+   "tried": 48
+  }
+ ],
+ "final": {
+  "win": 1,
+  "loss": 0,
+  "dps": 13870.070336637911,
+  "ttk": 34.95933967357232,
+  "value": 1.5080510550495687,
+  "deaths": ""
+ },
+ "options": {
+  "fortress": 3,
+  "queensBrand": false,
+  "rooksWall": true,
+  "queensGambit": false,
+  "windSlash": true,
+  "bishopsTax": false,
+  "heal": false
+ },
+ "link": "http://localhost:5173/#b=cfZRNj5wwDIb_yiiXvVhVnA9I5tg9Vj30jBCKwANoGQYRZrWrtv-9cphPdWcukbAf-3Vsh0KB-NGPbRzCJ80CUEsonAQE78Fa8BKwhKKQoFEpBRkU_CnmwzCgANHQh4ACyxJWmxIg9uGj6iYBhbqYtQARp2qmlkbmZVmyDwGd8xYkFKhtnpREXMIiQLz3y5qZQQXW5Y45I6VmiwalpPTJpND9H3kSp3g4zjXdlmWSZ98vfRuW_jAKEFP3Gfs6DNVMzbGm5qpsANFn4KEw2iu4P-5a8eDacxhbaqom7ENLF3X2GgGim6o29CM11URz1aXK9apsQSEqcFAY1O4ipZNU29enlDclqzUwA7RGZzwrg5kHPh71h95DXFuwG4jL88kcj3EJ_bgWOBDVHXdEwUkhT803rIA6R3WbPS7ztXsOVKbZ7QEztHqddG70w0kjgpdaGgfMsKTz_rp3X4boBJnnkEmQfg7ZBNnnUAbKYJa28TGUJ-hZpmQ-Lw2C5l3mF7Ay6sZwWqH41g9DtT8OC_OYy28uPyMN7aqJ35YExe8JIZdpkByz_XUkGl_i5vscxubPeRUR5Dl8xfhH8BI3r13ox3iDWXXPvXZUv21-hoW-ytXQjss4BZV8_9_ne27RWrk-lTiJrcv-lv8A"
+}

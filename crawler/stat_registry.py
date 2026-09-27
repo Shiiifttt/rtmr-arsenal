@@ -176,6 +176,12 @@ STATS.append(("res_ranged", "Ranged Resistance", "defence"))
 STATS.append(("hp_on_kill", "HP on Kill", "resource"))
 STATS.append(("sp_on_kill", "SP on Kill", "resource"))
 
+# HP and SP back on every hit, a flat amount: "Leech 5 HP per hit", and the
+# weapon random option "HP gained per hit" (bHPDrainValue). Appended last,
+# like the families above.
+STATS.append(("hp_per_hit", "HP per Hit", "resource"))
+STATS.append(("sp_per_hit", "SP per Hit", "resource"))
+
 INDEX = {key: i for i, (key, _, _) in enumerate(STATS)}
 
 # Stats that do not simply add up.
@@ -366,6 +372,7 @@ ALIASES: dict[str, list[str]] = {
     "magic damage reduction": ["magic_damage_received"],
     "bleed resistance": ["res_status_bleeding"],
     "hp on kill": ["hp_on_kill"], "sp on kill": ["sp_on_kill"],
+    "hp per hit": ["hp_per_hit"], "sp per hit": ["sp_per_hit"],
     "healing done and received": ["healing_power", "healing_received"],
     "variable casting time": ["variable_cast"],
     "fixed casting time": ["fixed_cast"],

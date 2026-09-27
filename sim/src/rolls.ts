@@ -35,7 +35,7 @@ export function tableForSlot(
   data: RollData | null | undefined, slotKey: string,
 ): RollTable | null {
   if (!data) return null;
-  return data.tables.find((t) => t.slots.includes(slotKey) && !t.requires?.types) ?? null;
+  return data.tables.find((t) => t.slots.includes(slotKey) && !t.requires?.types && !t.requires?.listed) ?? null;
 }
 
 /**
@@ -48,6 +48,8 @@ export function tableForSlot(
  * worse failure of the two: it would silently inflate the totals.
  */
 export function rollsApply(table: RollTable, item: Item): boolean {
+  // Reached only through the server's per-item map.
+  if (table.requires?.listed) return false;
   if (table.requires?.dropped && !(item.drops && item.drops.length > 0)) {
     return false;
   }
@@ -92,12 +94,17 @@ export function rollTableFor(
   data: RollData | null | undefined, slotKey: string, item: Item | null | undefined,
 ): RollTable | null {
   if (!item) return null;
-  // A table for this item's type comes first -- an orb rolls its own two,
-  // not the rune's -- then the slot's ordinary one.
-  const table = data?.tables.find((t) => t.slots.includes(slotKey) && !!t.requires?.types
+  if (neverRolls(data, item)) return null;
+  // The server names the group most dropped items roll (data.items); its
+  // word goes, whatever the item's slot or type. Otherwise a table for this
+  // item's type comes first -- an orb rolls its own two, not the rune's --
+  // then the slot's ordinary one.
+  const listed = data?.items?.[String(item.id)];
+  const named = listed ? data?.tables.find((t) => t.key === listed) : undefined;
+  const table = named ?? data?.tables.find((t) => t.slots.includes(slotKey) && !!t.requires?.types
     && rollsApply(t, item)) ?? tableForSlot(data, slotKey);
   if (!table) return null;
-  if (neverRolls(data, item) || !rollsApply(table, item)) return null;
+  if (!named && !rollsApply(table, item)) return null;
   const rolls = table.rolls.filter((r) => rollApplies(r, item));
   if (rolls.length === table.rolls.length) return table;
   if (rolls.length === 0) return null;
@@ -168,6 +175,10 @@ export function rollEffects(
       const unit = grant.unit ?? null;
       const shown = `${value >= 0 ? '+' : ''}${value}${unit ?? ''}`;
 
+      if (grant.uncounted) {
+        out.push({ text: `${option.label} ${shown}`, parsed: false });
+        return;
+      }
       if (grant.skill) {
         // Totalled against the named skill, the same as a skill modifier
         // on the item itself. With no skill typed in there is nothing to
@@ -226,7 +237,11 @@ export function reconcileRolls(
 
   for (const roll of table.rolls) {
     const pick = saved[roll.key];
-    const option = optionOf(table, roll.key, pick?.option ?? null);
+    // A skill typed against the old free-form skill roll finds the named
+    // option for it ("skill_mod" + New Moon -> "New Moon damage").
+    const option = optionOf(table, roll.key, pick?.option ?? null) ?? (pick?.skill
+      ? roll.options.find((o) => o.grants.some((g) => g.skill_name?.toLowerCase() === pick.skill!.trim().toLowerCase()))
+      : undefined);
     if (!option || !pick) continue;
     const fallback = defaultValues(option);
     out[roll.key] = {

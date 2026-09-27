@@ -49557,7 +49557,16 @@
      "effects": [
       {
        "text": "Recover 1 SP on auto attacks per 2 refines",
-       "parsed": false
+       "stat": "SP per Hit",
+       "value": 1,
+       "unit": null,
+       "parsed": true,
+       "stat_ids": [
+        157
+       ],
+       "stat_keys": [
+        "sp_per_hit"
+       ]
       }
      ]
     }

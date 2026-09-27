@@ -9772,7 +9772,16 @@
    },
    {
     "text": "Leech 5 SP per attack",
-    "parsed": false
+    "stat": "SP per Hit",
+    "value": 5,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     157
+    ],
+    "stat_keys": [
+     "sp_per_hit"
+    ]
    },
    {
     "text": "Max SP -50%",
@@ -9796,9 +9805,7 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "unparsed": [
-   "Leech 5 SP per attack"
-  ]
+  "unparsed": []
  },
  {
   "id": 925,
@@ -10752,7 +10759,16 @@
    },
    {
     "text": "Leech 5 HP per hit",
-    "parsed": false
+    "stat": "HP per Hit",
+    "value": 5,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     156
+    ],
+    "stat_keys": [
+     "hp_per_hit"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -10763,9 +10779,7 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "unparsed": [
-   "Leech 5 HP per hit"
-  ]
+  "unparsed": []
  },
  {
   "id": 2371,
@@ -12325,7 +12339,16 @@
    },
    {
     "text": "Leech 15 HP per hit",
-    "parsed": false
+    "stat": "HP per Hit",
+    "value": 15,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     156
+    ],
+    "stat_keys": [
+     "hp_per_hit"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -12336,9 +12359,7 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "unparsed": [
-   "Leech 15 HP per hit"
-  ]
+  "unparsed": []
  },
  {
   "id": 1373,
@@ -20296,7 +20317,16 @@
       },
       {
        "text": "Recover 3 HP per hit",
-       "parsed": false
+       "stat": "HP per Hit",
+       "value": 3,
+       "unit": null,
+       "parsed": true,
+       "stat_ids": [
+        156
+       ],
+       "stat_keys": [
+        "hp_per_hit"
+       ]
       }
      ]
     }
@@ -20306,9 +20336,7 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "unparsed": [
-   "Recover 3 HP per hit"
-  ]
+  "unparsed": []
  },
  {
   "id": 28976,
@@ -38856,7 +38884,16 @@
   "effects": [
    {
     "text": "Drains 10 HP per hit with physical damage",
-    "parsed": false
+    "stat": "HP per Hit",
+    "value": 10,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     156
+    ],
+    "stat_keys": [
+     "hp_per_hit"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -38867,9 +38904,7 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "unparsed": [
-   "Drains 10 HP per hit with physical damage"
-  ]
+  "unparsed": []
  },
  {
   "id": 4137,
@@ -64538,7 +64573,16 @@
    },
    {
     "text": "Recover 100 SP per hit.",
-    "parsed": false
+    "stat": "SP per Hit",
+    "value": 100,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     157
+    ],
+    "stat_keys": [
+     "sp_per_hit"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -64560,8 +64604,7 @@
   "enchant": null,
   "lore": null,
   "unparsed": [
-   "Enables SP Recovery while equipped.",
-   "Recover 100 SP per hit."
+   "Enables SP Recovery while equipped."
   ]
  },
  {
@@ -66153,7 +66196,16 @@
      "effects": [
       {
        "text": "Recover 7 HP on auto attacks",
-       "parsed": false
+       "stat": "HP per Hit",
+       "value": 7,
+       "unit": null,
+       "parsed": true,
+       "stat_ids": [
+        156
+       ],
+       "stat_keys": [
+        "hp_per_hit"
+       ]
       },
       {
        "text": "ASPD+1",
@@ -66189,9 +66241,7 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "unparsed": [
-   "Recover 7 HP on auto attacks"
-  ]
+  "unparsed": []
  },
  {
   "id": 7026,
@@ -81645,7 +81695,16 @@
    },
    {
     "text": "Recover 2 SP per hit",
-    "parsed": false
+    "stat": "SP per Hit",
+    "value": 2,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     157
+    ],
+    "stat_keys": [
+     "sp_per_hit"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -81656,9 +81715,7 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "unparsed": [
-   "Recover 2 SP per hit"
-  ]
+  "unparsed": []
  },
  {
   "id": 4131,
@@ -97797,7 +97854,16 @@
    },
    {
     "text": "Recovers 100 HP per hit",
-    "parsed": false
+    "stat": "HP per Hit",
+    "value": 100,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     156
+    ],
+    "stat_keys": [
+     "hp_per_hit"
+    ]
    },
    {
     "text": "Reflects 5% short range damage",
@@ -97836,8 +97902,7 @@
   "enchant": null,
   "lore": null,
   "unparsed": [
-   "(2 Handed Sword)",
-   "Recovers 100 HP per hit"
+   "(2 Handed Sword)"
   ]
  },
  {
@@ -116039,7 +116104,16 @@
    },
    {
     "text": "Recover 10 HP per hit",
-    "parsed": false
+    "stat": "HP per Hit",
+    "value": 10,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     156
+    ],
+    "stat_keys": [
+     "hp_per_hit"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -116051,7 +116125,6 @@
   "enchant": null,
   "lore": null,
   "unparsed": [
-   "Recover 10 HP per hit",
    "3% chance to autocast Heal Lv1 when using Hiding"
   ]
  },
@@ -123659,7 +123732,16 @@
      "effects": [
       {
        "text": "Recover 1 SP on auto attacks per 2 refines",
-       "parsed": false
+       "stat": "SP per Hit",
+       "value": 1,
+       "unit": null,
+       "parsed": true,
+       "stat_ids": [
+        157
+       ],
+       "stat_keys": [
+        "sp_per_hit"
+       ]
       }
      ]
     }
@@ -140232,7 +140314,16 @@
   "effects": [
    {
     "text": "Drains 50 HP with each attack",
-    "parsed": false
+    "stat": "HP per Hit",
+    "value": 50,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     156
+    ],
+    "stat_keys": [
+     "hp_per_hit"
+    ]
    },
    {
     "text": "Leech power +5% (no rate)",
@@ -140335,7 +140426,6 @@
   "enchant": null,
   "lore": null,
   "unparsed": [
-   "Drains 50 HP with each attack",
    "Leech power +5% (no rate)"
   ]
  },
@@ -146325,7 +146415,16 @@
      "effects": [
       {
        "text": "Recover 1 SP on auto attacks per refine",
-       "parsed": false
+       "stat": "SP per Hit",
+       "value": 1,
+       "unit": null,
+       "parsed": true,
+       "stat_ids": [
+        157
+       ],
+       "stat_keys": [
+        "sp_per_hit"
+       ]
       }
      ]
     },
@@ -153977,7 +154076,16 @@
    },
    {
     "text": "Leech 5 HP per hit",
-    "parsed": false
+    "stat": "HP per Hit",
+    "value": 5,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     156
+    ],
+    "stat_keys": [
+     "hp_per_hit"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -153988,9 +154096,7 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "unparsed": [
-   "Leech 5 HP per hit"
-  ]
+  "unparsed": []
  },
  {
   "id": 1503,
@@ -154866,7 +154972,16 @@
    },
    {
     "text": "Recover 500 SP per hit.",
-    "parsed": false
+    "stat": "SP per Hit",
+    "value": 500,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     157
+    ],
+    "stat_keys": [
+     "sp_per_hit"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -154897,8 +155012,7 @@
   "enchant": null,
   "lore": null,
   "unparsed": [
-   "Enables SP Recovery while equipped.",
-   "Recover 500 SP per hit."
+   "Enables SP Recovery while equipped."
   ]
  },
  {

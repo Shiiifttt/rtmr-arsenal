@@ -1009,8 +1009,10 @@ export function goalsFromBuild(build: Build, totals: Totals, data: Dataset): Goa
   });
 
   // Derived totals take their sources from the gear stat of the same key.
-  const derived = new Set(FORMULAS.map((f) => f.key));
-  for (const key of derived) {
+  // Max HP / SP keep their gear columns too: a class with no job table has
+  // no total, and "Max HP %" is a goal of its own.
+  const derived = new Set(FORMULAS.filter((f) => !f.applies).map((f) => f.key));
+  for (const key of totals.derived.map((d) => d.key)) {
     offer(key, 'total', (gearTotal(totals, data, key)?.sources ?? [])
       .filter((s) => good(s, key)).length, false);
   }
@@ -1954,6 +1956,12 @@ export class Suggester {
       let pickHere: RollPick | null = null;
       let labelHere = '';
       for (const option of roll.options) {
+        // A named skill no goal asks for cannot help: skip it rather than
+        // total the build once for each of the shadow roll's 157 skills.
+        const named = option.grants.filter((g) => g.skill && g.skill_name);
+        if (named.length && !named.some((g) => skillGoals.some((s) => s.toLowerCase() === g.skill_name!.toLowerCase()))) {
+          continue;
+        }
         const aim = (g: { min: number; max: number | null }) => (g.max === null ? g.min
           : this.opts.reach ? Math.round((g.min + g.max) / 2) : g.max);
         const values = option.grants.map(aim);

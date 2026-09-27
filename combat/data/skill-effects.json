@@ -1,0 +1,3212 @@
+{
+ "_about": [
+  "What each monster skill does on this server, read from the returntomorroc/ source (battle.cpp ratios, skill.cpp effects, status.cpp values, db/re/skill_db.yml). Joined to the mob_skill_db rows in server-mobs.json by monster.ts.",
+  "Per skill (Aegis name) and level: kind, element, ratio (% of the monster ATK or MATK per hit; object form = base + coef x stat), hits (damage multiplier of one application), ticks / tickMs (separate applications), area, status (what lands on the player, base chance before resistances), self (monster buffs), heal, summon. Schema: see the fields in monster.ts Effect.",
+  "hideBlocks here records the 2023 code, which let Boss and Detector monsters hit hidden players; the live server does not (the project owner, 2026-09-26), so monster.ts ignores it.",
+  "Edit freely: this file is hand-kept, not generated. Cite the source line in src when changing a number.",
+  "flat: damage added to each hit before DEF. flatCasterHpDiv: the caster's current HP divided by this, added likewise (Spear Stab). ratioAfterFirst: the ratio from the second cast on (Asura Strike spends all the monster's SP, which it never regains)."
+ ],
+ "AB_ADORAMUS": {
+  "name": "Adoramus",
+  "levels": {
+   "1": {
+    "kind": "magic",
+    "element": "Holy",
+    "ratio": {
+     "base": 550,
+     "str": 0,
+     "agi": 0,
+     "vit": 0,
+     "int": 0,
+     "dex": 0,
+     "luk": 0,
+     "lv": 0,
+     "baseLvScale": true
+    },
+    "hits": 1,
+    "area": "splash",
+    "radius": 3,
+    "range": 11,
+    "hideBlocks": false,
+    "status": [
+     {
+      "sc": "other",
+      "chance": 0.29,
+      "durationMs": 15000,
+      "resist": "none",
+      "value": -3,
+      "note": "SC_ADORAMUS: AGI -3 (2+lv), Duration2 15 s. Chance lv*4 + 50/2 for non-PC casters = 29%; not resistible. Cannot refresh itself while active."
+     },
+     {
+      "sc": "blind",
+      "chance": 1,
+      "durationMs": 8000,
+      "resist": "blind",
+      "rawRate": 10,
+      "note": "Forced whenever SC_ADORAMUS is started: raw rate 1000% (sc_def only scales it down from 10x, so it effectively always lands unless immune), duration Duration1 8 s reduced by the blind tick_def/tick_def2."
+     }
+    ],
+    "note": "Ratio 300+250*lv = 550%, multiplied by BaseLv/100 only when BaseLv > 99 (RE_LVL_DMOD). HitCount -10 is display-only (1 hit of the full ratio). SplashArea 3. No damage to targets on Land Protector. Statuses only apply when the hit connects. Hidden players: hittable when the caster is Boss class, or Detector and the player lacks perfect hiding; a caster that is neither cannot target them (status.cpp:2915-2937).",
+    "src": "battle.cpp:6905-6907; config/const.hpp:95-97; skill.cpp:1826-1827, 5656; status.cpp:10749-10756; skill_db.yml AB_ADORAMUS"
+   },
+   "10": {
+    "kind": "magic",
+    "element": "Holy",
+    "ratio": {
+     "base": 2800,
+     "str": 0,
+     "agi": 0,
+     "vit": 0,
+     "int": 0,
+     "dex": 0,
+     "luk": 0,
+     "lv": 0,
+     "baseLvScale": true
+    },
+    "hits": 1,
+    "area": "splash",
+    "radius": 5,
+    "range": 11,
+    "hideBlocks": false,
+    "status": [
+     {
+      "sc": "other",
+      "chance": 0.65,
+      "durationMs": 60000,
+      "resist": "none",
+      "value": -12,
+      "note": "SC_ADORAMUS: AGI -12 (2+lv), Duration2 60 s. Chance lv*4 + 50/2 for non-PC casters = 65%; not resistible. Cannot refresh itself while active."
+     },
+     {
+      "sc": "blind",
+      "chance": 1,
+      "durationMs": 17000,
+      "resist": "blind",
+      "rawRate": 10,
+      "note": "Forced whenever SC_ADORAMUS is started: raw rate 1000% (sc_def only scales it down from 10x, so it effectively always lands unless immune), duration Duration1 17 s reduced by the blind tick_def/tick_def2."
+     }
+    ],
+    "note": "Ratio 300+250*lv = 2800%, multiplied by BaseLv/100 only when BaseLv > 99 (RE_LVL_DMOD). HitCount -10 is display-only (1 hit of the full ratio). SplashArea 5. No damage to targets on Land Protector. Statuses only apply when the hit connects. Hidden players: hittable when the caster is Boss class, or Detector and the player lacks perfect hiding; a caster that is neither cannot target them (status.cpp:2915-2937).",
+    "src": "battle.cpp:6905-6907; config/const.hpp:95-97; skill.cpp:1826-1827, 5656; status.cpp:10749-10756; skill_db.yml AB_ADORAMUS"
+   }
+  }
+ },
+ "AL_DECAGI": {
+  "name": "Decrease AGI",
+  "levels": {
+   "10": {
+    "kind": "status",
+    "area": "single",
+    "range": 9,
+    "status": [
+     {
+      "sc": "decagi",
+      "chance": 1,
+      "durationMs": 65000,
+      "resist": "decagi",
+      "value": -12,
+      "chanceFormula": {
+       "base": 80,
+       "lv": 0.2,
+       "int": 0.2,
+       "unit": "percent; the BaseLv and INT terms are floor((BaseLv+INT)/5)"
+      },
+      "note": "Raw chance (50+3*lv+(BaseLv+INT)/5)% = 80% + (BaseLv+INT)/5 at lv10, so 100%+ for any caster with BaseLv+INT >= 100 (2657: 137%). Resist: sc_def2 = hard MDEF*100 (x0.95) subtracted as flat percentage points. AGI -(2+lv) = -12, move speed -25%. Duration 130 s halved to 65 s for players. Blocked by GTB/magic immunity."
+     }
+    ],
+    "note": "Type Magic, NoDamage, single target. resist 'decagi' = the DECREASEAGI row of section 0 (hard-MDEF sc_def2 only).",
+    "src": "skill.cpp:7212-7215; status.cpp:9233-9237, 10756; skill_db.yml AL_DECAGI"
+   }
+  }
+ },
+ "AL_HEAL": {
+  "name": "Heal",
+  "levels": {
+   "5": {
+    "kind": "heal",
+    "area": "single",
+    "range": 9,
+    "heal": {
+     "formula": "floor(floor((35 + 2*BaseLv + INT)/4) * 35 * 5 / 10) + rnd[MATKmin, MATKmax)",
+     "base": 35,
+     "lv": 2,
+     "int": 1,
+     "div": 4,
+     "mul": 17.5,
+     "plusMatk": {
+      "min": "INT + BaseLv + floor(Attack2*70/100) + Attack2",
+      "max": "INT + BaseLv + floor(Attack2*130/100) + Attack2"
+     }
+    },
+    "note": "Renewal heal formula (lv < max_heal_lv 11); mobs have no HP_MEDITATIO. The MATK part uses status_base_matk_min/max for BL_MOB (INT + BaseLv + Attack2*70% / *130%) plus the weapon MATK (rhw.matk = Attack2, wlv 0 so no variance): average about INT + BaseLv + 2*Attack2. Target (self/friend) comes from mob_skill_db. Example 2654 (Lv122, INT 5): floor(284/4)=71 -> 71*35*5/10 = 1242 + MATK part.",
+    "src": "skill.cpp:560-571, 686-712; status.cpp:3232-3265"
+   },
+   "9": {
+    "kind": "heal",
+    "area": "single",
+    "range": 9,
+    "heal": {
+     "formula": "floor(floor((35 + 2*BaseLv + INT)/4) * 35 * 9 / 10) + rnd[MATKmin, MATKmax)",
+     "base": 35,
+     "lv": 2,
+     "int": 1,
+     "div": 4,
+     "mul": 31.5,
+     "plusMatk": {
+      "min": "INT + BaseLv + floor(Attack2*70/100) + Attack2",
+      "max": "INT + BaseLv + floor(Attack2*130/100) + Attack2"
+     }
+    },
+    "note": "Renewal heal formula (lv < max_heal_lv 11); mobs have no HP_MEDITATIO. The MATK part uses status_base_matk_min/max for BL_MOB (INT + BaseLv + Attack2*70% / *130%) plus the weapon MATK (rhw.matk = Attack2, wlv 0 so no variance): average about INT + BaseLv + 2*Attack2. Target (self/friend) comes from mob_skill_db. Example 2654 (Lv122, INT 5): floor(284/4)=71 -> 71*35*9/10 = 2236 + MATK part.",
+    "src": "skill.cpp:560-571, 686-712; status.cpp:3232-3265"
+   },
+   "11": {
+    "kind": "heal",
+    "area": "single",
+    "range": 9,
+    "heal": {
+     "flat": 10000
+    },
+    "note": "skill_lv >= max_heal_lv (11) returns max_heal = 10000 flat, no MATK part.",
+    "src": "skill.cpp:561-562; conf/battle/skill.conf:228-229"
+   }
+  }
+ },
+ "AL_PNEUMA": {
+  "name": "Pneuma",
+  "levels": {
+   "1": {
+    "kind": "self",
+    "area": "ground",
+    "radius": 1,
+    "self": {
+     "sc": "pneuma",
+     "durationMs": 10000,
+     "value": 0,
+     "note": "3x3 unit on the mob's own cell: blocks BF_LONG non-magic (ranged physical) hits against anything standing in it. Magic and melee are unaffected. The unit does not follow the mob."
+    },
+    "src": "battle.cpp:1187; skill_db.yml AL_PNEUMA (Layout 1, Duration1 10000)"
+   },
+   "5": {
+    "kind": "self",
+    "area": "ground",
+    "radius": 1,
+    "self": {
+     "sc": "pneuma",
+     "durationMs": 10000,
+     "value": 0,
+     "note": "3x3 unit on the mob's own cell: blocks BF_LONG non-magic (ranged physical) hits against anything standing in it. Magic and melee are unaffected. The unit does not follow the mob."
+    },
+    "src": "battle.cpp:1187; skill_db.yml AL_PNEUMA (Layout 1, Duration1 10000)"
+   }
+  }
+ },
+ "AM_DEMONSTRATION": {
+  "name": "Bomb",
+  "levels": {
+   "1": {
+    "kind": "physical",
+    "element": "Fire",
+    "ratio": {
+     "base": 155,
+     "str": 0,
+     "agi": 0,
+     "vit": 0,
+     "int": 1,
+     "dex": 0,
+     "luk": 0,
+     "lv": 0,
+     "baseLvScale": false
+    },
+    "hits": 1,
+    "ticks": 8,
+    "tickMs": 1000,
+    "area": "ground",
+    "radius": 1,
+    "range": 9,
+    "ignoreFlee": true,
+    "hideBlocks": false,
+    "status": [
+     {
+      "sc": "other",
+      "chance": 0.03,
+      "resist": "none",
+      "perHit": true,
+      "note": "Weapon break: 300*lv/10000 = 3% per hit (renewal). Blocked by an unbreakable weapon / Chemical Protection Weapon."
+     }
+    ],
+    "note": "Ratio 100+50+5*lv+INT = 155+INT. 3x3 unit at the target cell, 1000 ms interval (RTM custom; upstream 500), 8 s -> up to 8 ticks. A mob-cast Bomb counts as BF_SHORT. IgnoreFlee (RTM custom). DEF applies. Hidden players: hittable when the caster is Boss class, or Detector and the player lacks perfect hiding; a caster that is neither cannot target them (status.cpp:2915-2937).",
+    "src": "battle.cpp:4137-4141, 2466-2469; skill.cpp:1586-1590, 15372-15374; skill_db.yml AM_DEMONSTRATION"
+   }
+  }
+ },
+ "CR_GRANDCROSS": {
+  "name": "Grand Cross",
+  "levels": {
+   "1": {
+    "kind": "magic",
+    "element": "Neutral",
+    "ratio": {
+     "base": 170,
+     "str": 0,
+     "agi": 0,
+     "vit": 0,
+     "int": 0.5,
+     "dex": 0,
+     "luk": 0,
+     "lv": 0,
+     "baseLvScale": false
+    },
+    "hits": 1,
+    "ticks": 10,
+    "tickMs": 100,
+    "area": "ground",
+    "radius": 2,
+    "centeredOnSelf": true,
+    "ignoreFlee": true,
+    "hideBlocks": false,
+    "note": "Hybrid: (weapon hit at 100% + MATK hit at 100%) summed, attr-fixed, then x(150+20*lv+INT/2)% = 170 + floor(INT/2). Element Weapon -> Neutral for mobs (RTM sdb; upstream Holy). The MATK part is attr-fixed twice (7298-7299 and 7307). DEF (weapon part) and MDEF both apply. 29-cell cross centred on the mob; interval 100 ms (RTM custom), Duration1 950 ms -> 9-10 ticks (gx_allhit). No blind vs players. The caster takes no self-damage. Hidden players: hittable when the caster is Boss class, or Detector and the player lacks perfect hiding; a caster that is neither cannot target them (status.cpp:2915-2937).",
+    "src": "battle.cpp:7298-7313; skill.cpp:1571-1576, 7079-7082, 22021-22034; conf/battle/skill.conf:179"
+   },
+   "5": {
+    "kind": "magic",
+    "element": "Neutral",
+    "ratio": {
+     "base": 250,
+     "str": 0,
+     "agi": 0,
+     "vit": 0,
+     "int": 0.5,
+     "dex": 0,
+     "luk": 0,
+     "lv": 0,
+     "baseLvScale": false
+    },
+    "hits": 1,
+    "ticks": 10,
+    "tickMs": 100,
+    "area": "ground",
+    "radius": 2,
+    "centeredOnSelf": true,
+    "ignoreFlee": true,
+    "hideBlocks": false,
+    "note": "Hybrid: (weapon hit at 100% + MATK hit at 100%) summed, attr-fixed, then x(150+20*lv+INT/2)% = 250 + floor(INT/2). Element Weapon -> Neutral for mobs (RTM sdb; upstream Holy). The MATK part is attr-fixed twice (7298-7299 and 7307). DEF (weapon part) and MDEF both apply. 29-cell cross centred on the mob; interval 100 ms (RTM custom), Duration1 950 ms -> 9-10 ticks (gx_allhit). No blind vs players. The caster takes no self-damage. Hidden players: hittable when the caster is Boss class, or Detector and the player lacks perfect hiding; a caster that is neither cannot target them (status.cpp:2915-2937).",
+    "src": "battle.cpp:7298-7313; skill.cpp:1571-1576, 7079-7082, 22021-22034; conf/battle/skill.conf:179"
+   }
+  }
+ },
+ "CR_REFLECTSHIELD": {
+  "name": "Reflect Shield",
+  "levels": {
+   "7": {
+    "kind": "self",
+    "self": {
+     "sc": "reflectshield",
+     "durationMs": 300000,
+     "value": 38,
+     "note": "Reflects 38% (10+4*lv) of BF_SHORT weapon damage the mob takes back to the attacker, capped at the mob's MaxHP."
+    },
+    "src": "status.cpp:10863-10864; battle.cpp:7826-7852, 7901; skill.cpp:7590"
+   },
+   "9": {
+    "kind": "self",
+    "self": {
+     "sc": "reflectshield",
+     "durationMs": 300000,
+     "value": 46,
+     "note": "Reflects 46% (10+4*lv) of BF_SHORT weapon damage the mob takes back to the attacker, capped at the mob's MaxHP."
+    },
+    "src": "status.cpp:10863-10864; battle.cpp:7826-7852, 7901; skill.cpp:7590"
+   },
+   "10": {
+    "kind": "self",
+    "self": {
+     "sc": "reflectshield",
+     "durationMs": 300000,
+     "value": 50,
+     "note": "Reflects 50% (10+4*lv) of BF_SHORT weapon damage the mob takes back to the attacker, capped at the mob's MaxHP."
+    },
+    "src": "status.cpp:10863-10864; battle.cpp:7826-7852, 7901; skill.cpp:7590"
+   }
+  }
+ },
+ "GC_HALLUCINATIONWALK": {
+  "name": "Hallucination Walk",
+  "levels": {
+   "2": {
+    "kind": "self",
+    "self": {
+     "sc": "hallucination",
+     "durationMs": 25000,
+     "value": 20,
+     "note": "FLEE +20 (10*lv) and a 10% (5*lv) chance to nullify each incoming magic skill hit (RTM custom magic dodge). Costs 10% MaxHP on cast (fails if HP is below that)."
+    },
+    "src": "status.cpp:11759-11762, 7403-7404; skill.cpp:3790-3793, 10555-10567; skill_db.yml GC_HALLUCINATIONWALK Duration1"
+   },
+   "4": {
+    "kind": "self",
+    "self": {
+     "sc": "hallucination",
+     "durationMs": 35000,
+     "value": 40,
+     "note": "FLEE +40 (10*lv) and a 20% (5*lv) chance to nullify each incoming magic skill hit (RTM custom magic dodge). Costs 10% MaxHP on cast (fails if HP is below that)."
+    },
+    "src": "status.cpp:11759-11762, 7403-7404; skill.cpp:3790-3793, 10555-10567; skill_db.yml GC_HALLUCINATIONWALK Duration1"
+   },
+   "5": {
+    "kind": "self",
+    "self": {
+     "sc": "hallucination",
+     "durationMs": 40000,
+     "value": 50,
+     "note": "FLEE +50 (10*lv) and a 25% (5*lv) chance to nullify each incoming magic skill hit (RTM custom magic dodge). Costs 10% MaxHP on cast (fails if HP is below that)."
+    },
+    "src": "status.cpp:11759-11762, 7403-7404; skill.cpp:3790-3793, 10555-10567; skill_db.yml GC_HALLUCINATIONWALK Duration1"
+   }
+  }
+ },
+ "GN_MANDRAGORA": {
+  "name": "Howling of Mandragora",
+  "levels": {
+   "3": {
+    "kind": "status",
+    "area": "splash",
+    "radius": 6,
+    "centeredOnSelf": true,
+    "status": [
+     {
+      "sc": "mandragora",
+      "chance": 0.4,
+      "durationMs": 20000,
+      "resist": "none",
+      "value": -12,
+      "note": "Rate 10+10*lv = 40%, a flat roll (not resistible); skipped if already under Mandragora. INT -12 (4*lv), +1.5 s fixed cast time (val1*500 ms), and instantly drains 40% MaxSP when it lands."
+     }
+    ],
+    "note": "NoDamage splash via skill_area_sub -> battle_check_target only: no hide check, hidden players are affected (skill.cpp:4283).",
+    "src": "skill.cpp:11719-11740, 18170-18171; status.cpp:6719-6720; skill_db.yml GN_MANDRAGORA"
+   },
+   "5": {
+    "kind": "status",
+    "area": "splash",
+    "radius": 7,
+    "centeredOnSelf": true,
+    "status": [
+     {
+      "sc": "mandragora",
+      "chance": 0.6,
+      "durationMs": 30000,
+      "resist": "none",
+      "value": -20,
+      "note": "Rate 10+10*lv = 60%, a flat roll (not resistible); skipped if already under Mandragora. INT -20 (4*lv), +2.5 s fixed cast time (val1*500 ms), and instantly drains 50% MaxSP when it lands."
+     }
+    ],
+    "note": "NoDamage splash via skill_area_sub -> battle_check_target only: no hide check, hidden players are affected (skill.cpp:4283).",
+    "src": "skill.cpp:11719-11740, 18170-18171; status.cpp:6719-6720; skill_db.yml GN_MANDRAGORA"
+   }
+  }
+ },
+ "KO_HUUMARANKA": {
+  "name": "Huuma Shuriken - Grasp",
+  "levels": {
+   "1": {
+    "kind": "physical",
+    "element": "Neutral",
+    "ratio": {
+     "base": 25,
+     "str": 0,
+     "agi": 0,
+     "vit": 0,
+     "int": 0,
+     "dex": 1,
+     "luk": 0,
+     "lv": 0,
+     "baseLvScale": false
+    },
+    "hits": 4,
+    "area": "splash",
+    "radius": 2,
+    "range": 3,
+    "hideBlocks": false,
+    "note": "Ratio 100-100+25*lv+DEX = 25+DEX (RTM custom, no BaseLv scaling). 4 hits per application (one hit roll). SplashSplit: divided by the number of enemies in the 5x5 splash (1 for a lone player). Can miss; DEF applies. Hidden players: hittable when the caster is Boss class, or Detector and the player lacks perfect hiding; a caster that is neither cannot target them (status.cpp:2915-2937).",
+    "src": "battle.cpp:5012-5015, 3667-3678; skill.cpp:5627"
+   }
+  }
+ },
+ "KO_KAIHOU": {
+  "name": "Eruption",
+  "levels": {
+   "9": {
+    "kind": "magic",
+    "element": "Earth",
+    "ratio": 50,
+    "hits": 9,
+    "area": "single",
+    "range": 9,
+    "note": "RTM custom: 100 - 50 = 50 % MATK per hit (charm bonuses are player-only), HitCount = lv = 9 -> 450 % total; Earth (upstream: damage only with charms, 1 hit, charm element). The post-hit KO_DOHU_KOUKAI charm summon does nothing for a monster (skill.cpp:11876-11887). Magic: no flee, MDEF applies.",
+    "src": "returntomorroc/src/map/battle.cpp:6758-6768; skill.cpp:5978-5980, 4206-4213; db/re/skill_db.yml:32057-32091"
+   },
+   "10": {
+    "kind": "magic",
+    "element": "Earth",
+    "ratio": 50,
+    "hits": 10,
+    "area": "single",
+    "range": 9,
+    "note": "RTM custom: 100 - 50 = 50 % MATK per hit (charm bonuses are player-only), HitCount = lv = 10 -> 500 % total; Earth (upstream: damage only with charms, 1 hit, charm element). The post-hit KO_DOHU_KOUKAI charm summon does nothing for a monster (skill.cpp:11876-11887). Magic: no flee, MDEF applies.",
+    "src": "returntomorroc/src/map/battle.cpp:6758-6768; skill.cpp:5978-5980, 4206-4213; db/re/skill_db.yml:32057-32091"
+   }
+  }
+ },
+ "MG_FIREWALL": {
+  "name": "Fire Wall",
+  "levels": {
+   "11": {
+    "kind": "magic",
+    "element": "Fire",
+    "ratio": 450,
+    "hits": 1,
+    "ticks": 15,
+    "tickMs": 20,
+    "area": "ground",
+    "range": 9,
+    "knockback": 2,
+    "hideBlocks": false,
+    "note": "Ratio 100-50+400 (lv>=11) = 450%. 15-cell line (earthstrain layout for lv>=11). Each cell has 4+lv = 15 hits and lasts 15 s. Each contact knocks the player back 2 cells, so normally 1 hit per contact; with no knockback (Fire armour, undead, bNoKnockback) a player standing in it takes a hit every 20 ms until the cell's 15 hits are used. ticks = hits per cell.",
+    "src": "battle.cpp:6539-6541, 6661-6665; skill.cpp:1126-1131, 14129-14132, 3551-3553"
+   }
+  }
+ },
+ "MG_SAFETYWALL": {
+  "name": "Safety Wall",
+  "levels": {
+   "3": {
+    "kind": "self",
+    "area": "ground",
+    "self": {
+     "sc": "safetywall",
+     "durationMs": 15000,
+     "value": 4,
+     "note": "1-cell unit on the mob's cell: blocks BF_SHORT non-magic hits. Breaks after lv+1 = 4 hits or after 300*lv + 65*(INT+BaseLv) + MaxSP = 900 + 65*(INT+BaseLv) + MaxSP damage absorbed (renewal)."
+    },
+    "note": "UNKNOWN: mob MaxSP (needed for the exact damage cap).",
+    "src": "battle.cpp:1152-1183; skill.cpp:14123-14127; skill_db.yml MG_SAFETYWALL"
+   },
+   "5": {
+    "kind": "self",
+    "area": "ground",
+    "self": {
+     "sc": "safetywall",
+     "durationMs": 25000,
+     "value": 6,
+     "note": "1-cell unit on the mob's cell: blocks BF_SHORT non-magic hits. Breaks after lv+1 = 6 hits or after 300*lv + 65*(INT+BaseLv) + MaxSP = 1500 + 65*(INT+BaseLv) + MaxSP damage absorbed (renewal)."
+    },
+    "note": "Level 5 is above MaxLevel 4: Duration1 extrapolated linearly (5/10/15/20 s -> 25 s). UNKNOWN: mob MaxSP (needed for the exact damage cap).",
+    "src": "battle.cpp:1152-1183; skill.cpp:14123-14127; skill_db.yml MG_SAFETYWALL"
+   }
+  }
+ },
+ "MO_BODYRELOCATION": {
+  "name": "Snap",
+  "levels": {
+   "1": {
+    "kind": "move",
+    "range": 6,
+    "note": "The mob snaps onto the target's cell (ground cast). Range 6 (RTM custom; upstream 18). No damage.",
+    "src": "skill.cpp:13323-13333"
+   }
+  }
+ },
+ "NJ_HUUJIN": {
+  "name": "Wind Blade",
+  "levels": {
+   "9": {
+    "kind": "magic",
+    "element": "Wind",
+    "ratio": 50,
+    "hits": 9,
+    "area": "single",
+    "range": 9,
+    "note": "RTM custom: 100 - 50 = 50 % MATK per hit (upstream renewal 150 %), HitCount = lv = 9 (RTM table; upstream fewer hits) -> 450 % total. Charm bonuses/KO_KAZEHU_SEIRAN are player-only. Magic: no flee, MDEF applies.",
+    "src": "returntomorroc/src/map/battle.cpp:6829-6843; skill.cpp:5974-5982, 4214-4221; db/re/skill_db.yml:15427-15458"
+   },
+   "10": {
+    "kind": "magic",
+    "element": "Wind",
+    "ratio": 50,
+    "hits": 10,
+    "area": "single",
+    "range": 9,
+    "note": "RTM custom: 100 - 50 = 50 % MATK per hit (upstream renewal 150 %), HitCount = lv = 10 (RTM table; upstream fewer hits) -> 500 % total. Charm bonuses/KO_KAZEHU_SEIRAN are player-only. Magic: no flee, MDEF applies.",
+    "src": "returntomorroc/src/map/battle.cpp:6829-6843; skill.cpp:5974-5982, 4214-4221; db/re/skill_db.yml:15427-15458"
+   }
+  }
+ },
+ "NJ_HYOUSENSOU": {
+  "name": "Freezing Spear",
+  "levels": {
+   "9": {
+    "kind": "magic",
+    "element": "Water",
+    "ratio": 50,
+    "hits": 9,
+    "area": "single",
+    "range": 9,
+    "note": "RTM custom: 100 - 50 = 50 % MATK per hit (upstream renewal 70 %), HitCount = lv = 9 -> 450 % total. Charm bonuses/KO_HYOUHU_HUBUKI are player-only. No freeze chance. Magic: no flee, MDEF applies.",
+    "src": "returntomorroc/src/map/battle.cpp:6783-6797; skill.cpp:5973-5982, 4190-4197; db/re/skill_db.yml:15125-15156"
+   },
+   "10": {
+    "kind": "magic",
+    "element": "Water",
+    "ratio": 50,
+    "hits": 10,
+    "area": "single",
+    "range": 9,
+    "note": "RTM custom: 100 - 50 = 50 % MATK per hit (upstream renewal 70 %), HitCount = lv = 10 -> 500 % total. Charm bonuses/KO_HYOUHU_HUBUKI are player-only. No freeze chance. Magic: no flee, MDEF applies.",
+    "src": "returntomorroc/src/map/battle.cpp:6783-6797; skill.cpp:5973-5982, 4190-4197; db/re/skill_db.yml:15125-15156"
+   }
+  }
+ },
+ "NJ_KOUENKA": {
+  "name": "Flaming Petals",
+  "levels": {
+   "9": {
+    "kind": "magic",
+    "element": "Fire",
+    "ratio": 50,
+    "hits": 9,
+    "area": "single",
+    "range": 9,
+    "hideBlocks": false,
+    "note": "100-50 = 50% per hit x 9 hits = 450% total; charm terms and follow-up effects are PC-only. Hidden players: hittable when the caster is Boss class, or Detector and the player lacks perfect hiding; a caster that is neither cannot target them (status.cpp:2915-2937).",
+    "src": "battle.cpp:6745-6757; skill_db.yml NJ_KOUENKA HitCount"
+   },
+   "15": {
+    "kind": "magic",
+    "element": "Fire",
+    "ratio": 50,
+    "hits": 15,
+    "area": "single",
+    "range": 9,
+    "hideBlocks": false,
+    "note": "100-50 = 50% per hit x 15 hits = 750% total; charm terms and follow-up effects are PC-only. HitCount 15 comes from the >13 skill_get_lv extrapolation. Hidden players: hittable when the caster is Boss class, or Detector and the player lacks perfect hiding; a caster that is neither cannot target them (status.cpp:2915-2937).",
+    "src": "battle.cpp:6745-6757; skill.cpp:195-206; skill_db.yml NJ_KOUENKA HitCount"
+   }
+  }
+ },
+ "NPC_ALLHEAL": {
+  "name": "Full Heal",
+  "levels": {
+   "1": {
+    "kind": "heal",
+    "heal": {
+     "pctMaxHp": 100
+    },
+    "note": "100% HP heal, and resets the mob's damage log (EXP/MVP attribution). Does nothing if the mob is status-immune (status_isimmune).",
+    "src": "skill.cpp:7318-7330"
+   }
+  }
+ },
+ "NPC_CRITICALSLASH": {
+  "name": "Critical Slash",
+  "levels": {
+   "1": {
+    "kind": "physical",
+    "element": "Neutral",
+    "ratio": 100,
+    "hits": 1,
+    "area": "single",
+    "range": 9,
+    "alwaysCrit": true,
+    "canCrit": true,
+    "ignoreDef": true,
+    "ignoreFlee": true,
+    "hideBlocks": false,
+    "note": "Always crits in renewal (x1.2 crit bonus), so it always hits. IgnoreDefense flag. Hidden players: hittable when the caster is Boss class, or Detector and the player lacks perfect hiding; a caster that is neither cannot target them (status.cpp:2915-2937).",
+    "src": "battle.cpp:2748, 2914, 6317; skill_db.yml NPC_CRITICALSLASH"
+   }
+  }
+ },
+ "NPC_DRAGONFEAR": {
+  "name": "Dragon Fear",
+  "levels": {
+   "5": {
+    "kind": "status",
+    "area": "splash",
+    "radius": 14,
+    "centeredOnSelf": true,
+    "status": [
+     {
+      "sc": "stun",
+      "chance": 1,
+      "durationMs": 5000,
+      "resist": "stun"
+     },
+     {
+      "sc": "silence",
+      "chance": 1,
+      "durationMs": 30000,
+      "resist": "silence"
+     },
+     {
+      "sc": "confusion",
+      "chance": 1,
+      "durationMs": 30000,
+      "resist": "confusion"
+     },
+     {
+      "sc": "bleeding",
+      "chance": 1,
+      "durationMs": 120000,
+      "resist": "bleeding"
+     }
+    ],
+    "note": "Picks ONE of the four at random (100% base); if it is resisted it tries the next in order (stun -> silence -> confusion -> bleeding, wrapping) until one lands or all four fail. Durations are Duration2 at level index+1. NoDamage splash via skill_area_sub -> battle_check_target only: no hide check, hidden players are affected (skill.cpp:4283).",
+    "src": "skill.cpp:10270-10283; skill_db.yml NPC_DRAGONFEAR Duration2"
+   }
+  }
+ },
+ "NPC_EARTHQUAKE": {
+  "name": "Earthquake",
+  "levels": {
+   "1": {
+    "kind": "magic",
+    "element": "Neutral",
+    "ratio": 300,
+    "hits": 1,
+    "ticks": 4,
+    "tickMs": 300,
+    "area": "ground",
+    "radius": 5,
+    "centeredOnSelf": true,
+    "ignoreDef": true,
+    "hideBlocks": false,
+    "note": "Base damage is the mob's ATK (battle_calc_base_damage), NOT MATK, x(200+100*lv+100*(lv/2)+(lv>4?100:0))% = 300%, on the magic path (no FLEE roll). IgnoreDefense: MDEF ignored. Forced Neutral. SplashSplit: divided by the number of enemies in range (1 for a lone player). Unit range 5 around the mob. IgnoreLandProtector. UNKNOWN: 3 or 4 ticks (910 ms at 300 ms with a 100 ms unit timer). SC_DODGE/KAUPE only on the first tick. Hidden players: hittable when the caster is Boss class, or Detector and the player lacks perfect hiding; a caster that is neither cannot target them (status.cpp:2915-2937).",
+    "src": "battle.cpp:6504-6505, 6608-6623; skill.cpp:13233-13236, 15265-15267; skill_db.yml NPC_EARTHQUAKE"
+   },
+   "3": {
+    "kind": "magic",
+    "element": "Neutral",
+    "ratio": 600,
+    "hits": 1,
+    "ticks": 4,
+    "tickMs": 300,
+    "area": "ground",
+    "radius": 9,
+    "centeredOnSelf": true,
+    "ignoreDef": true,
+    "hideBlocks": false,
+    "note": "Base damage is the mob's ATK (battle_calc_base_damage), NOT MATK, x(200+100*lv+100*(lv/2)+(lv>4?100:0))% = 600%, on the magic path (no FLEE roll). IgnoreDefense: MDEF ignored. Forced Neutral. SplashSplit: divided by the number of enemies in range (1 for a lone player). Unit range 9 around the mob. IgnoreLandProtector. UNKNOWN: 3 or 4 ticks (910 ms at 300 ms with a 100 ms unit timer). SC_DODGE/KAUPE only on the first tick. Hidden players: hittable when the caster is Boss class, or Detector and the player lacks perfect hiding; a caster that is neither cannot target them (status.cpp:2915-2937).",
+    "src": "battle.cpp:6504-6505, 6608-6623; skill.cpp:13233-13236, 15265-15267; skill_db.yml NPC_EARTHQUAKE"
+   }
+  }
+ },
+ "NPC_EMOTION": {
+  "name": "Emotion",
+  "levels": {
+   "1": {
+    "kind": "none",
+    "note": "Shows an emote (val1); no mode change when val2 is empty. No combat effect.",
+    "src": "skill.cpp:9488-9489"
+   }
+  }
+ },
+ "NPC_FIRESTORM": {
+  "name": "Fire Storm",
+  "levels": {
+   "4": {
+    "kind": "magic",
+    "element": "Fire",
+    "ratio": 300,
+    "hits": 7,
+    "area": "splash",
+    "radius": 3,
+    "centeredOnSelf": true,
+    "hideBlocks": false,
+    "status": [
+     {
+      "sc": "burnt",
+      "chance": 1,
+      "durationMs": 10000,
+      "resist": "none",
+      "value": 2000,
+      "value2": 400,
+      "note": "SC_BURNT: 2000 HP per second, non-lethal; +400% to the elemental-table ratio of Fire damage taken (RTM custom). Not resistible, Duration1 10 s."
+     }
+    ],
+    "note": "300% x 7 hits (HitCount 1,3,5 extrapolated -> 7 at lv4) = 2100% total. 7x7 splash around the mob with a line-of-sight check. No knockback at lv>1. The status is applied on hit.",
+    "src": "battle.cpp:7128-7129, 522-528; skill.cpp:1795-1796, 10334-10342; status.cpp:15289-15296"
+   }
+  }
+ },
+ "NPC_GRANDDARKNESS": {
+  "name": "Grand Darkness",
+  "levels": {
+   "5": {
+    "kind": "magic",
+    "element": "Dark",
+    "ratio": {
+     "base": 250,
+     "str": 0,
+     "agi": 0,
+     "vit": 0,
+     "int": 0.5,
+     "dex": 0,
+     "luk": 0,
+     "lv": 0,
+     "baseLvScale": false
+    },
+    "hits": 1,
+    "ticks": 20,
+    "tickMs": 1000,
+    "area": "ground",
+    "radius": 2,
+    "centeredOnSelf": true,
+    "ignoreFlee": true,
+    "hideBlocks": false,
+    "status": [
+     {
+      "sc": "blind",
+      "chance": 1,
+      "durationMs": 20000,
+      "resist": "blind",
+      "perHit": true,
+      "note": "100% base per hit, Duration1 20 s, reduced by blind resist."
+     }
+    ],
+    "note": "Same hybrid formula as Grand Cross: (ATK+MATK) attr-fixed x(150+20*lv+INT/2)% = 250 + floor(INT/2). 29-cell cross on self, interval 1000 ms (RTM custom; upstream 300), 20 s -> up to 20 ticks. DEF and MDEF apply. Hidden players: hittable when the caster is Boss class, or Detector and the player lacks perfect hiding; a caster that is neither cannot target them (status.cpp:2915-2937).",
+    "src": "battle.cpp:7302-7307; skill.cpp:1566-1567; skill_db.yml NPC_GRANDDARKNESS"
+   }
+  }
+ },
+ "NPC_GROUNDATTACK": {
+  "name": "Earth Attribute Attack",
+  "levels": {
+   "2": {
+    "kind": "physical",
+    "element": "Earth",
+    "ratio": 200,
+    "hits": 1,
+    "area": "single",
+    "range": 9,
+    "hitBonus": 20,
+    "hideBlocks": false,
+    "note": "Ratio 100+100*(lv-1). Hit rate x1.2 (hitBonus 20 = +20% of the hit rate, multiplicative, before the [10,100] clamp). TargetHidden: can target hidden players even from a non-Detector caster. Can miss; DEF applies.",
+    "src": "battle.cpp:4069-4085, 2980-2990; status.cpp:2919-2920"
+   }
+  }
+ },
+ "NPC_MAGICMIRROR": {
+  "name": "Magic Mirror",
+  "levels": {
+   "3": {
+    "kind": "self",
+    "self": {
+     "sc": "magicmirror",
+     "durationMs": 30000,
+     "value": 60,
+     "note": "60% chance to reflect each magic hit back to its caster (val1 = 1+((lv-1)%5) = 3), bypassing the boss check; also reflects ground-unit magic. Reflected damage is element-refixed against the attacker's armour."
+    },
+    "src": "status.cpp:11604-11610; skill.cpp:3226-3228, 3740-3775; skill_db.yml NPC_MAGICMIRROR Duration1"
+   },
+   "10": {
+    "kind": "self",
+    "self": {
+     "sc": "magicmirror",
+     "durationMs": 5000,
+     "value": 100,
+     "note": "100% chance to reflect each magic hit back to its caster (val1 = 1+((lv-1)%5) = 5), bypassing the boss check; also reflects ground-unit magic. Reflected damage is element-refixed against the attacker's armour."
+    },
+    "src": "status.cpp:11604-11610; skill.cpp:3226-3228, 3740-3775; skill_db.yml NPC_MAGICMIRROR Duration1"
+   }
+  }
+ },
+ "NPC_MAXPAIN": {
+  "name": "Max Pain",
+  "levels": {
+   "1": {
+    "kind": "self",
+    "self": {
+     "sc": "maxpain",
+     "durationMs": 10000,
+     "value": 10,
+     "note": "The mob takes 0 damage from everything; weapon hits reflect 10% (val1*10) of the attacker's computed damage back to the attacker. Magic is not reflected. UNKNOWN: whether misc damage reflects."
+    },
+    "src": "battle.cpp:1417-1418, 5839-5848, 7896-7898"
+   }
+  }
+ },
+ "NPC_PHANTOMTHRUST": {
+  "name": "Phantom Thrust",
+  "levels": {
+   "1": {
+    "kind": "physical",
+    "element": "Neutral",
+    "ratio": 100,
+    "hits": 1,
+    "area": "single",
+    "range": 7,
+    "hideBlocks": false,
+    "status": [
+     {
+      "sc": "other",
+      "chance": 1,
+      "resist": "none",
+      "note": "Pull: the target is moved to 1 cell from the mob unless knockback-immune (bNoKnockback, GvG/BG maps)."
+     }
+    ],
+    "note": "100% (the ratio case is commented out). Can miss; DEF applies. Hidden players: hittable when the caster is Boss class, or Detector and the player lacks perfect hiding; a caster that is neither cannot target them (status.cpp:2915-2937).",
+    "src": "battle.cpp:4546; skill.cpp:6166-6173"
+   }
+  }
+ },
+ "NPC_PROVOCATION": {
+  "name": "Provocation",
+  "levels": {
+   "1": {
+    "kind": "none",
+    "note": "The mob drops its own target. No effect on the player.",
+    "src": "skill.cpp:9399-9401"
+   }
+  }
+ },
+ "NPC_PULSESTRIKE2": {
+  "name": "Pulse Strike 2",
+  "levels": {
+   "1": {
+    "kind": "magic",
+    "element": "Dark",
+    "ratio": 200,
+    "hits": 1,
+    "ticks": 3,
+    "tickMs": 1000,
+    "area": "splash",
+    "radius": 5,
+    "centeredOnSelf": true,
+    "knockback": 3,
+    "hideBlocks": false,
+    "note": "3 pulses 1 s apart (Duration1 1000), each an 11x11 splash from the mob with knockback 3. IsNpc splash: no hide check.",
+    "src": "battle.cpp:7134-7135; skill.cpp:12365-12367, 4823-4824"
+   }
+  }
+ },
+ "NPC_SR_CURSEDCIRCLE": {
+  "name": "Cursed Circle",
+  "levels": {
+   "10": {
+    "kind": "status",
+    "area": "splash",
+    "radius": 10,
+    "centeredOnSelf": true,
+    "status": [
+     {
+      "sc": "cursedcircle",
+      "chance": 0.5,
+      "durationMs": 7000,
+      "resist": "none",
+      "note": "SC_CURSEDCIRCLE_TARGET: 50% flat, not resistible; cannot move, cast or attack for 7 s. Up to 15 targets; Boss-class targets are skipped."
+     }
+    ],
+    "note": "SplashArea 1..5 extrapolated to 10 at lv10. The mob gets CURSEDCIRCLE_ATKER at 50%. NoDamage splash via skill_area_sub -> battle_check_target only: no hide check, hidden players are affected (skill.cpp:4283).",
+    "src": "skill.cpp:11248-11268; status.cpp:2048, 2096"
+   }
+  }
+ },
+ "NPC_SUMMONSLAVE": {
+  "name": "Summon Slave",
+  "levels": {
+   "1": {
+    "kind": "summon",
+    "summon": {
+     "mobIds": [],
+     "count": 1
+    },
+    "note": "mobIds from mob_skill_db vals (val1..val5). Summons skill_lv = 1 slave(s); when 1 is less than the number of listed ids it starts at a random id and cycles through the list. Usually gated by msdb condition slavele.",
+    "src": "skill.cpp:9426-9430; mob.cpp:3467-3496"
+   },
+   "2": {
+    "kind": "summon",
+    "summon": {
+     "mobIds": [],
+     "count": 2
+    },
+    "note": "mobIds from mob_skill_db vals (val1..val5). Summons skill_lv = 2 slave(s); when 2 is less than the number of listed ids it starts at a random id and cycles through the list. Usually gated by msdb condition slavele.",
+    "src": "skill.cpp:9426-9430; mob.cpp:3467-3496"
+   },
+   "3": {
+    "kind": "summon",
+    "summon": {
+     "mobIds": [],
+     "count": 3
+    },
+    "note": "mobIds from mob_skill_db vals (val1..val5). Summons skill_lv = 3 slave(s); when 3 is less than the number of listed ids it starts at a random id and cycles through the list. Usually gated by msdb condition slavele.",
+    "src": "skill.cpp:9426-9430; mob.cpp:3467-3496"
+   },
+   "4": {
+    "kind": "summon",
+    "summon": {
+     "mobIds": [],
+     "count": 4
+    },
+    "note": "mobIds from mob_skill_db vals (val1..val5). Summons skill_lv = 4 slave(s); when 4 is less than the number of listed ids it starts at a random id and cycles through the list. Usually gated by msdb condition slavele.",
+    "src": "skill.cpp:9426-9430; mob.cpp:3467-3496"
+   }
+  }
+ },
+ "NPC_VAMPIRE_GIFT": {
+  "name": "Vampire Gift",
+  "levels": {
+   "2": {
+    "kind": "physical",
+    "element": "Neutral",
+    "ratio": 300,
+    "hits": 1,
+    "area": "splash",
+    "radius": 7,
+    "centeredOnSelf": true,
+    "ignoreDef": true,
+    "drain": true,
+    "hideBlocks": false,
+    "note": "Ratio 100+((lv-1)%5+1)*100 = 300%. The mob heals by the damage dealt to each target. Can miss (no IgnoreFlee). IgnoreDefense (RTM custom flag). SplashArea 7. IgnoreLandProtector. IsNpc splash: no hide check.",
+    "src": "battle.cpp:4491-4492; skill.cpp:8181-8184, 5587, 5668-5676; skill_db.yml NPC_VAMPIRE_GIFT"
+   },
+   "5": {
+    "kind": "physical",
+    "element": "Neutral",
+    "ratio": 600,
+    "hits": 1,
+    "area": "splash",
+    "radius": 13,
+    "centeredOnSelf": true,
+    "ignoreDef": true,
+    "drain": true,
+    "hideBlocks": false,
+    "note": "Ratio 100+((lv-1)%5+1)*100 = 600%. The mob heals by the damage dealt to each target. Can miss (no IgnoreFlee). IgnoreDefense (RTM custom flag). SplashArea 13. IgnoreLandProtector. IsNpc splash: no hide check.",
+    "src": "battle.cpp:4491-4492; skill.cpp:8181-8184, 5587, 5668-5676; skill_db.yml NPC_VAMPIRE_GIFT"
+   },
+   "10": {
+    "kind": "physical",
+    "element": "Neutral",
+    "ratio": 600,
+    "hits": 1,
+    "area": "splash",
+    "radius": 13,
+    "centeredOnSelf": true,
+    "ignoreDef": true,
+    "drain": true,
+    "hideBlocks": false,
+    "note": "Ratio 100+((lv-1)%5+1)*100 = 600%. The mob heals by the damage dealt to each target. Can miss (no IgnoreFlee). IgnoreDefense (RTM custom flag). SplashArea 13. IgnoreLandProtector. IsNpc splash: no hide check.",
+    "src": "battle.cpp:4491-4492; skill.cpp:8181-8184, 5587, 5668-5676; skill_db.yml NPC_VAMPIRE_GIFT"
+   }
+  }
+ },
+ "NPC_WIDEBLEEDING": {
+  "name": "Wide Bleeding",
+  "levels": {
+   "5": {
+    "kind": "status",
+    "area": "splash",
+    "radius": 14,
+    "centeredOnSelf": true,
+    "status": [
+     {
+      "sc": "bleeding",
+      "chance": 1,
+      "durationMs": 120000,
+      "resist": "bleeding",
+      "note": "SC_BLEEDING: 100-149 HP every 10 s, lethal to players."
+     }
+    ],
+    "note": "100% base, Duration2 120 s, SplashArea 14. NoDamage splash via skill_area_sub -> battle_check_target only: no hide check, hidden players are affected (skill.cpp:4283).",
+    "src": "skill.cpp:10284-10320; skill_db.yml NPC_WIDEBLEEDING"
+   }
+  }
+ },
+ "NPC_WIDEFREEZE": {
+  "name": "Wide Freeze",
+  "levels": {
+   "5": {
+    "kind": "status",
+    "area": "splash",
+    "radius": 14,
+    "centeredOnSelf": true,
+    "status": [
+     {
+      "sc": "freeze",
+      "chance": 1,
+      "durationMs": 30000,
+      "resist": "freeze",
+      "note": "Duration lengthened by caster LUK*10 ms (negative tick_def2). Undead-armour players immune; cannot override an existing opt1."
+     }
+    ],
+    "note": "100% base, Duration2 30 s, SplashArea 14. NoDamage splash via skill_area_sub -> battle_check_target only: no hide check, hidden players are affected (skill.cpp:4283).",
+    "src": "skill.cpp:10284-10320; skill_db.yml NPC_WIDEFREEZE"
+   }
+  }
+ },
+ "NPC_WIDEHELLDIGNITY": {
+  "name": "Wide Hell Dignity",
+  "levels": {
+   "1": {
+    "kind": "status",
+    "area": "splash",
+    "radius": 28,
+    "centeredOnSelf": true,
+    "status": [
+     {
+      "sc": "hellpower",
+      "chance": 1,
+      "durationMs": 180000,
+      "resist": "none",
+      "note": "SC_HELLPOWER: cannot be resurrected or use Token of Siegfried for 180 s. No combat stat change."
+     }
+    ],
+    "note": "SplashArea -1 -> AREA_SIZE 28 (57x57). NoDamage splash via skill_area_sub -> battle_check_target only: no hide check, hidden players are affected (skill.cpp:4283).",
+    "src": "skill.cpp:255-259, 7174-7176, 9626, 10293; pc.cpp:9287"
+   }
+  }
+ },
+ "NPC_WIDESILENCE": {
+  "name": "Wide Silence",
+  "levels": {
+   "4": {
+    "kind": "status",
+    "area": "splash",
+    "radius": 11,
+    "centeredOnSelf": true,
+    "status": [
+     {
+      "sc": "silence",
+      "chance": 1,
+      "durationMs": 20000,
+      "resist": "silence"
+     }
+    ],
+    "note": "100% base, Duration2 20 s, SplashArea 11. NoDamage splash via skill_area_sub -> battle_check_target only: no hide check, hidden players are affected (skill.cpp:4283).",
+    "src": "skill.cpp:10284-10320; skill_db.yml NPC_WIDESILENCE"
+   },
+   "5": {
+    "kind": "status",
+    "area": "splash",
+    "radius": 14,
+    "centeredOnSelf": true,
+    "status": [
+     {
+      "sc": "silence",
+      "chance": 1,
+      "durationMs": 20000,
+      "resist": "silence"
+     }
+    ],
+    "note": "100% base, Duration2 20 s, SplashArea 14. NoDamage splash via skill_area_sub -> battle_check_target only: no hide check, hidden players are affected (skill.cpp:4283).",
+    "src": "skill.cpp:10284-10320; skill_db.yml NPC_WIDESILENCE"
+   }
+  }
+ },
+ "NPC_WIDESTONE": {
+  "name": "Wide Stone Curse",
+  "levels": {
+   "5": {
+    "kind": "status",
+    "area": "splash",
+    "radius": 14,
+    "centeredOnSelf": true,
+    "status": [
+     {
+      "sc": "stone",
+      "chance": 1,
+      "durationMs": 20000,
+      "resist": "stone",
+      "note": "Duration not reduced (tick_def 0). 100 ms incubation; while stoned loses 1% HP per 5 s while above 25% HP. Undead-armour immune; cannot override an existing opt1."
+     }
+    ],
+    "note": "100% base, Duration2 20 s, SplashArea 14. NoDamage splash via skill_area_sub -> battle_check_target only: no hide check, hidden players are affected (skill.cpp:4283).",
+    "src": "skill.cpp:10284-10320; skill_db.yml NPC_WIDESTONE"
+   }
+  }
+ },
+ "NPC_WIDEWEB": {
+  "name": "Wide Web",
+  "levels": {
+   "5": {
+    "kind": "status",
+    "area": "splash",
+    "radius": 7,
+    "centeredOnSelf": true,
+    "status": [
+     {
+      "sc": "root",
+      "chance": 1,
+      "durationMs": 10000,
+      "resist": "none",
+      "value2": 100,
+      "note": "SC_WIDEWEB: not resistible, 10 s. Cannot move. FLEE +10% (RTM custom; upstream -50%). The next Fire-element hit taken gets +100% elemental ratio and ends the web."
+     }
+    ],
+    "note": "Level 5 is above MaxLevel 1; its single-valued fields are unchanged. NoDamage splash via skill_area_sub -> battle_check_target only: no hide check, hidden players are affected (skill.cpp:4283).",
+    "src": "skill.cpp:10300-10320; status.cpp:2032, 7423-7424, 12865-12867; battle.cpp:514-521"
+   }
+  }
+ },
+ "PR_LEXAETERNA": {
+  "name": "Lex Aeterna",
+  "levels": {
+   "1": {
+    "kind": "status",
+    "area": "single",
+    "range": 9,
+    "status": [
+     {
+      "sc": "aeterna",
+      "chance": 1,
+      "resist": "none",
+      "note": "SC_AETERNA: no timeout; the next damage taken is doubled, then it ends. Cannot be applied to frozen/stoned targets. GTB blocks it."
+     }
+    ],
+    "src": "status.cpp:10720-10736; battle.cpp:1444-1451"
+   }
+  }
+ },
+ "PR_MAGNUS": {
+  "name": "Magnus Exorcismus",
+  "levels": {
+   "9": {
+    "kind": "magic",
+    "element": "Holy",
+    "ratio": 100,
+    "hits": 9,
+    "ticks": 4,
+    "tickMs": 3000,
+    "area": "ground",
+    "range": 9,
+    "hideBlocks": false,
+    "note": "100% per hit (+30% vs undead-element or Demon-race targets), 9 hits per wave. 33-cell cross at the target. A wave every 3000 ms for Duration1 12000 ms -> 4 waves (expiry is checked before the next wave). Renewal hits all races.",
+    "src": "battle.cpp:6870-6872; skill.cpp:15205-15211, 21999-22011, 20046-20048; skill_db.yml PR_MAGNUS"
+   },
+   "10": {
+    "kind": "magic",
+    "element": "Holy",
+    "ratio": 100,
+    "hits": 10,
+    "ticks": 5,
+    "tickMs": 3000,
+    "area": "ground",
+    "range": 9,
+    "hideBlocks": false,
+    "note": "100% per hit (+30% vs undead-element or Demon-race targets), 10 hits per wave. 33-cell cross at the target. A wave every 3000 ms for Duration1 13000 ms -> 5 waves (expiry is checked before the next wave). Renewal hits all races.",
+    "src": "battle.cpp:6870-6872; skill.cpp:15205-15211, 21999-22011, 20046-20048; skill_db.yml PR_MAGNUS"
+   }
+  }
+ },
+ "RG_BACKSTAP": {
+  "name": "Back Stab",
+  "levels": {
+   "8": {
+    "kind": "physical",
+    "element": "Neutral",
+    "ratio": {
+     "base": 190,
+     "str": 0,
+     "agi": 1,
+     "vit": 0,
+     "int": 0,
+     "dex": 0,
+     "luk": 0,
+     "lv": 0,
+     "baseLvScale": false
+    },
+    "hits": 1,
+    "area": "single",
+    "range": 3,
+    "hideBlocks": false,
+    "note": "Non-dagger formula: 100 + 50 + 5*lv + AGI = 190 + AGI (RTM custom). HitCount -2 is display-only. The mob teleports behind the target first; fails on the same cell. Can miss; DEF applies. Hidden players: hittable when the caster is Boss class, or Detector and the player lacks perfect hiding; a caster that is neither cannot target them (status.cpp:2915-2937).",
+    "src": "battle.cpp:4090-4096; skill.cpp:5417-5456, 12441-12442"
+   },
+   "10": {
+    "kind": "physical",
+    "element": "Neutral",
+    "ratio": {
+     "base": 200,
+     "str": 0,
+     "agi": 1,
+     "vit": 0,
+     "int": 0,
+     "dex": 0,
+     "luk": 0,
+     "lv": 0,
+     "baseLvScale": false
+    },
+    "hits": 1,
+    "area": "single",
+    "range": 3,
+    "hideBlocks": false,
+    "note": "Non-dagger formula: 100 + 50 + 5*lv + AGI = 200 + AGI (RTM custom). HitCount -2 is display-only. The mob teleports behind the target first; fails on the same cell. Can miss; DEF applies. Hidden players: hittable when the caster is Boss class, or Detector and the player lacks perfect hiding; a caster that is neither cannot target them (status.cpp:2915-2937).",
+    "src": "battle.cpp:4090-4096; skill.cpp:5417-5456, 12441-12442"
+   }
+  }
+ },
+ "RK_DRAGONBREATH": {
+  "name": "Dragon Breath",
+  "levels": {
+   "5": {
+    "kind": "physical",
+    "element": "Fire",
+    "ratio": {
+     "base": 225,
+     "str": 0,
+     "agi": 0,
+     "vit": 5,
+     "int": 0,
+     "dex": 0,
+     "luk": 0,
+     "lv": 0,
+     "baseLvScale": false
+    },
+    "hits": 1,
+    "area": "splash",
+    "radius": 3,
+    "range": 7,
+    "ignoreFlee": true,
+    "hiddenImmune": true,
+    "hideBlocks": true,
+    "status": [
+     {
+      "sc": "burning",
+      "chance": 1,
+      "durationMs": 10000,
+      "resist": "burning",
+      "note": "SC_BURNING: raw rate 1000% with no sc_def; 200 + 1% MaxHP every 3 s; duration 10 s minus (75*LUK + 125*AGI) ms, minimum 5 s."
+     }
+    ],
+    "note": "Forced BF_WEAPON although sdb Type is Magic (RTM custom). Ratio 100+25*lv+5*VIT = 225+5*VIT of normal ATK; no HP/SP base damage in RTM. 7x7 around the target cell. IgnoreFlee; DEF applies. Does nothing to a target under SC_HIDING, whatever the caster. resist 'burning' = the BURNING row of section 0 (duration only).",
+    "src": "battle.cpp:4028-4031; skill.cpp:1798-1800, 6100-6106, 13533-13542; status.cpp:9270-9272, 9429-9432, 14468-14474"
+   }
+  }
+ },
+ "RK_SONICWAVE": {
+  "name": "Sonic Wave",
+  "levels": {
+   "5": {
+    "kind": "physical",
+    "element": "Neutral",
+    "ratio": {
+     "base": 275,
+     "str": 2,
+     "agi": 0,
+     "vit": 0,
+     "int": 0,
+     "dex": 0,
+     "luk": 0,
+     "lv": 0,
+     "baseLvScale": false
+    },
+    "hits": 1,
+    "area": "single",
+    "range": 7,
+    "canCrit": true,
+    "hitBonus": 15,
+    "hideBlocks": false,
+    "note": "Ratio 100+50+25*lv+2*STR = 275+2*STR (RTM custom, no BaseLv scaling). HitCount -3 is display-only. Hit rate x(1+3*lv/100) = +15% (multiplicative). Critical flag: mob crit per mille (10+LUK*10/3)*5/100 minus 3*target LUK; a crit is x1.2 and auto-hits, DEF still applies. Hidden players: hittable when the caster is Boss class, or Detector and the player lacks perfect hiding; a caster that is neither cannot target them (status.cpp:2915-2937).",
+    "src": "battle.cpp:4494-4495, 3012-3013, 2742-2829"
+   }
+  }
+ },
+ "SA_COMA": {
+  "name": "Coma",
+  "levels": {
+   "1": {
+    "kind": "status",
+    "area": "single",
+    "range": 9,
+    "status": [
+     {
+      "sc": "coma",
+      "chance": 1,
+      "resist": "none",
+      "note": "SC_COMA 100%, not resistible: HP -> 1 and SP -> 0 instantly. Blocked only by GTB/Hermode (magic immunity)."
+     }
+    ],
+    "src": "skill.cpp:7308-7310; status.cpp:11352-11354"
+   }
+  }
+ },
+ "SC_MANHOLE": {
+  "name": "Manhole",
+  "levels": {
+   "1": {
+    "kind": "status",
+    "area": "ground",
+    "radius": 1,
+    "status": [
+     {
+      "sc": "manhole",
+      "chance": 1,
+      "durationMs": 5000,
+      "resist": "none",
+      "note": "SC__MANHOLE 5 s (Duration2), NORATEDEF: cannot move, cast, attack or use items, and cannot be damaged; most skills cannot target the victim."
+     }
+    ],
+    "note": "3x3 trap on a random free cell within 3 cells of the mob (msdb target around3), lasts 5 s (Duration1), max 3 active. Triggers on the first player to step in; the player is moved onto the trap cell. UNKNOWN: whether a hidden player standing on it triggers it.",
+    "src": "skill.cpp:15230-15262, 14682; battle.cpp:1195; status.cpp:2911; skill_db.yml SC_MANHOLE"
+   },
+   "2": {
+    "kind": "status",
+    "area": "ground",
+    "radius": 1,
+    "status": [
+     {
+      "sc": "manhole",
+      "chance": 1,
+      "durationMs": 3000,
+      "resist": "none",
+      "note": "SC__MANHOLE 3 s (Duration2), NORATEDEF: cannot move, cast, attack or use items, and cannot be damaged; most skills cannot target the victim."
+     }
+    ],
+    "note": "3x3 trap on a random free cell within 3 cells of the mob (msdb target around3), lasts 10 s (Duration1), max 3 active. Triggers on the first player to step in; the player is moved onto the trap cell. Duration2 3 s is RTM custom (upstream 10 s). UNKNOWN: whether a hidden player standing on it triggers it.",
+    "src": "skill.cpp:15230-15262, 14682; battle.cpp:1195; status.cpp:2911; skill_db.yml SC_MANHOLE"
+   }
+  }
+ },
+ "SO_CLOUD_KILL": {
+  "name": "Cloud Kill",
+  "levels": {
+   "2": {
+    "kind": "magic",
+    "element": "Poison",
+    "ratio": {
+     "base": 10,
+     "str": 0,
+     "agi": 0,
+     "vit": 0,
+     "int": 1,
+     "dex": 0,
+     "luk": 0,
+     "lv": 0,
+     "baseLvScale": false
+    },
+    "hits": 1,
+    "ticks": 16,
+    "tickMs": 500,
+    "area": "ground",
+    "radius": 3,
+    "range": 9,
+    "hideBlocks": false,
+    "status": [
+     {
+      "sc": "cloudpoison",
+      "chance": 1,
+      "durationMs": 8000,
+      "resist": "none",
+      "value": 10,
+      "note": "SC_CLOUD_POISON (RTM custom): +10% (5*lv) to the elemental-table ratio of Poison damage taken; applied before each tick's damage if not already active; 8 s, NOTICKDEF."
+     }
+    ],
+    "note": "Ratio -100+100+5*lv+INT = 10 + INT (RTM custom); +VIT if the target has SC_POISON/SC_DPOISON. 7x7 cloud at the target, 500 ms, 8 s -> up to 16 ticks. One cloud per caster.",
+    "src": "battle.cpp:7055-7058, 545-551; skill.cpp:15617-15621, 14402-14404"
+   },
+   "3": {
+    "kind": "magic",
+    "element": "Poison",
+    "ratio": {
+     "base": 15,
+     "str": 0,
+     "agi": 0,
+     "vit": 0,
+     "int": 1,
+     "dex": 0,
+     "luk": 0,
+     "lv": 0,
+     "baseLvScale": false
+    },
+    "hits": 1,
+    "ticks": 16,
+    "tickMs": 500,
+    "area": "ground",
+    "radius": 3,
+    "range": 9,
+    "hideBlocks": false,
+    "status": [
+     {
+      "sc": "cloudpoison",
+      "chance": 1,
+      "durationMs": 8000,
+      "resist": "none",
+      "value": 15,
+      "note": "SC_CLOUD_POISON (RTM custom): +15% (5*lv) to the elemental-table ratio of Poison damage taken; applied before each tick's damage if not already active; 8 s, NOTICKDEF."
+     }
+    ],
+    "note": "Ratio -100+100+5*lv+INT = 15 + INT (RTM custom); +VIT if the target has SC_POISON/SC_DPOISON. 7x7 cloud at the target, 500 ms, 8 s -> up to 16 ticks. One cloud per caster.",
+    "src": "battle.cpp:7055-7058, 545-551; skill.cpp:15617-15621, 14402-14404"
+   },
+   "4": {
+    "kind": "magic",
+    "element": "Poison",
+    "ratio": {
+     "base": 20,
+     "str": 0,
+     "agi": 0,
+     "vit": 0,
+     "int": 1,
+     "dex": 0,
+     "luk": 0,
+     "lv": 0,
+     "baseLvScale": false
+    },
+    "hits": 1,
+    "ticks": 16,
+    "tickMs": 500,
+    "area": "ground",
+    "radius": 3,
+    "range": 9,
+    "hideBlocks": false,
+    "status": [
+     {
+      "sc": "cloudpoison",
+      "chance": 1,
+      "durationMs": 8000,
+      "resist": "none",
+      "value": 20,
+      "note": "SC_CLOUD_POISON (RTM custom): +20% (5*lv) to the elemental-table ratio of Poison damage taken; applied before each tick's damage if not already active; 8 s, NOTICKDEF."
+     }
+    ],
+    "note": "Ratio -100+100+5*lv+INT = 20 + INT (RTM custom); +VIT if the target has SC_POISON/SC_DPOISON. 7x7 cloud at the target, 500 ms, 8 s -> up to 16 ticks. One cloud per caster.",
+    "src": "battle.cpp:7055-7058, 545-551; skill.cpp:15617-15621, 14402-14404"
+   }
+  }
+ },
+ "SP_SWHOO": {
+  "name": "Swhoo",
+  "levels": {
+   "10": {
+    "kind": "magic",
+    "element": "Neutral",
+    "ratio": {
+     "base": 800,
+     "str": 0,
+     "agi": 0,
+     "vit": 0,
+     "int": 2,
+     "dex": 0,
+     "luk": 0,
+     "lv": 0,
+     "baseLvScale": false
+    },
+    "hits": 5,
+    "area": "splash",
+    "radius": 3,
+    "range": 1,
+    "hideBlocks": false,
+    "note": "Ratio -100+80*lv+2*INT = 800+2*INT (RTM custom) x5 hits. Element Weapon -> Neutral. Range 1: the target must be adjacent. allow_es_magic_player: yes, so it hurts players.",
+    "src": "battle.cpp:7145-7146; skill.cpp:5664-5666"
+   }
+  }
+ },
+ "SR_KNUCKLEARROW": {
+  "name": "Knuckle Arrow",
+  "levels": {
+   "1": {
+    "kind": "physical",
+    "element": "Neutral",
+    "ratio": {
+     "base": 225,
+     "str": 1,
+     "agi": 0,
+     "vit": 0,
+     "int": 0,
+     "dex": 0,
+     "luk": 0,
+     "lv": 0,
+     "baseLvScale": false
+    },
+    "hits": 1,
+    "area": "single",
+    "range": 4,
+    "knockback": 2,
+    "hideBlocks": false,
+    "note": "Ratio 100+100+25*lv+STR = 225 + STR (RTM custom). If the knockback is stopped by an obstacle, a second identical hit follows 300-600 ms later (not if the target has bNoKnockback). Can miss; DEF applies.",
+    "src": "battle.cpp:4837-4839; skill.cpp:6520-6526, 3579-3585, 4792-4794"
+   },
+   "3": {
+    "kind": "physical",
+    "element": "Neutral",
+    "ratio": {
+     "base": 275,
+     "str": 1,
+     "agi": 0,
+     "vit": 0,
+     "int": 0,
+     "dex": 0,
+     "luk": 0,
+     "lv": 0,
+     "baseLvScale": false
+    },
+    "hits": 1,
+    "area": "single",
+    "range": 6,
+    "knockback": 4,
+    "hideBlocks": false,
+    "note": "Ratio 100+100+25*lv+STR = 275 + STR (RTM custom). If the knockback is stopped by an obstacle, a second identical hit follows 300-600 ms later (not if the target has bNoKnockback). Can miss; DEF applies.",
+    "src": "battle.cpp:4837-4839; skill.cpp:6520-6526, 3579-3585, 4792-4794"
+   }
+  }
+ },
+ "TF_HIDING": {
+  "name": "Hiding",
+  "levels": {
+   "1": {
+    "kind": "self",
+    "self": {
+     "sc": "hiding",
+     "durationMs": 3000,
+     "note": "The mob hides for 3 s (RTM custom; upstream 30 s)."
+    },
+    "src": "skill_db.yml TF_HIDING Duration1; skill.cpp:8420"
+   }
+  }
+ },
+ "WL_CHAINLIGHTNING": {
+  "name": "Chain Lightning",
+  "levels": {
+   "1": {
+    "kind": "magic",
+    "element": "Wind",
+    "ratio": {
+     "base": 1,
+     "str": 0,
+     "agi": 0,
+     "vit": 0,
+     "int": 1,
+     "dex": 0,
+     "luk": 0,
+     "lv": 0,
+     "baseLvScale": false
+    },
+    "hits": 1,
+    "ticks": 4,
+    "tickMs": 950,
+    "area": "single",
+    "range": 11,
+    "hideBlocks": false,
+    "note": "Damage comes from WL_CHAINLIGHTNING_ATK: -100+lv+INT = 1 + INT per hit (RTM custom). On a lone target the chain bounces back onto the same target: 4 hits, 950 ms apart. With other enemies nearby, up to 5 hits spread across targets.",
+    "src": "battle.cpp:6954-6955; skill.cpp:10843-10844, 4733-4749"
+   },
+   "5": {
+    "kind": "magic",
+    "element": "Wind",
+    "ratio": {
+     "base": 5,
+     "str": 0,
+     "agi": 0,
+     "vit": 0,
+     "int": 1,
+     "dex": 0,
+     "luk": 0,
+     "lv": 0,
+     "baseLvScale": false
+    },
+    "hits": 1,
+    "ticks": 4,
+    "tickMs": 950,
+    "area": "single",
+    "range": 11,
+    "hideBlocks": false,
+    "note": "Damage comes from WL_CHAINLIGHTNING_ATK: -100+lv+INT = 5 + INT per hit (RTM custom). On a lone target the chain bounces back onto the same target: 4 hits, 950 ms apart. With other enemies nearby, up to 9 hits spread across targets.",
+    "src": "battle.cpp:6954-6955; skill.cpp:10843-10844, 4733-4749"
+   }
+  }
+ },
+ "WL_COMET": {
+  "name": "Comet",
+  "levels": {
+   "1": {
+    "kind": "magic",
+    "element": "Neutral",
+    "ratio": {
+     "base": 50,
+     "str": 0,
+     "agi": 0,
+     "vit": 0,
+     "int": 6,
+     "dex": 0,
+     "luk": 0,
+     "lv": 0,
+     "baseLvScale": false
+    },
+    "hits": 1,
+    "area": "ground",
+    "radius": 9,
+    "range": 11,
+    "knockback": 1,
+    "hideBlocks": false,
+    "status": [
+     {
+      "sc": "magicpoison",
+      "chance": 1,
+      "durationMs": 20000,
+      "resist": "none",
+      "value": 20,
+      "note": "SC_MAGIC_POISON 100%, fixed 20 s, not resistible: +20 to the elemental-table % of every elemental hit taken."
+     }
+    ],
+    "note": "Ratio -100+50*lv+6*INT = 50 + 6*INT (RTM custom). HitCount -10 is display-only. 19x19 unit at the target, Duration1 100 ms -> 1 hit. Element Weapon -> Neutral. Not on Land Protector cells.",
+    "src": "battle.cpp:6951-6952, 614-616; skill.cpp:1829-1830, 13183, 15121-15124"
+   },
+   "5": {
+    "kind": "magic",
+    "element": "Neutral",
+    "ratio": {
+     "base": 250,
+     "str": 0,
+     "agi": 0,
+     "vit": 0,
+     "int": 6,
+     "dex": 0,
+     "luk": 0,
+     "lv": 0,
+     "baseLvScale": false
+    },
+    "hits": 1,
+    "area": "ground",
+    "radius": 9,
+    "range": 11,
+    "knockback": 1,
+    "hideBlocks": false,
+    "status": [
+     {
+      "sc": "magicpoison",
+      "chance": 1,
+      "durationMs": 20000,
+      "resist": "none",
+      "value": 20,
+      "note": "SC_MAGIC_POISON 100%, fixed 20 s, not resistible: +20 to the elemental-table % of every elemental hit taken."
+     }
+    ],
+    "note": "Ratio -100+50*lv+6*INT = 250 + 6*INT (RTM custom). HitCount -10 is display-only. 19x19 unit at the target, Duration1 100 ms -> 1 hit. Element Weapon -> Neutral. Not on Land Protector cells.",
+    "src": "battle.cpp:6951-6952, 614-616; skill.cpp:1829-1830, 13183, 15121-15124"
+   }
+  }
+ },
+ "WL_EARTHSTRAIN": {
+  "name": "Earth Strain",
+  "levels": {
+   "1": {
+    "kind": "physical",
+    "element": "Earth",
+    "ratio": {
+     "base": 250,
+     "str": 3,
+     "agi": 0,
+     "vit": 0,
+     "int": 0,
+     "dex": 0,
+     "luk": 0,
+     "lv": 0,
+     "baseLvScale": false
+    },
+    "hits": 1,
+    "ticks": 2,
+    "tickMs": 500,
+    "area": "ground",
+    "radius": 2,
+    "range": 6,
+    "hideBlocks": false,
+    "note": "Weapon path (RTM sdb Type Weapon). Ratio 100+100+50*lv+3*STR = 250 + 3*STR. 5 waves (lv+4), 140 ms apart, walking away from the mob; each wave is a 15-cell line with unit range 2 that lives 200 ms. The unit has NoOverlap, so all waves share one tickset per target with a 500 ms interval: a target is hit at most 2 times per cast (1 near the ends of the path). HitCount is display-only. Can miss; DEF applies. TargetHidden: hits hidden players.",
+    "src": "battle.cpp:4559-4563; skill.cpp:13569-13583, 15071-15081, 19955-19975; skill_db.yml WL_EARTHSTRAIN"
+   },
+   "3": {
+    "kind": "physical",
+    "element": "Earth",
+    "ratio": {
+     "base": 350,
+     "str": 3,
+     "agi": 0,
+     "vit": 0,
+     "int": 0,
+     "dex": 0,
+     "luk": 0,
+     "lv": 0,
+     "baseLvScale": false
+    },
+    "hits": 1,
+    "ticks": 2,
+    "tickMs": 500,
+    "area": "ground",
+    "radius": 2,
+    "range": 6,
+    "hideBlocks": false,
+    "note": "Weapon path (RTM sdb Type Weapon). Ratio 100+100+50*lv+3*STR = 350 + 3*STR. 7 waves (lv+4), 140 ms apart, walking away from the mob; each wave is a 15-cell line with unit range 2 that lives 200 ms. The unit has NoOverlap, so all waves share one tickset per target with a 500 ms interval: a target is hit at most 2 times per cast (1 near the ends of the path). HitCount is display-only. Can miss; DEF applies. TargetHidden: hits hidden players.",
+    "src": "battle.cpp:4559-4563; skill.cpp:13569-13583, 15071-15081, 19955-19975; skill_db.yml WL_EARTHSTRAIN"
+   }
+  }
+ },
+ "WM_DEADHILLHERE": {
+  "name": "Dead Hill Here",
+  "levels": {
+   "1": {
+    "kind": "none",
+    "range": 7,
+    "note": "Does nothing to a living player. On a dead player it revives them with HP = their SP and halves SP.",
+    "src": "skill.cpp:11388-11400"
+   }
+  }
+ },
+ "WZ_ICEWALL": {
+  "name": "Ice Wall",
+  "levels": {
+   "10": {
+    "kind": "none",
+    "range": 9,
+    "note": "Blocker only: 5-cell off-icewall layout (lv>=5), each cell 200+200*lv = 2200 HP, losing 50 HP/s (~44 s). Blocks movement.",
+    "src": "skill.cpp:1133-1139, 14537-14538, 20046-20055"
+   },
+   "11": {
+    "kind": "none",
+    "range": 9,
+    "note": "Blocker only: lv>=11 uses the 15-cell earthstrain line layout (dangling-if), each cell 2400 HP, -50 HP/s (~48 s). Blocks movement.",
+    "src": "skill.cpp:1126-1136, 14537-14538, 22260-22265"
+   }
+  }
+ },
+ "WZ_JUPITEL": {
+  "name": "Jupitel Thunder",
+  "levels": {
+   "11": {
+    "kind": "magic",
+    "element": "Wind",
+    "ratio": 100,
+    "hits": 13,
+    "area": "single",
+    "range": 9,
+    "knockback": 7,
+    "hideBlocks": false,
+    "note": "100% per hit (no ratio case) x13 hits (lv11 extrapolated) = 1300%. Delayed 150 ms; needs line of sight.",
+    "src": "skill.cpp:6009-6011, 4701-4707; skill_db.yml WZ_JUPITEL HitCount"
+   }
+  }
+ },
+ "WZ_METEOR": {
+  "name": "Meteor Storm",
+  "levels": {
+   "2": {
+    "kind": "magic",
+    "element": "Fire",
+    "ratio": 125,
+    "hits": 3,
+    "ticks": 3,
+    "tickMs": 1000,
+    "area": "ground",
+    "radius": 3,
+    "range": 9,
+    "hideBlocks": false,
+    "status": [
+     {
+      "sc": "stun",
+      "chance": 0.06,
+      "durationMs": 5000,
+      "resist": "stun",
+      "perHit": true,
+      "note": "3*lv = 6% base per meteor hit, Duration2 5 s."
+     }
+    ],
+    "note": "3 meteors (Duration1/Interval = 3000/1000), 1 s apart; each lands on a random cell within 7x7 of the target point and hits a 7x7 area once, with HitCount 3 x 125%. A player standing on the target point is inside every meteor's area. With msdb target self it is centred on the mob.",
+    "src": "battle.cpp:6862-6863; skill.cpp:1512-1513, 13297-13306, 20191-20194, 20247-20258; skill_db.yml WZ_METEOR"
+   },
+   "4": {
+    "kind": "magic",
+    "element": "Fire",
+    "ratio": 125,
+    "hits": 4,
+    "ticks": 4,
+    "tickMs": 1000,
+    "area": "ground",
+    "radius": 3,
+    "range": 9,
+    "hideBlocks": false,
+    "status": [
+     {
+      "sc": "stun",
+      "chance": 0.12,
+      "durationMs": 5000,
+      "resist": "stun",
+      "perHit": true,
+      "note": "3*lv = 12% base per meteor hit, Duration2 5 s."
+     }
+    ],
+    "note": "4 meteors (Duration1/Interval = 4000/1000), 1 s apart; each lands on a random cell within 7x7 of the target point and hits a 7x7 area once, with HitCount 4 x 125%. A player standing on the target point is inside every meteor's area. With msdb target self it is centred on the mob.",
+    "src": "battle.cpp:6862-6863; skill.cpp:1512-1513, 13297-13306, 20191-20194, 20247-20258; skill_db.yml WZ_METEOR"
+   },
+   "10": {
+    "kind": "magic",
+    "element": "Fire",
+    "ratio": 125,
+    "hits": 7,
+    "ticks": 7,
+    "tickMs": 1000,
+    "area": "ground",
+    "radius": 3,
+    "range": 9,
+    "hideBlocks": false,
+    "status": [
+     {
+      "sc": "stun",
+      "chance": 0.3,
+      "durationMs": 5000,
+      "resist": "stun",
+      "perHit": true,
+      "note": "3*lv = 30% base per meteor hit, Duration2 5 s."
+     }
+    ],
+    "note": "7 meteors (Duration1/Interval = 7000/1000), 1 s apart; each lands on a random cell within 7x7 of the target point and hits a 7x7 area once, with HitCount 7 x 125%. A player standing on the target point is inside every meteor's area. With msdb target self it is centred on the mob.",
+    "src": "battle.cpp:6862-6863; skill.cpp:1512-1513, 13297-13306, 20191-20194, 20247-20258; skill_db.yml WZ_METEOR"
+   }
+  }
+ },
+ "WZ_STORMGUST": {
+  "name": "Storm Gust",
+  "levels": {
+   "2": {
+    "kind": "magic",
+    "element": "Water",
+    "ratio": 170,
+    "hits": 1,
+    "ticks": 10,
+    "tickMs": 450,
+    "area": "ground",
+    "radius": 4,
+    "range": 9,
+    "knockback": 2,
+    "hideBlocks": false,
+    "status": [
+     {
+      "sc": "freeze",
+      "chance": 0.55,
+      "durationMs": 30000,
+      "resist": "freeze",
+      "perHit": true,
+      "note": "65-5*lv = 55% base per tick, Duration2 30 s; duration lengthened by caster LUK*10 ms. Frozen targets cannot be hit by Storm Gust."
+     }
+    ],
+    "note": "Ratio 100-30+50*lv = 170%. 9x9 at the target, 450 ms, 4.5 s -> up to 10 ticks. Knockback 2 in a random direction.",
+    "src": "battle.cpp:6708-6711; skill.cpp:1488-1491, 3557-3559; status.cpp:2906-2908"
+   },
+   "5": {
+    "kind": "magic",
+    "element": "Water",
+    "ratio": 320,
+    "hits": 1,
+    "ticks": 10,
+    "tickMs": 450,
+    "area": "ground",
+    "radius": 4,
+    "range": 9,
+    "knockback": 2,
+    "hideBlocks": false,
+    "status": [
+     {
+      "sc": "freeze",
+      "chance": 0.4,
+      "durationMs": 30000,
+      "resist": "freeze",
+      "perHit": true,
+      "note": "65-5*lv = 40% base per tick, Duration2 30 s; duration lengthened by caster LUK*10 ms. Frozen targets cannot be hit by Storm Gust."
+     }
+    ],
+    "note": "Ratio 100-30+50*lv = 320%. 9x9 at the target, 450 ms, 4.5 s -> up to 10 ticks. Knockback 2 in a random direction.",
+    "src": "battle.cpp:6708-6711; skill.cpp:1488-1491, 3557-3559; status.cpp:2906-2908"
+   }
+  }
+ },
+ "AB_HIGHNESSHEAL": {
+  "name": "Highness Heal",
+  "levels": {
+   "1": {
+    "kind": "none",
+    "range": 11,
+    "area": "single",
+    "note": "Heal = floor((INT+BaseLv)/4)*60 + MATK part, then x(2 + 0.3*(lv-1)) (RTM custom base; upstream floor((INT+Lv)/5)*30). Mob MATK part = [INT+Lv+Attack2*0.7 .. INT+Lv+Attack2*1.3) + Attack2 (rhw.matk; wlv 0 so no extra variance) (skill.cpp:686-712; status.cpp:3232-3258). A monster's Highness Heal is NEVER offensive: the undead-damage branch needs a player caster (skill.cpp:7054-7064). Empathy (2641) casts lv1 with msdb target 'target' = the PLAYER. Support skills get no enemy check (skill.cpp:12484-12491), so this HEALS THE PLAYER: Empathy (INT 90, Lv 146, Attack2 1670) at lv1 (x2.0) = 13,230-15,232, avg ~14,231 HP (plus the player's own heal-received bonuses, e.g. Assumptio +val1*10 %). A player under Kaite bounces the heal to the mob instead. No damage even to Undead-element players.",
+    "src": "returntomorroc/src/map/skill.cpp:7054-7064, 7100-7136, 12484-12491, 543-553, 723-724; mob.cpp:3855-3857"
+   },
+   "5": {
+    "kind": "heal",
+    "range": 11,
+    "area": "single",
+    "heal": {
+     "flat": 26451
+    },
+    "note": "Heal = floor((INT+BaseLv)/4)*60 + MATK part, then x(2 + 0.3*(lv-1)) (RTM custom base; upstream floor((INT+Lv)/5)*30). Mob MATK part = [INT+Lv+Attack2*0.7 .. INT+Lv+Attack2*1.3) + Attack2 (rhw.matk; wlv 0 so no extra variance) (skill.cpp:686-712; status.cpp:3232-3258). A monster's Highness Heal is NEVER offensive: the undead-damage branch needs a player caster (skill.cpp:7054-7064). Guild Support (2785: INT 160, Lv 146, Attack2 1700) at lv5 (x3.2): 24,819-28,080, avg ~26,451. Its row targets 'friend' (friendhpltmaxrate 40): it heals the hurt friendly monster (or itself). Heal is voided on a target under Berserk/Saturday Night Fever/Nen and bounced by Kaite.",
+    "src": "returntomorroc/src/map/skill.cpp:543-553, 686-712, 723-724, 7100-7136; status.cpp:3232-3258; db/re/skill_db.yml:20971-21002"
+   }
+  }
+ },
+ "AC_CHARGEARROW": {
+  "name": "Charge Arrow",
+  "levels": {
+   "1": {
+    "kind": "physical",
+    "element": "Neutral",
+    "ratio": 150,
+    "hits": 1,
+    "area": "single",
+    "range": 15,
+    "knockback": 6,
+    "note": "Same ratio as upstream. Range 9 + monster_eye_range_bonus 6 (AlterRangeVulture; conf/battle/monster.conf:94) = 15. Can miss (no IgnoreFlee), DEF applies, no crit. Bow/arrow requirements are player-only.",
+    "src": "returntomorroc/src/map/battle.cpp:3967-3970; skill.cpp:5171-5272, 380-388; db/re/skill_db.yml:5083-5106"
+   }
+  }
+ },
+ "AL_RUWACH": {
+  "name": "Ruwach",
+  "levels": {
+   "1": {
+    "kind": "status",
+    "area": "single",
+    "range": 9,
+    "status": [
+     {
+      "sc": "reveal",
+      "chance": 1,
+      "durationMs": 10000,
+      "resist": "none",
+      "note": "reveals hiding: SC_RUWACH ends Hiding/Cloaking/Camouflage/Cloaking Exceed/New Moon on every character within 2 cells of the SC holder, every 20 ms for 10 s"
+     }
+    ],
+    "note": "Self skill, but both msdb rows (Detector 2791, Aunoe 1796) use target 'target', and non-player casters get range 9 for self skills (skill.cpp:401-402), so SC_RUWACH is put ON THE PLAYER (skill.cpp:7760-7766, sc_start2 on bl). Effect: the player cannot stay hidden/cloaked for 10 s (their own hide is stripped every 20 ms). It deals NO damage to that player: the Ruwach hit (145 % MATK Holy, battle.cpp:6691-6692) only fires against enemies of the SC holder (status.cpp:15360-15361). Not rate-resistible. Fails if the Holy attribute vs the player's armour element is <= 0 % (skill.cpp:7089-7093). Aunoe is not Boss/Detector, so it can only target a visible player; Detector (Boss+Detector) can also target a hidden one.",
+    "src": "returntomorroc/src/map/skill.cpp:7760-7766, 360-403, 7089-7093; status.cpp:11160-11166, 14400-14418, 15352-15369; battle.cpp:6691-6692"
+   }
+  }
+ },
+ "AS_SPLASHER": {
+  "name": "Venom Splasher",
+  "levels": {
+   "2": {
+    "kind": "physical",
+    "ratio": {
+     "base": 230,
+     "vit": 1
+    },
+    "hits": 1,
+    "area": "splash",
+    "radius": 4,
+    "range": 3,
+    "ignoreFlee": true,
+    "status": [
+     {
+      "sc": "poison",
+      "chance": 0.28,
+      "durationMs": 20000,
+      "resist": "poison",
+      "perHit": false,
+      "note": "9*lv+10 % (skill.cpp:1460). RTM resist quirk: SC_POISON falls through to SC_DPOISON, so sc_def = VIT/10 (in 1/100 %), i.e. almost unresisted; no sc_def2; duration barely reduced (status.cpp:9138-9141). RTM poison deals 0 HP damage (status.cpp:14448-14454)."
+     }
+    ],
+    "note": "Delayed explosion: the cast puts SC_SPLASHER on the player (100 %, unresisted; skill.cpp:9759-9762). It counts down in 500 ms steps from val4 = Duration1 (5000 at lv2) after a first 1000 ms tick, so it explodes ~5,500 ms after landing (status.cpp:14690-14701), then hits every enemy within 4 cells of the marked player (9x9, follows the player) (status.cpp:13746-13751; skill.cpp:5570, 5735-5746). Ratio 100 + 100 + 15*lv + VIT (+3*Research New Poison, players only) (RTM custom; upstream 400+100*lv). Dominated Follower (3622, VIT 44): 274 %. Element: IgnoreElement, so no elemental table is applied at all (sdb Element Poison is ignored) - no attr fix. IgnoreFlee, DEF applies, no crit. Removing SC_SPLASHER (Dispel etc.) cancels it.",
+    "src": "returntomorroc/src/map/battle.cpp:4320-4328; skill.cpp:9759-9762, 5570-5746, 1457-1460; status.cpp:13746-13751, 14690-14701, 9138-9141; db/re/skill_db.yml:4928-4970"
+   }
+  }
+ },
+ "BS_HAMMERFALL": {
+  "name": "Hammer Fall",
+  "levels": {
+   "5": {
+    "kind": "status",
+    "area": "splash",
+    "radius": 2,
+    "range": 1,
+    "status": [
+     {
+      "sc": "stun",
+      "chance": 0.7,
+      "durationMs": 5000,
+      "resist": "stun",
+      "note": "rate min(20+10*lv, 50+5*lv) = 70 % at lv5; applied 1,000 ms after the cast to every enemy that was in the 5x5 at cast time (timerskill), wherever they are by then"
+     }
+    ],
+    "note": "Ground skill cast at the player's cell (row target 'target'); Range 1, so the mob must be adjacent. SplashArea 2 (5x5). No damage. NoDamage area skill via skill_area_sub -> battle_check_target only, so no hide check.",
+    "src": "returntomorroc/src/map/skill.cpp:13053-13058, 8095-8096, 4682-4686; db/re/skill_db.yml:3883-3912"
+   }
+  }
+ },
+ "CG_ARROWVULCAN": {
+  "name": "Arrow Vulcan",
+  "levels": {
+   "2": {
+    "kind": "physical",
+    "element": "Neutral",
+    "ratio": {
+     "base": 270,
+     "str": 1,
+     "dex": 1
+    },
+    "hits": 1,
+    "area": "single",
+    "range": 11,
+    "note": "RTM custom ratio 100 + 150 + 10*lv + DEX + STR (upstream (500+100*lv)*BaseLv/100); then +50 % of the ratio (x1.5) when the TARGET's HP < 50 % (battle.cpp:4314-4315). Anger of Thanatos (2645: STR 25, DEX 290): 585 %, 877 % vs a player below half HP. HitCount -9 is display only. Range 5 + monster_eye_range_bonus 6 = 11. Can miss, DEF applies, no crit.",
+    "src": "returntomorroc/src/map/battle.cpp:4309-4319; skill.cpp:5215, 3947-3948; db/re/skill_db.yml:10827-10842"
+   }
+  }
+ },
+ "CH_CHAINCRUSH": {
+  "name": "Chain Crush Combo",
+  "levels": {
+   "1": {
+    "kind": "physical",
+    "element": "Neutral",
+    "ratio": {
+     "base": 165,
+     "agi": 1
+    },
+    "hits": 2,
+    "area": "single",
+    "range": 5,
+    "note": "RTM custom ratio 100 + 60 + 5*lv + AGI (upstream -100+200*lv, x BaseLv/100); x2 hits (HitCount 2). Guild Chamberlain (2788, AGI 60): 225 % x 2. Only becomes a splash (2 cells) if the target has SC_C_MARKER (skill.cpp:5322-5328), which never happens here. No combo/sphere/revolver requirement for mobs. Can miss, DEF applies, no crit.",
+    "src": "returntomorroc/src/map/battle.cpp:4242-4254; skill.cpp:5321-5331; db/re/skill_db.yml:10146-10161"
+   }
+  }
+ },
+ "CR_AUTOGUARD": {
+  "name": "Auto Guard",
+  "levels": {
+   "10": {
+    "kind": "none",
+    "range": 9,
+    "note": "CAVEAT (deliberately NOT kind 'self'): the only row (Guild Master 2789) uses msdb target 'target'. Self skills cast by non-players get range 9 (skill.cpp:401-402) and nothing redirects them to the caster (the redirect at unit.cpp:1654-1655 is combo-only), so SC_AUTOGUARD is started ON THE PLAYER (skill.cpp:8325, 8340-8345). Casting it again while the player has it REMOVES it (toggle). The buff itself: block chance val2 = 4*lv = 40 % at lv10 (RTM custom; upstream 30 %) vs any BF_WEAPON hit, including this mob's normal attacks and weapon skills (not magic), 300 s (Duration1). If a sim wants it on the mob instead (msdb target 'self'): self {sc: autoguard, value 40, durationMs 300000}.",
+    "src": "returntomorroc/src/map/skill.cpp:8325-8345, 360-403, 12484-12491; unit.cpp:1643-1661; status.cpp:11168-11175; battle.cpp:1243-1254; mob.cpp:3855-3857; db/re/skill_db.yml:6833-6843"
+   }
+  }
+ },
+ "CR_DEFENDER": {
+  "name": "Defending Aura",
+  "levels": {
+   "7": {
+    "kind": "none",
+    "range": 9,
+    "note": "CAVEAT (deliberately NOT kind 'self'): both rows (Guild Master 2789, cond longrangeattacked) use msdb target 'target', so SC_DEFENDER is started ON THE PLAYER (same mechanism as CR_AUTOGUARD; toggles off if re-cast while active). The buff: ranged weapon damage cut val2 = 2*lv = 14 % at lv7 (RTM custom; upstream 5+15*lv) vs BF_LONG|BF_WEAPON hits only; ASPD-rate term val4 = 250-50*lv = -100 (status.cpp:8245-8246); 180 s. Level 7 is above MaxLevel 5; the formulas just use lv. If it were on the mob: self {sc: defender, value 14, durationMs 180000}.",
+    "src": "returntomorroc/src/map/skill.cpp:8323-8345, 360-403; status.cpp:11190-11194, 8245-8246; battle.cpp:1524-1531; db/re/skill_db.yml:7134-7148"
+   }
+  }
+ },
+ "DC_THROWARROW": {
+  "name": "Throw Arrow",
+  "levels": {
+   "3": {
+    "kind": "physical",
+    "element": "Neutral",
+    "ratio": 133,
+    "hits": 3,
+    "area": "single",
+    "range": 2,
+    "note": "RTM custom ratio 100 + 30 + 1*lv = 133 % per hit (upstream 10+40*lv), HitCount 3 (upstream 2) -> 399 % total. Range 2 (upstream 9). Dagger requirement is player-only. Can miss, DEF applies.",
+    "src": "returntomorroc/src/map/battle.cpp:4221-4231; skill.cpp:5176-5272; db/re/skill_db.yml:8933-8942"
+   }
+  }
+ },
+ "GC_COUNTERSLASH": {
+  "name": "Counter Slash",
+  "levels": {
+   "5": {
+    "kind": "physical",
+    "element": "Neutral",
+    "ratio": {
+     "base": 250,
+     "agi": 1
+    },
+    "hits": 1,
+    "area": "splash",
+    "radius": 2,
+    "centeredOnSelf": true,
+    "note": "RTM custom ratio 100 + 100 + 10*lv + AGI (upstream (300+150*lv)*BaseLv/120 + flat 2*AGI+4*JobLv, and IgnoreDefense, which RTM removed). Guild Warrior (2784, AGI 60): 310 %. 5x5 around the mob. Can miss, DEF applies, no crit. Extra hits only with SC_ROLLINGCUTTER (never on a mob).",
+    "src": "returntomorroc/src/map/battle.cpp:4564-4566, 3808-3811; skill.cpp:10488-10495, 5607; db/re/skill_db.yml:20145-20169"
+   }
+  }
+ },
+ "HAMI_CASTLE": {
+  "name": "Castling",
+  "levels": {
+   "5": {
+    "kind": "move",
+    "area": "single",
+    "note": "Swaps the caster's position with the friend target with 50+10*lv = 100 % at lv5 (RTM custom; upstream 20*lv), then every MONSTER that was targeting that friend switches to the caster (unit_changetarget, BL_MOB only). Players' targets are not changed. Rows use target 'friend'; if no friend qualifies the target falls back to the caster itself and nothing happens (src == bl). No effect on a lone player beyond repositioning.",
+    "src": "returntomorroc/src/map/skill.cpp:10214-10231; mob.cpp:3864-3874"
+   }
+  }
+ },
+ "HP_ASSUMPTIO": {
+  "name": "Assumptio",
+  "levels": {
+   "5": {
+    "kind": "self",
+    "self": {
+     "sc": "assumptio",
+     "durationMs": 70000,
+     "value": 50,
+     "note": "value = +hard DEF. Renewal Assumptio is NOT a damage cut: it adds val1*10 = +50 hard DEF (status.cpp:7524-7526) and +50 % heal received (skill.cpp:668-669). The 50 %/75 % damage cut is pre-renewal only (battle.cpp:1515-1522 #ifndef RENEWAL)."
+    },
+    "note": "Rows (Ritual Priest 3624) use target 'self'. Removes/is removed by Kaite.",
+    "src": "returntomorroc/src/map/skill.cpp:7751-7756, 668-669; status.cpp:7524-7526, 10339-10346; battle.cpp:1515-1522; db/re/skill_db.yml:9751-9796"
+   }
+  }
+ },
+ "HW_GANBANTEIN": {
+  "name": "Ganbantein",
+  "levels": {
+   "5": {
+    "kind": "none",
+    "area": "splash",
+    "radius": 5,
+    "range": 14,
+    "note": "Removes ground units: 80 % success, then deletes every skill unit (anyone's: Safety Wall, Pneuma, Land Protector, traps, Warp Portal; songs/dances as whole groups, etc.) in an 11x11 area (SplashArea lv5 = 5) centred on the player's cell (row target 'target'). No damage. Range 18 capped to 14 server-side.",
+    "src": "returntomorroc/src/map/skill.cpp:13418-13429, 19067-19076, 374-376; db/re/skill_db.yml:13237-13257"
+   }
+  }
+ },
+ "KN_BOWLINGBASH": {
+  "name": "Bowling Bash",
+  "levels": {
+   "9": {
+    "kind": "physical",
+    "element": "Neutral",
+    "ratio": {
+     "base": 250,
+     "str": 2
+    },
+    "hits": 1,
+    "area": "splash",
+    "radius": 2,
+    "range": 2,
+    "ignoreFlee": true,
+    "knockback": 5,
+    "note": "RTM custom ratio 100 + 60 + 10*lv + 2*STR (upstream 100+40*lv); IgnoreFlee added in RTM. Doomed Follower (3623, STR 180): 610 %. HitCount -4 is display only (the 3/4-hit split is 2H-sword players only). Every enemy in 5x5 around the target is hit once. Knockback 5 cells at lv9 (skill_db table) applied by skill_attack and again by skill_blown (skill.cpp:5785), so up to 10 cells. DEF applies, no crit.",
+    "src": "returntomorroc/src/map/battle.cpp:4024-4027, 6057-6066; skill.cpp:5781-5791; db/re/skill_db.yml:2222-2257"
+   }
+  }
+ },
+ "KN_SPEARSTAB": {
+  "name": "Spear Stab",
+  "levels": {
+   "3": {
+    "kind": "physical",
+    "element": "Neutral",
+    "ratio": {
+     "base": 165,
+     "str": 1
+    },
+    "hits": 1,
+    "ticks": 2,
+    "tickMs": 300,
+    "area": "single",
+    "range": 4,
+    "knockback": 7,
+    "note": "RTM custom. Ratio 100 + 50 + 5*lv + STR (+25 per spirit sphere, players only) (upstream 100+20*lv). PLUS a flat bonus of the CASTER'S CURRENT HP / 5 added to each hit after the ratio and before DEF/element (battle.cpp:5281-5283, 6217-6219). Guild Warrior (2784: STR 112, HP 98,000): 277 % of ATK + 19,600 per hit at full HP. Two hits: the immediate one and a timerskill repeat 300 ms later (skill.cpp:5881, 4826-4830); if the knockback fails (knockback-immune player, wall, GvG) the target is still on its cell and gets a THIRD hit (the in-line recursion re-queues a timerskill for it). Each hit rolls hit/flee separately; DEF applies; no crit. The mob first dashes next to the target (skill.cpp:5879-5880). Enemies on the line between mob and target are also hit.",
+    "src": "returntomorroc/src/map/battle.cpp:3986-3990, 5281-5283, 6217-6219, 6048-6055; skill.cpp:5874-5902, 4826-4830; db/re/skill_db.yml:2080-2106",
+    "flatCasterHpDiv": 5
+   }
+  }
+ },
+ "KO_GENWAKU": {
+  "name": "Genwaku",
+  "levels": {
+   "5": {
+    "kind": "status",
+    "area": "single",
+    "range": 9,
+    "status": [
+     {
+      "sc": "confusion",
+      "chance": 0.75,
+      "durationMs": 5000,
+      "resist": "none",
+      "note": "rate 7500 with SCSTART_NORATEDEF: the chance is NOT reduced by stats or item resists (status.cpp:9384), but the duration IS reduced by the confusion rule: tick_def (STR+INT)*50 and LUK*20 ms (x0.95 for players). Duration1 5000 (RTM; upstream 30000)."
+     }
+    ],
+    "note": "Also swaps positions with the player (mob moves onto the player's cell, the player onto the mob's) unless the player is knockback-immune (skill.cpp:11943-11952). For monsters there is no success roll (player-only, skill.cpp:11931). The caster also gives itself 25 % confusion (Desperate Njord 2659 is StatusImmune).",
+    "src": "returntomorroc/src/map/skill.cpp:11927-11954; status.cpp:9228-9232, 9384-9417; db/re/skill_db.yml:32203-32235"
+   }
+  }
+ },
+ "LG_CANNONSPEAR": {
+  "name": "Cannon Spear",
+  "levels": {
+   "10": {
+    "kind": "physical",
+    "element": "Neutral",
+    "ratio": {
+     "base": 520,
+     "agi": 3
+    },
+    "hits": 1,
+    "area": "splash",
+    "radius": 2,
+    "range": 7,
+    "canCrit": true,
+    "note": "RTM custom ratio 100 + 120 + 30*lv + 3*AGI (upstream lv*(50+STR)*BaseLv/100). King Schmidt (2802, AGI 100): 820 %. Splash 2 (5x5) around the target (lv10 repeats the flat lv1-5 table). HitCount -3 display only. Critical flag, but the crit chance is halved for this skill (battle.cpp:2819-2821); a crit is x1.2 and still takes DEF. Can miss if it does not crit. Lv10 != 5, so no self SPL_ATK buff.",
+    "src": "returntomorroc/src/map/battle.cpp:4707-4709, 2819-2821; skill.cpp:5608, 5648-5747, 1372-1376; db/re/skill_db.yml:23917-23943"
+   }
+  }
+ },
+ "LG_OVERBRAND": {
+  "name": "Overbrand",
+  "levels": {
+   "1": {
+    "kind": "physical",
+    "element": "Neutral",
+    "ratio": {
+     "base": 152,
+     "luk": 1
+    },
+    "hits": 1,
+    "area": "splash",
+    "radius": 3,
+    "centeredOnSelf": true,
+    "canCrit": true,
+    "note": "RTM custom ratio 100 + 50 + 2*lv + LUK (upstream 300*lv*BaseLv/100, 3 hits); RTM HitCount 1, self-centred 7x7 (SplashArea 3), Critical flag. Soul of Ymir (2792, LUK 310): 462 %; its LUK 310 gives a high crit rate. Can miss if not a crit; DEF applies. Mace requirement is player-only.",
+    "src": "returntomorroc/src/map/battle.cpp:4743-4749, 3798-3801; skill.cpp:8119, 8155-8158, 5609; db/re/skill_db.yml:24194-24210"
+   }
+  }
+ },
+ "MG_SIGHT": {
+  "name": "Sight",
+  "levels": {
+   "1": {
+    "kind": "status",
+    "area": "self",
+    "radius": 3,
+    "centeredOnSelf": true,
+    "status": [
+     {
+      "sc": "reveal",
+      "chance": 1,
+      "durationMs": 10000,
+      "resist": "none",
+      "note": "reveals hiding: SC_SIGHT on the mob ends Hiding, Cloaking, Cloaking Exceed, Camouflage and New Moon on every character within 3 cells (7x7) of the mob, every 20 ms for 10 s; Shadow Form has a 100-10*lv % removal roll every 2 s"
+     }
+    ],
+    "note": "Rows (Guild Support 2785, Guild Magician 2787) use target 'self'. No damage.",
+    "src": "returntomorroc/src/map/skill.cpp:7758-7766; status.cpp:11160-11166, 14400-14418, 15342-15351; db/re/skill_db.yml:318-335"
+   }
+  }
+ },
+ "MG_SOULSTRIKE": {
+  "name": "Soul Strike",
+  "levels": {
+   "10": {
+    "kind": "magic",
+    "element": "Neutral",
+    "ratio": {
+     "base": 30,
+     "int": 1
+    },
+    "hits": 5,
+    "area": "single",
+    "range": 9,
+    "note": "RTM custom ratio 100 - 100 + 3*lv + INT per hit (+5*lv if the target has SC_FREEZING) (upstream 100 %, +5*lv vs undead). Element Weapon (RTM; upstream Ghost) -> Neutral for a mob. Vision of Surt (3096, INT 150): 180 % x 5 = 900 %. Magic: no flee, MDEF applies.",
+    "src": "returntomorroc/src/map/battle.cpp:6857-6861, 6494-6495; skill.cpp:5956-5982; db/re/skill_db.yml:436-467"
+   }
+  }
+ },
+ "MG_STONECURSE": {
+  "name": "Stone Curse",
+  "levels": {
+   "10": {
+    "kind": "status",
+    "area": "single",
+    "range": 2,
+    "status": [
+     {
+      "sc": "stone",
+      "chance": 0.6,
+      "durationMs": 30000,
+      "resist": "stone",
+      "note": "rate lv*4+20 = 60 %. 5 s incubation (stone-wait, Duration1) then 25 s petrified (Duration2 30000 in total; RTM; upstream 20000). Stone duration is not reduced (tick_def 0). While petrified: 1 % MaxHP lost per 5 s while HP > 25 %. Re-casting on an already-cursed target CURES it."
+     }
+    ],
+    "note": "Magic-type status skill (Earth): fails if Earth vs the player's armour element is <= 0 %, and Undead-element players are immune to stone. Red Gemstone cost is player-only.",
+    "src": "returntomorroc/src/map/skill.cpp:8569-8590, 7089-7093; status.cpp:9204-9208, 11052-11056, 14427-14445; db/re/skill_db.yml:663-678"
+   }
+  }
+ },
+ "MO_EXTREMITYFIST": {
+  "name": "Asura Strike",
+  "levels": {
+   "5": {
+    "kind": "physical",
+    "element": "Neutral",
+    "ratio": 4100,
+    "hits": 1,
+    "area": "single",
+    "range": 2,
+    "ignoreFlee": true,
+    "ignoreDef": true,
+    "note": "RTM custom ratio 100 + 2*current SP (upstream 100 + 100*(7 + SP/10)); the x2 for 5+ spheres is player-only. Then a flat +250+150*lv = +1,000 is added after the ratio (battle.cpp:5261-5262, 6217-6219). A monster needs no spheres or SP to cast it. Regret of Thanatos (2648, mob_db Sp 2000): FIRST cast 4,100 % of ATK + 1,000. After the hit the caster's SP is set to 0 (skill.cpp:5477) and monsters have no SP regeneration (status_get_regen_data returns NULL for mobs, status.cpp:8569-8580), so every later cast in that mob's life is only 100 % + 1,000. IgnoreFlee + IgnoreDefense: cannot miss, no DEF. No crit. The mob then slides 3 cells in the direction of the target. Randomtarget within range 2.",
+    "src": "returntomorroc/src/map/battle.cpp:4179-4186, 5261-5262, 6211-6219; skill.cpp:5465-5510; status.cpp:8569-8580; db/re/skill_db.yml:7521-7535",
+    "flat": 1000,
+    "ratioAfterFirst": 100
+   }
+  }
+ },
+ "NC_FLAMELAUNCHER": {
+  "name": "Flame Launcher",
+  "levels": {
+   "10": {
+    "kind": "magic",
+    "element": "Fire",
+    "ratio": {
+     "base": 250,
+     "int": 3
+    },
+    "hits": 1,
+    "area": "splash",
+    "radius": 1,
+    "range": 5,
+    "status": [
+     {
+      "sc": "burning",
+      "chance": 0.5,
+      "durationMs": 5500,
+      "resist": "none",
+      "note": "5*lv = 50 %, not rate-resisted; duration Duration1 5500 minus (75*LUK + 125*AGI) ms (x0.95), minimum 5000 ms; Burning = 200 + 1 % MaxHP every 3 s (status.cpp:14468-14474)"
+     }
+    ],
+    "note": "RTM custom: Type Magic (upstream Weapon) with ratio 100 - 100 + 25*lv + 3*INT (upstream (300+300*lv)*BaseLv/150). Magma Knight (2797, INT 100): 550 %. A line from the mob through the target, 3 cells wide (map_foreachinpath, splash 1). HitCount -3 display only. Magic: no flee, MDEF applies.",
+    "src": "returntomorroc/src/map/battle.cpp:6742-6744; skill.cpp:5363-5376, 1870-1871; status.cpp:9270-9271, 9429-9432; db/re/skill_db.yml:22040-22117"
+   }
+  }
+ },
+ "NJ_HYOUSYOURAKU": {
+  "name": "Ice Meteor",
+  "levels": {
+   "1": {
+    "kind": "magic",
+    "element": "Water",
+    "ratio": {
+     "base": 40,
+     "int": 3
+    },
+    "hits": 1,
+    "ticks": 1,
+    "area": "ground",
+    "radius": 3,
+    "range": 9,
+    "status": [
+     {
+      "sc": "freeze",
+      "chance": 0.2,
+      "durationMs": 1000,
+      "resist": "freeze",
+      "note": "10+10*lv = 20 %; Duration2 1000 ms at lv1; freeze duration is LENGTHENED by the caster's LUK*10 ms (x0.95 for players): Guild Magician LUK 125 -> about +1,190 ms"
+     }
+    ],
+    "note": "RTM custom: ground skill (upstream self-centred splash) placing a Dummyskill unit (Layout 3 = 7x7) on the player's cell; Duration1 100 ms with Interval 1000 -> one hit. Ratio 100 - 100 + 40*lv + 3*INT (upstream 100+50*lv). Guild Magician (2787, INT 120): 400 %. Magic: no flee, MDEF applies.",
+    "src": "returntomorroc/src/map/battle.cpp:6798-6806; skill.cpp:13169, 15084-15137, 1773-1774; status.cpp:9209-9213; db/re/skill_db.yml:15358-15426"
+   }
+  }
+ },
+ "NJ_KAENSIN": {
+  "name": "Crimson Fire Formation",
+  "levels": {
+   "2": {
+    "kind": "magic",
+    "element": "Fire",
+    "ratio": 50,
+    "hits": 1,
+    "ticks": 5,
+    "tickMs": 100,
+    "area": "ground",
+    "radius": 2,
+    "centeredOnSelf": true,
+    "note": "24-cell 5x5 ring of fire cells around the monster (centre cell empty), 20 s. Each cell holds 5 hits ((lv+1)/2+4) and one hit lands per 100 ms on a player standing on it, then that cell is used up; a player who moves onto fresh cells can take more. 50% MATK per hit (same as upstream). Recasting clears the previous Kaensin. No flinch. Blocked by Land Protector. Hidden players: normal ground-unit rules.",
+    "src": "battle.cpp:6769-6773 (ratio); skill.cpp:14326-14329, 14534-14536 (val2 hits per cell); skill.cpp:15142-15156 (UNT_KAEN tick loop); skill.cpp:22062-22068 (layout); skill_db.yml:15021-15086 (Fire, Duration1 20000, Interval 100)"
+   },
+   "5": {
+    "kind": "magic",
+    "element": "Fire",
+    "ratio": 50,
+    "hits": 1,
+    "ticks": 7,
+    "tickMs": 100,
+    "area": "ground",
+    "radius": 2,
+    "centeredOnSelf": true,
+    "note": "24-cell 5x5 ring of fire cells around the monster (centre cell empty), 20 s. Each cell holds 7 hits ((lv+1)/2+4) and one hit lands per 100 ms on a player standing on it, then that cell is used up; a player who moves onto fresh cells can take more. 50% MATK per hit (same as upstream). Recasting clears the previous Kaensin. No flinch. Blocked by Land Protector. Hidden players: normal ground-unit rules.",
+    "src": "battle.cpp:6769-6773 (ratio); skill.cpp:14326-14329, 14534-14536 (val2 hits per cell); skill.cpp:15142-15156 (UNT_KAEN tick loop); skill.cpp:22062-22068 (layout); skill_db.yml:15021-15086 (Fire, Duration1 20000, Interval 100)"
+   },
+   "9": {
+    "kind": "magic",
+    "element": "Fire",
+    "ratio": 50,
+    "hits": 1,
+    "ticks": 9,
+    "tickMs": 100,
+    "area": "ground",
+    "radius": 2,
+    "centeredOnSelf": true,
+    "note": "24-cell 5x5 ring of fire cells around the monster (centre cell empty), 20 s. Each cell holds 9 hits ((lv+1)/2+4) and one hit lands per 100 ms on a player standing on it, then that cell is used up; a player who moves onto fresh cells can take more. 50% MATK per hit (same as upstream). Recasting clears the previous Kaensin. No flinch. Blocked by Land Protector. Hidden players: normal ground-unit rules.",
+    "src": "battle.cpp:6769-6773 (ratio); skill.cpp:14326-14329, 14534-14536 (val2 hits per cell); skill.cpp:15142-15156 (UNT_KAEN tick loop); skill.cpp:22062-22068 (layout); skill_db.yml:15021-15086 (Fire, Duration1 20000, Interval 100)"
+   },
+   "10": {
+    "kind": "magic",
+    "element": "Fire",
+    "ratio": 50,
+    "hits": 1,
+    "ticks": 9,
+    "tickMs": 100,
+    "area": "ground",
+    "radius": 2,
+    "centeredOnSelf": true,
+    "note": "24-cell 5x5 ring of fire cells around the monster (centre cell empty), 20 s. Each cell holds 9 hits ((lv+1)/2+4) and one hit lands per 100 ms on a player standing on it, then that cell is used up; a player who moves onto fresh cells can take more. 50% MATK per hit (same as upstream). Recasting clears the previous Kaensin. No flinch. Blocked by Land Protector. Hidden players: normal ground-unit rules.",
+    "src": "battle.cpp:6769-6773 (ratio); skill.cpp:14326-14329, 14534-14536 (val2 hits per cell); skill.cpp:15142-15156 (UNT_KAEN tick loop); skill.cpp:22062-22068 (layout); skill_db.yml:15021-15086 (Fire, Duration1 20000, Interval 100)"
+   }
+  }
+ },
+ "NJ_KAMAITACHI": {
+  "name": "Zephyr Gust (Wind Blade)",
+  "levels": {
+   "7": {
+    "kind": "magic",
+    "element": "Wind",
+    "ratio": {
+     "base": 155,
+     "str": 0,
+     "agi": 0,
+     "vit": 0,
+     "int": 2,
+     "dex": 0,
+     "luk": 0,
+     "lv": 0,
+     "baseLvScale": false
+    },
+    "hits": 1,
+    "area": "splash",
+    "radius": 2,
+    "range": 8,
+    "note": "RTM custom (upstream 100+100*lv). Case falls through into NJ_HUUJIN's -50, so 100+15*lv+2*INT-50. Spirit-charm bonus is PC-only; +INT if the monster has Wind endow / +INT with SC_OVERBRANDREADY (normally not). Hits in a line from the monster toward the target (eight-path, width 2, length 8 at lv7); the target is always hit. HitCount -3 is display-only.",
+    "src": "battle.cpp:6821-6843 (ratio + fall-through); skill.cpp:5383-5404 (line AoE); skill_db.yml:15617-15678"
+   }
+  }
+ },
+ "NPC_BLOODDRAIN": {
+  "name": "Sucking Blood",
+  "levels": {
+   "1": {
+    "kind": "physical",
+    "element": "Dark",
+    "ratio": 100,
+    "hits": 1,
+    "area": "single",
+    "range": 9,
+    "ignoreFlee": true,
+    "drain": true,
+    "note": "Monster heals HP equal to the damage dealt (status_heal). Same as upstream.",
+    "src": "battle.cpp:4077,4085 (100*(lv-1)); skill.cpp:6133-6143 (heal by damage); skill_db.yml:5810-5823 (Dark, IgnoreFlee)"
+   }
+  }
+ },
+ "NPC_CALLSLAVE": {
+  "name": "Recall Slaves",
+  "levels": {
+   "1": {
+    "kind": "none",
+    "note": "Only warps the monster's existing slaves back next to it (mob_warpslave); spawns nothing new. No effect on a lone player unless slaves are already alive.",
+    "src": "skill.cpp:9433-9435"
+   }
+  }
+ },
+ "NPC_CRITICALWOUND": {
+  "name": "Critical Wounds",
+  "levels": {
+   "3": {
+    "kind": "physical",
+    "element": "Neutral",
+    "ratio": 100,
+    "hits": 1,
+    "area": "single",
+    "range": 9,
+    "status": [
+     {
+      "sc": "criticalwound",
+      "chance": 1,
+      "durationMs": 30000,
+      "resist": "none",
+      "value": 60,
+      "note": "SC_CRITICALWOUND: healing received -20%*lv = -60% (skill heals and potions/items). Not in status_get_sc_def, so no stat resist; not removed by Dispell. Only applied if the hit connects (flee roll applies)."
+     }
+    ],
+    "note": "Plain 100% weapon hit (Element: Weapon = Neutral for a mob) with the healing debuff.",
+    "src": "skill.cpp:1792-1794; status.cpp:11601-11602 (val2=20*lv); skill.cpp:728-731, pc.cpp:9826-9827 (heal penalty); skill_db.yml:16346-16358 (Duration2 30000)"
+   }
+  }
+ },
+ "NPC_GUIDEDATTACK": {
+  "name": "Guided Attack",
+  "levels": {
+   "1": {
+    "kind": "physical",
+    "element": "Neutral",
+    "ratio": 100,
+    "hits": 1,
+    "area": "single",
+    "range": 9,
+    "ignoreFlee": true,
+    "note": "A normal 100% hit that cannot miss (IgnoreFlee). No ratio case, no extra effect.",
+    "src": "skill.cpp:5187,5272 (plain skill_attack); skill_db.yml:5468-5481 (IgnoreFlee, Element Weapon)"
+   }
+  }
+ },
+ "NPC_INVISIBLE": {
+  "name": "Invisible",
+  "levels": {
+   "1": {
+    "kind": "self",
+    "self": {
+     "sc": "invisible",
+     "durationMs": 30000,
+     "value": 0,
+     "note": "SC_CLOAKING with val4=6 ('infinite cloak': does not break when the monster attacks or uses skills). The player cannot target it while it lasts, unless they reveal it (Sight/Ruwach-type detection)."
+    },
+    "note": "The monster keeps attacking while cloaked. A sim should treat the player's targeted attacks/skills on it as impossible for 30 s unless the player can reveal it.",
+    "src": "skill.cpp:9531-9535; status.cpp:892 (add_sc NPC_INVISIBLE -> SC_CLOAKING); skill_db.yml:9571-9579 (Duration1 30000)"
+   }
+  }
+ },
+ "NPC_PULSESTRIKE": {
+  "name": "Pulse Strike",
+  "levels": {
+   "5": {
+    "kind": "physical",
+    "element": "Neutral",
+    "ratio": 500,
+    "hits": 1,
+    "area": "splash",
+    "radius": 7,
+    "centeredOnSelf": true,
+    "knockback": 7,
+    "note": "15x15 area around the monster, 100+100*(lv-1)%. Normal hit/flee roll. IsNpc splash, so no hide check on the targets. Same as upstream.",
+    "src": "battle.cpp:4084-4085; skill.cpp:8183-8184, 5584, 5648-5748; skill_db.yml:16022-16037"
+   }
+  }
+ },
+ "NPC_WIDECURSE": {
+  "name": "Wide Curse",
+  "levels": {
+   "3": {
+    "kind": "status",
+    "area": "splash",
+    "radius": 8,
+    "centeredOnSelf": true,
+    "status": [
+     {
+      "sc": "curse",
+      "chance": 1,
+      "durationMs": 20000,
+      "resist": "curse",
+      "note": "Curse resist: sc_def LUK*100, sc_def2 LUK*20 - MobLv*10 (a high-level caster pushes the chance back up); LUK 0 = immune. Duration -VIT*100/10000 and -LUK*10 ms."
+     }
+    ],
+    "note": "Curse on everyone within 8 cells of the monster. Wide NPC status skills go through skill_area_sub only, so hidden players are hit too.",
+    "src": "skill.cpp:10286-10321; status.cpp:9214-9222; skill_db.yml:16438-16462 (SplashArea, Duration2 20000)"
+   },
+   "5": {
+    "kind": "status",
+    "area": "splash",
+    "radius": 14,
+    "centeredOnSelf": true,
+    "status": [
+     {
+      "sc": "curse",
+      "chance": 1,
+      "durationMs": 20000,
+      "resist": "curse",
+      "note": "Curse resist: sc_def LUK*100, sc_def2 LUK*20 - MobLv*10 (a high-level caster pushes the chance back up); LUK 0 = immune. Duration -VIT*100/10000 and -LUK*10 ms."
+     }
+    ],
+    "note": "Curse on everyone within 14 cells of the monster. Wide NPC status skills go through skill_area_sub only, so hidden players are hit too.",
+    "src": "skill.cpp:10286-10321; status.cpp:9214-9222; skill_db.yml:16438-16462 (SplashArea, Duration2 20000)"
+   }
+  }
+ },
+ "NPC_WIDESOULDRAIN": {
+  "name": "Wide Soul Drain",
+  "levels": {
+   "9": {
+    "kind": "status",
+    "area": "splash",
+    "radius": 13,
+    "centeredOnSelf": true,
+    "status": [
+     {
+      "sc": "spdrainpct",
+      "chance": 1,
+      "resist": "none",
+      "value": 80,
+      "note": "Removes ((lv-1)%5+1)*20 = 80% of the player's CURRENT SP (status_percent_damage with positive rate). No HP damage."
+     }
+    ],
+    "note": "27x27 around the monster. The monster does not gain the SP. No hit roll, no resist, no hide check.",
+    "src": "skill.cpp:10322-10333; skill_db.yml:16524-16557 (SplashArea 13 at lv9)"
+   }
+  }
+ },
+ "OB_AKAITSUKI": {
+  "name": "Ominous Moonlight (Akaitsuki)",
+  "levels": {
+   "3": {
+    "kind": "status",
+    "area": "single",
+    "range": 7,
+    "status": [
+     {
+      "sc": "other",
+      "chance": 1,
+      "durationMs": 9000,
+      "resist": "none",
+      "note": "SC_AKAITSUKI: while active, skill-based healing on the player is inverted into damage (Heal, Highness Heal, Sanctuary, Renovatio ticks, Coluceo/other skill heals, party-heal skills). Item/potion healing is NOT affected (no SC_AKAITSUKI check in pc.cpp). Homunculus HLIF_HEAL is excluded."
+     }
+    ],
+    "note": "Yes, it reverses healing into damage, but only for skill heals. No damage by itself. Not in status_get_sc_def, so no stat resist. The PC-only fail check (status-immune target) does not apply to a mob caster.",
+    "src": "skill.cpp:11956-11977; skill.cpp:7125-7126, 10616, 10632, 15180, 15364, 15526; status.cpp:14772, 14858; skill_db.yml:32478-32511 (Duration1 9000 at lv3)"
+   }
+  }
+ },
+ "PF_FOGWALL": {
+  "name": "Blinding Mist (Fog Wall)",
+  "levels": {
+   "1": {
+    "kind": "self",
+    "area": "ground",
+    "radius": 2,
+    "centeredOnSelf": true,
+    "self": {
+     "sc": "other",
+     "durationMs": 20000,
+     "value": 75,
+     "note": "5x3 fog placed on the monster's own cell. Anything standing in it gets SC_FOGWALL: targeted offensive skills against it fail 75% of the time, skill damage to it -25%, normal ranged weapon attacks -75% damage and -50 hit. Dragon Breath ignores the reduction. Status-immune (boss) monsters cannot get SC_FOGWALL themselves."
+    },
+    "status": [
+     {
+      "sc": "blind",
+      "chance": 1,
+      "durationMs": 10000,
+      "resist": "blind",
+      "note": "Only if the player steps into the fog; Blind never expires while they stay in it. Deluge prevents it."
+     }
+    ],
+    "note": "Mainly a defence against a ranged player. If a melee player fights inside the fog they are also under SC_FOGWALL (their incoming skills are also cut) and get blinded.",
+    "src": "skill.cpp:13137 (unit), 14868-14874 (UNT_FOGWALL), 22036-22044 (5x3 layout), 1718-1721 (blind), 12524-12527 (75% fail); battle.cpp:1535-1540, 2954-2956; status.cpp:10084-10102, 14734-14737; skill_db.yml:11238-11263"
+   }
+  }
+ },
+ "PR_KYRIE": {
+  "name": "Kyrie Eleison",
+  "levels": {
+   "10": {
+    "kind": "none",
+    "note": "status_change_start refuses SC_KYRIE on any BL_MOB target (status.cpp:9808-9811), so a monster casting it on itself or a friend monster gets nothing. If it did apply it would be a barrier of 20% MaxHP / 10 hits for 15 s.",
+    "src": "skill.cpp:7538-7545; status.cpp:9808-9811, 10815-10822; skill_db.yml:2531-2547"
+   }
+  }
+ },
+ "RA_ARROWSTORM": {
+  "name": "Arrow Storm",
+  "levels": {
+   "4": {
+    "kind": "physical",
+    "element": "Neutral",
+    "ratio": {
+     "base": 305,
+     "str": 0,
+     "agi": 0,
+     "vit": 0,
+     "int": 0,
+     "dex": 4,
+     "luk": 0,
+     "lv": 0,
+     "baseLvScale": false
+    },
+    "hits": 1,
+    "area": "splash",
+    "radius": 3,
+    "range": 5,
+    "note": "RTM custom (upstream 200+180*lv, base-level scaled). 100+125+20*lv+4*DEX. +5*DEX with SC_OVERBRANDREADY, +6*DEX with SC_SPL_ATK (normally not on a monster). No arrows needed for a mob; Element Weapon = Neutral. HitCount -5 is display-only. Normal flee roll.",
+    "src": "battle.cpp:4603-4609; skill.cpp:5600, 5648-5748; skill_db.yml:21250-21292"
+   }
+  }
+ },
+ "RK_DRAGONBREATH_WATER": {
+  "name": "Dragon Breath - Water",
+  "levels": {
+   "8": {
+    "kind": "physical",
+    "element": "Water",
+    "ratio": {
+     "base": 300,
+     "str": 0,
+     "agi": 0,
+     "vit": 5,
+     "int": 0,
+     "dex": 0,
+     "luk": 0,
+     "lv": 0,
+     "baseLvScale": false
+    },
+    "hits": 1,
+    "area": "splash",
+    "radius": 3,
+    "range": 9,
+    "ignoreFlee": true,
+    "hiddenImmune": true,
+    "status": [
+     {
+      "sc": "other",
+      "chance": 0.25,
+      "durationMs": 40000,
+      "resist": "none",
+      "note": "SC_FREEZING (third-job 'Freezing', not Frozen): player DEF -30%, move speed -30%, ASPD penalty. No chance resist; duration -(VIT+DEX)*50 ms (x0.95), minimum 6 s. Warmer blocks it."
+     }
+    ],
+    "note": "RTM custom: ratio is 100+25*lv+5*VIT of ATK (upstream used (HP/50+SP/4)*lv and a 15% chance). Water element (not the mob's Neutral), attr-fixed. Ground-targeted 7x7 around the player, never misses. Does nothing to a player in SC_HIDING. Fog Wall does not reduce it. RK_DRAGONBREATH (fire) differs: Burning 100% (rate 1000) and gives the caster SC_SPL_ATK.",
+    "src": "battle.cpp:4028-4031 (ratio), 3205-3212 (element); skill.cpp:1817-1819 (25% Freezing), 6099-6107 (hidden immunity), 13534-13543; status.cpp:1158, 7557-7558, 9273-9274, 9425-9427; skill_db.yml:32705-32758"
+   }
+  }
+ },
+ "RK_PHANTOMTHRUST": {
+  "name": "Phantom Thrust",
+  "levels": {
+   "1": {
+    "kind": "physical",
+    "element": "Neutral",
+    "ratio": {
+     "base": 220,
+     "str": 0,
+     "agi": 0,
+     "vit": 2,
+     "int": 0,
+     "dex": 0,
+     "luk": 0,
+     "lv": 0,
+     "baseLvScale": false
+    },
+    "hits": 1,
+    "area": "single",
+    "range": 4,
+    "pull": 3,
+    "note": "RTM custom (upstream 50*lv+10*SpearMastery, base-level scaled). 100+100+20*lv+2*VIT (+DEX with SC_KAGEMUSYA). Pulls the player to the cell next to the monster (distance-1 cells; 'pull' shown is the max at range 4), then hits. Normal flee roll.",
+    "src": "battle.cpp:4541-4545; skill.cpp:6166-6174; skill_db.yml:18708-18733"
+   }
+  }
+ },
+ "RL_D_TAIL": {
+  "name": "Dragon Tail",
+  "levels": {
+   "1": {
+    "kind": "physical",
+    "element": "Neutral",
+    "ratio": {
+     "base": 155,
+     "str": 0,
+     "agi": 0,
+     "vit": 0,
+     "int": 2,
+     "dex": 0,
+     "luk": 0,
+     "lv": 0,
+     "baseLvScale": false
+    },
+    "hits": 2,
+    "area": "splash",
+    "radius": 10,
+    "range": 9,
+    "ignoreDef": true,
+    "note": "RTM custom (upstream 500+200*lv, doubled on a Crimson-Marked target). 100+50+5*lv+2*INT per hit, x2 hits, ignores DEF. For a monster there is no Crimson Marker / bullet requirement (skill_check_condition is PC-only, the marker flag is set only when sd), and the RTM ratio does not read the marker anyway: every enemy within 10 cells of the target is hit. +2*DEX with SC_OVERBRANDREADY, +50 with SC_MANU_DEF, +45*lv+3*INT with SC_AURABLADE (normally none on a monster). Normal flee roll (no IgnoreFlee).",
+    "src": "battle.cpp:5087-5095; skill.cpp:6736-6758; skill_db.yml:29863-29880"
+   }
+  }
+ },
+ "RL_FIRE_RAIN": {
+  "name": "Fire Rain",
+  "levels": {
+   "4": {
+    "kind": "physical",
+    "element": "Neutral",
+    "ratio": {
+     "base": 290,
+     "str": 1,
+     "agi": 0,
+     "vit": 0,
+     "int": 0,
+     "dex": 0,
+     "luk": 0,
+     "lv": 0,
+     "baseLvScale": false
+    },
+    "hits": 1,
+    "ticks": 1,
+    "tickMs": 400,
+    "area": "ground",
+    "radius": 3,
+    "range": 3,
+    "ignoreFlee": true,
+    "note": "RTM custom (upstream 3500+300*lv). 100+150+10*lv+STR (+20*GN_FIRE_EXPANSION, 0 for a mob); +2*lv if the player is Burning, +2*lv if Freezing. 10 waves marching 0..9 cells from the monster toward the target, one wave every 100*lv = 400 ms; each wave is a 7-wide row that hits once. A player standing still in the path takes 1 hit (at 400*distance ms); one who walks along it can take more. No bullets needed for a mob. Element Weapon = Neutral. HitCount -2 display-only.",
+    "src": "battle.cpp:5117-5123; skill.cpp:13769-13795 (waves), 4847-4852, 15708-15712 (UNT_FIRE_RAIN), 22286-22298 (7-wide layout); skill_db.yml:29900-29930"
+   }
+  }
+ },
+ "RL_HAMMER_OF_GOD": {
+  "name": "Hammer of God",
+  "levels": {
+   "6": {
+    "kind": "physical",
+    "element": "Neutral",
+    "ratio": {
+     "base": 370,
+     "str": 0,
+     "agi": 0,
+     "vit": 4,
+     "int": 0,
+     "dex": 0,
+     "luk": 0,
+     "lv": 0,
+     "baseLvScale": false
+    },
+    "hits": 1,
+    "area": "splash",
+    "radius": 6,
+    "range": 11,
+    "note": "RTM custom (upstream 100*lv + coin bonus). 100+150+20*lv+4*VIT; doubled part (+150+20*lv+4*VIT) only if the CASTER has SC_DPOISON (not on a monster). No Crimson Marker or coin requirement for a monster (PC-only checks); hits every enemy within 6 cells of the target. Normal flee roll, normal DEF.",
+    "src": "battle.cpp:5112-5116; skill.cpp:6736-6758; skill_db.yml:30057-30093"
+   }
+  }
+ },
+ "SA_DISPELL": {
+  "name": "Dispell",
+  "levels": {
+   "5": {
+    "kind": "status",
+    "area": "single",
+    "range": 9,
+    "status": [
+     {
+      "sc": "dispel",
+      "chance": 1,
+      "resist": "none",
+      "note": "50+10*lv = 100% at lv5. Removes the player's buffs, except a long exception list (food, cash/quest buffs, Hiding/Cloaking, Critical Wounds, etc.). Soul Linker class and Rogue-spirit targets always resist; a player immune to magic (status_isimmune, e.g. GTB) is not affected."
+     }
+    ],
+    "note": "Single target (no splash at lv5). TargetHidden: works on hidden players but does not remove Hiding. The PvP/party restriction only applies to a player caster.",
+    "src": "skill.cpp:9048-9194; skill_db.yml:8162-8180"
+   }
+  }
+ },
+ "SM_BASH": {
+  "name": "Bash",
+  "levels": {
+   "5": {
+    "kind": "physical",
+    "element": "Neutral",
+    "ratio": {
+     "base": 325,
+     "str": 1,
+     "agi": 0,
+     "vit": 0,
+     "int": 0,
+     "dex": 0,
+     "luk": 0,
+     "lv": 0,
+     "baseLvScale": false
+    },
+    "hits": 2,
+    "area": "single",
+    "range": 1,
+    "self": {
+     "sc": "other",
+     "durationMs": 3000,
+     "value": 0,
+     "note": "Gives the caster SC_OVERBRANDREADY for 3 s, which adds bonuses to some other RTM skill ratios (e.g. Arrow Storm, Dragon Tail) the same monster uses."
+    },
+    "note": "RTM custom: 100+100+25*lv+STR per hit and HitCount 2 (upstream 100+30*lv, 1 hit). The upstream +5%*lv hit bonus was removed. Freeze proc (Ancilla) and SC_NEN bonus are PC/self-buff only. Normal flee roll.",
+    "src": "battle.cpp:3912-3917, 2966-2976 (no SM_BASH hit bonus); skill.cpp:1438-1443; skill_db.yml:164-178"
+   }
+  }
+ },
+ "SO_DIAMONDDUST": {
+  "name": "Diamond Dust",
+  "levels": {
+   "1": {
+    "kind": "magic",
+    "element": "Water",
+    "ratio": {
+     "base": 35,
+     "str": 0,
+     "agi": 0,
+     "vit": 0,
+     "int": 6,
+     "dex": 0,
+     "luk": 0,
+     "lv": 0,
+     "baseLvScale": false
+    },
+    "hits": 1,
+    "ticks": 1,
+    "area": "ground",
+    "radius": 3,
+    "range": 9,
+    "status": [
+     {
+      "sc": "other",
+      "chance": 0.1,
+      "durationMs": 100,
+      "resist": "none",
+      "note": "SC_CRYSTALIZE (5+5*lv%). Duration2 is only 100 ms, and duration is further cut by VIT*100 ms, so it lasts about 1 ms: practically no effect."
+     }
+    ],
+    "note": "RTM custom (upstream 200*FrostWeapon lv + INT/6*lv, base-level scaled). -100+35*lv+6*INT on top of 100. Ground unit 7x7 at the target, Duration1 100 ms with 1000 ms interval, so one hit. HitCount -5 display-only.",
+    "src": "battle.cpp:7015-7023; skill.cpp:1938-1943, 13203; skill_db.yml:27170-27258 (unit range 3,3,3,4,4 -> lv10 extrapolates to 4; Duration2 100)"
+   },
+   "10": {
+    "kind": "magic",
+    "element": "Water",
+    "ratio": {
+     "base": 350,
+     "str": 0,
+     "agi": 0,
+     "vit": 0,
+     "int": 6,
+     "dex": 0,
+     "luk": 0,
+     "lv": 0,
+     "baseLvScale": false
+    },
+    "hits": 1,
+    "ticks": 1,
+    "area": "ground",
+    "radius": 4,
+    "range": 9,
+    "status": [
+     {
+      "sc": "other",
+      "chance": 0.55,
+      "durationMs": 100,
+      "resist": "none",
+      "note": "SC_CRYSTALIZE (5+5*lv%). Duration2 is only 100 ms, and duration is further cut by VIT*100 ms, so it lasts about 1 ms: practically no effect."
+     }
+    ],
+    "note": "RTM custom (upstream 200*FrostWeapon lv + INT/6*lv, base-level scaled). -100+35*lv+6*INT on top of 100. Ground unit 9x9 at the target, Duration1 100 ms with 1000 ms interval, so one hit. HitCount -5 display-only.",
+    "src": "battle.cpp:7015-7023; skill.cpp:1938-1943, 13203; skill_db.yml:27170-27258 (unit range 3,3,3,4,4 -> lv10 extrapolates to 4; Duration2 100)"
+   }
+  }
+ },
+ "TF_BACKSLIDING": {
+  "name": "Back Slide",
+  "levels": {
+   "1": {
+    "kind": "move",
+    "area": "self",
+    "note": "The monster slides 5 cells backwards (away from the way it faces, i.e. away from the player it was fighting). Works even if it has no-knockback. No effect on the player besides opening distance.",
+    "src": "skill.cpp:9195-9207; skill_db.yml:5122-5136 (Knockback 5)"
+   }
+  }
+ },
+ "WL_CRIMSONROCK": {
+  "name": "Crimson Rock",
+  "levels": {
+   "5": {
+    "kind": "magic",
+    "element": "Fire",
+    "ratio": {
+     "base": 50,
+     "str": 0,
+     "agi": 0,
+     "vit": 0,
+     "int": 2,
+     "dex": 0,
+     "luk": 0,
+     "lv": 0,
+     "baseLvScale": false
+    },
+    "hits": 5,
+    "area": "splash",
+    "radius": 3,
+    "range": 11,
+    "knockback": 3,
+    "note": "RTM custom (upstream 700+600*lv, base-level scaled). 10*lv+2*INT per hit, x5 hits (HitCount 5 at lv5). 7x7 around the target, knocks back 3 cells away from the impact point. No stun in this fork.",
+    "src": "battle.cpp:6943-6945; skill.cpp:5598, 5648-5748, 12505-12510 (knockback dir); skill_db.yml:19150-19184"
+   }
+  }
+ },
+ "WL_FROSTMISTY": {
+  "name": "Frost Misty",
+  "levels": {
+   "3": {
+    "kind": "magic",
+    "element": "Water",
+    "ratio": {
+     "base": 30,
+     "str": 0,
+     "agi": 0,
+     "vit": 0,
+     "int": 1,
+     "dex": 0,
+     "luk": 0,
+     "lv": 0,
+     "baseLvScale": false
+    },
+    "hits": 6,
+    "area": "splash",
+    "radius": 6,
+    "range": 11,
+    "status": [
+     {
+      "sc": "other",
+      "chance": 1,
+      "durationMs": 6000,
+      "resist": "none",
+      "note": "SC_FREEZING: first sc_start at 25+5*lv=40% for 30 s, then a second sc_start at 100% for Duration2 5 s, which overwrites the timer; Freezing has a 6 s minimum. Net: always Freezing for ~6 s (DEF -30%, move speed -30%, ASPD penalty). No chance resist; duration -(VIT+DEX)*50 ms before the 6 s floor. Applied even through walls."
+     }
+    ],
+    "note": "RTM custom (upstream 200+100*lv, base-level scaled). 10*lv+INT per hit, x6 hits (HitCount 6 at lv3). 13x13 around the target. No damage through non-shootable walls.",
+    "src": "battle.cpp:6916-6918; skill.cpp:6407-6414, 13536-13543, 12648; status.cpp:1188, 9273-9274, 9425-9427; skill_db.yml:18828-18868"
+   }
+  }
+ },
+ "WL_TETRAVORTEX_WIND": {
+  "name": "Tetra Vortex (Wind)",
+  "levels": {
+   "10": {
+    "kind": "magic",
+    "element": "Wind",
+    "ratio": {
+     "base": 400,
+     "str": 0,
+     "agi": 0,
+     "vit": 0,
+     "int": 4,
+     "dex": 0,
+     "luk": 0,
+     "lv": 0,
+     "baseLvScale": false
+    },
+    "hits": 1,
+    "area": "single",
+    "range": 11,
+    "note": "RTM custom (upstream 800+400*lv). -100+40*lv+4*INT on top of 100 (+INT with SC_SPL_MATK). Cast directly (not via WL_TETRAVORTEX), it schedules one timer hit with type 0, so the final-hit status effect (burning/freezing/bleeding/stun) never fires. The delay is skill_area_temp[0]*200 ms from a stale global (usually 0-small). Single target, no splash.",
+    "src": "battle.cpp:6961-6968; skill.cpp:6259-6264, 4753-4777; skill_db.yml:19632-19644"
+   }
+  }
+ },
+ "WM_GREAT_ECHO": {
+  "name": "Great Echo",
+  "levels": {
+   "1": {
+    "kind": "physical",
+    "element": "Neutral",
+    "ratio": {
+     "base": 750,
+     "str": 0,
+     "agi": 0,
+     "vit": 0,
+     "int": 0,
+     "dex": 0,
+     "luk": 0,
+     "lv": 0,
+     "baseLvScale": true
+    },
+    "hits": 1,
+    "area": "splash",
+    "radius": 2,
+    "range": 9,
+    "note": "250+500*lv, times BaseLevel/100 (RE_LVL_DMOD(100), applies when BaseLv > 99). Lesson / chorus-partner bonuses are PC-only. Same formula as upstream. 5x5 around the target. Normal flee roll; no status effect.",
+    "src": "battle.cpp:4877-4885; skill.cpp:13658-13661, 5264; skill_db.yml:26381-26419; config/const.hpp:95-97"
+   }
+  }
+ },
+ "WM_SEVERE_RAINSTORM": {
+  "name": "Severe Rainstorm",
+  "levels": {
+   "6": {
+    "kind": "physical",
+    "element": "Neutral",
+    "ratio": {
+     "base": 112,
+     "str": 0,
+     "agi": 0,
+     "vit": 0,
+     "int": 0.5,
+     "dex": 0,
+     "luk": 0.5,
+     "lv": 0,
+     "baseLvScale": false
+    },
+    "hits": 1,
+    "ticks": 15,
+    "tickMs": 200,
+    "area": "ground",
+    "radius": 5,
+    "range": 9,
+    "note": "RTM custom (upstream 100*lv + DEX/300 + AGI/200, base-level scaled). Each tick is WM_SEVERE_RAINSTORM_MELEE: 100+2*lv+LUK/2+INT/2 (integer halves). 11x11 unit at the target for 3 s, interval 180 ms but the unit timer runs every 100 ms, so about every 200 ms: ~15 hits on a player who stays. Each tick is a separate weapon hit with its own flee roll (the melee sub-skill has no IgnoreFlee). No ammo needed for a mob. Blocked by Land Protector.",
+    "src": "battle.cpp:4869-4876; skill.cpp:13663-13668, 14394-14400, 15558-15561; skill_db.yml:25992-26065 (Duration1 3000, Interval 180, Range 5); WM_SEVERE_RAINSTORM_MELEE id 2516"
+   }
+  }
+ },
+ "WZ_HEAVENDRIVE": {
+  "name": "Heaven's Drive",
+  "levels": {
+   "10": {
+    "kind": "magic",
+    "element": "Earth",
+    "ratio": {
+     "base": 400,
+     "str": 0,
+     "agi": 0,
+     "vit": 0,
+     "int": 3,
+     "dex": 0,
+     "luk": 0,
+     "lv": 0,
+     "baseLvScale": false
+    },
+    "hits": 1,
+    "ticks": 1,
+    "area": "ground",
+    "radius": 2,
+    "range": 9,
+    "note": "RTM custom (upstream 125%). -100+40*lv+3*INT on top of 100 (+INT each with SC_DELUGE / SC_SPL_MATK on the caster). 5x5 at the target, one hit (Duration1 100 ms, interval 1000). TargetHidden: it hits players in Hiding. HitCount -4 display-only. Ends Root Twist.",
+    "src": "battle.cpp:6848-6856; skill.cpp:1524-1527, 13117; skill_db.yml:3673-3715"
+   }
+  }
+ },
+ "WZ_VERMILION": {
+  "name": "Lord of Vermilion",
+  "levels": {
+   "10": {
+    "kind": "magic",
+    "element": "Wind",
+    "ratio": {
+     "base": 520,
+     "str": 0,
+     "agi": 0,
+     "vit": 0,
+     "int": 5,
+     "dex": 0,
+     "luk": 0,
+     "lv": 0,
+     "baseLvScale": false
+    },
+    "hits": 1,
+    "ticks": 1,
+    "area": "ground",
+    "radius": 7,
+    "range": 9,
+    "status": [
+     {
+      "sc": "burning",
+      "chance": 1,
+      "durationMs": 10000,
+      "resist": "none",
+      "value": 200,
+      "note": "RTM custom: SC_BURNING at 50+10*lv = 150% (always lands; no chance resist). 200 + 1% MaxHP every 3 s, MDEF -25%. Duration -(75*LUK+125*AGI) ms (x0.95), minimum 5 s. Upstream renewal gave Blind 10+5*lv% + Curse 100% instead."
+     }
+    ],
+    "note": "RTM custom (upstream mob formula 100+20*lv-20). -80+50*lv+5*INT on top of 100 = 520+5*INT; +20*lv (+200) if the player is Freezing. Layout size 6 with unit range 1 (lv10 extrapolates to 6) = 15x15 at the target. Duration1 1000 ms < interval 1250 ms, so one hit. HitCount -20 display-only.",
+    "src": "battle.cpp:6865-6869; skill.cpp:1516-1522, 13115; status.cpp:14468-14474, 9270-9271, 9429-9432, 7701-7702; skill_db.yml:3253-3309"
+   }
+  }
+ }
+}

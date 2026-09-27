@@ -6,7 +6,7 @@ import type {
 } from './types.ts';
 
 import { BASE_LEVEL_DEFAULT, BASE_STAT_KEYS, defaultBaseStats } from './types.ts';
-import { derivedStats } from './derived.ts';
+import { derivedStats, LIVE_HP_FIX, type DerivedContext } from './derived.ts';
 
 /** Does the character sheet satisfy this gate? */
 export function meetsRequirement(
@@ -407,7 +407,7 @@ export function aggregate(build: Build, data: Dataset): Totals {
     total.percent = Math.min(total.percent, cap);
   }
 
-  const derived = derivedStats(level, base, gear, build.manual);
+  const derived = derivedStats(level, base, gear, build.manual, derivedContext(build, data, level));
 
   // ---- second pass: effects that scale off a finished total --------------
   // "ATK +1 every 20 flee" needs flee, and flee needs the gear. One pass
@@ -449,6 +449,28 @@ export function aggregate(build: Build, data: Dataset): Totals {
 }
 
 /** The key a skill modifier is totalled under: "Backstab|damage". */
+/** What Max HP / SP need beyond the stats: the class's job table, its skills, what is worn. */
+function derivedContext(build: Build, data: Dataset, level: number): DerivedContext {
+  const cls = build.className ?? '';
+  const jobName = data.jobs?.classes[cls] ?? '';
+  const job = data.jobs?.jobs[jobName];
+  const worn: string[] = [];
+  for (const s of Object.values(build.slots)) {
+    for (const id of [s?.itemId, ...(s?.cards ?? [])]) {
+      const n = id ? data.items.get(id)?.name : undefined;
+      if (n) worn.push(n);
+    }
+  }
+  const off = build.slots.offhand?.itemId ? data.items.get(build.slots.offhand.itemId) : undefined;
+  return {
+    ...(job?.hp[level] ? { jobHp: job.hp[level], jobHpFix: LIVE_HP_FIX[jobName] ?? 1 } : {}),
+    ...(job?.sp[level] ? { jobSp: job.sp[level] } : {}),
+    skills: data.classRules?.skills?.[cls] ?? {},
+    shield: off?.kind === 'Shield',
+    worn,
+  };
+}
+
 export function skillKey(skill: string, metric: string): string {
   return `${skill}|${metric}`;
 }

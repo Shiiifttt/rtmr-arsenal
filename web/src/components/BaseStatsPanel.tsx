@@ -119,7 +119,8 @@ export function BaseStatsPanel({
         Points ({BASE_STAT_MIN}–{BASE_STAT_MAX}) · gear · total. Bonuses written
         “per N base STAT” read the points column only; the total is uncapped.
         Derived values are formulas, not data — hover the total to see the
-        working. The middle box takes flee from skills, which are not modelled.
+        working. The middle box takes what skills and buffs add, which are not
+        modelled: flee from Improve Dodge, HP from stances and Bishop's Guard.
       </p>
     </div>
   );

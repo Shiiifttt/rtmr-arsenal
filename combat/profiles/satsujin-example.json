@@ -1,0 +1,26 @@
+{
+  "name": "Example Satsujin (Moon, dagger + shield)",
+  "_about": "An example, not the project owner's build. Replace 'build' with your share link (the whole URL works) or edit the slots by item name. 'measured' readings beat the model: maxHp is WITHOUT Moonlight Stance. Every skill is taken at max level. Options: backStab, refocus, prepFocus (all default true).",
+  "build": {
+    "className": "Satsujin",
+    "baseLevel": 136,
+    "baseStats": { "str": 70, "agi": 99, "vit": 28, "int": 1, "dex": 45, "luk": 1 },
+    "slots": {
+      "upper": { "item": "Wyrdbrand" },
+      "middle": { "item": "Evil Wing Ears" },
+      "lower": { "item": "Candy Cane in Mouth" },
+      "armor": { "item": "Bullhorn Armor" },
+      "weapon": { "item": "Murder Knife", "refine": 4 },
+      "offhand": { "item": "Castle Armguard" },
+      "garment": { "item": "Asprika" },
+      "shoes": { "item": "Temporal AGI Boots" },
+      "acc1": { "item": "Gleipnir" },
+      "acc2": { "item": "Arch Ring" }
+    }
+  },
+  "measured": {
+    "maxHp": 8500,
+    "aspd": 180
+  },
+  "options": {}
+}
