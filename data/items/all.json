@@ -20726,6 +20726,20 @@
     ]
    },
    {
+    "text": "Lashing Andromeda DMG +5%",
+    "stat": "Lashing Andromeda DMG",
+    "value": 5,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Lashing Andromeda",
+    "skill_metric": "damage",
+    "skills": [
+     "Lashing Andromeda"
+    ]
+   },
+   {
     "text": "Ranged DMG gains 50% of your Melee DMG bonuses",
     "parsed": false
    }
@@ -20737,13 +20751,18 @@
      "per": 1,
      "effects": [
       {
-       "text": "Lashing Andromeda DMG +5% +2% per refine",
-       "stat": "Lashing Andromeda DMG +5%",
+       "text": "Lashing Andromeda DMG +2% per refine",
+       "stat": "Lashing Andromeda DMG",
        "value": 2,
        "unit": "%",
        "parsed": true,
        "stat_ids": [],
-       "stat_keys": []
+       "stat_keys": [],
+       "skill": "Lashing Andromeda",
+       "skill_metric": "damage",
+       "skills": [
+        "Lashing Andromeda"
+       ]
       }
      ]
     }
@@ -185053,6 +185072,19 @@
     ]
    },
    {
+    "text": "Heal Power +5%",
+    "stat": "Heal Power",
+    "value": 5,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     42
+    ],
+    "stat_keys": [
+     "healing_power"
+    ]
+   },
+   {
     "text": "Grants Coluceo Heal Lv 1.",
     "parsed": false
    }
@@ -185063,13 +185095,17 @@
      "per": 1,
      "effects": [
       {
-       "text": "Heal Power +5% +1% per refine.",
-       "stat": "Heal Power +5%",
+       "text": "Heal Power +1% per refine",
+       "stat": "Heal Power",
        "value": 1,
        "unit": "%",
        "parsed": true,
-       "stat_ids": [],
-       "stat_keys": []
+       "stat_ids": [
+        42
+       ],
+       "stat_keys": [
+        "healing_power"
+       ]
       }
      ]
     }
@@ -185267,6 +185303,19 @@
     ]
    },
    {
+    "text": "Healing Received +5%",
+    "stat": "Healing Received",
+    "value": 5,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     43
+    ],
+    "stat_keys": [
+     "healing_received"
+    ]
+   },
+   {
     "text": "Grants Coluceo Heal Lv 1.",
     "parsed": false
    }
@@ -185277,13 +185326,17 @@
      "per": 1,
      "effects": [
       {
-       "text": "Healing Received +5% +1% per refine.",
-       "stat": "Healing Received +5%",
+       "text": "Healing Received +1% per refine",
+       "stat": "Healing Received",
        "value": 1,
        "unit": "%",
        "parsed": true,
-       "stat_ids": [],
-       "stat_keys": []
+       "stat_ids": [
+        43
+       ],
+       "stat_keys": [
+        "healing_received"
+       ]
       }
      ]
     }
@@ -198575,6 +198628,20 @@
     ]
    },
    {
+    "text": "Queen's Gambit DMG +20%",
+    "stat": "Queen's Gambit DMG",
+    "value": 20,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Queen's Gambit",
+    "skill_metric": "damage",
+    "skills": [
+     "Queen's Gambit"
+    ]
+   },
+   {
     "text": ".siht dnatsrednu lliw enoyreve toN",
     "parsed": false
    }
@@ -198586,8 +198653,18 @@
      "per": 1,
      "effects": [
       {
-       "text": "Queen's Gambit DMG +20%+5% extra per refine",
-       "parsed": false
+       "text": "Queen's Gambit DMG +5% per refine",
+       "stat": "Queen's Gambit DMG",
+       "value": 5,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [],
+       "stat_keys": [],
+       "skill": "Queen's Gambit",
+       "skill_metric": "damage",
+       "skills": [
+        "Queen's Gambit"
+       ]
       },
       {
        "text": "SP Regen+3% per refine",

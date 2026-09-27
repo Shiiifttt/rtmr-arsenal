@@ -1,0 +1,17 @@
+node --experimental-strip-types --no-warnings --import ./register.mjs tools/gear-search.ts --profile profiles/kingslayer-heartless-v4.json --vs Heartless --screen 150 --confirm 1000 --passes 8 --lock offhand --fix rogueFillers=false,autoAttack=false --only rotation,order --out F:\RTMR_Project\data\gear-search\overnight\kingslayer\heartless\v4\rot.json
+
+start: win 100% lost 0% 20,607 dps 25s  (Heartless, 1000 fights, 11 workers)
+  (stat rolls on new pieces: VIT, from armor: vit 1.609, dex 1.608, str 1.608)
+pass 1  rotation: retributionAt = 6                                      win 100% lost 0% 20,648 dps 25s  ->  win 100% lost 0% 22,766 dps 22s   [23 tried]
+  (stat rolls on new pieces: VIT, from armor: vit 1.638, dex 1.635, str 1.636)
+pass 2  rotation: windSlash = true                                       win 100% lost 0% 22,671 dps 22s  ->  win 100% lost 0% 25,475 dps 19s   [23 tried]
+  (stat rolls on new pieces: VIT, from armor: vit 1.681, dex 1.678, str 1.679)
+pass 3  rotation: deltaFiller = true  +  rotation: keepRange = false     win 100% lost 0% 25,494 dps 19s  ->  win 99% lost 1% 27,609 dps 17s   [12 tried]
+  (stat rolls on new pieces: VIT, from armor: vit 1.696, dex 1.693, str 1.692)
+pass 4  rotation: safeCasts = false                                      win 99% lost 1% 27,679 dps 17s  ->  win 99% lost 1% 28,447 dps 17s   [24 tried]
+  (stat rolls on new pieces: DEX, from armor: vit 1.712, dex 1.713, str 1.710)
+
+final (2000 fights): win 99% lost 0% 28,343 dps 17s; killed by Magnus Exorcismus x3, Knuckle Arrow x3
+options: {"fortress":3,"queensBrand":false,"rooksWall":true,"sneakAttack":false,"heal":false,"rogueFillers":false,"autoAttack":false,"retributionAt":6,"windSlash":true,"deltaFiller":true,"keepRange":false,"safeCasts":false}
+http://localhost:5173/#b=cfZM_b9swEMW_isEly0PB_xQ9JmPRobMgCIREW0JkWRDloEHb714cJacOWnvhcPzdvbvHYynBvvbjMQ3hPc4MQnGUBYeA9zAGnkNUKEsOw52FRamNs1WFUsBwW4CjFMo4QSEJU7gc0pwriihIyblfKScKKsXSEhYG9tYvDKUkjM0xnS9zExnYKfyou4mh1Pnm1C_9MSz9eWRgU_ee-iYM9RzbSxNbhlJUFXEaQngLj1IrL_H5yKrzeRjEbf1N-TwMioHNYTzGtm7DKRzjhzrdagbWTfUx9GNs6ynOdZc7V6uygRRCoiBlyT-kVJY69s1W8qZluSZaCKPV6qmwHnTc8ye-hbRacBgitedzOF3SEvpxbXCIsenIEYlNwWX3NSmQ-_K2elrmv-4VkFbRtYe0zm3PpdW_7WwJQsBzxXUBYkix8F6S0P0UlSH9GNIZUo8hkyHzGLKQWmpLs9yHHKQW9lGlHL7ujICiXaYfsTLyJrBtUHrth6E-XYaFeOH4l8JdkTYe6imODBzSUBCO53eknP33S4zjU9o9z2Fsf103UYBf01eMvutT2r10oR_TDWbkZ-6li83r7ltY4v9qtfFAbWxJFc3_8zrnXhjD15-SJrYv7O_qDw
+(29 s; 804 batches fought, 203 shared with an identical fighter)

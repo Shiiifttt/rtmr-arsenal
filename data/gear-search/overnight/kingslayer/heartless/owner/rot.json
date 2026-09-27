@@ -1,0 +1,206 @@
+{
+ "profile": "Kingslayer: owner's build for Jormungand's Lair",
+ "targets": [
+  "Heartless"
+ ],
+ "rules": {
+  "screenN": 150,
+  "confirmN": 1000,
+  "timeS": 300,
+  "locked": [
+   "offhand"
+  ],
+  "penalty": 0.03,
+  "topStats": [
+   "vit",
+   "str",
+   "dex"
+  ]
+ },
+ "start": "http://localhost:5173/#b=cfZNNb5wwEIb_ysqXXEaVx5-wx-RY9dAzQsgCL6D1sghD1Kjtf6_GQEqjbi4WGj_zvvNhCgHsaz-0Mbg3PzFAyaHIOSDkOSgO9FlCUXDQCjPgUChleFlCgaC5SRGU2iKFBOjMrhDnkiIShOA8TyGBGSmxOLuZAXvtZwaFIIpNPt6XqfYM2M39qLqRQaHSza2f-9bN_X1gwMbuLfa1C9Xkm6X2DYMCy5I4BYi5gRwKJXMB66FQpiO5TvcQ8Ki_Od9DkAzY5IbWN1Xjbq717-50qxiwbqxa1w--qUY_VV2qXK7OGgSigIx6NvhuJZNV29eb5KFksSYaQK2kAQOFQquAjkfz8a8uriO4BE_l5Skclzi7flgLDN7XHU1EwOZg0_AVOaC0KI7qcZ7-Ti8DYSRd5yAM5utOrUobRIScS64yoDmSeMazpPlQDmWCzEdo7WiHVIL055BOkP0IheV6gAwIhZxT2Y8hS5CVn9il8P48ECTNgRa6MuIQ2B5LvPYhVLclzMSj5V8yuyONv1SjHxhwEJqCYHlaGeWcvy_eD0_x9Dy5ofm1PzoEvqevGP2YT_H00rl-iAdMi3-5l87X19M3N_v_aTX-QmVsSSX1_3Pv84xa8_WniCM7Z-Z3-Qc",
+ "steps": [
+  {
+   "move": "rotation: rooksWall = true",
+   "before": {
+    "win": 0.284,
+    "loss": 0.282,
+    "dps": 8773.760761802625,
+    "ttk": 51.2211544702477,
+    "value": 0.6310064114270393,
+    "deaths": "Knuckle Arrow x107, Heartless: attack x85"
+   },
+   "after": {
+    "win": 0.439,
+    "loss": 0.003,
+    "dps": 8713.456522141068,
+    "ttk": 53.11043360909181,
+    "value": 0.868801847832116,
+    "deaths": "Magnus Exorcismus x3"
+   },
+   "tried": 24
+  },
+  {
+   "move": "order: Heal up 2 (before Pre-cast King's Gambit)",
+   "before": {
+    "win": 0.44,
+    "loss": 0.005,
+    "dps": 8637.469180972454,
+    "ttk": 53.31941192066051,
+    "value": 0.8680620377145867,
+    "deaths": "Heartless: attack x3, Magnus Exorcismus x2"
+   },
+   "after": {
+    "win": 0.513,
+    "loss": 0.006,
+    "dps": 8882.318569161058,
+    "ttk": 52.99641192066051,
+    "value": 0.9444347785374158,
+    "deaths": "Magnus Exorcismus x5, Heartless: attack x1"
+   },
+   "tried": 78
+  },
+  {
+   "move": "rotation: heal = false",
+   "before": {
+    "win": 0.464,
+    "loss": 0.003,
+    "dps": 8786.82556735994,
+    "ttk": 52.81520596033025,
+    "value": 0.8949023835103991,
+    "deaths": "Heartless: attack x2, Magnus Exorcismus x1"
+   },
+   "after": {
+    "win": 0.804,
+    "loss": 0.005,
+    "dps": 8885.549505431534,
+    "ttk": 52.919669371073326,
+    "value": 1.235783242581473,
+    "deaths": "Heartless: attack x2, Magnus Exorcismus x2"
+   },
+   "tried": 23
+  },
+  {
+   "move": "order: Shield Boomerang down 2 (before Dragon Breath)",
+   "before": {
+    "win": 0.792,
+    "loss": 0.008,
+    "dps": 8879.817616468523,
+    "ttk": 52.73122764876155,
+    "value": 1.2227972642470277,
+    "deaths": "Knuckle Arrow x3, Magnus Exorcismus x3"
+   },
+   "after": {
+    "win": 0.831,
+    "loss": 0.009,
+    "dps": 8871.976831860291,
+    "ttk": 53.22041192066051,
+    "value": 1.2613796524779042,
+    "deaths": "Magnus Exorcismus x5, Knuckle Arrow x3"
+   },
+   "tried": 78
+  },
+  {
+   "move": "rotation: retributionAt = 1",
+   "before": {
+    "win": 0.83,
+    "loss": 0.007,
+    "dps": 8833.176655641726,
+    "ttk": 53.052205960330255,
+    "value": 1.2603976498346259,
+    "deaths": "Magnus Exorcismus x4, Knuckle Arrow x3"
+   },
+   "after": {
+    "win": 0.905,
+    "loss": 0.023,
+    "dps": 9563.054513084688,
+    "ttk": 50.936,
+    "value": 1.3415458176962702,
+    "deaths": "Magnus Exorcismus x13, Knuckle Arrow x5"
+   },
+   "tried": 23
+  },
+  {
+   "move": "rotation: sneakAttack = false",
+   "before": {
+    "win": 0.892,
+    "loss": 0.031,
+    "dps": 9598.959568041835,
+    "ttk": 50.27822764876155,
+    "value": 1.3266843935206276,
+    "deaths": "Magnus Exorcismus x18, Knuckle Arrow x6"
+   },
+   "after": {
+    "win": 0.918,
+    "loss": 0.017,
+    "dps": 9642.369943352463,
+    "ttk": 50.184,
+    "value": 1.357535549150287,
+    "deaths": "Magnus Exorcismus x10, Heartless: attack x5"
+   },
+   "tried": 23
+  },
+  {
+   "move": "order: Delta Skyfall up 2 (before Shield Boomerang)",
+   "before": {
+    "win": 0.906,
+    "loss": 0.023,
+    "dps": 9614.141851990342,
+    "ttk": 50.251,
+    "value": 1.3433121277798552,
+    "deaths": "Magnus Exorcismus x12, Heartless: attack x7"
+   },
+   "after": {
+    "win": 0.912,
+    "loss": 0.011,
+    "dps": 9678.013581985613,
+    "ttk": 49.597,
+    "value": 1.353870203729784,
+    "deaths": "Heartless: attack x3, Knuckle Arrow x3"
+   },
+   "tried": 78
+  }
+ ],
+ "final": {
+  "win": 0.8985,
+  "loss": 0.0255,
+  "dps": 9613.327306546766,
+  "ttk": 50.208,
+  "value": 1.3350499095982014,
+  "deaths": "Magnus Exorcismus x29, Knuckle Arrow x11"
+ },
+ "options": {
+  "fortress": 3,
+  "queensBrand": false,
+  "rogueFillers": false,
+  "autoAttack": false,
+  "rooksWall": true,
+  "order": [
+   "Stay hidden",
+   "Morroc's Mark",
+   "Heal",
+   "Pre-cast King's Gambit",
+   "Step back",
+   "Pull it off the ward",
+   "Sneak Attack",
+   "Bishop's Tax",
+   "King's Chains",
+   "Hide to strike",
+   "Rook's Smash",
+   "Delta Skyfall",
+   "Shield Boomerang",
+   "Dragon Breath",
+   "Queen's Gambit",
+   "Retribution",
+   "Queen's Brand",
+   "Wind Slash",
+   "Overpower",
+   "Face-Off",
+   "Attack"
+  ],
+  "heal": false,
+  "retributionAt": 1,
+  "sneakAttack": false
+ },
+ "link": "http://localhost:5173/#b=cfZNNb5wwEIb_ysqXXEaVx5-wx-RY9dAzQsgCL6D1sghD1Kjtf6_GQEqjbi4WGj_zvvNhCgHsaz-0Mbg3PzFAyaHIOSDkOSgO9FlCUXDQCjPgUChleFlCgaC5SRGU2iKFBOjMrhDnkiIShOA8TyGBGSmxOLuZAXvtZwaFIIpNPt6XqfYM2M39qLqRQaHSza2f-9bN_X1gwMbuLfa1C9Xkm6X2DYMCy5I4BYi5gRwKJXMB66FQpiO5TvcQ8Ki_Od9DkAzY5IbWN1Xjbq717-50qxiwbqxa1w--qUY_VV2qXK7OGgSigIx6NvhuJZNV29eb5KFksSYaQK2kAQOFQquAjkfz8a8uriO4BE_l5Skclzi7flgLDN7XHU1EwOZg0_AVOaC0KI7qcZ7-Ti8DYSRd5yAM5utOrUobRIScS64yoDmSeMazpPlQDmWCzEdo7WiHVIL055BOkP0IheV6gAwIhZxT2Y8hS5CVn9il8P48ECTNgRa6MuIQ2B5LvPYhVLclzMSj5V8yuyONv1SjHxhwEJqCYHlaGeWcvy_eD0_x9Dy5ofm1PzoEvqevGP2YT_H00rl-iAdMi3-5l87X19M3N_v_aTX-QmVsSSX1_3Pv84xa8_WniCM7Z-Z3-Qc",
+ "perTarget": []
+}

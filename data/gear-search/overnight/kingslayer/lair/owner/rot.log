@@ -1,0 +1,15 @@
+node --experimental-strip-types --no-warnings --import ./register.mjs tools/gear-search.ts --profile profiles/kingslayer-jorm.json --vs Angel of Genesis,Demon of Apocalypse,Heartless,Heart of the Serpent --screen 150 --confirm 1000 --passes 8 --lock offhand --fix rogueFillers=false,autoAttack=false --only rotation,order --out F:\RTMR_Project\data\gear-search\overnight\kingslayer\lair\owner\rot.json
+
+start: win 82% lost 7% 10,785 dps 29s  (Angel of Genesis, Demon of Apocalypse, Heartless, Heart of the Serpent, 1000 fights, 11 workers)
+  (stat rolls on new pieces: VIT, from armor: vit 1.254, str 1.252, dex 1.252)
+pass 1  rotation: heal = false                                           win 82% lost 7% 10,761 dps 29s  ->  win 88% lost 10% 10,921 dps 29s   [24 tried]
+  (stat rolls on new pieces: VIT, from armor: vit 1.312, str 1.310, dex 1.309)
+pass 2  rotation: rooksWall = true                                       win 88% lost 10% 10,884 dps 30s  ->  win 95% lost 0% 10,452 dps 30s   [24 tried]
+  (stat rolls on new pieces: STR, from armor: vit 1.403, str 1.403, dex 1.403)
+pass 3  rotation: retributionAt = 1                                      win 95% lost 0% 10,477 dps 30s  ->  win 97% lost 1% 11,182 dps 28s   [23 tried]
+  (stat rolls on new pieces: DEX, from armor: vit 1.439, str 1.440, dex 1.440)
+
+final (2000 fights): win 97% lost 1% 11,153 dps 28s; killed by Magnus Exorcismus x35, Demon of Apocalypse: Grand Darkness x17
+options: {"fortress":3,"queensBrand":false,"rogueFillers":false,"autoAttack":false,"heal":false,"rooksWall":true,"retributionAt":1}
+http://localhost:5173/#b=cfZNNb5wwEIb_ysqXXEaVx5-wx-RY9dAzQsgCL6D1sghD1Kjtf6_GQEqjbi4WGj_zvvNhCgHsaz-0Mbg3PzFAyaHIOSDkOSgO9FlCUXDQCjPgUChleFlCgaC5SRGU2iKFBOjMrhDnkiIShOA8TyGBGSmxOLuZAXvtZwaFIIpNPt6XqfYM2M39qLqRQaHSza2f-9bN_X1gwMbuLfa1C9Xkm6X2DYMCy5I4BYi5gRwKJXMB66FQpiO5TvcQ8Ki_Od9DkAzY5IbWN1Xjbq717-50qxiwbqxa1w--qUY_VV2qXK7OGgSigIx6NvhuJZNV29eb5KFksSYaQK2kAQOFQquAjkfz8a8uriO4BE_l5Skclzi7flgLDN7XHU1EwOZg0_AVOaC0KI7qcZ7-Ti8DYSRd5yAM5utOrUobRIScS64yoDmSeMazpPlQDmWCzEdo7WiHVIL055BOkP0IheV6gAwIhZxT2Y8hS5CVn9il8P48ECTNgRa6MuIQ2B5LvPYhVLclzMSj5V8yuyONv1SjHxhwEJqCYHlaGeWcvy_eD0_x9Dy5ofm1PzoEvqevGP2YT_H00rl-iAdMi3-5l87X19M3N_v_aTX-QmVsSSX1_3Pv84xa8_WniCM7Z-Z3-Qc
+(97 s; 629 batches fought, 168 shared with an identical fighter)

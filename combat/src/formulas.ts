@@ -92,6 +92,18 @@ export const TUNE = {
   /** Reaction to a cast bar: the TAS is perfect, but not psychic. GUESS. */
   reactionMs: 100,
   /**
+   * The same for a player, with fight option mobility 'server' (walking in
+   * whole cells at the server's speed, see kits/common.ts escapeMs). GUESS.
+   */
+  playerReactionMs: 300,
+  /** Server walk speed: ms a cell (RTM common/mmo.hpp DEFAULT_WALK_SPEED); a diagonal step x1.4 (path.hpp). */
+  walkCellMs: 160,
+  diagonalCost: 1.4,
+  /** Cells to put a wall between you and a caster, on the tight lair maps. GUESS. */
+  losCells: 5,
+  /** Cells to pull a monster off its Pneuma or Safety Wall. */
+  wardCells: 2,
+  /**
    * Monster HIT over the crawl's figure: the project owner reads Burning
    * Fury 680 (crawl 655) and Tortured Maiden 732 (707), 2026-09-26.
    */
@@ -299,6 +311,34 @@ const PROTOCOL_BOSS = process.env.PROTOCOL_BOSS === '1';
 export const countsAsBoss = (m: Monster) => m.boss || (PROTOCOL_BOSS && !!m.bossProtocol);
 
 /**
+ * One cell's walk: 160 ms, faster by the single largest haste (RTM
+ * status.cpp:7884-7949 takes the max of gear Move Speed % and the buffs,
+ * not a sum). Improve Dodge's haste is the Assassin line's only.
+ */
+export function walkCellMs(f: Pick<Fighter, 'moveSpeed'>): number {
+  const haste = Math.min(90, Math.max(0, f.moveSpeed ?? 0));
+  return (TUNE.walkCellMs * (100 - haste)) / 100;
+}
+
+/**
+ * Cell-steps out of an area, a diagonal step counting 1.4. Aimed at you
+ * (a ground spell on your cell): radius + 1 straight. Round the monster
+ * (Earthquake, Grand Darkness), from beside it: radius. Magnus Exorcismus is
+ * a 7x7 with each 2x2 corner cut ("33-cell cross"): two diagonal steps.
+ */
+export function escapeCells(s: Pick<MobSkill, 'skill' | 'radius' | 'centeredOnSelf'>): number {
+  if (/MAGNUS/.test(s.skill)) return 2 * TUNE.diagonalCost;
+  const r = s.radius ?? 3;
+  return s.centeredOnSelf ? Math.max(1, r) : r + 1;
+}
+
+/** Time to step out of `s`, one way: TUNE.walkOutMs for the TAS; whole cells with fight option mobility 'server'. */
+export function escapeMsFor(options: Record<string, unknown>, f: Pick<Fighter, 'moveSpeed'>, s?: MobSkill): number {
+  if (options.mobility !== 'server') return TUNE.walkOutMs;
+  return Math.round((s ? escapeCells(s) : 3) * walkCellMs(f));
+}
+
+/**
  * The target-type multiplier cards and gear give: race x element x size x
  * boss, multiplied (user, 2026-09-25). `d`: whose cards -- the build's (the
  * right hand's) by default, the left hand's own with f.dmgLeft.
@@ -395,8 +435,9 @@ export function offhandCritMultiplier(f: Pick<Fighter, 'stats' | 'critDamage'>):
 /** One hand's ATK before cards (in 'final' mode), melee%, the skill ratio and DEF. */
 function handAtk(f: Fighter, m: Monster, w: Fighter['weapon'], h: PhysicalHit, rng: Rng, left: boolean): number {
   const s = f.stats;
+  const conc = 1 + (f.concentration ?? 0) / 100;
   const statusPart = statusAtk(s, f.level) * attrFix(h.statusElement, m.element, m.elementLevel)
-    * (left ? TUNE.statusAtkLeft : TUNE.statusAtkRight);
+    * (left ? TUNE.statusAtkLeft : TUNE.statusAtkRight) * conc;
 
   let weaponPart = 0;
   if (w) {
@@ -406,7 +447,7 @@ function handAtk(f: Fighter, m: Monster, w: Fighter['weapon'], h: PhysicalHit, r
     const variance = 0.05 * w.atk * w.level;
     const strBonus = (w.atk * s.str) / 200;
     const rolled = rng.between(base - variance, base + variance);
-    weaponPart = Math.max(0, rolled + strBonus)
+    weaponPart = Math.max(0, rolled + strBonus) * conc
       * sizeFix(w.type, m.size, (f.dmg.no_size_penalty ?? 0) > 0)
       * attrFix(h.element, m.element, m.elementLevel);
   }

@@ -1,0 +1,13 @@
+node --experimental-strip-types --no-warnings --import ./register.mjs tools/variants.ts --profile F:\RTMR_Project\data\gear-search\overnight\kingslayer\heartless\generalist\gear.profile.json --vs Angel of Genesis,Demon of Apocalypse,Heartless,Heart of the Serpent --iter 2000 --policy priority --time 300 --json F:\RTMR_Project\data\gear-search\overnight\kingslayer\check\heartless-3-generalist.json
+
+as is: HP 24,417, SP 2,183 (regen 72), INT 56, pen 49, Auto Guard 1
+
+monster                            as is
+Angel of Genesis                 100% 9s
+Demon of Apocalypse               92% 9s
+Heartless                       100% 18s
+Heart of the Serpent             100% 9s
+mean win rate                        98%
+  as is / Demon of Apocalypse: killed by Demon of Apocalypse: reflected x165
+  as is / Heartless: killed by Knuckle Arrow x6, Heartless: attack x2
+  as is / Heart of the Serpent: killed by Demon of Apocalypse: Back Stab x2, Angel of Genesis: attack x1

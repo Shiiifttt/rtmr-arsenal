@@ -1,0 +1,11 @@
+node --experimental-strip-types --no-warnings --import ./register.mjs tools/gear-search.ts --profile profiles/kingslayer-jorm-generalist.json --vs Heartless --screen 150 --confirm 1000 --passes 8 --lock offhand --fix rogueFillers=false,autoAttack=false --only rotation,order --out F:\RTMR_Project\data\gear-search\overnight\kingslayer\heartless\generalist\rot.json
+
+start: win 98% lost 2% 23,759 dps 21s  (Heartless, 1000 fights, 11 workers)
+  (stat rolls on new pieces: VIT, from armor: vit 1.641, dex 1.637, str 1.636)
+pass 1  rotation: windSlash = true                                       win 98% lost 2% 23,732 dps 21s  ->  win 98% lost 1% 26,245 dps 18s   [24 tried]
+  (stat rolls on new pieces: VIT, from armor: vit 1.683, dex 1.676, str 1.680)
+
+final (2000 fights): win 99% lost 1% 26,239 dps 18s; killed by Knuckle Arrow x20, Heartless: attack x6
+options: {"fortress":3,"queensBrand":false,"heal":false,"retributionAt":1,"rogueFillers":false,"autoAttack":false,"windSlash":true}
+http://localhost:5173/#b=cfZPNbpwwFIVfZeRNNkeVr__As0yWVRdZI4Qs8AAKwyDMRInavntlA-lEbWbjxfV3z7k-tgsB9r0f2zC4dz8zkOQocg6CtdAaloNKFAWHJCEIBoXSmUFcyhIFQXOTg6MgqTOKJQGdZ6m0QxJCcG5XKqM8CrKwuIWBvfYLQyEixmYfLte59gzs7N6qbmIoVNo590vfuqW_jAxs6t5DX7uhmn1zrX3DUFBZRk6ByBpYFEpagc9Lcp0vw0C3-pvzZRgkA5vd2PqmatzZtf7DPe4qBtZNVev60TfV5OeqS5PL1VlDEAnk0VnwDyuZrNq-3iRvRhZrowFpJU0KlgxHXL7Kx7-6sEZwGnwcz6ZyuIbF9eM64OB93cVEBDaHLKWvkoO06lY8LPPf8HIII2NKFsLQfltKpmsmWC65yiHLVTu3VkTJf2fd5EgmSN2HVILkfUgnSN-HDIQSysSxv4YyCEXmnlIq76-DIGMO8QesjLgpbG8lvPTDUJ2vwxJ5yvi3PNuRxp-qyY8MHELHIjKebiz2HJ-v3o8P4fA4u7H5tb85At_bVyx-z4dweOpcP4YbTIvP3FPn65fDD7f4_2k1_hTH2JrKeP6f-zmPpDVf_0SY2DE3v8s_
+(14 s; 324 batches fought, 86 shared with an identical fighter)

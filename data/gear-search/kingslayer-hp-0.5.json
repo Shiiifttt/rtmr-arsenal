@@ -1,0 +1,214 @@
+{
+ "profile": "Kingslayer: owner skill plan (job 53)",
+ "targets": [
+  "Angel of Genesis",
+  "Demon of Apocalypse",
+  "Heartless",
+  "Heart of the Serpent"
+ ],
+ "rules": {
+  "screenN": 40,
+  "confirmN": 200,
+  "timeS": 300,
+  "locked": [
+   "offhand"
+  ],
+  "penalty": 0.03,
+  "topStats": [
+   "vit",
+   "dex",
+   "str"
+  ]
+ },
+ "start": "http://localhost:5173/#b=cfZM9b9swEIb_isEly4uCxy-JHpOx6NCZEARCoi0hsiyIctCg7X8vSNmug8ReOByfu3vvywmw7_24j4N_DzMDSQ5XchCshdKwHEJVcI5D88LAwCldmKqCI2huSnA4krqgZBKQVGqdbJmCcywufmFgb_3C4KiqEidBWhZlikayoPJLEI7NIR5PcxMY2MH_qruJwcn8c-iXfu-X_jgysKl7j33jh3oO7akJLYMTayIFIlXCwilpBa5PTjgfh4FuQ4s16XEYBAOLU90c43ITVF__JQOb_bgPbd36g9-HD7-KgbVhF8YY6imMYZnPSh3xVZeGIBIo4RQpeVUjs5p935yjfi7IgLSS6xzIWKTnc_fWQsKbj2uDdkNICm02x1NcfJ_M3VQPITRdEiZwzlBACM5VziCtug0el_n_DEsII1MjLciQlnnoSvK7QyeC5ZKrEqnglLC0VqQ8911khtRjSGVIPoZ0hvRjyEAooUwq5T5UQCgyjyJl82WrCNKCg1LrMyNuDOcdiq_9MNSH07Akngr-rSwuSBt2aYkYOES6LELB8xiTz_bnKYTxKW6eZz-2fy67SOAX9xVLJ_4UNy-d78d4g2nxkXvpQvO6-eGX8FWsNuySjLNTler_falzS1rz9ZbixLal-Vv9Aw",
+ "steps": [
+  {
+   "move": "rotation: retributionAt = 1",
+   "before": {
+    "win": 0.985,
+    "loss": 0.015,
+    "dps": 59299.394821835,
+    "ttk": 5.71494692028348,
+    "value": 2.451160922327525,
+    "deaths": "Heartless: attack x5, Heartless: reflected x3"
+   },
+   "after": {
+    "win": 0.99125,
+    "loss": 0.008749999999999999,
+    "dps": 59514.81998135382,
+    "ttk": 5.812280050123195,
+    "value": 2.4625172997203073,
+    "deaths": "Heartless: attack x4, Phantom Thrust x2"
+   },
+   "tried": 26
+  },
+  {
+   "move": "order: Wind Slash down 1 (before Retribution)",
+   "before": {
+    "win": 0.99125,
+    "loss": 0.008749999999999999,
+    "dps": 59261.0672676254,
+    "ttk": 5.816429023551021,
+    "value": 2.458711009014381,
+    "deaths": "Heartless: attack x5, Demon of Apocalypse: reflected x1"
+   },
+   "after": {
+    "win": 0.99375,
+    "loss": 0.00625,
+    "dps": 61765.03109282539,
+    "ttk": 5.520280050123195,
+    "value": 2.4995204663923807,
+    "deaths": "Heartless: attack x4, Demon of Apocalypse: reflected x1"
+   },
+   "tried": 78
+  },
+  {
+   "move": "stats: INT 45->35, STR 80->85",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 62141.46133939543,
+    "ttk": 5.498890482922241,
+    "value": 2.513291920090931,
+    "deaths": ""
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 63791.26327824805,
+    "ttk": 5.46840771139767,
+    "value": 2.5380389491737207,
+    "deaths": ""
+   },
+   "tried": 42
+  },
+  {
+   "move": "Middle Headgear: Dandelion Eyepatch +0",
+   "before": {
+    "win": 0.99375,
+    "loss": 0.00625,
+    "dps": 63625.2628023375,
+    "ttk": 5.46840771139767,
+    "value": 2.5274239420350626,
+    "deaths": "Heartless: attack x4, Demon of Apocalypse: reflected x1"
+   },
+   "after": {
+    "win": 0.995,
+    "loss": 0.005,
+    "dps": 65854.09662039162,
+    "ttk": 5.340904388845285,
+    "value": 2.564391449305874,
+    "deaths": "Heartless: attack x2, Demon of Apocalypse: reflected x1"
+   },
+   "tried": 28
+  },
+  {
+   "move": "stats: INT 35->25, STR 85->89",
+   "before": {
+    "win": 0.99375,
+    "loss": 0.00625,
+    "dps": 65481.82895412072,
+    "ttk": 5.3566009177632115,
+    "value": 2.557182434311811,
+    "deaths": "Heartless: attack x5"
+   },
+   "after": {
+    "win": 0.995,
+    "loss": 0.005,
+    "dps": 66319.34301494803,
+    "ttk": 5.322702827054473,
+    "value": 2.57137014522422,
+    "deaths": "Heartless: attack x4"
+   },
+   "tried": 42
+  },
+  {
+   "move": "Armor: Minorous Card x1",
+   "before": {
+    "win": 0.9924999999999999,
+    "loss": 0.0075,
+    "dps": 66330.24157618408,
+    "ttk": 5.3175529933517955,
+    "value": 2.568283623642761,
+    "deaths": "Heartless: attack x5, Magnus Exorcismus x1"
+   },
+   "after": {
+    "win": 0.99625,
+    "loss": 0.00375,
+    "dps": 64356.18857860859,
+    "ttk": 5.380952827054473,
+    "value": 2.583987828679129,
+    "deaths": "Heartless: attack x2, Magnus Exorcismus x1"
+   },
+   "tried": 98
+  },
+  {
+   "move": "stats: LUK 24->14, STR 89->92  +  Shoes: Blooming Rose Sandals +9",
+   "before": {
+    "win": 0.99375,
+    "loss": 0.00625,
+    "dps": 64359.939407964346,
+    "ttk": 5.387952827054472,
+    "value": 2.580794091119465,
+    "deaths": "Heartless: attack x3, Demon of Apocalypse: reflected x1"
+   },
+   "after": {
+    "win": 0.99875,
+    "loss": 0.00125,
+    "dps": 68125.3162985072,
+    "ttk": 5.2899411726843155,
+    "value": 2.6209547444776082,
+    "deaths": "Demon of Apocalypse: reflected x1"
+   },
+   "tried": 732
+  }
+ ],
+ "final": {
+  "win": 0.9975,
+  "loss": 0.0025,
+  "dps": 68289.02229360545,
+  "ttk": 5.2926842080625205,
+  "value": 2.621785334404082,
+  "deaths": "Demon of Apocalypse: reflected x3, Heartless: attack x1"
+ },
+ "options": {
+  "fortress": 3,
+  "queensBrand": true,
+  "rooksWall": true,
+  "sneakAttack": false,
+  "heal": false,
+  "rogueFillers": false,
+  "autoAttack": false,
+  "keepRange": false,
+  "safeCasts": false,
+  "windSlash": true,
+  "retributionAt": 1,
+  "openerGambit": false,
+  "order": [
+   "Stay hidden",
+   "Morroc's Mark",
+   "Pre-cast King's Gambit",
+   "Step back",
+   "Heal",
+   "Pull it off the ward",
+   "Sneak Attack",
+   "Bishop's Tax",
+   "King's Chains",
+   "Shield Boomerang",
+   "Hide to strike",
+   "Rook's Smash",
+   "Dragon Breath",
+   "Delta Skyfall",
+   "Queen's Gambit",
+   "Wind Slash",
+   "Retribution",
+   "Queen's Brand",
+   "Overpower",
+   "Face-Off",
+   "Attack"
+  ],
+  "readyToRip": true
+ },
+ "link": "http://localhost:5173/#b=cfZTLbtswEEV_JeAmm4uCw4ckZtksiy66JgSBkGhbiCwLohw0aPvvxVBy4CCxNwQ0PDNz50F5BfGjH_dpCG9xFiAt4Z0CwTkoCydBpob3ElaWBQp4Y8uiruEJ1pUECU_alsSQSEtYBMRrvwh4qmvmFDRV1jKYXW9xGmR1WeUUpL7m4MUc0-k8t1FAHMPv5jAJeJ1vjv3S78PSn0YBMR3eUt-GoZljd25jJ-DVmseAyFRw8EY7hfcjJ5xPw0DXodWa9DQMSkCkqWlPabkKat_vtYCYw7iPXdOFY9jHD7dGQHRxF8cUmymOcZk3pZ7kqstCESlUXL7R72p0VrPv2y3q54IKkDV6nQ0VDnx87t5aSHwNaW3Qbois0GVzOqcl9Gw-TM0QY3tgYQpbhhJKyZK2nplbo0lTZF0ipInlldnYhrT0457NuyXODX83XRzC24owVEEVmgfgQAVZnXfFaHlzV4jgpJamAu8JC62cU9yB2y46Q-Y-ZDKk70M2Q_Y-VEAZZQou5TZUQhkq7kXK5ss2ErSDBL-1lVFXhm330ks_DM3xPCzMUym_VeUF6eKOl09A8tuWIJQyD459nn6dYxwf08P3OYzd38sO8wvf3FeMfxeP6eH5EPoxXWFWfeSeD7F9efgZlvhVrC7uWMbmVHP9fy51PpG1cn2DaRJPVfGv_g8",
+ "perTarget": []
+}

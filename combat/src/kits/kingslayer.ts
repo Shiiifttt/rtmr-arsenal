@@ -36,7 +36,7 @@ import {
 } from '../engine.ts';
 import {
   assessThreat, attackAction, breakSight, hidingAction, lv, morrocsMark, optionOn, orphanHeal, pullOffWard, stayHidden,
-  toolkit, waitAction, walkOut, wardUp,
+  cellMs, reactionMs, toolkit, waitAction, walkOut, wardUp,
 } from './common.ts';
 
 const TREE = ['Kingslayer', 'Duelist', 'Rogue', 'Thief', 'Orphan'];
@@ -64,7 +64,8 @@ export function passives(
   levels: Record<string, number>, weaponType: string | null, baseLevel: number,
 ): Passives {
   const L = (n: string) => levels[n] ?? 0;
-  const blade = weaponType === 'Dagger' || weaponType === 'Sword' || weaponType === 'One-Handed Sword';
+  // A Long Sword counts: the Ruined Noble Sword's own bonus is Queen's Brand, a sword-or-dagger skill.
+  const blade = ['Dagger', 'Sword', 'One-Handed Sword', 'Long Sword'].includes(weaponType ?? '');
   return {
     // Blade Mastery: "3 Atk ... per level", swords and daggers.
     masteryAtk: blade ? 3 * L('Blade Mastery') : 0,
@@ -74,7 +75,13 @@ export function passives(
     // Improve Defense "1 HP per skill level, per Base Level"; Shield Mastery
     // "25 HP per level"; Bishop's Guard "500 per level" (up the whole fight).
     hpFlat: L('Improve Defense') * baseLevel + 25 * L('Shield Mastery') + 500 * L("Bishop's Guard"),
-    spFlat: Math.floor((L('Improve Wisdom') * 2 * baseLevel) / 3),
+    // Gadget Mastery (RA_RESEARCHTRAP): +1 INT a level and 10 + 5 SP a level,
+    // whatever the weapon (RTM status.cpp:4656, 3898).
+    spFlat: Math.floor((L('Improve Wisdom') * 2 * baseLevel) / 3) + (L('Gadget Mastery') > 0 ? 10 + 5 * L('Gadget Mastery') : 0),
+    stats: { int: L('Gadget Mastery') },
+    // Magic Pierce (AB_EXPIATIO): the target's DEF 1% a level lower, a buff
+    // kept up (RTM battle.cpp:5489) -- as DEF penetration.
+    defPen: L('Magic Pierce'),
     // Duel Stance "Increase Max HP by 2% per level", held all fight.
     hpPercent: 2 * L('Duel Stance'),
     spRegen: { flat: 2 * L('Increase SP Recovery'), maxShare: 0.001 * L('Increase SP Recovery') },
@@ -137,14 +144,18 @@ const weaponHit = (fight: Fight, name: string, ratio: number, o: { ranged?: bool
  * project owner's dummy readings (2026-09-26, profiles/kingslayer-dummy.json:
  * King's Chains 7,155 a shown hit, Shield Boomerang 6,269): the base is the
  * shield's weight / 9 (weight in the server's 0.1 units, as the 2023 code)
- * plus mastery and equip ATK, times ATK% -- no status ATK, no STR bonus, and
+ * plus equip ATK, times ATK% -- no mastery ATK, no status ATK, no STR bonus, and
  * not the doubled skill ATK weapon skills get. Then the ratio, long-range
  * damage, DEF, the skill's gear bonus, and 10 per shield refine on top.
  * Gives 7,163 and 6,179.
  */
 function shieldHit(fight: Fight, name: string, ratio: number, mult = 1) {
   const f = fight.f; const s = f.shield!;
-  const base = Math.floor((s.weight * 10) / 9) + f.masteryAtk + f.equipAtk;
+  // No weapon mastery: the 2023 code gives the shield skills no mastery ATK
+  // (battle.cpp:3580, the damage parts are never filled in), and the owner's
+  // readings of 2026-09-28 (no weapon 5,669; Abandoned Guardian 7,155) fit
+  // only without Blade Mastery.
+  const base = Math.floor((s.weight * 10) / 9) + f.equipAtk;
   // Always Neutral, whatever the weapon (the project owner, 2026-09-27).
   const hit = plainHit(fight, name, base, ratio, true, 'Neutral');
   return (crit: boolean) => (hit(crit) + 10 * s.refine) * mult;
@@ -168,14 +179,19 @@ function plainHit(fight: Fight, name: string, base: number, ratio: number, range
   };
 }
 
-/** Shield Mastery "+10% per level" and King's Fortress Lv3 "+1% per STR and 2% per VIT" on shield skills. */
+/**
+ * Shield Mastery and King's Fortress Lv3 "+1% per STR and 2% per VIT" on
+ * shield skills. Shield Mastery is +20% a level in the game's own
+ * description (the project owner, 2026-09-28); the crawled text still says
+ * 10%. The owner's King's Chains readings of 2026-09-28 fit 20% within 1%.
+ */
 function shieldBonus(fight: Fight): number {
   const s = fight.f.stats;
-  return 10 * lv(fight.f, 'Shield Mastery') + (fortressLevel(fight) >= 3 ? s.str + 2 * s.vit : 0);
+  return 20 * lv(fight.f, 'Shield Mastery') + (fortressLevel(fight) >= 3 ? s.str + 2 * s.vit : 0);
 }
 
 const hasShield = (fight: Fight) => !!fight.f.shield;
-const bladeInHand = (fight: Fight) => ['Dagger', 'Sword', 'One-Handed Sword'].includes(fight.f.weapon?.type ?? '');
+const bladeInHand = (fight: Fight) => ['Dagger', 'Sword', 'One-Handed Sword', 'Long Sword'].includes(fight.f.weapon?.type ?? '');
 const fortressLevel = (fight: Fight) => (has(fight, 'fortress') ? fight.me.buffs.fortress.stacks : 0);
 /** The Bulwark Gem's "Shield Boomerang can combo into King's Chains within 3 s for 50% more damage". */
 const comboGem = new WeakMap<Fighter, boolean>();
@@ -328,9 +344,10 @@ const queensGambit: Action = {
   // Rook's Smash and Delta Skyfall to take counters up, or to refill them --
   // not once they are high (the project owner, 2026-09-27). Never below 65%
   // HP, so the cost leaves 40%.
+  // Option simple: once a fight, timed to the King's Gambit (simpleGambitNow).
   ready: (fight) => learned("Queen's Gambit")(fight) && optionOn(fight, 'queensGambit')
-    && castIsSafe(fight, cast("Queen's Gambit")(fight))
-    && counters(fight) <= 5 && fight.me.hp >= 0.65 * fight.f.maxHp,
+    && fight.me.hp >= 0.65 * fight.f.maxHp
+    && (simple(fight) ? simpleGambitNow(fight) : castIsSafe(fight, cast("Queen's Gambit")(fight)) && counters(fight) <= 5),
   castMs: cast("Queen's Gambit"),
   cooldownMs: cooldown("Queen's Gambit"),
   spCost: spCost("Queen's Gambit"),
@@ -354,6 +371,7 @@ const queensGambit: Action = {
         return (atk + matk) * (ratio / 100) * (1 + skillDamage / 100);
       },
     });
+    if (simple(fight)) fight.me.buffs.gambitsCast = { until: 1e12, stacks: stacks(fight, 'gambitsCast') + 1 };
     // "Gives you 5 Duel Counters if it hits enemies."
     setCounters(fight, counters(fight) + 5);
   },
@@ -672,7 +690,7 @@ const stepBack: Action = {
   offensive: false,
   ready: (fight) => has(fight, 'close') && has(fight, 'defender') && optionOn(fight, 'keepRange'),
   castMs: () => 0,
-  delayMs: (fight) => 3 * (has(fight, 'defender') ? 200 : 150),
+  delayMs: (fight) => 3 * (has(fight, 'defender') ? 200 : cellMs(fight)),
   cooldownMs: () => 0,
   spCost: () => 0,
   resolve(fight) { delete fight.me.buffs.close; },
@@ -752,9 +770,45 @@ const castsWards = (m: Monster) => m.skills.some((sk) => /PNEUMA|SAFETYWALL/.tes
 
 /** The priority list, or a profile's own (option order: the same ids, reordered). */
 export const KINGSLAYER_ORDER = ORDER;
+/**
+ * Option simple: the few-buttons rotation a player can hold in real
+ * combat (the project owner, 2026-09-28). Shield Boomerang and King's
+ * Chains do the damage; Rook's Smash, Delta Skyfall and one Queen's Gambit
+ * only build counters; no Retribution (counters stay high), no fillers.
+ * Against Heartless: King's Gambit on the first Magnus, Tax, Rook's Smash,
+ * Delta, Shield Boomerang, King's Chains, then Queen's Gambit timed to land
+ * as the Gambit's Land Protector ends. Tax waits for half HP (taxHp).
+ */
+const SIMPLE_ORDER = [
+  'Stay hidden', "Morroc's Mark", "Pre-cast King's Gambit", 'Step back', 'Heal', 'Pull it off the ward',
+  "Bishop's Tax", "Queen's Gambit", "Rook's Smash", 'Delta Skyfall', "King's Chains", 'Shield Boomerang',
+];
+const simple = (fight: Fight) => fight.options.simple === true;
+/** Simple rotation: Rook's Smash only while it adds counters ("up to 3"). */
+const simpleGate = (fight: Fight, id: string) => id !== "Rook's Smash" || counters(fight) < 3;
+
+/**
+ * Simple rotation: the one Queen's Gambit a fight. Under King's Gambit it
+ * starts so that it lands as the Land Protector ends -- Magnus cannot catch
+ * the cast; with no Gambit down, only when no fast ground spell is due.
+ */
+function simpleGambitNow(fight: Fight): boolean {
+  // simpleGambits: more than the one (a number of casts a fight).
+  const most = typeof fight.options.simpleGambits === 'number' ? fight.options.simpleGambits : 1;
+  if (stacks(fight, 'gambitsCast') >= most) return false;
+  const ms = cast("Queen's Gambit")(fight);
+  const lp = fight.me.buffs.landProtector?.until ?? -1;
+  if (lp > fight.t) return fight.t + ms >= lp - 150;
+  return !fight.mob.cast && !fastGroundDueSoon(fight, ms + 300);
+}
+
 function priority(fight: Fight): Action {
-  const order = Array.isArray(fight.options.order) ? fight.options.order as string[] : ORDER;
+  // simpleAdd: extra buttons after the simple ones, lowest priority (Wind Slash, Retribution...).
+  const add = fight.options.simpleAdd;
+  const extra = Array.isArray(add) ? add as string[] : typeof add === 'string' ? add.split(',').map((s) => s.trim()).filter(Boolean) : [];
+  const order = simple(fight) ? [...SIMPLE_ORDER, ...extra] : Array.isArray(fight.options.order) ? fight.options.order as string[] : ORDER;
   for (const id of order) {
+    if (simple(fight) && !simpleGate(fight, id)) continue;
     // With no counter King's Chains cannot follow a Shield Boomerang: open
     // with Rook's Smash (3 counters) instead (the project owner, 2026-09-27).
     // At the pull only: later, hits in Duel Stance refill counters quickly
@@ -785,7 +839,7 @@ function react(fight: Fight, s: MobSkill, from: Monster): { action: string; at: 
   if (ground && !s.noGambit && ready("King's Gambit") && s.castMs > FAST_CAST_MS) {
     return { action: "King's Gambit", at: Math.max(fight.t, endsAt - 100) };
   }
-  if (t.canWalk && s.targets === 'aoe') return { action: 'Walk out', at: fight.t + TUNE.reactionMs };
+  if (t.canWalk && s.targets === 'aoe') return { action: 'Walk out', at: fight.t + reactionMs(fight) };
   // Pawn's Rod: a spell cast at you; it has a 0.5s cast, then 1.5s of cover.
   const rodCast = rule("Pawn's Rod").castMs(fight);
   if (s.type === 'magic' && s.targets === 'single' && ready("Pawn's Rod") && t.lead >= rodCast) {
@@ -799,8 +853,8 @@ function react(fight: Fight, s: MobSkill, from: Monster): { action: string; at: 
   if (s.targets === 'single' && t.hideWorks && ready('Decoy') && t.lead >= decoyCast) {
     return { action: 'Decoy', at: Math.max(fight.t, endsAt - decoyCast - 150) };
   }
-  if (t.canLos) return { action: 'Break line of sight', at: fight.t + TUNE.reactionMs };
-  if (t.canWalk) return { action: 'Walk out', at: fight.t + TUNE.reactionMs };
+  if (t.canLos) return { action: 'Break line of sight', at: fight.t + reactionMs(fight) };
+  if (t.canWalk) return { action: 'Walk out', at: fight.t + reactionMs(fight) };
   // Nothing dodges it: soak it with Queen's Barrier.
   if (ready("Queen's Barrier") && !has(fight, 'barrier') && t.lead >= rule("Queen's Barrier").castMs(fight)) {
     return { action: "Queen's Barrier", at: Math.max(fight.t, endsAt - 400) };
@@ -812,6 +866,21 @@ function react(fight: Fight, s: MobSkill, from: Monster): { action: string; at: 
 
 function prep(fight: Fight) {
   const f = fight.f;
+  // The lair maps are too tight for the TAS's dodging: walk in server cells,
+  // react like a player, and take anything under 40% Max HP rather than
+  // hide from it (the project owner, 2026-09-28). A profile can set them back.
+  fight.options.mobility ??= 'server';
+  fight.options.tankShare ??= 0.4;
+  // The simple rotation opens on King's Gambit for the first Magnus and keeps it for the later ones.
+  if (fight.options.simple === true) { fight.options.openerGambit = true; fight.options.preGambit = true; }
+  // Ready to Rip (LK_CONCENTRATION, renewal): status and weapon ATK +1+lv %,
+  // HIT +10 a level, hard DEF -(5+5 a level) %, Endure -- kept up all fight
+  // with option readyToRip (RTM status.cpp:11471; soft DEF's cut is
+  // pre-renewal only). The shield skills take none of the ATK.
+  const rtr = lv(f, 'Ready to Rip');
+  if (rtr > 0 && fight.options.readyToRip === true) {
+    fight.f = { ...f, concentration: 1 + rtr, hit: f.hit + 10 * rtr, def: Math.floor(f.def * (1 - (5 + 5 * rtr) / 100)) };
+  }
   if (lv(f, 'Duel Stance') > 0) grant(fight, 'duelStance', 1e12);
   setCounters(fight, typeof fight.options.startCounters === 'number' ? fight.options.startCounters : 0);
   // King's Fortress: one level at a time. Lv3 (shield skills) unless the profile picks 1 (HP) or 2 (SP).
@@ -867,5 +936,7 @@ export const kingslayer: Kit = {
   prep,
   prepNotes,
   onHurt,
+  // Rook's Smash puts you on the target: no walk back after a dodge (the project owner, 2026-09-28).
+  gapClosers: ["Rook's Smash"],
 };
 

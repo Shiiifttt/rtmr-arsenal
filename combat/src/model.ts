@@ -70,6 +70,13 @@ export interface Fighter {
   critDamageLeft?: number;
   /** ASPD as the character window shows it. */
   aspd: number;
+  /**
+   * Ready to Rip (LK_CONCENTRATION): % on status ATK and weapon ATK only --
+   * not equip ATK or ATK%, so not the shield skills (RTM status.cpp:6946, 7024).
+   */
+  concentration?: number;
+  /** Move Speed % from gear (Temporal boots' 9%): the server takes the largest haste, not a sum. */
+  moveSpeed?: number;
   defPen: number;
   mdefPen: number;
   def: number;
@@ -206,6 +213,9 @@ export interface MobSkill {
   /** How a player may avoid it. */
   /** los: behind cover before it lands. diag: a cross -- standing diagonal to the caster misses it. */
   avoid: ('hide' | 'walk' | 'kawarimi' | 'los' | 'diag')[];
+  /** An area's radius in cells, and whether it is centred on the monster rather than where it is aimed. */
+  radius?: number;
+  centeredOnSelf?: boolean;
   /** Set true once someone has checked it in game. */
   verified: boolean;
   note?: string;

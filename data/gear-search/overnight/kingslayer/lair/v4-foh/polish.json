@@ -1,0 +1,72 @@
+{
+ "profile": "Kingslayer overnight (after the racial-card fix): lair from v4-foh",
+ "targets": [
+  "Angel of Genesis",
+  "Demon of Apocalypse",
+  "Heartless",
+  "Heart of the Serpent"
+ ],
+ "rules": {
+  "screenN": 300,
+  "confirmN": 2000,
+  "timeS": 300,
+  "locked": [
+   "offhand"
+  ],
+  "penalty": 0.03,
+  "topStats": [
+   "vit",
+   "dex",
+   "str"
+  ]
+ },
+ "start": "http://localhost:5173/#b=cfZM9b9swEIb_isEly4uCxy-JHpOx6NCZEARCoi0hsiyIctCg7X8vSNmug8ReOByfu3vvywmw7_24j4N_DzMDSQ5XchCshdKwHEJVcI5D88LAwCldmKqCI2huSnA4krqgZBKQVGqdbJmCcywufmFgb_3C4KiqEidBWhZlikayoPJLEI7NIR5PcxMY2MH_qruJwcn8c-iXfu-X_jgysKl7j33jh3oO7akJLYMTayIFIlXCwilpBa5PTjgfh4FuQ4s16XEYBAOLU90c43ITVF__JQOb_bgPbd36g9-HD7-KgbVhF8YY6imMYZnPSh3xVZeGIBIo4RQpeVUjs5p935yjfi7IgLSS6xzIWKTnc_fWQsKbj2uDdkNICm02x1NcfJ_M3VQPITRdEiZwzlBACM5VziCtug0el_n_DEsII1MjLciQlnnoSvK7QyeC5ZKrEqnglLC0VqQ8911khtRjSGVIPoZ0hvRjyEAooUwq5T5UQCgyjyJl82WrCNKCg1LrMyNuDOcdiq_9MNSH07Akngr-rSwuSBt2aYkYOES6LELB8xiTz_bnKYTxKW6eZz-2fy67SOAX9xVLJ_4UNy-d78d4g2nxkXvpQvO6-eGX8FWsNuySjLNTler_falzS1rz9ZbixLal-Vv9Aw",
+ "steps": [],
+ "final": {
+  "win": 0.9935625,
+  "loss": 0.0058125,
+  "dps": 62047.34937999284,
+  "ttk": 5.238318525870502,
+  "value": 2.2225289906998924,
+  "deaths": "Knuckle Arrow x34, Magnus Exorcismus x29"
+ },
+ "options": {
+  "fortress": 3,
+  "queensBrand": true,
+  "rooksWall": true,
+  "sneakAttack": false,
+  "heal": false,
+  "rogueFillers": false,
+  "autoAttack": false,
+  "keepRange": false,
+  "safeCasts": false,
+  "windSlash": true,
+  "retributionAt": 10,
+  "openerGambit": false,
+  "order": [
+   "Stay hidden",
+   "Morroc's Mark",
+   "Pre-cast King's Gambit",
+   "Step back",
+   "Heal",
+   "Pull it off the ward",
+   "Sneak Attack",
+   "Bishop's Tax",
+   "King's Chains",
+   "Shield Boomerang",
+   "Hide to strike",
+   "Rook's Smash",
+   "Dragon Breath",
+   "Delta Skyfall",
+   "Wind Slash",
+   "Queen's Gambit",
+   "Retribution",
+   "Queen's Brand",
+   "Overpower",
+   "Face-Off",
+   "Attack"
+  ]
+ },
+ "link": "http://localhost:5173/#b=cfZM9b9swEIb_isEly4uCxy-JHpOx6NCZEARCoi0hsiyIctCg7X8vSNmug8ReOByfu3vvywmw7_24j4N_DzMDSQ5XchCshdKwHEJVcI5D88LAwCldmKqCI2huSnA4krqgZBKQVGqdbJmCcywufmFgb_3C4KiqEidBWhZlikayoPJLEI7NIR5PcxMY2MH_qruJwcn8c-iXfu-X_jgysKl7j33jh3oO7akJLYMTayIFIlXCwilpBa5PTjgfh4FuQ4s16XEYBAOLU90c43ITVF__JQOb_bgPbd36g9-HD7-KgbVhF8YY6imMYZnPSh3xVZeGIBIo4RQpeVUjs5p935yjfi7IgLSS6xzIWKTnc_fWQsKbj2uDdkNICm02x1NcfJ_M3VQPITRdEiZwzlBACM5VziCtug0el_n_DEsII1MjLciQlnnoSvK7QyeC5ZKrEqnglLC0VqQ8911khtRjSGVIPoZ0hvRjyEAooUwq5T5UQCgyjyJl82WrCNKCg1LrMyNuDOcdiq_9MNSH07Akngr-rSwuSBt2aYkYOES6LELB8xiTz_bnKYTxKW6eZz-2fy67SOAX9xVLJ_4UNy-d78d4g2nxkXvpQvO6-eGX8FWsNuySjLNTler_falzS1rz9ZbixLal-Vv9Aw",
+ "perTarget": []
+}

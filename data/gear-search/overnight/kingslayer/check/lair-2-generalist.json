@@ -1,0 +1,49 @@
+{
+ "profile": "Kingslayer overnight (after the racial-card fix): lair from generalist",
+ "iterations": 2000,
+ "variants": [
+  "as is"
+ ],
+ "rows": [
+  {
+   "variant": "as is",
+   "target": "Angel of Genesis",
+   "dummy": false,
+   "winRate": 1,
+   "lossRate": 0,
+   "ttk": 9.931929581829857,
+   "dps": 29503.106490900038,
+   "deaths": ""
+  },
+  {
+   "variant": "as is",
+   "target": "Demon of Apocalypse",
+   "dummy": false,
+   "winRate": 0.9995,
+   "lossRate": 0.0005,
+   "ttk": 8.97296479091493,
+   "dps": 35393.12573712362,
+   "deaths": "Demon of Apocalypse: reflected x1"
+  },
+  {
+   "variant": "as is",
+   "target": "Heartless",
+   "dummy": false,
+   "winRate": 0.993,
+   "lossRate": 0.006,
+   "ttk": 17.965964790914928,
+   "dps": 27119.002276407482,
+   "deaths": "Knuckle Arrow x6, Heartless: attack x4"
+  },
+  {
+   "variant": "as is",
+   "target": "Heart of the Serpent",
+   "dummy": false,
+   "winRate": 0.998,
+   "lossRate": 0.002,
+   "ttk": 8.931929581829857,
+   "dps": 26138.985981766797,
+   "deaths": "Angel of Genesis: Grand Cross x2, Demon of Apocalypse: Grand Darkness x1"
+  }
+ ]
+}

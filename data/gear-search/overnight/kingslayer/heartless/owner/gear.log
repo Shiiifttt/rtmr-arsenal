@@ -1,0 +1,26 @@
+node --experimental-strip-types --no-warnings --import ./register.mjs tools/gear-search.ts --profile F:\RTMR_Project\data\gear-search\overnight\kingslayer\heartless\owner\rot.profile.json --vs Heartless --screen 120 --confirm 800 --passes 10 --lock offhand --fix rogueFillers=false,autoAttack=false --out F:\RTMR_Project\data\gear-search\overnight\kingslayer\heartless\owner\gear.json
+
+start: win 92% lost 1% 9,675 dps 49s  (Heartless, 800 fights, 11 workers)
+  (stat rolls on new pieces: VIT, from armor: vit 1.352, str 1.349, dex 1.348)
+pass 1  stats: STR 90->80, INT 40->55                                    win 91% lost 2% 9,615 dps 50s  ->  win 94% lost 2% 9,455 dps 52s   [34 tried]
+pass 1  False God set +6                                                 win 94% lost 2% 9,436 dps 52s  ->  win 99% lost 1% 10,742 dps 45s   [332 tried]
+pass 1  Upper Headgear: Beanie +6                                        win 99% lost 1% 10,749 dps 45s  ->  win 100% lost 0% 11,532 dps 43s   [254 tried]
+pass 1  Lower Headgear: Gioia Card x1                                    win 100% lost 0% 11,555 dps 43s  ->  win 100% lost 0% 12,187 dps 39s   [75 tried]
+pass 1  Weapon: Observation Card x4                                      win 100% lost 0% 12,240 dps 38s  ->  win 100% lost 0% 13,629 dps 36s   [311 tried]
+pass 1  Off-hand: Bloody Knight Card x1                                  win 100% lost 0% 13,603 dps 36s  ->  win 100% lost 0% 14,656 dps 34s   [52 tried]
+pass 1  Garment: Dream Manteau +6 (hp_leech)                             win 100% lost 0% 14,871 dps 34s  ->  win 100% lost 1% 16,033 dps 30s   [428 tried]
+pass 1  Garment: Dark Illusion Card x2                                   win 100% lost 0% 15,880 dps 31s  ->  win 100% lost 0% 20,362 dps 25s   [230 tried]
+pass 1  Shoes: Solace Card x1                                            win 100% lost 1% 20,536 dps 25s  ->  win 100% lost 0% 22,050 dps 23s   [92 tried]
+pass 1  Accessory 2 (right): Corsair Ring +0                             win 99% lost 1% 21,955 dps 23s  ->  win 99% lost 1% 22,420 dps 23s   [125 tried]
+pass 1  Manual: Equilibrium Tome +0                                      win 99% lost 1% 22,428 dps 23s  ->  win 100% lost 1% 23,261 dps 21s   [28 tried]
+pass 1  Rune or Orb: Nauthiz Rune of Shadows +6                          win 100% lost 0% 23,141 dps 21s  ->  win 100% lost 0% 26,119 dps 19s   [76 tried]
+  (stat rolls on new pieces: STR, from armor: vit 1.687, str 1.687, dex 1.686)
+pass 2  rotation: windSlash = true                                       win 100% lost 0% 26,407 dps 19s  ->  win 100% lost 1% 28,426 dps 19s   [23 tried]
+  (stat rolls on new pieces: VIT, from armor: vit 1.713, str 1.708, dex 1.707)
+pass 3  rotation: rooksWall = false                                      win 100% lost 0% 28,301 dps 19s  ->  win 99% lost 1% 31,033 dps 17s   [23 tried]
+  (stat rolls on new pieces: VIT, from armor: vit 1.733, str 1.725, dex 1.725)
+
+final (1600 fights): win 99% lost 1% 30,812 dps 18s; killed by Knuckle Arrow x11, Heartless: attack x7
+options: {"fortress":3,"queensBrand":false,"rogueFillers":false,"autoAttack":false,"rooksWall":false,"order":["Stay hidden","Morroc's Mark","Heal","Pre-cast King's Gambit","Step back","Pull it off the ward","Sneak Attack","Bishop's Tax","King's Chains","Hide to strike","Rook's Smash","Delta Skyfall","Shield Boomerang","Dragon Breath","Queen's Gambit","Retribution","Queen's Brand","Wind Slash","Overpower","Face-Off","Attack"],"heal":false,"retributionAt":1,"sneakAttack":false,"windSlash":true}
+http://localhost:5173/#b=cfZPNbtswEIRfxeAll0HB5a_oY3MscshZEARCoiUhsiyIctCg7bsXpOzUQRNfeBh-u7MckqUA-zFMXRz9W1gYSHKUBQfBOWgNx0EVypJDc2tgUCpleFWhJGhuCnCUJLWlJAnowmZJaWuSIiEE5y5LgorUicXVrwzsdVgZSpEotoR4Oi9NYGBH_7PuZ4ZS5Z3jsA6dX4fTxMDm_i0OjR_rJbTnJrQMJVVV4hSInIFDqaQT-Lhk1-U0jnTb_-J8GkfJwBY_daGtW3_0XXh3T7uKgfVz3flhCm09h6Xu8-Ryc9YQRAJFchb83Upmq25oLi1vRhZboYHgtpA5UjIOafk_n5wrC68-bhEcxpDGs1mO57j6YdoGHENo-lShcQnF5vBVdpBO3TaP6_IvvALCyJSSAxnScrtTq-Sn4-S7JzguuSqQGBIQhXMiGX1dIjOk7kMqQ_I-pDOk70MGQgll0lm-hiyEInOvU5avb4Yg01NOH2JjxI1weUHxZRjH-nge18ST5d8Ke0XacKjnMDFwCJ1EWJ7vMdXsn88hTA9x933xU_v7-hIJ_Fq-Yem3PsTdY--HKd5gWnzkHvvQvOye_Bo-69WGQxrjUlSl8_-6nnNPWvPtp8SZ7Qvzp_oL
+(246 s; 18849 batches fought, 8392 shared with an identical fighter)

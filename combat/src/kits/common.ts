@@ -10,7 +10,7 @@
  */
 import { skillRow, type SkillRow } from '../data.ts';
 import {
-  attackIntervalMs, castTimeMs, mobDamage, physicalDamage, statusMatk, statusResist, TUNE,
+  attackIntervalMs, castTimeMs, escapeMsFor, mobDamage, physicalDamage, statusMatk, statusResist, TUNE, walkCellMs,
 } from '../formulas.ts';
 import type { Fighter, MobSkill, Monster } from '../model.ts';
 import { Rng } from '../rng.ts';
@@ -248,15 +248,42 @@ export const stayHidden: Action = {
   resolve() {},
 };
 
+// ---- walking ------------------------------------------------------------------
+
+/**
+ * Fight option mobility: 'tas' (the default) steps out of anything in a
+ * fixed TUNE.walkOutMs and reacts in TUNE.reactionMs. 'server' walks whole
+ * cells at the server's speed and reacts like a player -- the lair maps are
+ * too tight for the TAS's dodging (the project owner, 2026-09-28).
+ */
+export const serverMobility = (fight: Fight) => fight.options.mobility === 'server';
+export const reactionMs = (fight: Fight) => (serverMobility(fight) ? TUNE.playerReactionMs : TUNE.reactionMs);
+export const cellMs = (fight: Fight) => walkCellMs(fight.f);
+/** Time to step out of `s` (one way): TUNE.walkOutMs for the TAS, whole cells with mobility 'server'. */
+export const escapeMs = (fight: Fight, s?: MobSkill) => escapeMsFor(fight.options, fight.f, s);
+
+/**
+ * The walk back in after `awayMs` out: nothing when a gap closer the kit
+ * names (Rook's Smash, Shadow Slash) is learned and off cooldown by then --
+ * it is the next action and puts you on the target (the project owner,
+ * 2026-09-28). The TAS always pays `walkMs`.
+ */
+export function returnMs(fight: Fight, awayMs: number, walkMs: number): number {
+  if (!serverMobility(fight)) return walkMs;
+  const back = fight.t + awayMs;
+  const closer = (fight.kit.gapClosers ?? []).some((id) => lv(fight.f, id) > 0 && readyAt(fight, id) <= back);
+  return closer ? 0 : walkMs;
+}
+
 /**
  * Out until the cast lands. A lingering area is then left where it fell --
  * the monster follows you out of it (engine.ts Channel.leftBehind) -- so
  * there is no waiting for it to end.
  */
-export function awayFor(fight: Fight): number {
+export function awayFor(fight: Fight, stepMs = escapeMs(fight, fight.mob.cast?.skill)): number {
   const c = fight.mob.cast;
   const end = c ? c.endsAt : fight.t;
-  return Math.max(TUNE.walkOutMs, end - fight.t + 50);
+  return Math.max(stepMs, end - fight.t + 50);
 }
 
 export const walkOut: Action = {
@@ -267,7 +294,7 @@ export const walkOut: Action = {
   ready: (fight) => !has(fight, 'rooted'),
   castMs: () => 0,
   // Out, wait for the area to finish, back in.
-  delayMs: (fight) => awayFor(fight) + TUNE.walkOutMs,
+  delayMs: (fight) => awayFor(fight) + returnMs(fight, awayFor(fight), escapeMs(fight, fight.mob.cast?.skill)),
   cooldownMs: () => 0,
   spCost: () => 0,
   resolve(fight) { grant(fight, 'away', awayFor(fight)); },
@@ -287,7 +314,7 @@ export const pullOffWard: Action = {
   ready: (fight) => (wardUp(fight, 'pneuma') || wardUp(fight, 'safetywall')) && !has(fight, 'rooted')
     && Number.isFinite(fight.m.adelay) && !fight.mob.cast,
   castMs: () => 0,
-  delayMs: () => TUNE.walkOutMs,
+  delayMs: (fight) => (serverMobility(fight) ? Math.round(TUNE.wardCells * cellMs(fight)) : TUNE.walkOutMs),
   cooldownMs: () => 0,
   spCost: () => 0,
   resolve(fight) {
@@ -301,6 +328,7 @@ export const pullOffWard: Action = {
  * project owner, 2026-09-27: Jormungandr's long casts). Marked per skill with
  * 'los' in its dodges.
  */
+const losMs = (fight: Fight) => (serverMobility(fight) ? Math.round(TUNE.losCells * cellMs(fight)) : TUNE.walkOutMs);
 export const breakSight: Action = {
   id: 'Break line of sight',
   isSkill: false,
@@ -308,10 +336,10 @@ export const breakSight: Action = {
   reactive: true,
   ready: (fight) => !has(fight, 'rooted'),
   castMs: () => 0,
-  delayMs: (fight) => awayFor(fight) + TUNE.walkOutMs,
+  delayMs: (fight) => awayFor(fight, losMs(fight)) + returnMs(fight, awayFor(fight, losMs(fight)), losMs(fight)),
   cooldownMs: () => 0,
   spCost: () => 0,
-  resolve(fight) { grant(fight, 'outOfSight', awayFor(fight)); },
+  resolve(fight) { grant(fight, 'outOfSight', awayFor(fight, losMs(fight))); },
 };
 
 /** Morroc's Mark: once an hour -- once a fight -- a full HP and SP restore. */
@@ -359,8 +387,13 @@ export interface Threat {
 /** The read on a monster's cast that any kit's dodge plan starts from. */
 export function assessThreat(fight: Fight, s: MobSkill, from: Monster): Threat {
   const endsAt = fight.t + s.castMs;
-  const lead = endsAt - fight.t - TUNE.reactionMs;
-  const dmg = s.type === 'status' || s.type === 'none' ? 0 : mobDamage(from, fight.f, s, new Rng(0, true)) * Math.max(1, s.ticks);
+  const lead = endsAt - fight.t - reactionMs(fight);
+  // A lingering area you can step off between waves costs one wave, not all
+  // of them (engine.ts stepOffArea), with mobility 'server'.
+  const steppedOff = serverMobility(fight) && s.targets === 'aoe' && s.avoid.includes('walk') && s.ticks > 1
+    && s.tickMs >= escapeMs(fight, s) + reactionMs(fight);
+  const waves = steppedOff ? 1 : Math.max(1, s.ticks);
+  const dmg = s.type === 'status' || s.type === 'none' ? 0 : mobDamage(from, fight.f, s, new Rng(0, true)) * waves;
   // Worth dodging only if it can land on you: stats and gear resist it
   // (100% resistance = immune), Undead armour is immune to stone and freeze.
   const badStatus = s.statuses.some((e) => {
@@ -370,13 +403,18 @@ export function assessThreat(fight: Fight, s: MobSkill, from: Monster): Threat {
   });
   // A status-only skill is worth a dodge only if it carries a bad status:
   // Wide Web's root is taken (the project owner doesn't hide from it).
-  const heavy = s.type !== 'none' && s.targets !== 'self' && (dmg >= 0.25 * fight.me.hp || badStatus);
+  // Option tankShare (a fraction of Max HP): take what costs less than that
+  // and would not nearly kill you -- dodge less, tank more (the project
+  // owner, 2026-09-28). Unset: dodge anything over a quarter of current HP.
+  const share = typeof fight.options.tankShare === 'number' ? fight.options.tankShare : null;
+  const big = share === null ? dmg >= 0.25 * fight.me.hp : dmg >= share * fight.f.maxHp || dmg >= 0.5 * fight.me.hp;
+  const heavy = s.type !== 'none' && s.targets !== 'self' && (big || badStatus);
   return {
     endsAt, lead, dmg, badStatus, heavy,
     hideWorks: !!s.hiddenImmune || (s.avoid.includes('hide') && hidingStops(from, s)),
     hideReady: readyAt(fight, 'Hiding') <= endsAt - 50 && lv(fight.f, 'Hiding') > 0 && !has(fight, 'revealed'),
     hideCovers: s.durationMs <= 1800,
-    canWalk: s.avoid.includes('walk') && !has(fight, 'rooted') && lead >= TUNE.walkOutMs,
-    canLos: s.avoid.includes('los') && !has(fight, 'rooted') && lead >= TUNE.walkOutMs,
+    canWalk: s.avoid.includes('walk') && !has(fight, 'rooted') && lead >= escapeMs(fight, s),
+    canLos: s.avoid.includes('los') && !has(fight, 'rooted') && lead >= losMs(fight),
   };
 }

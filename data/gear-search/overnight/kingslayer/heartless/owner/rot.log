@@ -1,0 +1,21 @@
+node --experimental-strip-types --no-warnings --import ./register.mjs tools/gear-search.ts --profile profiles/kingslayer-jorm.json --vs Heartless --screen 150 --confirm 1000 --passes 8 --lock offhand --fix rogueFillers=false,autoAttack=false --only rotation,order --out F:\RTMR_Project\data\gear-search\overnight\kingslayer\heartless\owner\rot.json
+
+start: win 26% lost 26% 8,714 dps 52s  (Heartless, 1000 fights, 11 workers)
+  (stat rolls on new pieces: VIT, from armor: vit 0.608, str 0.600, dex 0.600)
+pass 1  rotation: rooksWall = true                                       win 28% lost 28% 8,774 dps 51s  ->  win 44% lost 0% 8,713 dps 53s   [24 tried]
+pass 1  order: Heal up 2 (before Pre-cast King's Gambit)                 win 44% lost 1% 8,637 dps 53s  ->  win 51% lost 1% 8,882 dps 53s   [78 tried]
+  (stat rolls on new pieces: DEX, from armor: vit 0.889, str 0.883, dex 0.889)
+pass 2  rotation: heal = false                                           win 46% lost 0% 8,787 dps 53s  ->  win 80% lost 1% 8,886 dps 53s   [23 tried]
+pass 2  order: Shield Boomerang down 2 (before Dragon Breath)            win 79% lost 1% 8,880 dps 53s  ->  win 83% lost 1% 8,872 dps 53s   [78 tried]
+  (stat rolls on new pieces: DEX, from armor: vit 1.239, str 1.241, dex 1.243)
+pass 3  rotation: retributionAt = 1                                      win 83% lost 1% 8,833 dps 53s  ->  win 91% lost 2% 9,563 dps 51s   [23 tried]
+  (stat rolls on new pieces: VIT, from armor: vit 1.347, str 1.343, dex 1.336)
+pass 4  rotation: sneakAttack = false                                    win 89% lost 3% 9,599 dps 50s  ->  win 92% lost 2% 9,642 dps 50s   [23 tried]
+  (stat rolls on new pieces: STR, from armor: vit 1.348, str 1.351, dex 1.349)
+pass 5  order: Delta Skyfall up 2 (before Shield Boomerang)              win 91% lost 2% 9,614 dps 50s  ->  win 91% lost 1% 9,678 dps 50s   [78 tried]
+  (stat rolls on new pieces: VIT, from armor: vit 1.357, str 1.354, dex 1.353)
+
+final (2000 fights): win 90% lost 3% 9,613 dps 50s; killed by Magnus Exorcismus x29, Knuckle Arrow x11
+options: {"fortress":3,"queensBrand":false,"rogueFillers":false,"autoAttack":false,"rooksWall":true,"order":["Stay hidden","Morroc's Mark","Heal","Pre-cast King's Gambit","Step back","Pull it off the ward","Sneak Attack","Bishop's Tax","King's Chains","Hide to strike","Rook's Smash","Delta Skyfall","Shield Boomerang","Dragon Breath","Queen's Gambit","Retribution","Queen's Brand","Wind Slash","Overpower","Face-Off","Attack"],"heal":false,"retributionAt":1,"sneakAttack":false}
+http://localhost:5173/#b=cfZNNb5wwEIb_ysqXXEaVx5-wx-RY9dAzQsgCL6D1sghD1Kjtf6_GQEqjbi4WGj_zvvNhCgHsaz-0Mbg3PzFAyaHIOSDkOSgO9FlCUXDQCjPgUChleFlCgaC5SRGU2iKFBOjMrhDnkiIShOA8TyGBGSmxOLuZAXvtZwaFIIpNPt6XqfYM2M39qLqRQaHSza2f-9bN_X1gwMbuLfa1C9Xkm6X2DYMCy5I4BYi5gRwKJXMB66FQpiO5TvcQ8Ki_Od9DkAzY5IbWN1Xjbq717-50qxiwbqxa1w--qUY_VV2qXK7OGgSigIx6NvhuJZNV29eb5KFksSYaQK2kAQOFQquAjkfz8a8uriO4BE_l5Skclzi7flgLDN7XHU1EwOZg0_AVOaC0KI7qcZ7-Ti8DYSRd5yAM5utOrUobRIScS64yoDmSeMazpPlQDmWCzEdo7WiHVIL055BOkP0IheV6gAwIhZxT2Y8hS5CVn9il8P48ECTNgRa6MuIQ2B5LvPYhVLclzMSj5V8yuyONv1SjHxhwEJqCYHlaGeWcvy_eD0_x9Dy5ofm1PzoEvqevGP2YT_H00rl-iAdMi3-5l87X19M3N_v_aTX-QmVsSSX1_3Pv84xa8_WniCM7Z-Z3-Qc
+(55 s; 762 batches fought, 185 shared with an identical fighter)

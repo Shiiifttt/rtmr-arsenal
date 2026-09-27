@@ -1,0 +1,140 @@
+{
+ "profile": "Kingslayer: owner skill plan (job 53)",
+ "targets": [
+  "Angel of Genesis",
+  "Demon of Apocalypse",
+  "Heartless",
+  "Heart of the Serpent"
+ ],
+ "rules": {
+  "screenN": 60,
+  "confirmN": 300,
+  "timeS": 300,
+  "locked": [
+   "offhand"
+  ],
+  "penalty": 0.03,
+  "topStats": [
+   "vit",
+   "dex",
+   "str"
+  ]
+ },
+ "start": "http://localhost:5173/#b=cfZM9b9swEIb_isEly4uCxy-JHpOx6NCZEARCoi0hsiyIctCg7X8vSNmug8ReOByfu3vvywmw7_24j4N_DzMDSQ5XchCshdKwHEJVcI5D88LAwCldmKqCI2huSnA4krqgZBKQVGqdbJmCcywufmFgb_3C4KiqEidBWhZlikayoPJLEI7NIR5PcxMY2MH_qruJwcn8c-iXfu-X_jgysKl7j33jh3oO7akJLYMTayIFIlXCwilpBa5PTjgfh4FuQ4s16XEYBAOLU90c43ITVF__JQOb_bgPbd36g9-HD7-KgbVhF8YY6imMYZnPSh3xVZeGIBIo4RQpeVUjs5p935yjfi7IgLSS6xzIWKTnc_fWQsKbj2uDdkNICm02x1NcfJ_M3VQPITRdEiZwzlBACM5VziCtug0el_n_DEsII1MjLciQlnnoSvK7QyeC5ZKrEqnglLC0VqQ8911khtRjSGVIPoZ0hvRjyEAooUwq5T5UQCgyjyJl82WrCNKCg1LrMyNuDOcdiq_9MNSH07Akngr-rSwuSBt2aYkYOES6LELB8xiTz_bnKYTxKW6eZz-2fy67SOAX9xVLJ_4UNy-d78d4g2nxkXvpQvO6-eGX8FWsNuySjLNTler_falzS1rz9ZbixLal-Vv9Aw",
+ "steps": [
+  {
+   "move": "rotation: queensGambit = false",
+   "before": {
+    "win": 0.9508333333333333,
+    "loss": 0.049166666666666664,
+    "dps": 27931.096141725873,
+    "ttk": 11.941641703883956,
+    "value": 1.5523461933492226,
+    "deaths": "Angel of Genesis: Adoramus x41, Heartless: attack x6"
+   },
+   "after": {
+    "win": 0.9816666666666667,
+    "loss": 0.018333333333333333,
+    "dps": 28678.103415967907,
+    "ttk": 11.55902852392105,
+    "value": 1.600827295922501,
+    "deaths": "Heartless: attack x7, Angel of Genesis: Adoramus x6"
+   },
+   "tried": 26
+  },
+  {
+   "move": "rotation: tankShare = 0.25",
+   "before": {
+    "win": 0.98,
+    "loss": 0.02,
+    "dps": 28924.026353970756,
+    "ttk": 11.339963596054224,
+    "value": 1.5990543139798932,
+    "deaths": "Heartless: attack x9, Angel of Genesis: Adoramus x6"
+   },
+   "after": {
+    "win": 0.9924999999999999,
+    "loss": 0.0075,
+    "dps": 28849.91532915721,
+    "ttk": 11.525185987854462,
+    "value": 1.6175856061593643,
+    "deaths": "Angel of Genesis: Adoramus x6, Angel of Genesis: attack x2"
+   },
+   "tried": 26
+  },
+  {
+   "move": "Armor: Minorous Card x1",
+   "before": {
+    "win": 0.98,
+    "loss": 0.019999999999999997,
+    "dps": 28788.204480441582,
+    "ttk": 11.525185987854462,
+    "value": 1.5986532389703205,
+    "deaths": "Angel of Genesis: Adoramus x17, Angel of Genesis: attack x3"
+   },
+   "after": {
+    "win": 0.9941666666666666,
+    "loss": 0.005833333333333334,
+    "dps": 27883.9727039234,
+    "ttk": 11.575185987854463,
+    "value": 1.6172042850746102,
+    "deaths": "Angel of Genesis: Grand Cross x3, Angel of Genesis: Adoramus x2"
+   },
+   "tried": 98
+  }
+ ],
+ "final": {
+  "win": 0.9995833333333333,
+  "loss": 0.0004166666666666667,
+  "dps": 27760.054245820014,
+  "ttk": 11.631528523921048,
+  "value": 1.6249554475215178,
+  "deaths": "Angel of Genesis: Grand Cross x1"
+ },
+ "options": {
+  "fortress": 3,
+  "queensBrand": true,
+  "rooksWall": true,
+  "sneakAttack": false,
+  "heal": false,
+  "rogueFillers": false,
+  "autoAttack": false,
+  "keepRange": false,
+  "safeCasts": false,
+  "windSlash": true,
+  "retributionAt": 10,
+  "openerGambit": false,
+  "order": [
+   "Stay hidden",
+   "Morroc's Mark",
+   "Pre-cast King's Gambit",
+   "Step back",
+   "Heal",
+   "Pull it off the ward",
+   "Sneak Attack",
+   "Bishop's Tax",
+   "King's Chains",
+   "Shield Boomerang",
+   "Hide to strike",
+   "Rook's Smash",
+   "Dragon Breath",
+   "Delta Skyfall",
+   "Wind Slash",
+   "Queen's Gambit",
+   "Retribution",
+   "Queen's Brand",
+   "Overpower",
+   "Face-Off",
+   "Attack"
+  ],
+  "readyToRip": true,
+  "simple": true,
+  "simpleAdd": [
+   "Queen's Brand"
+  ],
+  "queensGambit": false,
+  "tankShare": 0.25
+ },
+ "link": "http://localhost:5173/#b=cfZM9b9swEIb_isEly4uCxy-JHpOx6NCZEARCoi0hsiyIctCg7X8vSNmug8ReOByfu3vvywmw7_24j4N_DzMDSQ5XchCshdKwHEJVcI5D88LAwCldmKqCI2huSnA4krqgZBKQVGqdbJmCcywufmFgb_3C4KiqEidBWhZljkbiaw6OzSEeT3MTGNjB_6q7icHJ_HPol37vl_44MrCpe49944d6Du2pCS2DE2seBSJVwsIpaQWuT044H4eBbkOLNelxGAQDi1PdHONyE1Rf_yUDm_24D23d-oPfhw-_ioG1YRfGGOopjGGZz0od8VWXhiASKFP5Sl7VyKxm3zfnqJ8LMiCt5DoGMhbp-dy9tZDw5uPaoN0QkkKbzfEUF98nczfVQwhNl4QJnDMUEIJzlTNIq26Dx2X-P8ISwsjUSAsypGWeuZL87syJYLnkqkSad0pYWitSnvsuMkPqMaQyJB9DOkP6MWQglFAmlXIfKiAUmUeRsvmyVQRpwUGp9ZkRN4bzDsXXfhjqw2lYEk8F_1YWF6QNu7REDBwiHRah4HmMyWf78xTC-BQ3z7Mf2z-XXSTwi_uKpQt_ipuXzvdjvMG0-Mi9dKF53fzwS_gqVht2ScbZqUr1_77UuSWt-XpLcWLb0vyt_gE",
+ "perTarget": []
+}

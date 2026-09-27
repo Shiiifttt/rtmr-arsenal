@@ -1,0 +1,371 @@
+{
+ "profile": "owner: rotation",
+ "targets": [
+  "Angel of Genesis",
+  "Demon of Apocalypse",
+  "Heartless",
+  "Heart of the Serpent"
+ ],
+ "rules": {
+  "screenN": 120,
+  "confirmN": 800,
+  "timeS": 300,
+  "locked": [
+   "offhand"
+  ],
+  "penalty": 0.03,
+  "topStats": [
+   "vit",
+   "str",
+   "dex"
+  ]
+ },
+ "start": "http://localhost:5173/#b=cfZNNb5wwEIb_ysqXXEaVx5-wx-RY9dAzQsgCL6D1sghD1Kjtf6_GQEqjbi4WGj_zvvNhCgHsaz-0Mbg3PzFAyaHIOSDkOSgO9FlCUXDQCjPgUChleFlCgaC5SRGU2iKFBOjMrhDnkiIShOA8TyGBGSmxOLuZAXvtZwaFIIpNPt6XqfYM2M39qLqRQaHSza2f-9bN_X1gwMbuLfa1C9Xkm6X2DYMCy5I4BYi5gRwKJXMB66FQpiO5TvcQ8Ki_Od9DkAzY5IbWN1Xjbq717-50qxiwbqxa1w--qUY_VV2qXK7OGgSigIx6NvhuJZNV29eb5KFksSYaQK2kAQOFQquAjkfz8a8uriO4BE_l5Skclzi7flgLDN7XHU1EwOZg0_AVOaC0KI7qcZ7-Ti8DYSRd5yAM5utOrUobRIScS64yoDmSeMazpPlQDmWCzEdo7WiHVIL055BOkP0IheV6gAwIhZxT2Y8hS5CVn9il8P48ECTNgRa6MuIQ2B5LvPYhVLclzMSj5V8yuyONv1SjHxhwEJqCYHlaGeWcvy_eD0_x9Dy5ofm1PzoEvqevGP2YT_H00rl-iAdMi3-5l87X19M3N_v_aTX-QmVsSSX1_3Pv84xa8_WniCM7Z-Z3-Qc",
+ "steps": [
+  {
+   "move": "False God set +6",
+   "before": {
+    "win": 0.971875,
+    "loss": 0.0096875,
+    "dps": 11126.415733814381,
+    "ttk": 28.134172764876155,
+    "value": 1.4358649860072157,
+    "deaths": "Magnus Exorcismus x10, Heartless: attack x7"
+   },
+   "after": {
+    "win": 0.9921875,
+    "loss": 0.001875,
+    "dps": 12441.090196957375,
+    "ttk": 25.683284700576102,
+    "value": 1.4782413529543605,
+    "deaths": "Magnus Exorcismus x2, Angel of Genesis: Grand Cross x2"
+   },
+   "tried": 332
+  },
+  {
+   "move": "Weapon: Observation Card x4",
+   "before": {
+    "win": 0.9924999999999999,
+    "loss": 0.0021875,
+    "dps": 12483.54525197691,
+    "ttk": 25.666512038557237,
+    "value": 1.4790969287796536,
+    "deaths": "Magnus Exorcismus x4, Heartless: attack x2"
+   },
+   "after": {
+    "win": 0.995,
+    "loss": 0,
+    "dps": 13600.333487267502,
+    "ttk": 23.275012038557236,
+    "value": 1.4990050023090125,
+    "deaths": ""
+   },
+   "tried": 311
+  },
+  {
+   "move": "Off-hand: Bloody Knight Card x1",
+   "before": {
+    "win": 0.9968750000000001,
+    "loss": 0.00125,
+    "dps": 13560.609259661229,
+    "ttk": 23.427597733798116,
+    "value": 1.4999091388949184,
+    "deaths": "Magnus Exorcismus x2, Demon of Apocalypse: Grand Darkness x2"
+   },
+   "after": {
+    "win": 0.99875,
+    "loss": 0.0009375,
+    "dps": 15091.102620453963,
+    "ttk": 20.704381726826412,
+    "value": 1.5248352893068096,
+    "deaths": "Heartless: attack x1, Angel of Genesis: Grand Cross x1"
+   },
+   "tried": 52
+  },
+  {
+   "move": "Garment: Dark Illusion Card x2",
+   "before": {
+    "win": 0.9965625,
+    "loss": 0.001875,
+    "dps": 15066.767258181897,
+    "ttk": 20.771642350288047,
+    "value": 1.5220015088727286,
+    "deaths": "Angel of Genesis: Grand Cross x4, Magnus Exorcismus x1"
+   },
+   "after": {
+    "win": 0.998125,
+    "loss": 0.0018750000000000001,
+    "dps": 18496.274360623764,
+    "ttk": 16.35647875307673,
+    "value": 1.5750066154093565,
+    "deaths": "Angel of Genesis: Grand Cross x4, Knuckle Arrow x1"
+   },
+   "tried": 230
+  },
+  {
+   "move": "Shoes: Solace Card x1",
+   "before": {
+    "win": 0.9974999999999999,
+    "loss": 0.0021875,
+    "dps": 18651.881879888824,
+    "ttk": 16.256762746105032,
+    "value": 1.5766219781983322,
+    "deaths": "Demon of Apocalypse: attack x3, Demon of Apocalypse: reflected x1"
+   },
+   "after": {
+    "win": 0.9959375,
+    "loss": 0.0040625,
+    "dps": 19987.0822441396,
+    "ttk": 15.588468129615094,
+    "value": 1.5945249836620938,
+    "deaths": "Demon of Apocalypse: reflected x6, Knuckle Arrow x2"
+   },
+   "tried": 92
+  },
+  {
+   "move": "Rune or Orb: Nauthiz Rune of Shadows +6",
+   "before": {
+    "win": 0.9978125,
+    "loss": 0.0021875,
+    "dps": 19872.96729030626,
+    "ttk": 15.660131726826418,
+    "value": 1.595250759354594,
+    "deaths": "Demon of Apocalypse: reflected x2, Back Stab x1"
+   },
+   "after": {
+    "win": 0.9975,
+    "loss": 0.0025,
+    "dps": 21084.400527368893,
+    "ttk": 15.140809524830253,
+    "value": 1.6130160079105336,
+    "deaths": "Demon of Apocalypse: reflected x3, Knuckle Arrow x2"
+   },
+   "tried": 76
+  },
+  {
+   "move": "rotation: windSlash = true",
+   "before": {
+    "win": 0.995,
+    "loss": 0.0040625,
+    "dps": 21098.713792294235,
+    "ttk": 15.0899702429437,
+    "value": 1.6102619568844134,
+    "deaths": "Demon of Apocalypse: reflected x9, Demon of Apocalypse: attack x2"
+   },
+   "after": {
+    "win": 0.9906250000000001,
+    "loss": 0.006562500000000001,
+    "dps": 22552.831764667444,
+    "ttk": 14.348232143622688,
+    "value": 1.6269487264700118,
+    "deaths": "Demon of Apocalypse: reflected x15, Demon of Apocalypse: attack x4"
+   },
+   "tried": 23
+  },
+  {
+   "move": "order: Shield Boomerang up 2 (before Bishop's Tax)",
+   "before": {
+    "win": 0.985,
+    "loss": 0.01125,
+    "dps": 22404.907231727535,
+    "ttk": 14.35123214362269,
+    "value": 1.617698608475913,
+    "deaths": "Demon of Apocalypse: reflected x29, Demon of Apocalypse: attack x2"
+   },
+   "after": {
+    "win": 0.9928125000000001,
+    "loss": 0.0021875,
+    "dps": 22537.876699806737,
+    "ttk": 14.233395839585299,
+    "value": 1.6302244004971012,
+    "deaths": "Demon of Apocalypse: attack x2, Angel of Genesis: Grand Cross x2"
+   },
+   "tried": 78
+  },
+  {
+   "move": "Manual: Equilibrium Tome +0",
+   "before": {
+    "win": 0.9915625,
+    "loss": 0.0034375000000000005,
+    "dps": 22518.721210219268,
+    "ttk": 14.173507441943489,
+    "value": 1.628312068153289,
+    "deaths": "Demon of Apocalypse: reflected x4, Demon of Apocalypse: attack x2"
+   },
+   "after": {
+    "win": 0.9896875,
+    "loss": 0.009375000000000001,
+    "dps": 23443.280612490777,
+    "ttk": 13.835223652709981,
+    "value": 1.6385242091873615,
+    "deaths": "Demon of Apocalypse: reflected x27, Knuckle Arrow x1"
+   },
+   "tried": 28
+  },
+  {
+   "move": "rotation: keepRange = false",
+   "before": {
+    "win": 0.9890625,
+    "loss": 0.009999999999999998,
+    "dps": 23355.53734387611,
+    "ttk": 13.84697365270998,
+    "value": 1.6363955601581415,
+    "deaths": "Demon of Apocalypse: reflected x28, Demon of Apocalypse: attack x2"
+   },
+   "after": {
+    "win": 0.976875,
+    "loss": 0.02,
+    "dps": 25471.403056355713,
+    "ttk": 12.64762325875052,
+    "value": 1.6529460458453356,
+    "deaths": "Demon of Apocalypse: reflected x39, Heartless: attack x9"
+   },
+   "tried": 23
+  },
+  {
+   "move": "Armor: Resentment of Thanatos Card x1",
+   "before": {
+    "win": 0.9696875,
+    "loss": 0.0265625,
+    "dps": 25545.820771977753,
+    "ttk": 12.60444283802235,
+    "value": 1.6449060615796662,
+    "deaths": "Demon of Apocalypse: reflected x49, Knuckle Arrow x13"
+   },
+   "after": {
+    "win": 0.9628125,
+    "loss": 0.036250000000000004,
+    "dps": 27813.791990350146,
+    "ttk": 11.424692838022352,
+    "value": 1.669144379855252,
+    "deaths": "Demon of Apocalypse: reflected x68, Knuckle Arrow x23"
+   },
+   "tried": 98
+  },
+  {
+   "move": "Accessory 2 (right): Magma Ring +0",
+   "before": {
+    "win": 0.9609375000000001,
+    "loss": 0.0390625,
+    "dps": 27761.08137388851,
+    "ttk": 11.37225098489865,
+    "value": 1.6656349706083278,
+    "deaths": "Demon of Apocalypse: reflected x85, Knuckle Arrow x20"
+   },
+   "after": {
+    "win": 0.9878125,
+    "loss": 0.0121875,
+    "dps": 26921.53383654564,
+    "ttk": 11.63994730541996,
+    "value": 1.6879792575481845,
+    "deaths": "Knuckle Arrow x20, Heartless: attack x8"
+   },
+   "tried": 125
+  },
+  {
+   "move": "rotation: safeCasts = false",
+   "before": {
+    "win": 0.9840625000000001,
+    "loss": 0.015,
+    "dps": 26974.24663363457,
+    "ttk": 11.562447305419962,
+    "value": 1.6841761995045186,
+    "deaths": "Knuckle Arrow x25, Heartless: attack x9"
+   },
+   "after": {
+    "win": 0.99,
+    "loss": 0.0096875,
+    "dps": 27530.12489633751,
+    "ttk": 11.78987325875052,
+    "value": 1.7000456234450625,
+    "deaths": "Knuckle Arrow x13, Heartless: attack x12"
+   },
+   "tried": 24
+  },
+  {
+   "move": "Upper Headgear: Beanie +6",
+   "before": {
+    "win": 0.9915625000000001,
+    "loss": 0.0078125,
+    "dps": 27551.593163006946,
+    "ttk": 11.80308101166736,
+    "value": 1.7024926474451043,
+    "deaths": "Knuckle Arrow x8, Heartless: attack x8"
+   },
+   "after": {
+    "win": 0.9940625000000001,
+    "loss": 0.005625000000000001,
+    "dps": 29052.946742785032,
+    "ttk": 11.488746517501042,
+    "value": 1.7281692011417755,
+    "deaths": "Heartless: attack x7, Knuckle Arrow x7"
+   },
+   "tried": 254
+  },
+  {
+   "move": "Lower Headgear: Gioia Card x1",
+   "before": {
+    "win": 0.9953125,
+    "loss": 0.004687500000000001,
+    "dps": 28938.2867722131,
+    "ttk": 11.495134691146049,
+    "value": 1.7279805515831965,
+    "deaths": "Heartless: attack x7, Knuckle Arrow x5"
+   },
+   "after": {
+    "win": 0.9934375,
+    "loss": 0.006562500000000001,
+    "dps": 29893.470558584046,
+    "ttk": 11.329192838022351,
+    "value": 1.7398708083787606,
+    "deaths": "Heartless: attack x8, Knuckle Arrow x7"
+   },
+   "tried": 75
+  }
+ ],
+ "final": {
+  "win": 0.9924999999999999,
+  "loss": 0.0071875,
+  "dps": 29890.431258310822,
+  "ttk": 11.32149651750104,
+  "value": 1.738700218874662,
+  "deaths": "Knuckle Arrow x19, Heartless: attack x14"
+ },
+ "options": {
+  "fortress": 3,
+  "queensBrand": false,
+  "rogueFillers": false,
+  "autoAttack": false,
+  "heal": false,
+  "rooksWall": true,
+  "retributionAt": 1,
+  "windSlash": true,
+  "order": [
+   "Stay hidden",
+   "Morroc's Mark",
+   "Pre-cast King's Gambit",
+   "Step back",
+   "Heal",
+   "Pull it off the ward",
+   "Sneak Attack",
+   "Shield Boomerang",
+   "Bishop's Tax",
+   "King's Chains",
+   "Hide to strike",
+   "Rook's Smash",
+   "Dragon Breath",
+   "Delta Skyfall",
+   "Queen's Gambit",
+   "Retribution",
+   "Queen's Brand",
+   "Wind Slash",
+   "Overpower",
+   "Face-Off",
+   "Attack"
+  ],
+  "keepRange": false,
+  "safeCasts": false
+ },
+ "link": "http://localhost:5173/#b=cfZNPb5wwEMW_ysqXXJ4q_wfvsTlWOeSMELLACygsizAbJWr73asxbErUZi8WGv9m3sxjXEiwH_3YxsG_h5lBKI7CcQg4B81BnyWKgsPwzMKi0NryskQhYLjNwVEIZTJBIQmTZymkTWYpoiAl526lMpFTKRYXvzCw135hKCRhbA7xcp3rwMDO_q3qJoZCp5tzv_StX_rLyMCm7j32tR-qOTTXOjQMhShL4jSEcBYOhVZO4vORVOfLMIh9_U35MgyKgc1-bENTNf7s2_ChTreagXVT1fp-DE01hbnqUudqVTaQQkjkpCz5h5RKUm1fbyV3Lcs10UIYrVZPhXWg4yt_wquPqwWnIVB7LoXjNS6-H9cGhxDqjhyR2BSy5L5OCsrpffG4zH_NyyGtIpccpBXbP820-rebLUEIOK64zkEMCebOSdLZpzThbZeiEqTvQzpB6j5kEmTuQxZSS21plq_HyCC1sPcqpfBtZQQUrTI9iLWQ3AW2BYov_TBU5-uwEC8y_i3PbkgTTtUURgYOaSiIjKffSDnH52sI40M8fJ_92Py6LaIAv6WvGL3Wh3h47Hw_xh1m5GfusQv1y-HJL-F_tZpwoja2pJLm_3mb8yiM4etDiRM75vZ3-Qc",
+ "perTarget": []
+}

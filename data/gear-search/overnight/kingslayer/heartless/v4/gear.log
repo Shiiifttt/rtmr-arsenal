@@ -1,0 +1,15 @@
+node --experimental-strip-types --no-warnings --import ./register.mjs tools/gear-search.ts --profile F:\RTMR_Project\data\gear-search\overnight\kingslayer\heartless\v4\rot.profile.json --vs Heartless --screen 120 --confirm 800 --passes 10 --lock offhand --fix rogueFillers=false,autoAttack=false --out F:\RTMR_Project\data\gear-search\overnight\kingslayer\heartless\v4\gear.json
+
+start: win 99% lost 1% 28,566 dps 17s  (Heartless, 800 fights, 11 workers)
+  (stat rolls on new pieces: DEX, from armor: vit 1.711, dex 1.712, str 1.709)
+pass 1  order: Shield Boomerang up 2 (before Bishop's Tax)               win 98% lost 1% 28,252 dps 17s  ->  win 98% lost 1% 28,461 dps 17s   [78 tried]
+pass 1  Lower Headgear: Gioia Card x1                                    win 99% lost 1% 28,505 dps 17s  ->  win 99% lost 1% 29,576 dps 17s   [75 tried]
+pass 1  Accessory 1 (left): Megingjard +0                                win 99% lost 1% 29,522 dps 17s  ->  win 99% lost 1% 30,216 dps 17s   [130 tried]
+  (stat rolls on new pieces: VIT, from armor: vit 1.737, dex 1.735, str 1.735)
+pass 2  stats: INT 55->45, STR 80->86  +  rotation: taxHp = 0.35         win 99% lost 1% 30,392 dps 17s  ->  win 100% lost 0% 30,898 dps 17s   [729 tried]
+  (stat rolls on new pieces: VIT, from armor: vit 1.737, dex 1.733, str 1.735)
+
+final (1600 fights): win 99% lost 1% 30,670 dps 17s; killed by Knuckle Arrow x7, Magnus Exorcismus x5
+options: {"fortress":3,"queensBrand":false,"rooksWall":true,"sneakAttack":false,"heal":false,"rogueFillers":false,"autoAttack":false,"retributionAt":6,"windSlash":true,"deltaFiller":true,"keepRange":false,"safeCasts":false,"order":["Stay hidden","Morroc's Mark","Pre-cast King's Gambit","Step back","Heal","Pull it off the ward","Sneak Attack","Shield Boomerang","Bishop's Tax","King's Chains","Hide to strike","Rook's Smash","Dragon Breath","Delta Skyfall","Queen's Gambit","Retribution","Queen's Brand","Wind Slash","Overpower","Face-Off","Attack"],"taxHp":0.35}
+http://localhost:5173/#b=cfZPLbtswEEV_xeAmm4uCb4peJsuii64FQSAkWhIiy4IoBw3a_nsxeqQOWnvDxfDM3JnLYS7BvnZDk_rwHicGoTjyzELAe2gDzyEK5DmH4c7CItfG2aJALmC4zcCRC2WcoJCEydwS2iEFKTn3K-VERqVYmsPMwN66mSGXhLEppst1qiIDO4cfZTsy5Hq5OXdz14S5uwwMbGzfU1eFvpxifa1izZCLoiBOQwhv4ZFr5SU-H4vqdOl7cVt_U770vWJgUxiaWJd1OIcmfqjTrWZg7Vg2oRtiXY5xKtulc7UqG0ghJDJSlvxDSi1STVdtJW9almuihTBarZ4K60HHPX_iW0irBac-Unt-CadrmkM3rA32MVYtOSKxKbjFfU0K5L68rZ7m6a97GaSVJO4hrXPbc2n1bztbghDwXHGdgRhSzLyXJHQ_RS2QfgzpBVKPIbNA5jFkIbXUlma5DzlILeyjSkt43xkBRbtMP2Jl5E1g26D02vV9eb72M_HC8S-Z25E6nsoxDgwc0lAQji_vSDnH79cYh6d0eJ7CUP_aN1GA7-krRt_1KR1e2tAN6QYz8jP30sbq9fAtzPF_tep4oja2pILm_7nPeRTG8PWnpJEdM_u7-AM
+(154 s; 14527 batches fought, 6222 shared with an identical fighter)

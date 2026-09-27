@@ -8,7 +8,8 @@
  *     --profile profiles/kingslayer-jorm.json --vs Heartless \
  *     [--lock offhand] [--screen 60] [--confirm 400] [--passes 3] [--time 300] \
  *     [--set "shoes=Temporal STR Boots+6; stat.str=99"] [--only garment,upper,stats]
- *     [--only rotation,order  (the rotation optimizer)] [--exclude "Dark Illusion Card"] [--keep-stats str]
+ *     [--only rotation,order  (the rotation optimizer)] [--fix "rogueFillers=false,autoAttack=false"]
+ *     [--exclude "Dark Illusion Card"] [--keep-stats str]
  *     [--per-target [--swap-cost 0.1]] [--proxy-test] [--no-pairs] [--healing] [--allow-ss] [--no-race] [--no-stats] [--workers N] [--out data/gear-search/kingslayer-heartless.json]
  *
  * The rules (the project owner, 2026-09-27):
@@ -49,6 +50,7 @@ import { DEFAULT_CONSUMABLES, loadout } from '../src/items.ts';
 import type { Monster } from '../src/model.ts';
 import { buildMonster } from '../src/monster.ts';
 import { simulate } from '../src/sim.ts';
+import { farmScore, spawnCounts } from '../src/farm.ts';
 import { newFight, run } from '../src/engine.ts';
 import { Rng } from '../src/rng.ts';
 import { priorityPolicy, tasPolicy } from '../src/tas.ts';
@@ -118,7 +120,21 @@ const kitOrder: string[] | null = await (async () => {
   const o = mod && Object.entries(mod).find(([k]) => /_ORDER$/.test(k))?.[1];
   return Array.isArray(o) ? o as string[] : null;
 })();
-const targets: Monster[] = (one('vs') ?? 'Heartless').split(',').flatMap((q) => findMobs(q.trim()).map(buildMonster));
+/**
+ * --objective farm: score by how much of the --vs maps dies to one or two
+ * buttons (src/farm.ts), weighted by spawn counts, bosses left out -- speed
+ * over safety (the project owner, 2026-09-28). The default, fight, plays
+ * whole fights.
+ */
+const farmMode = one('objective') === 'farm';
+const vsList = (one('vs') ?? 'Heartless').split(',').map((q) => q.trim());
+const targets: Monster[] = vsList.flatMap((q) => findMobs(q).map(buildMonster)).filter((m) => !farmMode || !m.boss);
+const farmWeights: number[] = (() => {
+  if (!farmMode) return [];
+  const counts = new Map<string, number>();
+  for (const q of vsList) for (const [n, c] of spawnCounts(q)) counts.set(n, (counts.get(n) ?? 0) + c);
+  return targets.map((m) => counts.get(m.name) ?? 1);
+})();
 const screenN = Number(one('screen') ?? 60);
 const confirmN = Number(one('confirm') ?? 400);
 const passes = Number(one('passes') ?? 3);
@@ -128,6 +144,11 @@ const policy = one('policy') === 'tas' ? tasPolicy({ horizonMs: 6000 }) : priori
 
 /** What an MVP-only piece, a +9 or a piece made from a +9 costs in the score: 3% of wins. */
 const PENALTY = 0.03;
+/** --no-mvp: MVP-only pieces and cards are left out, not merely penalised. --max-refine N: new pieces at +N at most. */
+const noMvp = flag('no-mvp');
+const maxNewRefine = Number(one('max-refine') ?? 9);
+const hpWeight = Number(one('hp-weight') ?? 0);
+const safeScore = one('score') === 'safe';
 
 // ---- where things come from ---------------------------------------------------
 
@@ -163,9 +184,9 @@ function ssOnly(item: Item): boolean {
 }
 const isWeaver = (item: Item) => / Weaver$/.test(item.name);
 const allowSs = flag('allow-ss');
-const allowed = (item: Item, slot: string) => !excluded.has(item.name.toLowerCase()) && canEquip(item, className, data.classRules, slot)
+const allowed = (item: Item, slot: string) => !excluded.has(item.name.toLowerCase()) && !(noMvp && mvpOnly(item)) && canEquip(item, className, data.classRules, slot)
   && (item.required_level ?? 0) <= level && (allowSs || !ssOnly(item) || isWeaver(item));
-const cards = data.itemList.filter((i) => i.kind === 'Card' && (allowSs || !ssOnly(i)) && !excluded.has(i.name.toLowerCase()));
+const cards = data.itemList.filter((i) => i.kind === 'Card' && (allowSs || !ssOnly(i)) && !(noMvp && mvpOnly(i)) && !excluded.has(i.name.toLowerCase()));
 
 // ---- rolls --------------------------------------------------------------------------
 
@@ -225,7 +246,8 @@ type SlotState = NonNullable<Build['slots'][string]>;
 interface State { build: Build; options: Record<string, unknown>; only?: number[] }
 interface Move { label: string; slots?: Record<string, SlotState>; options?: Record<string, unknown>; stats?: Build['baseStats'] }
 
-const refines = (item: Item) => (item.refineable ? [...new Set([Math.min(6, maxRefine(item)), Math.min(9, maxRefine(item))])] : [0]);
+const refines = (item: Item) => (item.refineable
+  ? [...new Set([Math.min(6, maxNewRefine, maxRefine(item)), Math.min(9, maxNewRefine, maxRefine(item))])] : [0]);
 const skipSlot = (s: SlotDef, build: Build) => s.group === 'costume'
   || (s.key === 'ammo' && !/Bow/.test(data.items.get(build.slots.weapon?.itemId ?? 0)?.type ?? ''));
 
@@ -336,6 +358,8 @@ const OPTION_CHOICES: Record<string, unknown[]> = {
   deltaFiller: [false, true], queensBrand: [false, true], queensGambit: [true, false], reflectCare: [true, false],
   heal: [true, false], rogueFillers: [false, true], fortress: [3, 2, 1], rooksWall: [false, true], autoAttack: [false, true],
   rooksSmash: [true, false], keepRange: [true, false], spendCounters: [true, false], windSlash: [false, true], retributionAt: [10, 6, 1], openerGambit: [true, false], safeCasts: [true, false], rookOpener: [true, false],
+  // Dodge only what costs this share of Max HP (kits/common.ts assessThreat); Kingslayer defaults to 0.4.
+  tankShare: [0.4, 0.25, 0.6],
 };
 /** Play styles that take several switches at once. */
 const OPTION_SETS: Record<string, Record<string, unknown>> = {
@@ -343,13 +367,24 @@ const OPTION_SETS: Record<string, Record<string, unknown>> = {
   "ranged only behind Rook's Wall": { rooksWall: true, rooksSmash: false, spendCounters: false, bishopsTax: false, sneakAttack: false },
   "Rook's Wall, step back after melee": { rooksWall: true, keepRange: true },
 };
+/**
+ * --fix "rogueFillers=false,autoAttack=false": switches set as given and
+ * never searched -- the owner's rules, where the sim would rather not.
+ */
+const fixedOptions: Record<string, unknown> = Object.fromEntries((one('fix') ?? '').split(',').map((s) => s.trim()).filter(Boolean).map((s) => {
+  const [k, v] = s.split('=').map((x) => x.trim());
+  if (!(k in OPTION_CHOICES)) throw new Error(`--fix: no rotation switch "${k}"`);
+  return [k, v === 'true' ? true : v === 'false' ? false : Number.isFinite(Number(v)) ? Number(v) : v];
+}));
 function optionMoves(options: Record<string, unknown>): Move[] {
   const out: Move[] = [];
   for (const [k, choices] of Object.entries(OPTION_CHOICES)) {
+    if (k in fixedOptions) continue;
     const now = options[k] ?? choices[0];
     for (const v of choices) if (v !== now) out.push({ label: `rotation: ${k} = ${v}`, options: { [k]: v } });
   }
   for (const [name, set] of Object.entries(OPTION_SETS)) {
+    if (Object.entries(set).some(([k, v]) => k in fixedOptions && fixedOptions[k] !== v)) continue;
     if (Object.entries(set).some(([k, v]) => (options[k] ?? OPTION_CHOICES[k]?.[0]) !== v)) out.push({ label: `rotation: ${name}`, options: set });
   }
   return out;
@@ -406,10 +441,14 @@ function penalty(build: Build): number {
 
 // ---- fighting ------------------------------------------------------------------
 
-interface Score { win: number; loss: number; dps: number; ttk: number | null; value: number; deaths: string }
+interface Score { win: number; loss: number; dps: number; ttk: number | null; value: number; deaths: string; farm?: { sb: number; sbkc: number; qg: number } }
 
 async function fight(s: State, n: number, seed: number): Promise<Score> {
   const f = await buildFighter({ ...profile, build: s.build }, { passives: kit.passives, aliases: kit.aliases, maxLevels: kit.maxLevels() });
+  if (farmMode) {
+    const fs = farmScore(f, kit.kit, s.options, targets.map((m, i) => ({ m, weight: farmWeights[i] })));
+    return { win: fs.qg, loss: 1 - fs.sbkc, dps: 0, ttk: null, value: fs.value, deaths: '', farm: { sb: fs.sb, sbkc: fs.sbkc, qg: fs.qg } };
+  }
   let win = 0; let loss = 0; let dps = 0; let ttk = 0; let ttkN = 0;
   const deaths: Record<string, number> = {};
   const fought = s.only ? s.only.map((i) => targets[i]) : targets;
@@ -429,7 +468,11 @@ async function fight(s: State, n: number, seed: number): Promise<Score> {
   // Once every fight is a win, speed is what is left to gain: 0.01 of score
   // (the bar a change must clear) is ~670 DPS.
   // The penalty is the main thread's (fightAll), so equal fighters share a score.
-  const value = win + 0.3 * (1 - loss) + 0.3 * (dps / 20_000);
+  // --hp-weight W: Max HP toward the 50k cap is worth W at the cap (Rook's Smash and Queen's Brand scale on HP).
+  // --score safe: survival first (the project owner, 2026-09-28) -- not losing counts more, and speed on
+  // a log scale, so 10% faster is worth about 1% more wins at any DPS. The default weighs DPS linearly.
+  const speed = safeScore ? 0.1 * Math.log2(1 + dps / 20_000) : 0.3 * (dps / 20_000);
+  const value = win + (safeScore ? 0.5 : 0.3) * (1 - loss) + speed + hpWeight * Math.min(1, f.maxHp / 50_000);
   return { win, loss, dps, ttk: ttkN ? ttk / ttkN : null, value, deaths: top };
 }
 
@@ -459,7 +502,9 @@ async function estimate(s: State): Promise<Score> {
 }
 
 const pct = (x: number) => `${Math.round(x * 100)}%`;
-const show = (s: Score) => `win ${pct(s.win)} lost ${pct(s.loss)} ${Math.round(s.dps).toLocaleString('en-US')} dps${s.ttk ? ` ${s.ttk.toFixed(0)}s` : ''}`;
+const show = (s: Score) => s.farm
+  ? `one-button ${pct(s.farm.sb)} two-button ${pct(s.farm.sbkc)} Queen's Gambit clears ${pct(s.farm.qg)}`
+  : `win ${pct(s.win)} lost ${pct(s.loss)} ${Math.round(s.dps).toLocaleString('en-US')} dps${s.ttk ? ` ${s.ttk.toFixed(0)}s` : ''}`;
 
 // ---- the workers -----------------------------------------------------------------
 //
@@ -563,7 +608,28 @@ async function screen(moves: Move[], seed: number): Promise<{ base: Score; score
 }
 
 const t0 = performance.now();
-let state: State = { build: start, options: { ...(profile.options ?? {}) } };
+/**
+ * --no-mvp starts from the build with its MVP-only pieces and cards taken
+ * off, and --max-refine caps what is already worn too: a cheap set is cheap
+ * all through, not only in what the search adds.
+ */
+function cheapen(b: Build): Build {
+  if (!noMvp && !one('max-refine')) return b;
+  const out: Build = structuredClone(b);
+  for (const [k, st] of Object.entries(out.slots)) {
+    if (!st?.itemId) continue;
+    const item = data.items.get(st.itemId);
+    if (noMvp && item && mvpOnly(item)) { out.slots[k] = { itemId: null, refine: 0, cards: [] }; console.log(`cheap: ${k} ${item.name} off (MVP only)`); continue; }
+    if (st.refine > maxNewRefine) { console.log(`cheap: ${k} ${item?.name} +${st.refine} -> +${maxNewRefine}`); st.refine = maxNewRefine; }
+    st.cards = st.cards.map((c) => {
+      const card = c ? data.items.get(c) : null;
+      if (noMvp && card && mvpOnly(card)) { console.log(`cheap: ${k} ${card.name} out (MVP only)`); return null; }
+      return c;
+    }) as typeof st.cards;
+  }
+  return out;
+}
+let state: State = { build: cheapen(start), options: { ...(profile.options ?? {}), ...fixedOptions } };
 let seedBase = 1;
 const [first] = await fightAll([state], confirmN, 10_000);
 if (one('set')) console.log(`from the profile with: ${one('set')}`);
@@ -583,7 +649,8 @@ async function probeRollStat(): Promise<void> {
     if (!roll) continue;
     const states = topStats.map((t) => apply(state, { label: '', slots: { [key]: { ...st!, rolls: { ...(st!.rolls ?? {}), [roll.key]: { option: t, values: [1] } } } } }));
     const scores = await fightAll(states, confirmN, 55_555);
-    const best = topStats[scores.map((x) => x.value).indexOf(Math.max(...scores.map((x) => x.value)))];
+    const vals = scores.map((x) => (Number.isFinite(x.value) ? x.value : -Infinity));
+    const best = topStats[vals.indexOf(Math.max(...vals))] ?? topStats[0];
     rollStats = [best];
     console.log(`  (stat rolls on new pieces: ${best.toUpperCase()}, from ${key}: ${topStats.map((t, i) => `${t} ${scores[i].value.toFixed(3)}`).join(', ')})`);
     return;
@@ -706,10 +773,13 @@ await climb();
 
 // --per-target: the shared build is the generalist; now each target gets
 // the swaps worth their cost, from it.
-const perTarget: { target: string; shared: Score; own: Score; swaps: string[]; options: Record<string, unknown> }[] = [];
+const perTarget: { cost: number; target: string; shared: Score; own: Score; swaps: string[]; options: Record<string, unknown> }[] = [];
 if (flag('per-target') && targets.length > 1) {
   const shared = state;
-  const cost = Number(one('swap-cost') ?? 0.1);
+  // --swap-cost takes a list ("0.05,0.1,0.2") to sweep: one shared search, a per-target phase each.
+  const costs = (one('swap-cost') ?? '0.1').split(',').map(Number);
+  if (costs.some((c) => !Number.isFinite(c) || c < 0)) throw new Error(`--swap-cost: numbers, comma separated (got "${one('swap-cost')}")`);
+  for (const cost of costs) {
   for (let t = 0; t < targets.length; t++) {
     state = { ...shared, only: [t] };
     const [g0] = await fightAll([state], confirmN, 31_000 + t);
@@ -718,16 +788,17 @@ if (flag('per-target') && targets.length > 1) {
     await climb(`${targets[t].name}: `);
     const [own] = await fightAll([state], confirmN, 31_000 + t);
     const optDiff = Object.fromEntries(Object.entries(state.options).filter(([k, v]) => shared.options[k] !== v));
-    perTarget.push({ target: targets[t].name, shared: g0, own, swaps: swappedSlots(state.build).map((k) => {
+    perTarget.push({ cost, target: targets[t].name, shared: g0, own, swaps: swappedSlots(state.build).map((k) => {
       const st = state.build.slots[k]; const it = st?.itemId ? data.items.get(st.itemId)?.name : '-';
       return `${k}: ${it}${st?.refine ? ` +${st.refine}` : ''}${(st?.cards ?? []).filter(Boolean).length ? ` [${st!.cards.filter(Boolean).map((c) => data.items.get(c!)?.name).join(', ')}]` : ''}`;
     }), options: optDiff });
     swapBase = null; swapPenalty = 0;
   }
+  }
   state = shared;
   console.log('\nper target (shared build -> with its swaps):');
   for (const r of perTarget) {
-    console.log(`  ${r.target.padEnd(24)} ${show(r.shared)}  ->  ${show(r.own)}   ${r.swaps.length} swap(s)${r.swaps.length ? `: ${r.swaps.join('; ')}` : ''}${Object.keys(r.options).length ? `  rotation ${JSON.stringify(r.options)}` : ''}`);
+    console.log(`  cost ${String(r.cost).padEnd(5)} ${r.target.padEnd(24)} ${show(r.shared)}  ->  ${show(r.own)}   ${r.swaps.length} swap(s)${r.swaps.length ? `: ${r.swaps.join('; ')}` : ''}${Object.keys(r.options).length ? `  rotation ${JSON.stringify(r.options)}` : ''}`);
   }
 }
 

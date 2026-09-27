@@ -289,6 +289,7 @@ export function aggregate(build: Build, data: Dataset): Totals {
   // ---- equipped pieces ---------------------------------------------------
   const wornBySet = new Map<number, number[]>();
   const refineBySet = new Map<number, number>();
+  let armourRefines = 0;
 
   for (const slot of SLOTS) {
     const state = build.slots[slot.key];
@@ -347,8 +348,19 @@ export function aggregate(build: Build, data: Dataset): Totals {
       push(wornBySet, s, item.id);
       refineBySet.set(s, (refineBySet.get(s) ?? 0) + refine);
     }
+    if (slot.group === 'gear' && ARMOUR_REFINE_SLOTS.has(slot.key) && !isOffhandWeapon(slot, item)) armourRefines += refine;
   }
   halving = 'none';
+
+  // Armour refines: 0.5 DEF a level on every armour piece, summed and then
+  // rounded (RTM status.cpp:4407/4489 over db/re/refine.yml, Bonus 50 a level).
+  const refineDef = Math.floor((armourRefines * 50 + 50) / 100);
+  if (refineDef > 0 && BASE_STAT_IDS.def !== undefined) {
+    const total = byStat.get(BASE_STAT_IDS.def) ?? { statId: BASE_STAT_IDS.def, flat: 0, percent: 0, sources: [] };
+    byStat.set(BASE_STAT_IDS.def, total);
+    total.flat += refineDef;
+    total.sources.push({ label: `Armour refines (+${armourRefines} in all)`, value: refineDef, unit: null });
+  }
 
   // ---- set bonuses -------------------------------------------------------
   const setProgress: Totals['setProgress'] = [];
@@ -509,6 +521,9 @@ function addBaseStats(item: Item, byStat: Map<number, StatTotal>, label: string)
     total.sources.push({ label: `${label} (base)`, value, unit: null });
   }
 }
+
+/** The slots that hold armour (IT_ARMOR on the server), whose refines add DEF. */
+const ARMOUR_REFINE_SLOTS = new Set(['upper', 'middle', 'lower', 'armor', 'offhand', 'garment', 'shoes']);
 
 /** Filled in once the stat registry is loaded, so ids stay data-driven. */
 export const BASE_STAT_IDS: Record<string, number> = {};

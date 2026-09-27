@@ -1,0 +1,456 @@
+{
+ "profile": "Kingslayer: owner skill plan (job 53)",
+ "targets": [
+  "Agav",
+  "Echio",
+  "Vanberk",
+  "Isilla",
+  "Hodremlin",
+  "Seeker",
+  "Tricked Follower",
+  "Orc Skeleton",
+  "Orc Zombie",
+  "Zenorc",
+  "Orc Archer",
+  "High Orc",
+  "Grafted Zenorc",
+  "Gentleman",
+  "Maiden of Past",
+  "Lost Codex",
+  "Maiden of Present",
+  "Maiden of Future",
+  "Cavalier",
+  "Lost Traveler",
+  "Navigator"
+ ],
+ "rules": {
+  "screenN": 1,
+  "confirmN": 1,
+  "timeS": 300,
+  "locked": [
+   "offhand"
+  ],
+  "penalty": 0.03,
+  "topStats": [
+   "vit",
+   "dex",
+   "str"
+  ]
+ },
+ "start": "http://localhost:5173/#b=cfZM9b9swEIb_isEly4uCxy-JHpOx6NCZEARCoi0hsiyIctCg7X8vSNmug8ReOByfu3vvywmw7_24j4N_DzMDSQ5XchCshdKwHEJVcI5D88LAwCldmKqCI2huSnA4krqgZBKQVGqdbJmCcywufmFgb_3C4KiqEidBWhZlikayoPJLEI7NIR5PcxMY2MH_qruJwcn8c-iXfu-X_jgysKl7j33jh3oO7akJLYMTayIFIlXCwilpBa5PTjgfh4FuQ4s16XEYBAOLU90c43ITVF__JQOb_bgPbd36g9-HD7-KgbVhF8YY6imMYZnPSh3xVZeGIBIo4RQpeVUjs5p935yjfi7IgLSS6xzIWKTnc_fWQsKbj2uDdkNICm02x1NcfJ_M3VQPITRdEiZwzlBACM5VziCtug0el_n_DEsII1MjLciQlnnoSvK7QyeC5ZKrEqnglLC0VqQ8911khtRjSGVIPoZ0hvRjyEAooUwq5T5UQCgyjyJl82WrCNKCg1LrMyNuDOcdiq_9MNSH07Akngr-rSwuSBt2aYkYOES6LELB8xiTz_bnKYTxKW6eZz-2fy67SOAX9xVLJ_4UNy-d78d4g2nxkXvpQvO6-eGX8FWsNuySjLNTler_falzS1rz9ZbixLal-Vv9Aw",
+ "steps": [
+  {
+   "move": "White Offense set +6",
+   "before": {
+    "win": 0.17427385892116182,
+    "loss": 0.17344398340248968,
+    "dps": 0,
+    "ttk": null,
+    "value": 0.6402712149073118,
+    "deaths": "",
+    "farm": {
+     "sb": 0.17427385892116182,
+     "sbkc": 0.8265560165975103,
+     "qg": 0.17427385892116182
+    }
+   },
+   "after": {
+    "win": 0.6390041493775933,
+    "loss": 0.23153526970954352,
+    "dps": 0,
+    "ttk": null,
+    "value": 1.1073125098168646,
+    "deaths": "",
+    "farm": {
+     "sb": 0.17427385892116182,
+     "sbkc": 0.7684647302904565,
+     "qg": 0.6390041493775933
+    }
+   },
+   "tried": 324
+  },
+  {
+   "move": "Upper Headgear: Valkyrie Circlet +6",
+   "before": {
+    "win": 0.6390041493775933,
+    "loss": 0.23153526970954352,
+    "dps": 0,
+    "ttk": null,
+    "value": 1.1073125098168646,
+    "deaths": "",
+    "farm": {
+     "sb": 0.17427385892116182,
+     "sbkc": 0.7684647302904565,
+     "qg": 0.6390041493775933
+    }
+   },
+   "after": {
+    "win": 0.7269709543568464,
+    "loss": 0.23153526970954352,
+    "dps": 0,
+    "ttk": null,
+    "value": 1.1973370507914776,
+    "deaths": "",
+    "farm": {
+     "sb": 0.17427385892116182,
+     "sbkc": 0.7684647302904565,
+     "qg": 0.7269709543568464
+    }
+   },
+   "tried": 132
+  },
+  {
+   "move": "Weapon: Nopaew Lufrewop +6",
+   "before": {
+    "win": 0.7269709543568464,
+    "loss": 0.23153526970954352,
+    "dps": 0,
+    "ttk": null,
+    "value": 1.1973370507914776,
+    "deaths": "",
+    "farm": {
+     "sb": 0.17427385892116182,
+     "sbkc": 0.7684647302904565,
+     "qg": 0.7269709543568464
+    }
+   },
+   "after": {
+    "win": 0.7684647302904565,
+    "loss": 0.23153526970954352,
+    "dps": 0,
+    "ttk": null,
+    "value": 1.2410399491237574,
+    "deaths": "",
+    "farm": {
+     "sb": 0.17427385892116182,
+     "sbkc": 0.7684647302904565,
+     "qg": 0.7684647302904565
+    }
+   },
+   "tried": 222
+  },
+  {
+   "move": "Rune or Orb: Jera Rune of Land +6  +  Weapon: Raydric Card x2",
+   "before": {
+    "win": 0.7684647302904565,
+    "loss": 0.23153526970954352,
+    "dps": 0,
+    "ttk": null,
+    "value": 1.2410399491237574,
+    "deaths": "",
+    "farm": {
+     "sb": 0.17427385892116182,
+     "sbkc": 0.7684647302904565,
+     "qg": 0.7684647302904565
+    }
+   },
+   "after": {
+    "win": 0.7684647302904565,
+    "loss": 0.16265560165975101,
+    "dps": 0,
+    "ttk": null,
+    "value": 1.269975640013881,
+    "deaths": "",
+    "farm": {
+     "sb": 0.17427385892116182,
+     "sbkc": 0.837344398340249,
+     "qg": 0.7684647302904565
+    }
+   },
+   "tried": 729
+  },
+  {
+   "move": "Off-hand: Strange Crusader Card x1",
+   "before": {
+    "win": 0.7684647302904565,
+    "loss": 0.16265560165975101,
+    "dps": 0,
+    "ttk": null,
+    "value": 1.269975640013881,
+    "deaths": "",
+    "farm": {
+     "sb": 0.17427385892116182,
+     "sbkc": 0.837344398340249,
+     "qg": 0.7684647302904565
+    }
+   },
+   "after": {
+    "win": 0.7684647302904565,
+    "loss": 0.16265560165975101,
+    "dps": 0,
+    "ttk": null,
+    "value": 1.28122121853051,
+    "deaths": "",
+    "farm": {
+     "sb": 0.17427385892116182,
+     "sbkc": 0.837344398340249,
+     "qg": 0.7684647302904565
+    }
+   },
+   "tried": 48
+  },
+  {
+   "move": "Garment: Antique Firelock Card x1  +  Shoes: Chimera Card x1",
+   "before": {
+    "win": 0.7684647302904565,
+    "loss": 0.16265560165975101,
+    "dps": 0,
+    "ttk": null,
+    "value": 1.28122121853051,
+    "deaths": "",
+    "farm": {
+     "sb": 0.17427385892116182,
+     "sbkc": 0.837344398340249,
+     "qg": 0.7684647302904565
+    }
+   },
+   "after": {
+    "win": 0.7684647302904565,
+    "loss": 0.16265560165975101,
+    "dps": 0,
+    "ttk": null,
+    "value": 1.3676357941358157,
+    "deaths": "",
+    "farm": {
+     "sb": 0.30373443983402487,
+     "sbkc": 0.837344398340249,
+     "qg": 0.7684647302904565
+    }
+   },
+   "tried": 721
+  },
+  {
+   "move": "stats: DEX 90->80, STR 80->90",
+   "before": {
+    "win": 0.7684647302904565,
+    "loss": 0.16265560165975101,
+    "dps": 0,
+    "ttk": null,
+    "value": 1.3676357941358157,
+    "deaths": "",
+    "farm": {
+     "sb": 0.30373443983402487,
+     "sbkc": 0.837344398340249,
+     "qg": 0.7684647302904565
+    }
+   },
+   "after": {
+    "win": 0.7684647302904565,
+    "loss": 0.16265560165975101,
+    "dps": 0,
+    "ttk": null,
+    "value": 1.428407351108657,
+    "deaths": "",
+    "farm": {
+     "sb": 0.4033195020746888,
+     "sbkc": 0.837344398340249,
+     "qg": 0.7684647302904565
+    }
+   },
+   "tried": 42
+  },
+  {
+   "move": "Weapon: Bloody Murderer Card in socket 1",
+   "before": {
+    "win": 0.7684647302904565,
+    "loss": 0.16265560165975101,
+    "dps": 0,
+    "ttk": null,
+    "value": 1.428407351108657,
+    "deaths": "",
+    "farm": {
+     "sb": 0.4033195020746888,
+     "sbkc": 0.837344398340249,
+     "qg": 0.7684647302904565
+    }
+   },
+   "after": {
+    "win": 0.787551867219917,
+    "loss": 0.16265560165975101,
+    "dps": 0,
+    "ttk": null,
+    "value": 1.4471967721133423,
+    "deaths": "",
+    "farm": {
+     "sb": 0.4033195020746888,
+     "sbkc": 0.837344398340249,
+     "qg": 0.787551867219917
+    }
+   },
+   "tried": 282
+  },
+  {
+   "move": "Shoes: Khalitzburg Knight Card x1",
+   "before": {
+    "win": 0.787551867219917,
+    "loss": 0.16265560165975101,
+    "dps": 0,
+    "ttk": null,
+    "value": 1.4471967721133423,
+    "deaths": "",
+    "farm": {
+     "sb": 0.4033195020746888,
+     "sbkc": 0.837344398340249,
+     "qg": 0.787551867219917
+    }
+   },
+   "after": {
+    "win": 0.837344398340249,
+    "loss": 0.16265560165975101,
+    "dps": 0,
+    "ttk": null,
+    "value": 1.4978078215689064,
+    "deaths": "",
+    "farm": {
+     "sb": 0.4033195020746888,
+     "sbkc": 0.837344398340249,
+     "qg": 0.837344398340249
+    }
+   },
+   "tried": 87
+  },
+  {
+   "move": "Armor: Black Acidus Card x1  +  Accessory 1 (left): Shield Ring +0",
+   "before": {
+    "win": 0.837344398340249,
+    "loss": 0.16265560165975101,
+    "dps": 0,
+    "ttk": null,
+    "value": 1.4978078215689064,
+    "deaths": "",
+    "farm": {
+     "sb": 0.4033195020746888,
+     "sbkc": 0.837344398340249,
+     "qg": 0.837344398340249
+    }
+   },
+   "after": {
+    "win": 0.837344398340249,
+    "loss": 0.16265560165975101,
+    "dps": 0,
+    "ttk": null,
+    "value": 1.5291159450556613,
+    "deaths": "",
+    "farm": {
+     "sb": 0.44896265560165977,
+     "sbkc": 0.837344398340249,
+     "qg": 0.837344398340249
+    }
+   },
+   "tried": 587
+  },
+  {
+   "move": "Accessory 1 (left): Venatu Card x1",
+   "before": {
+    "win": 0.837344398340249,
+    "loss": 0.16265560165975101,
+    "dps": 0,
+    "ttk": null,
+    "value": 1.5291159450556613,
+    "deaths": "",
+    "farm": {
+     "sb": 0.44896265560165977,
+     "sbkc": 0.837344398340249,
+     "qg": 0.837344398340249
+    }
+   },
+   "after": {
+    "win": 0.837344398340249,
+    "loss": 0.16265560165975101,
+    "dps": 0,
+    "ttk": null,
+    "value": 1.5917207693512727,
+    "deaths": "",
+    "farm": {
+     "sb": 0.5518672199170125,
+     "sbkc": 0.837344398340249,
+     "qg": 0.837344398340249
+    }
+   },
+   "tried": 108
+  },
+  {
+   "move": "Accessory 2 (right): Shield Ring +0",
+   "before": {
+    "win": 0.837344398340249,
+    "loss": 0.16265560165975101,
+    "dps": 0,
+    "ttk": null,
+    "value": 1.5917207693512727,
+    "deaths": "",
+    "farm": {
+     "sb": 0.5518672199170125,
+     "sbkc": 0.837344398340249,
+     "qg": 0.837344398340249
+    }
+   },
+   "after": {
+    "win": 0.837344398340249,
+    "loss": 0.16265560165975101,
+    "dps": 0,
+    "ttk": null,
+    "value": 1.6447873705228229,
+    "deaths": "",
+    "farm": {
+     "sb": 0.6390041493775933,
+     "sbkc": 0.837344398340249,
+     "qg": 0.837344398340249
+    }
+   },
+   "tried": 114
+  }
+ ],
+ "final": {
+  "win": 0.837344398340249,
+  "loss": 0.16265560165975101,
+  "dps": 0,
+  "ttk": null,
+  "value": 1.6447873705228229,
+  "deaths": "",
+  "farm": {
+   "sb": 0.6390041493775933,
+   "sbkc": 0.837344398340249,
+   "qg": 0.837344398340249
+  }
+ },
+ "options": {
+  "fortress": 3,
+  "queensBrand": true,
+  "rooksWall": true,
+  "sneakAttack": false,
+  "heal": false,
+  "rogueFillers": false,
+  "autoAttack": false,
+  "keepRange": false,
+  "safeCasts": false,
+  "windSlash": true,
+  "retributionAt": 10,
+  "openerGambit": false,
+  "order": [
+   "Stay hidden",
+   "Morroc's Mark",
+   "Pre-cast King's Gambit",
+   "Step back",
+   "Heal",
+   "Pull it off the ward",
+   "Sneak Attack",
+   "Bishop's Tax",
+   "King's Chains",
+   "Shield Boomerang",
+   "Hide to strike",
+   "Rook's Smash",
+   "Dragon Breath",
+   "Delta Skyfall",
+   "Wind Slash",
+   "Queen's Gambit",
+   "Retribution",
+   "Queen's Brand",
+   "Overpower",
+   "Face-Off",
+   "Attack"
+  ],
+  "readyToRip": true
+ },
+ "link": "http://localhost:5173/#b=cfZNNb9swDIb_SqBLL8Qg6st2jutx6KFnwTAEm7GNKo5hKcWCbf99kJxkCbrkaPLhy5c0ZQWwH-PUB-9OtDBAycFWHBCqCpSGkoNQNVjLActSFGBqsAiamxI4WJS6wLoGKwEV5wgGrJJFmSpYiC4yYCEuDGym2ELhcFxaYsD27mczzAyszJn9GMfexfEwMWDzcApj63yzUHdsqWNgRV0nTgFKZVTuI1CBQilzs-XgPd7KirXhwXuRTMxNewjxRlBf85IBW9zUU9d0bu96ussqBqyjHU2BmpkmisvZpUW-etIgEEWyJAqhzdWOzHb6sT3Lfp3G5K3lUoWGP9oafbqwLmbnKbkrcjgcQ3RjCg9z44naIVVowFW8yOIyixtePRIPMyVLzIW5u0q3LsRx6lN4F2lp0nfTkXenFUlQCVIII9MZKGnu9D_HuOonrvrHPWQQoeKSq3K9LwGirKq8l8clMkPqOaQyJJ9DOkP6OWRAKKHM8zEKEArNl3bXfWfKXo8UQVbAAdPKs5C4CZxPMnyM3jf7o4-Jx4J_K4sL0tEu3SQDDkKnIBQ8_9NUs30_Ek0vYfN9cVP3-3LaCPxSvmLp-b-EzevgxincYFrcc68DtR-bNxfpf1od7ZKNc1Gd5v91mXOLWvP1aYaZbUvzp_4L",
+ "perTarget": []
+}

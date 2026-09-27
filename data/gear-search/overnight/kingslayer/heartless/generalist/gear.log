@@ -1,0 +1,15 @@
+node --experimental-strip-types --no-warnings --import ./register.mjs tools/gear-search.ts --profile F:\RTMR_Project\data\gear-search\overnight\kingslayer\heartless\generalist\rot.profile.json --vs Heartless --screen 120 --confirm 800 --passes 10 --lock offhand --fix rogueFillers=false,autoAttack=false --out F:\RTMR_Project\data\gear-search\overnight\kingslayer\heartless\generalist\gear.json
+
+start: win 98% lost 2% 26,348 dps 18s  (Heartless, 800 fights, 11 workers)
+  (stat rolls on new pieces: VIT, from armor: vit 1.680, dex 1.672, str 1.677)
+pass 1  Lower Headgear: Flaming Weaver +6                                win 99% lost 1% 26,238 dps 18s  ->  win 99% lost 1% 28,425 dps 17s   [45 tried]
+pass 1  Lower Headgear: Gioia Card x2                                    win 100% lost 0% 28,258 dps 17s  ->  win 100% lost 0% 29,553 dps 17s   [151 tried]
+pass 1  Garment: Dark Illusion Card x2                                   win 99% lost 1% 29,636 dps 17s  ->  win 99% lost 1% 31,640 dps 17s   [230 tried]
+  (stat rolls on new pieces: VIT, from lower: vit 1.741, dex 1.738, str 1.738)
+pass 2  rotation: preGambit = false                                      win 100% lost 0% 31,673 dps 17s  ->  win 100% lost 0% 32,812 dps 18s   [24 tried]
+  (stat rolls on new pieces: DEX, from lower: vit 1.756, dex 1.757, str 1.756)
+
+final (1600 fights): win 100% lost 1% 32,623 dps 18s; killed by Knuckle Arrow x5, Heartless: attack x2
+options: {"fortress":3,"queensBrand":false,"heal":false,"retributionAt":1,"rogueFillers":false,"autoAttack":false,"windSlash":true,"preGambit":false}
+http://localhost:5173/#b=cfZM_b9swEMW_isEly0PB4z-JHpux6NCZEARCoi0hsiyIctCg7XcvSFmJjTZeOBx_d-_47ugE2Ld-PMbBv4WZgSSHKzkI1kJrWA6q4ByHJCEIBk7pwiAdVQVH0NyU4HAkdUEpJKCtMPcknGNx8QsDe-0XBkdVlVgJITi3a35B5b-gSBibQzxf5iYwsJP_WXcTg1P55tQv_dEv_XlkYFP3FvvGD_Uc2ksT2g8hBSJrYOGUtAL3R1adz8NAt_WvyudhkAxs9uMxtHXrT_4Y3tXTrWJg3VQffT-Gtp7CXHe5c7kqawgigTIpC_4uJbPUsW-uJW9aFmuiAWklVyPJWKTjM3_Cq4-rBYchpPZsDsdLXHw_rg0OITRdckTgqlBk91VWkFbdFo_L_GFeCWFkcslCGNqmpWReAILlkqsSslprl9aKVPLToZPMkHoMqQzJx5DOkH4MGQgllEltfw4VEIrMo0o5vG0HQSYf0t9YGXETuO5KfOmHoT5dhiXxVPAvZbEhbTjUUxgZOIROQRQ8Tyzl7H9cQhif4u7r7Mf297ZzBL6lr1j6uE9x99z5fow3mBb33HMXmpfdd7-E_9VqwyG1cU2q0vt_be_ck9Z8_RNxYvvS_Kn-Ag
+(169 s; 15447 batches fought, 6783 shared with an identical fighter)

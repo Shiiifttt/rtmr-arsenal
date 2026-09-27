@@ -1,0 +1,20 @@
+node --experimental-strip-types --no-warnings --import ./register.mjs tools/gear-search.ts --profile F:\RTMR_Project\data\gear-search\overnight\kingslayer\heartless\v4-foh-gem10\rot.profile.json --vs Heartless --screen 120 --confirm 800 --passes 10 --lock offhand --fix rogueFillers=false,autoAttack=false --out F:\RTMR_Project\data\gear-search\overnight\kingslayer\heartless\v4-foh-gem10\gear.json
+
+start: win 100% lost 0% 35,628 dps 13s  (Heartless, 800 fights, 11 workers)
+  (stat rolls on new pieces: VIT, from armor: vit 1.832, dex 1.830, str 1.830)
+pass 1  Lower Headgear: Crimson Bowtie +6                                win 100% lost 0% 35,933 dps 13s  ->  win 100% lost 0% 36,740 dps 13s   [45 tried]
+pass 1  Lower Headgear: Gioia Card x1                                    win 100% lost 0% 36,730 dps 13s  ->  win 100% lost 0% 38,005 dps 12s   [75 tried]
+pass 1  Armor: Lava Spirit Armor +6                                      win 100% lost 0% 37,641 dps 12s  ->  win 98% lost 2% 42,309 dps 12s   [288 tried]
+pass 1  Garment: Dream Manteau +6 (hp_leech)                             win 98% lost 2% 42,483 dps 12s  ->  win 98% lost 2% 44,437 dps 11s   [428 tried]
+  (stat rolls on new pieces: VIT, from lower: vit 1.927, dex 1.924, str 1.925)
+pass 2  rotation: heal = true                                            win 97% lost 3% 44,167 dps 11s  ->  win 99% lost 1% 43,865 dps 11s   [24 tried]
+pass 2  stats: INT 55->50, STR 80->83                                    win 98% lost 2% 43,587 dps 11s  ->  win 98% lost 2% 44,366 dps 11s   [34 tried]
+pass 2  Shoes: Solace Card x1                                            win 99% lost 2% 44,555 dps 11s  ->  win 97% lost 3% 46,896 dps 11s   [92 tried]
+  (stat rolls on new pieces: STR, from lower: vit 1.976, dex 1.974, str 1.977)
+pass 3  stats: INT 50->40, LUK 1->23                                     win 96% lost 4% 46,829 dps 11s  ->  win 96% lost 4% 47,473 dps 11s   [34 tried]
+  (stat rolls on new pieces: STR, from lower: vit 1.983, dex 1.981, str 1.984)
+
+final (1600 fights): win 97% lost 3% 47,636 dps 11s; killed by Knuckle Arrow x41, Heartless: attack x5
+options: {"fortress":3,"queensBrand":false,"rooksWall":true,"sneakAttack":false,"heal":true,"rogueFillers":false,"autoAttack":false,"retributionAt":1,"keepRange":false,"windSlash":true,"preGambit":false,"deltaFiller":true}
+http://localhost:5173/#b=cfZNNi9swEIb_StBlLy9Fo08rx-6x9NCzMEbESmzWcYLlLF3a_vciOUmzNMlFoNEz886XvAD71o-7NISPODGQ5PCVBME5KA7HIWQN7zk0twYGXmlr6hqeoLmpwOFJakvZJECcK2f4lYP3LM1hZmDv_czgqa4zKUFa2ipzJC1Vd0F4NsV0OE2byMD24WfTHRm8LC_7fu53Ye4PIwM7dh-p34ShmWJ72sSWwYtFSIHIGTh4JZ3A56OoTodhoNv4YlE-DINkYFMYd7Ft2rAPu8jg1fVVMbDu2OxCP8a2Ocap6UrmclHWEEQCFbwiJa9Sskjt-s055P8pGwhuK1l6SMYhH4_6E99DWlqwHWJOzxZzOqU59OOS4BDjpsseGufuWwjBuSoK0qnb4Gme_k2pgjAyd8lBGGuXWdtzMffGSgTHJVcViOergKicE1nosY8skHoOqQLJ55AukH4OGQgllMnFPIYshCLzLFIxX3aGIB04KPe-MOLGcN6g9NYPQ7M_DXPmyfIvlb0gbdw2xzgycAidjbC8zDH7rH-cYhxf0urrFMb292UTCfzivmD5H7-k1WsX-jHdYFp85l67uHlbfQ9zvBerjducxtmpzvX_utS5Jq358lPSka0r86f-Cw
+(143 s; 17749 batches fought, 7879 shared with an identical fighter)

@@ -11,7 +11,7 @@ import type { Build, Dataset, SlotState, Totals } from '../../sim/src/types.ts';
 import { SLOTS } from '../../sim/src/slots.ts';
 import { plannerDataset } from './data.ts';
 import {
-  baseHit, basePerfectDodge, hpRegenTick, playerSoftDef, playerSoftMdef, spRegenTick,
+  baseHit, basePerfectDodge, hpRegenTick, playerSoftDef, playerSoftMdef, refineAtk, spRegenTick, statusAtk,
 } from './formulas.ts';
 import type { Fighter, PercentBag, Stats, Weapon } from './model.ts';
 
@@ -62,6 +62,10 @@ export interface Passives {
   hpPercent: number;
   /** Extra SP per regen tick: flat, and a share of Max SP (Increase SP Recovery). */
   spRegen: { flat: number; maxShare: number };
+  /** Base stat points from skills (Gadget Mastery's INT). */
+  stats?: Partial<Record<keyof Stats, number>>;
+  /** Defense Penetration % from a buff kept up all fight (Magic Pierce). */
+  defPen?: number;
   notes: string[];
 }
 
@@ -132,10 +136,6 @@ export async function buildFighter(profile: Profile, opts: FighterOptions): Prom
   // without a sign), so both are read.
   const either = (key: string) => flat(key) + pct(key);
 
-  const points = build.baseStats;
-  const stats = Object.fromEntries((['str', 'agi', 'vit', 'int', 'dex', 'luk'] as const)
-    .map((k) => [k, combine(points[k], flat(k), pct(k))])) as Stats;
-
   // Every skill maxed, always (the project owner, 2026-09-26).
   const levels: Record<string, number> = { ...opts.maxLevels, ...(profile.skills ?? {}) };
   const extras = gearExtras(build, data, totals);
@@ -146,6 +146,12 @@ export async function buildFighter(profile: Profile, opts: FighterOptions): Prom
   const weapon = weaponOf(build, data);
   const passives = opts.passives(levels, weapon?.type ?? null, build.baseLevel);
   notes.push(...passives.notes);
+
+  // A passive's stat points count as base points, under gear's percent
+  // (Gadget Mastery's INT: RTM status.cpp:4656 adds it to base_status).
+  const points = build.baseStats;
+  const stats = Object.fromEntries((['str', 'agi', 'vit', 'int', 'dex', 'luk'] as const)
+    .map((k) => [k, combine(points[k] + (passives.stats?.[k] ?? 0), flat(k), pct(k))])) as Stats;
 
   const offhand = itemIn(build, data, 'offhand');
   const leftWeapon = weaponOf(build, data, 'offhand');
@@ -176,7 +182,19 @@ export async function buildFighter(profile: Profile, opts: FighterOptions): Prom
   // ---- offence --------------------------------------------------------------
   const weaponAtk = weapon?.atk ?? 0;
   const weaponMatk = itemIn(build, data, 'weapon')?.matk ?? 0;
-  const equipAtk = flat('atk') - weaponAtk - (offhand?.kind === 'Weapon' ? offhand.atk : 0);
+  const gearEquipAtk = flat('atk') - weaponAtk - (offhand?.kind === 'Weapon' ? offhand.atk : 0);
+
+  // The shadow sets' conversions (gearExtras): End of Kings' DEF and soft DEF
+  // +1% a set refine, then ATK from its total DEF -- hard + soft, the status
+  // window's 'a + b' (a reading would settle which); Heir to the King's DEF
+  // from total ATK -- the window's ATK: status + weapon (with refine) + equip.
+  const softDef = Math.floor(playerSoftDef(stats, build.baseLevel) * (1 + extras.defPct / 100));
+  const hardDef = Math.floor(Math.floor(flat('def') * (1 + pct('def') / 100)) * (1 + extras.defPct / 100));
+  const equipAtk = gearEquipAtk + Math.floor(extras.atkFromDef * (hardDef + softDef));
+  const windowAtk = statusAtk(stats, build.baseLevel) + (weapon ? weapon.atk + refineAtk(weapon.level, weapon.refine) : 0) + equipAtk;
+  const def = hardDef + Math.floor(extras.defFromAtk * windowAtk);
+  if (extras.atkFromDef) notes.push(`ATK +${equipAtk - gearEquipAtk} from DEF (set bonus)`);
+  if (extras.defFromAtk) notes.push(`DEF +${def - hardDef} from ATK ${windowAtk} (set bonus)`);
 
   const hit = profile.measured?.hit
     ?? Math.floor((baseHit(build.baseLevel, stats) + flat('hit')) * (1 + pct('hit') / 100)) + passives.hit;
@@ -251,10 +269,11 @@ export async function buildFighter(profile: Profile, opts: FighterOptions): Prom
     critDamage: either('crit_damage'),
     critDamageLeft,
     aspd,
-    defPen: flat('def_pen'),
+    moveSpeed: either('move_speed'),
+    defPen: flat('def_pen') + (passives.defPen ?? 0),
     mdefPen: flat('mdef_pen'),
-    def: Math.floor(flat('def') * (1 + pct('def') / 100)),
-    softDef: playerSoftDef(stats, build.baseLevel),
+    def,
+    softDef,
     mdef: Math.floor(flat('mdef') * (1 + pct('mdef') / 100)),
     softMdef: playerSoftMdef(stats, build.baseLevel),
     element: totals.element ?? 'Neutral',
@@ -322,11 +341,13 @@ function skillModLookup(totals: Totals, aliases: Record<string, string[]>, extra
  */
 function gearExtras(build: Build, data: Dataset, totals: Totals): {
   grants: Record<string, number>; ranged: number; skillDamage: Record<string, number>; notes: string[];
+  /** End of Kings: DEF and soft DEF +% (1 a set refine); ATK from total DEF. Heir to the King: DEF from total ATK. */
+  defPct: number; atkFromDef: number; defFromAtk: number;
 } {
   const grants: Record<string, number> = {};
   const skillDamage: Record<string, number> = {};
   const notes: string[] = [];
-  let ranged = 0;
+  let ranged = 0; let defPct = 0; let atkFromDef = 0; let defFromAtk = 0;
   const grant = (text: string) => {
     const m = /^Grants (.+?) Lv\.?\s*(\d+)\.?$/i.exec(text.trim());
     if (m) grants[m[1]] = Math.max(grants[m[1]] ?? 0, Number(m[2]));
@@ -336,7 +357,22 @@ function gearExtras(build: Build, data: Dataset, totals: Totals): {
   for (const id of refineOf.keys()) for (const b of data.items.get(id)?.piece_bonus ?? []) grant(b.text);
   for (const p of totals.setProgress) {
     if (!p.complete) continue;
-    for (const b of p.set.set_bonus) grant(b.text);
+    for (const b of p.set.set_bonus) {
+      grant(b.text);
+      // The shadow sets' unparsed lines (End of Kings, Heir to the King).
+      const from = /^Adds (ATK|DEF) equal to (\d+)% of your total (DEF|ATK)$/i.exec(b.text.trim());
+      if (from && from[1].toUpperCase() === 'ATK') atkFromDef += Number(from[2]) / 100;
+      if (from && from[1].toUpperCase() === 'DEF') defFromAtk += Number(from[2]) / 100;
+    }
+    for (const r of p.set.set_refine?.per_set_refine ?? []) {
+      for (const e of r.effects) {
+        const m = /^DEF \+(\d+)% and Soft DEF \+\d+%$/i.exec(e.text.trim());
+        if (!m) continue;
+        const total = p.set.member_ids.reduce((sum, id) => sum + (refineOf.get(id) ?? 0), 0);
+        defPct += (Number(m[1]) * total) / (r.per || 1);
+        notes.push(`${p.set.name}: DEF and soft DEF +${defPct}% (set refine ${total})`);
+      }
+    }
     const members = p.set.member_ids.map((id) => ({ name: data.items.get(id)?.name ?? '', refine: refineOf.get(id) ?? 0 }));
     const piece = (word: string) => members.find((x) => new RegExp(`\\b${word === 'Shoes' ? '(Shoes|Boots)' : word}$`, 'i').test(x.name));
     const seen = new Set<string>();
@@ -358,7 +394,7 @@ function gearExtras(build: Build, data: Dataset, totals: Totals): {
     }
   }
   if (Object.keys(grants).length) notes.push(`skills from gear: ${Object.entries(grants).map(([n, l]) => `${n} ${l}`).join(', ')}`);
-  return { grants, ranged, skillDamage, notes };
+  return { grants, ranged, skillDamage, notes, defPct, atkFromDef, defFromAtk };
 }
 
 /**

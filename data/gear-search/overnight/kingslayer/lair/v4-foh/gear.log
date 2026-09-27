@@ -1,0 +1,31 @@
+node --experimental-strip-types --no-warnings --import ./register.mjs tools/gear-search.ts --profile F:\RTMR_Project\data\gear-search\overnight\kingslayer\lair\v4-foh\rot.profile.json --vs Angel of Genesis,Demon of Apocalypse,Heartless,Heart of the Serpent --screen 120 --confirm 800 --passes 10 --lock offhand --fix rogueFillers=false,autoAttack=false --out F:\RTMR_Project\data\gear-search\overnight\kingslayer\lair\v4-foh\gear.json
+
+start: win 99% lost 0% 28,806 dps 11s  (Angel of Genesis, Demon of Apocalypse, Heartless, Heart of the Serpent, 800 fights, 11 workers)
+  (stat rolls on new pieces: VIT, from armor: vit 1.722, dex 1.719, str 1.721)
+pass 1  Armor: Lava Spirit Armor +6                                      win 100% lost 0% 28,806 dps 11s  ->  win 99% lost 1% 30,315 dps 10s   [288 tried]
+pass 1  Weapon: Word of Misery +9                                        win 98% lost 1% 30,202 dps 10s  ->  win 100% lost 0% 33,776 dps 9s   [459 tried]
+pass 1  Weapon: Earth Petite Card in socket 1                            win 99% lost 0% 33,737 dps 9s  ->  win 99% lost 1% 36,038 dps 10s   [310 tried]
+pass 1  Shoes: Solace Card x1                                            win 99% lost 1% 35,953 dps 10s  ->  win 98% lost 1% 38,252 dps 10s   [92 tried]
+  (stat rolls on new pieces: VIT, from armor: vit 1.822, dex 1.821, str 1.822)
+pass 2  rotation: openerGambit = false                                   win 98% lost 1% 38,387 dps 10s  ->  win 99% lost 0% 38,601 dps 9s   [24 tried]
+pass 2  Lower Headgear: Gioia Card x1                                    win 98% lost 1% 38,610 dps 9s  ->  win 99% lost 1% 39,394 dps 9s   [75 tried]
+pass 2  Weapon: Aspect of Torment Card in socket 1                       win 99% lost 0% 39,366 dps 9s  ->  win 99% lost 0% 41,890 dps 8s   [311 tried]
+pass 2  Accessory 2 (right): Vit Glove +0                                win 99% lost 0% 41,844 dps 8s  ->  win 99% lost 1% 43,383 dps 8s   [125 tried]
+pass 2  Accessory 2 (right): Ifrit Card x1                               win 99% lost 1% 43,590 dps 8s  ->  win 99% lost 1% 47,498 dps 7s   [117 tried]
+  (stat rolls on new pieces: VIT, from armor: vit 1.934, dex 1.932, str 1.934)
+pass 3  Lower Headgear: Forgotten Scarf +0                               win 99% lost 1% 47,424 dps 7s  ->  win 99% lost 1% 52,088 dps 7s   [45 tried]
+pass 3  Weapon: Observation Card x3                                      win 98% lost 1% 52,159 dps 7s  ->  win 99% lost 1% 57,499 dps 6s   [311 tried]
+pass 3  Accessory 2 (right): Corsair Ring +0                             win 99% lost 1% 57,538 dps 6s  ->  win 99% lost 1% 59,169 dps 6s   [125 tried]
+  (stat rolls on new pieces: DEX, from lower: vit 2.085, dex 2.085, str 2.084)
+pass 4  order: Wind Slash up 2 (before Retribution)                      win 99% lost 1% 59,168 dps 6s  ->  win 99% lost 1% 60,077 dps 6s   [78 tried]
+  (stat rolls on new pieces: DEX, from lower: vit 2.104, dex 2.104, str 2.104)
+pass 5  order: Queen's Gambit down 1 (before Retribution)                win 99% lost 1% 60,084 dps 6s  ->  win 99% lost 1% 61,028 dps 6s   [78 tried]
+  (stat rolls on new pieces: DEX, from lower: vit 2.111, dex 2.114, str 2.110)
+pass 6  rotation: retributionAt = 10                                     win 99% lost 1% 60,951 dps 6s  ->  win 99% lost 1% 61,252 dps 6s   [24 tried]
+pass 6  stats: INT 55->45, LUK 1->24                                     win 99% lost 1% 61,052 dps 6s  ->  win 99% lost 1% 61,916 dps 5s   [34 tried]
+  (stat rolls on new pieces: VIT, from lower: vit 2.130, dex 2.129, str 2.130)
+
+final (1600 fights): win 99% lost 1% 61,996 dps 5s; killed by Magnus Exorcismus x13, Knuckle Arrow x13
+options: {"fortress":3,"queensBrand":true,"rooksWall":true,"sneakAttack":false,"heal":false,"rogueFillers":false,"autoAttack":false,"keepRange":false,"safeCasts":false,"windSlash":true,"retributionAt":10,"openerGambit":false,"order":["Stay hidden","Morroc's Mark","Pre-cast King's Gambit","Step back","Heal","Pull it off the ward","Sneak Attack","Bishop's Tax","King's Chains","Shield Boomerang","Hide to strike","Rook's Smash","Dragon Breath","Delta Skyfall","Wind Slash","Queen's Gambit","Retribution","Queen's Brand","Overpower","Face-Off","Attack"]}
+http://localhost:5173/#b=cfZM9b9swEIb_isEly4uCxy-JHpOx6NCZEARCoi0hsiyIctCg7X8vSNmug8ReOByfu3vvywmw7_24j4N_DzMDSQ5XchCshdKwHEJVcI5D88LAwCldmKqCI2huSnA4krqgZBKQVGqdbJmCcywufmFgb_3C4KiqEidBWhZlikayoPJLEI7NIR5PcxMY2MH_qruJwcn8c-iXfu-X_jgysKl7j33jh3oO7akJLYMTayIFIlXCwilpBa5PTjgfh4FuQ4s16XEYBAOLU90c43ITVF__JQOb_bgPbd36g9-HD7-KgbVhF8YY6imMYZnPSh3xVZeGIBIo4RQpeVUjs5p935yjfi7IgLSS6xzIWKTnc_fWQsKbj2uDdkNICm02x1NcfJ_M3VQPITRdEiZwzlBACM5VziCtug0el_n_DEsII1MjLciQlnnoSvK7QyeC5ZKrEqnglLC0VqQ8911khtRjSGVIPoZ0hvRjyEAooUwq5T5UQCgyjyJl82WrCNKCg1LrMyNuDOcdiq_9MNSH07Akngr-rSwuSBt2aYkYOES6LELB8xiTz_bnKYTxKW6eZz-2fy67SOAX9xVLJ_4UNy-d78d4g2nxkXvpQvO6-eGX8FWsNuySjLNTler_falzS1rz9ZbixLal-Vv9Aw
+(577 s; 30020 batches fought, 13243 shared with an identical fighter)

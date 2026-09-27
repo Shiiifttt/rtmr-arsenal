@@ -1,0 +1,15 @@
+node --experimental-strip-types --no-warnings --import ./register.mjs tools/gear-search.ts --profile profiles/kingslayer-jorm-generalist.json --vs Angel of Genesis,Demon of Apocalypse,Heartless,Heart of the Serpent --screen 150 --confirm 1000 --passes 8 --lock offhand --fix rogueFillers=false,autoAttack=false --only rotation,order --out F:\RTMR_Project\data\gear-search\overnight\kingslayer\lair\generalist\rot.json
+
+start: win 94% lost 6% 27,523 dps 12s  (Angel of Genesis, Demon of Apocalypse, Heartless, Heart of the Serpent, 1000 fights, 11 workers)
+  (stat rolls on new pieces: VIT, from armor: vit 1.627, dex 1.623, str 1.622)
+pass 1  rotation: safeCasts = false                                      win 94% lost 7% 27,542 dps 12s  ->  win 99% lost 1% 28,357 dps 12s   [24 tried]
+  (stat rolls on new pieces: VIT, from armor: vit 1.720, dex 1.717, str 1.719)
+pass 2  rotation: windSlash = true  +  order: King's Chains down 1 (before Hide to strike) win 99% lost 1% 28,500 dps 12s  ->  win 100% lost 0% 28,978 dps 12s   [12 tried]
+  (stat rolls on new pieces: VIT, from armor: vit 1.729, dex 1.728, str 1.729)
+pass 3  rotation: rookOpener = false  +  order: Retribution down 2 (before Overpower) win 100% lost 0% 28,926 dps 12s  ->  win 100% lost 0% 29,458 dps 11s   [12 tried]
+  (stat rolls on new pieces: VIT, from armor: vit 1.741, dex 1.740, str 1.740)
+
+final (2000 fights): win 100% lost 0% 29,571 dps 11s; killed by Heartless: attack x7, Knuckle Arrow x3
+options: {"fortress":3,"queensBrand":false,"heal":false,"retributionAt":1,"rogueFillers":false,"autoAttack":false,"safeCasts":false,"windSlash":true,"order":["Stay hidden","Morroc's Mark","Pre-cast King's Gambit","Step back","Heal","Pull it off the ward","Sneak Attack","Bishop's Tax","Shield Boomerang","King's Chains","Hide to strike","Rook's Smash","Dragon Breath","Delta Skyfall","Queen's Gambit","Queen's Brand","Wind Slash","Retribution","Overpower","Face-Off","Attack"],"rookOpener":false}
+http://localhost:5173/#b=cfZPNbpwwFIVfZeRNNkeVr__As0yWVRdZI4Qs8AAKwyDMRInavntlA-lEbWbjxfV3z7k-tgsB9r0f2zC4dz8zkOQocg6CtdAaloNKFAWHJCEIBoXSmUFcyhIFQXOTg6MgqTOKJQGdZ6m0QxJCcG5XKqM8CrKwuIWBvfYLQyEixmYfLte59gzs7N6qbmIoVNo590vfuqW_jAxs6t5DX7uhmn1zrX3DUFBZRk6ByBpYFEpagc9Lcp0vw0C3-pvzZRgkA5vd2PqmatzZtf7DPe4qBtZNVev60TfV5OeqS5PL1VlDEAnk0VnwDyuZrNq-3iRvRhZrowFpJU0KlgxHXL7Kx7-6sEZwGnwcz6ZyuIbF9eM64OB93cVEBDaHLKWvkoO06lY8LPPf8HIII2NKFsLQfltKpmsmWC65yiHLVTu3VkTJf2fd5EgmSN2HVILkfUgnSN-HDIQSysSxv4YyCEXmnlIq76-DIGMO8QesjLgpbG8lvPTDUJ2vwxJ5yvi3PNuRxp-qyY8MHELHIjKebiz2HJ-v3o8P4fA4u7H5tb85At_bVyx-z4dweOpcP4YbTIvP3FPn65fDD7f4_2k1_hTH2JrKeP6f-zmPpDVf_0SY2DE3v8s_
+(60 s; 665 batches fought, 171 shared with an identical fighter)

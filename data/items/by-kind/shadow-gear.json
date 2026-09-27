@@ -33639,6 +33639,19 @@
     ]
    },
    {
+    "text": "Heal Power +5%",
+    "stat": "Heal Power",
+    "value": 5,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     42
+    ],
+    "stat_keys": [
+     "healing_power"
+    ]
+   },
+   {
     "text": "Grants Coluceo Heal Lv 1.",
     "parsed": false
    }
@@ -33649,13 +33662,17 @@
      "per": 1,
      "effects": [
       {
-       "text": "Heal Power +5% +1% per refine.",
-       "stat": "Heal Power +5%",
+       "text": "Heal Power +1% per refine",
+       "stat": "Heal Power",
        "value": 1,
        "unit": "%",
        "parsed": true,
-       "stat_ids": [],
-       "stat_keys": []
+       "stat_ids": [
+        42
+       ],
+       "stat_keys": [
+        "healing_power"
+       ]
       }
      ]
     }
@@ -33853,6 +33870,19 @@
     ]
    },
    {
+    "text": "Healing Received +5%",
+    "stat": "Healing Received",
+    "value": 5,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     43
+    ],
+    "stat_keys": [
+     "healing_received"
+    ]
+   },
+   {
     "text": "Grants Coluceo Heal Lv 1.",
     "parsed": false
    }
@@ -33863,13 +33893,17 @@
      "per": 1,
      "effects": [
       {
-       "text": "Healing Received +5% +1% per refine.",
-       "stat": "Healing Received +5%",
+       "text": "Healing Received +1% per refine",
+       "stat": "Healing Received",
        "value": 1,
        "unit": "%",
        "parsed": true,
-       "stat_ids": [],
-       "stat_keys": []
+       "stat_ids": [
+        43
+       ],
+       "stat_keys": [
+        "healing_received"
+       ]
       }
      ]
     }

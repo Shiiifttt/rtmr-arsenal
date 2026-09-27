@@ -25,7 +25,7 @@
  *     cancelable cast breaks when it takes damage.
  */
 import {
-  critChance, mobDamage, mobHitChance, perfectDodgeChance, playerHitChance, skillDelayMs,
+  critChance, escapeMsFor, mobDamage, mobHitChance, perfectDodgeChance, playerHitChance, skillDelayMs,
   statusResist, TUNE,
 } from './formulas.ts';
 import type { Fighter, MobSkill, Monster, SelfBuff, StatusEffect } from './model.ts';
@@ -163,6 +163,12 @@ export interface Kit {
   react(fight: Fight, skill: MobSkill, from: Monster): { action: string; at: number } | null;
   /** Buffs put up before the pull. */
   prep(fight: Fight): void;
+  /**
+   * Skills that put you on the target at once (Rook's Smash, Shadow Slash):
+   * with one ready, walking back after a dodge costs nothing (the project
+   * owner, 2026-09-28). Only read with mobility 'server'.
+   */
+  gapClosers?: string[];
 }
 
 export type Policy = (fight: Fight) => Action;
@@ -229,7 +235,9 @@ export function newFight(
   };
   kit.prep(fight);
   const setup = kit.prepNotes?.(fight) ?? [];
-  if (setup.length) fight.log && say(fight, `before the pull: ${setup.join(', ')}`);
+  // Before the pull: a block of its own, one buff or state a line, so the
+  // log stays as narrow as its fight lines.
+  if (setup.length && fight.log) fight.log.push('[PREFIGHT]', ...setup.map((s) => `  ${s}`), '');
   // The pull: the monster swings once it closes in. A training dummy never does.
   fight.mob.nextAttackAt = Number.isFinite(m.adelay) ? Math.min(m.adelay, 500) : Infinity;
   return fight;
@@ -786,6 +794,28 @@ function summon(fight: Fight, a: Actor, s: MobSkill) {
 }
 
 /**
+ * A lingering area (Magnus Exorcismus: a wave every 3 s) whose wave just
+ * landed on you: a player steps off it before the next, rather than hiding
+ * from the cast (the project owner, 2026-09-28: tank more, hide less). With
+ * mobility 'server' only. The walk costs its cells; a cast that would not
+ * finish before you must move is given up.
+ */
+function stepOffArea(fight: Fight, ch: Channel) {
+  const s = ch.skill;
+  if (fight.options.mobility !== 'server' || ch.leftBehind || ch.left <= 1 || fight.result) return;
+  if (s.targets !== 'aoe' || !s.avoid.includes('walk') || has(fight, 'rooted') || disabled(fight)) return;
+  const step = escapeMsFor(fight.options, fight.f, s);
+  const leaveBy = ch.nextAt + ch.every - step;
+  if (fight.t + TUNE.playerReactionMs > leaveBy) return;
+  const me = fight.me;
+  if (me.cast && me.cast.endsAt > leaveBy) me.cast = null;
+  const from = Math.max(fight.t + TUNE.playerReactionMs, me.cast ? me.cast.endsAt : me.busyUntil);
+  me.busyUntil = Math.max(me.busyUntil, Math.min(from, leaveBy) + step);
+  ch.leftBehind = true;
+  fight.log && say(fight, `steps off ${s.name} before its next wave`);
+}
+
+/**
  * One application of a monster's hit or area on you: hiding, walking out,
  * Kawarimi, flee and dodges first, then damage and the statuses it carries.
  */
@@ -799,7 +829,7 @@ function landMobHit(fight: Fight, a: Actor, s: MobSkill, normal: boolean, ch?: C
   if (has(fight, 'hidden') && (s.hiddenImmune || hidingStops(m, s, normal))) {
     // Hidden through the first wave of an area you can walk from (Magnus
     // Exorcismus, Storm Gust): out of Hiding and off it before the next wave.
-    if (ch && aoe && s.avoid.includes('walk') && ch.every >= TUNE.walkOutMs && !has(fight, 'rooted')) {
+    if (ch && aoe && s.avoid.includes('walk') && ch.every >= escapeMsFor(fight.options, f, s) && !has(fight, 'rooted')) {
       ch.leftBehind = true;
       fight.log && say(fight, `steps out of ${s.name} before its next wave`);
     }
@@ -1100,7 +1130,10 @@ export function run(fight: Fight): Fight {
     if (tDef === next) { defend(fight); continue; }
     if (tTick === next && tickOf) {
       const { a, ch } = tickOf;
+      const hpBefore = me.hp;
       landMobHit(fight, a, ch.skill, false, ch);
+      // Only a wave that reached you is worth walking off.
+      if (me.hp < hpBefore) stepOffArea(fight, ch);
       ch.left--;
       ch.nextAt += ch.every;
       if (ch.left <= 0) a.st.channels = a.st.channels.filter((x) => x !== ch);

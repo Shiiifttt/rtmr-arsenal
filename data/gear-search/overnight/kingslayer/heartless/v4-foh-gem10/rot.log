@@ -1,0 +1,20 @@
+node --experimental-strip-types --no-warnings --import ./register.mjs tools/gear-search.ts --profile profiles/kingslayer-heartless-v4.json --vs Heartless --screen 150 --confirm 1000 --passes 8 --lock offhand --fix rogueFillers=false,autoAttack=false --only rotation,order --set offhand.cards=Fallen Orc Hero Card; gem.refine=10 --out F:\RTMR_Project\data\gear-search\overnight\kingslayer\heartless\v4-foh-gem10\rot.json
+
+from the profile with: offhand.cards=Fallen Orc Hero Card; gem.refine=10
+start: win 100% lost 0% 25,193 dps 20s  (Heartless, 1000 fights, 11 workers)
+  (stat rolls on new pieces: DEX, from armor: vit 1.670, dex 1.675, str 1.670)
+pass 1  rotation: retributionAt = 1                                      win 100% lost 0% 24,950 dps 20s  ->  win 100% lost 0% 27,790 dps 18s   [23 tried]
+  (stat rolls on new pieces: DEX, from armor: vit 1.711, dex 1.712, str 1.711)
+pass 2  rotation: keepRange = false                                      win 100% lost 0% 27,743 dps 18s  ->  win 100% lost 0% 30,485 dps 17s   [23 tried]
+  (stat rolls on new pieces: DEX, from armor: vit 1.757, dex 1.759, str 1.756)
+pass 3  rotation: windSlash = true                                       win 100% lost 0% 30,544 dps 17s  ->  win 100% lost 0% 32,694 dps 16s   [24 tried]
+  (stat rolls on new pieces: VIT, from armor: vit 1.789, dex 1.787, str 1.788)
+pass 4  rotation: preGambit = false                                      win 100% lost 0% 32,790 dps 16s  ->  win 100% lost 0% 34,744 dps 14s   [24 tried]
+  (stat rolls on new pieces: DEX, from armor: vit 1.817, dex 1.819, str 1.817)
+pass 5  rotation: deltaFiller = true                                     win 100% lost 0% 34,576 dps 14s  ->  win 100% lost 0% 35,833 dps 13s   [24 tried]
+  (stat rolls on new pieces: VIT, from armor: vit 1.832, dex 1.831, str 1.830)
+
+final (2000 fights): win 100% lost 0% 35,626 dps 13s; killed by Heartless: attack x1
+options: {"fortress":3,"queensBrand":false,"rooksWall":true,"sneakAttack":false,"heal":false,"rogueFillers":false,"autoAttack":false,"retributionAt":1,"keepRange":false,"windSlash":true,"preGambit":false,"deltaFiller":true}
+http://localhost:5173/#b=cfZO9jtswEIRfxWBzzSDg8ld0mSuDFKkFQSAk2hJOlgVRPuSQ5N0DUvLFBmI3LJbf7uwOl6UA-9aPxzj4jzAzkOQoCw6Cc9AajoMqlCWH5tbAoFTamqpCSdDcFOAoSWpLKSSgC5tDinOZIhJCcO5WylKRSrG4-IWBvfcLQykSxuYQz5e5CQzs5H_W3cRQqnxz6pf-6Jf-PDKwqfuIfeOHeg7tpQktQ0lVlTgFImfgUCrpBO6PrDqfh4Fu62_K52GQDGz24zG0detP_hg-1dOtYmDdVB99P4a2nsJcd7lzuSprCCKBAqUiJT-lZJY69s1W8qZlsSYakFZy9ZSMQzoe-RPefVwtOAwhtedyOF7i4vtxbXAIoemSIwKbgs3uq6SQ3Be31eMy_3OvgDAyXTsIY-32XNs0d-1sCURwXHJVgHi1ShbOiaT0OEdmSD2HVIbkc0hnSD-HDIQSyqRhHkMWQpF5VimHr0tDkGmZ05dYGXET2FYovvXDUJ8uw5J4svxLYa9IGw71FEYGDqFTEJbnh0w5-x-XEMaXuPs6-7H9fV1FAr-mr1j6ry9x99r5fow3mBb33GsXmrfdd7-E_9VqwyG1sSVVaf5f1zn3pDVfv0qc2L4wf6q_
+(27 s; 932 batches fought, 250 shared with an identical fighter)

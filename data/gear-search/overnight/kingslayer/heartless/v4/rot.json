@@ -1,0 +1,127 @@
+{
+ "profile": "Kingslayer: gear search vs Heartless, v4 (2026-09-27)",
+ "targets": [
+  "Heartless"
+ ],
+ "rules": {
+  "screenN": 150,
+  "confirmN": 1000,
+  "timeS": 300,
+  "locked": [
+   "offhand"
+  ],
+  "penalty": 0.03,
+  "topStats": [
+   "vit",
+   "dex",
+   "str"
+  ]
+ },
+ "start": "http://localhost:5173/#b=cfZM_b9swEMW_isEly0PB_xQ9JmPRobMgCIREW0JkWRDloEHb714cJacOWnvhcPzdvbvHYynBvvbjMQ3hPc4MQnGUBYeA9zAGnkNUKEsOw52FRamNs1WFUsBwW4CjFMo4QSEJU7gc0pwriihIyblfKScKKsXSEhYG9tYvDKUkjM0xnS9zExnYKfyou4mh1Pnm1C_9MSz9eWRgU_ee-iYM9RzbSxNbhlJUFXEaQngLj1IrL_H5yKrzeRjEbf1N-TwMioHNYTzGtm7DKRzjhzrdagbWTfUx9GNs6ynOdZc7V6uygRRCoiBlyT-kVJY69s1W8qZluSZaCKPV6qmwHnTc8ye-hbRacBgitedzOF3SEvpxbXCIsenIEYlNwWX3NSmQ-_K2elrmv-4VkFbRtYe0zm3PpdW_7WwJQsBzxXUBYkix8F6S0P0UlSH9GNIZUo8hkyHzGLKQWmpLs9yHHKQW9lGlHL7ujICiXaYfsTLyJrBtUHrth6E-XYaFeOH4l8JdkTYe6imODBzSUBCO53eknP33S4zjU9o9z2Fsf103UYBf01eMvutT2r10oR_TDWbkZ-6li83r7ltY4v9qtfFAbWxJFc3_8zrnXhjD15-SJrYv7O_qDw",
+ "steps": [
+  {
+   "move": "rotation: retributionAt = 6",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 20647.643265253086,
+    "ttk": 25.345132034069014,
+    "value": 1.6097146489787963,
+    "deaths": ""
+   },
+   "after": {
+    "win": 0.998,
+    "loss": 0.002,
+    "dps": 22766.23244702921,
+    "ttk": 22.145,
+    "value": 1.6388934867054383,
+    "deaths": "Knuckle Arrow x2"
+   },
+   "tried": 23
+  },
+  {
+   "move": "rotation: windSlash = true",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 22670.730946209507,
+    "ttk": 22.165964790914927,
+    "value": 1.6400609641931427,
+    "deaths": ""
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 25475.396380547852,
+    "ttk": 18.882132034069013,
+    "value": 1.6821309457082179,
+    "deaths": ""
+   },
+   "tried": 23
+  },
+  {
+   "move": "rotation: deltaFiller = true  +  rotation: keepRange = false",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 25494.42939426735,
+    "ttk": 18.986096824983942,
+    "value": 1.6824164409140103,
+    "deaths": ""
+   },
+   "after": {
+    "win": 0.988,
+    "loss": 0.007,
+    "dps": 27609.106471776457,
+    "ttk": 17.441964790914927,
+    "value": 1.700036597076647,
+    "deaths": "Knuckle Arrow x5, Heartless: attack x1"
+   },
+   "tried": 12
+  },
+  {
+   "move": "rotation: safeCasts = false",
+   "before": {
+    "win": 0.988,
+    "loss": 0.007,
+    "dps": 27679.216540475587,
+    "ttk": 17.426964790914926,
+    "value": 1.7010882481071339,
+    "deaths": "Knuckle Arrow x5, Heartless: attack x2"
+   },
+   "after": {
+    "win": 0.989,
+    "loss": 0.005,
+    "dps": 28446.5418580749,
+    "ttk": 17.433929581829855,
+    "value": 1.7141981278711236,
+    "deaths": "Knuckle Arrow x3, Magnus Exorcismus x1"
+   },
+   "tried": 24
+  }
+ ],
+ "final": {
+  "win": 0.991,
+  "loss": 0.0045,
+  "dps": 28343.402559963422,
+  "ttk": 17.45909682498394,
+  "value": 1.7148010383994512,
+  "deaths": "Magnus Exorcismus x3, Knuckle Arrow x3"
+ },
+ "options": {
+  "fortress": 3,
+  "queensBrand": false,
+  "rooksWall": true,
+  "sneakAttack": false,
+  "heal": false,
+  "rogueFillers": false,
+  "autoAttack": false,
+  "retributionAt": 6,
+  "windSlash": true,
+  "deltaFiller": true,
+  "keepRange": false,
+  "safeCasts": false
+ },
+ "link": "http://localhost:5173/#b=cfZM_b9swEMW_isEly0PB_xQ9JmPRobMgCIREW0JkWRDloEHb714cJacOWnvhcPzdvbvHYynBvvbjMQ3hPc4MQnGUBYeA9zAGnkNUKEsOw52FRamNs1WFUsBwW4CjFMo4QSEJU7gc0pwriihIyblfKScKKsXSEhYG9tYvDKUkjM0xnS9zExnYKfyou4mh1Pnm1C_9MSz9eWRgU_ee-iYM9RzbSxNbhlJUFXEaQngLj1IrL_H5yKrzeRjEbf1N-TwMioHNYTzGtm7DKRzjhzrdagbWTfUx9GNs6ynOdZc7V6uygRRCoiBlyT-kVJY69s1W8qZluSZaCKPV6qmwHnTc8ye-hbRacBgitedzOF3SEvpxbXCIsenIEYlNwWX3NSmQ-_K2elrmv-4VkFbRtYe0zm3PpdW_7WwJQsBzxXUBYkix8F6S0P0UlSH9GNIZUo8hkyHzGLKQWmpLs9yHHKQW9lGlHL7ujICiXaYfsTLyJrBtUHrth6E-XYaFeOH4l8JdkTYe6imODBzSUBCO53eknP33S4zjU9o9z2Fsf103UYBf01eMvutT2r10oR_TDWbkZ-6li83r7ltY4v9qtfFAbWxJFc3_8zrnXhjD15-SJrYv7O_qDw",
+ "perTarget": []
+}

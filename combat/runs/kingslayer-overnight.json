@@ -1,0 +1,21 @@
+{
+  "name": "Kingslayer overnight (after the racial-card fix)",
+  "_about": "Multi-start search: each seed is optimised on its own (rotation, then everything), since one hill-climb can stall on a local best. Heartless is the specialist target; lair is the four lair monsters with per-monster swaps. v4-foh-gem10 is an investment seed (gem +10), kept apart so the summary shows what the refine buys.",
+  "outDir": "../../data/gear-search/overnight/kingslayer",
+  "searchFlags": ["--lock", "offhand", "--fix", "rogueFillers=false,autoAttack=false"],
+  "targets": {
+    "heartless": { "vs": "Heartless", "check": "Angel of Genesis,Demon of Apocalypse,Heartless,Heart of the Serpent" },
+    "lair": { "vs": "Angel of Genesis,Demon of Apocalypse,Heartless,Heart of the Serpent", "perTarget": "0.05,0.1,0.2" }
+  },
+  "seeds": [
+    { "id": "owner", "profile": "profiles/kingslayer-jorm.json", "for": ["heartless", "lair"] },
+    { "id": "v4", "profile": "profiles/kingslayer-heartless-v4.json", "for": ["heartless"] },
+    { "id": "v4-foh", "profile": "profiles/kingslayer-heartless-v4.json", "set": "offhand.cards=Fallen Orc Hero Card", "for": ["heartless", "lair"] },
+    { "id": "v4-foh-gem10", "profile": "profiles/kingslayer-heartless-v4.json", "set": "offhand.cards=Fallen Orc Hero Card; gem.refine=10", "for": ["heartless"] },
+    { "id": "generalist", "profile": "profiles/kingslayer-jorm-generalist.json", "for": ["heartless", "lair"] }
+  ],
+  "rotation": { "screen": 150, "confirm": 1000, "passes": 8 },
+  "gear": { "screen": 120, "confirm": 800, "passes": 10 },
+  "polish": { "screen": 300, "confirm": 2000, "passes": 8 },
+  "check": { "iter": 2000, "top": 3 }
+}

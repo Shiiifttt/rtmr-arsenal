@@ -1,0 +1,23 @@
+node --experimental-strip-types --no-warnings --import ./register.mjs tools/gear-search.ts --profile profiles/kingslayer-heartless-v4.json --vs Heartless --screen 150 --confirm 1000 --passes 8 --lock offhand --fix rogueFillers=false,autoAttack=false --only rotation,order --set offhand.cards=Fallen Orc Hero Card --out F:\RTMR_Project\data\gear-search\overnight\kingslayer\heartless\v4-foh\rot.json
+
+from the profile with: offhand.cards=Fallen Orc Hero Card
+start: win 100% lost 0% 20,921 dps 24s  (Heartless, 1000 fights, 11 workers)
+  (stat rolls on new pieces: VIT, from armor: vit 1.610, dex 1.609, str 1.609)
+pass 1  rotation: retributionAt = 6                                      win 100% lost 0% 21,019 dps 24s  ->  win 100% lost 0% 23,449 dps 21s   [23 tried]
+  (stat rolls on new pieces: VIT, from armor: vit 1.649, dex 1.648, str 1.649)
+pass 2  rotation: windSlash = true                                       win 100% lost 0% 23,410 dps 21s  ->  win 100% lost 0% 26,288 dps 19s   [23 tried]
+  (stat rolls on new pieces: VIT, from armor: vit 1.693, dex 1.693, str 1.693)
+pass 3  rotation: keepRange = false                                      win 100% lost 0% 26,409 dps 19s  ->  win 99% lost 1% 27,702 dps 17s   [23 tried]
+pass 3  order: Retribution down 2 (before Overpower)                     win 99% lost 1% 27,928 dps 17s  ->  win 100% lost 0% 27,932 dps 17s   [78 tried]
+  (stat rolls on new pieces: VIT, from armor: vit 1.718, dex 1.716, str 1.717)
+pass 4  rotation: openerGambit = false                                   win 100% lost 1% 27,949 dps 17s  ->  win 100% lost 0% 28,902 dps 18s   [24 tried]
+  (stat rolls on new pieces: STR, from armor: vit 1.725, dex 1.726, str 1.727)
+pass 5  rotation: preGambit = false  +  order: Wind Slash down 1 (before Overpower) win 99% lost 1% 28,933 dps 18s  ->  win 100% lost 1% 29,800 dps 18s   [12 tried]
+  (stat rolls on new pieces: VIT, from armor: vit 1.732, dex 1.729, str 1.729)
+pass 6  rotation: heal = true                                            win 99% lost 1% 29,711 dps 18s  ->  win 100% lost 0% 29,654 dps 18s   [24 tried]
+  (stat rolls on new pieces: VIT, from armor: vit 1.736, dex 1.734, str 1.736)
+
+final (2000 fights): win 99% lost 1% 29,669 dps 18s; killed by Knuckle Arrow x12, Heartless: attack x8
+options: {"fortress":3,"queensBrand":false,"rooksWall":true,"sneakAttack":false,"heal":true,"rogueFillers":false,"autoAttack":false,"retributionAt":6,"windSlash":true,"keepRange":false,"order":["Stay hidden","Morroc's Mark","Pre-cast King's Gambit","Step back","Heal","Pull it off the ward","Sneak Attack","Bishop's Tax","King's Chains","Shield Boomerang","Hide to strike","Rook's Smash","Dragon Breath","Delta Skyfall","Queen's Gambit","Queen's Brand","Retribution","Wind Slash","Overpower","Face-Off","Attack"],"openerGambit":false,"preGambit":false}
+http://localhost:5173/#b=cfZO9jtswEIRfxWBzzSDgP0WXuTJIkVoQBEKiLeFkWRDlQw5J3j1YSr7YQOyGxfLbnd3hspRg3_rxmIbwEWcGoTjKgkPAexgDzyEqlCWH4c7CotTG2apCKWC4LcBRCmWcoJCEKVwOac4VRRSk5NyvlBMFlWJpCQsDe-8XhlISxuaYzpe5iQzsFH7W3cRQ6nxz6pf-GJb-PDKwqftIfROGeo7tpYktQymqijgNIbyFR6mVl7g_sup8HgZxW39TPg-DYmBzGI-xrdtwCsf4qU63moF1U30M_Rjbeopz3eXO1apsIIWQKFBqodWnlMpSx77ZSt60LNdEC2G0Wj0V1oOOR_7E95BWCw5DpPZ8DqdLWkI_rg0OMTYdOSKxKbjsviYFcl_eVk_L_M-9AtIquvaQ1rntubZp7trZEoSA54rrAsSQYuG9JKHHKSpD-jmkM6SeQyZD5jlkIbXUlmZ5DDlILeyzSjl83RkBRbtMP2Jl5E1g26D01g9DfboMC_HC8S-FuyJtPNRTHBk4pKEgHM_vSDn7H5cYx5e0-zqHsf193UQBfk1fMfquL2n32oV-TDeYkffcaxebt933sMT_1WrjgdrYkiqa_9d1zr0whq8_JU1sX9g_1V8
+(36 s; 1110 batches fought, 287 shared with an identical fighter)

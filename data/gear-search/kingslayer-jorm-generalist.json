@@ -1,0 +1,1473 @@
+{
+ "profile": "Kingslayer: owner's build for Jormungand's Lair",
+ "targets": [
+  "Angel of Genesis",
+  "Demon of Apocalypse",
+  "Heartless",
+  "Heart of the Serpent"
+ ],
+ "rules": {
+  "screenN": 60,
+  "confirmN": 400,
+  "timeS": 300,
+  "locked": [
+   "offhand"
+  ],
+  "penalty": 0.03,
+  "topStats": [
+   "vit",
+   "str",
+   "dex"
+  ]
+ },
+ "start": "http://localhost:5173/#b=cfZNNb5wwEIb_ysqXXEaVx5-wx-RY9dAzQsgCL6D1sghD1Kjtf6_GQEqjbi4WGj_zvvNhCgHsaz-0Mbg3PzFAyaHIOSDkOSgO9FlCUXDQCjPgUChleFlCgaC5SRGU2iKFBOjMrhDnkiIShOA8TyGBGSmxOLuZAXvtZwaFIIpNPt6XqfYM2M39qLqRQaHSza2f-9bN_X1gwMbuLfa1C9Xkm6X2DYMCy5I4BYi5gRwKJXMB66FQpiO5TvcQ8Ki_Od9DkAzY5IbWN1Xjbq717-50qxiwbqxa1w--qUY_VV2qXK7OGgSigIx6NvhuJZNV29eb5KFksSYaQK2kAQOFQquAjkfz8a8uriO4BE_l5Skclzi7flgLDN7XHU1EwOZg0_AVOaC0KI7qcZ7-Ti8DYSRd5yAM5utOrUobRIScS64yoDmSeMazpPlQDmWCzEdo7WiHVIL055BOkP0IheV6gAwIhZxT2Y8hS5CVn9il8P48ECTNgRa6MuIQ2B5LvPYhVLclzMSj5V8yuyONv1SjHxhwEJqCYHlaGeWcvy_eD0_x9Dy5ofm1PzoEvqevGP2YT_H00rl-iAdMi3-5l87X19M3N_v_aTX-QmVsSSX1_3Pv84xa8_WniCM7Z-Z3-Qc",
+ "steps": [
+  {
+   "move": "rotation: heal = false",
+   "before": {
+    "win": 0.7993750000000001,
+    "loss": 0.08125,
+    "dps": 10408.233750191333,
+    "ttk": 29.894790645866916,
+    "value": 1.23112350625287,
+    "deaths": "Knuckle Arrow x47, Heartless: attack x43"
+   },
+   "after": {
+    "win": 0.865625,
+    "loss": 0.113125,
+    "dps": 10592.26079572497,
+    "ttk": 30.852783195454094,
+    "value": 1.2905714119358744,
+    "deaths": "Knuckle Arrow x74, Magnus Exorcismus x54"
+   },
+   "tried": 26
+  },
+  {
+   "move": "stats: STR 90->80, INT 40->55",
+   "before": {
+    "win": 0.86125,
+    "loss": 0.11625,
+    "dps": 10579.355383612856,
+    "ttk": 30.778051490082568,
+    "value": 1.2850653307541928,
+    "deaths": "Knuckle Arrow x69, Heartless: attack x54"
+   },
+   "after": {
+    "win": 0.879375,
+    "loss": 0.105,
+    "dps": 10455.28220074555,
+    "ttk": 31.271557658322955,
+    "value": 1.3047042330111833,
+    "deaths": "Knuckle Arrow x67, Heartless: attack x43"
+   },
+   "tried": 34
+  },
+  {
+   "move": "False God set +6",
+   "before": {
+    "win": 0.87625,
+    "loss": 0.105625,
+    "dps": 10442.083289599224,
+    "ttk": 31.310814927866826,
+    "value": 1.3011937493439882,
+    "deaths": "Knuckle Arrow x61, Magnus Exorcismus x52"
+   },
+   "after": {
+    "win": 0.921875,
+    "loss": 0.0725,
+    "dps": 11338.424226115065,
+    "ttk": 28.412390177681814,
+    "value": 1.3702013633917258,
+    "deaths": "Knuckle Arrow x46, Magnus Exorcismus x33"
+   },
+   "tried": 332
+  },
+  {
+   "move": "Upper Headgear: Volan of the Sun +6",
+   "before": {
+    "win": 0.921875,
+    "loss": 0.075,
+    "dps": 11437.104705432695,
+    "ttk": 28.032195394081334,
+    "value": 1.3709315705814904,
+    "deaths": "Knuckle Arrow x50, Magnus Exorcismus x41"
+   },
+   "after": {
+    "win": 0.98375,
+    "loss": 0.00875,
+    "dps": 11196.528612675582,
+    "ttk": 28.456945394081337,
+    "value": 1.4190729291901338,
+    "deaths": "Knuckle Arrow x6, Heartless: attack x4"
+   },
+   "tried": 254
+  },
+  {
+   "move": "Upper Headgear: Gioia Card x2",
+   "before": {
+    "win": 0.980625,
+    "loss": 0.0075,
+    "dps": 11137.919739999357,
+    "ttk": 28.629805826880386,
+    "value": 1.4154437960999904,
+    "deaths": "Magnus Exorcismus x6, Heartless: attack x3"
+   },
+   "after": {
+    "win": 0.984375,
+    "loss": 0.006875,
+    "dps": 12031.594242615505,
+    "ttk": 27.251797336374796,
+    "value": 1.4327864136392325,
+    "deaths": "Magnus Exorcismus x6, Knuckle Arrow x3"
+   },
+   "tried": 147
+  },
+  {
+   "move": "Weapon: Observation Card x4",
+   "before": {
+    "win": 0.985,
+    "loss": 0.0075,
+    "dps": 11993.236526959314,
+    "ttk": 27.21004672589394,
+    "value": 1.4326485479043898,
+    "deaths": "Knuckle Arrow x4, Heartless: attack x3"
+   },
+   "after": {
+    "win": 0.9925,
+    "loss": 0.0043749999999999995,
+    "dps": 12932.482435888003,
+    "ttk": 24.397259100986446,
+    "value": 1.4551747365383199,
+    "deaths": "Knuckle Arrow x4, Heartless: attack x2"
+   },
+   "tried": 311
+  },
+  {
+   "move": "Off-hand: Bloody Knight Card x1",
+   "before": {
+    "win": 0.993125,
+    "loss": 0.00125,
+    "dps": 12920.45634696326,
+    "ttk": 24.526064927866827,
+    "value": 1.4565568452044488,
+    "deaths": "Knuckle Arrow x1, Demon of Apocalypse: Grand Darkness x1"
+   },
+   "after": {
+    "win": 0.995,
+    "loss": 0.0043749999999999995,
+    "dps": 14709.670904728315,
+    "ttk": 22.814064927866823,
+    "value": 1.4843325635709246,
+    "deaths": "Magnus Exorcismus x2, Knuckle Arrow x2"
+   },
+   "tried": 52
+  },
+  {
+   "move": "Garment: Dark Illusion Card x2",
+   "before": {
+    "win": 0.9918750000000001,
+    "loss": 0.007500000000000001,
+    "dps": 14665.720252617113,
+    "ttk": 22.817416870160287,
+    "value": 1.4796108037892568,
+    "deaths": "Knuckle Arrow x4, Heartless: attack x4"
+   },
+   "after": {
+    "win": 0.99125,
+    "loss": 0.007500000000000001,
+    "dps": 17155.17116921062,
+    "ttk": 19.6700097114673,
+    "value": 1.5163275675381591,
+    "deaths": "Knuckle Arrow x6, Magnus Exorcismus x2"
+   },
+   "tried": 230
+  },
+  {
+   "move": "Manual: Equilibrium Tome +0",
+   "before": {
+    "win": 0.9918750000000001,
+    "loss": 0.008125,
+    "dps": 17223.978787642405,
+    "ttk": 19.69560316325518,
+    "value": 1.517797181814636,
+    "deaths": "Heartless: attack x8, Knuckle Arrow x4"
+   },
+   "after": {
+    "win": 0.99375,
+    "loss": 0.00625,
+    "dps": 17856.01035085518,
+    "ttk": 19.429349477287325,
+    "value": 1.5297151552628276,
+    "deaths": "Knuckle Arrow x7, Heartless: attack x2"
+   },
+   "tried": 28
+  },
+  {
+   "move": "Rune or Orb: Nauthiz Rune of Shadows +6",
+   "before": {
+    "win": 0.99375,
+    "loss": 0.00625,
+    "dps": 17642.369012372692,
+    "ttk": 19.43188997160915,
+    "value": 1.5265105351855903,
+    "deaths": "Knuckle Arrow x5, Heartless: attack x4"
+   },
+   "after": {
+    "win": 0.995,
+    "loss": 0.00375,
+    "dps": 18440.690282060576,
+    "ttk": 17.565372367066615,
+    "value": 1.5404853542309085,
+    "deaths": "Heartless: attack x2, Knuckle Arrow x2"
+   },
+   "tried": 76
+  },
+  {
+   "move": "rotation: retributionAt = 1",
+   "before": {
+    "win": 0.99375,
+    "loss": 0.003125,
+    "dps": 18616.273624924615,
+    "ttk": 17.54289877388042,
+    "value": 1.542056604373869,
+    "deaths": "Knuckle Arrow x2, Heartless: attack x2"
+   },
+   "after": {
+    "win": 0.99125,
+    "loss": 0.003125,
+    "dps": 19492.13348376937,
+    "ttk": 16.822122367066616,
+    "value": 1.5526945022565404,
+    "deaths": "Knuckle Arrow x3, Magnus Exorcismus x1"
+   },
+   "tried": 26
+  },
+  {
+   "move": "Armor: Resentment of Thanatos Card x1",
+   "before": {
+    "win": 0.995,
+    "loss": 0.0025,
+    "dps": 19385.401122342544,
+    "ttk": 16.72530635003211,
+    "value": 1.555031016835138,
+    "deaths": "Knuckle Arrow x2, Heartless: attack x2"
+   },
+   "after": {
+    "win": 0.995625,
+    "loss": 0.003125,
+    "dps": 20193.755854546547,
+    "ttk": 15.349323954574645,
+    "value": 1.5675938378181982,
+    "deaths": "Knuckle Arrow x5"
+   },
+   "tried": 98
+  },
+  {
+   "move": "Shoes: Solace Card x1",
+   "before": {
+    "win": 0.9918750000000001,
+    "loss": 0.006875,
+    "dps": 20105.487545410153,
+    "ttk": 15.335016739811403,
+    "value": 1.5613948131811524,
+    "deaths": "Heartless: attack x6, Knuckle Arrow x3"
+   },
+   "after": {
+    "win": 0.9856250000000001,
+    "loss": 0.013125,
+    "dps": 21956.47419140092,
+    "ttk": 14.309148773880422,
+    "value": 1.581034612871014,
+    "deaths": "Knuckle Arrow x9, Heartless: attack x5"
+   },
+   "tried": 92
+  },
+  {
+   "move": "Garment: Antique Firelock Card x2",
+   "before": {
+    "win": 0.9875,
+    "loss": 0.011875,
+    "dps": 21981.12849368482,
+    "ttk": 14.265738997160915,
+    "value": 1.5836544274052722,
+    "deaths": "Knuckle Arrow x11, Heartless: attack x5"
+   },
+   "after": {
+    "win": 0.986875,
+    "loss": 0.0125,
+    "dps": 23356.665922149798,
+    "ttk": 13.485249135268868,
+    "value": 1.603474988832247,
+    "deaths": "Knuckle Arrow x12, Heartless: attack x4"
+   },
+   "tried": 230
+  },
+  {
+   "move": "Lower Headgear: Gioia Card x1",
+   "before": {
+    "win": 0.98375,
+    "loss": 0.0125,
+    "dps": 23436.552526353207,
+    "ttk": 13.464565152303377,
+    "value": 1.601548287895298,
+    "deaths": "Knuckle Arrow x12, Heartless: attack x5"
+   },
+   "after": {
+    "win": 0.983125,
+    "loss": 0.015,
+    "dps": 24275.38193919117,
+    "ttk": 13.319480194889646,
+    "value": 1.6127557290878674,
+    "deaths": "Knuckle Arrow x15, Heartless: attack x4"
+   },
+   "tried": 75
+  },
+  {
+   "move": "rotation: rogueFillers = true",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 24684.98511175402,
+    "ttk": 10.05896479091493,
+    "value": 1.6402747766763104,
+    "deaths": ""
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 26163.156525957078,
+    "ttk": 9.531929581829857,
+    "value": 1.6624473478893562,
+    "deaths": ""
+   },
+   "tried": 26
+  },
+  {
+   "move": "Upper Headgear: Beanie +6",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 26174.029410066592,
+    "ttk": 9.531929581829857,
+    "value": 1.662610441150999,
+    "deaths": ""
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 27672.75845080092,
+    "ttk": 9.531929581829857,
+    "value": 1.696590795412947,
+    "deaths": ""
+   },
+   "tried": 254
+  },
+  {
+   "move": "Armor: Lava Spirit Armor +6",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 27832.904022169383,
+    "ttk": 9.531929581829857,
+    "value": 1.6989929789834741,
+    "deaths": ""
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 30515.79001279141,
+    "ttk": 9.531929581829857,
+    "value": 1.7207356874937378,
+    "deaths": ""
+   },
+   "tried": 288
+  },
+  {
+   "move": "rotation: rogueFillers = true",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 30524.183063388296,
+    "ttk": 8.931929581829857,
+    "value": 1.7278627459508245,
+    "deaths": ""
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 32317.486449635926,
+    "ttk": 8.931929581829857,
+    "value": 1.7547622967445389,
+    "deaths": ""
+   },
+   "tried": 26
+  },
+  {
+   "move": "order: Retribution up 2 (before Delta Skyfall)",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 32371.76596841614,
+    "ttk": 8.931929581829857,
+    "value": 1.755576489526242,
+    "deaths": ""
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 33290.51963280667,
+    "ttk": 8.931929581829857,
+    "value": 1.7693577944921,
+    "deaths": ""
+   },
+   "tried": 78
+  },
+  {
+   "move": "Upper Headgear: Beanie +6",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 32824.4427044288,
+    "ttk": 8.931929581829857,
+    "value": 1.762366640566432,
+    "deaths": ""
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 33692.48017622913,
+    "ttk": 8.931929581829857,
+    "value": 1.7826129013197356,
+    "deaths": ""
+   },
+   "tried": 254
+  },
+  {
+   "move": "Armor: Lava Spirit Robe +6",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 34078.129915750666,
+    "ttk": 8.931929581829857,
+    "value": 1.788397647412559,
+    "deaths": ""
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 36719.60027936619,
+    "ttk": 8.931929581829857,
+    "value": 1.8052454015430903,
+    "deaths": ""
+   },
+   "tried": 288
+  },
+  {
+   "move": "order: Shield Boomerang up 2 (before Bishop's Tax)",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 36959.0087004278,
+    "ttk": 8.931929581829857,
+    "value": 1.8088365278590144,
+    "deaths": ""
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 38284.213547437634,
+    "ttk": 8.931929581829857,
+    "value": 1.828714600564162,
+    "deaths": ""
+   },
+   "tried": 78
+  },
+  {
+   "move": "rotation: rooksWall = true",
+   "before": {
+    "win": 0.93,
+    "loss": 0.0675,
+    "dps": 20065.5987795492,
+    "ttk": 25.551665513691823,
+    "value": 1.480733981693238,
+    "deaths": "Knuckle Arrow x16, Heartless: attack x10"
+   },
+   "after": {
+    "win": 0.995,
+    "loss": 0.005,
+    "dps": 19224.668854126063,
+    "ttk": 27.163964790914928,
+    "value": 1.5518700328118908,
+    "deaths": "Knuckle Arrow x2"
+   },
+   "tried": 26
+  },
+  {
+   "move": "Upper Headgear: Beanie +6",
+   "before": {
+    "win": 0.9975,
+    "loss": 0.0025,
+    "dps": 19252.584630657617,
+    "ttk": 27.110964790914927,
+    "value": 1.5555387694598644,
+    "deaths": "Knuckle Arrow x1"
+   },
+   "after": {
+    "win": 0.99,
+    "loss": 0.01,
+    "dps": 20370.45878536031,
+    "ttk": 26.96809682498394,
+    "value": 1.577646258792502,
+    "deaths": "Knuckle Arrow x4"
+   },
+   "tried": 254
+  },
+  {
+   "move": "rotation: windSlash = true  +  rotation: taxHp = 0.75",
+   "before": {
+    "win": 0.9875,
+    "loss": 0.0125,
+    "dps": 20219.44995497832,
+    "ttk": 26.947964790914927,
+    "value": 1.572131126336772,
+    "deaths": "Knuckle Arrow x3, Magnus Exorcismus x2"
+   },
+   "after": {
+    "win": 0.9875,
+    "loss": 0.0075,
+    "dps": 20957.290927343212,
+    "ttk": 26.79796479091493,
+    "value": 1.5846987409222455,
+    "deaths": "Heartless: attack x2, Magnus Exorcismus x1"
+   },
+   "tried": 720
+  },
+  {
+   "move": "order: Bishop's Tax down 2 (before Hide to strike)  +  Garment: Dream Manteau +9 (hp_leech)",
+   "before": {
+    "win": 0.9775,
+    "loss": 0.01,
+    "dps": 20897.60371453149,
+    "ttk": 26.771096824983942,
+    "value": 1.5730534327300698,
+    "deaths": "Knuckle Arrow x4"
+   },
+   "after": {
+    "win": 0.9875,
+    "loss": 0.0025,
+    "dps": 24966.922845575347,
+    "ttk": 18.745096824983943,
+    "value": 1.6014325967078251,
+    "deaths": "Knuckle Arrow x1"
+   },
+   "tried": 717
+  },
+  {
+   "move": "rotation: rogueFillers = true",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 21729.080216333237,
+    "ttk": 8.931929581829857,
+    "value": 1.5959362032449986,
+    "deaths": ""
+   },
+   "after": {
+    "win": 0.995,
+    "loss": 0.005,
+    "dps": 22936.664847681233,
+    "ttk": 8.97296479091493,
+    "value": 1.6075499727152183,
+    "deaths": "Demon of Apocalypse: attack x1, Angel of Genesis: attack x1"
+   },
+   "tried": 26
+  },
+  {
+   "move": "Weapon: Raydric Card x4",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 23000.23437371119,
+    "ttk": 8.96596479091493,
+    "value": 1.615003515605668,
+    "deaths": ""
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 29129.356892688076,
+    "ttk": 8.934700722776897,
+    "value": 1.6907878816743096,
+    "deaths": ""
+   },
+   "tried": 310
+  },
+  {
+   "move": "rotation: queensGambit = false",
+   "before": {
+    "win": 0.9975,
+    "loss": 0.0025,
+    "dps": 28378.68191302285,
+    "ttk": 8.931929581829857,
+    "value": 1.6762777569793312,
+    "deaths": "Angel of Genesis: attack x1"
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 29705.814034269304,
+    "ttk": 8.96596479091493,
+    "value": 1.699434738798028,
+    "deaths": ""
+   },
+   "tried": 26
+  },
+  {
+   "move": "rotation: rogueFillers = true",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 24943.21975506175,
+    "ttk": 9.531929581829857,
+    "value": 1.6441482963259262,
+    "deaths": ""
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 26220.67372783033,
+    "ttk": 9.531929581829857,
+    "value": 1.6633101059174549,
+    "deaths": ""
+   },
+   "tried": 26
+  },
+  {
+   "move": "Upper Headgear: Beanie +6",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 26599.478784287796,
+    "ttk": 9.531929581829857,
+    "value": 1.668992181764317,
+    "deaths": ""
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 28050.53362213819,
+    "ttk": 9.531929581829857,
+    "value": 1.6837568416339397,
+    "deaths": ""
+   },
+   "tried": 254
+  },
+  {
+   "move": "rotation: rogueFillers = true",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 30350.21191736192,
+    "ttk": 8.931929581829857,
+    "value": 1.7252531787604288,
+    "deaths": ""
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 32462.80244314855,
+    "ttk": 8.931929581829857,
+    "value": 1.7569420366472281,
+    "deaths": ""
+   },
+   "tried": 26
+  },
+  {
+   "move": "order: Retribution up 2 (before Delta Skyfall)",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 32447.769948702193,
+    "ttk": 8.931929581829857,
+    "value": 1.7567165492305328,
+    "deaths": ""
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 33153.30595143005,
+    "ttk": 8.931929581829857,
+    "value": 1.7672995892714507,
+    "deaths": ""
+   },
+   "tried": 78
+  },
+  {
+   "move": "rotation: deltaFiller = true  +  order: Overpower down 1 (before Attack)",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 32970.956473176026,
+    "ttk": 8.931929581829857,
+    "value": 1.7645643470976404,
+    "deaths": ""
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 33760.18013282864,
+    "ttk": 8.931929581829857,
+    "value": 1.7764027019924296,
+    "deaths": ""
+   },
+   "tried": 686
+  },
+  {
+   "move": "rotation: rooksWall = true",
+   "before": {
+    "win": 0.9475,
+    "loss": 0.0475,
+    "dps": 19982.142928859685,
+    "ttk": 25.53306161589887,
+    "value": 1.5029821439328952,
+    "deaths": "Knuckle Arrow x10, Heartless: attack x7"
+   },
+   "after": {
+    "win": 0.9975,
+    "loss": 0.0025,
+    "dps": 19147.111476214104,
+    "ttk": 27.186,
+    "value": 1.5539566721432116,
+    "deaths": "Knuckle Arrow x1"
+   },
+   "tried": 26
+  },
+  {
+   "move": "Upper Headgear: Beanie +6",
+   "before": {
+    "win": 0.995,
+    "loss": 0.0025,
+    "dps": 19395.913281673595,
+    "ttk": 27.023436654638864,
+    "value": 1.5551886992251038,
+    "deaths": "Knuckle Arrow x1"
+   },
+   "after": {
+    "win": 0.9925,
+    "loss": 0.0075,
+    "dps": 20608.74603814917,
+    "ttk": 26.90709682498394,
+    "value": 1.5695599445964326,
+    "deaths": "Knuckle Arrow x2, Heartless: attack x1"
+   },
+   "tried": 254
+  },
+  {
+   "move": "rotation: windSlash = true",
+   "before": {
+    "win": 0.99,
+    "loss": 0.0075,
+    "dps": 20633.40629187875,
+    "ttk": 26.965964790914928,
+    "value": 1.567429848402376,
+    "deaths": "Knuckle Arrow x3"
+   },
+   "after": {
+    "win": 0.9925,
+    "loss": 0.005,
+    "dps": 21179.59355323722,
+    "ttk": 26.746096824983944,
+    "value": 1.5788726573227532,
+    "deaths": "Knuckle Arrow x2"
+   },
+   "tried": 25
+  },
+  {
+   "move": "rotation: retributionAt = 10",
+   "before": {
+    "win": 0.9775,
+    "loss": 0.0225,
+    "dps": 21049.18115316202,
+    "ttk": 26.786700722776896,
+    "value": 1.5566664713216252,
+    "deaths": "Knuckle Arrow x7, Heartless: attack x1"
+   },
+   "after": {
+    "win": 0.995,
+    "loss": 0.0025,
+    "dps": 20744.216053888562,
+    "ttk": 26.536,
+    "value": 1.5755919948325232,
+    "deaths": "Knuckle Arrow x1"
+   },
+   "tried": 25
+  },
+  {
+   "move": "rotation: autoAttack = true  +  rotation: taxHp = 0.75",
+   "before": {
+    "win": 0.995,
+    "loss": 0.005,
+    "dps": 20727.58537502878,
+    "ttk": 26.720096824983944,
+    "value": 1.5745925346496263,
+    "deaths": "Knuckle Arrow x1, Heartless: attack x1"
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 21224.89745187684,
+    "ttk": 25.852,
+    "value": 1.5885522158023475,
+    "deaths": ""
+   },
+   "tried": 724
+  },
+  {
+   "move": "rotation: rooksSmash = false",
+   "before": {
+    "win": 0.9975,
+    "loss": 0,
+    "dps": 21168.38099266637,
+    "ttk": 26.295,
+    "value": 1.5852044689141904,
+    "deaths": ""
+   },
+   "after": {
+    "win": 0.9975,
+    "loss": 0.0025,
+    "dps": 21919.231237301283,
+    "ttk": 25.337471863723934,
+    "value": 1.5957172225837142,
+    "deaths": "Knuckle Arrow x1"
+   },
+   "tried": 25
+  },
+  {
+   "move": "rotation: rogueFillers = true",
+   "before": {
+    "win": 0.99,
+    "loss": 0.01,
+    "dps": 21647.259045908093,
+    "ttk": 8.931929581829857,
+    "value": 1.5817088856886212,
+    "deaths": "Demon of Apocalypse: Grand Darkness x2, Angel of Genesis: Adoramus x1"
+   },
+   "after": {
+    "win": 0.9975,
+    "loss": 0.0025,
+    "dps": 23000.542097807396,
+    "ttk": 8.96996479091493,
+    "value": 1.611758131467111,
+    "deaths": "Demon of Apocalypse: Grand Darkness x1"
+   },
+   "tried": 26
+  },
+  {
+   "move": "Weapon: Raydric Card x4",
+   "before": {
+    "win": 0.9975,
+    "loss": 0.0025,
+    "dps": 23097.922082899047,
+    "ttk": 8.96596479091493,
+    "value": 1.6132188312434856,
+    "deaths": "Demon of Apocalypse: attack x1"
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 29108.93907076276,
+    "ttk": 8.931929581829857,
+    "value": 1.6743291426294182,
+    "deaths": ""
+   },
+   "tried": 310
+  },
+  {
+   "move": "rotation: queensGambit = false",
+   "before": {
+    "win": 0.9975,
+    "loss": 0.0025,
+    "dps": 28890.57069321623,
+    "ttk": 8.931929581829857,
+    "value": 1.6678036169662203,
+    "deaths": "Heart of the Serpent: attack x1"
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 29843.01107037366,
+    "ttk": 8.96596479091493,
+    "value": 1.6853402226235816,
+    "deaths": ""
+   },
+   "tried": 26
+  },
+  {
+   "move": "rotation: rogueFillers = true",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 25130.181158119438,
+    "ttk": 9.531929581829857,
+    "value": 1.6469527173717915,
+    "deaths": ""
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 26387.925260797903,
+    "ttk": 9.531929581829857,
+    "value": 1.6658188789119686,
+    "deaths": ""
+   },
+   "tried": 26
+  },
+  {
+   "move": "rotation: rogueFillers = true",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 30376.209643920443,
+    "ttk": 8.931929581829857,
+    "value": 1.7256431446588067,
+    "deaths": ""
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 32421.16742732106,
+    "ttk": 8.931929581829857,
+    "value": 1.7563175114098157,
+    "deaths": ""
+   },
+   "tried": 26
+  },
+  {
+   "move": "order: Retribution up 2 (before Delta Skyfall)",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 32199.708170473892,
+    "ttk": 8.931929581829857,
+    "value": 1.7529956225571084,
+    "deaths": ""
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 32968.97856440325,
+    "ttk": 8.931929581829857,
+    "value": 1.7645346784660487,
+    "deaths": ""
+   },
+   "tried": 78
+  },
+  {
+   "move": "rotation: rooksWall = true",
+   "before": {
+    "win": 0.9425,
+    "loss": 0.0525,
+    "dps": 19820.378742058812,
+    "ttk": 25.57283275684591,
+    "value": 1.494055681130882,
+    "deaths": "Knuckle Arrow x14, Heartless: attack x3"
+   },
+   "after": {
+    "win": 0.9925,
+    "loss": 0.005,
+    "dps": 19209.176414776346,
+    "ttk": 27.024264068138027,
+    "value": 1.549137646221645,
+    "deaths": "Knuckle Arrow x2"
+   },
+   "tried": 26
+  },
+  {
+   "move": "rotation: rogueFillers = true",
+   "before": {
+    "win": 0.9975,
+    "loss": 0.0025,
+    "dps": 21735.14077681249,
+    "ttk": 8.931929581829857,
+    "value": 1.5927771116521874,
+    "deaths": "Angel of Genesis: Grand Cross x1"
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 22965.796091960994,
+    "ttk": 8.97596479091493,
+    "value": 1.614486941379415,
+    "deaths": ""
+   },
+   "tried": 26
+  },
+  {
+   "move": "Weapon: Raydric Card x4",
+   "before": {
+    "win": 0.9925,
+    "loss": 0.0075,
+    "dps": 22970.435484184098,
+    "ttk": 8.96596479091493,
+    "value": 1.6048065322627616,
+    "deaths": "Angel of Genesis: Grand Cross x2, Demon of Apocalypse: Grand Darkness x1"
+   },
+   "after": {
+    "win": 0.9925,
+    "loss": 0.0075,
+    "dps": 28138.692169084723,
+    "ttk": 8.931929581829857,
+    "value": 1.6177204956722244,
+    "deaths": "Angel of Genesis: Grand Cross x2, Demon of Apocalypse: Grand Darkness x1"
+   },
+   "tried": 310
+  },
+  {
+   "move": "rotation: queensGambit = false",
+   "before": {
+    "win": 0.995,
+    "loss": 0.005,
+    "dps": 28827.675432448927,
+    "ttk": 8.950964790914929,
+    "value": 1.6313052446226872,
+    "deaths": "Demon of Apocalypse: Grand Darkness x1, Demon of Apocalypse: attack x1"
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 29594.186369068026,
+    "ttk": 8.97196479091493,
+    "value": 1.649302908671974,
+    "deaths": ""
+   },
+   "tried": 26
+  }
+ ],
+ "final": {
+  "win": 0.9859375,
+  "loss": 0.0125,
+  "dps": 24227.175929934438,
+  "ttk": 13.238679581829855,
+  "value": 1.6155951389490166,
+  "deaths": "Knuckle Arrow x24, Heartless: attack x7"
+ },
+ "options": {
+  "fortress": 3,
+  "queensBrand": false,
+  "heal": false,
+  "retributionAt": 1
+ },
+ "link": "http://localhost:5173/#b=cfZPNbpwwFIVfZeRNNkeVr__As0yWVRdZI4Qs8AAKwyDMRInavntlA-lEbWbjxfV3z7k-tgsB9r0f2zC4dz8zkOQocg6CtdAaloNKFAWHJCEIBoXSmUFcyhIFQXOTg6MgqTOKJQGdZ6m0QxJCcG5XKqM8CrKwuIWBvfYLQyEixmYfLte59gzs7N6qbmIoVNo590vfuqW_jAxs6t5DX7uhmn1zrX3DUFBZRk6ByBpYFEpagc9Lcp0vw0C3-pvzZRgkA5vd2PqmatzZtf7DPe4qBtZNVev60TfV5OeqS5PL1VlDEAnk0VnwDyuZrNq-3iRvRhZrowFpJU0KlgxHXL7Kx7-6sEZwGnwcz6ZyuIbF9eM64OB93cVEBDaHLKWvkoO06lY8LPPf8HIII2NKFsLQfltKpmsmWC65yiHLVTu3VkTJf2fd5EgmSN2HVILkfUgnSN-HDIQSysSxv4YyCEXmnlIq76-DIGMO8QesjLgpbG8lvPTDUJ2vwxJ5yvi3PNuRxp-qyY8MHELHIjKebiz2HJ-v3o8P4fA4u7H5tb85At_bVyx-z4dweOpcP4YbTIvP3FPn65fDD7f4_2k1_hTH2JrKeP6f-zmPpDVf_0SY2DE3v8s_",
+ "perTarget": [
+  {
+   "cost": 0.05,
+   "target": "Angel of Genesis",
+   "shared": {
+    "win": 1,
+    "loss": 0,
+    "dps": 24667.441798755503,
+    "ttk": 10.04196479091493,
+    "value": 1.6400116269813325,
+    "deaths": ""
+   },
+   "own": {
+    "win": 1,
+    "loss": 0,
+    "dps": 30199.216290814482,
+    "ttk": 9.531929581829857,
+    "value": 1.715987081664084,
+    "deaths": ""
+   },
+   "swaps": [
+    "upper: Beanie +6 [Gioia Card]",
+    "armor: Lava Spirit Armor +6 [Resentment of Thanatos Card]"
+   ],
+   "options": {
+    "rogueFillers": true
+   }
+  },
+  {
+   "cost": 0.05,
+   "target": "Demon of Apocalypse",
+   "shared": {
+    "win": 1,
+    "loss": 0,
+    "dps": 30365.735098268382,
+    "ttk": 8.931929581829857,
+    "value": 1.7254860264740257,
+    "deaths": ""
+   },
+   "own": {
+    "win": 1,
+    "loss": 0,
+    "dps": 37695.32053653559,
+    "ttk": 8.931929581829857,
+    "value": 1.8198812054006313,
+    "deaths": ""
+   },
+   "swaps": [
+    "upper: Beanie +6 [Gioia Card]",
+    "armor: Lava Spirit Robe +6 [Resentment of Thanatos Card]"
+   ],
+   "options": {
+    "rogueFillers": true,
+    "order": [
+     "Stay hidden",
+     "Morroc's Mark",
+     "Pre-cast King's Gambit",
+     "Step back",
+     "Heal",
+     "Pull it off the ward",
+     "Sneak Attack",
+     "Shield Boomerang",
+     "Bishop's Tax",
+     "King's Chains",
+     "Hide to strike",
+     "Rook's Smash",
+     "Dragon Breath",
+     "Retribution",
+     "Delta Skyfall",
+     "Queen's Gambit",
+     "Queen's Brand",
+     "Wind Slash",
+     "Overpower",
+     "Face-Off",
+     "Attack"
+    ]
+   }
+  },
+  {
+   "cost": 0.05,
+   "target": "Heartless",
+   "shared": {
+    "win": 0.945,
+    "loss": 0.0525,
+    "dps": 19880.830650536736,
+    "ttk": 25.54706161589887,
+    "value": 1.497462459758051,
+    "deaths": "Knuckle Arrow x12, Heartless: attack x9"
+   },
+   "own": {
+    "win": 0.985,
+    "loss": 0.0025,
+    "dps": 24720.236129778346,
+    "ttk": 18.807096824983944,
+    "value": 1.59523229597087,
+    "deaths": "Knuckle Arrow x1"
+   },
+   "swaps": [
+    "upper: Beanie +6 [Gioia Card]",
+    "garment: Dream Manteau +9 [Antique Firelock Card, Antique Firelock Card]"
+   ],
+   "options": {
+    "rooksWall": true,
+    "windSlash": true,
+    "taxHp": 0.75,
+    "order": [
+     "Stay hidden",
+     "Morroc's Mark",
+     "Pre-cast King's Gambit",
+     "Step back",
+     "Heal",
+     "Pull it off the ward",
+     "Sneak Attack",
+     "King's Chains",
+     "Shield Boomerang",
+     "Bishop's Tax",
+     "Hide to strike",
+     "Rook's Smash",
+     "Dragon Breath",
+     "Delta Skyfall",
+     "Queen's Gambit",
+     "Retribution",
+     "Queen's Brand",
+     "Wind Slash",
+     "Overpower",
+     "Face-Off",
+     "Attack"
+    ]
+   }
+  },
+  {
+   "cost": 0.05,
+   "target": "Heart of the Serpent",
+   "shared": {
+    "win": 0.995,
+    "loss": 0.005,
+    "dps": 21536.62895468217,
+    "ttk": 8.931929581829857,
+    "value": 1.5865494343202324,
+    "deaths": "Angel of Genesis: attack x1, Demon of Apocalypse: attack x1"
+   },
+   "own": {
+    "win": 1,
+    "loss": 0,
+    "dps": 29258.171993966727,
+    "ttk": 8.97596479091493,
+    "value": 1.6927201081934895,
+    "deaths": ""
+   },
+   "swaps": [
+    "weapon: Abandoned Guardian +9 [Raydric Card, Raydric Card, Raydric Card, Raydric Card]"
+   ],
+   "options": {
+    "rogueFillers": true,
+    "queensGambit": false
+   }
+  },
+  {
+   "cost": 0.1,
+   "target": "Angel of Genesis",
+   "shared": {
+    "win": 1,
+    "loss": 0,
+    "dps": 24667.441798755503,
+    "ttk": 10.04196479091493,
+    "value": 1.6400116269813325,
+    "deaths": ""
+   },
+   "own": {
+    "win": 1,
+    "loss": 0,
+    "dps": 27454.807856294123,
+    "ttk": 9.531929581829857,
+    "value": 1.6748209551462787,
+    "deaths": ""
+   },
+   "swaps": [
+    "upper: Beanie +6 [Gioia Card]"
+   ],
+   "options": {
+    "rogueFillers": true
+   }
+  },
+  {
+   "cost": 0.1,
+   "target": "Demon of Apocalypse",
+   "shared": {
+    "win": 1,
+    "loss": 0,
+    "dps": 30365.735098268382,
+    "ttk": 8.931929581829857,
+    "value": 1.7254860264740257,
+    "deaths": ""
+   },
+   "own": {
+    "win": 1,
+    "loss": 0,
+    "dps": 33607.709407330876,
+    "ttk": 8.931929581829857,
+    "value": 1.7741156411099632,
+    "deaths": ""
+   },
+   "swaps": [],
+   "options": {
+    "rogueFillers": true,
+    "order": [
+     "Stay hidden",
+     "Morroc's Mark",
+     "Pre-cast King's Gambit",
+     "Step back",
+     "Heal",
+     "Pull it off the ward",
+     "Sneak Attack",
+     "Bishop's Tax",
+     "King's Chains",
+     "Shield Boomerang",
+     "Hide to strike",
+     "Rook's Smash",
+     "Dragon Breath",
+     "Retribution",
+     "Delta Skyfall",
+     "Queen's Gambit",
+     "Queen's Brand",
+     "Wind Slash",
+     "Face-Off",
+     "Overpower",
+     "Attack"
+    ],
+    "deltaFiller": true
+   }
+  },
+  {
+   "cost": 0.1,
+   "target": "Heartless",
+   "shared": {
+    "win": 0.945,
+    "loss": 0.0525,
+    "dps": 19880.830650536736,
+    "ttk": 25.54706161589887,
+    "value": 1.497462459758051,
+    "deaths": "Knuckle Arrow x12, Heartless: attack x9"
+   },
+   "own": {
+    "win": 1,
+    "loss": 0,
+    "dps": 21622.676271237968,
+    "ttk": 25.306,
+    "value": 1.5945188980927645,
+    "deaths": ""
+   },
+   "swaps": [
+    "upper: Beanie +6 [Gioia Card]"
+   ],
+   "options": {
+    "retributionAt": 10,
+    "rooksWall": true,
+    "windSlash": true,
+    "autoAttack": true,
+    "taxHp": 0.75,
+    "rooksSmash": false
+   }
+  },
+  {
+   "cost": 0.1,
+   "target": "Heart of the Serpent",
+   "shared": {
+    "win": 0.995,
+    "loss": 0.005,
+    "dps": 21536.62895468217,
+    "ttk": 8.931929581829857,
+    "value": 1.5865494343202324,
+    "deaths": "Angel of Genesis: attack x1, Demon of Apocalypse: attack x1"
+   },
+   "own": {
+    "win": 1,
+    "loss": 0,
+    "dps": 29258.171993966727,
+    "ttk": 8.97596479091493,
+    "value": 1.6765676364774778,
+    "deaths": ""
+   },
+   "swaps": [
+    "weapon: Abandoned Guardian +9 [Raydric Card, Raydric Card, Raydric Card, Raydric Card]"
+   ],
+   "options": {
+    "rogueFillers": true,
+    "queensGambit": false
+   }
+  },
+  {
+   "cost": 0.2,
+   "target": "Angel of Genesis",
+   "shared": {
+    "win": 1,
+    "loss": 0,
+    "dps": 24667.441798755503,
+    "ttk": 10.04196479091493,
+    "value": 1.6400116269813325,
+    "deaths": ""
+   },
+   "own": {
+    "win": 1,
+    "loss": 0,
+    "dps": 25953.714794657844,
+    "ttk": 9.632700722776898,
+    "value": 1.6593057219198677,
+    "deaths": ""
+   },
+   "swaps": [],
+   "options": {
+    "rogueFillers": true
+   }
+  },
+  {
+   "cost": 0.2,
+   "target": "Demon of Apocalypse",
+   "shared": {
+    "win": 1,
+    "loss": 0,
+    "dps": 30365.735098268382,
+    "ttk": 8.931929581829857,
+    "value": 1.7254860264740257,
+    "deaths": ""
+   },
+   "own": {
+    "win": 1,
+    "loss": 0,
+    "dps": 33186.5072503734,
+    "ttk": 8.931929581829857,
+    "value": 1.767797608755601,
+    "deaths": ""
+   },
+   "swaps": [],
+   "options": {
+    "rogueFillers": true,
+    "order": [
+     "Stay hidden",
+     "Morroc's Mark",
+     "Pre-cast King's Gambit",
+     "Step back",
+     "Heal",
+     "Pull it off the ward",
+     "Sneak Attack",
+     "Bishop's Tax",
+     "King's Chains",
+     "Shield Boomerang",
+     "Hide to strike",
+     "Rook's Smash",
+     "Dragon Breath",
+     "Retribution",
+     "Delta Skyfall",
+     "Queen's Gambit",
+     "Queen's Brand",
+     "Wind Slash",
+     "Overpower",
+     "Face-Off",
+     "Attack"
+    ]
+   }
+  },
+  {
+   "cost": 0.2,
+   "target": "Heartless",
+   "shared": {
+    "win": 0.945,
+    "loss": 0.0525,
+    "dps": 19880.830650536736,
+    "ttk": 25.54706161589887,
+    "value": 1.497462459758051,
+    "deaths": "Knuckle Arrow x12, Heartless: attack x9"
+   },
+   "own": {
+    "win": 0.9925,
+    "loss": 0.005,
+    "dps": 19246.97057464005,
+    "ttk": 27.072964790914927,
+    "value": 1.5497045586196008,
+    "deaths": "Knuckle Arrow x2"
+   },
+   "swaps": [],
+   "options": {
+    "rooksWall": true
+   }
+  },
+  {
+   "cost": 0.2,
+   "target": "Heart of the Serpent",
+   "shared": {
+    "win": 0.995,
+    "loss": 0.005,
+    "dps": 21536.62895468217,
+    "ttk": 8.931929581829857,
+    "value": 1.5865494343202324,
+    "deaths": "Angel of Genesis: attack x1, Demon of Apocalypse: attack x1"
+   },
+   "own": {
+    "win": 1,
+    "loss": 0,
+    "dps": 29258.171993966727,
+    "ttk": 8.97596479091493,
+    "value": 1.6442626930454545,
+    "deaths": ""
+   },
+   "swaps": [
+    "weapon: Abandoned Guardian +9 [Raydric Card, Raydric Card, Raydric Card, Raydric Card]"
+   ],
+   "options": {
+    "rogueFillers": true,
+    "queensGambit": false
+   }
+  }
+ ]
+}

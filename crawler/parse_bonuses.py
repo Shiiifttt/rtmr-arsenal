@@ -987,8 +987,28 @@ def _new_block(result: dict, name: str | None) -> dict:
     return block
 
 
+# "Queen's Gambit DMG +20%+5% extra per refine" (Nopaew Lufrewop): a base
+# amount and a per-refine one in a single line, read as two lines.
+BASE_PLUS_PER_REFINE = re.compile(
+    r"^(?P<stat>.+?)\s*\+\s*(?P<base>\d+(?:\.\d+)?)%\s*\+\s*(?P<per>\d+(?:\.\d+)?)%\s*(?:extra\s+|more\s+)?per\s+refine\.?$",
+    re.I)
+
+
+def split_base_plus_per_refine(lines: list[str]) -> list[str]:
+    out: list[str] = []
+    for line in lines:
+        m = BASE_PLUS_PER_REFINE.match(line.strip())
+        if m:
+            out.append(f"{m['stat']} +{m['base']}%")
+            out.append(f"{m['stat']} +{m['per']}% per refine")
+        else:
+            out.append(line)
+    return out
+
+
 def parse_description(desc: str) -> dict:
     lines, lore = split_lore(strip_noise(unwrap(desc)))
+    lines = split_base_plus_per_refine(lines)
 
     result = {
         "base": [],                 # effects with no condition

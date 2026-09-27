@@ -1,0 +1,207 @@
+{
+ "profile": "v4-foh-gem10: rotation",
+ "targets": [
+  "Heartless"
+ ],
+ "rules": {
+  "screenN": 120,
+  "confirmN": 800,
+  "timeS": 300,
+  "locked": [
+   "offhand"
+  ],
+  "penalty": 0.03,
+  "topStats": [
+   "vit",
+   "dex",
+   "str"
+  ]
+ },
+ "start": "http://localhost:5173/#b=cfZO9jtswEIRfxWBzzSDg8ld0mSuDFKkFQSAk2hJOlgVRPuSQ5N0DUvLFBmI3LJbf7uwOl6UA-9aPxzj4jzAzkOQoCw6Cc9AajoMqlCWH5tbAoFTamqpCSdDcFOAoSWpLKSSgC5tDinOZIhJCcO5WylKRSrG4-IWBvfcLQykSxuYQz5e5CQzs5H_W3cRQqnxz6pf-6Jf-PDKwqfuIfeOHeg7tpQktQ0lVlTgFImfgUCrpBO6PrDqfh4Fu62_K52GQDGz24zG0detP_hg-1dOtYmDdVB99P4a2nsJcd7lzuSprCCKBAqUiJT-lZJY69s1W8qZlsSYakFZy9ZSMQzoe-RPefVwtOAwhtedyOF7i4vtxbXAIoemSIwKbgs3uq6SQ3Be31eMy_3OvgDAyXTsIY-32XNs0d-1sCURwXHJVgHi1ShbOiaT0OEdmSD2HVIbkc0hnSD-HDIQSyqRhHkMWQpF5VimHr0tDkGmZ05dYGXET2FYovvXDUJ8uw5J4svxLYa9IGw71FEYGDqFTEJbnh0w5-x-XEMaXuPs6-7H9fV1FAr-mr1j6ry9x99r5fow3mBb33GsXmrfdd7-E_9VqwyG1sSVVaf5f1zn3pDVfv0qc2L4wf6q_",
+ "steps": [
+  {
+   "move": "Lower Headgear: Crimson Bowtie +6",
+   "before": {
+    "win": 0.99875,
+    "loss": 0.00125,
+    "dps": 35933.05073177121,
+    "ttk": 13.323044248181397,
+    "value": 1.8373707609765684,
+    "deaths": "Heartless: attack x1"
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 36740.293415759224,
+    "ttk": 13.056,
+    "value": 1.8511044012363884,
+    "deaths": ""
+   },
+   "tried": 45
+  },
+  {
+   "move": "Lower Headgear: Gioia Card x1",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 36730.456658442505,
+    "ttk": 13.060667910069375,
+    "value": 1.8509568498766376,
+    "deaths": ""
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 38004.73014962381,
+    "ttk": 12.030666044965312,
+    "value": 1.8700709522443573,
+    "deaths": ""
+   },
+   "tried": 75
+  },
+  {
+   "move": "Armor: Lava Spirit Armor +6",
+   "before": {
+    "win": 0.99875,
+    "loss": 0.00125,
+    "dps": 37641.07777347572,
+    "ttk": 12.158089054675916,
+    "value": 1.8629911666021357,
+    "deaths": "Knuckle Arrow x1"
+   },
+   "after": {
+    "win": 0.98375,
+    "loss": 0.01625,
+    "dps": 42309.30311133863,
+    "ttk": 11.608089054675917,
+    "value": 1.9135145466700796,
+    "deaths": "Heartless: attack x5, Magnus Exorcismus x4"
+   },
+   "tried": 288
+  },
+  {
+   "move": "Garment: Dream Manteau +6 (hp_leech)",
+   "before": {
+    "win": 0.9825,
+    "loss": 0.0175,
+    "dps": 42482.77033613784,
+    "ttk": 11.608089054675917,
+    "value": 1.9144915550420674,
+    "deaths": "Knuckle Arrow x10, Heartless: attack x3"
+   },
+   "after": {
+    "win": 0.9825,
+    "loss": 0.0175,
+    "dps": 44436.98555338809,
+    "ttk": 11.140089054675917,
+    "value": 1.9438047833008212,
+    "deaths": "Knuckle Arrow x11, Heartless: attack x2"
+   },
+   "tried": 428
+  },
+  {
+   "move": "rotation: heal = true",
+   "before": {
+    "win": 0.97,
+    "loss": 0.03,
+    "dps": 44167.445345450695,
+    "ttk": 11.072089054675917,
+    "value": 1.9235116801817602,
+    "deaths": "Knuckle Arrow x16, Heartless: attack x7"
+   },
+   "after": {
+    "win": 0.9875,
+    "loss": 0.0125,
+    "dps": 43864.54519458311,
+    "ttk": 11.058089054675916,
+    "value": 1.9417181779187467,
+    "deaths": "Knuckle Arrow x6, Heartless: attack x3"
+   },
+   "tried": 24
+  },
+  {
+   "move": "stats: INT 55->50, STR 80->83",
+   "before": {
+    "win": 0.98125,
+    "loss": 0.01875,
+    "dps": 43586.534406531886,
+    "ttk": 11.213,
+    "value": 1.9294230160979784,
+    "deaths": "Knuckle Arrow x8, Heartless: attack x5"
+   },
+   "after": {
+    "win": 0.98375,
+    "loss": 0.01625,
+    "dps": 44366.1462239871,
+    "ttk": 11.06,
+    "value": 1.9443671933598066,
+    "deaths": "Knuckle Arrow x7, Heartless: attack x3"
+   },
+   "tried": 34
+  },
+  {
+   "move": "Shoes: Solace Card x1",
+   "before": {
+    "win": 0.985,
+    "loss": 0.015,
+    "dps": 44555.13811461135,
+    "ttk": 11.127,
+    "value": 1.9488270717191702,
+    "deaths": "Knuckle Arrow x10, Heartless: attack x2"
+   },
+   "after": {
+    "win": 0.97125,
+    "loss": 0.02875,
+    "dps": 46896.42037356616,
+    "ttk": 10.916,
+    "value": 1.9660713056034922,
+    "deaths": "Knuckle Arrow x15, Magnus Exorcismus x4"
+   },
+   "tried": 92
+  },
+  {
+   "move": "stats: INT 50->40, LUK 1->23",
+   "before": {
+    "win": 0.96,
+    "loss": 0.04,
+    "dps": 46829.37768355438,
+    "ttk": 10.945,
+    "value": 1.950440665253316,
+    "deaths": "Knuckle Arrow x29, Magnus Exorcismus x2"
+   },
+   "after": {
+    "win": 0.9625,
+    "loss": 0.0375,
+    "dps": 47473.282265141126,
+    "ttk": 10.8,
+    "value": 1.9633492339771168,
+    "deaths": "Knuckle Arrow x24, Heartless: attack x5"
+   },
+   "tried": 34
+  }
+ ],
+ "final": {
+  "win": 0.96875,
+  "loss": 0.03125,
+  "dps": 47635.735149789034,
+  "ttk": 10.7,
+  "value": 1.9739110272468352,
+  "deaths": "Knuckle Arrow x41, Heartless: attack x5"
+ },
+ "options": {
+  "fortress": 3,
+  "queensBrand": false,
+  "rooksWall": true,
+  "sneakAttack": false,
+  "heal": true,
+  "rogueFillers": false,
+  "autoAttack": false,
+  "retributionAt": 1,
+  "keepRange": false,
+  "windSlash": true,
+  "preGambit": false,
+  "deltaFiller": true
+ },
+ "link": "http://localhost:5173/#b=cfZNNi9swEIb_StBlLy9Fo08rx-6x9NCzMEbESmzWcYLlLF3a_vciOUmzNMlFoNEz886XvAD71o-7NISPODGQ5PCVBME5KA7HIWQN7zk0twYGXmlr6hqeoLmpwOFJakvZJECcK2f4lYP3LM1hZmDv_czgqa4zKUFa2ipzJC1Vd0F4NsV0OE2byMD24WfTHRm8LC_7fu53Ye4PIwM7dh-p34ShmWJ72sSWwYtFSIHIGTh4JZ3A56OoTodhoNv4YlE-DINkYFMYd7Ft2rAPu8jg1fVVMbDu2OxCP8a2Ocap6UrmclHWEEQCFbwiJa9Sskjt-s055P8pGwhuK1l6SMYhH4_6E99DWlqwHWJOzxZzOqU59OOS4BDjpsseGufuWwjBuSoK0qnb4Gme_k2pgjAyd8lBGGuXWdtzMffGSgTHJVcViOergKicE1nosY8skHoOqQLJ55AukH4OGQgllMnFPIYshCLzLFIxX3aGIB04KPe-MOLGcN6g9NYPQ7M_DXPmyfIvlb0gbdw2xzgycAidjbC8zDH7rH-cYhxf0urrFMb292UTCfzivmD5H7-k1WsX-jHdYFp85l67uHlbfQ9zvBerjducxtmpzvX_utS5Jq358lPSka0r86f-Cw",
+ "perTarget": []
+}

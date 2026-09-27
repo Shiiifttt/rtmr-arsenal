@@ -1,0 +1,210 @@
+{
+ "profile": "Kingslayer: gear search vs Heartless, v4 (2026-09-27)",
+ "targets": [
+  "Heartless"
+ ],
+ "rules": {
+  "screenN": 150,
+  "confirmN": 1000,
+  "timeS": 300,
+  "locked": [
+   "offhand"
+  ],
+  "penalty": 0.03,
+  "topStats": [
+   "vit",
+   "dex",
+   "str"
+  ]
+ },
+ "start": "http://localhost:5173/#b=cfZM_b9swEMW_isEly0PB_xQ9JmPRobMgCIREW0JkWRDloEHb714cJacOWnvhcPzdvbvHYynBvvbjMQ3hPc4MQnGUBYeA9zAGnkNUKEsOw52FRamNs1WFUsBwW4CjFMo4QSEJU7gc0pwriihIyblfKScKKsXSEhYG9tYvDKUkjM0xnS9zExnYKfyou4mh1Pnm1C_9MSz9eWRgU_ee-iYM9RzbSxNbhlJUFXEaQngLj1IrL_H5yKrzeRjEbf1N-TwMioHNYTzGtm7DKRzjhzrdagbWTfUx9GNs6ynOdZc7V6uygRRCoiBlyT-kVJY69s1W8qZluSZaCKPV6qmwHnTc8ye-hbRacBgitedzOF3SEvpxbXCIsenIEYlNwWX3NSmQ-_K2elrmv-4VkFbRtYe0zm3PpdW_7WwJQsBzxXUBYkix8F6S0P0UlSH9GNIZUo8hkyHzGLKQWmpLs9yHHKQW9lGlHL7ujICiXaYfsTLyJrBtUHrth6E-XYaFeOH4l8JdkTYe6imODBzSUBCO53eknP33S4zjU9o9z2Fsf103UYBf01eMvutT2r10oR_TDWbkZ-6li83r7ltY4v9qtfFAbWxJFc3_8zrnXhjD15-SJrYv7O_qDw",
+ "steps": [
+  {
+   "move": "rotation: retributionAt = 6",
+   "before": {
+    "win": 0.999,
+    "loss": 0.001,
+    "dps": 21019.35239920676,
+    "ttk": 24.306132034069016,
+    "value": 1.6139902859881015,
+    "deaths": "Knuckle Arrow x1"
+   },
+   "after": {
+    "win": 0.997,
+    "loss": 0.003,
+    "dps": 23448.59324448704,
+    "ttk": 20.741132034069015,
+    "value": 1.6478288986673055,
+    "deaths": "Knuckle Arrow x3"
+   },
+   "tried": 23
+  },
+  {
+   "move": "rotation: windSlash = true",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 23409.526634071004,
+    "ttk": 20.671700722776894,
+    "value": 1.651142899511065,
+    "deaths": ""
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 26288.39380771981,
+    "ttk": 18.631929581829855,
+    "value": 1.6943259071157972,
+    "deaths": ""
+   },
+   "tried": 23
+  },
+  {
+   "move": "rotation: keepRange = false",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 26408.876608940845,
+    "ttk": 18.640096824983942,
+    "value": 1.6961331491341127,
+    "deaths": ""
+   },
+   "after": {
+    "win": 0.993,
+    "loss": 0.007,
+    "dps": 27702.036831662652,
+    "ttk": 17.429929581829857,
+    "value": 1.7064305524749397,
+    "deaths": "Heartless: attack x4, Knuckle Arrow x3"
+   },
+   "tried": 23
+  },
+  {
+   "move": "order: Retribution down 2 (before Overpower)",
+   "before": {
+    "win": 0.991,
+    "loss": 0.009,
+    "dps": 27928.121066847474,
+    "ttk": 17.420929581829856,
+    "value": 1.7072218160027122,
+    "deaths": "Knuckle Arrow x6, Heartless: attack x2"
+   },
+   "after": {
+    "win": 0.999,
+    "loss": 0.001,
+    "dps": 27932.18073954966,
+    "ttk": 17.376929581829856,
+    "value": 1.7176827110932449,
+    "deaths": "Magnus Exorcismus x1"
+   },
+   "tried": 78
+  },
+  {
+   "move": "rotation: openerGambit = false",
+   "before": {
+    "win": 0.995,
+    "loss": 0.005,
+    "dps": 27949.06784874513,
+    "ttk": 17.39696479091493,
+    "value": 1.7127360177311768,
+    "deaths": "Knuckle Arrow x3, Heartless: attack x2"
+   },
+   "after": {
+    "win": 0.997,
+    "loss": 0.003,
+    "dps": 28902.223132594245,
+    "ttk": 17.747894372744785,
+    "value": 1.7296333469889138,
+    "deaths": "Knuckle Arrow x2, Heartless: attack x1"
+   },
+   "tried": 24
+  },
+  {
+   "move": "rotation: preGambit = false  +  order: Wind Slash down 1 (before Overpower)",
+   "before": {
+    "win": 0.994,
+    "loss": 0.006,
+    "dps": 28933.2277105461,
+    "ttk": 17.747894372744785,
+    "value": 1.7261984156581915,
+    "deaths": "Heartless: attack x3, Knuckle Arrow x3"
+   },
+   "after": {
+    "win": 0.995,
+    "loss": 0.005,
+    "dps": 29800.23609134641,
+    "ttk": 17.547894372744786,
+    "value": 1.7405035413701961,
+    "deaths": "Knuckle Arrow x3, Heartless: attack x2"
+   },
+   "tried": 12
+  },
+  {
+   "move": "rotation: heal = true",
+   "before": {
+    "win": 0.987,
+    "loss": 0.013,
+    "dps": 29711.46420877235,
+    "ttk": 17.547894372744786,
+    "value": 1.7287719631315852,
+    "deaths": "Knuckle Arrow x6, Magnus Exorcismus x4"
+   },
+   "after": {
+    "win": 0.999,
+    "loss": 0.001,
+    "dps": 29653.949326286183,
+    "ttk": 17.56596479091493,
+    "value": 1.7435092398942926,
+    "deaths": "Knuckle Arrow x1"
+   },
+   "tried": 24
+  }
+ ],
+ "final": {
+  "win": 0.989,
+  "loss": 0.011,
+  "dps": 29669.453860415917,
+  "ttk": 17.54909682498394,
+  "value": 1.7307418079062384,
+  "deaths": "Knuckle Arrow x12, Heartless: attack x8"
+ },
+ "options": {
+  "fortress": 3,
+  "queensBrand": false,
+  "rooksWall": true,
+  "sneakAttack": false,
+  "heal": true,
+  "rogueFillers": false,
+  "autoAttack": false,
+  "retributionAt": 6,
+  "windSlash": true,
+  "keepRange": false,
+  "order": [
+   "Stay hidden",
+   "Morroc's Mark",
+   "Pre-cast King's Gambit",
+   "Step back",
+   "Heal",
+   "Pull it off the ward",
+   "Sneak Attack",
+   "Bishop's Tax",
+   "King's Chains",
+   "Shield Boomerang",
+   "Hide to strike",
+   "Rook's Smash",
+   "Dragon Breath",
+   "Delta Skyfall",
+   "Queen's Gambit",
+   "Queen's Brand",
+   "Retribution",
+   "Wind Slash",
+   "Overpower",
+   "Face-Off",
+   "Attack"
+  ],
+  "openerGambit": false,
+  "preGambit": false
+ },
+ "link": "http://localhost:5173/#b=cfZO9jtswEIRfxWBzzSDgP0WXuTJIkVoQBEKiLeFkWRDlQw5J3j1YSr7YQOyGxfLbnd3hspRg3_rxmIbwEWcGoTjKgkPAexgDzyEqlCWH4c7CotTG2apCKWC4LcBRCmWcoJCEKVwOac4VRRSk5NyvlBMFlWJpCQsDe-8XhlISxuaYzpe5iQzsFH7W3cRQ6nxz6pf-GJb-PDKwqftIfROGeo7tpYktQymqijgNIbyFR6mVl7g_sup8HgZxW39TPg-DYmBzGI-xrdtwCsf4qU63moF1U30M_Rjbeopz3eXO1apsIIWQKFBqodWnlMpSx77ZSt60LNdEC2G0Wj0V1oOOR_7E95BWCw5DpPZ8DqdLWkI_rg0OMTYdOSKxKbjsviYFcl_eVk_L_M-9AtIquvaQ1rntubZp7trZEoSA54rrAsSQYuG9JKHHKSpD-jmkM6SeQyZD5jlkIbXUlmZ5DDlILeyzSjl83RkBRbtMP2Jl5E1g26D01g9DfboMC_HC8S-FuyJtPNRTHBk4pKEgHM_vSDn7H5cYx5e0-zqHsf193UQBfk1fMfquL2n32oV-TDeYkffcaxebt933sMT_1WrjgdrYkiqa_9d1zr0whq8_JU1sX9g_1V8",
+ "perTarget": []
+}

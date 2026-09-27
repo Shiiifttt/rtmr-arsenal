@@ -199,6 +199,12 @@ export const MOB_GROUPS: Record<string, string[]> = {
   tomb: ['lost_dun03'],
   // The guild dungeon: Ymir's War Castle (Guild Master, Soul of Ymir).
   guild: ['guild_falld'],
+  // Farming areas (the project owner, 2026-09-28): Rachel Sanctuary (the
+  // non-distortion one, "Freya's Sacred Precinct"), Varmundt's mansion
+  // (codexes, cavaliers), the orcs.
+  rachel_sanctuary: ['ra_san01', 'ra_san02', 'ra_san03', 'ra_san04', 'ra_san05'],
+  varmundt: ['va_dun01', 'va_dun02', 'va_dun03', 'va_dun04'],
+  orcs: ['orcsdun01', 'orcsdun02', 'gef_fild14'],
   // Newer than the 2023 server snapshot: no AI for these yet, normal attacks only.
   ama_ss: ['ama_ss'],
   valhalla: ['val_dun01', 'val_dun02'],

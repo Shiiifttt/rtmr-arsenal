@@ -213,6 +213,8 @@ export function resolveSkill(
       ? { mobIds: row.vals.map(Number).filter((n) => n > 0), count: e.summon?.count ?? row.level }
       : undefined,
     avoid,
+    radius: e.radius,
+    centeredOnSelf: e.centeredOnSelf,
     verified: false,
     note: notes.join(' ') || undefined,
   };

@@ -583,4 +583,7 @@ export const satsujin: Kit = {
   react,
   prep,
   prepNotes,
+  // Shadow Slash puts you on the target: no walk back after a dodge, with
+  // mobility 'server' (the project owner, 2026-09-28).
+  gapClosers: ['Shadow Slash'],
 };

@@ -1,0 +1,28 @@
+node --experimental-strip-types --no-warnings --import ./register.mjs tools/gear-search.ts --profile F:\RTMR_Project\data\gear-search\overnight\kingslayer\lair\owner\rot.profile.json --vs Angel of Genesis,Demon of Apocalypse,Heartless,Heart of the Serpent --screen 120 --confirm 800 --passes 10 --lock offhand --fix rogueFillers=false,autoAttack=false --out F:\RTMR_Project\data\gear-search\overnight\kingslayer\lair\owner\gear.json
+
+start: win 97% lost 1% 11,137 dps 28s  (Angel of Genesis, Demon of Apocalypse, Heartless, Heart of the Serpent, 800 fights, 11 workers)
+  (stat rolls on new pieces: DEX, from armor: vit 1.440, str 1.440, dex 1.441)
+pass 1  False God set +6                                                 win 97% lost 1% 11,126 dps 28s  ->  win 99% lost 0% 12,441 dps 26s   [332 tried]
+pass 1  Weapon: Observation Card x4                                      win 99% lost 0% 12,484 dps 26s  ->  win 100% lost 0% 13,600 dps 23s   [311 tried]
+pass 1  Off-hand: Bloody Knight Card x1                                  win 100% lost 0% 13,561 dps 23s  ->  win 100% lost 0% 15,091 dps 21s   [52 tried]
+pass 1  Garment: Dark Illusion Card x2                                   win 100% lost 0% 15,067 dps 21s  ->  win 100% lost 0% 18,496 dps 16s   [230 tried]
+pass 1  Shoes: Solace Card x1                                            win 100% lost 0% 18,652 dps 16s  ->  win 100% lost 0% 19,987 dps 16s   [92 tried]
+pass 1  Rune or Orb: Nauthiz Rune of Shadows +6                          win 100% lost 0% 19,873 dps 16s  ->  win 100% lost 0% 21,084 dps 15s   [76 tried]
+  (stat rolls on new pieces: VIT, from armor: vit 1.611, str 1.610, dex 1.610)
+pass 2  rotation: windSlash = true                                       win 100% lost 0% 21,099 dps 15s  ->  win 99% lost 1% 22,553 dps 14s   [23 tried]
+pass 2  order: Shield Boomerang up 2 (before Bishop's Tax)               win 99% lost 1% 22,405 dps 14s  ->  win 99% lost 0% 22,538 dps 14s   [78 tried]
+pass 2  Manual: Equilibrium Tome +0                                      win 99% lost 0% 22,519 dps 14s  ->  win 99% lost 1% 23,443 dps 14s   [28 tried]
+  (stat rolls on new pieces: VIT, from armor: vit 1.636, str 1.635, dex 1.634)
+pass 3  rotation: keepRange = false                                      win 99% lost 1% 23,356 dps 14s  ->  win 98% lost 2% 25,471 dps 13s   [23 tried]
+pass 3  Armor: Resentment of Thanatos Card x1                            win 97% lost 3% 25,546 dps 13s  ->  win 96% lost 4% 27,814 dps 11s   [98 tried]
+pass 3  Accessory 2 (right): Magma Ring +0                               win 96% lost 4% 27,761 dps 11s  ->  win 99% lost 1% 26,922 dps 12s   [125 tried]
+  (stat rolls on new pieces: VIT, from armor: vit 1.680, str 1.679, dex 1.679)
+pass 4  rotation: safeCasts = false                                      win 98% lost 2% 26,974 dps 12s  ->  win 99% lost 1% 27,530 dps 12s   [24 tried]
+pass 4  Upper Headgear: Beanie +6                                        win 99% lost 1% 27,552 dps 12s  ->  win 99% lost 1% 29,053 dps 11s   [254 tried]
+pass 4  Lower Headgear: Gioia Card x1                                    win 100% lost 0% 28,938 dps 11s  ->  win 99% lost 1% 29,893 dps 11s   [75 tried]
+  (stat rolls on new pieces: VIT, from armor: vit 1.734, str 1.734, dex 1.733)
+
+final (1600 fights): win 99% lost 1% 29,890 dps 11s; killed by Knuckle Arrow x19, Heartless: attack x14
+options: {"fortress":3,"queensBrand":false,"rogueFillers":false,"autoAttack":false,"heal":false,"rooksWall":true,"retributionAt":1,"windSlash":true,"order":["Stay hidden","Morroc's Mark","Pre-cast King's Gambit","Step back","Heal","Pull it off the ward","Sneak Attack","Shield Boomerang","Bishop's Tax","King's Chains","Hide to strike","Rook's Smash","Dragon Breath","Delta Skyfall","Queen's Gambit","Retribution","Queen's Brand","Wind Slash","Overpower","Face-Off","Attack"],"keepRange":false,"safeCasts":false}
+http://localhost:5173/#b=cfZNPb5wwEMW_ysqXXJ4q_wfvsTlWOeSMELLACygsizAbJWr73asxbErUZi8WGv9m3sxjXEiwH_3YxsG_h5lBKI7CcQg4B81BnyWKgsPwzMKi0NryskQhYLjNwVEIZTJBIQmTZymkTWYpoiAl526lMpFTKRYXvzCw135hKCRhbA7xcp3rwMDO_q3qJoZCp5tzv_StX_rLyMCm7j32tR-qOTTXOjQMhShL4jSEcBYOhVZO4vORVOfLMIh9_U35MgyKgc1-bENTNf7s2_ChTreagXVT1fp-DE01hbnqUudqVTaQQkjkpCz5h5RKUm1fbyV3Lcs10UIYrVZPhXWg4yt_wquPqwWnIVB7LoXjNS6-H9cGhxDqjhyR2BSy5L5OCsrpffG4zH_NyyGtIpccpBXbP820-rebLUEIOK64zkEMCebOSdLZpzThbZeiEqTvQzpB6j5kEmTuQxZSS21plq_HyCC1sPcqpfBtZQQUrTI9iLWQ3AW2BYov_TBU5-uwEC8y_i3PbkgTTtUURgYOaSiIjKffSDnH52sI40M8fJ_92Py6LaIAv6WvGL3Wh3h47Hw_xh1m5GfusQv1y-HJL-F_tZpwoja2pJLm_3mb8yiM4etDiRM75vZ3-Qc
+(810 s; 24603 batches fought, 11472 shared with an identical fighter)

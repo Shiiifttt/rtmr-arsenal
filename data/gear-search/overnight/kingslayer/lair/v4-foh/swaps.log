@@ -1,0 +1,116 @@
+node --experimental-strip-types --no-warnings --import ./register.mjs tools/gear-search.ts --profile F:\RTMR_Project\data\gear-search\overnight\kingslayer\lair-best.profile.json --vs Angel of Genesis,Demon of Apocalypse,Heartless,Heart of the Serpent --screen 120 --confirm 800 --passes 10 --lock offhand --fix rogueFillers=false,autoAttack=false --per-target --swap-cost 0.05,0.1,0.2 --out F:\RTMR_Project\data\gear-search\overnight\kingslayer\lair\v4-foh\swaps.json
+
+start: win 99% lost 1% 62,066 dps 5s  (Angel of Genesis, Demon of Apocalypse, Heartless, Heart of the Serpent, 800 fights, 11 workers)
+  (stat rolls on new pieces: VIT, from lower: vit 2.220, dex 2.219, str 2.220)
+
+-- Angel of Genesis: shared build win 100% lost 0% 53,319 dps 5s; a swap must be worth 5% faster kills
+  (stat rolls on new pieces: DEX, from lower: vit 2.087, dex 2.093, str 2.087)
+Angel of Genesis: pass 1  rotation: retributionAt = 6                                      win 100% lost 0% 53,210 dps 5s  ->  win 100% lost 0% 54,493 dps 5s   [24 tried]
+  (stat rolls on new pieces: STR, from lower: vit 2.116, dex 2.114, str 2.116)
+Angel of Genesis: pass 2  Armor: White Knight Armor +6  +  Rune or Orb: Sowilo Rune of Sun +9 win 100% lost 0% 54,463 dps 5s  ->  win 100% lost 0% 63,294 dps 4s   [460 tried]
+  (stat rolls on new pieces: VIT, from lower: vit 2.138, dex 2.094, str 2.137)
+Angel of Genesis: pass 3  Armor: Gioia Card x1                                             win 100% lost 0% 63,722 dps 4s  ->  win 100% lost 0% 66,681 dps 4s   [98 tried]
+  (stat rolls on new pieces: VIT, from lower: vit 2.180, dex 2.179, str 2.180)
+
+-- Demon of Apocalypse: shared build win 100% lost 0% 86,968 dps 3s; a swap must be worth 5% faster kills
+  (stat rolls on new pieces: DEX, from lower: vit 2.603, dex 2.603, str 2.603)
+
+-- Heartless: shared build win 97% lost 3% 45,966 dps 10s; a swap must be worth 5% faster kills
+  (stat rolls on new pieces: VIT, from lower: vit 1.963, dex 1.951, str 1.961)
+Heartless: pass 1  order: Queen's Gambit down 2 (before Overpower)  +  rotation: reflectCare = false win 98% lost 2% 45,532 dps 10s  ->  win 98% lost 2% 47,457 dps 10s   [144 tried]
+  (stat rolls on new pieces: VIT, from lower: vit 1.968, dex 1.959, str 1.966)
+Heartless: pass 2  rotation: retributionAt = 6                                      win 97% lost 2% 46,713 dps 10s  ->  win 96% lost 4% 49,520 dps 10s   [24 tried]
+  (stat rolls on new pieces: VIT, from lower: vit 1.987, dex 1.980, str 1.985)
+
+-- Heart of the Serpent: shared build win 100% lost 0% 62,302 dps 3s; a swap must be worth 5% faster kills
+  (stat rolls on new pieces: VIT, from lower: vit 2.228, dex 2.228, str 2.228)
+Heart of the Serpent: pass 1  rotation: rookOpener = false                                     win 100% lost 0% 61,993 dps 3s  ->  win 100% lost 0% 63,143 dps 3s   [24 tried]
+Heart of the Serpent: pass 1  order: Wind Slash down 2 (before Queen's Brand)                  win 100% lost 0% 63,553 dps 3s  ->  win 100% lost 0% 64,647 dps 3s   [78 tried]
+Heart of the Serpent: pass 1  Upper Headgear: Valkyrie Circlet +6                              win 100% lost 0% 64,497 dps 3s  ->  win 100% lost 0% 71,497 dps 3s   [254 tried]
+Heart of the Serpent: pass 1  Weapon: Earth Petite Card x3                                     win 100% lost 0% 71,601 dps 3s  ->  win 100% lost 0% 106,278 dps 2s   [310 tried]
+Heart of the Serpent: pass 1  Class Gem: Anarchy Gem of Crowns +0                              win 100% lost 0% 105,973 dps 2s  ->  win 100% lost 0% 115,741 dps 2s   [4 tried]
+  (stat rolls on new pieces: STR, from lower: vit 2.898, dex 2.898, str 2.903)
+Heart of the Serpent: pass 2  order: Shield Boomerang down 2 (before Dragon Breath)            win 100% lost 0% 115,862 dps 2s  ->  win 100% lost 0% 117,460 dps 2s   [78 tried]
+Heart of the Serpent: pass 2  Armor: Rocker Card x1                                            win 100% lost 0% 117,298 dps 2s  ->  win 100% lost 0% 121,942 dps 2s   [98 tried]
+Heart of the Serpent: pass 2  Shoes: Metal Boots MK I +9                                       win 100% lost 0% 122,038 dps 2s  ->  win 100% lost 0% 128,829 dps 2s   [214 tried]
+Heart of the Serpent: pass 2  Accessory 2 (right): Arch Ring +0                                win 100% lost 0% 128,825 dps 2s  ->  win 100% lost 0% 133,383 dps 2s   [125 tried]
+  (stat rolls on new pieces: VIT, from lower: vit 2.992, dex 2.991, str 2.991)
+Heart of the Serpent: pass 3  Middle Headgear: Amdarais Card x1                                win 100% lost 0% 133,271 dps 2s  ->  win 100% lost 0% 139,981 dps 2s   [95 tried]
+Heart of the Serpent: pass 3  Lower Headgear: Absolute Seyren Card x1                          win 100% lost 0% 140,147 dps 2s  ->  win 100% lost 0% 146,086 dps 2s   [75 tried]
+Heart of the Serpent: pass 3  Armor: Pure Light Robes +6                                       win 100% lost 0% 146,014 dps 2s  ->  win 100% lost 0% 152,011 dps 2s   [288 tried]
+Heart of the Serpent: pass 3  Accessory 2 (right): Buwaya Card x1                              win 100% lost 0% 151,750 dps 2s  ->  win 100% lost 0% 153,141 dps 2s   [117 tried]
+  (stat rolls on new pieces: VIT, from lower: vit 3.133, dex 3.129, str 3.133)
+Heart of the Serpent: pass 4  Upper Headgear: Magic Stone Hat +6                               win 100% lost 0% 153,425 dps 2s  ->  win 100% lost 0% 161,069 dps 2s   [254 tried]
+Heart of the Serpent: pass 4  Upper Headgear: Magetin Card x1                                  win 100% lost 0% 161,093 dps 2s  ->  win 100% lost 0% 169,786 dps 1s   [74 tried]
+Heart of the Serpent: pass 4  Middle Headgear: Asgard Blessing +0                              win 100% lost 0% 169,811 dps 1s  ->  win 100% lost 0% 173,044 dps 1s   [28 tried]
+Heart of the Serpent: pass 4  Accessory 2 (right): Occult Incense +0                           win 100% lost 0% 173,035 dps 1s  ->  win 100% lost 0% 174,202 dps 1s   [125 tried]
+  (stat rolls on new pieces: VIT, from middle: vit 3.449, dex 3.438, str 3.449)
+
+-- Angel of Genesis: shared build win 100% lost 0% 53,319 dps 5s; a swap must be worth 10% faster kills
+  (stat rolls on new pieces: DEX, from lower: vit 2.087, dex 2.093, str 2.087)
+Angel of Genesis: pass 1  rotation: retributionAt = 6                                      win 100% lost 0% 53,056 dps 5s  ->  win 100% lost 0% 54,248 dps 5s   [24 tried]
+  (stat rolls on new pieces: STR, from lower: vit 2.116, dex 2.114, str 2.116)
+
+-- Demon of Apocalypse: shared build win 100% lost 0% 86,968 dps 3s; a swap must be worth 10% faster kills
+  (stat rolls on new pieces: DEX, from lower: vit 2.603, dex 2.603, str 2.603)
+
+-- Heartless: shared build win 97% lost 3% 45,966 dps 10s; a swap must be worth 10% faster kills
+  (stat rolls on new pieces: VIT, from lower: vit 1.963, dex 1.951, str 1.961)
+Heartless: pass 1  order: Queen's Gambit down 2 (before Overpower)                  win 97% lost 3% 45,429 dps 11s  ->  win 97% lost 2% 46,558 dps 10s   [78 tried]
+  (stat rolls on new pieces: VIT, from lower: vit 1.960, dex 1.953, str 1.959)
+Heartless: pass 2  rotation: retributionAt = 6                                      win 95% lost 4% 46,329 dps 10s  ->  win 97% lost 2% 48,446 dps 10s   [24 tried]
+  (stat rolls on new pieces: VIT, from lower: vit 1.987, dex 1.981, str 1.985)
+
+-- Heart of the Serpent: shared build win 100% lost 0% 62,302 dps 3s; a swap must be worth 10% faster kills
+  (stat rolls on new pieces: VIT, from lower: vit 2.228, dex 2.228, str 2.228)
+Heart of the Serpent: pass 1  rotation: rookOpener = false                                     win 100% lost 0% 62,422 dps 3s  ->  win 100% lost 0% 63,700 dps 3s   [24 tried]
+Heart of the Serpent: pass 1  order: Wind Slash down 2 (before Queen's Brand)                  win 100% lost 0% 63,646 dps 3s  ->  win 100% lost 0% 64,618 dps 3s   [78 tried]
+Heart of the Serpent: pass 1  Upper Headgear: Valkyrie Circlet +6                              win 100% lost 0% 64,649 dps 3s  ->  win 100% lost 0% 71,633 dps 3s   [254 tried]
+Heart of the Serpent: pass 1  Weapon: Earth Petite Card x3                                     win 100% lost 0% 71,606 dps 3s  ->  win 100% lost 0% 106,266 dps 2s   [310 tried]
+Heart of the Serpent: pass 1  Class Gem: Anarchy Gem of Crowns +0                              win 100% lost 0% 106,412 dps 2s  ->  win 100% lost 0% 115,934 dps 2s   [4 tried]
+  (stat rolls on new pieces: STR, from lower: vit 2.758, dex 2.758, str 2.763)
+Heart of the Serpent: pass 2  order: Shield Boomerang down 2 (before Dragon Breath)            win 100% lost 0% 115,887 dps 2s  ->  win 100% lost 0% 117,381 dps 2s   [78 tried]
+  (stat rolls on new pieces: STR, from lower: vit 2.782, dex 2.782, str 2.787)
+
+-- Angel of Genesis: shared build win 100% lost 0% 53,319 dps 5s; a swap must be worth 20% faster kills
+  (stat rolls on new pieces: DEX, from lower: vit 2.087, dex 2.093, str 2.087)
+Angel of Genesis: pass 1  rotation: retributionAt = 1                                      win 100% lost 0% 52,830 dps 5s  ->  win 100% lost 0% 54,299 dps 5s   [24 tried]
+  (stat rolls on new pieces: STR, from lower: vit 2.116, dex 2.114, str 2.116)
+
+-- Demon of Apocalypse: shared build win 100% lost 0% 86,968 dps 3s; a swap must be worth 20% faster kills
+  (stat rolls on new pieces: DEX, from lower: vit 2.603, dex 2.603, str 2.603)
+
+-- Heartless: shared build win 97% lost 3% 45,966 dps 10s; a swap must be worth 20% faster kills
+  (stat rolls on new pieces: VIT, from lower: vit 1.963, dex 1.951, str 1.961)
+Heartless: pass 1  order: Queen's Gambit down 2 (before Overpower)  +  rotation: taxHp = 0.75 win 96% lost 3% 45,830 dps 10s  ->  win 97% lost 2% 46,720 dps 10s   [12 tried]
+  (stat rolls on new pieces: VIT, from lower: vit 1.962, dex 1.953, str 1.960)
+
+-- Heart of the Serpent: shared build win 100% lost 0% 62,302 dps 3s; a swap must be worth 20% faster kills
+  (stat rolls on new pieces: VIT, from lower: vit 2.228, dex 2.228, str 2.228)
+Heart of the Serpent: pass 1  rotation: rookOpener = false                                     win 100% lost 0% 62,291 dps 3s  ->  win 100% lost 0% 63,524 dps 3s   [24 tried]
+Heart of the Serpent: pass 1  order: Wind Slash down 1 (before Retribution)                    win 100% lost 0% 63,670 dps 3s  ->  win 100% lost 0% 64,597 dps 3s   [78 tried]
+Heart of the Serpent: pass 1  Weapon: Raydric Card x3                                          win 100% lost 0% 64,586 dps 3s  ->  win 100% lost 0% 82,119 dps 3s   [310 tried]
+  (stat rolls on new pieces: VIT, from lower: vit 2.344, dex 2.344, str 2.344)
+Heart of the Serpent: pass 2  rotation: windSlash = false                                      win 100% lost 0% 82,190 dps 3s  ->  win 100% lost 0% 82,964 dps 2s   [24 tried]
+Heart of the Serpent: pass 2  order: Shield Boomerang down 2 (before Dragon Breath)            win 100% lost 0% 82,988 dps 2s  ->  win 100% lost 0% 84,100 dps 2s   [78 tried]
+Heart of the Serpent: pass 2  Weapon: Earth Petite Card x3                                     win 100% lost 0% 84,113 dps 2s  ->  win 100% lost 0% 100,319 dps 2s   [310 tried]
+  (stat rolls on new pieces: DEX, from lower: vit 2.614, dex 2.614, str 2.614)
+
+per target (shared build -> with its swaps):
+  cost 0.05  Angel of Genesis         win 100% lost 0% 53,319 dps 5s  ->  win 100% lost 0% 66,631 dps 4s   2 swap(s): armor: White Knight Armor +6 [Gioia Card]; runeorb: Sowilo Rune of Sun +9  rotation {"retributionAt":6}
+  cost 0.05  Demon of Apocalypse      win 100% lost 0% 86,968 dps 3s  ->  win 100% lost 0% 86,968 dps 3s   0 swap(s)
+  cost 0.05  Heartless                win 97% lost 3% 45,966 dps 10s  ->  win 96% lost 4% 48,982 dps 10s   0 swap(s)  rotation {"retributionAt":6,"order":["Stay hidden","Morroc's Mark","Pre-cast King's Gambit","Step back","Heal","Pull it off the ward","Sneak Attack","Bishop's Tax","King's Chains","Shield Boomerang","Hide to strike","Rook's Smash","Dragon Breath","Delta Skyfall","Wind Slash","Retribution","Queen's Brand","Queen's Gambit","Overpower","Face-Off","Attack"],"reflectCare":false}
+  cost 0.05  Heart of the Serpent     win 100% lost 0% 62,302 dps 3s  ->  win 100% lost 0% 174,191 dps 1s   8 swap(s): upper: Magic Stone Hat +6 [Magetin Card]; middle: Asgard Blessing [Amdarais Card]; lower: Forgotten Scarf [Absolute Seyren Card]; armor: Pure Light Robes +6 [Rocker Card]; weapon: Word of Misery +9 [Earth Petite Card, Earth Petite Card, Earth Petite Card]; shoes: Metal Boots MK I +9 [Solace Card]; acc2: Occult Incense [Buwaya Card]; gem: Anarchy Gem of Crowns  rotation {"order":["Stay hidden","Morroc's Mark","Pre-cast King's Gambit","Step back","Heal","Pull it off the ward","Sneak Attack","Bishop's Tax","King's Chains","Hide to strike","Rook's Smash","Shield Boomerang","Dragon Breath","Delta Skyfall","Queen's Gambit","Retribution","Wind Slash","Queen's Brand","Overpower","Face-Off","Attack"],"rookOpener":false}
+  cost 0.1   Angel of Genesis         win 100% lost 0% 53,319 dps 5s  ->  win 100% lost 0% 54,579 dps 5s   0 swap(s)  rotation {"retributionAt":6}
+  cost 0.1   Demon of Apocalypse      win 100% lost 0% 86,968 dps 3s  ->  win 100% lost 0% 86,968 dps 3s   0 swap(s)
+  cost 0.1   Heartless                win 97% lost 3% 45,966 dps 10s  ->  win 97% lost 3% 48,525 dps 10s   0 swap(s)  rotation {"retributionAt":6,"order":["Stay hidden","Morroc's Mark","Pre-cast King's Gambit","Step back","Heal","Pull it off the ward","Sneak Attack","Bishop's Tax","King's Chains","Shield Boomerang","Hide to strike","Rook's Smash","Dragon Breath","Delta Skyfall","Wind Slash","Retribution","Queen's Brand","Queen's Gambit","Overpower","Face-Off","Attack"]}
+  cost 0.1   Heart of the Serpent     win 100% lost 0% 62,302 dps 3s  ->  win 100% lost 0% 117,470 dps 2s   3 swap(s): upper: Valkyrie Circlet +6; weapon: Word of Misery +9 [Earth Petite Card, Earth Petite Card, Earth Petite Card]; gem: Anarchy Gem of Crowns  rotation {"order":["Stay hidden","Morroc's Mark","Pre-cast King's Gambit","Step back","Heal","Pull it off the ward","Sneak Attack","Bishop's Tax","King's Chains","Hide to strike","Rook's Smash","Shield Boomerang","Dragon Breath","Delta Skyfall","Queen's Gambit","Retribution","Wind Slash","Queen's Brand","Overpower","Face-Off","Attack"],"rookOpener":false}
+  cost 0.2   Angel of Genesis         win 100% lost 0% 53,319 dps 5s  ->  win 100% lost 0% 54,641 dps 5s   0 swap(s)  rotation {"retributionAt":1}
+  cost 0.2   Demon of Apocalypse      win 100% lost 0% 86,968 dps 3s  ->  win 100% lost 0% 86,968 dps 3s   0 swap(s)
+  cost 0.2   Heartless                win 97% lost 3% 45,966 dps 10s  ->  win 97% lost 2% 46,316 dps 10s   0 swap(s)  rotation {"order":["Stay hidden","Morroc's Mark","Pre-cast King's Gambit","Step back","Heal","Pull it off the ward","Sneak Attack","Bishop's Tax","King's Chains","Shield Boomerang","Hide to strike","Rook's Smash","Dragon Breath","Delta Skyfall","Wind Slash","Retribution","Queen's Brand","Queen's Gambit","Overpower","Face-Off","Attack"],"taxHp":0.75}
+  cost 0.2   Heart of the Serpent     win 100% lost 0% 62,302 dps 3s  ->  win 100% lost 0% 100,291 dps 2s   1 swap(s): weapon: Word of Misery +9 [Earth Petite Card, Earth Petite Card, Earth Petite Card]  rotation {"windSlash":false,"order":["Stay hidden","Morroc's Mark","Pre-cast King's Gambit","Step back","Heal","Pull it off the ward","Sneak Attack","Bishop's Tax","King's Chains","Hide to strike","Rook's Smash","Shield Boomerang","Dragon Breath","Delta Skyfall","Queen's Gambit","Wind Slash","Retribution","Queen's Brand","Overpower","Face-Off","Attack"],"rookOpener":false}
+
+final (1600 fights): win 99% lost 1% 61,996 dps 5s; killed by Magnus Exorcismus x13, Knuckle Arrow x13
+options: {"fortress":3,"queensBrand":true,"rooksWall":true,"sneakAttack":false,"heal":false,"rogueFillers":false,"autoAttack":false,"keepRange":false,"safeCasts":false,"windSlash":true,"retributionAt":10,"openerGambit":false,"order":["Stay hidden","Morroc's Mark","Pre-cast King's Gambit","Step back","Heal","Pull it off the ward","Sneak Attack","Bishop's Tax","King's Chains","Shield Boomerang","Hide to strike","Rook's Smash","Dragon Breath","Delta Skyfall","Wind Slash","Queen's Gambit","Retribution","Queen's Brand","Overpower","Face-Off","Attack"]}
+http://localhost:5173/#b=cfZM9b9swEIb_isEly4uCxy-JHpOx6NCZEARCoi0hsiyIctCg7X8vSNmug8ReOByfu3vvywmw7_24j4N_DzMDSQ5XchCshdKwHEJVcI5D88LAwCldmKqCI2huSnA4krqgZBKQVGqdbJmCcywufmFgb_3C4KiqEidBWhZlikayoPJLEI7NIR5PcxMY2MH_qruJwcn8c-iXfu-X_jgysKl7j33jh3oO7akJLYMTayIFIlXCwilpBa5PTjgfh4FuQ4s16XEYBAOLU90c43ITVF__JQOb_bgPbd36g9-HD7-KgbVhF8YY6imMYZnPSh3xVZeGIBIo4RQpeVUjs5p935yjfi7IgLSS6xzIWKTnc_fWQsKbj2uDdkNICm02x1NcfJ_M3VQPITRdEiZwzlBACM5VziCtug0el_n_DEsII1MjLciQlnnoSvK7QyeC5ZKrEqnglLC0VqQ8911khtRjSGVIPoZ0hvRjyEAooUwq5T5UQCgyjyJl82WrCNKCg1LrMyNuDOcdiq_9MNSH07Akngr-rSwuSBt2aYkYOES6LELB8xiTz_bnKYTxKW6eZz-2fy67SOAX9xVLJ_4UNy-d78d4g2nxkXvpQvO6-eGX8FWsNuySjLNTler_falzS1rz9ZbixLal-Vv9Aw
+(629 s; 128877 batches fought, 58636 shared with an identical fighter)

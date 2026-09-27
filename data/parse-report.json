@@ -4,14 +4,14 @@
  "items_in_a_set": 875,
  "items_with_item_refine_scaling": 891,
  "sets_with_set_refine_scaling": 96,
- "effect_lines": 10222,
- "effect_lines_unstructured": 3872,
+ "effect_lines": 10226,
+ "effect_lines_unstructured": 3871,
  "effect_parse_rate": 62.1,
  "effect_parse_rate_by_kind": {
   "Weapon": {
-   "lines": 2260,
-   "unstructured": 554,
-   "rate": 75.5
+   "lines": 2262,
+   "unstructured": 553,
+   "rate": 75.6
   },
   "Armor": {
    "lines": 1508,
@@ -29,7 +29,7 @@
    "rate": 81.9
   },
   "Shadow gear": {
-   "lines": 996,
+   "lines": 998,
    "unstructured": 313,
    "rate": 68.6
   },
@@ -483,9 +483,9 @@
  "conditions_total": 388,
  "stats_registered": 158,
  "stat_mapping": {
-  "mapped_to_stat_ids": 5747,
-  "skill_modifiers": 947,
-  "unmapped": 209,
+  "mapped_to_stat_ids": 5751,
+  "skill_modifiers": 951,
+  "unmapped": 206,
   "coverage_percent": 83.3
  },
  "unmapped_stat_names": [
@@ -599,10 +599,6 @@
   ],
   [
    "Critical Damage Received",
-   1
-  ],
-  [
-   "Lashing Andromeda DMG +5%",
    1
   ],
   [
@@ -727,6 +723,10 @@
   ],
   [
    "Neutral damage reduction from all sizes",
+   1
+  ],
+  [
+   "25%+ ASPD",
    1
   ]
  ],

@@ -1,0 +1,105 @@
+{
+ "profile": "Kingslayer: owner's build for Jormungand's Lair",
+ "targets": [
+  "Angel of Genesis",
+  "Demon of Apocalypse",
+  "Heartless",
+  "Heart of the Serpent"
+ ],
+ "rules": {
+  "screenN": 150,
+  "confirmN": 1000,
+  "timeS": 300,
+  "locked": [
+   "offhand"
+  ],
+  "penalty": 0.03,
+  "topStats": [
+   "vit",
+   "str",
+   "dex"
+  ]
+ },
+ "start": "http://localhost:5173/#b=cfZNNb5wwEIb_ysqXXEaVx5-wx-RY9dAzQsgCL6D1sghD1Kjtf6_GQEqjbi4WGj_zvvNhCgHsaz-0Mbg3PzFAyaHIOSDkOSgO9FlCUXDQCjPgUChleFlCgaC5SRGU2iKFBOjMrhDnkiIShOA8TyGBGSmxOLuZAXvtZwaFIIpNPt6XqfYM2M39qLqRQaHSza2f-9bN_X1gwMbuLfa1C9Xkm6X2DYMCy5I4BYi5gRwKJXMB66FQpiO5TvcQ8Ki_Od9DkAzY5IbWN1Xjbq717-50qxiwbqxa1w--qUY_VV2qXK7OGgSigIx6NvhuJZNV29eb5KFksSYaQK2kAQOFQquAjkfz8a8uriO4BE_l5Skclzi7flgLDN7XHU1EwOZg0_AVOaC0KI7qcZ7-Ti8DYSRd5yAM5utOrUobRIScS64yoDmSeMazpPlQDmWCzEdo7WiHVIL055BOkP0IheV6gAwIhZxT2Y8hS5CVn9il8P48ECTNgRa6MuIQ2B5LvPYhVLclzMSj5V8yuyONv1SjHxhwEJqCYHlaGeWcvy_eD0_x9Dy5ofm1PzoEvqevGP2YT_H00rl-iAdMi3-5l87X19M3N_v_aTX-QmVsSSX1_3Pv84xa8_WniCM7Z-Z3-Qc",
+ "steps": [
+  {
+   "move": "rotation: heal = false",
+   "before": {
+    "win": 0.8192499999999999,
+    "loss": 0.07225,
+    "dps": 10761.313724951851,
+    "ttk": 28.77300745041282,
+    "value": 1.2589947058742776,
+    "deaths": "Knuckle Arrow x107, Heartless: attack x85"
+   },
+   "after": {
+    "win": 0.88175,
+    "loss": 0.09825,
+    "dps": 10920.930598148609,
+    "ttk": 29.39164904813987,
+    "value": 1.316088958972229,
+    "deaths": "Knuckle Arrow x170, Heartless: attack x100"
+   },
+   "tried": 24
+  },
+  {
+   "move": "rotation: rooksWall = true",
+   "before": {
+    "win": 0.8807499999999999,
+    "loss": 0.10125,
+    "dps": 10883.750108267179,
+    "ttk": 29.560737127479356,
+    "value": 1.3136312516240076,
+    "deaths": "Knuckle Arrow x154, Magnus Exorcismus x115"
+   },
+   "after": {
+    "win": 0.9480000000000001,
+    "loss": 0.00425,
+    "dps": 10452.245175846345,
+    "ttk": 30.037989155784352,
+    "value": 1.4035086776376953,
+    "deaths": "Demon of Apocalypse: Grand Darkness x6, Angel of Genesis: Grand Cross x3"
+   },
+   "tried": 24
+  },
+  {
+   "move": "rotation: retributionAt = 1",
+   "before": {
+    "win": 0.946,
+    "loss": 0.00425,
+    "dps": 10476.837906533472,
+    "ttk": 29.990463410743068,
+    "value": 1.4018775685980018,
+    "deaths": "Magnus Exorcismus x4, Demon of Apocalypse: Grand Darkness x4"
+   },
+   "after": {
+    "win": 0.971,
+    "loss": 0.010499999999999999,
+    "dps": 11182.022080654106,
+    "ttk": 28.057970861155887,
+    "value": 1.4355803312098114,
+    "deaths": "Magnus Exorcismus x13, Demon of Apocalypse: Grand Darkness x12"
+   },
+   "tried": 23
+  }
+ ],
+ "final": {
+  "win": 0.9735,
+  "loss": 0.010875,
+  "dps": 11153.314839479648,
+  "ttk": 28.119720861155884,
+  "value": 1.4375372225921947,
+  "deaths": "Magnus Exorcismus x35, Demon of Apocalypse: Grand Darkness x17"
+ },
+ "options": {
+  "fortress": 3,
+  "queensBrand": false,
+  "rogueFillers": false,
+  "autoAttack": false,
+  "heal": false,
+  "rooksWall": true,
+  "retributionAt": 1
+ },
+ "link": "http://localhost:5173/#b=cfZNNb5wwEIb_ysqXXEaVx5-wx-RY9dAzQsgCL6D1sghD1Kjtf6_GQEqjbi4WGj_zvvNhCgHsaz-0Mbg3PzFAyaHIOSDkOSgO9FlCUXDQCjPgUChleFlCgaC5SRGU2iKFBOjMrhDnkiIShOA8TyGBGSmxOLuZAXvtZwaFIIpNPt6XqfYM2M39qLqRQaHSza2f-9bN_X1gwMbuLfa1C9Xkm6X2DYMCy5I4BYi5gRwKJXMB66FQpiO5TvcQ8Ki_Od9DkAzY5IbWN1Xjbq717-50qxiwbqxa1w--qUY_VV2qXK7OGgSigIx6NvhuJZNV29eb5KFksSYaQK2kAQOFQquAjkfz8a8uriO4BE_l5Skclzi7flgLDN7XHU1EwOZg0_AVOaC0KI7qcZ7-Ti8DYSRd5yAM5utOrUobRIScS64yoDmSeMazpPlQDmWCzEdo7WiHVIL055BOkP0IheV6gAwIhZxT2Y8hS5CVn9il8P48ECTNgRa6MuIQ2B5LvPYhVLclzMSj5V8yuyONv1SjHxhwEJqCYHlaGeWcvy_eD0_x9Dy5ofm1PzoEvqevGP2YT_H00rl-iAdMi3-5l87X19M3N_v_aTX-QmVsSSX1_3Pv84xa8_WniCM7Z-Z3-Qc",
+ "perTarget": []
+}

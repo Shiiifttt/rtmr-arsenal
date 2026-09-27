@@ -318,7 +318,33 @@ export const FORMULAS: Formula[] = [
     compute: (level, _stats, stat, ctx) => jobPool(ctx.jobSp ?? 0, stat('int'))
       + Math.floor(((ctx.skills['Improve Wisdom'] ?? 0) * 2 * level) / 3),
   },
+  {
+    // Both DEFs feed King's Chains (+1% a point) and the combat sim's damage
+    // taken, so they are shown as the sim counts them (combat/src/character.ts).
+    key: 'def',
+    label: 'Hard DEF',
+    formula: 'DEF from equipment (armour DEF, refines, cards), scaled by DEF %',
+    verified: false,
+    inputs: [],
+    manualHint: 'DEF from buffs.',
+    compute: () => 0,
+  },
+  {
+    key: 'soft_def',
+    label: 'Soft DEF',
+    formula: 'base level + total VIT + 5 per 10 total VIT (RTM status.cpp)',
+    verified: false,
+    inputs: ['vit'],
+    manualHint: 'Soft DEF from buffs.',
+    compute: (level, _stats, stat) => playerSoftDef(level, stat('vit')),
+  },
 ];
+
+/** Soft DEF: base level + VIT + 5 per whole 10 VIT -- the combat sim's playerSoftDef. */
+export function playerSoftDef(level: number, vit: number): number {
+  const v = Math.max(0, vit);
+  return level + v + 5 * Math.floor(v / 10);
+}
 
 /**
  * Critical Rate from LUK, from the server's own codex (data/raw/codex.json):

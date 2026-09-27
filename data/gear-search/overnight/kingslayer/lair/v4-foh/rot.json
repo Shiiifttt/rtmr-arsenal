@@ -1,0 +1,129 @@
+{
+ "profile": "Kingslayer: gear search vs Heartless, v4 (2026-09-27)",
+ "targets": [
+  "Angel of Genesis",
+  "Demon of Apocalypse",
+  "Heartless",
+  "Heart of the Serpent"
+ ],
+ "rules": {
+  "screenN": 150,
+  "confirmN": 1000,
+  "timeS": 300,
+  "locked": [
+   "offhand"
+  ],
+  "penalty": 0.03,
+  "topStats": [
+   "vit",
+   "dex",
+   "str"
+  ]
+ },
+ "start": "http://localhost:5173/#b=cfZM_b9swEMW_isEly0PB_xQ9JmPRobMgCIREW0JkWRDloEHb714cJacOWnvhcPzdvbvHYynBvvbjMQ3hPc4MQnGUBYeA9zAGnkNUKEsOw52FRamNs1WFUsBwW4CjFMo4QSEJU7gc0pwriihIyblfKScKKsXSEhYG9tYvDKUkjM0xnS9zExnYKfyou4mh1Pnm1C_9MSz9eWRgU_ee-iYM9RzbSxNbhlJUFXEaQngLj1IrL_H5yKrzeRjEbf1N-TwMioHNYTzGtm7DKRzjhzrdagbWTfUx9GNs6ynOdZc7V6uygRRCoiBlyT-kVJY69s1W8qZluSZaCKPV6qmwHnTc8ye-hbRacBgitedzOF3SEvpxbXCIsenIEYlNwWX3NSmQ-_K2elrmv-4VkFbRtYe0zm3PpdW_7WwJQsBzxXUBYkix8F6S0P0UlSH9GNIZUo8hkyHzGLKQWmpLs9yHHKQW9lGlHL7ujICiXaYfsTLyJrBtUHrth6E-XYaFeOH4l8JdkTYe6imODBzSUBCO53eknP33S4zjU9o9z2Fsf103UYBf01eMvutT2r10oR_TDWbkZ-6li83r7ltY4v9qtfFAbWxJFc3_8zrnXhjD15-SJrYv7O_qDw",
+ "steps": [
+  {
+   "move": "rotation: keepRange = false",
+   "before": {
+    "win": 0.9982500000000001,
+    "loss": 0.00175,
+    "dps": 21975.533276426173,
+    "ttk": 13.99075660170345,
+    "value": 1.6273579991463927,
+    "deaths": "Demon of Apocalypse: reflected x5, Knuckle Arrow x1"
+   },
+   "after": {
+    "win": 0.99725,
+    "loss": 0.00275,
+    "dps": 24392.84414998049,
+    "ttk": 12.930973593186197,
+    "value": 1.6623176622497073,
+    "deaths": "Heartless: attack x5, Demon of Apocalypse: reflected x4"
+   },
+   "tried": 23
+  },
+  {
+   "move": "rotation: safeCasts = false",
+   "before": {
+    "win": 0.9944999999999999,
+    "loss": 0.0055,
+    "dps": 24590.01805858519,
+    "ttk": 12.904497799432184,
+    "value": 1.6617002708787778,
+    "deaths": "Knuckle Arrow x9, Demon of Apocalypse: reflected x6"
+   },
+   "after": {
+    "win": 0.99675,
+    "loss": 0.0032500000000000003,
+    "dps": 26355.801121506687,
+    "ttk": 12.282389971609152,
+    "value": 1.6911120168226002,
+    "deaths": "Knuckle Arrow x8, Heartless: attack x2"
+   },
+   "tried": 24
+  },
+  {
+   "move": "rotation: windSlash = true",
+   "before": {
+    "win": 0.9982500000000001,
+    "loss": 0.00175,
+    "dps": 26362.211001932577,
+    "ttk": 12.281738997160915,
+    "value": 1.6931581650289886,
+    "deaths": "Knuckle Arrow x3, Demon of Apocalypse: reflected x1"
+   },
+   "after": {
+    "win": 0.9985,
+    "loss": 0.0015,
+    "dps": 27897.229184622018,
+    "ttk": 11.70275660170345,
+    "value": 1.7165084377693303,
+    "deaths": "Knuckle Arrow x4, Demon of Apocalypse: reflected x1"
+   },
+   "tried": 24
+  },
+  {
+   "move": "rotation: queensBrand = true  +  rotation: retributionAt = 1",
+   "before": {
+    "win": 0.9972500000000001,
+    "loss": 0.00275,
+    "dps": 27809.166697700653,
+    "ttk": 11.70739877388042,
+    "value": 1.71356250046551,
+    "deaths": "Knuckle Arrow x4, Heartless: attack x4"
+   },
+   "after": {
+    "win": 0.99475,
+    "loss": 0.0027500000000000003,
+    "dps": 28698.099917604257,
+    "ttk": 10.882907576151688,
+    "value": 1.7243964987640639,
+    "deaths": "Heartless: attack x5, Knuckle Arrow x2"
+   },
+   "tried": 11
+  }
+ ],
+ "final": {
+  "win": 0.9957500000000001,
+  "loss": 0.0022500000000000003,
+  "dps": 28782.874572047313,
+  "ttk": 10.875551280978131,
+  "value": 1.7268181185807099,
+  "deaths": "Knuckle Arrow x11, Heartless: attack x4"
+ },
+ "options": {
+  "fortress": 3,
+  "queensBrand": true,
+  "rooksWall": true,
+  "sneakAttack": false,
+  "heal": false,
+  "rogueFillers": false,
+  "autoAttack": false,
+  "keepRange": false,
+  "safeCasts": false,
+  "windSlash": true,
+  "retributionAt": 1
+ },
+ "link": "http://localhost:5173/#b=cfZO9jtswEIRfxWBzzSDgP0WXuTJIkVoQBEKiLeFkWRDlQw5J3j1YSr7YQOyGxfLbnd3hspRg3_rxmIbwEWcGoTjKgkPAexgDzyEqlCWH4c7CotTG2apCKWC4LcBRCmWcoJCEKVwOac4VRRSk5NyvlBMFlWJpCQsDe-8XhlISxuaYzpe5iQzsFH7W3cRQ6nxz6pf-GJb-PDKwqftIfROGeo7tpYktQymqijgNIbyFR6mVl7g_sup8HgZxW39TPg-DYmBzGI-xrdtwCsf4qU63moF1U30M_Rjbeopz3eXO1apsIIWQKFBqodWnlMpSx77ZSt60LNdEC2G0Wj0V1oOOR_7E95BWCw5DpPZ8DqdLWkI_rg0OMTYdOSKxKbjsviYFcl_eVk_L_M-9AtIquvaQ1rntubZp7trZEoSA54rrAsSQYuG9JKHHKSpD-jmkM6SeQyZD5jlkIbXUlmZ5DDlILeyzSjl83RkBRbtMP2Jl5E1g26D01g9DfboMC_HC8S-FuyJtPNRTHBk4pKEgHM_vSDn7H5cYx5e0-zqHsf193UQBfk1fMfquL2n32oV-TDeYkffcaxebt933sMT_1WrjgdrYkiqa_9d1zr0whq8_JU1sX9g_1V8",
+ "perTarget": []
+}

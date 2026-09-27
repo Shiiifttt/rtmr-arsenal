@@ -1,0 +1,69 @@
+{
+ "profile": "generalist: rotation",
+ "targets": [
+  "Angel of Genesis",
+  "Demon of Apocalypse",
+  "Heartless",
+  "Heart of the Serpent"
+ ],
+ "rules": {
+  "screenN": 120,
+  "confirmN": 800,
+  "timeS": 300,
+  "locked": [
+   "offhand"
+  ],
+  "penalty": 0.03,
+  "topStats": [
+   "vit",
+   "dex",
+   "str"
+  ]
+ },
+ "start": "http://localhost:5173/#b=cfZPNbpwwFIVfZeRNNkeVr__As0yWVRdZI4Qs8AAKwyDMRInavntlA-lEbWbjxfV3z7k-tgsB9r0f2zC4dz8zkOQocg6CtdAaloNKFAWHJCEIBoXSmUFcyhIFQXOTg6MgqTOKJQGdZ6m0QxJCcG5XKqM8CrKwuIWBvfYLQyEixmYfLte59gzs7N6qbmIoVNo590vfuqW_jAxs6t5DX7uhmn1zrX3DUFBZRk6ByBpYFEpagc9Lcp0vw0C3-pvzZRgkA5vd2PqmatzZtf7DPe4qBtZNVev60TfV5OeqS5PL1VlDEAnk0VnwDyuZrNq-3iRvRhZrowFpJU0KlgxHXL7Kx7-6sEZwGnwcz6ZyuIbF9eM64OB93cVEBDaHLKWvkoO06lY8LPPf8HIII2NKFsLQfltKpmsmWC65yiHLVTu3VkTJf2fd5EgmSN2HVILkfUgnSN-HDIQSysSxv4YyCEXmnlIq76-DIGMO8QesjLgpbG8lvPTDUJ2vwxJ5yvi3PNuRxp-qyY8MHELHIjKebiz2HJ-v3o8P4fA4u7H5tb85At_bVyx-z4dweOpcP4YbTIvP3FPn65fDD7f4_2k1_hTH2JrKeP6f-zmPpDVf_0SY2DE3v8s_",
+ "steps": [],
+ "final": {
+  "win": 0.9985937500000001,
+  "loss": 0.00125,
+  "dps": 29608.004076387893,
+  "ttk": 11.451947186372392,
+  "value": 1.7423388111458182,
+  "deaths": "Heartless: attack x5, Magnus Exorcismus x2"
+ },
+ "options": {
+  "fortress": 3,
+  "queensBrand": false,
+  "heal": false,
+  "retributionAt": 1,
+  "rogueFillers": false,
+  "autoAttack": false,
+  "safeCasts": false,
+  "windSlash": true,
+  "order": [
+   "Stay hidden",
+   "Morroc's Mark",
+   "Pre-cast King's Gambit",
+   "Step back",
+   "Heal",
+   "Pull it off the ward",
+   "Sneak Attack",
+   "Bishop's Tax",
+   "Shield Boomerang",
+   "King's Chains",
+   "Hide to strike",
+   "Rook's Smash",
+   "Dragon Breath",
+   "Delta Skyfall",
+   "Queen's Gambit",
+   "Queen's Brand",
+   "Wind Slash",
+   "Retribution",
+   "Overpower",
+   "Face-Off",
+   "Attack"
+  ],
+  "rookOpener": false
+ },
+ "link": "http://localhost:5173/#b=cfZPNbpwwFIVfZeRNNkeVr__As0yWVRdZI4Qs8AAKwyDMRInavntlA-lEbWbjxfV3z7k-tgsB9r0f2zC4dz8zkOQocg6CtdAaloNKFAWHJCEIBoXSmUFcyhIFQXOTg6MgqTOKJQGdZ6m0QxJCcG5XKqM8CrKwuIWBvfYLQyEixmYfLte59gzs7N6qbmIoVNo590vfuqW_jAxs6t5DX7uhmn1zrX3DUFBZRk6ByBpYFEpagc9Lcp0vw0C3-pvzZRgkA5vd2PqmatzZtf7DPe4qBtZNVev60TfV5OeqS5PL1VlDEAnk0VnwDyuZrNq-3iRvRhZrowFpJU0KlgxHXL7Kx7-6sEZwGnwcz6ZyuIbF9eM64OB93cVEBDaHLKWvkoO06lY8LPPf8HIII2NKFsLQfltKpmsmWC65yiHLVTu3VkTJf2fd5EgmSN2HVILkfUgnSN-HDIQSysSxv4YyCEXmnlIq76-DIGMO8QesjLgpbG8lvPTDUJ2vwxJ5yvi3PNuRxp-qyY8MHELHIjKebiz2HJ-v3o8P4fA4u7H5tb85At_bVyx-z4dweOpcP4YbTIvP3FPn65fDD7f4_2k1_hTH2JrKeP6f-zmPpDVf_0SY2DE3v8s_",
+ "perTarget": []
+}

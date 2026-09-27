@@ -1,0 +1,147 @@
+{
+ "profile": "Kingslayer: gear search vs Heartless, v4 (2026-09-27)",
+ "targets": [
+  "Heartless"
+ ],
+ "rules": {
+  "screenN": 150,
+  "confirmN": 1000,
+  "timeS": 300,
+  "locked": [
+   "offhand"
+  ],
+  "penalty": 0.03,
+  "topStats": [
+   "vit",
+   "dex",
+   "str"
+  ]
+ },
+ "start": "http://localhost:5173/#b=cfZM_b9swEMW_isEly0PB_xQ9JmPRobMgCIREW0JkWRDloEHb714cJacOWnvhcPzdvbvHYynBvvbjMQ3hPc4MQnGUBYeA9zAGnkNUKEsOw52FRamNs1WFUsBwW4CjFMo4QSEJU7gc0pwriihIyblfKScKKsXSEhYG9tYvDKUkjM0xnS9zExnYKfyou4mh1Pnm1C_9MSz9eWRgU_ee-iYM9RzbSxNbhlJUFXEaQngLj1IrL_H5yKrzeRjEbf1N-TwMioHNYTzGtm7DKRzjhzrdagbWTfUx9GNs6ynOdZc7V6uygRRCoiBlyT-kVJY69s1W8qZluSZaCKPV6qmwHnTc8ye-hbRacBgitedzOF3SEvpxbXCIsenIEYlNwWX3NSmQ-_K2elrmv-4VkFbRtYe0zm3PpdW_7WwJQsBzxXUBYkix8F6S0P0UlSH9GNIZUo8hkyHzGLKQWmpLs9yHHKQW9lGlHL7ujICiXaYfsTLyJrBtUHrth6E-XYaFeOH4l8JdkTYe6imODBzSUBCO53eknP33S4zjU9o9z2Fsf103UYBf01eMvutT2r10oR_TDWbkZ-6li83r7ltY4v9qtfFAbWxJFc3_8zrnXhjD15-SJrYv7O_qDw",
+ "steps": [
+  {
+   "move": "rotation: retributionAt = 1",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 24949.844503264136,
+    "ttk": 19.757534617433105,
+    "value": 1.6742476675489621,
+    "deaths": ""
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 27790.076174962127,
+    "ttk": 18.47260385229932,
+    "value": 1.716851142624432,
+    "deaths": ""
+   },
+   "tried": 23
+  },
+  {
+   "move": "rotation: keepRange = false",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 27742.621644718234,
+    "ttk": 18.47260385229932,
+    "value": 1.7161393246707735,
+    "deaths": ""
+   },
+   "after": {
+    "win": 0.999,
+    "loss": 0.001,
+    "dps": 30485.333519875694,
+    "ttk": 17.27260385229932,
+    "value": 1.7559800027981354,
+    "deaths": "Heartless: attack x1"
+   },
+   "tried": 23
+  },
+  {
+   "move": "rotation: windSlash = true",
+   "before": {
+    "win": 0.997,
+    "loss": 0.003,
+    "dps": 30543.612608167958,
+    "ttk": 16.88950963074829,
+    "value": 1.7542541891225194,
+    "deaths": "Heartless: attack x2, Knuckle Arrow x1"
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 32693.86134242247,
+    "ttk": 15.85650963074829,
+    "value": 1.790407920136337,
+    "deaths": ""
+   },
+   "tried": 24
+  },
+  {
+   "move": "rotation: preGambit = false",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 32790.259794231075,
+    "ttk": 15.776,
+    "value": 1.791853896913466,
+    "deaths": ""
+   },
+   "after": {
+    "win": 0.998,
+    "loss": 0.002,
+    "dps": 34744.354240828834,
+    "ttk": 14.17,
+    "value": 1.8185653136124325,
+    "deaths": "Heartless: attack x2"
+   },
+   "tried": 24
+  },
+  {
+   "move": "rotation: deltaFiller = true",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 34576.00148170189,
+    "ttk": 14.178,
+    "value": 1.8186400222255283,
+    "deaths": ""
+   },
+   "after": {
+    "win": 0.999,
+    "loss": 0.001,
+    "dps": 35832.97940388599,
+    "ttk": 13.396,
+    "value": 1.8361946910582898,
+    "deaths": "Heartless: attack x1"
+   },
+   "tried": 24
+  }
+ ],
+ "final": {
+  "win": 0.9995,
+  "loss": 0.0005,
+  "dps": 35625.66681825476,
+  "ttk": 13.421578865614503,
+  "value": 1.8337350022738215,
+  "deaths": "Heartless: attack x1"
+ },
+ "options": {
+  "fortress": 3,
+  "queensBrand": false,
+  "rooksWall": true,
+  "sneakAttack": false,
+  "heal": false,
+  "rogueFillers": false,
+  "autoAttack": false,
+  "retributionAt": 1,
+  "keepRange": false,
+  "windSlash": true,
+  "preGambit": false,
+  "deltaFiller": true
+ },
+ "link": "http://localhost:5173/#b=cfZO9jtswEIRfxWBzzSDg8ld0mSuDFKkFQSAk2hJOlgVRPuSQ5N0DUvLFBmI3LJbf7uwOl6UA-9aPxzj4jzAzkOQoCw6Cc9AajoMqlCWH5tbAoFTamqpCSdDcFOAoSWpLKSSgC5tDinOZIhJCcO5WylKRSrG4-IWBvfcLQykSxuYQz5e5CQzs5H_W3cRQqnxz6pf-6Jf-PDKwqfuIfeOHeg7tpQktQ0lVlTgFImfgUCrpBO6PrDqfh4Fu62_K52GQDGz24zG0detP_hg-1dOtYmDdVB99P4a2nsJcd7lzuSprCCKBAqUiJT-lZJY69s1W8qZlsSYakFZy9ZSMQzoe-RPefVwtOAwhtedyOF7i4vtxbXAIoemSIwKbgs3uq6SQ3Be31eMy_3OvgDAyXTsIY-32XNs0d-1sCURwXHJVgHi1ShbOiaT0OEdmSD2HVIbkc0hnSD-HDIQSyqRhHkMWQpF5VimHr0tDkGmZ05dYGXET2FYovvXDUJ8uw5J4svxLYa9IGw71FEYGDqFTEJbnh0w5-x-XEMaXuPs6-7H9fV1FAr-mr1j6ry9x99r5fow3mBb33GsXmrfdd7-E_9VqwyG1sSVVaf5f1zn3pDVfv0qc2L4wf6q_",
+ "perTarget": []
+}

@@ -1,0 +1,12 @@
+node --experimental-strip-types --no-warnings --import ./register.mjs tools/gear-search.ts --profile F:\RTMR_Project\data\gear-search\overnight\kingslayer\heartless\v4-foh\rot.profile.json --vs Heartless --screen 120 --confirm 800 --passes 10 --lock offhand --fix rogueFillers=false,autoAttack=false --out F:\RTMR_Project\data\gear-search\overnight\kingslayer\heartless\v4-foh\gear.json
+
+start: win 99% lost 1% 29,675 dps 18s  (Heartless, 800 fights, 11 workers)
+  (stat rolls on new pieces: VIT, from armor: vit 1.735, dex 1.731, str 1.735)
+pass 1  Lower Headgear: Crimson Bowtie +6                                win 99% lost 1% 29,834 dps 18s  ->  win 99% lost 1% 30,606 dps 18s   [45 tried]
+pass 1  Lower Headgear: Gioia Card x1                                    win 100% lost 0% 30,501 dps 18s  ->  win 100% lost 0% 31,312 dps 18s   [75 tried]
+  (stat rolls on new pieces: VIT, from lower: vit 1.763, dex 1.762, str 1.763)
+
+final (1600 fights): win 99% lost 1% 31,324 dps 18s; killed by Heartless: attack x6, Knuckle Arrow x5
+options: {"fortress":3,"queensBrand":false,"rooksWall":true,"sneakAttack":false,"heal":true,"rogueFillers":false,"autoAttack":false,"retributionAt":6,"windSlash":true,"keepRange":false,"order":["Stay hidden","Morroc's Mark","Pre-cast King's Gambit","Step back","Heal","Pull it off the ward","Sneak Attack","Bishop's Tax","King's Chains","Shield Boomerang","Hide to strike","Rook's Smash","Dragon Breath","Delta Skyfall","Queen's Gambit","Queen's Brand","Retribution","Wind Slash","Overpower","Face-Off","Attack"],"openerGambit":false,"preGambit":false}
+http://localhost:5173/#b=cfZM_b9swEMW_isEly0PB4z-JHpOx6NCZEARCoiUhsiyIctCg7XcvKMmOg8ZeOBx_d-_u8egE2PduaGLv38PEQJLD5RwEa6E1LAcVcI5D88zAwCmdmaKAI2hucnA4kjqjFBIgzpU1_MrBORZnPzOwt25mcFQUiZQQgnO7ZmeU_w-KhLEpxNN5qgIDO_pfZTsyOLXcHLu5a_zcnQYGNrbvsat8X06hPleh_hBSILIGFk5JK_D5WFSnU9_Tbf1N-dT3koFNfmhCXdb-6JtwVU-3ioG1Y9n4bgh1OYapbJfO5aqsIYgEcjhFSl6l5CLVdNVW8qZlsSYakFZy9ZqMRTru-RPefFwtOPQhtWeXcDzH2XfD2mAfQtUmRwQ2hWxxXyWF5L64rR7n6cO9HMLIdG0hTJZtz7VN89W7EsFyyVWOxCTF3FqRhO6nyAVSjyG1QPIxpBdIP4YMhBLKpFnuQxmEIvOo0hK-7AxBpl1OP2VlxE1g26D42vV9eTz3c-Ip49_y7ILU4VCOYWDgEDoFkfHlHVPO_uc5hOEp7p4nP9R_LptI4Jf0FUvf-CnuXlrfDfEG0-Iz99KG6nX3w8_hq1p1OKQ2tqQizf_7MueetObrT4kj2-fmb_EP
+(109 s; 9746 batches fought, 4417 shared with an identical fighter)

@@ -1,0 +1,130 @@
+{
+ "profile": "Kingslayer: lair generalist (2026-09-27)",
+ "targets": [
+  "Angel of Genesis",
+  "Demon of Apocalypse",
+  "Heartless",
+  "Heart of the Serpent"
+ ],
+ "rules": {
+  "screenN": 150,
+  "confirmN": 1000,
+  "timeS": 300,
+  "locked": [
+   "offhand"
+  ],
+  "penalty": 0.03,
+  "topStats": [
+   "vit",
+   "dex",
+   "str"
+  ]
+ },
+ "start": "http://localhost:5173/#b=cfZPNbpwwFIVfZeRNNkeVr__As0yWVRdZI4Qs8AAKwyDMRInavntlA-lEbWbjxfV3z7k-tgsB9r0f2zC4dz8zkOQocg6CtdAaloNKFAWHJCEIBoXSmUFcyhIFQXOTg6MgqTOKJQGdZ6m0QxJCcG5XKqM8CrKwuIWBvfYLQyEixmYfLte59gzs7N6qbmIoVNo590vfuqW_jAxs6t5DX7uhmn1zrX3DUFBZRk6ByBpYFEpagc9Lcp0vw0C3-pvzZRgkA5vd2PqmatzZtf7DPe4qBtZNVev60TfV5OeqS5PL1VlDEAnk0VnwDyuZrNq-3iRvRhZrowFpJU0KlgxHXL7Kx7-6sEZwGnwcz6ZyuIbF9eM64OB93cVEBDaHLKWvkoO06lY8LPPf8HIII2NKFsLQfltKpmsmWC65yiHLVTu3VkTJf2fd5EgmSN2HVILkfUgnSN-HDIQSysSxv4YyCEXmnlIq76-DIGMO8QesjLgpbG8lvPTDUJ2vwxJ5yvi3PNuRxp-qyY8MHELHIjKebiz2HJ-v3o8P4fA4u7H5tb85At_bVyx-z4dweOpcP4YbTIvP3FPn65fDD7f4_2k1_hTH2JrKeP6f-zmPpDVf_0SY2DE3v8s_",
+ "steps": [
+  {
+   "move": "rotation: safeCasts = false",
+   "before": {
+    "win": 0.935,
+    "loss": 0.065,
+    "dps": 27542.01116590525,
+    "ttk": 12.22670598864366,
+    "value": 1.6286301674885788,
+    "deaths": "Demon of Apocalypse: reflected x236, Knuckle Arrow x16"
+   },
+   "after": {
+    "win": 0.9932500000000001,
+    "loss": 0.00675,
+    "dps": 28356.908857469443,
+    "ttk": 12.20970598864366,
+    "value": 1.7165786328620416,
+    "deaths": "Knuckle Arrow x12, Heartless: attack x10"
+   },
+   "tried": 24
+  },
+  {
+   "move": "rotation: windSlash = true  +  order: King's Chains down 1 (before Hide to strike)",
+   "before": {
+    "win": 0.991,
+    "loss": 0.00875,
+    "dps": 28500.149876775966,
+    "ttk": 12.210197186372392,
+    "value": 1.7158772481516396,
+    "deaths": "Knuckle Arrow x20, Heartless: attack x11"
+   },
+   "after": {
+    "win": 0.9984999999999999,
+    "loss": 0.0015,
+    "dps": 28978.419318558117,
+    "ttk": 11.70721479091493,
+    "value": 1.7327262897783717,
+    "deaths": "Knuckle Arrow x3, Heartless: attack x1"
+   },
+   "tried": 12
+  },
+  {
+   "move": "rotation: rookOpener = false  +  order: Retribution down 2 (before Overpower)",
+   "before": {
+    "win": 0.99525,
+    "loss": 0.00475,
+    "dps": 28925.718088553316,
+    "ttk": 11.67071479091493,
+    "value": 1.7277107713282998,
+    "deaths": "Knuckle Arrow x10, Magnus Exorcismus x3"
+   },
+   "after": {
+    "win": 0.99775,
+    "loss": 0.002,
+    "dps": 29458.18895695331,
+    "ttk": 11.45420598864366,
+    "value": 1.7390228343542997,
+    "deaths": "Knuckle Arrow x2, Heartless: attack x2"
+   },
+   "tried": 12
+  }
+ ],
+ "final": {
+  "win": 0.9977499999999999,
+  "loss": 0.002,
+  "dps": 29570.81048131954,
+  "ttk": 11.452947186372393,
+  "value": 1.740712157219793,
+  "deaths": "Heartless: attack x7, Knuckle Arrow x3"
+ },
+ "options": {
+  "fortress": 3,
+  "queensBrand": false,
+  "heal": false,
+  "retributionAt": 1,
+  "rogueFillers": false,
+  "autoAttack": false,
+  "safeCasts": false,
+  "windSlash": true,
+  "order": [
+   "Stay hidden",
+   "Morroc's Mark",
+   "Pre-cast King's Gambit",
+   "Step back",
+   "Heal",
+   "Pull it off the ward",
+   "Sneak Attack",
+   "Bishop's Tax",
+   "Shield Boomerang",
+   "King's Chains",
+   "Hide to strike",
+   "Rook's Smash",
+   "Dragon Breath",
+   "Delta Skyfall",
+   "Queen's Gambit",
+   "Queen's Brand",
+   "Wind Slash",
+   "Retribution",
+   "Overpower",
+   "Face-Off",
+   "Attack"
+  ],
+  "rookOpener": false
+ },
+ "link": "http://localhost:5173/#b=cfZPNbpwwFIVfZeRNNkeVr__As0yWVRdZI4Qs8AAKwyDMRInavntlA-lEbWbjxfV3z7k-tgsB9r0f2zC4dz8zkOQocg6CtdAaloNKFAWHJCEIBoXSmUFcyhIFQXOTg6MgqTOKJQGdZ6m0QxJCcG5XKqM8CrKwuIWBvfYLQyEixmYfLte59gzs7N6qbmIoVNo590vfuqW_jAxs6t5DX7uhmn1zrX3DUFBZRk6ByBpYFEpagc9Lcp0vw0C3-pvzZRgkA5vd2PqmatzZtf7DPe4qBtZNVev60TfV5OeqS5PL1VlDEAnk0VnwDyuZrNq-3iRvRhZrowFpJU0KlgxHXL7Kx7-6sEZwGnwcz6ZyuIbF9eM64OB93cVEBDaHLKWvkoO06lY8LPPf8HIII2NKFsLQfltKpmsmWC65yiHLVTu3VkTJf2fd5EgmSN2HVILkfUgnSN-HDIQSysSxv4YyCEXmnlIq76-DIGMO8QesjLgpbG8lvPTDUJ2vwxJ5yvi3PNuRxp-qyY8MHELHIjKebiz2HJ-v3o8P4fA4u7H5tb85At_bVyx-z4dweOpcP4YbTIvP3FPn65fDD7f4_2k1_hTH2JrKeP6f-zmPpDVf_0SY2DE3v8s_",
+ "perTarget": []
+}

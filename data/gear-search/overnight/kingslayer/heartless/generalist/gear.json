@@ -1,0 +1,123 @@
+{
+ "profile": "generalist: rotation",
+ "targets": [
+  "Heartless"
+ ],
+ "rules": {
+  "screenN": 120,
+  "confirmN": 800,
+  "timeS": 300,
+  "locked": [
+   "offhand"
+  ],
+  "penalty": 0.03,
+  "topStats": [
+   "vit",
+   "dex",
+   "str"
+  ]
+ },
+ "start": "http://localhost:5173/#b=cfZPNbpwwFIVfZeRNNkeVr__As0yWVRdZI4Qs8AAKwyDMRInavntlA-lEbWbjxfV3z7k-tgsB9r0f2zC4dz8zkOQocg6CtdAaloNKFAWHJCEIBoXSmUFcyhIFQXOTg6MgqTOKJQGdZ6m0QxJCcG5XKqM8CrKwuIWBvfYLQyEixmYfLte59gzs7N6qbmIoVNo590vfuqW_jAxs6t5DX7uhmn1zrX3DUFBZRk6ByBpYFEpagc9Lcp0vw0C3-pvzZRgkA5vd2PqmatzZtf7DPe4qBtZNVev60TfV5OeqS5PL1VlDEAnk0VnwDyuZrNq-3iRvRhZrowFpJU0KlgxHXL7Kx7-6sEZwGnwcz6ZyuIbF9eM64OB93cVEBDaHLKWvkoO06lY8LPPf8HIII2NKFsLQfltKpmsmWC65yiHLVTu3VkTJf2fd5EgmSN2HVILkfUgnSN-HDIQSysSxv4YyCEXmnlIq76-DIGMO8QesjLgpbG8lvPTDUJ2vwxJ5yvi3PNuRxp-qyY8MHELHIjKebiz2HJ-v3o8P4fA4u7H5tb85At_bVyx-z4dweOpcP4YbTIvP3FPn65fDD7f4_2k1_hTH2JrKeP6f-zmPpDVf_0SY2DE3v8s_",
+ "steps": [
+  {
+   "move": "Lower Headgear: Flaming Weaver +6",
+   "before": {
+    "win": 0.9875,
+    "loss": 0.01125,
+    "dps": 26238.273756079885,
+    "ttk": 18.32206161589887,
+    "value": 1.6776991063411981,
+    "deaths": "Knuckle Arrow x5, Heartless: attack x4"
+   },
+   "after": {
+    "win": 0.99375,
+    "loss": 0.00625,
+    "dps": 28424.643327035952,
+    "ttk": 17.390553590552386,
+    "value": 1.6882446499055392,
+    "deaths": "Knuckle Arrow x3, Heartless: attack x2"
+   },
+   "tried": 45
+  },
+  {
+   "move": "Lower Headgear: Gioia Card x2",
+   "before": {
+    "win": 0.99875,
+    "loss": 0.00125,
+    "dps": 28257.883529791132,
+    "ttk": 17.38508930708796,
+    "value": 1.692243252946867,
+    "deaths": "Knuckle Arrow x1"
+   },
+   "after": {
+    "win": 0.99625,
+    "loss": 0.00375,
+    "dps": 29553.28403702488,
+    "ttk": 17.361089307087962,
+    "value": 1.7084242605553732,
+    "deaths": "Knuckle Arrow x3"
+   },
+   "tried": 151
+  },
+  {
+   "move": "Garment: Dark Illusion Card x2",
+   "before": {
+    "win": 0.99,
+    "loss": 0.01,
+    "dps": 29635.726263701912,
+    "ttk": 17.36554465354398,
+    "value": 1.7015358939555285,
+    "deaths": "Knuckle Arrow x5, Heartless: attack x2"
+   },
+   "after": {
+    "win": 0.9925,
+    "loss": 0.0075,
+    "dps": 31639.84903365304,
+    "ttk": 17.34407143307115,
+    "value": 1.7348477355047958,
+    "deaths": "Knuckle Arrow x5, Heartless: attack x1"
+   },
+   "tried": 230
+  },
+  {
+   "move": "rotation: preGambit = false",
+   "before": {
+    "win": 0.9975,
+    "loss": 0.0025,
+    "dps": 31673.14719644149,
+    "ttk": 17.34707143307115,
+    "value": 1.7418472079466223,
+    "deaths": "Knuckle Arrow x2"
+   },
+   "after": {
+    "win": 0.9975,
+    "loss": 0.0025,
+    "dps": 32811.72146286788,
+    "ttk": 17.54960714960672,
+    "value": 1.7589258219430182,
+    "deaths": "Heartless: attack x1, Knuckle Arrow x1"
+   },
+   "tried": 24
+  }
+ ],
+ "final": {
+  "win": 0.995,
+  "loss": 0.005,
+  "dps": 32622.582033898027,
+  "ttk": 17.54960714960672,
+  "value": 1.75283873050847,
+  "deaths": "Knuckle Arrow x5, Heartless: attack x2"
+ },
+ "options": {
+  "fortress": 3,
+  "queensBrand": false,
+  "heal": false,
+  "retributionAt": 1,
+  "rogueFillers": false,
+  "autoAttack": false,
+  "windSlash": true,
+  "preGambit": false
+ },
+ "link": "http://localhost:5173/#b=cfZM_b9swEMW_isEly0PB4z-JHpux6NCZEARCoi0hsiyIctCg7XcvSFmJjTZeOBx_d-_47ugE2Ld-PMbBv4WZgSSHKzkI1kJrWA6q4ByHJCEIBk7pwiAdVQVH0NyU4HAkdUEpJKCtMPcknGNx8QsDe-0XBkdVlVgJITi3a35B5b-gSBibQzxf5iYwsJP_WXcTg1P55tQv_dEv_XlkYFP3FvvGD_Uc2ksT2g8hBSJrYOGUtAL3R1adz8NAt_WvyudhkAxs9uMxtHXrT_4Y3tXTrWJg3VQffT-Gtp7CXHe5c7kqawgigTIpC_4uJbPUsW-uJW9aFmuiAWklVyPJWKTjM3_Cq4-rBYchpPZsDsdLXHw_rg0OITRdckTgqlBk91VWkFbdFo_L_GFeCWFkcslCGNqmpWReAILlkqsSslprl9aKVPLToZPMkHoMqQzJx5DOkH4MGQgllEltfw4VEIrMo0o5vG0HQSYf0t9YGXETuO5KfOmHoT5dhiXxVPAvZbEhbTjUUxgZOIROQRQ8Tyzl7H9cQhif4u7r7Mf297ZzBL6lr1j6uE9x99z5fow3mBb33HMXmpfdd7-E_9VqwyG1cU2q0vt_be_ck9Z8_RNxYvvS_Kn-Ag",
+ "perTarget": []
+}

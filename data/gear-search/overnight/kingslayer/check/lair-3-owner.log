@@ -1,0 +1,12 @@
+node --experimental-strip-types --no-warnings --import ./register.mjs tools/variants.ts --profile F:\RTMR_Project\data\gear-search\overnight\kingslayer\lair\owner\gear.profile.json --vs Angel of Genesis,Demon of Apocalypse,Heartless,Heart of the Serpent --iter 2000 --policy priority --time 300 --json F:\RTMR_Project\data\gear-search\overnight\kingslayer\check\lair-3-owner.json
+
+as is: HP 25,969, SP 2,076 (regen 85), INT 42, pen 43, Auto Guard 1
+
+monster                            as is
+Angel of Genesis                100% 10s
+Demon of Apocalypse              100% 9s
+Heartless                        97% 17s
+Heart of the Serpent             100% 9s
+mean win rate                        99%
+  as is / Heartless: killed by Knuckle Arrow x26, Heartless: attack x25
+  as is / Heart of the Serpent: killed by Angel of Genesis: Grand Cross x3

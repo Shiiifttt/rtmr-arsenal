@@ -612,7 +612,11 @@ test('the pull says what went up: the endow and the Focus', async () => {
   const f = await fighter();
   const fight = newFight(f, buildMonster(findMobs('Tortured Maiden')[0]), satsujin, priorityPolicy,
     { seed: 1, limitMs: 1_000, log: true });
-  assert.match(fight.log![0], /before the pull: Moonlight Stance, Seven Winds: Holy \(110% vs Ghost 4\), 10 Focus/);
+  // A [PREFIGHT] block, one line each, so no line is wider than the fight's.
+  assert.equal(fight.log![0], '[PREFIGHT]');
+  assert.equal(fight.log![1], '  Moonlight Stance');
+  assert.match(fight.log![2], /^ {2}Seven Winds: Holy \(110% vs Ghost 4\)$/);
+  assert.match(fight.log![3], /^ {2}10 Focus/);
 });
 
 test('armor cards set the element and immunities the fight reads (Scylla Card)', async () => {
