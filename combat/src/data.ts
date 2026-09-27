@@ -204,6 +204,12 @@ export const MOB_GROUPS: Record<string, string[]> = {
   valhalla: ['val_dun01', 'val_dun02'],
 };
 
+/**
+ * Monsters on those maps that do not (no boss-protocol icon in game): the
+ * project owner, 2026-09-27.
+ */
+export const NOT_BOSS_PROTOCOL = ['Heartless'];
+
 /** Maps whose monsters run the boss protocol (the project owner, 2026-09-26). */
 export const BOSS_PROTOCOL_MAPS = [...MOB_GROUPS.rachel_ss, ...MOB_GROUPS.jorm];
 

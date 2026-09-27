@@ -13,7 +13,7 @@
  */
 import { resolve } from 'node:path';
 
-import { BOSS_PROTOCOL_MAPS, COMBAT_DATA, readJSON, type MobRow } from './data.ts';
+import { BOSS_PROTOCOL_MAPS, COMBAT_DATA, NOT_BOSS_PROTOCOL, readJSON, type MobRow } from './data.ts';
 import { mobSoftDef, mobSoftMdef, TUNE } from './formulas.ts';
 import type { MobSkill, Monster, SelfBuff, Stats, StatusEffect } from './model.ts';
 
@@ -246,7 +246,7 @@ const IGNORES: Record<string, NonNullable<Monster['ignores']>[number]> = {
 export function buildMonster(row: MobRow): Monster {
   const notes: string[] = [];
   const srv = serverMobFor(row);
-  const bossProtocol = row.maps.some((c) => BOSS_PROTOCOL_MAPS.includes(c));
+  const bossProtocol = row.maps.some((c) => BOSS_PROTOCOL_MAPS.includes(c)) && !NOT_BOSS_PROTOCOL.includes(row.name);
   const stats = row.stats;
   const matk = srv?.attack2 ?? row.atk;
   const skills = (srv?.skills ?? []).map((r) => resolveSkill(r, { name: row.name, stats, level: row.level, matk }));

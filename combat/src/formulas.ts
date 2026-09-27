@@ -270,13 +270,21 @@ export interface PhysicalHit {
   normal?: boolean;
 }
 
+/**
+ * A boss to gear ("DMG vs boss", "Resistance vs non-boss"): an MVP -- and,
+ * with PROTOCOL_BOSS=1 in the environment, a boss-protocol monster too
+ * (Jormungandr's Lair, Rachel SS: the small icon). Which is right in game is
+ * open (the project owner, 2026-09-27); the switch lets a search try both.
+ */
+export const countsAsBoss = (m: Monster) => m.boss || (process.env.PROTOCOL_BOSS === '1' && !!m.bossProtocol);
+
 /** The target-type multiplier cards and gear give: race x element x size x boss, multiplied (user, 2026-09-25). */
 export function physicalCardFix(f: Fighter, m: Monster): number {
   const d = f.dmg;
   const race = 1 + ((d[`dmg_vs_race_${raceKey(m.race)}`] ?? 0) + (d.dmg_vs_race_all_races ?? 0)) / 100;
   const ele = 1 + (d[`dmg_vs_${m.element.toLowerCase()}`] ?? 0) / 100;
   const size = 1 + ((d[`dmg_vs_size_${m.size.toLowerCase()}`] ?? 0) + (d.dmg_vs_size_all_sizes ?? 0)) / 100;
-  const boss = 1 + (d[m.boss ? 'dmg_vs_race_boss' : 'dmg_vs_race_non_boss'] ?? 0) / 100;
+  const boss = 1 + (d[countsAsBoss(m) ? 'dmg_vs_race_boss' : 'dmg_vs_race_non_boss'] ?? 0) / 100;
   return race * ele * size * boss;
 }
 
@@ -285,7 +293,7 @@ export function magicCardFix(f: Fighter, m: Monster, element: string): number {
   const race = 1 + ((d[`magic_vs_race_${raceKey(m.race)}`] ?? 0) + (d.magic_vs_race_all_races ?? 0)) / 100;
   const ele = 1 + (d[`magic_dmg_${element.toLowerCase()}`] ?? 0) / 100;
   const size = 1 + ((d[`magic_vs_size_${m.size.toLowerCase()}`] ?? 0) + (d.magic_vs_size_all_sizes ?? 0)) / 100;
-  const boss = 1 + (d[m.boss ? 'magic_vs_race_boss' : 'magic_vs_race_non_boss'] ?? 0) / 100;
+  const boss = 1 + (d[countsAsBoss(m) ? 'magic_vs_race_boss' : 'magic_vs_race_non_boss'] ?? 0) / 100;
   const all = 1 + (d.magic_damage ?? 0) / 100;
   return race * ele * size * boss * all;
 }
@@ -419,7 +427,7 @@ export function resistFix(
   let mult = cut(r[`res_${element.toLowerCase()}`] ?? 0)
     * cut((r[`res_race_${raceKey(m.race)}`] ?? 0) + (r.res_race_all_races ?? 0))
     * cut((r[`def_vs_size_${m.size.toLowerCase()}`] ?? 0) + (r.def_vs_size_all_sizes ?? 0))
-    * cut(r[m.boss ? 'res_race_boss' : 'res_race_non_boss'] ?? 0)
+    * cut(r[countsAsBoss(m) ? 'res_race_boss' : 'res_race_non_boss'] ?? 0)
     * cut(r.damage_reduction ?? 0);
   if (kind === 'physical') {
     mult *= cut(r[ranged ? 'res_ranged' : 'res_melee'] ?? 0);
