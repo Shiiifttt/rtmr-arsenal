@@ -108,15 +108,17 @@ function onHurt(fight: Fight, hit: { physical: boolean }) {
 
 /**
  * Bulwark Gem of the Weak: "1% chance to Autocast Shield Boomerang and
- * King's Chains when hit" -- both, free, the chain lifted by the combo. The
- * chance is read from the gear's text; a rollout (expected-value mode) skips it.
+ * King's Chains when hit", under "Per Refine:" -- so +1% a refine (the
+ * project owner, 2026-09-27). Both, free, the chain lifted by the combo; a
+ * rollout (expected-value mode) skips it.
  */
 const autocastChance = new WeakMap<Fighter, number>();
 function gemAutocast(fight: Fight) {
   let p = autocastChance.get(fight.f);
   if (p === undefined) {
-    const m = /(\d+(?:\.\d+)?)%\s+chance\s+to\s+Autocast\s+Shield\s+Boomerang\s+and\s+King's\s+Chains\s+when\s+hit/i.exec(fight.f.gearText ?? '');
-    autocastChance.set(fight.f, p = m ? Number(m[1]) / 100 : 0);
+    // character.ts reads it off the gear, per refine where the text says so.
+    const hits = (fight.f.autocastWhenHit ?? []).filter((a) => a.skills.includes('Shield Boomerang') && a.skills.includes("King's Chains"));
+    autocastChance.set(fight.f, p = Math.min(1, hits.reduce((n, a) => n + a.chance, 0)));
   }
   if (!p || fight.rng.expect || !hasShield(fight) || !fight.rng.chance(p)) return;
   fight.log && say(fight, "Bulwark Gem autocasts Shield Boomerang and King's Chains");

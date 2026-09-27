@@ -59,6 +59,7 @@ import {
 } from '../../sim/src/index.ts';
 import { encodeBuild } from '../../web/src/share.ts';
 
+process.on('unhandledRejection', (e) => { console.error('unhandled:', e); process.exit(1); });
 const argv = process.argv.slice(2);
 const one = (k: string) => { const i = argv.indexOf(`--${k}`); return i >= 0 ? argv[i + 1] : undefined; };
 const flag = (k: string) => argv.includes(`--${k}`);
@@ -484,7 +485,8 @@ class Pool {
         this.idle.push(w);
         this.pump();
       });
-      w.on('error', (e) => { console.error(e); process.exit(1); });
+      w.on('error', (e) => { console.error('worker error:', e); process.exit(1); });
+      w.on('exit', (code) => { if (code !== 0 && !this.closing) { console.error(`worker exited with ${code}`); process.exit(1); } });
       this.idle.push(w);
     }
   }
@@ -498,7 +500,8 @@ class Pool {
       w.postMessage(job);
     }
   }
-  close() { for (const w of this.idle) void w.terminate(); }
+  private closing = false;
+  close() { this.closing = true; for (const w of this.idle) void w.terminate(); }
 }
 
 // ---- the search -----------------------------------------------------------------
@@ -750,7 +753,14 @@ if (out) {
 
 if (!isMainThread) {
   parentPort!.on('message', async (job: Job) => {
-    parentPort!.postMessage({ id: job.id, score: job.estimate ? await estimate(job.state) : await fight(job.state, job.n, job.seed) });
+    try {
+      parentPort!.postMessage({ id: job.id, score: job.estimate ? await estimate(job.state) : await fight(job.state, job.n, job.seed) });
+    } catch (e) {
+      // Say which build broke, rather than dying quietly.
+      console.error(`worker failed on a batch (${job.n} fights): ${(e as Error)?.stack ?? e}
+${JSON.stringify(job.state).slice(0, 2000)}`);
+      process.exit(1);
+    }
   });
 } else {
   await main();

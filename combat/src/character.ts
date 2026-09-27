@@ -259,6 +259,7 @@ export async function buildFighter(profile: Profile, opts: FighterOptions): Prom
     }, 0),
     doubleAttack: flat('double_attack'),
     statusRes,
+    autocastWhenHit: autocastsWhenHit(build, data),
     healReceived: either('healing_received'),
     healPower: either('healing_power'),
     reflectReduce: either('ignores_reflect') > 0 ? 100 : reflectReduceFromText(build, data),
@@ -337,6 +338,32 @@ function gearExtras(build: Build, data: Dataset, totals: Totals): {
   }
   if (Object.keys(grants).length) notes.push(`skills from gear: ${Object.entries(grants).map(([n, l]) => `${n} ${l}`).join(', ')}`);
   return { grants, ranged, skillDamage, notes };
+}
+
+/**
+ * Autocasts on being hit, from each worn item's text: "1% chance to
+ * Autocast Shield Boomerang and King's Chains when hit". Under a "Per
+ * Refine:" heading (up to the next blank line) the chance is per refine of
+ * that piece (the project owner, 2026-09-27: Bulwark Gem of the Weak).
+ */
+function autocastsWhenHit(build: Build, data: Dataset): { skills: string[]; chance: number }[] {
+  const out: { skills: string[]; chance: number }[] = [];
+  for (const st of Object.values(build.slots)) {
+    for (const id of [st?.itemId, ...(st?.cards ?? [])]) {
+      const d = id ? data.items.get(id)?.description ?? '' : '';
+      if (!/autocast/i.test(d)) continue;
+      for (const block of d.split(/\n\s*\n/)) {
+        const perRefine = /^\s*Per Refine/i.test(block);
+        const re = /(\d+(?:\.\d+)?)%\s+chance\s+to\s+Autocast\s+(.+?)\s+when\s+hit/gis;
+        for (const m of block.matchAll(re)) {
+          const skills = m[2].replace(/\s+/g, ' ').split(/\s+and\s+|,\s*/).map((x) => x.trim()).filter(Boolean);
+          const chance = (Number(m[1]) / 100) * (perRefine && id === st?.itemId ? st!.refine ?? 0 : 1);
+          if (chance > 0) out.push({ skills, chance });
+        }
+      }
+    }
+  }
+  return out;
 }
 
 /**

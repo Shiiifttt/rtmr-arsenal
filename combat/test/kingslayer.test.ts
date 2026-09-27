@@ -187,3 +187,19 @@ test('Grand Cross misses from the diagonal; Jormungandr\'s long casts are line-o
   run(b);
   assert.match(b.log!.join('\n'), /avoids Swhoo \((line of sight|Hiding)\)/);
 });
+
+test("Bulwark Gem of the Weak: its autocast is 1% a refine (under 'Per Refine:')", async () => {
+  const { readJSON, REPO } = await import('../src/data.ts');
+  const p = readJSON<Profile>(`${REPO}/combat/profiles/kingslayer-heartless-v4.json`);
+  const { plannerDataset } = await import('../src/data.ts');
+  const { resolveBuild } = await import('../src/character.ts');
+  const build = await resolveBuild(p.build, plannerDataset());
+  for (const refine of [3, 6]) {
+    const b = structuredClone(build);
+    b.slots.gem = { ...b.slots.gem!, refine };
+    const f = await buildFighter({ ...p, build: b }, { passives, aliases: {}, maxLevels: maxLevels() });
+    const a = f.autocastWhenHit?.find((x) => x.skills.includes("King's Chains"));
+    assert.ok(a && Math.abs(a.chance - refine / 100) < 1e-9, `+${refine}: ${a?.chance}`);
+    assert.deepEqual(a!.skills, ['Shield Boomerang', "King's Chains"]);
+  }
+});

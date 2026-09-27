@@ -45,6 +45,12 @@ export interface Fighter {
    * potions -- the server heals items by a separate rate.
    */
   healReceived?: number;
+  /**
+   * "N% chance to Autocast A and B when hit", from worn gear: the chance a
+   * hit taken casts them (0..1), a "Per Refine:" line already times the
+   * piece's refine (Bulwark Gem of the Weak +3: 3%).
+   */
+  autocastWhenHit?: { skills: string[]; chance: number }[];
   /** Healing power, percent: what your own Heal casts get (Lone Singer set +10). */
   healPower?: number;
   /** Flat ATK from gear other than the weapons' own ATK columns. */
