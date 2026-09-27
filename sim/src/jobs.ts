@@ -83,6 +83,8 @@ export function canEquip(
   if (item.kind === 'Card') return true;
   if (!canUse(jobLimitOf(item, rules), className)) return false;
   if (!className) return true;
+  if (slotKey === 'offhand' && !dualWields(className, rules)
+    && (item.equip_slots ?? []).includes('Weapon')) return false;
 
   const rule = rules?.classes?.[className];
   if (!rule) return true;
@@ -91,6 +93,22 @@ export function canEquip(
   if (!allowed) return true;
   // A rule that names types cannot judge an item that has none.
   return item.type ? allowed.includes(item.type) : true;
+}
+
+/**
+ * Can this class hold a weapon in the left hand?
+ *
+ * Only a class that learns Left Hand Mastery (or the Legend's Advanced
+ * Lefthand Mastery) can dual wield; the skill says so ("Skill is required to
+ * dual wield"). Everyone else's off hand takes shields and off-hand-only
+ * pieces -- Offhand Daggers, Armguards -- which are filed "Off-hand", not
+ * "Weapon". A two-handed weapon fills both hands from the weapon slot and
+ * never comes here. A class whose skills are not known keeps its off hand.
+ */
+export function dualWields(className: string, rules?: ClassRules | null): boolean {
+  const skills = rules?.skills?.[className];
+  if (!skills) return true;
+  return Object.keys(skills).some((name) => /^(advanced )?left ?hand mastery$/i.test(name));
 }
 
 /**

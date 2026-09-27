@@ -129,6 +129,8 @@ export interface Item {
    */
   enchant: { system: string; refining: boolean; text: string } | null;
   lore: string | null;
+  /** The item's page on the database site the crawl read. */
+  source_url?: string | null;
   /**
    * Present when this item's numbers were corrected by hand in
    * crawler/overrides.json rather than read straight from the tooltip.

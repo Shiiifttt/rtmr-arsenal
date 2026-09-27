@@ -93,7 +93,8 @@ export function SourcesPanel({ dataset, slot, state, onClose }: {
   );
 }
 
-function Source({ item, role, mobs, dim, note }: {
+/** One item's sources. Also the codex's "Where it comes from". */
+export function Source({ item, role, mobs, dim, note }: {
   item: Item;
   role: string;
   mobs: Map<number, MobInfo> | null;

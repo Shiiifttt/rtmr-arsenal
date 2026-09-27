@@ -10,6 +10,7 @@ import { decodeBuild, payloadIn, shareUrl } from './share';
 import { BuildsPanel } from './components/BuildsPanel';
 import { SlotGrid } from './components/SlotGrid';
 import { ItemPicker } from './components/ItemPicker';
+import { ItemCodex } from './components/ItemCodex';
 import { BaseStatsPanel } from './components/BaseStatsPanel';
 import { SetsPanel, StatsPanel, UncountedPanel } from './components/StatsPanel';
 import { ImportPanel } from './components/ImportPanel';
@@ -58,6 +59,9 @@ export default function App() {
   const [importing, setImporting] = useState(false);
   const [builds, setBuilds] = useState(false);
   const [fighting, setFighting] = useState(false);
+  const [codex, setCodex] = useState(false);
+  /** The item the codex last showed, so reopening it lands there again. */
+  const [codexItem, setCodexItem] = useState<number | null>(null);
   /** Open the Builds panel with the share link already made. */
   const [wantLink, setWantLink] = useState(false);
   /** Brief acknowledgement on the toolbar's Share button. */
@@ -226,25 +230,29 @@ export default function App() {
   const applyMoves = (moves: Move[]) => setBuild((b) =>
     moves.reduce((acc, m) => applyChanges(acc, m.changes, dataset), b));
 
+  // Swapping the item keeps the refine, cards and rolls already set --
+  // trying a different piece while planning is a comparison, not a fresh
+  // start. Anything the new item cannot take is dropped by carryInto;
+  // clearing the slot is how you start over. A headgear worn in two
+  // positions empties the other; a piece put where one was takes it off.
+  const equip = (slot: SlotDef, item: Item) => {
+    const next = carryInto(build.slots[slot.key], item, slot, dataset);
+    setBuild((b) => ({
+      ...b, slots: settleHeadgear({ ...b.slots, [slot.key]: next }, slot.key, dataset),
+    }));
+  };
+
+  const socketCard = (slot: SlotDef, socket: number, card: Item) => {
+    const cards = [...build.slots[slot.key].cards];
+    cards[socket] = card.id;
+    setSlot(slot.key, { cards });
+  };
+
   const onPick = (item: Item) => {
     if (!picking) return;
     const { slot, socket } = picking;
-    if (socket === null) {
-      // Swapping the item keeps the refine, cards and rolls already set --
-      // trying a different piece while planning is a comparison, not a
-      // fresh start. Anything the new item cannot take is dropped by
-      // carryInto; clearing the slot is how you start over.
-      // A headgear worn in two positions empties the other; a piece put
-      // where one was takes it off.
-      const next = carryInto(build.slots[slot.key], item, slot, dataset);
-      setBuild((b) => ({
-        ...b, slots: settleHeadgear({ ...b.slots, [slot.key]: next }, slot.key, dataset),
-      }));
-    } else {
-      const cards = [...build.slots[slot.key].cards];
-      cards[socket] = item.id;
-      setSlot(slot.key, { cards });
-    }
+    if (socket === null) equip(slot, item);
+    else socketCard(slot, socket, item);
     setPicking(null);
   };
 
@@ -280,6 +288,10 @@ export default function App() {
             Simulate
           </button>
         )}
+        <button onClick={() => setCodex(true)}
+          title="Look up any item in the game: equipment, cards, materials, costumes">
+          Codex
+        </button>
         <button onClick={() => setBuilds(true)}>
           Builds
         </button>
@@ -440,6 +452,18 @@ export default function App() {
         <Suspense fallback={null}>
           <CombatPanel build={build} onClose={() => setFighting(false)} />
         </Suspense>
+      )}
+
+      {codex && (
+        <ItemCodex
+          dataset={dataset}
+          build={build}
+          initial={codexItem}
+          onSelect={setCodexItem}
+          onEquip={equip}
+          onSocket={socketCard}
+          onClose={() => setCodex(false)}
+        />
       )}
 
       {importing && (

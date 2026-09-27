@@ -140,3 +140,26 @@ test('the slot being filled decides which list applies: a weapon in the off hand
   // A class with no rule for the slot keeps the sentence alone.
   assert.equal(canEquip(SWORD, 'Rogue', RULES, 'offhand'), true);
 });
+
+test('only a class with Left Hand Mastery holds a weapon in the off hand', () => {
+  const OFFHAND_DAGGER = item(12, 'Main Gauche', 'Offhand Dagger', ['Off-hand'], null);
+  const rules: ClassRules = {
+    classes: {},
+    items: {},
+    skills: {
+      Assassin: { 'Left Hand Mastery': 5, 'Katar Mastery': 10 },
+      Legend: { 'Advanced Lefthand Mastery': 5 },
+      Kingslayer: { 'Bash': 10 },
+    },
+  };
+  assert.equal(canEquip(SWORD, 'Assassin', rules, 'offhand'), true);
+  assert.equal(canEquip(SWORD, 'Legend', rules, 'offhand'), true);
+  assert.equal(canEquip(SWORD, 'Kingslayer', rules, 'offhand'), false);
+  // The same weapon in the main hand, shields and off-hand-only pieces are
+  // not dual wielding.
+  assert.equal(canEquip(SWORD, 'Kingslayer', rules, 'weapon'), true);
+  assert.equal(canEquip(HEAVY, 'Kingslayer', rules, 'offhand'), true);
+  assert.equal(canEquip(OFFHAND_DAGGER, 'Kingslayer', rules, 'offhand'), true);
+  // A class whose skills are not known keeps its off hand.
+  assert.equal(canEquip(SWORD, 'Rogue', rules, 'offhand'), true);
+});
