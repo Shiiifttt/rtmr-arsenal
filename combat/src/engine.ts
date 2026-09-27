@@ -227,7 +227,7 @@ export function newFight(
   };
   kit.prep(fight);
   const setup = kit.prepNotes?.(fight) ?? [];
-  if (setup.length) say(fight, `before the pull: ${setup.join(', ')}`);
+  if (setup.length) fight.log && say(fight, `before the pull: ${setup.join(', ')}`);
   // The pull: the monster swings once it closes in. A training dummy never does.
   fight.mob.nextAttackAt = Number.isFinite(m.adelay) ? Math.min(m.adelay, 500) : Infinity;
   return fight;
@@ -289,7 +289,7 @@ function start(fight: Fight, a: Action) {
   if (cast > 0) {
     fight.me.cast = { action: a.id, endsAt: fight.t + cast, interruptible: a.interruptible ?? true };
     fight.me.busyUntil = fight.t + cast;
-    say(fight, `casts ${a.id} (${(cast / 1000).toFixed(2)}s)`);
+    fight.log && say(fight, `casts ${a.id} (${(cast / 1000).toFixed(2)}s)`);
     // A cast bar on it is an event the monster may answer (casttargeted).
     if (a.offensive) mobEvent(fight, { m: fight.m, st: fight.mob, add: false }, 'casttargeted');
   } else {
@@ -322,7 +322,7 @@ function complete(fight: Fight, a: Action) {
     meter.sequence.push(a.id);
   }
   // Attacks log their damage; a buff or a move says it happened.
-  if (!a.offensive && !a.reactive) say(fight, `uses ${a.id}`);
+  if (!a.offensive && !a.reactive) fight.log && say(fight, `uses ${a.id}`);
   a.resolve(fight);
 }
 
@@ -452,7 +452,7 @@ export function strike(fight: Fight, id: string, s: Strike): number {
   }
   if (fight.log) {
     const shield = guard.mult === 0 ? ' (blocked)' : '';
-    say(fight, `${id} → ${strikeText(total, s.hits, rolls, crits, misses, !!s.split)}${shield}`);
+    fight.log && say(fight, `${id} → ${strikeText(total, s.hits, rolls, crits, misses, !!s.split)}${shield}`);
   }
   hurtMob(fight, total);
   if (reflected > 0 && !fight.result) {
@@ -464,7 +464,7 @@ export function strike(fight: Fight, id: string, s: Strike): number {
   if (total > 0 && !fight.result) {
     const cast = fight.mob.cast;
     if (cast?.skill.ai.cancelable && !rng.expect) {
-      say(fight, `${m.name}'s ${cast.skill.name} is interrupted`);
+      fight.log && say(fight, `${m.name}'s ${cast.skill.name} is interrupted`);
       fight.mob.cast = null;
       fight.mob.nextAttackAt = fight.t + 250;
     }
@@ -511,7 +511,7 @@ export function hurtMob(fight: Fight, dmg: number) {
   fight.mob.hp -= dmg;
   if (fight.mob.hp <= 0 && !fight.result) {
     fight.result = 'win';
-    say(fight, `${fight.m.name} dies`);
+    fight.log && say(fight, `${fight.m.name} dies`);
   }
 }
 
@@ -547,7 +547,7 @@ function hurtMe(fight: Fight, dmg: number, source: string, lethal = true): numbe
     row.hits++; row.damage += dmg;
     fight.meter.minHp = Math.min(fight.meter.minHp, me.hp);
   }
-  if (dmg > 0) say(fight, `takes ${fmt(dmg)} from ${source}`);
+  if (dmg > 0) fight.log && say(fight, `takes ${fmt(dmg)} from ${source}`);
   // Stone and freeze break on any damage: you are free to act again.
   if (dmg > 0 && (has(fight, 'stoned') || has(fight, 'frozen'))) {
     drop(fight, 'stoned'); drop(fight, 'frozen');
@@ -558,14 +558,14 @@ function hurtMe(fight: Fight, dmg: number, source: string, lethal = true): numbe
     say(fight, 'the hit breaks the stone / freeze');
   }
   if (dmg > 0 && me.cast?.interruptible && !fight.f.endure && !has(fight, 'endure') && !fight.rng.expect) {
-    say(fight, `${me.cast.action} interrupted`);
+    fight.log && say(fight, `${me.cast.action} interrupted`);
     me.cast = null;
     me.busyUntil = fight.t;
   }
   if (me.hp <= 0 && !fight.result) {
     fight.result = 'loss';
     fight.cause = source;
-    say(fight, `dies to ${source}`);
+    fight.log && say(fight, `dies to ${source}`);
   }
   return dmg;
 }
@@ -574,12 +574,12 @@ function hurtMe(fight: Fight, dmg: number, source: string, lethal = true): numbe
 function drained(fight: Fight, a: Actor, s: MobSkill, dmg: number) {
   if (!s.drain || dmg <= 0) return;
   a.st.hp = Math.min(a.m.hp, a.st.hp + dmg);
-  say(fight, `${a.m.name} drains ${fmt(dmg)} HP`);
+  fight.log && say(fight, `${a.m.name} drains ${fmt(dmg)} HP`);
 }
 
 function avoided(fight: Fight, source: string, how: string) {
   if (fight.meter) (fight.meter.taken[source] ??= { hits: 0, avoided: 0, damage: 0 }).avoided++;
-  say(fight, `avoids ${source} (${how})`);
+  fight.log && say(fight, `avoids ${source} (${how})`);
 }
 
 // ---- the monsters ----------------------------------------------------------
@@ -667,7 +667,7 @@ function mobSkillUse(fight: Fight, a: Actor, now: 'attack' | 'chase', event: str
     a.st.lastSkill = s.skillId;
     a.st.cast = { skill: s, endsAt: fight.t + s.castMs };
     if (s.castMs > 0) {
-      say(fight, `${a.m.name} casts ${s.name}${s.level > 1 ? ` ${s.level}` : ''} (${(s.castMs / 1000).toFixed(1)}s)`);
+      fight.log && say(fight, `${a.m.name} casts ${s.name}${s.level > 1 ? ` ${s.level}` : ''} (${(s.castMs / 1000).toFixed(1)}s)`);
       const plan = fight.kit.react(fight, s, a.m);
       // One dodge in hand at a time: a second cast bar keeps the one that
       // comes due first (a Hiding in time for it usually covers both).
@@ -714,13 +714,13 @@ function mobResolve(fight: Fight, a: Actor) {
   st.cast = null;
   // It acts again 200-300 ms after the cast ends (RTM skill.cpp:12668, AI think grid).
   st.nextAttackAt = fight.t + (fight.rng.expect ? 250 : 200 + Math.floor(fight.rng.next() * 100));
-  if (s.castMs === 0) say(fight, `${m.name} uses ${s.name}${s.level > 1 ? ` ${s.level}` : ''}`);
+  if (s.castMs === 0) fight.log && say(fight, `${m.name} uses ${s.name}${s.level > 1 ? ` ${s.level}` : ''}`);
 
   if (s.skill === 'SC_MANHOLE') {
     // A hole on the ground for 10s (Duration1). Falling in holds you 3s and
     // nothing can hurt you: the player's choice, as a dodge (enterManhole).
     fight.ground.manholeUntil = fight.t + 10_000;
-    say(fight, `${m.name} opens a Manhole`);
+    fight.log && say(fight, `${m.name} opens a Manhole`);
     return;
   }
   switch (s.kind) {
@@ -731,7 +731,7 @@ function mobResolve(fight: Fight, a: Actor) {
       const amt = s.heal?.flat ?? ((s.heal?.pctMaxHp ?? 0) * m.hp) / 100;
       if (amt > 0) {
         st.hp = Math.min(m.hp, st.hp + amt);
-        say(fight, `${m.name} heals ${fmt(amt)}`);
+        fight.log && say(fight, `${m.name} heals ${fmt(amt)}`);
       }
       return;
     }
@@ -762,7 +762,7 @@ function mobResolve(fight: Fight, a: Actor) {
 function selfBuff(fight: Fight, a: Actor, b: SelfBuff) {
   const stacks = b.sc === 'safetywall' || b.sc === 'kyrie' ? Math.max(1, b.value ?? 1) : 1;
   a.st.buffs[b.sc] = { until: fight.t + (b.durationMs || 10_000), stacks, value: b.value };
-  say(fight, `${a.m.name} puts up ${b.sc}`);
+  fight.log && say(fight, `${a.m.name} puts up ${b.sc}`);
 }
 
 function summon(fight: Fight, a: Actor, s: MobSkill) {
@@ -778,7 +778,7 @@ function summon(fight: Fight, a: Actor, s: MobSkill) {
     fight.mob.adds.push(actor);
     // An add's own summons count against its "slavelt" too.
     if (a.add) a.st.adds.push(actor);
-    say(fight, `${a.m.name} summons ${add.name}`);
+    fight.log && say(fight, `${a.m.name} summons ${add.name}`);
   }
 }
 
@@ -798,12 +798,12 @@ function landMobHit(fight: Fight, a: Actor, s: MobSkill, normal: boolean, ch?: C
     // Exorcismus, Storm Gust): out of Hiding and off it before the next wave.
     if (ch && aoe && s.avoid.includes('walk') && ch.every >= TUNE.walkOutMs && !has(fight, 'rooted')) {
       ch.leftBehind = true;
-      say(fight, `steps out of ${s.name} before its next wave`);
+      fight.log && say(fight, `steps out of ${s.name} before its next wave`);
     }
     return avoided(fight, src, 'Hiding');
   }
   // The boss protocol swings at you in Hiding, and the swing breaks it (the project owner).
-  if (normal && has(fight, 'hidden')) { drop(fight, 'hidden'); say(fight, `${m.name}'s swing breaks Hiding`); }
+  if (normal && has(fight, 'hidden')) { drop(fight, 'hidden'); fight.log && say(fight, `${m.name}'s swing breaks Hiding`); }
   if (aoe && (has(fight, 'away') || ch?.leftBehind)) return avoided(fight, src, 'walked out');
   // Behind cover as it landed (Break line of sight).
   // A cast that finds no line to you fails whole: none of its later hits come.
@@ -901,7 +901,7 @@ function afterHit(fight: Fight, a: Actor, s: MobSkill, normal: boolean, took: nu
         const row = (fight.meter.actions['Reflect Shield'] ??= { uses: 0, hits: 0, misses: 0, crits: 0, damage: 0 });
         row.hits++; row.damage += back;
       }
-      say(fight, `Reflect Shield → ${fmt(back)}`);
+      fight.log && say(fight, `Reflect Shield → ${fmt(back)}`);
       hurtMob(fight, back);
     }
   }
@@ -1035,7 +1035,7 @@ function applyStatus(fight: Fight, a: Actor, s: MobSkill, e: StatusEffect) {
       if (sc === 'other') return;
       break;
   }
-  say(fight, `gets ${sc}${ms ? ` for ${(ms / 1000).toFixed(1)}s` : ''} (${s.name})`);
+  fight.log && say(fight, `gets ${sc}${ms ? ` for ${(ms / 1000).toFixed(1)}s` : ''} (${s.name})`);
 }
 
 /** Something ticking on you: damage, or with `heal` a regen (Knight's Regen). */
@@ -1115,7 +1115,7 @@ export function run(fight: Fight): Fight {
     } else {
       // A potion costs no time: drink whatever is wanted, then choose.
       const drink = fight.items.find((x) => canUse(fight, x));
-      if (drink) { say(fight, `drinks ${drink.id}`); complete(fight, drink); continue; }
+      if (drink) { fight.log && say(fight, `drinks ${drink.id}`); complete(fight, drink); continue; }
       if (outOfSp(fight)) {
         fight.result = 'stalemate';
         fight.cause = 'out of SP';
@@ -1162,9 +1162,9 @@ function defend(fight: Fight) {
   if (disabled(fight)) return;
   const a = actionById(fight, plan.action);
   if (readyAt(fight, a.id) > fight.t || a.spCost(fight) > me.sp || !(a.ready?.(fight) ?? true)) return;
-  if (me.cast) { say(fight, `cancels ${me.cast.action}`); me.cast = null; }
+  if (me.cast) { fight.log && say(fight, `cancels ${me.cast.action}`); me.cast = null; }
   if (fight.meter) fight.meter.defenses[a.id] = (fight.meter.defenses[a.id] ?? 0) + 1;
-  say(fight, `${a.id} against ${plan.against}`);
+  fight.log && say(fight, `${a.id} against ${plan.against}`);
   complete(fight, a);
 }
 

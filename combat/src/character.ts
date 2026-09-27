@@ -271,14 +271,22 @@ export async function buildFighter(profile: Profile, opts: FighterOptions): Prom
 }
 
 function skillModLookup(totals: Totals, aliases: Record<string, string[]>, extraDamage: Record<string, number> = {}) {
+  // Asked on every hit: worked out once per skill and metric.
+  const memo = new Map<string, { flat: number; percent: number }>();
   return (skill: string, metric: string) => {
+    const key = `${skill}|${metric}`;
+    let hit = memo.get(key);
+    if (!hit) memo.set(key, hit = look(skill, metric));
+    return hit;
+  };
+  function look(skill: string, metric: string) {
     let f = 0; let p = metric === 'damage' ? extraDamage[skill] ?? 0 : 0;
     for (const name of new Set([skill, ...(aliases[skill] ?? [])])) {
       const t = totals.skills.get(`${name}|${metric}`);
       if (t) { f += t.flat; p += t.percent; }
     }
     return { flat: f, percent: p };
-  };
+  }
 }
 
 /**

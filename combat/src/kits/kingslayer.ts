@@ -157,7 +157,12 @@ const hasShield = (fight: Fight) => !!fight.f.shield;
 const bladeInHand = (fight: Fight) => ['Dagger', 'Sword', 'One-Handed Sword'].includes(fight.f.weapon?.type ?? '');
 const fortressLevel = (fight: Fight) => (has(fight, 'fortress') ? fight.me.buffs.fortress.stacks : 0);
 /** The Bulwark Gem's "Shield Boomerang can combo into King's Chains within 3 s for 50% more damage". */
-const hasComboGem = (f: Fighter) => /Shield Boomerang can combo into King's Chains/i.test(f.gearText ?? '');
+const comboGem = new WeakMap<Fighter, boolean>();
+const hasComboGem = (f: Fighter) => {
+  let v = comboGem.get(f);
+  if (v === undefined) comboGem.set(f, v = /Shield Boomerang can combo into King's Chains/i.test(f.gearText ?? ''));
+  return v;
+};
 
 // ---- attacks -------------------------------------------------------------------------
 

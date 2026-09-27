@@ -276,7 +276,8 @@ export interface PhysicalHit {
  * (Jormungandr's Lair, Rachel SS: the small icon). Which is right in game is
  * open (the project owner, 2026-09-27); the switch lets a search try both.
  */
-export const countsAsBoss = (m: Monster) => m.boss || (process.env.PROTOCOL_BOSS === '1' && !!m.bossProtocol);
+const PROTOCOL_BOSS = process.env.PROTOCOL_BOSS === '1';
+export const countsAsBoss = (m: Monster) => m.boss || (PROTOCOL_BOSS && !!m.bossProtocol);
 
 /** The target-type multiplier cards and gear give: race x element x size x boss, multiplied (user, 2026-09-25). */
 export function physicalCardFix(f: Fighter, m: Monster): number {

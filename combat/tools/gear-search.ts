@@ -9,7 +9,7 @@
  *     [--lock offhand] [--screen 60] [--confirm 400] [--passes 3] [--time 300] \
  *     [--set "shoes=Temporal STR Boots+6; stat.str=99"] [--only garment,upper,stats]
  *     [--exclude "Dark Illusion Card"] [--keep-stats str]
- *     [--healing] [--allow-ss] [--no-race] [--no-stats] [--workers N] [--out data/gear-search/kingslayer-heartless.json]
+ *     [--proxy-test] [--healing] [--allow-ss] [--no-race] [--no-stats] [--workers N] [--out data/gear-search/kingslayer-heartless.json]
  *
  * The rules (the project owner, 2026-09-27):
  *   - Any drop is fine, but an easier piece beats an MVP-only one: an
@@ -49,6 +49,8 @@ import { DEFAULT_CONSUMABLES, loadout } from '../src/items.ts';
 import type { Monster } from '../src/model.ts';
 import { buildMonster } from '../src/monster.ts';
 import { simulate } from '../src/sim.ts';
+import { newFight, run } from '../src/engine.ts';
+import { Rng } from '../src/rng.ts';
 import { priorityPolicy, tasPolicy } from '../src/tas.ts';
 import { kitFor } from '../src/kits/index.ts';
 import {
@@ -172,6 +174,13 @@ const ROLL_PREFERENCE = [
 ];
 const STATS = ['str', 'agi', 'vit', 'int', 'dex', 'luk'] as const;
 const topStats = [...STATS].sort((a, b) => (start.baseStats[b] ?? 0) - (start.baseStats[a] ?? 0)).slice(0, 3);
+/**
+ * The stats a new piece's stat roll is tried on: the three highest, until a
+ * pass's probe (probeRollStat) finds which one point is worth most -- then
+ * that one, which cuts the rolling slots' candidates to a third.
+ * --all-roll-stats keeps all three.
+ */
+let rollStats: string[] = [...topStats];
 
 /** Average rolls for a new piece: one set per variant (stat choice, garment sustain). */
 function rollVariants(item: Item, slotKey: string): { label: string; rolls: Record<string, RollPick> }[] {
@@ -184,7 +193,7 @@ function rollVariants(item: Item, slotKey: string): { label: string; rolls: Reco
     const keys = roll.options.filter((o) => !o.grants.some((g) => g.skill)).map((o) => o.key);
     if (!keys.length) continue;
     let picks: string[];
-    if (topStats.every((s) => keys.includes(s))) picks = [...topStats];
+    if (topStats.every((s) => keys.includes(s))) picks = [...rollStats];
     else if (slotKey === 'armor' && keys.includes('max_hp')) picks = ['max_hp'];
     else if (slotKey === 'garment' && keys.includes('hp_leech') && keys.includes('sp_regen')) picks = ['hp_leech', 'sp_regen'];
     else picks = [ROLL_PREFERENCE.find((k) => keys.includes(k)) ?? keys[0]];
@@ -395,6 +404,31 @@ async function fight(s: State, n: number, seed: number): Promise<Score> {
   return { win, loss, dps, ttk: ttkN ? ttk / ttkN : null, value, deaths: top };
 }
 
+/**
+ * The estimate: one fight per target in expected-value mode (the engine's
+ * rollout mode -- nothing rolled, every chance weighed), scored like
+ * fight(): a win, not losing, DPS, and the lowest HP reached, since an
+ * averaged fight shows risk as a thin margin rather than a loss rate. ~1/60
+ * of a screen's cost; used to pick which candidates are worth fighting.
+ */
+async function estimate(s: State): Promise<Score> {
+  const f = await buildFighter({ ...profile, build: s.build }, { passives: kit.passives, aliases: kit.aliases, maxLevels: kit.maxLevels() });
+  let value = 0; let dps = 0;
+  for (const m of targets) {
+    const fi = newFight(f, m, kit.kit, policy, { seed: 1, limitMs: timeS * 1000, options: s.options,
+      items: loadout({ carried: profile.consumables ?? DEFAULT_CONSUMABLES, healing: flag('healing') || !!profile.healing,
+        boss: m.boss, elixirs: f.kafraElixirs }) });
+    fi.rng = new Rng(0, true);
+    run(fi);
+    const d = (m.hp - Math.max(0, fi.mob.hp)) / Math.max(1, fi.t / 1000);
+    dps += d;
+    value += (fi.result === 'win' ? 1 : 0) + 0.3 * (fi.result === 'loss' ? 0 : 1) + 0.3 * (d / 20_000)
+      + 0.2 * Math.max(0, fi.meter!.minHp) / f.maxHp;
+  }
+  const k = targets.length;
+  return { win: 0, loss: 0, dps: dps / k, ttk: null, value: value / k, deaths: '' };
+}
+
 const pct = (x: number) => `${Math.round(x * 100)}%`;
 const show = (s: Score) => `win ${pct(s.win)} lost ${pct(s.loss)} ${Math.round(s.dps).toLocaleString('en-US')} dps${s.ttk ? ` ${s.ttk.toFixed(0)}s` : ''}`;
 
@@ -405,7 +439,7 @@ const show = (s: Score) => `win ${pct(s.win)} lost ${pct(s.loss)} ${Math.round(s
 // file with the same arguments, so it loads the profile, data and targets
 // itself, then fights whatever states it is sent.
 
-interface Job { id: number; state: State; n: number; seed: number }
+interface Job { id: number; state: State; n: number; seed: number; estimate?: boolean }
 
 
 class Pool {
@@ -426,8 +460,8 @@ class Pool {
       this.idle.push(w);
     }
   }
-  run(state: State, n: number, seed: number): Promise<Score> {
-    return new Promise((done) => { this.queue.push({ job: { id: this.next++, state, n, seed }, done }); this.pump(); });
+  run(state: State, n: number, seed: number, est = false): Promise<Score> {
+    return new Promise((done) => { this.queue.push({ job: { id: this.next++, state, n, seed, estimate: est }, done }); this.pump(); });
   }
   private pump() {
     while (this.idle.length && this.queue.length) {
@@ -456,13 +490,14 @@ async function fingerprint(st: State): Promise<string> {
   return JSON.stringify([rest, skillBonus, /Shield Boomerang can combo into King's Chains/i.test(gearText ?? ''), st.options]);
 }
 let fought = 0; let shared = 0;
+/** n = 0: the estimate (one expected-value fight a target), not a screen. */
 async function fightAll(states: State[], n: number, seed: number): Promise<Score[]> {
   const keys: string[] = [];
-  for (const st of states) keys.push(`${await fingerprint(st)}#${n}#${seed}`);
+  for (const st of states) keys.push(`${await fingerprint(st)}#${n ? `${n}#${seed}` : 'est'}`);
   const todo = new Map<string, State>();
   keys.forEach((k, i) => { if (!cache.has(k) && !todo.has(k)) todo.set(k, states[i]); });
   fought += todo.size; shared += states.length - todo.size;
-  await Promise.all([...todo].map(([k, st]) => pool.run(st, n, seed).then((sc) => { cache.set(k, sc); })));
+  await Promise.all([...todo].map(([k, st]) => pool.run(st, n, seed, n === 0).then((sc) => { cache.set(k, sc); })));
   return states.map((st, i) => { const sc = cache.get(keys[i])!; return { ...sc, value: sc.value - penalty(st.build) }; });
 }
 /**
@@ -492,8 +527,61 @@ if (one('set')) console.log(`from the profile with: ${one('set')}`);
 console.log(`start: ${show(first)}  (${targets.map((m) => m.name).join(', ')}, ${confirmN} fights, ${workers} workers)`);
 const steps: { move: string; before: Score; after: Score; tried: number }[] = [];
 
+/**
+ * Which stat a roll is best spent on: a piece already worn with a stat roll
+ * gets it set to each of the top stats in turn, and the three are fought.
+ */
+async function probeRollStat(): Promise<void> {
+  if (flag('all-roll-stats')) return;
+  for (const [key, st] of Object.entries(state.build.slots)) {
+    const item = st?.itemId ? data.items.get(st.itemId) : null;
+    const table = item ? rollTableFor(data.rolls, key, item) : null;
+    const roll = table?.rolls.find((r) => topStats.every((t) => r.options.some((o) => o.key === t)));
+    if (!roll) continue;
+    const states = topStats.map((t) => apply(state, { label: '', slots: { [key]: { ...st!, rolls: { ...(st!.rolls ?? {}), [roll.key]: { option: t, values: [1] } } } } }));
+    const scores = await fightAll(states, confirmN, 55_555);
+    const best = topStats[scores.map((x) => x.value).indexOf(Math.max(...scores.map((x) => x.value)))];
+    rollStats = [best];
+    console.log(`  (stat rolls on new pieces: ${best.toUpperCase()}, from ${key}: ${topStats.map((t, i) => `${t} ${scores[i].value.toFixed(3)}`).join(', ')})`);
+    return;
+  }
+}
+
+if (flag('proxy-test')) {
+  // How well does the estimate rank candidates? Per group: where the full
+  // screen's best lands in the estimate's order, and how many of the screen's
+  // top 4 fall in the estimate's top 10 / 20 / 40.
+  const groups: [string, Move[]][] = [
+    ['rotation', optionMoves(state.options)], ['stats', statMoves(state.build)], ['sets', setMoves(state.build)],
+    ...SLOTS.flatMap((sl) => [[`${sl.key} piece`, itemMoves(state.build, sl)], [`${sl.key} cards`, cardMoves(state.build, sl)]] as [string, Move[]][]),
+  ];
+  const [base0] = await fightAll([state], screenN, 7);
+  for (const [name, moves] of groups) {
+    if (moves.length < 10) continue;
+    const states = moves.map((m) => apply(state, m));
+    // --proxy-n N: a small real screen as the estimate instead (0: expected-value mode).
+    const est = await fightAll(states, Number(one('proxy-n') ?? 0), 3);
+    const scr = await fightAll(states, screenN, 7);
+    const byEst = moves.map((_, i) => i).sort((a, b) => est[b].value - est[a].value);
+    const byScr = moves.map((_, i) => i).sort((a, b) => scr[b].value - scr[a].value);
+    const rankOf = (i: number) => byEst.indexOf(i) + 1;
+    const top4 = byScr.slice(0, 4);
+    const inTop = (k: number) => top4.filter((i) => rankOf(i) <= k).length;
+    // Regret: the screen's best, less the best the screen gives among the
+    // estimate's top K -- what pruning to K would cost (0.01 is the bar a change clears).
+    const best = scr[byScr[0]].value;
+    const regret = (k: number) => (best - Math.max(...byEst.slice(0, k).map((i) => scr[i].value))).toFixed(3);
+    const k20 = Math.max(24, Math.ceil(moves.length / 5));
+    console.log(`${name.padEnd(18)} ${String(moves.length).padStart(5)}  best #${String(rankOf(byScr[0])).padStart(4)}  gain over current ${(best - (base0?.value ?? 0)).toFixed(3)}`
+      + `   regret@10 ${regret(10)}  @40 ${regret(40)}  @${k20} ${regret(k20)}   top4 in est top40: ${inTop(40)}`);
+  }
+  pool.close();
+  return;
+}
+
 for (let pass = 1; pass <= passes; pass++) {
   let improved = false;
+  await probeRollStat();
   const groups: { name: string; moves: () => Move[] }[] = [
     ...(searching('rotation') ? [{ name: 'rotation', moves: () => optionMoves(state.options) }] : []),
     ...(flag('no-stats') || !searching('stats') ? [] : [{ name: 'stats', moves: () => statMoves(state.build) }]),
@@ -550,7 +638,7 @@ if (out) {
 
 if (!isMainThread) {
   parentPort!.on('message', async (job: Job) => {
-    parentPort!.postMessage({ id: job.id, score: await fight(job.state, job.n, job.seed) });
+    parentPort!.postMessage({ id: job.id, score: job.estimate ? await estimate(job.state) : await fight(job.state, job.n, job.seed) });
   });
 } else {
   await main();
