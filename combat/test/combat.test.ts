@@ -513,25 +513,59 @@ test('the project owner\'s dummy test: right hand only on skills, both on autos'
     satsujin.actions.find((a) => a.id === skill)!.resolve(fight);
     return before - fight.mob.hp;
   };
-  // Everything but the Moon skills lands within 2%.
-  near(onDummy(f, 'Million Stab', { combo: true }) / 10, 3162, 'Million Stab per hit', 0.02);
+  // Refit 2026-09-27 (right hand: status ATK x2, cards whole; ATK% on every
+  // part): the skills within 4% but New Moon (9% under, open).
+  near(onDummy(f, 'Million Stab', { combo: true }) / 10, 3162, 'Million Stab per hit', 0.04);
   // The off-hand dagger off: skills barely move (it only carried a Million Stab bonus).
   const noVorpal = { ...f, offhand: null, skillMods: (s: string, k: string) => (s === 'Million Stab' ? { flat: 0, percent: 0 } : f.skillMods(s, k)) };
-  near(onDummy(noVorpal, 'Million Stab', { combo: true }) / 10, 2356, 'Million Stab per hit, Vorpal off', 0.02);
+  near(onDummy(noVorpal, 'Million Stab', { combo: true }) / 10, 2356, 'Million Stab per hit, Vorpal off', 0.04);
   // Shadow Slash: one roll shown as three.
-  near(onDummy(f, 'Shadow Slash') / 3, 1195, 'Shadow Slash per shown hit', 0.02);
-  near(onDummy(f, 'Shadow Slash', { crit: true }) / 3, 1545, 'Shadow Slash crit per shown hit', 0.02);
-  // Autos: each hand's own ATK, status counted once.
-  const auto = (w: typeof f.weapon, crit: boolean) => physicalDamage({ ...f, weapon: w, offhand: null }, dummyMonster(),
+  near(onDummy(f, 'Shadow Slash') / 3, 1195, 'Shadow Slash per shown hit', 0.03);
+  near(onDummy(f, 'Shadow Slash', { crit: true }) / 3, 1545, 'Shadow Slash crit per shown hit', 0.03);
+  // Autos. The 855 read then as a double attack's two hits is one right-hand
+  // hit (the 2026-09-27 readings show the right hand at ~2.6x the left).
+  const hitOf = (fx: typeof f, crit: boolean) => physicalDamage(fx, dummyMonster(),
     { ratio: 100, element: 'Neutral', statusElement: 'Neutral', ranged: false, crit, skillDamage: 0, normal: true }, new Rng(0, true));
-  near(auto(f.weapon, false), 855 / 2, 'auto, main hand', 0.02);
-  near(auto(f.weapon, true), 1124 / 2, 'auto crit, main hand', 0.02);
-  near(auto(f.offhand, false), 401, 'auto, off hand', 0.02);
-  // The Moon skills read 6-11% under the game: something adds ~10% to them
-  // alone (open question). Held to 12% until it is found.
-  near(onDummy(f, 'New Moon'), 9615, 'New Moon', 0.12);
-  near(onDummy(f, 'Full Moon'), 14776, 'Full Moon', 0.12);
-  near(onDummy(noVorpal, 'Full Moon'), 15043, 'Full Moon, Vorpal off', 0.12);
+  const right = (crit: boolean) => hitOf({ ...f, offhand: null }, crit);
+  near(right(false), 855, 'auto, right hand', 0.04);
+  near(hitOf(f, false) - right(false), 401, 'auto, left hand', 0.05);
+  // These crits disagree with the 2026-09-27 ones (right +8%, left +17% on
+  // LUK/5); the newer readings are the ones the formula follows.
+  near(right(true), 1124, 'auto crit, right hand', 0.09);
+  near(onDummy(f, 'New Moon'), 9615, 'New Moon', 0.10);
+  near(onDummy(f, 'Full Moon'), 14776, 'Full Moon', 0.05);
+  near(onDummy(noVorpal, 'Full Moon'), 15043, 'Full Moon, Vorpal off', 0.06);
+});
+
+test("the project owner's dummy readings of 2026-09-27: race cards whole on the right hand", async () => {
+  // Murder Knife +6 [3x Chocolate Bear] / Laevateinn +9 [Khalitzburg], Ghost,
+  // 10 Focus, Combo Ready. Autos: right 1,401 (crit 2,058) twice, left 530 (726).
+  const { readJSON, REPO } = await import('../src/data.ts');
+  const f = await buildFighter(readJSON(`${REPO}/combat/profiles/satsujin-moon.json`), { passives, aliases: ALIASES, maxLevels: maxLevels() });
+  const near = (got: number, want: number, what: string, tol: number) =>
+    assert.ok(Math.abs(got / want - 1) <= tol, `${what}: sim ${Math.round(got)} vs game ${want}`);
+  const hitOf = (fx: typeof f, crit: boolean) => physicalDamage(fx, dummyMonster(),
+    { ratio: 100, element: 'Ghost', statusElement: 'Ghost', ranged: false, crit, skillDamage: 0, normal: true }, new Rng(0, true));
+  const right = (crit: boolean) => hitOf({ ...f, offhand: null }, crit);
+  near(right(false), 1401, 'right hand', 0.04);
+  near(right(true), 2058, 'right hand crit', 0.02);
+  near(hitOf(f, false) - right(false), 530, 'left hand', 0.06);
+  near(hitOf(f, true) - right(true), 726, 'left hand crit', 0.06);
+  // A Double Attack swing: the right hand twice, the left once (the yellow 3.3k).
+  near(physicalDamage(f, dummyMonster(), { ratio: 100, rightTimes: 2, element: 'Ghost', statusElement: 'Ghost',
+    ranged: false, crit: false, skillDamage: 0, normal: true }, new Rng(0, true)), 2 * 1401 + 530, 'Double Attack swing', 0.04);
+  const cast = (skill: string) => {
+    const fight = newFight({ ...f, critRate: -1000 }, dummyMonster(), satsujin, priorityPolicy, { seed: 1, limitMs: 30_000 });
+    fight.rng = new Rng(0, true);
+    if (skill === 'Full Moon') grant(fight, 'invisible', 5000);
+    grant(fight, 'combo', 5000);
+    const before = fight.mob.hp;
+    satsujin.actions.find((a) => a.id === skill)!.resolve(fight);
+    return before - fight.mob.hp;
+  };
+  near(cast('New Moon'), 20_000, 'New Moon', 0.06);
+  near(cast('Full Moon'), 32_800, 'Full Moon', 0.03);
+  near(cast('Million Stab'), 40_000, 'Million Stab', 0.05);
 });
 
 test('the project owner\'s earlier hits on Rachel SS, within 15% (retest pending)', async () => {

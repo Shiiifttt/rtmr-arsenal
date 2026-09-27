@@ -207,6 +207,25 @@ export async function buildFighter(profile: Profile, opts: FighterOptions): Prom
   }
   if (extras.ranged) dmg.ranged_damage = (dmg.ranged_damage ?? 0) + extras.ranged;
 
+  // The left hand's swing takes only its own weapon's target-type cards
+  // (the planner halves them there); every other card is the right hand's.
+  const dmgLeft: PercentBag = {};
+  let critDamageLeft = either('crit_damage');
+  if (leftWeapon && build.slots.weapon) {
+    const cd = data.stats.find((s) => s.key === 'crit_damage');
+    const t = cd && aggregate({ ...build, slots: { weapon: build.slots.weapon } }, data).byStat.get(cd.id);
+    critDamageLeft -= (t?.flat ?? 0) + (t?.percent ?? 0);
+  }
+  if (leftWeapon && build.slots.offhand) {
+    const own = aggregate({ ...build, slots: { offhand: build.slots.offhand } }, data);
+    for (const s of data.stats) {
+      if (!['element_damage', 'race_damage', 'size_damage'].includes(s.category)) continue;
+      const t = own.byStat.get(s.id);
+      const v = (t?.flat ?? 0) + (t?.percent ?? 0);
+      if (v) dmgLeft[s.key] = v;
+    }
+  }
+
   const fighter: Fighter = {
     name: profile.name ?? build.className ?? 'player',
     className: build.className ?? 'unknown',
@@ -230,6 +249,7 @@ export async function buildFighter(profile: Profile, opts: FighterOptions): Prom
     perfectDodge: basePerfectDodge(stats) + flat('perfect_dodge'),
     critRate: total('crit_rate'),
     critDamage: either('crit_damage'),
+    critDamageLeft,
     aspd,
     defPen: flat('def_pen'),
     mdefPen: flat('mdef_pen'),
@@ -239,6 +259,7 @@ export async function buildFighter(profile: Profile, opts: FighterOptions): Prom
     softMdef: playerSoftMdef(stats, build.baseLevel),
     element: totals.element ?? 'Neutral',
     dmg,
+    dmgLeft,
     res,
     cast: { variable: pct('variable_cast'), fixed: pct('fixed_cast'), all: pct('cast_time') },
     afterCastDelay: pct('after_cast_delay'),

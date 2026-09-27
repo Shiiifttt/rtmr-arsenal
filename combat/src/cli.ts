@@ -19,7 +19,7 @@ import { advise, formatAdvice } from './advise.ts';
 import { buildFighter, resolveBuild, type Profile } from './character.ts';
 import { findMobs, plannerDataset, readJSON, REPO } from './data.ts';
 import type { Monster } from './model.ts';
-import { buildMonster, dummyMonster } from './monster.ts';
+import { buildMonster, DUMMY_SECONDS, dummyMonster } from './monster.ts';
 import { DEFAULT_CONSUMABLES, HEALING_ITEMS, loadout } from './items.ts';
 import { fighterSheet, formatSummary } from './report.ts';
 import { simulate } from './sim.ts';
@@ -137,8 +137,8 @@ async function main() {
     const sum = simulate(gear.f, m, k.kit, {
       iterations: Number(a.iter ?? (m.dummy ? 20 : 200)),
       seed: Number(a.seed ?? 1),
-      // Stalemate clock (the project owner): 1 minute, 10 on a boss, 30s on the dummy.
-      limitMs: Number(a.time ?? (m.dummy ? 30 : m.boss ? 600 : 60)) * 1000,
+      // Stalemate clock (the project owner): 1 minute, 10 on a boss, DUMMY_SECONDS on the dummy.
+      limitMs: Number(a.time ?? (m.dummy ? DUMMY_SECONDS : m.boss ? 600 : 60)) * 1000,
       policy,
       log: !!a.log,
       options: profile.options,

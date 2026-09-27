@@ -38202,7 +38202,21 @@
    },
    {
     "text": "ASPD Limit +1 if AGI is 99",
-    "parsed": false
+    "stat": "ASPD Limit",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     17
+    ],
+    "stat_keys": [
+     "aspd_limit"
+    ],
+    "requires": {
+     "type": "base_stat",
+     "stat": "AGI",
+     "min": 99
+    }
    }
   ],
   "piece_bonus": [],
@@ -38245,9 +38259,7 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "unparsed": [
-   "ASPD Limit +1 if AGI is 99"
-  ]
+  "unparsed": []
  },
  {
   "id": 15395,
@@ -38285,7 +38297,21 @@
    },
    {
     "text": "Ranged Damage+3% if DEX is 99",
-    "parsed": false
+    "stat": "Ranged Damage",
+    "value": 3,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     22
+    ],
+    "stat_keys": [
+     "ranged_damage"
+    ],
+    "requires": {
+     "type": "base_stat",
+     "stat": "DEX",
+     "min": 99
+    }
    }
   ],
   "piece_bonus": [],
@@ -38328,9 +38354,7 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "unparsed": [
-   "Ranged Damage+3% if DEX is 99"
-  ]
+  "unparsed": []
  },
  {
   "id": 15394,
@@ -38368,7 +38392,21 @@
    },
    {
     "text": "MATK+3% if INT is 99",
-    "parsed": false
+    "stat": "MATK",
+    "value": 3,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     11
+    ],
+    "stat_keys": [
+     "matk"
+    ],
+    "requires": {
+     "type": "base_stat",
+     "stat": "INT",
+     "min": 99
+    }
    }
   ],
   "piece_bonus": [],
@@ -38411,9 +38449,7 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "unparsed": [
-   "MATK+3% if INT is 99"
-  ]
+  "unparsed": []
  },
  {
   "id": 15396,
@@ -38451,7 +38487,21 @@
    },
    {
     "text": "Critical Damage+3% if LUK is 99",
-    "parsed": false
+    "stat": "Critical Damage",
+    "value": 3,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     15
+    ],
+    "stat_keys": [
+     "crit_damage"
+    ],
+    "requires": {
+     "type": "base_stat",
+     "stat": "LUK",
+     "min": 99
+    }
    }
   ],
   "piece_bonus": [],
@@ -38494,9 +38544,7 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "unparsed": [
-   "Critical Damage+3% if LUK is 99"
-  ]
+  "unparsed": []
  },
  {
   "id": 15391,
@@ -38534,7 +38582,21 @@
    },
    {
     "text": "Melee Damage+3% if STR is 99",
-    "parsed": false
+    "stat": "Melee Damage",
+    "value": 3,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     21
+    ],
+    "stat_keys": [
+     "melee_damage"
+    ],
+    "requires": {
+     "type": "base_stat",
+     "stat": "STR",
+     "min": 99
+    }
    }
   ],
   "piece_bonus": [],
@@ -38577,9 +38639,7 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "unparsed": [
-   "Melee Damage+3% if STR is 99"
-  ]
+  "unparsed": []
  },
  {
   "id": 15393,
@@ -38617,7 +38677,21 @@
    },
    {
     "text": "Neutral Resistance+3% if VIT is 99",
-    "parsed": false
+    "stat": "Neutral Resistance",
+    "value": 3,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     55
+    ],
+    "stat_keys": [
+     "res_neutral"
+    ],
+    "requires": {
+     "type": "base_stat",
+     "stat": "VIT",
+     "min": 99
+    }
    }
   ],
   "piece_bonus": [],
@@ -38660,9 +38734,7 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "unparsed": [
-   "Neutral Resistance+3% if VIT is 99"
-  ]
+  "unparsed": []
  },
  {
   "id": 22208,

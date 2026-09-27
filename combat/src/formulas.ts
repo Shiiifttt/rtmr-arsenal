@@ -58,18 +58,35 @@ export const TUNE = {
    */
   leftHand: 1,
   /**
-   * Status ATK counts once in a hand's ATK. The 2023 code doubles the right
-   * hand's (battle.cpp:2234); the project owner's dummy autos (2026-09-26:
-   * 427 main, 401 off per hit) fit once (434 / 409), not twice (663 / 637).
+   * Status ATK in each hand: twice in the right hand, once in the left, as
+   * the 2023 code has it (battle.cpp:2234). The project owner's dummy
+   * autos of 2026-09-27 (Murder Knife [3x Chocolate Bear] / Laevateinn +9,
+   * Ghost): right 1,401 a hit, left 530 -- the right fits twice status ATK
+   * with full cards (within 4%), the left once with none (within 2%).
    */
-  statusAtkFactor: 1,
+  statusAtkRight: 2,
+  statusAtkLeft: 1,
   /**
-   * A skill lands twice the right hand's ATK. Found, not read from code: the
-   * owner's dummy skills (2026-09-26) sit at ~2x a hand (New Moon 2.2,
-   * Full Moon 2.1, Million Stab 2.0 with and without the off hand) -- which
-   * is also why summing both hands used to fit. Where it comes from is open.
+   * A skill lands this many times the right hand's ATK. Was 2 ("source
+   * unknown") while status counted once and cards half: that stood in for
+   * the doubled status ATK and the cards. 1 since 2026-09-27.
    */
-  skillAtkFactor: 2,
+  skillAtkFactor: 1,
+  /**
+   * How race/size/element/boss damage ("cards") enters a hit. 'final': the
+   * whole hit x C, the right hand with every card, the left with only its
+   * own weapon's (already halved by the planner) -- the owner's reading of
+   * 2026-09-27 ("only left hand racials are halved"). 'parts': the 2023
+   * code, weapon and equip ATK + (C - 1) x `cardShare` (battle.cpp:6245),
+   * status ATK too with `cardOnStatus`.
+   */
+  cardMode: 'final' as 'parts' | 'final',
+  /** ATK% on status and mastery ATK too, not only weapon and equip (see handAtk). */
+  atkPercentAll: true,
+  /** The off hand crits by the main hand's formula (owner's reading, 2026-09-27), not the code's x1.1 branch. */
+  offhandCritSame: true,
+  cardShare: 0.5,
+  cardOnStatus: false,
   /** Seconds a TAS needs to step out of an area and back, each way. GUESS. */
   walkOutMs: 600,
   /** Reaction to a cast bar: the TAS is perfect, but not psychic. GUESS. */
@@ -268,6 +285,8 @@ export interface PhysicalHit {
   ignoreDef?: boolean;
   /** A normal attack rather than a skill: both hands land, and no skill doubling. */
   normal?: boolean;
+  /** Times the right hand lands in this swing: 2 on a Double Attack (the left hand still once). */
+  rightTimes?: number;
 }
 
 /**
@@ -279,9 +298,12 @@ export interface PhysicalHit {
 const PROTOCOL_BOSS = process.env.PROTOCOL_BOSS === '1';
 export const countsAsBoss = (m: Monster) => m.boss || (PROTOCOL_BOSS && !!m.bossProtocol);
 
-/** The target-type multiplier cards and gear give: race x element x size x boss, multiplied (user, 2026-09-25). */
-export function physicalCardFix(f: Fighter, m: Monster): number {
-  const d = f.dmg;
+/**
+ * The target-type multiplier cards and gear give: race x element x size x
+ * boss, multiplied (user, 2026-09-25). `d`: whose cards -- the build's (the
+ * right hand's) by default, the left hand's own with f.dmgLeft.
+ */
+export function physicalCardFix(f: Fighter, m: Monster, d: Fighter['dmg'] = f.dmg): number {
   const race = 1 + ((d[`dmg_vs_race_${raceKey(m.race)}`] ?? 0) + (d.dmg_vs_race_all_races ?? 0)) / 100;
   const ele = 1 + (d[`dmg_vs_${m.element.toLowerCase()}`] ?? 0) / 100;
   const size = 1 + ((d[`dmg_vs_size_${m.size.toLowerCase()}`] ?? 0) + (d.dmg_vs_size_all_sizes ?? 0)) / 100;
@@ -302,14 +324,14 @@ export function magicCardFix(f: Fighter, m: Monster, element: string): number {
 /**
  * One physical hit on a monster. A hand's ATK:
  *
- *   status ATK x element (once: TUNE.statusAtkFactor)
+ *   status ATK x element (x2 in the right hand, x1 in the left: TUNE.statusAtkRight/Left)
  * + weapon ATK (base + refine, ±5% per weapon level, +ATK x STR/200) x size x element
  * + equip ATK x element
- *   -- cards (race x element x size x boss) at HALF strength, on all three
- *      (RTM battle.cpp:6244-6252: part += part x (C - 1)/2) --
  * + ATK% of weapon + equip
  * + mastery ATK
  *
+ * then x cards (race x element x size x boss): the right hand every card at
+ * full strength, the left only its own weapon's (TUNE.cardMode 'final').
  * A normal attack lands each hand's ATK; a skill lands the right hand's
  * ATK x TUNE.skillAtkFactor, whatever the off hand holds. Then x melee% /
  * ranged%, x skill ratio, x hard DEF (after pierce), - soft DEF, x "<skill>
@@ -318,13 +340,15 @@ export function magicCardFix(f: Fighter, m: Monster, element: string): number {
  * Returns the damage of one hit, rolled (or its middle, in expect mode).
  */
 export function physicalDamage(f: Fighter, m: Monster, h: PhysicalHit, rng: Rng): number {
-  const main = handAtk(f, m, f.weapon, h, rng);
+  const final = TUNE.cardMode === 'final';
+  const main = handAtk(f, m, f.weapon, h, rng, false) * (final ? physicalCardFix(f, m) : 1) * (h.rightTimes ?? 1);
   // The project owner's dummy test (2026-09-26): taking the off-hand dagger
   // off leaves New Moon and Full Moon where they were (9,615 -> 9,599,
   // 14,776 -> 15,043), so skills read the right hand only -- as the 2023
-  // code has it (battle.cpp:2714). The off hand's cards still count
-  // (player.conf left_cardfix_to_right: yes; the build's totals hold them).
-  const off = h.normal && f.offhand ? TUNE.leftHand * handAtk(f, m, f.offhand, h, rng) : 0;
+  // code has it (battle.cpp:2714).
+  const off = h.normal && f.offhand
+    ? TUNE.leftHand * handAtk(f, m, f.offhand, h, rng, true) * (final ? physicalCardFix(f, m, f.dmgLeft ?? {}) : 1)
+    : 0;
   let dmg = h.normal ? main + off : main * TUNE.skillAtkFactor;
 
   dmg *= 1 + (h.ranged ? f.dmg.ranged_damage ?? 0 : f.dmg.melee_damage ?? 0) / 100;
@@ -336,20 +360,27 @@ export function physicalDamage(f: Fighter, m: Monster, h: PhysicalHit, rng: Rng)
   if (h.crit) {
     // Each hand crits by its own multiplier; split the hit by their shares.
     const share = h.normal && off > 0 ? main / (main + off) : 1;
-    dmg *= share * critMultiplier(f, false) + (1 - share) * offhandCritMultiplier(f);
+    // Both hands by the one formula, each with its own Crit Damage (the
+    // right weapon's is not the left's): the owner's crits of 2026-09-27
+    // read left 726 / 530 = 1.370 (this: 1.368; the code's off-hand branch
+    // 1.20) and right 2,058 / 1,401 = 1.469 (this: 1.428).
+    const left = { ...f, critDamage: f.critDamageLeft ?? f.critDamage };
+    dmg *= share * critMultiplier(f, h.normal)
+      + (1 - share) * (TUNE.offhandCritSame ? critMultiplier(left, true) : offhandCritMultiplier(f));
   }
   return Math.max(1, dmg);
 }
 
 /**
  * Your crit, after DEF and element (RTM battle.cpp:6303-6308): x1.2 x (1 +
- * LUK/10 % + Crit Damage/2 %). The code gives normal attacks LUK/5; the
- * project owner's dummy crits (2026-09-26) fit LUK/10 on skills and on the
- * main hand's normal attack alike (Shadow Slash 1,545 / 1,195 = 1.293, auto
- * 1,124 / 855 = 1.315; the formula says 1.296 at LUK 65, Crit Damage 5%).
+ * LUK/5 % on a normal attack, LUK/10 % on a skill, + Crit Damage/2 %), as
+ * the code has it. Skills: the owner's Shadow Slash (2026-09-26) 1,545 /
+ * 1,195 = 1.293 (formula 1.296). Normal attacks: the owner's autos of
+ * 2026-09-27 (LUK 62) left 1.370 (1.368), right 1.469 (1.428).
  */
-export function critMultiplier(f: Pick<Fighter, 'stats' | 'critDamage'>, _normal = false): number {
-  return TUNE.critBase * (1 + (Math.floor(f.stats.luk / 10) + Math.floor(f.critDamage / 2)) / 100);
+export function critMultiplier(f: Pick<Fighter, 'stats' | 'critDamage'>, normal = false): number {
+  const luk = Math.floor(f.stats.luk / (normal ? 5 : 10));
+  return TUNE.critBase * (1 + (luk + Math.floor(f.critDamage / 2)) / 100);
 }
 
 /**
@@ -361,10 +392,11 @@ export function offhandCritMultiplier(f: Pick<Fighter, 'stats' | 'critDamage'>):
   return 1.1 * (1 + (Math.floor(f.stats.luk / 10) + Math.floor(f.critDamage / 4)) / 100);
 }
 
-/** One hand's ATK before melee%, the skill ratio and DEF. */
-function handAtk(f: Fighter, m: Monster, w: Fighter['weapon'], h: PhysicalHit, rng: Rng): number {
+/** One hand's ATK before cards (in 'final' mode), melee%, the skill ratio and DEF. */
+function handAtk(f: Fighter, m: Monster, w: Fighter['weapon'], h: PhysicalHit, rng: Rng, left: boolean): number {
   const s = f.stats;
-  const statusPart = statusAtk(s, f.level) * attrFix(h.statusElement, m.element, m.elementLevel) * TUNE.statusAtkFactor;
+  const statusPart = statusAtk(s, f.level) * attrFix(h.statusElement, m.element, m.elementLevel)
+    * (left ? TUNE.statusAtkLeft : TUNE.statusAtkRight);
 
   let weaponPart = 0;
   if (w) {
@@ -380,13 +412,12 @@ function handAtk(f: Fighter, m: Monster, w: Fighter['weapon'], h: PhysicalHit, r
   }
   const equipPart = f.equipAtk * attrFix(h.element, m.element, m.elementLevel);
 
-  // Cards at half strength (RTM battle.cpp:6244-6252) on weapon and equip
-  // ATK. The 2023 code adds the same to status ATK; the project owner's
-  // dummy readings (2026-09-26) fit without it: a hand's ATK reads 428 on
-  // autos, Shadow Slash and Million Stab alike, 430 this way, 461 that way.
-  const half = 1 + (physicalCardFix(f, m) - 1) / 2;
-  const percentPart = (weaponPart + equipPart) * f.atkPercent / 100;
-  return statusPart + (weaponPart + equipPart) * half + percentPart + f.masteryAtk;
+  // cardMode 'parts' only: the 2023 code's half-strength cards on the parts.
+  const half = TUNE.cardMode === 'parts' ? 1 + (physicalCardFix(f, m) - 1) * TUNE.cardShare : 1;
+  // ATK%: on every part, status and mastery too, with TUNE.atkPercentAll
+  // (renewal RE_ALLATK_ADDRATE, RTM battle.cpp:3685-3686); else weapon and equip only.
+  const percentPart = (weaponPart + equipPart + (TUNE.atkPercentAll ? statusPart + f.masteryAtk : 0)) * f.atkPercent / 100;
+  return statusPart * (TUNE.cardOnStatus ? half : 1) + (weaponPart + equipPart) * half + percentPart + f.masteryAtk;
 }
 
 export interface MagicHit {

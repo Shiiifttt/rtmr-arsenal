@@ -31,12 +31,12 @@ import type { MobSkill, Monster } from '../model.ts';
 import { ratioAt } from '../skilltext.ts';
 import type { Passives } from '../character.ts';
 import {
-  canUse, enterManhole, focusStacks, followUpComing, grant, has, heal_, MANHOLE_MS, mobHas, readyAt, strike,
+  canUse, enterManhole, focusStacks, followUpComing, grant, has, heal_, MANHOLE_MS, mobHas, readyAt, stacks, strike,
   type Action, type Fight, type Kit,
 } from '../engine.ts';
 import {
-  assessThreat, attackAction, breakSight, hidingAction, lv, morrocsMark, optionOn, pullOffWard, stayHidden, toolkit,
-  walkOut,
+  assessThreat, attackAction, breakSight, hidingAction, lv, morrocsMark, optionOn, pullOffWard, stayHidden, swingWait,
+  toolkit, walkOut,
 } from './common.ts';
 
 const TREE = ['Satsujin', 'Shinobi', 'Assassin', 'Thief', 'Orphan'];
@@ -178,6 +178,8 @@ const newMoon: Action = {
       damage: physical(fight, 'New Moon', ratioOf(fight, 'New Moon')),
     });
     grant(fight, 'invisible', INVIS_MS);
+    // A new cycle: count its Full Moons (option seedTalisman).
+    grant(fight, 'fullMoons', 1e12, 0);
   },
 };
 
@@ -195,6 +197,7 @@ const fullMoon: Action = {
       damage: physical(fight, 'Full Moon', ratioOf(fight, 'Full Moon')),
     });
     grant(fight, 'combo', sk('Full Moon').text.grants['combo ready'] ?? 5000);
+    grant(fight, 'fullMoons', 1e12, stacks(fight, 'fullMoons') + 1);
   },
 };
 
@@ -239,8 +242,11 @@ const dragonOmamori: Action = {
   isSkill: true,
   offensive: true,
   interruptible: true,
-  // One talisman per target.
-  ready: (fight) => learned('Dragon Omamori')(fight) && !mobHas(fight, 'talisman'),
+  // One talisman per target. With seedTalisman off, only as the cycle's
+  // middle step (DO -> Jutsu -> Full Moon), never after its second Full
+  // Moon to seed the next cycle's Jutsu.
+  ready: (fight) => learned('Dragon Omamori')(fight) && !mobHas(fight, 'talisman')
+    && (optionOn(fight, 'seedTalisman') || stacks(fight, 'fullMoons') < 2),
   castMs: cast('Dragon Omamori'),
   cooldownMs: cooldown('Dragon Omamori'),
   spCost: spCost('Dragon Omamori'),
@@ -454,7 +460,7 @@ function withRules(a: Action): Action {
 const ACTIONS: Action[] = [
   attack, shadowSlash, newMoon, fullMoon, millionStab, thousandArms, dragonOmamori, omamoriJutsu,
   backStab, refocus, kawarimi, hiding, walkOut, lotusPact, morrocsMark, hallucinationWalk, stayHidden,
-  breakSight, pullOffWard,
+  breakSight, pullOffWard, swingWait,
 ].map(withRules);
 const rule = (id: string) => ACTIONS.find((a) => a.id === id)!;
 
@@ -472,13 +478,23 @@ const ORDER = [
   'Shadow Slash', 'Back Stab', // fillers
   'Lotus Pact',
   'Attack',
+  'Wait for swing', // swing timer on (weaveMs): the next swing is not due yet
 ];
 
+/** The priority list, or a profile's own (option order: the same ids, reordered or left out). */
+export const SATSUJIN_ORDER = ORDER;
 function priority(fight: Fight): Action {
-  for (const id of ORDER) {
+  // Option slashOpener: Shadow Slash before anything else.
+  if (fight.options.slashOpener === true && fight.me.cds['Shadow Slash'] === undefined
+    && canUse(fight, rule('Shadow Slash'))) return rule('Shadow Slash');
+  const order = Array.isArray(fight.options.order) ? fight.options.order as string[] : ORDER;
+  for (const id of order) {
     const a = rule(id);
     if (canUse(fight, a)) return a;
   }
+  // A custom order may leave these out; standing still beats a swing on cooldown.
+  if (canUse(fight, rule('Attack'))) return rule('Attack');
+  if (canUse(fight, rule('Wait for swing'))) return rule('Wait for swing');
   return rule('Attack');
 }
 

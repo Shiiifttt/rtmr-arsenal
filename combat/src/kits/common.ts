@@ -90,6 +90,21 @@ export function toolkit(tree: string[], element: (fight: Fight) => string): Tool
 // ---- actions every Orphan-line class has -------------------------------------
 
 /**
+ * Swing timer (profile option `weaveMs`, a number). On the server a swing sets
+ * only the next swing's time (attackabletime = now + adelay, RTM
+ * unit.cpp:2797), not the cast delay (canact_tick), so a skill can go off
+ * right after it. A skill's delay does hold the next swing back
+ * (skill_delay_attack_enable is off, unit.cpp:2701). With the option set, a
+ * swing holds you only `weaveMs` (your reaction and latency; 0 is a perfect
+ * player) and the next one waits the attack interval as its cooldown.
+ * Without it, a swing holds you the whole interval, as before.
+ */
+export function weaveMs(fight: Fight): number | null {
+  const v = fight.options.weaveMs;
+  return typeof v === 'number' && v >= 0 ? v : null;
+}
+
+/**
  * The auto-attack. Double Attack: a second hit, +10% chance per level from
  * gear, with a dagger in the main hand only (RTM battle.cpp:3750-3760). A
  * rollout weighs it into one hit's ratio instead of rolling it.
@@ -100,19 +115,22 @@ export function attackAction(kit: Pick<Toolkit, 'element'>, statusElement?: (fig
     isSkill: false,
     offensive: true,
     castMs: () => 0,
-    delayMs: (fight) => attackIntervalMs(fight.f.aspd),
-    cooldownMs: () => 0,
+    delayMs: (fight) => weaveMs(fight) ?? attackIntervalMs(fight.f.aspd),
+    cooldownMs: (fight) => (weaveMs(fight) === null ? 0 : attackIntervalMs(fight.f.aspd)),
     spCost: () => 0,
     resolve(fight) {
       const dagger = fight.f.weapon?.type === 'Dagger';
       const pDouble = dagger ? Math.min(1, fight.f.doubleAttack * TUNE.doubleAttackPerLevel / 100) : 0;
       const expect = fight.rng.expect;
-      const hits = !expect && fight.rng.chance(pDouble) ? 2 : 1;
+      const double = !expect && fight.rng.chance(pDouble);
       const ele = kit.element(fight);
+      // A Double Attack doubles the right hand only; the left still lands
+      // once. The swing is one roll and crits whole (the project owner,
+      // 2026-09-27: 1,401 twice + 530 left, crit 2,058 twice + 726).
       strike(fight, 'Attack', {
-        hits, canMiss: true, critBonus: 0,
+        hits: double ? 2 : 1, split: true, canMiss: true, critBonus: 0,
         damage: (crit) => physicalDamage(fight.f, fight.m, {
-          ratio: expect ? 100 * (1 + pDouble) : 100, element: ele,
+          ratio: 100, rightTimes: expect ? 1 + pDouble : double ? 2 : 1, element: ele,
           statusElement: statusElement?.(fight) ?? 'Neutral',
           ranged: false, crit, skillDamage: 0, normal: true,
         }, fight.rng),
@@ -120,6 +138,31 @@ export function attackAction(kit: Pick<Toolkit, 'element'>, statusElement?: (fig
     },
   };
 }
+
+/**
+ * Swing timer on (`weaveMs`), the next swing not due and no skill wanted:
+ * stand until the swing or a skill comes off cooldown, whichever is first.
+ */
+export const swingWait: Action = {
+  id: 'Wait for swing',
+  isSkill: false,
+  offensive: false,
+  idle: true,
+  ready: (fight) => weaveMs(fight) !== null && readyAt(fight, 'Attack') > fight.t,
+  castMs: () => 0,
+  delayMs: (fight) => {
+    let next = readyAt(fight, 'Attack');
+    for (const a of fight.kit.actions) {
+      if (!a.offensive || a.reactive) continue;
+      const at = readyAt(fight, a.id);
+      if (at > fight.t) next = Math.min(next, at);
+    }
+    return Math.max(10, next - fight.t);
+  },
+  cooldownMs: () => 0,
+  spCost: () => 0,
+  resolve() {},
+};
 
 /**
  * Nothing worth doing yet: stand until the next skill comes off cooldown

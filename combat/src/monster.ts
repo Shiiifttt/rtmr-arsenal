@@ -225,9 +225,11 @@ export function resolveSkill(
 /**
  * A training dummy for pure DPS tests (the project owner, 2026-09-26):
  * Formless, Neutral 1, Medium, no DEF, MDEF, flee or LUK, never attacks
- * and never dies. Fights against it run to their time limit (30s default).
+ * and never dies. Fights against it run to their time limit (DUMMY_SECONDS).
  */
 export const DUMMY_ID = 0;
+/** The dummy's DPS window (the project owner, 2026-09-27: 10 seconds). */
+export const DUMMY_SECONDS = 10;
 export function dummyMonster(): Monster {
   const zero = { str: 0, agi: 0, vit: 0, int: 0, dex: 0, luk: 0 };
   return {

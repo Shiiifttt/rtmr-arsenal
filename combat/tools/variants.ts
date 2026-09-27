@@ -29,7 +29,7 @@ import { buildFighter, resolveBuild, type Profile } from '../src/character.ts';
 import { findMobs, plannerDataset, readJSON } from '../src/data.ts';
 import { DEFAULT_CONSUMABLES, loadout } from '../src/items.ts';
 import type { MobSkill, Monster } from '../src/model.ts';
-import { buildMonster, dummyMonster } from '../src/monster.ts';
+import { buildMonster, DUMMY_SECONDS, dummyMonster } from '../src/monster.ts';
 import { simulate } from '../src/sim.ts';
 import { priorityPolicy, tasPolicy } from '../src/tas.ts';
 import { kitFor } from '../src/kits/index.ts';
@@ -117,7 +117,7 @@ for (const v of variants) {
     }) } : base;
     const sum = simulate(f, m, k.kit, {
       iterations: m.dummy ? Math.min(iterations, 10) : iterations, seed: 1, policy, options: v.profile.options,
-      limitMs: (m.dummy ? 30 : m.boss ? 600 : Number(one('time') ?? 60)) * 1000,
+      limitMs: (m.dummy ? DUMMY_SECONDS : m.boss ? 600 : Number(one('time') ?? 60)) * 1000,
       items: loadout({ carried: v.profile.consumables ?? DEFAULT_CONSUMABLES, healing: !!v.profile.healing, boss: m.boss && !m.dummy, elixirs: f.kafraElixirs }),
     });
     const top = Object.entries(sum.deaths).sort((a, b) => b[1] - a[1]).slice(0, 2).map(([s, n]) => `${s} x${n}`).join(', ');

@@ -66,6 +66,8 @@ export interface Fighter {
   critRate: number;
   /** Critical Damage %, on top of the base 40%. */
   critDamage: number;
+  /** The left hand's Crit Damage: the build's, less what the right weapon itself gives. */
+  critDamageLeft?: number;
   /** ASPD as the character window shows it. */
   aspd: number;
   defPen: number;
@@ -78,6 +80,8 @@ export interface Fighter {
   element: string;
   /** Offensive percents: melee_damage, dmg_vs_race_brute, magic_dmg_fire... */
   dmg: PercentBag;
+  /** The left hand's own target-type cards (its weapon's, halved by the planner): all a left-hand swing gets. */
+  dmgLeft?: PercentBag;
   /** Defensive percents: res_neutral, res_race_boss, damage_reduction... */
   res: PercentBag;
   cast: { variable: number; fixed: number; all: number };

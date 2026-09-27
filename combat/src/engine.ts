@@ -125,6 +125,8 @@ export interface Action {
   offensive: boolean;
   /** Only ever planned in reaction to a cast, never picked as a move. */
   reactive?: boolean;
+  /** Standing still (waiting on a swing timer): kept out of the meter and the log. */
+  idle?: boolean;
   /** Uses per fight, when limited (Kafra Elixirs). */
   charges?: number;
   interruptible?: boolean;
@@ -315,6 +317,7 @@ function complete(fight: Fight, a: Action) {
   if (a.charges !== undefined) me.left[a.id] = (me.left[a.id] ?? 0) - 1;
   me.busyUntil = fight.t + (a.delayMs?.(fight) ?? skillDelayMs(0, fight.f));
   const meter = fight.meter;
+  if (a.idle) return;
   if (meter) {
     const row = (meter.actions[a.id] ??= { uses: 0, hits: 0, misses: 0, crits: 0, damage: 0 });
     row.uses++;

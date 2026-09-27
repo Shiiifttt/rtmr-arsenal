@@ -321,6 +321,10 @@ REQ_BASE_LEVEL = re.compile(
 REQ_INLINE_SELF = re.compile(
     r"^(?P<body>.+?),?\s+if\s+base\s+stat\s+is\s+(?P<n>\d+)\s*"
     r"(?:\+|or\s+(?:above|higher|more))?\.?$", re.I)
+# "ASPD Limit +1 if AGI is 99" (the Dragon Plates): a named stat, read as base.
+REQ_INLINE_STAT = re.compile(
+    r"^(?P<body>.+?),?\s+if\s+(?:base\s+)?(?P<stat>STR|AGI|VIT|INT|DEX|LUK)\s+is\s+(?P<n>\d+)\s*"
+    r"(?:\+|or\s+(?:above|higher|more))?\.?$", re.I)
 
 
 # "Every 9 base AGI gives you 1 extra AGI." -- the same scaling as
@@ -829,6 +833,15 @@ def parse_line(line: str) -> list[dict]:
                             if k in ("str", "agi", "vit", "int", "dex", "luk")), None)
             if primary:
                 eff["requires"] = {"type": "base_stat", "stat": primary.upper(),
+                                   "min": int(m.group("n"))}
+                eff["text"] = line.strip()
+        return effects
+    m = REQ_INLINE_STAT.match(line.strip())
+    if m:
+        effects = parse_line(m.group("body"))
+        for eff in effects:
+            if eff.get("parsed"):
+                eff["requires"] = {"type": "base_stat", "stat": m.group("stat").upper(),
                                    "min": int(m.group("n"))}
                 eff["text"] = line.strip()
         return effects

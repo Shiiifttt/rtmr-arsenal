@@ -51,7 +51,7 @@ interface Reply {
 }
 
 const TARGETS = [
-  { value: 'dummy', label: 'Training dummy (30s DPS test)' },
+  { value: 'dummy', label: 'Training dummy (10s DPS test)' },
   { value: 'rachel_ss', label: 'Rachel SS (every monster)' },
   { value: 'jorm', label: "Jormungand's Lair (every monster)" },
   { value: 'gorge', label: 'Dimensional Gorge distortion (every monster)' },

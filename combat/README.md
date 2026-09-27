@@ -7,7 +7,7 @@ where the damage came from. Not part of the web app.
 
 ```sh
 cd combat
-npm run sim -- --vs dummy --log                 # 30s pure-DPS test, with a combat log
+npm run sim -- --vs dummy --log                 # 10s pure-DPS test, with a combat log
 npm run sim -- --vs rachel_ss                   # every Rachel SS monster, 200 fights each
 npm run sim -- --vs gorge,freya                 # also: jorm, thanatos, tomb, guild, ama_ss, valhalla
 npm run sim -- --vs jorm --build "<share link>" # your build from the arsenal's share link
@@ -35,7 +35,7 @@ Flags: `--hp`, `--sp`, `--aspd` (readings from the character window),
 ## How a fight ends
 
 - **Win**: the monster dies. **Loss**: you die.
-- **Stalemate**: the clock runs out (1 minute, 10 on a boss, 30s on the
+- **Stalemate**: the clock runs out (1 minute, 10 on a boss, 10s on the
   dummy), or you can no longer afford any damage skill. Nothing runs forever.
 - The **dummy** is Formless / Neutral 1 / Medium with no DEF, MDEF, flee or
   resistances. It never attacks and never dies, so its fight is a DPS test.
@@ -83,12 +83,19 @@ readings fit 80%.
 
 Formulas follow the server where the project owner reckons it is right
 (2026-09-26): its element table, size penalties, refine ATK, cast time
-x0.9, crit damage (x1.2 with LUK/10 and half of Crit Damage) and
-half-strength card bonuses. The owner's dummy test (2026-09-26) set the
-rest: skills use the right hand's ATK only (the off hand's cards still
-count), at twice a hand's ATK (`TUNE.skillAtkFactor`, source unknown);
-auto-attacks land each hand; status ATK counts once; Shadow Slash is one
-roll shown as three.
+x0.9 and crit damage (x1.2 with LUK/5 on autos, LUK/10 on skills, and
+half of Crit Damage). The owner's dummy tests (2026-09-26/27) set the
+rest: skills use the right hand's ATK only; status ATK counts twice in the
+right hand and once in the left; ATK% applies to every part; race, size
+and element cards multiply the whole hit at full strength on the right
+hand, while the left hand gets only its own weapon's cards, halved; a
+Double Attack doubles the right hand only; Shadow Slash is one roll shown
+as three. Pinned in test/combat.test.ts.
+
+`tools/rotation-search.ts` searches the rotation on the dummy (switches
+and priority order), starting from a profile's own:
+`node --experimental-strip-types --no-warnings --import ./register.mjs
+tools/rotation-search.ts --profile profiles/satsujin-moon.json [--time 60]`.
 
 Your dodges: Hiding stops monster skills (the project owner: it reliably
 does on the live server); the boss protocol's normal attacks still swing at
