@@ -4,9 +4,9 @@
  "items_in_a_set": 875,
  "items_with_item_refine_scaling": 891,
  "sets_with_set_refine_scaling": 96,
- "effect_lines": 10226,
+ "effect_lines": 10230,
  "effect_lines_unstructured": 3871,
- "effect_parse_rate": 62.1,
+ "effect_parse_rate": 62.2,
  "effect_parse_rate_by_kind": {
   "Weapon": {
    "lines": 2262,
@@ -19,9 +19,9 @@
    "rate": 88.4
   },
   "Class gear": {
-   "lines": 1379,
+   "lines": 1383,
    "unstructured": 504,
-   "rate": 63.5
+   "rate": 63.6
   },
   "Card": {
    "lines": 1061,
@@ -382,6 +382,15 @@
    ]
   },
   {
+   "item": "Moonless Gem of Darkness",
+   "status": "unverified",
+   "reason": "The tooltip calls the skills its damage lines scale '3 skills': the three it gives a status to just above, New Moon Blades, Full Moon Blades and Dragon Omamori. Left to the parser, that is a skill named '3 skills' that nothing has, so the -20% and the +2% per refine went nowhere. Written out per skill here.",
+   "changed": [
+    "effects",
+    "refine.per_refine"
+   ]
+  },
+  {
    "item": "Rhyncho Card",
    "status": "unverified",
    "reason": "The tooltip reads 'HP+1% per Improve Wisdom skill level (Naturally Learned only)', which depends on a skill the planner does not model. Project owner: most thief branches learn it to level 10, so it is counted at its usual +10%. A character without the skill gets less.",
@@ -470,6 +479,7 @@
   "Slotted Death",
   "Slotted Bullhorn",
   "Unslotted Bullhorn",
+  "Moonless Gem of Darkness",
   "Rhyncho Card",
   "Murder Knife",
   "Gravewhisper",
@@ -484,9 +494,9 @@
  "stats_registered": 158,
  "stat_mapping": {
   "mapped_to_stat_ids": 5751,
-  "skill_modifiers": 951,
+  "skill_modifiers": 955,
   "unmapped": 206,
-  "coverage_percent": 83.3
+  "coverage_percent": 83.2
  },
  "unmapped_stat_names": [
   [

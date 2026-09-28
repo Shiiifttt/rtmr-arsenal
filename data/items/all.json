@@ -318895,16 +318895,46 @@
     "parsed": false
    },
    {
-    "text": "3 skills Damage -20%",
-    "stat": "3 skills Damage",
+    "text": "New Moon Blades Damage -20%",
+    "stat": "New Moon Blades Damage",
     "value": -20,
     "unit": "%",
     "parsed": true,
     "stat_ids": [],
     "stat_keys": [],
-    "skill": "3 skills",
+    "skill": "New Moon Blades",
     "skill_metric": "damage",
-    "skills": []
+    "skills": [
+     "New Moon Blades"
+    ]
+   },
+   {
+    "text": "Full Moon Blades Damage -20%",
+    "stat": "Full Moon Blades Damage",
+    "value": -20,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Full Moon Blades",
+    "skill_metric": "damage",
+    "skills": [
+     "Full Moon Blades"
+    ]
+   },
+   {
+    "text": "Dragon Omamori Damage -20%",
+    "stat": "Dragon Omamori Damage",
+    "value": -20,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Dragon Omamori",
+    "skill_metric": "damage",
+    "skills": [
+     "Dragon Omamori"
+    ]
    },
    {
     "text": "All Stats -5",
@@ -318937,16 +318967,46 @@
      "per": 1,
      "effects": [
       {
-       "text": "3 skills Damage +2%",
-       "stat": "3 skills Damage",
+       "text": "New Moon Blades Damage +2%",
+       "stat": "New Moon Blades Damage",
        "value": 2,
        "unit": "%",
        "parsed": true,
        "stat_ids": [],
        "stat_keys": [],
-       "skill": "3 skills",
+       "skill": "New Moon Blades",
        "skill_metric": "damage",
-       "skills": []
+       "skills": [
+        "New Moon Blades"
+       ]
+      },
+      {
+       "text": "Full Moon Blades Damage +2%",
+       "stat": "Full Moon Blades Damage",
+       "value": 2,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [],
+       "stat_keys": [],
+       "skill": "Full Moon Blades",
+       "skill_metric": "damage",
+       "skills": [
+        "Full Moon Blades"
+       ]
+      },
+      {
+       "text": "Dragon Omamori Damage +2%",
+       "stat": "Dragon Omamori Damage",
+       "value": 2,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [],
+       "stat_keys": [],
+       "skill": "Dragon Omamori",
+       "skill_metric": "damage",
+       "skills": [
+        "Dragon Omamori"
+       ]
       },
       {
        "text": "SP Cost -1%",
@@ -319001,7 +319061,10 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "override": null
+  "override": {
+   "status": "unverified",
+   "reason": "The tooltip calls the skills its damage lines scale '3 skills': the three it gives a status to just above, New Moon Blades, Full Moon Blades and Dragon Omamori. Left to the parser, that is a skill named '3 skills' that nothing has, so the -20% and the +2% per refine went nowhere. Written out per skill here."
+  }
  },
  {
   "id": 903089,
