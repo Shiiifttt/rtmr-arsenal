@@ -77,6 +77,14 @@ export interface Fighter {
   concentration?: number;
   /** Move Speed % from gear (Temporal boots' 9%): the server takes the largest haste, not a sum. */
   moveSpeed?: number;
+  /** True Goddess set (experimental, TRUE_GODDESS=1): 10 s cooldown on every skill cast, Kaupe for 2 s after each. */
+  trueGoddess?: boolean;
+  /** Back Slide from gear: its cooldown in ms (3 s; Slider Armguard 1 s). Unset: none. */
+  backSlideMs?: number;
+  /** The part of moveSpeed the live cap does not halve (the Friendly Orphan set's +40%: a 3 s buff from Heal, not gear -- unset so far). */
+  moveSpeedWhole?: number;
+  /** The status window's ATK and MATK as read in game ("173 + 83"): damage over time uses them over the model. */
+  window?: { atk?: [number, number]; matk?: [number, number] };
   defPen: number;
   mdefPen: number;
   def: number;
@@ -89,6 +97,8 @@ export interface Fighter {
   dmg: PercentBag;
   /** The left hand's own target-type cards (its weapon's, halved by the planner): all a left-hand swing gets. */
   dmgLeft?: PercentBag;
+  /** The right weapon's race cards, aimed at whatever is fought (profile weaponRaceMatch): a floor on the race term. */
+  anyRace?: number;
   /** Defensive percents: res_neutral, res_race_boss, damage_reduction... */
   res: PercentBag;
   cast: { variable: number; fixed: number; all: number };
@@ -270,6 +280,8 @@ export interface Monster {
    * DamageTaken, like any monster's.
    */
   bossProtocol?: boolean;
+  /** A boss-protocol monster known to count as a boss for gear (Rachel SS: Abysmal Knight Card works). */
+  protocolBoss?: boolean;
   skills: MobSkill[];
   notes: string[];
 }

@@ -42,7 +42,8 @@ interface Plan {
   outDir: string;
   /** Extra gear-search flags for every stage ("--lock offhand"). */
   searchFlags?: string[];
-  targets: Record<string, { vs: string; perTarget?: string; check?: string }>;
+  /** flags: extra gear-search flags for this target's stages (a budget tier: "--no-mvp", "--max-refine", "6"). */
+  targets: Record<string, { vs: string; perTarget?: string; check?: string; flags?: string[] }>;
   seeds: { id: string; profile: string; set?: string; for: string[]; about?: string }[];
   rotation: Knobs; gear: Knobs; polish: Knobs;
   /** Fights per build in the side-by-side check, and how many builds it takes. */
@@ -89,12 +90,13 @@ function runTool(tool: string, args: string[], log: string): Promise<boolean> {
   });
 }
 
+let targetFlags: string[] = [];
 async function search(stage: string, dir: string, profile: string, vs: string, k: Knobs, extra: string[]): Promise<SearchOut | null> {
   const json = join(dir, `${stage}.json`);
   if (existsSync(json) && !dry) { say(`  ${stage}: done before, kept`); return readJSON<SearchOut>(json); }
   const kk = knobs(k);
   const args = ['--profile', profile, '--vs', vs, '--screen', String(kk.screen), '--confirm', String(kk.confirm),
-    '--passes', String(kk.passes), ...(plan.searchFlags ?? []), ...extra, '--out', json];
+    '--passes', String(kk.passes), ...(plan.searchFlags ?? []), ...targetFlags, ...extra, '--out', json];
   for (let attempt = 1; attempt <= 2; attempt++) {
     say(`  ${stage}${attempt > 1 ? ' (retry)' : ''}`);
     if (await runTool('gear-search.ts', args, join(dir, `${stage}.log`))) return dry ? null : readJSON<SearchOut>(json);
@@ -118,6 +120,7 @@ const summary: string[] = [`# ${plan.name}${smoke ? ' (smoke test)' : ''}`, '', 
 for (const [tid, target] of Object.entries(plan.targets)) {
   if (onlyTargets && !onlyTargets.includes(tid)) continue;
   say(`== ${tid}: ${target.vs}`);
+  targetFlags = target.flags ?? [];
   const results: { seed: string; res: SearchOut; profile: string }[] = [];
   for (const seed of plan.seeds.filter((s) => s.for.includes(tid))) {
     say(`-- ${seed.id}${seed.set ? ` (${seed.set})` : ''}`);

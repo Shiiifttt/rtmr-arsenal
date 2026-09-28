@@ -1,0 +1,353 @@
+{
+ "profile": "Satsujin Rachel SS (owner build, 2026-09-28)",
+ "targets": [
+  "Njord Zealot",
+  "Converted Zealot",
+  "Godly Seeker",
+  "Burning Fury",
+  "Tortured Maiden"
+ ],
+ "rules": {
+  "screenN": 60,
+  "confirmN": 300,
+  "timeS": 300,
+  "locked": [
+   "weapon",
+   "sh_manual"
+  ],
+  "penalty": 0,
+  "topStats": [
+   "agi",
+   "str",
+   "dex"
+  ]
+ },
+ "start": {
+  "className": "Satsujin",
+  "baseLevel": 130,
+  "baseStats": {
+   "str": 90,
+   "agi": 99,
+   "vit": 28,
+   "int": 39,
+   "dex": 49,
+   "luk": 49
+  },
+  "manual": {
+   "flee": 70
+  },
+  "slots": {
+   "upper": {
+    "itemId": 5484,
+    "refine": 0,
+    "cards": []
+   },
+   "middle": {
+    "itemId": 5068,
+    "refine": 0,
+    "cards": [
+     13571
+    ]
+   },
+   "lower": {
+    "itemId": 5926,
+    "refine": 6,
+    "cards": [],
+    "rolls": {
+     "stat": {
+      "option": "vit",
+      "values": [
+       1
+      ]
+     }
+    }
+   },
+   "armor": {
+    "itemId": 15392,
+    "refine": 6,
+    "cards": [
+     13589
+    ],
+    "rolls": {
+     "stat": {
+      "option": "agi",
+      "values": [
+       2
+      ]
+     },
+     "resource": {
+      "option": "max_hp",
+      "values": [
+       3
+      ]
+     }
+    }
+   },
+   "weapon": {
+    "itemId": 13094,
+    "refine": 6,
+    "cards": [
+     4392,
+     4392,
+     4392
+    ],
+    "rolls": {
+     "roll2": {
+      "option": "sp_cost_reduced",
+      "values": [
+       10
+      ]
+     },
+     "roll3": {
+      "option": "melee_damage",
+      "values": [
+       9
+      ]
+     }
+    }
+   },
+   "offhand": {
+    "itemId": 1533,
+    "refine": 9,
+    "cards": [
+     4136
+    ]
+   },
+   "garment": {
+    "itemId": 2541,
+    "refine": 0,
+    "cards": []
+   },
+   "shoes": {
+    "itemId": 22000,
+    "refine": 0,
+    "cards": [
+     13591
+    ],
+    "rolls": {
+     "stat": {
+      "option": "agi",
+      "values": [
+       2
+      ]
+     },
+     "speed": {
+      "option": "aspd",
+      "values": [
+       8
+      ]
+     },
+     "casting": {
+      "option": "aspd_limit",
+      "values": [
+       1
+      ]
+     }
+    }
+   },
+   "acc1": {
+    "itemId": 2633,
+    "refine": 0,
+    "cards": []
+   },
+   "acc2": {
+    "itemId": 15424,
+    "refine": 0,
+    "cards": [
+     13743
+    ],
+    "rolls": {
+     "stat": {
+      "option": "agi",
+      "values": [
+       1
+      ]
+     }
+    }
+   },
+   "gem": {
+    "itemId": 903088,
+    "refine": 0,
+    "cards": []
+   },
+   "sh_armor": {
+    "itemId": 28956,
+    "refine": 6,
+    "cards": [],
+    "rolls": {
+     "stat": {
+      "option": "vit",
+      "values": [
+       1
+      ]
+     }
+    }
+   },
+   "sh_shoes": {
+    "itemId": 28958,
+    "refine": 6,
+    "cards": [],
+    "rolls": {
+     "stat": {
+      "option": "str",
+      "values": [
+       1
+      ]
+     }
+    }
+   },
+   "sh_gloves": {
+    "itemId": 28957,
+    "refine": 6,
+    "cards": [],
+    "rolls": {
+     "stat": {
+      "option": "str",
+      "values": [
+       1
+      ]
+     }
+    }
+   },
+   "sh_acc": {
+    "itemId": 28959,
+    "refine": 6,
+    "cards": [],
+    "rolls": {
+     "stat": {
+      "option": "agi",
+      "values": [
+       1
+      ]
+     }
+    }
+   },
+   "sh_manual": {
+    "itemId": 24021,
+    "refine": 0,
+    "cards": [],
+    "rolls": {
+     "stat": {
+      "option": "agi",
+      "values": [
+       1
+      ]
+     }
+    }
+   },
+   "runeorb": {
+    "itemId": 24173,
+    "refine": 6,
+    "cards": [],
+    "rolls": {
+     "stat": {
+      "option": "agi",
+      "values": [
+       1
+      ]
+     }
+    }
+   }
+  }
+ },
+ "steps": [
+  {
+   "move": "rotation: tankShare = 0.6",
+   "before": {
+    "win": 0.4646666666666667,
+    "loss": 0.5353333333333333,
+    "dps": 16537.571675995627,
+    "ttk": 18.494192007853403,
+    "value": 0.852130241806601,
+    "deaths": "Critical Slash x265, Meteor Storm x190"
+   },
+   "after": {
+    "win": 0.542,
+    "loss": 0.458,
+    "dps": 16738.26253541479,
+    "ttk": 18.285017399840658,
+    "value": 0.9556739380312218,
+    "deaths": "Critical Slash x265, Meteor Storm x190"
+   },
+   "tried": 28
+  },
+  {
+   "move": "order: Dragon Omamori up 2 (before Million Stab)",
+   "before": {
+    "win": 0.54,
+    "loss": 0.45999999999999996,
+    "dps": 16820.74351006961,
+    "ttk": 18.108478266560436,
+    "value": 0.9543111526510442,
+    "deaths": "Critical Slash x262, Meteor Storm x186"
+   },
+   "after": {
+    "win": 0.5553333333333333,
+    "loss": 0.44466666666666665,
+    "dps": 16833.881041002613,
+    "ttk": 18.20546713851582,
+    "value": 0.9744415489483724,
+    "deaths": "Critical Slash x264, Meteor Storm x185"
+   },
+   "tried": 62
+  },
+  {
+   "move": "order: New Moon up 2 (before Thousand Arms)",
+   "before": {
+    "win": 0.5553333333333332,
+    "loss": 0.4446666666666667,
+    "dps": 16839.419523155786,
+    "ttk": 18.30518087980879,
+    "value": 0.9745246261806699,
+    "deaths": "Critical Slash x266, Meteor Storm x207"
+   },
+   "after": {
+    "win": 0.5700000000000001,
+    "loss": 0.43,
+    "dps": 16670.896418802684,
+    "ttk": 18.454354442522195,
+    "value": 0.9910634462820404,
+    "deaths": "Critical Slash x268, Flaming Petals x160"
+   },
+   "tried": 62
+  }
+ ],
+ "final": {
+  "win": 0.5686666666666667,
+  "loss": 0.43133333333333335,
+  "dps": 16689.58156796371,
+  "ttk": 18.1416824477578,
+  "value": 0.9896103901861222,
+  "deaths": "Critical Slash x529, Meteor Storm x282"
+ },
+ "options": {
+  "slashOpener": true,
+  "backStab": false,
+  "seedTalisman": false,
+  "weaveMs": 0,
+  "mobility": "server",
+  "kite": true,
+  "tankShare": 0.6,
+  "order": [
+   "Stay hidden",
+   "Predict Kawarimi",
+   "Moon guard",
+   "Pull it off the ward",
+   "Morroc's Mark",
+   "Hallucination Walk",
+   "Full Moon",
+   "Dragon Omamori",
+   "Million Stab",
+   "New Moon",
+   "Thousand Arms",
+   "Omamori Jutsu",
+   "Shadow Slash",
+   "Back Stab",
+   "Lotus Pact",
+   "Attack",
+   "Wait for swing"
+  ]
+ },
+ "link": "http://localhost:5173/#b=cfZDRasQgEEX_ZZ7vg46aaH-jjyJBsnabkm1CzJZC6b-XSZay3bILIjIez9wxMug5r_X8NrwTtFGIQSEEsIcJsLISYlRw1tuEqOFU46EQtXGtTgmR4QI3aBCFpLrmlUAfw0qIOiVBDLQzgYXRxvlwDebjQIgsGC2lTuelLwQ65c_udSZEsyuspAtWFFZUv9vmWqZxZALVueununZLOZz7cpAEajdP42hEW8ZSukM-5WMhxLDLneQzCIhWm0YqDdhZnRBbMCulLhMHfS96nYv0o1xnaeu3Yp_rOrwfL-VuHE7Xv-LBjTEJMUA7y3bv0Vrzv8flhdYIyijv5cxgH9zjj9dmg_wtVNflCrIb1D6G3AaFW-hvvgZsFWuZ5D7Ugq1uzQNT2m4SvuhlLIWeWvWdfgA",
+ "perTarget": []
+}

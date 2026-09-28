@@ -1,0 +1,93 @@
+{
+  "name": "Satsujin Rachel SS roadmap (2026-09-28)",
+  "_about": "Where to progress: the best gear for clearing the five Rachel SS regulars (not the Desperate Njord MVP) efficiently, at three budgets. Default score (wins, then fights not lost, then DPS) rather than survival-first, so the builds clear fast, not just scrape by. Owner's constraints in every tier: Murder Knife and its race cards (weapon swapped per race), Agility Manual X kept, class gem at most +6, lower headgear only the owned Flaming Weaver or Wind Weaver (+1 STR), no Celestial Tome. Tiers: MVP drops are fine in every tier (owner, 2026-09-28: no penalty). +9 is fine too (owner, 2026-09-28). budget = nothing past +6; standard = +9 and MVP drops, no penalties; endgame = SS-dungeon drops too.",
+  "outDir": "../../data/gear-search/overnight/satsujin-rachel",
+  "searchFlags": [
+    "--lock",
+    "weapon,sh_manual",
+    "--lock-cards",
+    "weapon",
+    "--refine-cap",
+    "gem=6",
+    "--slot-items",
+    "lower=Flaming Weaver|Wind Weaver[str:1]",
+    "--exclude",
+    "Celestial Tome",
+    "--mvp-penalty",
+    "0"
+  ],
+  "targets": {
+    "budget": {
+      "vs": "Njord Zealot,Converted Zealot,Godly Seeker,Burning Fury,Tortured Maiden",
+      "flags": [
+        "--max-refine",
+        "6"
+      ]
+    },
+    "standard": {
+      "vs": "Njord Zealot,Converted Zealot,Godly Seeker,Burning Fury,Tortured Maiden",
+      "flags": [
+        "--penalty",
+        "0"
+      ]
+    },
+    "endgame": {
+      "vs": "Njord Zealot,Converted Zealot,Godly Seeker,Burning Fury,Tortured Maiden",
+      "flags": [
+        "--allow-ss",
+        "--penalty",
+        "0"
+      ]
+    }
+  },
+  "seeds": [
+    {
+      "id": "owner",
+      "profile": "profiles/satsujin-rachel.json",
+      "for": [
+        "budget",
+        "standard",
+        "endgame"
+      ]
+    },
+    {
+      "id": "hp",
+      "profile": "profiles/satsujin-rachel-search.json",
+      "set": "sh_manual=Agility Manual X; gem.refine=6",
+      "about": "the v4 search build (18.9k HP) under the owner's manual and gem limits",
+      "for": [
+        "budget",
+        "standard",
+        "endgame"
+      ]
+    },
+    {
+      "id": "capped",
+      "profile": "profiles/satsujin-rachel-capped.json",
+      "about": "the v5 search (manual locked, gem capped)",
+      "for": [
+        "standard",
+        "endgame"
+      ]
+    }
+  ],
+  "rotation": {
+    "screen": 60,
+    "confirm": 300,
+    "passes": 3
+  },
+  "gear": {
+    "screen": 80,
+    "confirm": 400,
+    "passes": 5
+  },
+  "polish": {
+    "screen": 150,
+    "confirm": 800,
+    "passes": 4
+  },
+  "check": {
+    "iter": 500,
+    "top": 3
+  }
+}

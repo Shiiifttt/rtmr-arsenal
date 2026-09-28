@@ -1,0 +1,466 @@
+{
+ "profile": "hp: rotation",
+ "targets": [
+  "Njord Zealot",
+  "Converted Zealot",
+  "Godly Seeker",
+  "Burning Fury",
+  "Tortured Maiden"
+ ],
+ "rules": {
+  "screenN": 80,
+  "confirmN": 400,
+  "timeS": 300,
+  "locked": [
+   "weapon",
+   "sh_manual"
+  ],
+  "penalty": 0,
+  "topStats": [
+   "agi",
+   "str",
+   "vit"
+  ]
+ },
+ "start": "http://localhost:5173/#b=cfZLNasMwEITfRec5aFc_lvoaPQpjhK2kKc4PtlNaSt-9rN06piS9CDT6mN0ZOzHUc57G6-vhpEBGI0WNaOEcOMJGmFgjJQ1DzBYeSa5qOPc9KahxGhQS1TUWjRXUMb83LxeFxKtsBL00Q9mXk_C6ruWNQME5DY1ExlU0W49TnrbOAjJcZC_TrdYGcmzZt8N0Yw3ImcgISJbYb7m8P9zWKuP5OrRlu7BZHKwUEe3sIE7rsUbnJU97HqdmKN21Ld1PrE3gY-lLabp8zPuikOJi7mQ9gyjbGS-KBzsr2SuQsxwkJhkX79eBpMZLkXkqjxcZW81im8fpcNqLvJvK0Mi96UqfPxZEoAD2Lkrd1ur4sO0IDsZJWiJEbXQIkB6JwSE6L8U8rJ_MDIX1V7k3gaxAnv46LR_oF3Jgax397-TBVrN0RRXYUvXf5Hp-qfGpdn0p6qnSX_U3",
+ "steps": [
+  {
+   "move": "Upper Headgear: Volan of the Sun +9",
+   "before": {
+    "win": 0.9059999999999999,
+    "loss": 0.094,
+    "dps": 14664.84584017488,
+    "ttk": 21.485030000000002,
+    "value": 1.397772687602623,
+    "deaths": "Flaming Petals x166, Knuckle Arrow x21"
+   },
+   "after": {
+    "win": 0.95,
+    "loss": 0.05,
+    "dps": 14522.140406733646,
+    "ttk": 21.666069999999998,
+    "value": 1.4528321061010046,
+    "deaths": "Flaming Petals x97, Critical Slash x2"
+   },
+   "tried": 254
+  },
+  {
+   "move": "Upper Headgear: Rhyncho Card x2",
+   "before": {
+    "win": 0.937,
+    "loss": 0.063,
+    "dps": 14526.906927907683,
+    "ttk": 21.62916,
+    "value": 1.4360036039186155,
+    "deaths": "Flaming Petals x119, Knuckle Arrow x6"
+   },
+   "after": {
+    "win": 0.9745000000000001,
+    "loss": 0.025500000000000002,
+    "dps": 14580.386456800024,
+    "ttk": 21.58062,
+    "value": 1.4855557968520006,
+    "deaths": "Flaming Petals x46, Knuckle Arrow x3"
+   },
+   "tried": 222
+  },
+  {
+   "move": "Middle Headgear: Master Loki Card x1",
+   "before": {
+    "win": 0.974,
+    "loss": 0.026000000000000002,
+    "dps": 14601.660844681068,
+    "ttk": 21.62152,
+    "value": 1.485224912670216,
+    "deaths": "Flaming Petals x51, Vampire Gift x1"
+   },
+   "after": {
+    "win": 0.9964999999999999,
+    "loss": 0.0035000000000000005,
+    "dps": 13845.425585100791,
+    "ttk": 22.82618,
+    "value": 1.503131383776512,
+    "deaths": "Knuckle Arrow x5, Vampire Gift x2"
+   },
+   "tried": 95
+  },
+  {
+   "move": "Lower Headgear: Ymir Emperium Card x2",
+   "before": {
+    "win": 0.999,
+    "loss": 0.001,
+    "dps": 13835.732681101566,
+    "ttk": 22.840439999999997,
+    "value": 1.5062359902165234,
+    "deaths": "Knuckle Arrow x2"
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 15570.020937097312,
+    "ttk": 20.67256,
+    "value": 1.5335503140564597,
+    "deaths": ""
+   },
+   "tried": 225
+  },
+  {
+   "move": "Armor: Odin Soutane +6",
+   "before": {
+    "win": 0.999,
+    "loss": 0.001,
+    "dps": 15569.450190455496,
+    "ttk": 20.67252,
+    "value": 1.5322417528568324,
+    "deaths": "Knuckle Arrow x2"
+   },
+   "after": {
+    "win": 0.9995,
+    "loss": 0.0005,
+    "dps": 16262.075957116822,
+    "ttk": 19.68923193510471,
+    "value": 1.5432811393567523,
+    "deaths": "Knuckle Arrow x1"
+   },
+   "tried": 288
+  },
+  {
+   "move": "Weapon: Murder Knife +8 -> +9",
+   "before": {
+    "win": 0.9995,
+    "loss": 0.0005,
+    "dps": 16238.296027067752,
+    "ttk": 19.69309320270665,
+    "value": 1.5429244404060163,
+    "deaths": "Knuckle Arrow x1"
+   },
+   "after": {
+    "win": 0.9995,
+    "loss": 0.0005,
+    "dps": 16985.633369934327,
+    "ttk": 18.799324372338567,
+    "value": 1.554134500549015,
+    "deaths": "Knuckle Arrow x1"
+   },
+   "tried": 1
+  },
+  {
+   "move": "Shadow Gloves: King's Noble Gloves +9",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 17003.927707050512,
+    "ttk": 18.795817421950655,
+    "value": 1.5550589156057577,
+    "deaths": ""
+   },
+   "after": {
+    "win": 0.9995,
+    "loss": 0.0005,
+    "dps": 19155.052303748787,
+    "ttk": 16.62161650338331,
+    "value": 1.5866757845562318,
+    "deaths": "Knuckle Arrow x1"
+   },
+   "tried": 233
+  },
+  {
+   "move": "Shadow Accessory: Heir to the King Pendant +9",
+   "before": {
+    "win": 0.999,
+    "loss": 0.001,
+    "dps": 19154.90875413141,
+    "ttk": 16.615970361313657,
+    "value": 1.586023631311971,
+    "deaths": "Knuckle Arrow x2"
+   },
+   "after": {
+    "win": 0.999,
+    "loss": 0.001,
+    "dps": 20572.086008716033,
+    "ttk": 15.627355235781375,
+    "value": 1.6072812901307405,
+    "deaths": "Pulse Strike 2 x1, Knuckle Arrow x1"
+   },
+   "tried": 233
+  },
+  {
+   "move": "Rune or Orb: Uruz Rune of Strength +9",
+   "before": {
+    "win": 0.9995,
+    "loss": 0.0005,
+    "dps": 20553.552776563814,
+    "ttk": 15.652524219244011,
+    "value": 1.6076532916484572,
+    "deaths": "Pulse Strike 2 x1"
+   },
+   "after": {
+    "win": 0.9974999999999999,
+    "loss": 0.0025,
+    "dps": 21784.015775172684,
+    "ttk": 14.944554623403139,
+    "value": 1.62351023662759,
+    "deaths": "Knuckle Arrow x4, Critical Slash x1"
+   },
+   "tried": 76
+  },
+  {
+   "move": "Upper Headgear: Thanatos Odium Card in socket 1",
+   "before": {
+    "win": 0.9984999999999999,
+    "loss": 0.0015,
+    "dps": 21744.104223982482,
+    "ttk": 14.938939191681737,
+    "value": 1.6242115633597372,
+    "deaths": "Knuckle Arrow x2, Pulse Strike 2 x1"
+   },
+   "after": {
+    "win": 0.9964999999999999,
+    "loss": 0.0035000000000000005,
+    "dps": 23483.911908596725,
+    "ttk": 14.067613966319197,
+    "value": 1.6477086786289508,
+    "deaths": "Knuckle Arrow x7"
+   },
+   "tried": 219
+  },
+  {
+   "move": "Off-hand: Master Dagger +9",
+   "before": {
+    "win": 0.9955,
+    "loss": 0.0045,
+    "dps": 23468.712182962103,
+    "ttk": 14.03897946912593,
+    "value": 1.6461806827444316,
+    "deaths": "Knuckle Arrow x8, Pulse Strike 2 x1"
+   },
+   "after": {
+    "win": 0.9969999999999999,
+    "loss": 0.003,
+    "dps": 24034.33665233919,
+    "ttk": 13.665203805533348,
+    "value": 1.6566150497850876,
+    "deaths": "Knuckle Arrow x5, Critical Slash x1"
+   },
+   "tried": 364
+  },
+  {
+   "move": "Off-hand: Memory of Thanatos Card x1",
+   "before": {
+    "win": 0.998,
+    "loss": 0.002,
+    "dps": 24055.129764072637,
+    "ttk": 13.592493330793948,
+    "value": 1.6582269464610897,
+    "deaths": "Knuckle Arrow x3, Pulse Strike 2 x1"
+   },
+   "after": {
+    "win": 0.9984999999999999,
+    "loss": 0.0015,
+    "dps": 24775.75772481662,
+    "ttk": 13.24761756255018,
+    "value": 1.6696863658722492,
+    "deaths": "Knuckle Arrow x3"
+   },
+   "tried": 155
+  },
+  {
+   "move": "Shoes: Khalitzburg Knight Card x1",
+   "before": {
+    "win": 0.9969999999999999,
+    "loss": 0.003,
+    "dps": 24767.01800011367,
+    "ttk": 13.24920380553335,
+    "value": 1.6676052700017048,
+    "deaths": "Knuckle Arrow x5, Burning Fury: attack x1"
+   },
+   "after": {
+    "win": 0.9885000000000002,
+    "loss": 0.0115,
+    "dps": 26224.89118367877,
+    "ttk": 12.329527827987215,
+    "value": 1.6784233677551816,
+    "deaths": "Knuckle Arrow x18, Pulse Strike 2 x4"
+   },
+   "tried": 92
+  },
+  {
+   "move": "Accessory 2 (right): Ifrit Card x1",
+   "before": {
+    "win": 0.9905000000000002,
+    "loss": 0.0095,
+    "dps": 26254.685271572154,
+    "ttk": 12.295190048516513,
+    "value": 1.6814702790735825,
+    "deaths": "Knuckle Arrow x16, Pulse Strike 2 x2"
+   },
+   "after": {
+    "win": 0.9925,
+    "loss": 0.0075,
+    "dps": 27524.37110809979,
+    "ttk": 11.830696927024931,
+    "value": 1.703115566621497,
+    "deaths": "Knuckle Arrow x14, Critical Slash x1"
+   },
+   "tried": 118
+  },
+  {
+   "move": "Shadow Armor: Fallen Gods Armor +8 -> +9",
+   "before": {
+    "win": 0.991,
+    "loss": 0.009,
+    "dps": 27479.71313102399,
+    "ttk": 11.825048672814832,
+    "value": 1.7004956969653597,
+    "deaths": "Knuckle Arrow x18"
+   },
+   "after": {
+    "win": 0.9974999999999999,
+    "loss": 0.0025,
+    "dps": 27637.975446393208,
+    "ttk": 11.810310684041765,
+    "value": 1.7113196316958978,
+    "deaths": "Knuckle Arrow x5"
+   },
+   "tried": 1
+  },
+  {
+   "move": "Upper Headgear: Valkyrie Circlet +9",
+   "before": {
+    "win": 0.9945,
+    "loss": 0.0055,
+    "dps": 27739.258413775846,
+    "ttk": 11.80556930834008,
+    "value": 1.7089388762066378,
+    "deaths": "Knuckle Arrow x10, Burning Fury: attack x1"
+   },
+   "after": {
+    "win": 0.9894999999999999,
+    "loss": 0.0105,
+    "dps": 29037.58828547628,
+    "ttk": 11.136047350668992,
+    "value": 1.7219138242821441,
+    "deaths": "Pulse Strike 2 x11, Knuckle Arrow x10"
+   },
+   "tried": 254
+  },
+  {
+   "move": "Shoes: Surt Shoes +6 -> +9",
+   "before": {
+    "win": 0.984,
+    "loss": 0.016,
+    "dps": 28900.652702954896,
+    "ttk": 11.15958873839018,
+    "value": 1.7127097905443234,
+    "deaths": "Pulse Strike 2 x18, Knuckle Arrow x14"
+   },
+   "after": {
+    "win": 0.9880000000000001,
+    "loss": 0.012,
+    "dps": 29256.169764716225,
+    "ttk": 11.034895676996138,
+    "value": 1.7232425464707435,
+    "deaths": "Pulse Strike 2 x13, Knuckle Arrow x11"
+   },
+   "tried": 3
+  },
+  {
+   "move": "Accessory 1 (left): Megingjard +0",
+   "before": {
+    "win": 0.9855,
+    "loss": 0.014500000000000002,
+    "dps": 29268.69337344704,
+    "ttk": 11.0437717577471,
+    "value": 1.7201804006017056,
+    "deaths": "Pulse Strike 2 x16, Knuckle Arrow x12"
+   },
+   "after": {
+    "win": 0.9890000000000001,
+    "loss": 0.011000000000000001,
+    "dps": 29768.418057792296,
+    "ttk": 11.102042005989942,
+    "value": 1.7322262708668845,
+    "deaths": "Knuckle Arrow x13, Pulse Strike 2 x7"
+   },
+   "tried": 130
+  },
+  {
+   "move": "Accessory 2 (right): Arch Ring +0",
+   "before": {
+    "win": 0.984,
+    "loss": 0.016,
+    "dps": 29834.732928445505,
+    "ttk": 11.039149876700053,
+    "value": 1.7267209939266825,
+    "deaths": "Knuckle Arrow x19, Pulse Strike 2 x11"
+   },
+   "after": {
+    "win": 0.9855,
+    "loss": 0.014500000000000002,
+    "dps": 30892.53696655606,
+    "ttk": 10.852735874703404,
+    "value": 1.7445380544983409,
+    "deaths": "Knuckle Arrow x17, Pulse Strike 2 x8"
+   },
+   "tried": 125
+  },
+  {
+   "move": "Rune or Orb: Dagaz Rune of Light +9",
+   "before": {
+    "win": 0.9870000000000001,
+    "loss": 0.013000000000000001,
+    "dps": 30945.142674034276,
+    "ttk": 10.884981359540493,
+    "value": 1.7472771401105143,
+    "deaths": "Knuckle Arrow x18, Pulse Strike 2 x5"
+   },
+   "after": {
+    "win": 0.994,
+    "loss": 0.006,
+    "dps": 31166.14379654808,
+    "ttk": 10.59570323224725,
+    "value": 1.7596921569482211,
+    "deaths": "Knuckle Arrow x12"
+   },
+   "tried": 76
+  }
+ ],
+ "final": {
+  "win": 0.98925,
+  "loss": 0.010750000000000001,
+  "dps": 31195.389717289283,
+  "ttk": 10.5639638786967,
+  "value": 1.7539558457593392,
+  "deaths": "Knuckle Arrow x38, Pulse Strike 2 x3"
+ },
+ "options": {
+  "slashOpener": true,
+  "backStab": false,
+  "seedTalisman": false,
+  "weaveMs": 0,
+  "mobility": "server",
+  "kite": true,
+  "tankShare": 0.6,
+  "order": [
+   "Stay hidden",
+   "Predict Kawarimi",
+   "Moon guard",
+   "Pull it off the ward",
+   "Morroc's Mark",
+   "Hallucination Walk",
+   "Full Moon",
+   "Dragon Omamori",
+   "Million Stab",
+   "Thousand Arms",
+   "Omamori Jutsu",
+   "New Moon",
+   "Shadow Slash",
+   "Back Stab",
+   "Lotus Pact",
+   "Attack",
+   "Wait for swing"
+  ]
+ },
+ "link": "http://localhost:5173/#b=cfZLdjtsgEIXfhetzwQw_hr5GL5FlIZt1XDmxZZOqq6rvXo2zSrJVszdIMB_nDIdJDPU91_36Y7ookNFIUSNaOAeOsBEmtkhJg0LgBrIhUHBOQyOR8eylrvaaq4La66aQqG3bFonhInt44RoOONZn-udUH7QBOatZcEsvVJHUVvbluvVFQZ3zr-60KiRzVM5TncZcp-WioNbT-z71ee62Mlz7MigkvvlYeWa0iEjWRMZ9ORy3ZZ5ZLNeuX_b6dJ30zX-ZZyPmZS6lG_I5j0UhxZu4E3GrP8TjXZKe2-W70P-d3GejPE79w-hRtArqtHZjni5l6Naydacjz493erCz1CI1EiyHoyev46tg97WIu8r7Kk00x2Gf9zpdRjl-q2XrZN8NZc7vN0SgAPYsshHsG5K5sNYcaREhaqNDgPwnMThE56WTl2NA5oCCzMHLySILtpbjv0qfIQcOunFfQx5sNUtO1IAtefqCb49Ki9_qbS5FfWv0n_Yv",
+ "perTarget": []
+}

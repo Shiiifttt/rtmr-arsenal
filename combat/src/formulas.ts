@@ -96,6 +96,8 @@ export const TUNE = {
    * whole cells at the server's speed, see kits/common.ts escapeMs). GUESS.
    */
   playerReactionMs: 300,
+  /** A player already moving (fight option kite): the walk starts as the cast bar shows. GUESS. */
+  kiteReactionMs: 50,
   /** Server walk speed: ms a cell (RTM common/mmo.hpp DEFAULT_WALK_SPEED); a diagonal step x1.4 (path.hpp). */
   walkCellMs: 160,
   diagonalCost: 1.4,
@@ -114,7 +116,88 @@ export const TUNE = {
    */
   hpRegenMs: 2000,
   spRegenMs: 1200,
+  /**
+   * Damage over time you put on a monster (codex "Damage over time"): the
+   * raw formula x (base level / 130)^4.8 / 2, capped at level 130.
+   * `dotScale` is left for a dummy reading to set.
+   */
+  dotLevelExp: 4.8,
+  dotScale: 1,
+  /**
+   * Which ATK Bleeding and Poison read: "your attack with the weapon counted
+   * in, not the number the status window shows" (codex). 'base': status ATK
+   * + the right weapon's base ATK, no refine (rAthena keeps refine apart, in
+   * rhw.atk2) -- the owner's dummy (2026-09-28): Bleeding 3,217 from status
+   * ATK 173 + Murder Knife 21 at STR ~100 (this: 3,233). 'full': status +
+   * weapon (base, refine, STR bonus) + equip, x ATK% (3,912). 'window':
+   * status + weapon with refine + equip (3,350).
+   */
+  dotAtk: 'base' as 'base' | 'full' | 'window',
+  /** True Goddess (experimental): every skill's cooldown after a cast, and Kaupe's window. */
+  trueGoddessCdMs: 10_000,
+  kaupeMs: 2000,
+  /** Share of a poisoned monster's soft DEF lost (RTM status.cpp:7630). */
+  poisonSoftDefCut: 0.1,
+  /** DoT ticks skip the monster's DamageTaken (status_zap / status_fix_damage never reach battle.cpp:1835). */
+  dotDamageTaken: false,
 };
+
+// ---- your damage over time on a monster ------------------------------------
+
+/** The codex's level multiplier: (min(level, 130) / 130)^4.8 / 2. */
+export const dotLevelMult = (level: number) =>
+  (Math.pow(Math.min(1, level / 130), TUNE.dotLevelExp) / 2) * TUNE.dotScale;
+
+/** The ATK Bleeding and Poison read (TUNE.dotAtk), right hand. The status window's left number, when read, stands for status ATK. */
+export function dotAtk(f: Fighter): number {
+  const s = f.stats; const w = f.weapon;
+  const status = f.window?.atk?.[0] ?? statusAtk(s, f.level);
+  if (TUNE.dotAtk === 'base') return status + (w?.atk ?? 0);
+  if (TUNE.dotAtk === 'window') return status + (w ? w.atk + refineAtk(w.level, w.refine) : 0) + f.equipAtk;
+  const weapon = w ? w.atk + refineAtk(w.level, w.refine) + (w.atk * s.str) / 200 : 0;
+  return (status + weapon + f.equipAtk) * (1 + f.atkPercent / 100);
+}
+
+/**
+ * Status MATK the renewal way: INT + INT/2 + DEX/5 + LUK/3 + level/4
+ * (rAthena status_base_matk). The owner's window (2026-09-28) reads 123;
+ * this gives 120 on the planner's stats, where statusMatk (the codex lines,
+ * no level term) gives 98.
+ */
+export const statusMatkRe = (s: Stats, level: number) =>
+  Math.floor(s.int + s.int / 2 + s.dex / 5 + s.luk / 3 + level / 4);
+
+/**
+ * MATK for Burning: the status window's two numbers x MATK% -- the owner's
+ * 123 + 62 at MATK +10% and AGI ~131 gives Burning 4,443 (read 4,446). With
+ * no reading, the model: renewal status MATK + gear MATK. It reads the
+ * window's right number low (planner 35 against 62: the off-hand
+ * Laevateinn's refine and whatever else adds MATK are not counted).
+ */
+export function dotMatk(f: Fighter): number {
+  const w = f.window?.matk;
+  const base = w ? w[0] + w[1] : statusMatkRe(f.stats, f.level) + f.matk.weapon + f.matk.equip;
+  return base * (1 + f.matk.percent / 100);
+}
+
+/**
+ * One tick of each, fixed when it lands (codex, 2026-09):
+ *   Bleeding  (ATK x max(STR, LUK)) / 3, every 3 s.
+ *   Burning   (MATK x max(INT, AGI)) / 3, every 3 s.
+ *   Poison    ((ATK + MATK) / 2 x max(VIT, DEX)) / 9, every second; never the killing blow.
+ * All x the level multiplier.
+ */
+export const DOTS = {
+  bleeding: { everyMs: 3000, lethal: true, tick: (f: Fighter) => (dotAtk(f) * Math.max(f.stats.str, f.stats.luk)) / 3 },
+  burning: { everyMs: 3000, lethal: true, tick: (f: Fighter) => (dotMatk(f) * Math.max(f.stats.int, f.stats.agi)) / 3 },
+  poison: {
+    everyMs: 1000, lethal: false,
+    tick: (f: Fighter) => (((dotAtk(f) + dotMatk(f)) / 2) * Math.max(f.stats.vit, f.stats.dex)) / 9,
+  },
+} as const;
+export type DotName = keyof typeof DOTS;
+
+export const dotTick = (f: Fighter, name: DotName) => Math.floor(DOTS[name].tick(f) * dotLevelMult(f.level));
 
 /** Natural HP regen per tick (RTM status.cpp:5413): 1 + VIT/5 + MaxHP/200. */
 export const hpRegenTick = (maxHp: number, vit: number) => 1 + Math.floor(vit / 5) + Math.floor(maxHp / 200);
@@ -302,21 +385,28 @@ export interface PhysicalHit {
 }
 
 /**
- * A boss to gear ("DMG vs boss", "Resistance vs non-boss"): an MVP -- and,
+ * A boss to gear ("DMG vs boss", "Resistance vs non-boss"): an MVP or a server
+ * Boss-class monster (rAthena's CLASS_BOSS: Guild Master, Detector) -- and,
  * with PROTOCOL_BOSS=1 in the environment, a boss-protocol monster too
  * (Jormungandr's Lair, Rachel SS: the small icon). Which is right in game is
  * open (the project owner, 2026-09-27); the switch lets a search try both.
  */
 const PROTOCOL_BOSS = process.env.PROTOCOL_BOSS === '1';
-export const countsAsBoss = (m: Monster) => m.boss || (PROTOCOL_BOSS && !!m.bossProtocol);
+export const countsAsBoss = (m: Monster) => m.boss || !!m.bossClass || !!m.protocolBoss || (PROTOCOL_BOSS && !!m.bossProtocol);
 
 /**
- * One cell's walk: 160 ms, faster by the single largest haste (RTM
- * status.cpp:7884-7949 takes the max of gear Move Speed % and the buffs,
- * not a sum). Improve Dodge's haste is the Assassin line's only.
+ * One cell's walk: 160 ms, less the Move Speed %. The live rule (codex
+ * "Movement Speed Cap", after the patch the project owner cites,
+ * 2026-09-28): the best single speed buff counts whole; gear (and the two
+ * class passives) are added on top at half their value -- except the
+ * Friendly Orphan set's +40%, which is not halved; +55% in all at most
+ * (2.2x the standing pace). The 2023 code summed gear and capped at 60%.
+ * No speed buffs are modelled yet, so it is gear alone.
  */
-export function walkCellMs(f: Pick<Fighter, 'moveSpeed'>): number {
-  const haste = Math.min(90, Math.max(0, f.moveSpeed ?? 0));
+export function walkCellMs(f: Pick<Fighter, 'moveSpeed' | 'moveSpeedWhole'>): number {
+  const whole = f.moveSpeedWhole ?? 0;
+  const halved = Math.max(0, (f.moveSpeed ?? 0) - whole) / 2;
+  const haste = Math.min(55, whole + halved);
   return (TUNE.walkCellMs * (100 - haste)) / 100;
 }
 
@@ -333,7 +423,7 @@ export function escapeCells(s: Pick<MobSkill, 'skill' | 'radius' | 'centeredOnSe
 }
 
 /** Time to step out of `s`, one way: TUNE.walkOutMs for the TAS; whole cells with fight option mobility 'server'. */
-export function escapeMsFor(options: Record<string, unknown>, f: Pick<Fighter, 'moveSpeed'>, s?: MobSkill): number {
+export function escapeMsFor(options: Record<string, unknown>, f: Pick<Fighter, 'moveSpeed' | 'moveSpeedWhole'>, s?: MobSkill): number {
   if (options.mobility !== 'server') return TUNE.walkOutMs;
   return Math.round((s ? escapeCells(s) : 3) * walkCellMs(f));
 }
@@ -344,7 +434,9 @@ export function escapeMsFor(options: Record<string, unknown>, f: Pick<Fighter, '
  * right hand's) by default, the left hand's own with f.dmgLeft.
  */
 export function physicalCardFix(f: Fighter, m: Monster, d: Fighter['dmg'] = f.dmg): number {
-  const race = 1 + ((d[`dmg_vs_race_${raceKey(m.race)}`] ?? 0) + (d.dmg_vs_race_all_races ?? 0)) / 100;
+  // The right hand's weapon swapped for this race (Fighter.anyRace): its cards count whatever the race.
+  const specific = Math.max(d[`dmg_vs_race_${raceKey(m.race)}`] ?? 0, d === f.dmg ? f.anyRace ?? 0 : 0);
+  const race = 1 + (specific + (d.dmg_vs_race_all_races ?? 0)) / 100;
   const ele = 1 + (d[`dmg_vs_${m.element.toLowerCase()}`] ?? 0) / 100;
   const size = 1 + ((d[`dmg_vs_size_${m.size.toLowerCase()}`] ?? 0) + (d.dmg_vs_size_all_sizes ?? 0)) / 100;
   const boss = 1 + (d[countsAsBoss(m) ? 'dmg_vs_race_boss' : 'dmg_vs_race_non_boss'] ?? 0) / 100;

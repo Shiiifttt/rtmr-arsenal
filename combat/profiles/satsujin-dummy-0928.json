@@ -1,0 +1,255 @@
+{
+  "name": "Satsujin dummy readings (owner, 2026-09-28): 3x Chocolate Bear",
+  "_about": "The build the 2026-09-28 dummy readings were taken on (base level 136; the link says 130): Murder Knife +6 [3x Chocolate Bear], Moonlight Stance, Seven Winds Ghost, no Focus. Gem on: New Moon 8,737, Full Moon 13,722, Dragon Omamori apply 2,304. Gem off: 11,746 / 18,136 / 1,774. Bleeding 3,217 a tick, Burning 4,446 (window then 123+62), Poison 2,930 in a 3s dummy-counter window. Window: STR 90+10 AGI 99+30 VIT 28+5 INT 39+3 DEX 49+2 LUK 49-1; ATK 172+83, MATK 132+62.",
+  "_link": "https://rtmr-arsenal.pages.dev/#b=cfZLdbhshEIXfhevTihmGBfoauURotbJJsu3aWZl1VanKu0eDncpNFEuIn8PHmRkgM8zDtLXzz_loQM4iJ4uUwBEuQbQV5GzhJUpBJng7RFhkcj5QKcgMn3jAgKykadu0GZjf82aQqRRFHMi7xMqQ8zHdgtPTbJBZMXOq7eV82lUDc5j-jM-rQXYXC9HskqiFOLH41-mmV3-HhCzkBlUGsBcqyAHM1tprxom-Ct3WWveqtXVvkGMXd1Pb5uPTVR6X-XBbVQQPzhXkBPLCcokRxH2OcT1BhGSdjVHnDI7J3784ch2KH6G2nW4g6VC4D_kOpY_Q__kNYLFMWsnXUAALBXfHqct9zSDHsNB7N4e61Dq2X_OyjIfzshkQJIbvIu_Evj6Oaz0aWLBXEcH219FSGNQfspOPS60qDZLepbaOu5fWXb-JgHT0_X8U_L0c-BHsa3kD",
+  "_rolls": "Murder Knife: Melee +9%, SP cost -10% (random options the live arsenal could not enter; the owner, 2026-09-28)",
+  "baseLevel": 136,
+  "build": {
+    "className": "Satsujin",
+    "baseLevel": 130,
+    "baseStats": {
+      "str": 90,
+      "agi": 99,
+      "vit": 28,
+      "int": 39,
+      "dex": 49,
+      "luk": 49
+    },
+    "manual": {
+      "flee": 70
+    },
+    "slots": {
+      "upper": {
+        "itemId": 5484,
+        "refine": 0,
+        "cards": []
+      },
+      "middle": {
+        "itemId": 5068,
+        "refine": 0,
+        "cards": [
+          13571
+        ]
+      },
+      "lower": {
+        "itemId": 5926,
+        "refine": 6,
+        "cards": [],
+        "rolls": {
+          "stat": {
+            "option": "vit",
+            "values": [
+              1
+            ]
+          }
+        }
+      },
+      "armor": {
+        "itemId": 15392,
+        "refine": 6,
+        "cards": [
+          13589
+        ],
+        "rolls": {
+          "stat": {
+            "option": "agi",
+            "values": [
+              2
+            ]
+          },
+          "resource": {
+            "option": "max_hp",
+            "values": [
+              3
+            ]
+          }
+        }
+      },
+      "weapon": {
+        "itemId": 13094,
+        "refine": 6,
+        "cards": [
+          4340,
+          4340,
+          4340
+        ],
+        "rolls": {
+          "roll2": {
+            "option": "sp_cost_reduced",
+            "values": [
+              10
+            ]
+          },
+          "roll3": {
+            "option": "melee_damage",
+            "values": [
+              9
+            ]
+          }
+        }
+      },
+      "offhand": {
+        "itemId": 1533,
+        "refine": 9,
+        "cards": [
+          4136
+        ]
+      },
+      "garment": {
+        "itemId": 2541,
+        "refine": 0,
+        "cards": []
+      },
+      "shoes": {
+        "itemId": 22000,
+        "refine": 0,
+        "cards": [
+          13591
+        ],
+        "rolls": {
+          "stat": {
+            "option": "agi",
+            "values": [
+              2
+            ]
+          },
+          "speed": {
+            "option": "aspd",
+            "values": [
+              8
+            ]
+          },
+          "casting": {
+            "option": "aspd_limit",
+            "values": [
+              1
+            ]
+          }
+        }
+      },
+      "acc1": {
+        "itemId": 2633,
+        "refine": 0,
+        "cards": []
+      },
+      "acc2": {
+        "itemId": 15424,
+        "refine": 0,
+        "cards": [
+          13743
+        ],
+        "rolls": {
+          "stat": {
+            "option": "agi",
+            "values": [
+              1
+            ]
+          }
+        }
+      },
+      "gem": {
+        "itemId": 903088,
+        "refine": 0,
+        "cards": []
+      },
+      "sh_armor": {
+        "itemId": 28956,
+        "refine": 6,
+        "cards": [],
+        "rolls": {
+          "stat": {
+            "option": "vit",
+            "values": [
+              1
+            ]
+          }
+        }
+      },
+      "sh_shoes": {
+        "itemId": 28958,
+        "refine": 6,
+        "cards": [],
+        "rolls": {
+          "stat": {
+            "option": "str",
+            "values": [
+              1
+            ]
+          }
+        }
+      },
+      "sh_gloves": {
+        "itemId": 28957,
+        "refine": 6,
+        "cards": [],
+        "rolls": {
+          "stat": {
+            "option": "str",
+            "values": [
+              1
+            ]
+          }
+        }
+      },
+      "sh_acc": {
+        "itemId": 28959,
+        "refine": 6,
+        "cards": [],
+        "rolls": {
+          "stat": {
+            "option": "agi",
+            "values": [
+              1
+            ]
+          }
+        }
+      },
+      "sh_manual": {
+        "itemId": 24021,
+        "refine": 0,
+        "cards": [],
+        "rolls": {
+          "stat": {
+            "option": "agi",
+            "values": [
+              1
+            ]
+          }
+        }
+      },
+      "runeorb": {
+        "itemId": 24173,
+        "refine": 6,
+        "cards": [],
+        "rolls": {
+          "stat": {
+            "option": "agi",
+            "values": [
+              1
+            ]
+          }
+        }
+      }
+    }
+  },
+  "options": {
+    "slashOpener": true,
+    "backStab": false,
+    "seedTalisman": false,
+    "weaveMs": 0,
+    "mobility": "server"
+  },
+  "measured": {
+    "maxHp": 5011,
+    "windowAtk": [
+      172,
+      83
+    ],
+    "windowMatk": [
+      132,
+      62
+    ],
+    "flee": 691,
+    "mdef": 50
+  }
+}

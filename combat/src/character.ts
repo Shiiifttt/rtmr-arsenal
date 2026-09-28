@@ -24,6 +24,14 @@ export interface Profile {
   /** A share link, its payload, a planner Build, or slots by item name. */
   build: string | Build | NamedBuild;
   /** Readings from the game. Each one, when given, beats the model. */
+  /** The character's base level, over the link's. */
+  baseLevel?: number;
+  /**
+   * The main-hand weapon is swapped per monster for one carded for its race
+   * (the project owner's Satsujin, 2026-09-28): the weapon's best
+   * race-specific bonus counts against whatever race is fought.
+   */
+  weaponRaceMatch?: boolean;
   measured?: {
     /** Max HP without Moonlight Stance (or the class's stance). */
     maxHp?: number;
@@ -31,6 +39,20 @@ export interface Profile {
     aspd?: number;
     flee?: number;
     hit?: number;
+    /** The status window's ATK and MATK, "173 + 83": what damage over time reads, when given. */
+    windowAtk?: [number, number];
+    windowMatk?: [number, number];
+    /** Hard MDEF: the status window's RIGHT number ("107 + 50" is soft + hard). */
+    mdef?: number;
+    /**
+     * What the window reads over the model, kept when gear changes (a search):
+     * flee 691 read vs 718 modelled -> fleeOffset -27. Used when flee / mdef
+     * themselves are not pinned.
+     */
+    fleeOffset?: number;
+    mdefOffset?: number;
+    /** Max HP read / modelled for the same build, kept when gear changes (instead of pinning maxHp). */
+    hpScale?: number;
   };
   /** Consumables carried, by item name. Default: Green Potion. */
   consumables?: string[];
@@ -121,7 +143,9 @@ export interface FighterOptions {
 
 export async function buildFighter(profile: Profile, opts: FighterOptions): Promise<Fighter> {
   const data = plannerDataset();
-  const build = await resolveBuild(profile.build, data);
+  const read = await resolveBuild(profile.build, data);
+  // A link saved at the wrong level (the owner's of 2026-09-28: 130, played at 136).
+  const build = profile.baseLevel ? { ...read, baseLevel: profile.baseLevel } : read;
   const totals = aggregate(build, data);
   const notes: string[] = [];
 
@@ -162,18 +186,26 @@ export async function buildFighter(profile: Profile, opts: FighterOptions): Prom
   // ---- HP / SP --------------------------------------------------------------
   const measuredHp = profile.measured?.maxHp;
   const job = jobBase(data, build.className, build.baseLevel);
+  // "HP-2% per VIT" / "SP-2% per INT" (Opera Mask): the parser leaves them;
+  // read literally, per point of the stat's total. GUESS until confirmed.
+  const perStat = (pool: 'HP' | 'SP', stat: 'vit' | 'int') => gearLines(build, data)
+    .reduce((n, l) => n + Number(new RegExp(String.raw`^\s*${pool}\s*-\s*(\d+)%\s*per\s*${stat}\s*$`, 'i').exec(l)?.[1] ?? 0), 0) * stats[stat];
+  const hpStatCut = perStat('HP', 'vit');
+  const spStatCut = perStat('SP', 'int');
+  if (hpStatCut) notes.push(`Max HP -${hpStatCut}% from "HP -n% per VIT" (read literally)`);
   const modelHp = job
-    ? poolFromJob(job.hp, stats.vit, flat('max_hp') + passives.hpFlat, pct('max_hp'), LIVE_HP_FIX[job.job] ?? 1) : null;
+    ? poolFromJob(job.hp, stats.vit, flat('max_hp') + passives.hpFlat, pct('max_hp') - hpStatCut, LIVE_HP_FIX[job.job] ?? 1)
+      * (profile.measured?.hpScale ?? 1) : null;
   const readHp = measuredHp ?? modelHp ?? DEFAULT_MAX_HP[build.className ?? ''] ?? DEFAULT_MAX_HP_ANY;
   if (measuredHp) notes.push(`Max HP ${measuredHp} as measured (before stance)`);
   else if (modelHp) notes.push(`Max HP ${Math.floor(modelHp)} before stance from the ${job!.job} job table -- a reading confirms it`);
   else notes.push(`Max HP assumed ${readHp} before stance -- give a reading for real numbers`);
-  const maxHp = Math.min(HP_CAP, Math.floor(readHp * (1 + passives.hpPercent / 100)));
+  const maxHp = Math.max(1, Math.min(HP_CAP, Math.floor(readHp * (1 + passives.hpPercent / 100))));
 
   const spModel = (base: number) => (base * (1 + stats.int / 100) + flat('max_sp') + passives.spFlat)
     * (1 + pct('max_sp') / 100);
   const jobSp = (JOB_BASE_SP[build.className ?? ''] ?? JOB_BASE_SP.Satsujin)(build.baseLevel);
-  const modelSp = job ? poolFromJob(job.sp, stats.int, flat('max_sp') + passives.spFlat, pct('max_sp')) : spModel(jobSp);
+  const modelSp = job ? poolFromJob(job.sp, stats.int, flat('max_sp') + passives.spFlat, pct('max_sp') - spStatCut) : spModel(jobSp);
   const maxSp = Math.min(SP_CAP, Math.floor(profile.measured?.maxSp ?? modelSp));
   if (!profile.measured?.maxSp) {
     notes.push(job ? `Max SP ${maxSp} from the job table -- a reading confirms it` : `Max SP ${maxSp} from a guessed job base -- give measured.maxSp`);
@@ -201,7 +233,7 @@ export async function buildFighter(profile: Profile, opts: FighterOptions): Prom
   // The planner's flee already carries the build's manual box; the kit's
   // passives stand in only when that box is empty.
   const manualFlee = build.manual?.flee;
-  const flee = profile.measured?.flee ?? total('flee') + (manualFlee ? 0 : passives.flee);
+  const flee = profile.measured?.flee ?? total('flee') + (manualFlee ? 0 : passives.flee) + (profile.measured?.fleeOffset ?? 0);
 
   // The limit, not a flat 180: +1 per 40 AGI and gear's ASPD Limit, up to
   // 190 (the planner's derived total). An AGI build is assumed to reach it.
@@ -234,6 +266,17 @@ export async function buildFighter(profile: Profile, opts: FighterOptions): Prom
     const t = cd && aggregate({ ...build, slots: { weapon: build.slots.weapon } }, data).byStat.get(cd.id);
     critDamageLeft -= (t?.flat ?? 0) + (t?.percent ?? 0);
   }
+  // weaponRaceMatch: the right weapon's own best race card total, for any race.
+  let anyRace = 0;
+  if (profile.weaponRaceMatch && build.slots.weapon) {
+    const own = aggregate({ ...build, slots: { weapon: build.slots.weapon } }, data);
+    for (const s of data.stats) {
+      if (!s.key.startsWith('dmg_vs_race_') || /_(boss|non_boss|all_races)$/.test(s.key)) continue;
+      const t = own.byStat.get(s.id);
+      anyRace = Math.max(anyRace, (t?.flat ?? 0) + (t?.percent ?? 0));
+    }
+    if (anyRace) notes.push(`weapon swapped per race: +${anyRace}% against any race`);
+  }
   if (leftWeapon && build.slots.offhand) {
     const own = aggregate({ ...build, slots: { offhand: build.slots.offhand } }, data);
     for (const s of data.stats) {
@@ -244,6 +287,7 @@ export async function buildFighter(profile: Profile, opts: FighterOptions): Prom
     }
   }
 
+  const tg = trueGoddessPart(extras.trueGoddess, build, data, notes);
   const fighter: Fighter = {
     name: profile.name ?? build.className ?? 'player',
     className: build.className ?? 'unknown',
@@ -269,18 +313,19 @@ export async function buildFighter(profile: Profile, opts: FighterOptions): Prom
     critDamage: either('crit_damage'),
     critDamageLeft,
     aspd,
-    moveSpeed: either('move_speed'),
+    moveSpeed: either('move_speed') + (tg.tgMoveSpeed ?? 0),
     defPen: flat('def_pen') + (passives.defPen ?? 0),
     mdefPen: flat('mdef_pen'),
     def,
     softDef,
-    mdef: Math.floor(flat('mdef') * (1 + pct('mdef') / 100)),
+    mdef: profile.measured?.mdef ?? Math.floor(flat('mdef') * (1 + pct('mdef') / 100)) + (profile.measured?.mdefOffset ?? 0),
     softMdef: playerSoftMdef(stats, build.baseLevel),
     element: totals.element ?? 'Neutral',
     dmg,
     dmgLeft,
+    ...(anyRace ? { anyRace } : {}),
     res,
-    cast: { variable: pct('variable_cast'), fixed: pct('fixed_cast'), all: pct('cast_time') },
+    cast: { variable: pct('variable_cast') + (tg.tgCast?.variable ?? 0), fixed: pct('fixed_cast') + (tg.tgCast?.fixed ?? 0), all: pct('cast_time') },
     afterCastDelay: pct('after_cast_delay'),
     spCost: pct('sp_cost'),
     leech: {
@@ -304,6 +349,11 @@ export async function buildFighter(profile: Profile, opts: FighterOptions): Prom
     healPower: either('healing_power'),
     reflectReduce: either('ignores_reflect') > 0 ? 100 : reflectReduceFromText(build, data),
     ...guardFromText(build, data, totals.skills.get('Auto Guard|level')?.flat ?? 0),
+    ...(profile.measured?.windowAtk || profile.measured?.windowMatk ? {
+      window: { atk: profile.measured.windowAtk, matk: profile.measured.windowMatk },
+    } : {}),
+    ...(Number.isFinite(extras.backSlideMs) ? { backSlideMs: extras.backSlideMs } : {}),
+    ...(tg.trueGoddess ? { trueGoddess: true } : {}),
     skillLevels: levels,
     skillMods: skillModLookup(totals, opts.aliases, extras.skillDamage),
     notes,
@@ -343,11 +393,15 @@ function gearExtras(build: Build, data: Dataset, totals: Totals): {
   grants: Record<string, number>; ranged: number; skillDamage: Record<string, number>; notes: string[];
   /** End of Kings: DEF and soft DEF +% (1 a set refine); ATK from total DEF. Heir to the King: DEF from total ATK. */
   defPct: number; atkFromDef: number; defFromAtk: number;
+  /** Back Slide's cooldown from gear, ms (Infinity: none). */
+  backSlideMs: number;
+  /** The True Goddess set is complete. */
+  trueGoddess: boolean;
 } {
   const grants: Record<string, number> = {};
   const skillDamage: Record<string, number> = {};
   const notes: string[] = [];
-  let ranged = 0; let defPct = 0; let atkFromDef = 0; let defFromAtk = 0;
+  let ranged = 0; let defPct = 0; let atkFromDef = 0; let defFromAtk = 0; let backSlideMs = Infinity; let trueGoddess = false;
   const grant = (text: string) => {
     const m = /^Grants (.+?) Lv\.?\s*(\d+)\.?$/i.exec(text.trim());
     if (m) grants[m[1]] = Math.max(grants[m[1]] ?? 0, Number(m[2]));
@@ -355,8 +409,25 @@ function gearExtras(build: Build, data: Dataset, totals: Totals): {
   const refineOf = new Map<number, number>();
   for (const st of Object.values(build.slots)) if (st?.itemId) refineOf.set(st.itemId, st.refine ?? 0);
   for (const id of refineOf.keys()) for (const b of data.items.get(id)?.piece_bonus ?? []) grant(b.text);
+  // Back Slide from gear, as the tooltips word it: "Backslide Lv1" (Celestial
+  // Tome), "Back Slide Lv1" (Evasion Manual), "Enables Backslide" (Surt
+  // Shoes, Galaxy Garment, River Gem), "Enables Backslide with a reduced
+  // cooldown of 1 second" (Slider Armguard). Not the autocast ones ("when
+  // using Flying Knife"). Cooldown 3 s (server TF_BACKSLIDING), the shortest
+  // a piece gives.
+  for (const s of Object.values(build.slots)) {
+    for (const id of [s?.itemId, ...(s?.cards ?? [])]) {
+      for (const line of (id ? data.items.get(id)?.description ?? '' : '').split('\n')) {
+        if (!/^\s*(Enables\s+)?Back\s?slid(e|ing)\b/i.test(line) || /\bwhen\b|autocast/i.test(line)) continue;
+        grants['Back Slide'] = 1;
+        const cd = /cooldown of (\d+(?:\.\d+)?) second/i.exec(line);
+        backSlideMs = Math.min(backSlideMs, cd ? Number(cd[1]) * 1000 : 3000);
+      }
+    }
+  }
   for (const p of totals.setProgress) {
     if (!p.complete) continue;
+    if (p.set.name === 'True Goddess') trueGoddess = true;
     for (const b of p.set.set_bonus) {
       grant(b.text);
       // The shadow sets' unparsed lines (End of Kings, Heir to the King).
@@ -394,7 +465,7 @@ function gearExtras(build: Build, data: Dataset, totals: Totals): {
     }
   }
   if (Object.keys(grants).length) notes.push(`skills from gear: ${Object.entries(grants).map(([n, l]) => `${n} ${l}`).join(', ')}`);
-  return { grants, ranged, skillDamage, notes, defPct, atkFromDef, defFromAtk };
+  return { grants, ranged, skillDamage, notes, defPct, atkFromDef, defFromAtk, backSlideMs, trueGoddess };
 }
 
 /**
@@ -468,6 +539,35 @@ function guardFromText(build: Build, data: Dataset, fromTotals: number): { autoG
     if (/Permanent Endure/i.test(d)) endure = true;
   }
   return { ...(autoGuard > 0 ? { autoGuard: Math.min(10, autoGuard) } : {}), ...(endure ? { endure } : {}) };
+}
+
+/**
+ * True Goddess (all four pieces), EXPERIMENTAL -- only with TRUE_GODDESS=1 in
+ * the environment. Each piece's "Max HP -99%" stacks (the planner's totals
+ * already floor HP at 1); the set: every skill cast starts a 10 s cooldown
+ * on that skill and grants Kaupe Lv3 for 2 s (engine.ts). Readings the
+ * project owner gave (2026-09-28): the penalty stacks, "spellcast" is any
+ * skill, the cooldown is per skill. The pieces' per-refine lines the parser
+ * loses are added here: Move Speed +3% (armour), Variable Cast -5%
+ * (gloves), Fixed Cast -3% (shoes) per refine; the set's Variable and
+ * Fixed Cast -1% per 2 total refines. ASPD +2% (pendant) is left out: the
+ * sim reads ASPD as the build's limit.
+ */
+function trueGoddessPart(complete: boolean, build: Build, data: Dataset, notes: string[]):
+  { trueGoddess?: boolean; tgMoveSpeed?: number; tgCast?: { variable: number; fixed: number } } {
+  if (!complete || process.env.TRUE_GODDESS !== '1') return {};
+  const refineOf = (name: string) => Object.values(build.slots)
+    .find((st) => st?.itemId && data.items.get(st.itemId)?.name === name)?.refine ?? 0;
+  const [a, g, sh, pe] = ['Armor', 'Gloves', 'Shoes', 'Pendant'].map((w) => refineOf(`True Goddess ${w}`));
+  const set = Math.floor((a + g + sh + pe) / 2);
+  notes.push(`True Goddess: 10 s cooldown on every skill, Kaupe 2 s after each cast (experimental)`);
+  return { trueGoddess: true, tgMoveSpeed: 3 * a, tgCast: { variable: -5 * g - set, fixed: -3 * sh - set } };
+}
+
+/** Every line of every worn item's and card's description. */
+function gearLines(build: Build, data: Dataset): string[] {
+  return Object.values(build.slots).flatMap((s) => [s?.itemId, ...(s?.cards ?? [])])
+    .flatMap((id) => (id ? (data.items.get(id)?.description ?? '').split('\n') : []));
 }
 
 function itemIn(build: Build, data: Dataset, slot: string) {

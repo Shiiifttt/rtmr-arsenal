@@ -26,17 +26,17 @@
  *   - Million Stab is melee despite its 7-cell reach (the planner's Moon
  *     preset scores it on melee%); Dragon Omamori (7-11 cells) is ranged.
  */
-import { attrFix, castTimeMs, magicDamage, TUNE } from '../formulas.ts';
+import { attrFix, castTimeMs, magicDamage, TUNE, type DotName } from '../formulas.ts';
 import type { MobSkill, Monster } from '../model.ts';
 import { ratioAt } from '../skilltext.ts';
 import type { Passives } from '../character.ts';
 import {
-  canUse, enterManhole, focusStacks, followUpComing, grant, has, heal_, MANHOLE_MS, mobHas, readyAt, stacks, strike,
+  canUse, dotOnMob, enterManhole, focusStacks, followUpComing, grant, has, heal_, MANHOLE_MS, mobHas, readyAt, say, stacks, strike,
   type Action, type Fight, type Kit,
 } from '../engine.ts';
 import {
-  assessThreat, attackAction, breakSight, hidingAction, lv, morrocsMark, optionOn, pullOffWard, stayHidden, swingWait,
-  toolkit, walkOut,
+  assessThreat, attackAction, backSlide, backSlideWorks, breakSight, escapeMs, hidingAction, lv, morrocsMark, optionOn, pullOffWard, reactionMs,
+  returnMs, stayHidden, swingWait, toolkit, walkOut,
 } from './common.ts';
 
 const TREE = ['Satsujin', 'Shinobi', 'Assassin', 'Thief', 'Orphan'];
@@ -55,11 +55,11 @@ const SKILLS = [
 ];
 
 /**
- * Where the crawl's max level is wrong. Dragon Omamori says 10, but its SP
- * and range tables stop at 5, and the project owner's readings (2026-09-26)
- * only fit level 5: apply 9,830 and explosion 16,072 under Combo Ready.
+ * Where the crawl's max level is wrong. Dragon Omamori was held at 5 here
+ * (its SP and range tables stop at 5); the project owner reads its max as
+ * 10 in game (2026-09-28), which the crawl says too.
  */
-const MAX_LEVEL_FIX: Record<string, number> = { 'Dragon Omamori': 5 };
+const MAX_LEVEL_FIX: Record<string, number> = {};
 
 export function maxLevels(): Record<string, number> {
   return Object.fromEntries(SKILLS.map((n) => [n, MAX_LEVEL_FIX[n] ?? sk(n).row.max]));
@@ -134,6 +134,34 @@ function ratioOf(fight: Fight, name: string, formula = 'damage', extra = 0): num
   return v;
 }
 
+/**
+ * Moonless Gem of Darkness: "New Moon Blades applies Bleeding / Full Moon
+ * Blades applies Poison / Dragon Omamori applies Burning". Every hit that
+ * lands applies it, bosses and the boss protocol included (the project
+ * owner, 2026-09-28; codex: "Now applies to bosses"). Option gemDots false
+ * turns it off.
+ */
+const GEM_DOTS: [string, DotName][] = [['New Moon', 'bleeding'], ['Full Moon', 'poison'], ['Dragon Omamori', 'burning']];
+const gemDotCache = new WeakMap<object, Record<string, DotName>>();
+function gemDots(fight: Fight): Record<string, DotName> {
+  let v = gemDotCache.get(fight.f);
+  if (!v) {
+    v = {};
+    for (const [skill, dot] of GEM_DOTS) {
+      const words = [skill, ...(ALIASES[skill] ?? [])].map((w) => w.replace(/\s+/g, '\\s+'));
+      if (new RegExp(`(${words.join('|')})\\s+applies\\s+${dot}`, 'i').test(fight.f.gearText ?? '')) v[skill] = dot;
+    }
+    gemDotCache.set(fight.f, v);
+  }
+  return fight.options.gemDots === false ? {} : v;
+}
+
+/** After `skill` lands (damage > 0), its gem status. */
+function applyGemDot(fight: Fight, skill: string, dealt: number) {
+  const dot = gemDots(fight)[skill];
+  if (dot && dealt > 0) dotOnMob(fight, dot);
+}
+
 // ---- actions ---------------------------------------------------------------
 
 const attack = attackAction(T, statusElement);
@@ -173,10 +201,11 @@ const newMoon: Action = {
   cooldownMs: cooldown('New Moon'),
   spCost: spCost('New Moon'),
   resolve(fight) {
-    strike(fight, 'New Moon', {
+    const dealt = strike(fight, 'New Moon', {
       hits: 1, canMiss: true, critBonus: null,
       damage: physical(fight, 'New Moon', ratioOf(fight, 'New Moon')),
     });
+    applyGemDot(fight, 'New Moon', dealt);
     grant(fight, 'invisible', INVIS_MS);
     // A new cycle: count its Full Moons (option seedTalisman).
     grant(fight, 'fullMoons', 1e12, 0);
@@ -187,15 +216,19 @@ const fullMoon: Action = {
   id: 'Full Moon',
   isSkill: true,
   offensive: true,
-  ready: (fight) => learned('Full Moon')(fight) && has(fight, 'invisible'),
+  // Option moonGuard: New Moon's invisibility halves the next hit you take
+  // (RTM battle.cpp:1567, and the hit ends it: status.cpp:2351). With an
+  // instant killer due (Critical Slash), hold it rather than spend it.
+  ready: (fight) => learned('Full Moon')(fight) && has(fight, 'invisible') && !has(fight, 'guarding'),
   castMs: cast('Full Moon'),
   cooldownMs: cooldown('Full Moon'),
   spCost: spCost('Full Moon'),
   resolve(fight) {
-    strike(fight, 'Full Moon', {
+    const dealt = strike(fight, 'Full Moon', {
       hits: 1, canMiss: true, critBonus: null,
       damage: physical(fight, 'Full Moon', ratioOf(fight, 'Full Moon')),
     });
+    applyGemDot(fight, 'Full Moon', dealt);
     grant(fight, 'combo', sk('Full Moon').text.grants['combo ready'] ?? 5000);
     grant(fight, 'fullMoons', 1e12, stacks(fight, 'fullMoons') + 1);
   },
@@ -252,12 +285,14 @@ const dragonOmamori: Action = {
   spCost: spCost('Dragon Omamori'),
   resolve(fight) {
     // Combo Ready's +5%/STR counts on the apply hit too, not only the
-    // explosion: the owner's 9,830 apply reading is ~10x the bare ratio.
+    // explosion (the project owner, 2026-09-28; the 09-26 apply reading of
+    // 9,830 under Combo Ready is ~10x the bare ratio).
     const apply = ratioOf(fight, 'Dragon Omamori', 'apply damage');
-    strike(fight, 'Dragon Omamori', {
+    const dealt = strike(fight, 'Dragon Omamori', {
       hits: 1, canMiss: true, critBonus: null, kind: 'ranged',
       damage: physical(fight, 'Dragon Omamori', apply, { ranged: true }),
     });
+    applyGemDot(fight, 'Dragon Omamori', dealt);
     fight.mob.debuffs.talisman = { until: fight.t + TALISMAN_MS, stacks: 1 };
   },
 };
@@ -376,6 +411,133 @@ const kawarimi: Action = {
   },
 };
 
+/**
+ * An instant hit that would nearly kill (Burning Fury's Critical Slash:
+ * no cast bar, always crits, ~6.4k) is predicted, not reacted to: the
+ * project owner Kawarimis it "mostly by predicting it" (2026-09-28). Due is
+ * the monster's reuse delay run out (its first: at the pull), for a row it
+ * fires at once when it can (AI rate >= 0.5), however overdue.
+ * Option predict false turns it off.
+ */
+function instantKillerDue(fight: Fight, within: number): boolean {
+  if (fight.options.predict === false) return false;
+  const all = [{ m: fight.m, st: fight.mob }, ...fight.mob.adds.map((a) => ({ m: a.m, st: a.st }))];
+  const at = fight.t + within;
+  const offDelay = (st: typeof fight.mob, s: MobSkill) => (st.cds[s.skill] ?? -Infinity) + s.ai.delayMs <= at;
+  return all.some(({ m, st }) => m.skills.some((s, i) => {
+    if (s.castMs > 0 || s.type !== 'physical' || s.targets !== 'single' || s.ai.rate < 0.5) return false;
+    const due = (st.cds[s.skill] ?? -Infinity) + s.ai.delayMs;
+    // No overdue cutoff: other rows often take its turns (Fire Wall before
+    // Critical Slash), so an overdue killer is still coming.
+    if (at < due) return false;
+    // The server tries the rows in order on each attack turn and the first
+    // that fires wins: a likely row ahead of it, off its delay, usually
+    // takes the turn (Burning Fury's Fire Wall, 85%, before Critical Slash).
+    // Option predictStrict: wait for a turn nothing ahead of it can take.
+    const ahead = fight.options.predictStrict === true && m.skills.slice(0, i).some((p) => p.ai.rate >= 0.5
+      && p.ai.cond === 'always' && (p.ai.state === 'attack' || p.ai.state === 'any') && offDelay(st, p));
+    if (ahead) return false;
+    return assessThreat(fight, { ...s, castMs: 0 }, m).dmg >= 0.5 * fight.me.hp;
+  }));
+}
+
+/** The monster (or an add) has an instant hit that would nearly kill: Kawarimi is saved for it. */
+function hasInstantKiller(fight: Fight): boolean {
+  if (fight.options.predict === false) return false;
+  const all = [{ m: fight.m }, ...fight.mob.adds.map((a) => ({ m: a.m }))];
+  return all.some(({ m }) => m.skills.some((s) => s.castMs <= 0 && s.type === 'physical' && s.targets === 'single'
+    && s.ai.rate >= 0.5 && assessThreat(fight, { ...s, castMs: 0 }, m).dmg >= 0.5 * fight.f.maxHp));
+}
+
+const predictKawarimi: Action = {
+  ...kawarimi,
+  id: 'Predict Kawarimi',
+  // Just before its next attack turn, where the skill is rolled (75% a turn
+  // for Critical Slash): 3 dodges over 4 s then cover two or three turns.
+  ready: (fight) => (kawarimi.ready?.(fight) ?? true) && readyAt(fight, 'Kawarimi') <= fight.t
+    && fight.mob.nextAttackAt - fight.t <= 300 && !fight.mob.cast && instantKillerDue(fight, 300),
+  resolve(fight) {
+    kawarimi.resolve(fight);
+    fight.me.cds.Kawarimi = fight.t + cooldown('Kawarimi')(fight);
+  },
+  cooldownMs: () => 0,
+};
+
+/**
+ * Option moonGuard: an instant killer due and Kawarimi down or used -- New
+ * Moon now, and Full Moon held (fullMoon.ready), so the killer lands at half.
+ */
+const castStamp = (fight: Fight) => Object.values(fight.mob.cds).reduce((a, b) => a + b, 0);
+const moonGuard: Action = {
+  ...newMoon,
+  id: 'Moon guard',
+  // Once per expected killer: the stamp is the monster's last-cast times, so
+  // a new guard waits for the killer (or anything) to be cast in between.
+  ready: (fight) => fight.options.moonGuard === true && (newMoon.ready?.(fight) ?? true)
+    && stacks(fight, 'kawarimi') <= 0 && readyAt(fight, 'Kawarimi') > fight.t + 300 && instantKillerDue(fight, 500)
+    && fight.me.buffs.guardStamp?.value !== castStamp(fight),
+  resolve(fight) {
+    newMoon.resolve(fight);
+    fight.me.cds['New Moon'] = fight.t + cooldown('New Moon')(fight);
+    // Full Moon held 3 s at most, then the fight goes on.
+    grant(fight, 'guarding', 3000);
+    fight.me.buffs.guardStamp = { until: 1e12, stacks: 1, value: castStamp(fight) };
+  },
+  cooldownMs: () => 0,
+};
+
+/**
+ * A tell: a cast the monster always follows with a heavy area (Converted
+ * Zealot's Back Stab -> Cloud Kill). With option kite, walk out on the tell
+ * and stay out through the follow-up -- "when I see Back Stab I walk out of
+ * its cast range, and keep walking" (the project owner, 2026-09-28).
+ */
+function heavyFollowUp(fight: Fight, s: MobSkill, from: Monster): MobSkill | null {
+  if (fight.options.kite !== true) return null;
+  return from.skills.find((n) => n.ai.cond === 'afterskill' && Number(n.ai.condValue) === s.skillId
+    && n.targets === 'aoe' && n.avoid.includes('walk') && assessThreat(fight, n, from).heavy) ?? null;
+}
+const tellOutMs = (fight: Fight) => {
+  const c = fight.mob.cast;
+  const next = c ? heavyFollowUp(fight, c.skill, fight.m) : null;
+  const end = c ? c.endsAt - fight.t : 0;
+  // The chain starts 200-300 ms after the tell (engine: next act), then its cast.
+  return Math.max(escapeMs(fight, next ?? undefined), end + 300 + (next?.castMs ?? 0) + 100);
+};
+const walkOutOnTell: Action = {
+  ...walkOut,
+  id: 'Walk out on the tell',
+  delayMs: (fight) => tellOutMs(fight) + returnMs(fight, tellOutMs(fight), escapeMs(fight)),
+  resolve(fight) { grant(fight, 'away', tellOutMs(fight)); },
+};
+
+/**
+ * Shadow Slash out of a ground spell: the monster aims it where you stand
+ * as its cast starts; Shadow Slash's long reach puts you on the monster,
+ * away from where it lands (the project owner, 2026-09-28, Godly Seeker's
+ * Storm Gust). With option kite, for an area aimed at you, not centred on
+ * the caster, and Shadow Slash off cooldown.
+ */
+function slashOutWorks(fight: Fight, s: MobSkill): boolean {
+  return fight.options.kite === true && s.targets === 'aoe' && !s.centeredOnSelf && s.avoid.includes('walk')
+    && learned('Shadow Slash')(fight) && readyAt(fight, 'Shadow Slash') <= fight.t + s.castMs - 100
+    && !has(fight, 'rooted');
+}
+const slashOut: Action = {
+  ...shadowSlash,
+  id: 'Shadow Slash out',
+  reactive: true,
+  resolve(fight) {
+    shadowSlash.resolve(fight);
+    fight.me.cds['Shadow Slash'] = fight.t + cooldown('Shadow Slash')(fight);
+    const c = fight.mob.cast;
+    // Off the spot it is aimed at: it lands behind you, however you fight on.
+    grant(fight, 'slashedOut', Math.max(100, (c ? c.endsAt - fight.t : 0) + 100));
+    fight.log && say(fight, `slashes onto ${fight.m.name}, out of ${c?.skill.name ?? 'the area'}`);
+  },
+  cooldownMs: () => 0,
+};
+
 /** Lotus Pact: 10s kneeling, 1% HP and SP per level per second. */
 const lotusPact: Action = {
   id: 'Lotus Pact',
@@ -460,7 +622,7 @@ function withRules(a: Action): Action {
 const ACTIONS: Action[] = [
   attack, shadowSlash, newMoon, fullMoon, millionStab, thousandArms, dragonOmamori, omamoriJutsu,
   backStab, refocus, kawarimi, hiding, walkOut, lotusPact, morrocsMark, hallucinationWalk, stayHidden,
-  breakSight, pullOffWard, swingWait,
+  breakSight, pullOffWard, swingWait, predictKawarimi, moonGuard, walkOutOnTell, slashOut, backSlide,
 ].map(withRules);
 const rule = (id: string) => ACTIONS.find((a) => a.id === id)!;
 
@@ -469,7 +631,7 @@ const rule = (id: string) => ACTIONS.find((a) => a.id === id)!;
  * rollout plays after its first move.
  */
 const ORDER = [
-  'Stay hidden', 'Pull it off the ward',
+  'Stay hidden', 'Predict Kawarimi', 'Moon guard', 'Pull it off the ward',
   "Morroc's Mark",
   'Hallucination Walk',
   'Full Moon', // invisible: spend it before a hit takes it
@@ -502,25 +664,36 @@ function priority(fight: Fight): Action {
 
 function react(fight: Fight, s: MobSkill, from: Monster): { action: string; at: number } | null {
   const t = assessThreat(fight, s, from);
+  if (heavyFollowUp(fight, s, from) && !has(fight, 'rooted')) {
+    return { action: 'Walk out on the tell', at: fight.t + reactionMs(fight) };
+  }
   if (!t.heavy) return null;
   const { endsAt } = t;
+  if (slashOutWorks(fight, s)) return { action: 'Shadow Slash out', at: fight.t + reactionMs(fight) };
+  // Too little time to walk: Back Slide from gear is out in one step.
+  if (!t.canWalk && backSlideWorks(fight, s) && fight.t + reactionMs(fight) < endsAt) {
+    return { action: 'Back Slide', at: fight.t + reactionMs(fight) };
+  }
   // Hiding is on a 5s cooldown and single-target casts can only be hidden
   // from, so an area is walked out of when the cast bar leaves time.
   if (t.canWalk && s.targets === 'aoe') {
-    return { action: 'Walk out', at: fight.t + TUNE.reactionMs };
+    return { action: 'Walk out', at: fight.t + reactionMs(fight) };
   }
   if (t.hideWorks && t.hideReady && (t.hideCovers || !t.canWalk)) {
     return { action: 'Hiding', at: Math.max(fight.t, endsAt - 150) };
   }
-  if (t.canLos) return { action: 'Break line of sight', at: fight.t + TUNE.reactionMs };
+  if (t.canLos) return { action: 'Break line of sight', at: fight.t + reactionMs(fight) };
   // A Manhole on the ground: 3s where nothing lands (the Freya fight's answer to Adoramus).
   if (fight.ground.manholeUntil > endsAt && s.durationMs <= MANHOLE_MS - 200 && !has(fight, 'rooted')) {
     return { action: enterManhole.id, at: Math.max(fight.t, endsAt - 150) };
   }
   if (t.canWalk) {
-    return { action: 'Walk out', at: fight.t + TUNE.reactionMs };
+    return { action: 'Walk out', at: fight.t + reactionMs(fight) };
   }
-  if (s.avoid.includes('kawarimi') && s.type === 'physical' && readyAt(fight, 'Kawarimi') <= endsAt) {
+  // Kawarimi is kept for an instant killer the monster has (Critical Slash):
+  // its 20 s cooldown matches the killer's reuse, one spent elsewhere is a death.
+  if (s.avoid.includes('kawarimi') && s.type === 'physical' && readyAt(fight, 'Kawarimi') <= endsAt
+    && !hasInstantKiller(fight)) {
     return { action: 'Kawarimi', at: Math.max(fight.t, endsAt - 100) };
   }
   if (t.hideWorks && t.hideReady) {
@@ -570,6 +743,7 @@ const ROLES: Record<string, string> = {
   'Thousand Arms': 'Fillers', 'Shadow Slash': 'Fillers', 'Back Stab': 'Fillers',
   Attack: 'Auto-attacks', Refocus: 'Focus upkeep',
   'Hallucination Walk': 'Buffs', Kawarimi: 'Buffs',
+  Bleeding: 'Gem statuses', Poison: 'Gem statuses', Burning: 'Gem statuses',
 };
 
 export const satsujin: Kit = {

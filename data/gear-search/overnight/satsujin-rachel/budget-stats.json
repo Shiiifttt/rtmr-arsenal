@@ -1,0 +1,105 @@
+{
+ "profile": "Satsujin Rachel SS roadmap (2026-09-28): budget best",
+ "targets": [
+  "Njord Zealot",
+  "Converted Zealot",
+  "Godly Seeker",
+  "Burning Fury",
+  "Tortured Maiden"
+ ],
+ "rules": {
+  "screenN": 200,
+  "confirmN": 800,
+  "timeS": 300,
+  "locked": [
+   "offhand"
+  ],
+  "penalty": 0.03,
+  "topStats": [
+   "agi",
+   "str",
+   "dex"
+  ]
+ },
+ "start": "http://localhost:5173/#b=cfZLdjtsgEEbfhevvghl-DH2NXiKEkM06rryJZTurVlXffQXeTVJ1mxskw_GZj2ECQ3zP-3b9MZ0FSEkEL-E92IE9jIX2ESFIGGIFi6CJTIwIBHLGSEgEUpZtpcS2511AbPsqECjGCjKMZ1t_JdWxQ1sf6bdpv9MKZJTnAzfOP4J5nAQCV0ysZbtc174IiNf8M50WgaAOha738LqFrarb0lzrZZ65ZlxSf9n2tJbh2pehJpCH-TLPqmrLXEoa8msei0Dwh9xUuZYfcn9T0mMQvom-rmT-LpTHqb8Xuh9qAXFa0pincxnSUtZ0aq3iI4oFG00RoQMZze6jZ56-fAoEsS2llhd5W2qKrm32edun81i3X_aypvqdhjLnXwdSIQe2SkUED7Yd1TfXWrV2EcFLJZ1DnQBisJNde77_DgSpBunnkG6Qeg6ZBpnnkAVryS31v9P0CXVgTZ18YortJOK3eJlLEd86-Se-Aw",
+ "steps": [
+  {
+   "move": "stats: INT 39->29, STR 90->95",
+   "before": {
+    "win": 0.9807500000000001,
+    "loss": 0.01925,
+    "dps": 23079.344552592556,
+    "ttk": 14.311677513949808,
+    "value": 1.6211651682888886,
+    "deaths": "Knuckle Arrow x48, Critical Slash x26"
+   },
+   "after": {
+    "win": 0.984,
+    "loss": 0.016,
+    "dps": 23878.182546607422,
+    "ttk": 13.941551584339027,
+    "value": 1.6373727381991112,
+    "deaths": "Knuckle Arrow x42, Critical Slash x17"
+   },
+   "tried": 50
+  },
+  {
+   "move": "stats: INT 29->19, STR 95->99",
+   "before": {
+    "win": 0.97775,
+    "loss": 0.02225,
+    "dps": 23832.290865100946,
+    "ttk": 13.956088504017618,
+    "value": 1.6285593629765143,
+    "deaths": "Knuckle Arrow x66, Critical Slash x16"
+   },
+   "after": {
+    "win": 0.9789999999999999,
+    "loss": 0.021,
+    "dps": 24447.40591688145,
+    "ttk": 13.780888783276776,
+    "value": 1.6394110887532216,
+    "deaths": "Knuckle Arrow x70, Critical Slash x10"
+   },
+   "tried": 50
+  }
+ ],
+ "final": {
+  "win": 0.9804999999999999,
+  "loss": 0.0195,
+  "dps": 24505.207395437523,
+  "ttk": 13.777333269966064,
+  "value": 1.6422281109315626,
+  "deaths": "Knuckle Arrow x106, Critical Slash x33"
+ },
+ "options": {
+  "slashOpener": true,
+  "backStab": false,
+  "seedTalisman": false,
+  "weaveMs": 0,
+  "mobility": "server",
+  "kite": true,
+  "tankShare": 0.6,
+  "order": [
+   "Stay hidden",
+   "Predict Kawarimi",
+   "Moon guard",
+   "Pull it off the ward",
+   "Morroc's Mark",
+   "Hallucination Walk",
+   "Full Moon",
+   "Million Stab",
+   "New Moon",
+   "Dragon Omamori",
+   "Thousand Arms",
+   "Omamori Jutsu",
+   "Shadow Slash",
+   "Back Stab",
+   "Lotus Pact",
+   "Attack",
+   "Wait for swing"
+  ]
+ },
+ "link": "http://localhost:5173/#b=cfZLRjpswEEX_xc_3wTO2Afc3-mhZlgVeQsUmCMiqVdV_X43ZTVJ1GwlZwj6cucw4MNT3vG_XH9NZgYxG8B7egzuQh5UnIgQNR2zQIFgiFyMCgTrnNDQCmYYbodS2511BbfuqEChGARnOcyOfkmlFK-sj_Tbtd9qAnPF84K7zj2AeJ4XAgqm1bJfr2hcF9Zp_ptOiEMyhsPIf3taworot1bVe5pkl45L6y7antQzXvgySQB_myzwb0Za5lDTk1zwWheAPuRO51R9yf1PSYxC-ib6u5P4ulMepvxe6H1oFdVrSmKdzGdJS1nSqreIjSgN2liJCC3KWu4-eefpyFAhqW4qUV3lbJEVbN_u87dN5lO2XvaxJ3tNQ5vzrQATqwI0xEcGDm5Zk5taa2i4ieG1010FuADG4020d338vBJkK2eeQrZB5DrkKuedQA7aaa-p_b9Mn1IIttfqJKdaTiN_qZS5FfWv1n_gO",
+ "perTarget": []
+}

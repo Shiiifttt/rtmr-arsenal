@@ -216,6 +216,15 @@ export const MOB_GROUPS: Record<string, string[]> = {
  */
 export const NOT_BOSS_PROTOCOL = ['Heartless'];
 
+/**
+ * Boss-protocol maps whose monsters count as bosses for gear ("DMG vs boss",
+ * "vs non-boss"): Abysmal Knight Card works on Rachel SS (the project owner,
+ * 2026-09-28), so False God's non-boss bonus does not. Jormungandr's lair
+ * the same, all but Heartless, which has no boss-protocol icon
+ * (NOT_BOSS_PROTOCOL; the owner, 2026-09-28).
+ */
+export const PROTOCOL_COUNTS_AS_BOSS_MAPS = [...MOB_GROUPS.rachel_ss, ...MOB_GROUPS.jorm];
+
 /** Maps whose monsters run the boss protocol (the project owner, 2026-09-26). */
 export const BOSS_PROTOCOL_MAPS = [...MOB_GROUPS.rachel_ss, ...MOB_GROUPS.jorm];
 

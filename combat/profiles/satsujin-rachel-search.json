@@ -1,0 +1,307 @@
+{
+  "name": "Satsujin Rachel SS: gear search v4 (2026-09-28)",
+  "_about": "tools/gear-search.ts from profiles/satsujin-rachel.json: 5 Rachel SS monsters, survival-first score, live Move Speed rule, Back Slide from gear, HP scaled to the owner reading, refines on worn pieces (gem included), every socket searched, Celestial Tome excluded, Murder Knife and its cards locked, lower Flaming/Wind Weaver only. 99% wins (400 fights) vs 44% for the start.",
+  "_link": "http://localhost:5173/#b=cfZLNasMwEITfRec5aFc_lvoaPQpjhKO4Ls4PtlNaSt-9rN0mpiS9CHb1MbszUmKo5zxPl9f-qEBGI0WNaOEcOMJGmFgjJQ1DzBYeSUo1noaBFNQ0jwqJ6hprjxXUIb83L2eFxNe2EfTcjKUrR-F1XcsdgYJzGhqJjKtokZ7mPG-VBWS4yF6mW60N5Niyb_18Yw3ImcgISJbYb7nc9be1ynS6jG3ZLmxWBStBRLsoiNL1uFrn1U97muZmLLtLW3Y_tjaGD2UopdnlQ-6KQoqruJP1DKJsZ7x0PNhZ8V6BnOUgNsm4eD8OJDWdi8xTeTrL2Gpptnma-2Mn7f1cxkbqZleG_LEiAgWwd1HitlbHh2lHcDBO3BIhaqNDQJCKwSE6L8E8jJ_MAoXrV7k3gaxAnv4qrQ_0CzmwtY7-V_JgyyaIqcdQBbZU_bdTvdzU-FT7oRT1VOmv-hs",
+  "baseLevel": 136,
+  "weaponRaceMatch": true,
+  "build": {
+    "className": "Satsujin",
+    "baseLevel": 130,
+    "baseStats": {
+      "str": 90,
+      "agi": 94,
+      "vit": 55,
+      "int": 29,
+      "dex": 49,
+      "luk": 39
+    },
+    "manual": {
+      "flee": 70
+    },
+    "slots": {
+      "upper": {
+        "itemId": 31224,
+        "refine": 6,
+        "cards": [],
+        "rolls": {
+          "roll1": {
+            "option": "str",
+            "values": [
+              1
+            ]
+          },
+          "roll2": {
+            "option": "max_hp",
+            "values": [
+              2
+            ]
+          },
+          "roll3": {
+            "option": "sp_regen",
+            "values": [
+              10
+            ]
+          }
+        }
+      },
+      "middle": {
+        "itemId": 18550,
+        "refine": 0,
+        "cards": [
+          13571
+        ],
+        "rolls": {
+          "stat": {
+            "option": "str",
+            "values": [
+              1
+            ]
+          }
+        }
+      },
+      "lower": {
+        "itemId": 5926,
+        "refine": 6,
+        "cards": [
+          4003,
+          4003
+        ],
+        "rolls": {
+          "stat": {
+            "option": "vit",
+            "values": [
+              1
+            ]
+          }
+        }
+      },
+      "armor": {
+        "itemId": 15392,
+        "refine": 8,
+        "cards": [
+          4126
+        ],
+        "rolls": {
+          "stat": {
+            "option": "agi",
+            "values": [
+              2
+            ]
+          },
+          "resource": {
+            "option": "max_hp",
+            "values": [
+              3
+            ]
+          }
+        }
+      },
+      "weapon": {
+        "itemId": 13094,
+        "refine": 8,
+        "cards": [
+          4392,
+          4392,
+          4392
+        ],
+        "rolls": {
+          "roll2": {
+            "option": "sp_cost_reduced",
+            "values": [
+              10
+            ]
+          },
+          "roll3": {
+            "option": "melee_damage",
+            "values": [
+              9
+            ]
+          }
+        }
+      },
+      "offhand": {
+        "itemId": 1533,
+        "refine": 9,
+        "cards": [
+          4136
+        ]
+      },
+      "garment": {
+        "itemId": 2541,
+        "refine": 0,
+        "cards": []
+      },
+      "shoes": {
+        "itemId": 15428,
+        "refine": 6,
+        "cards": [
+          13591
+        ],
+        "rolls": {
+          "stat": {
+            "option": "str",
+            "values": [
+              1
+            ]
+          },
+          "speed": {
+            "option": "aspd",
+            "values": [
+              7
+            ]
+          },
+          "casting": {
+            "option": "after_cast_delay",
+            "values": [
+              7
+            ]
+          }
+        }
+      },
+      "acc1": {
+        "itemId": 2659,
+        "refine": 0,
+        "cards": [
+          4409
+        ],
+        "rolls": {
+          "stat": {
+            "option": "str",
+            "values": [
+              1
+            ]
+          }
+        }
+      },
+      "acc2": {
+        "itemId": 28352,
+        "refine": 0,
+        "cards": []
+      },
+      "gem": {
+        "itemId": 903088,
+        "refine": 8,
+        "cards": []
+      },
+      "sh_armor": {
+        "itemId": 28956,
+        "refine": 8,
+        "cards": [],
+        "rolls": {
+          "stat": {
+            "option": "vit",
+            "values": [
+              1
+            ]
+          }
+        }
+      },
+      "sh_shoes": {
+        "itemId": 28958,
+        "refine": 6,
+        "cards": [],
+        "rolls": {
+          "stat": {
+            "option": "str",
+            "values": [
+              1
+            ]
+          }
+        }
+      },
+      "sh_gloves": {
+        "itemId": 28961,
+        "refine": 8,
+        "cards": [],
+        "rolls": {
+          "stat": {
+            "option": "agi",
+            "values": [
+              1
+            ]
+          }
+        }
+      },
+      "sh_acc": {
+        "itemId": 24451,
+        "refine": 6,
+        "cards": [],
+        "rolls": {
+          "stat": {
+            "option": "str",
+            "values": [
+              1
+            ]
+          }
+        }
+      },
+      "sh_manual": {
+        "itemId": 24238,
+        "refine": 0,
+        "cards": [],
+        "rolls": {
+          "stat": {
+            "option": "str",
+            "values": [
+              1
+            ]
+          }
+        }
+      },
+      "runeorb": {
+        "itemId": 24178,
+        "refine": 6,
+        "cards": [],
+        "rolls": {
+          "stat": {
+            "option": "str",
+            "values": [
+              1
+            ]
+          }
+        }
+      }
+    }
+  },
+  "options": {
+    "slashOpener": true,
+    "backStab": false,
+    "seedTalisman": false,
+    "weaveMs": 0,
+    "mobility": "server",
+    "kite": true,
+    "tankShare": 0.6,
+    "order": [
+      "Stay hidden",
+      "Predict Kawarimi",
+      "Moon guard",
+      "Pull it off the ward",
+      "Morroc's Mark",
+      "Hallucination Walk",
+      "Full Moon",
+      "Dragon Omamori",
+      "Million Stab",
+      "Thousand Arms",
+      "Omamori Jutsu",
+      "New Moon",
+      "Shadow Slash",
+      "Back Stab",
+      "Lotus Pact",
+      "Attack",
+      "Wait for swing"
+    ]
+  },
+  "measured": {
+    "windowAtk": [
+      172,
+      83
+    ],
+    "windowMatk": [
+      132,
+      62
+    ],
+    "fleeOffset": -27,
+    "mdefOffset": 6,
+    "hpScale": 1.152
+  }
+}

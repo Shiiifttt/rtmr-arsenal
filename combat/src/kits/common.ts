@@ -10,13 +10,13 @@
  */
 import { skillRow, type SkillRow } from '../data.ts';
 import {
-  attackIntervalMs, castTimeMs, escapeMsFor, mobDamage, physicalDamage, statusMatk, statusResist, TUNE, walkCellMs,
+  attackIntervalMs, castTimeMs, escapeCells, escapeMsFor, mobDamage, physicalDamage, statusMatk, statusResist, TUNE, walkCellMs,
 } from '../formulas.ts';
 import type { Fighter, MobSkill, Monster } from '../model.ts';
 import { Rng } from '../rng.ts';
 import { parseSkillText, type SkillText } from '../skilltext.ts';
 import {
-  followUpComing, grant, has, heal_, hidingStops, readyAt, strike,
+  disabled, followUpComing, grant, has, heal_, hidingStops, readyAt, strike, targetNow,
   type Action, type Fight,
 } from '../engine.ts';
 
@@ -79,7 +79,7 @@ export function toolkit(tree: string[], element: (fight: Fight) => string): Tool
     physical(fight, name, ratio, o = {}) {
       const ele = element(fight);
       const skillDamage = fight.f.skillMods(name, 'damage').percent;
-      return (crit: boolean) => physicalDamage(fight.f, fight.m, {
+      return (crit: boolean) => physicalDamage(fight.f, targetNow(fight), {
         ratio, element: ele, statusElement: o.statusElement ?? 'Neutral',
         ranged: !!o.ranged, crit, skillDamage, ignoreDef: o.ignoreDef,
       }, fight.rng);
@@ -129,7 +129,7 @@ export function attackAction(kit: Pick<Toolkit, 'element'>, statusElement?: (fig
       // 2026-09-27: 1,401 twice + 530 left, crit 2,058 twice + 726).
       strike(fight, 'Attack', {
         hits: double ? 2 : 1, split: true, canMiss: true, critBonus: 0,
-        damage: (crit) => physicalDamage(fight.f, fight.m, {
+        damage: (crit) => physicalDamage(fight.f, targetNow(fight), {
           ratio: 100, rightTimes: expect ? 1 + pDouble : double ? 2 : 1, element: ele,
           statusElement: statusElement?.(fight) ?? 'Neutral',
           ranged: false, crit, skillDamage: 0, normal: true,
@@ -257,7 +257,14 @@ export const stayHidden: Action = {
  * too tight for the TAS's dodging (the project owner, 2026-09-28).
  */
 export const serverMobility = (fight: Fight) => fight.options.mobility === 'server';
-export const reactionMs = (fight: Fight) => (serverMobility(fight) ? TUNE.playerReactionMs : TUNE.reactionMs);
+/**
+ * Option kite (with mobility 'server'): the player knows the monster and
+ * keeps moving while its dangerous casts are due, so a cast bar costs no
+ * reaction before the walk -- the project owner at Rachel SS (2026-09-28):
+ * "Storm Gust slightly behind me, most of the time I make it out".
+ */
+export const reactionMs = (fight: Fight) => (!serverMobility(fight) ? TUNE.reactionMs
+  : fight.options.kite === true ? TUNE.kiteReactionMs : TUNE.playerReactionMs);
 export const cellMs = (fight: Fight) => walkCellMs(fight.f);
 /** Time to step out of `s` (one way): TUNE.walkOutMs for the TAS, whole cells with mobility 'server'. */
 export const escapeMs = (fight: Fight, s?: MobSkill) => escapeMsFor(fight.options, fight.f, s);
@@ -298,6 +305,30 @@ export const walkOut: Action = {
   cooldownMs: () => 0,
   spCost: () => 0,
   resolve(fight) { grant(fight, 'away', awayFor(fight)); },
+};
+
+/**
+ * Back Slide (from gear: Surt Shoes, Celestial Tome, Slider Armguard...):
+ * 5 cells back at once, no cast (server TF_BACKSLIDING, knockback 5, 3 s
+ * cooldown). Out of a ground spell aimed at your cell when its escape is 5
+ * cells or fewer -- the project owner (2026-09-28): "pretty good mobility
+ * for dodging". Then back in like any walk out.
+ */
+export const BACK_SLIDE_CELLS = 5;
+export const backSlideWorks = (fight: Fight, s: MobSkill) => !!fight.f.backSlideMs
+  && s.targets === 'aoe' && s.avoid.includes('walk') && escapeCells(s) <= BACK_SLIDE_CELLS
+  && readyAt(fight, 'Back Slide') <= fight.t + s.castMs - 100 && !has(fight, 'rooted') && !disabled(fight);
+export const backSlide: Action = {
+  id: 'Back Slide',
+  isSkill: true,
+  offensive: false,
+  reactive: true,
+  ready: (fight) => !!fight.f.backSlideMs && !has(fight, 'rooted'),
+  castMs: () => 0,
+  delayMs: (fight) => awayFor(fight, 100) + returnMs(fight, awayFor(fight, 100), escapeMs(fight, fight.mob.cast?.skill)),
+  cooldownMs: (fight) => fight.f.backSlideMs ?? 3000,
+  spCost: () => 7,
+  resolve(fight) { grant(fight, 'away', awayFor(fight, 100)); },
 };
 
 /**

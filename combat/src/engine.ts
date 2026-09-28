@@ -25,8 +25,8 @@
  *     cancelable cast breaks when it takes damage.
  */
 import {
-  critChance, escapeMsFor, mobDamage, mobHitChance, perfectDodgeChance, playerHitChance, skillDelayMs,
-  statusResist, TUNE,
+  critChance, DOTS, dotTick, escapeMsFor, mobDamage, mobHitChance, perfectDodgeChance, playerHitChance, skillDelayMs,
+  statusResist, TUNE, type DotName,
 } from './formulas.ts';
 import type { Fighter, MobSkill, Monster, SelfBuff, StatusEffect } from './model.ts';
 import { mobRows } from './data.ts';
@@ -78,6 +78,8 @@ export interface Channel {
   lostSight?: boolean;
   /** Pawn's Rod cancelled it as it landed. */
   cancelled?: boolean;
+  /** Hidden through its first waves, you are out of it from this time (the walk after Hiding ends). */
+  exitAt?: number;
 }
 
 export interface MobState {
@@ -99,6 +101,8 @@ export interface MobState {
   buffs: Record<string, Buff>;
   /** Monsters it summoned: each a full AI of its own, never killed. */
   adds: Actor[];
+  /** Your damage over time on it (Bleeding, Burning, Poison): a tick fixed when it landed, to the end of the fight. */
+  dots: { name: string; nextAt: number; every: number; dmg: number; lethal: boolean }[];
 }
 
 /** A monster in the fight: the target, or one of its adds. */
@@ -204,7 +208,7 @@ export interface Fight {
 
 const newMobState = (m: Monster): MobState => ({
   hp: m.hp, nextAttackAt: 0, cast: null, channels: [], cds: {}, lastSkill: 0, used: {}, rushing: true,
-  debuffs: {}, buffs: {}, adds: [],
+  debuffs: {}, buffs: {}, adds: [], dots: [],
 });
 
 export function newFight(
@@ -334,7 +338,16 @@ function complete(fight: Fight, a: Action) {
   }
   // Attacks log their damage; a buff or a move says it happened.
   if (!a.offensive && !a.reactive) fight.log && say(fight, `uses ${a.id}`);
+  if (!fight.f.trueGoddess || !a.isSkill) { a.resolve(fight); return; }
+  // True Goddess: whatever this cast put on cooldown (itself, or the skill it
+  // stands for: Predict Kawarimi -> Kawarimi) waits 10 s at least, and Kaupe
+  // Lv3 blocks the next hit that lands for 2 s.
+  const before = { ...me.cds };
   a.resolve(fight);
+  for (const id of new Set([a.id, ...Object.keys(me.cds).filter((k) => me.cds[k] !== before[k])])) {
+    me.cds[id] = Math.max(me.cds[id] ?? 0, fight.t + TUNE.trueGoddessCdMs);
+  }
+  grant(fight, 'kaupe', TUNE.kaupeMs, 1);
 }
 
 /**
@@ -396,7 +409,8 @@ export interface Strike {
  */
 function mobGuard(fight: Fight, kind: NonNullable<Strike['kind']>): { mult: number; reflect: number } {
   const st = fight.mob; const m = fight.m;
-  if (m.ignores?.includes(kind)) return { mult: 0, reflect: 0 };
+  // An Ignore* mode is not immunity: every hit does 1 (strike, RTM battle.cpp:2652 is_infinite_defense).
+  if (m.ignores?.includes(kind)) return { mult: 1, reflect: 0 };
   const on = (sc: string) => selfHas(fight, st, sc);
   const v = (sc: string) => st.buffs[sc]?.value ?? 0;
   if (on('hiding') || on('invisible')) return { mult: 0, reflect: 0 };
@@ -433,6 +447,7 @@ export function strike(fight: Fight, id: string, s: Strike): number {
   const pLand = pCrit + (1 - pCrit) * pHit;
   const row = fight.meter ? (fight.meter.actions[id] ??= { uses: 0, hits: 0, misses: 0, crits: 0, damage: 0 }) : null;
   const guard = mobGuard(fight, kind);
+  const plant = !!m.ignores?.includes(kind);
   if (rng.expect && s.canMiss) void pLand;
   let total = 0; let crits = 0; let misses = 0; let reflected = 0;
   const rolls = s.split ? 1 : s.hits;
@@ -453,7 +468,10 @@ export function strike(fight: Fight, id: string, s: Strike): number {
       if (crit) { crits++; if (row) row.crits++; }
     }
     const raw = dmg;
-    dmg = Math.floor(dmg * taken);
+    // Infinite defense (Ymir Emperium, plants: an Ignore* mode for this kind of
+    // hit): 1 a hit, a fake multi-hit's pieces each counting (the server's div).
+    if (plant) dmg = (s.split ? s.hits : 1) * (rng.expect ? pLand : 1);
+    else dmg = Math.floor(dmg * taken);
     // Reflect Shield sends back a share of what it actually took; Max Pain
     // takes nothing and returns a share of what the hit would have done.
     reflected += (guard.mult > 0 ? dmg : raw * m.damageTaken) * guard.reflect;
@@ -647,6 +665,9 @@ export function followUpComing(fight: Fight): boolean {
   for (const a of actors(fight)) {
     const st = a.st;
     if (st.cast && hidingStops(a.m, st.cast.skill, false) && st.cast.skill.type !== 'none') return true;
+    // An area still ticking on your cell: Hiding is what keeps its waves off.
+    if (st.channels.some((ch) => !ch.leftBehind && !ch.lostSight && ch.skill.targets === 'aoe'
+      && hidingStops(a.m, ch.skill, false))) return true;
     const last = a.m.skills.find((s) => s.skillId === st.lastSkill);
     if (!last || fight.t - (st.cds[last.skill] ?? -Infinity) > 2000) continue;
     const chained = a.m.skills.some((s) => s.ai.cond === 'afterskill' && Number(s.ai.condValue) === st.lastSkill
@@ -763,7 +784,8 @@ function mobResolve(fight: Fight, a: Actor) {
   st.used[s.skill] = true;
   if (s.ticks > 1 && s.tickMs > 0) {
     // Out of it as it lands: an area you can walk from stays behind you.
-    const leftBehind = s.targets === 'aoe' && s.avoid.includes('walk') && has(fight, 'away');
+    // (Or slashed onto the caster during the cast: 'slashedOut', which attacking does not end.)
+    const leftBehind = s.targets === 'aoe' && s.avoid.includes('walk') && (has(fight, 'away') || has(fight, 'slashedOut'));
     st.channels.push({ skill: now, nextAt: fight.t, left: s.ticks, every: s.tickMs, statusDone: false, leftBehind });
   } else {
     landMobHit(fight, a, now, false);
@@ -827,20 +849,49 @@ function landMobHit(fight: Fight, a: Actor, s: MobSkill, normal: boolean, ch?: C
   // The damage source as the report shows it: an add's name goes in front.
   const src = normal || a.add ? `${m.name}: ${normal ? 'attack' : s.name}` : s.name;
   if (has(fight, 'hidden') && (s.hiddenImmune || hidingStops(m, s, normal))) {
+    // A single-target chain (Chain Lightning's bounces) needs its first hit to
+    // find you: hidden as it lands, the whole chain fails, like losing sight.
+    if (ch && s.targets === 'single' && !ch.statusDone) ch.lostSight = true;
     // Hidden through the first wave of an area you can walk from (Magnus
     // Exorcismus, Storm Gust): out of Hiding and off it before the next wave.
-    if (ch && aoe && s.avoid.includes('walk') && ch.every >= escapeMsFor(fight.options, f, s) && !has(fight, 'rooted')) {
-      ch.leftBehind = true;
-      fight.log && say(fight, `steps out of ${s.name} before its next wave`);
+    if (ch && aoe && s.avoid.includes('walk') && !has(fight, 'rooted')) {
+      const step = escapeMsFor(fight.options, f, s);
+      if (ch.every >= step) {
+        ch.leftBehind = true;
+        fight.log && say(fight, `steps out of ${s.name} before its next wave`);
+      } else if (ch.exitAt === undefined && ch.nextAt + ch.every * (ch.left - 1) > me.buffs.hidden.until) {
+        // Its waves come faster than a walk out (Storm Gust, 0.45s): stay
+        // hidden, then walk out as Hiding ends -- whatever lands on the way
+        // still hits (Hiding is 2s in the Refuge, a storm up to 4.5s).
+        ch.exitAt = me.buffs.hidden.until + step;
+        me.busyUntil = Math.max(me.busyUntil, ch.exitAt);
+        fight.log && say(fight, `will walk out of ${s.name} as Hiding ends`);
+      }
     }
     return avoided(fight, src, 'Hiding');
   }
+  if (aoe && ch?.exitAt !== undefined && fight.t >= ch.exitAt) {
+    ch.leftBehind = true;
+    return avoided(fight, src, 'walked out');
+  }
   // The boss protocol swings at you in Hiding, and the swing breaks it (the project owner).
-  if (normal && has(fight, 'hidden')) { drop(fight, 'hidden'); fight.log && say(fight, `${m.name}'s swing breaks Hiding`); }
-  if (aoe && (has(fight, 'away') || ch?.leftBehind)) return avoided(fight, src, 'walked out');
+  if (normal && has(fight, 'hidden')) {
+    drop(fight, 'hidden');
+    fight.log && say(fight, `${m.name}'s swing breaks Hiding`);
+    // Out of Hiding early: the walk out of a storm starts now.
+    for (const x of actors(fight)) {
+      for (const c of x.st.channels) {
+        if (c.exitAt !== undefined) c.exitAt = Math.min(c.exitAt, fight.t + escapeMsFor(fight.options, f, c.skill));
+      }
+    }
+  }
+  // Out of reach: an area you left, or a single-target cast you walk out of range of (avoid 'walk').
+  if ((aoe || (!normal && s.avoid.includes('walk'))) && (has(fight, 'away') || has(fight, 'slashedOut') || ch?.leftBehind)) {
+    return avoided(fight, src, 'walked out');
+  }
   // Behind cover as it landed (Break line of sight).
   // A cast that finds no line to you fails whole: none of its later hits come.
-  if (!normal && s.avoid.includes('los') && (has(fight, 'outOfSight') || ch?.lostSight)) {
+  if (!normal && (ch?.lostSight || (s.avoid.includes('los') && has(fight, 'outOfSight')))) {
     if (ch) ch.lostSight = true;
     return avoided(fight, src, 'line of sight');
   }
@@ -902,18 +953,32 @@ function landMobHit(fight: Fight, a: Actor, s: MobSkill, normal: boolean, ch?: C
   const wall = s.type === 'physical' && m.reach > 3 && has(fight, 'defender') && !has(fight, 'close')
     ? Math.max(0, 1 - (me.buffs.defender.value ?? 0) / 100) : 1;
   if (rng.expect) {
+    // A rollout: Kaupe takes the hit whole (it would take the first that lands).
+    if (kaupeBlocks(fight, s)) return;
     const took = hurtMe(fight, p * (1 - guardChance) * wall * mobDamage(m, target, s, rng, ranged), src);
     drained(fight, a, s, took);
     afterHit(fight, a, s, normal, took);
     return;
   }
   if (!rng.chance(p)) return avoided(fight, src, s.type === 'magic' ? 'magic dodge' : 'flee');
+  if (kaupeBlocks(fight, s)) return avoided(fight, src, 'Kaupe');
   const dmg = mobDamage(m, target, s, rng, ranged) * vulnerability(fight, s.element) * wall;
   const took = hurtMe(fight, dmg, src);
   drained(fight, a, s, took);
   afterHit(fight, a, s, normal, took);
   applyStatuses(fight, a, s, firstTick);
   if (ch) ch.statusDone = true;
+}
+
+/**
+ * Kaupe Lv3 (True Goddess): blocks one hit that lands, skill or otherwise,
+ * magic too -- not Earthquake (RTM battle.cpp:1331; Lv3 is 100%,
+ * status.cpp:11377). Status ticks on you never reach it.
+ */
+function kaupeBlocks(fight: Fight, s: MobSkill): boolean {
+  if (!has(fight, 'kaupe') || s.skill === 'NPC_EARTHQUAKE') return false;
+  drop(fight, 'kaupe');
+  return true;
 }
 
 /**
@@ -1078,6 +1143,50 @@ export function dot(fight: Fight, name: string, every: number, ms: number, dmg: 
   fight.me.dots.push({ name, nextAt: fight.t + every, every, until: fight.t + ms, dmg, lethal, ...(heal ? { heal } : {}) });
 }
 
+/**
+ * Put a damage over time on the target (kits: the Satsujin gem's Bleeding,
+ * Poison, Burning). Fixed at the moment it lands and runs to the end of the
+ * fight (codex); while it is on, another application does nothing (RTM
+ * status.cpp:10587-10601 refuses the overlap). First tick one interval on.
+ */
+export function dotOnMob(fight: Fight, name: DotName): boolean {
+  if (fight.mob.dots.some((d) => d.name === name)) return false;
+  const k = DOTS[name];
+  const dmg = dotTick(fight.f, name);
+  fight.mob.dots.push({ name, nextAt: fight.t + k.everyMs, every: k.everyMs, dmg, lethal: k.lethal });
+  fight.log && say(fight, `${fight.m.name} takes ${name} (${fmt(dmg)} every ${k.everyMs / 1000}s)`);
+  return true;
+}
+
+/**
+ * The target as your hits meet it right now. Poisoned, its soft DEF is 10%
+ * lower (RTM status.cpp:7630-7631, def2 -= def2 x 10/100; the codex only says
+ * Poison "softens defence"). GUESS that today's server keeps the 10%.
+ */
+export function targetNow(fight: Fight): Monster {
+  const m = fight.m;
+  if (!m.softDef || !fight.mob.dots.some((d) => d.name === 'poison')) return m;
+  return { ...m, softDef: Math.floor(m.softDef * (1 - TUNE.poisonSoftDefCut)) };
+}
+
+function mobDotTick(fight: Fight, d: MobState['dots'][number]) {
+  const taken = TUNE.dotDamageTaken ? fight.m.damageTaken : 1;
+  let dmg = Math.floor(d.dmg * taken);
+  // A plant-type monster (Ignore* modes: Ymir Emperium) takes 1 a tick -- the
+  // statuses land, the damage is capped (the project owner's test, 2026-09-28).
+  if (fight.m.ignores?.length) dmg = 1;
+  // Poison stops at 1 HP (codex).
+  if (!d.lethal) dmg = Math.max(0, Math.min(dmg, fight.mob.hp - 1));
+  if (dmg <= 0) return;
+  const label = d.name[0].toUpperCase() + d.name.slice(1);
+  if (fight.meter) {
+    const row = (fight.meter.actions[label] ??= { uses: 0, hits: 0, misses: 0, crits: 0, damage: 0 });
+    row.hits++; row.damage += dmg;
+  }
+  fight.log && say(fight, `${label} tick → ${fmt(dmg)}`);
+  hurtMob(fight, dmg);
+}
+
 // ---- the loop --------------------------------------------------------------
 
 /** Run until someone dies or the clock (fight.limitMs, absolute) runs out. */
@@ -1099,7 +1208,9 @@ export function run(fight: Fight): Fight {
     }
     let tDot = Infinity;
     for (const d of me.dots) tDot = Math.min(tDot, d.nextAt);
-    const next = Math.min(tMe, tDef, tMob, tTick, tRegen, tDot);
+    let tMobDot = Infinity;
+    for (const d of fight.mob.dots) tMobDot = Math.min(tMobDot, d.nextAt);
+    const next = Math.min(tMe, tDef, tMob, tTick, tRegen, tDot, tMobDot);
     if (next > fight.limitMs) {
       fight.t = fight.limitMs;
       fight.result = 'stalemate';
@@ -1125,6 +1236,12 @@ export function run(fight: Fight): Fight {
       else hurtMe(fight, d.dmg, d.name, d.lethal);
       d.nextAt += d.every;
       if (d.nextAt > d.until) me.dots = me.dots.filter((x) => x !== d);
+      continue;
+    }
+    if (tMobDot === next) {
+      const d = fight.mob.dots.find((x) => x.nextAt === next)!;
+      d.nextAt += d.every;
+      mobDotTick(fight, d);
       continue;
     }
     if (tDef === next) { defend(fight); continue; }
@@ -1227,6 +1344,7 @@ function cloneMob(st: MobState): MobState {
     debuffs: cloneBuffs(st.debuffs),
     buffs: cloneBuffs(st.buffs),
     adds: st.adds.map((a) => ({ ...a, st: cloneMob(a.st) })),
+    dots: st.dots.map((d) => ({ ...d })),
   };
 }
 

@@ -37,6 +37,12 @@
     }
   },
   "mobs": {
+    "Converted Zealot": {
+      "RG_BACKSTAP": {
+        "avoid": ["hide", "kawarimi", "walk"],
+        "note": "Project owner, 2026-09-28: 'when I see Back Stab I walk out of its cast range, and keep walking' -- its 1.5 s cast bar is the tell for the Cloud Kill that always follows (afterskill 212). Walking out dodges the stab itself too."
+      }
+    },
     "Tortured Maiden": {
       "NPC_VAMPIRE_GIFT": {
         "hideBlocks": true,

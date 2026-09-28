@@ -9,7 +9,7 @@
  *     [--lock offhand] [--screen 60] [--confirm 400] [--passes 3] [--time 300] \
  *     [--set "shoes=Temporal STR Boots+6; stat.str=99"] [--only garment,upper,stats]
  *     [--only rotation,order  (the rotation optimizer)] [--fix "rogueFillers=false,autoAttack=false"]
- *     [--exclude "Dark Illusion Card"] [--keep-stats str]
+ *     [--exclude "Dark Illusion Card"] [--keep-stats str] [--slot-items "lower=Flaming Weaver|Wind Weaver[str:1]"] [--lock-cards weapon] [--fix-refine gem] [--refine-cap gem=6] [--penalty 0.03] [--mvp-penalty 0] [--max-refine 6]
  *     [--per-target [--swap-cost 0.1]] [--proxy-test] [--no-pairs] [--healing] [--allow-ss] [--no-race] [--no-stats] [--workers N] [--out data/gear-search/kingslayer-heartless.json]
  *
  * The rules (the project owner, 2026-09-27):
@@ -56,7 +56,7 @@ import { Rng } from '../src/rng.ts';
 import { priorityPolicy, tasPolicy } from '../src/tas.ts';
 import { kitFor } from '../src/kits/index.ts';
 import {
-  acquisitionOf, canEquip, clampRoll, fitsCard, fitsSlot, isTwoHanded, maxRefine, rollTableFor, SLOTS,
+  acquisitionOf, canEquip, clampRoll, fitsCard, fitsSlot, isRefineable, isTwoHanded, maxRefine, rollTableFor, SLOTS,
   type Build, type Item, type RollPick, type SlotDef,
 } from '../../sim/src/index.ts';
 import { encodeBuild } from '../../web/src/share.ts';
@@ -143,7 +143,10 @@ const locked = new Set((one('lock') ?? 'offhand').split(',').map((s) => s.trim()
 const policy = one('policy') === 'tas' ? tasPolicy({ horizonMs: 6000 }) : priorityPolicy;
 
 /** What an MVP-only piece, a +9 or a piece made from a +9 costs in the score: 3% of wins. */
-const PENALTY = 0.03;
+/** --penalty: the score an MVP-only / SS-only / +9 piece costs (0.03; 0 for an endgame tier). */
+const PENALTY = Number(one('penalty') ?? 0.03);
+/** --mvp-penalty: what an MVP-only piece or card costs, apart from PENALTY (0: MVP drops are fine -- the Satsujin owner, 2026-09-28). */
+const MVP_PENALTY = Number(one('mvp-penalty') ?? PENALTY);
 /** --no-mvp: MVP-only pieces and cards are left out, not merely penalised. --max-refine N: new pieces at +N at most. */
 const noMvp = flag('no-mvp');
 const maxNewRefine = Number(one('max-refine') ?? 9);
@@ -246,14 +249,47 @@ type SlotState = NonNullable<Build['slots'][string]>;
 interface State { build: Build; options: Record<string, unknown>; only?: number[] }
 interface Move { label: string; slots?: Record<string, SlotState>; options?: Record<string, unknown>; stats?: Build['baseStats'] }
 
-const refines = (item: Item) => (item.refineable
+const refines = (item: Item) => (isRefineable(item)
   ? [...new Set([Math.min(6, maxNewRefine, maxRefine(item)), Math.min(9, maxNewRefine, maxRefine(item))])] : [0]);
 const skipSlot = (s: SlotDef, build: Build) => s.group === 'costume'
   || (s.key === 'ammo' && !/Bow/.test(data.items.get(build.slots.weapon?.itemId ?? 0)?.type ?? ''));
 
+/**
+ * --slot-items "lower=Flaming Weaver|Wind Weaver[str:1]; ...": a slot may
+ * hold only these (the ones owned), each at any refine, cards searched as
+ * usual. "[stat:n]" is the owned piece's stat roll. The piece worn is
+ * re-tried at other refines too.
+ */
+const slotItems = new Map<string, { id: number; rolls?: Record<string, unknown> }[]>();
+for (const part of (one('slot-items') ?? '').split(';').map((s) => s.trim()).filter(Boolean)) {
+  const [slot, list] = part.split('=');
+  slotItems.set(slot.trim(), list.split('|').map((raw) => {
+    const m = /^(.*?)\s*(?:\[(\w+):(-?\d+)\])?$/.exec(raw.trim())!;
+    const item = data.itemList.find((i) => i.name.toLowerCase() === m[1].toLowerCase());
+    if (!item) throw new Error(`--slot-items: no item named "${m[1]}"`);
+    return { id: item.id, ...(m[2] ? { rolls: { stat: { option: m[2], values: [Number(m[3])] } } } : {}) };
+  }));
+}
+
 function itemMoves(build: Build, slot: SlotDef): Move[] {
   const cur = build.slots[slot.key];
   if (locked.has(slot.key) || skipSlot(slot, build)) return [];
+  const only = slotItems.get(slot.key);
+  if (only) {
+    const out: Move[] = [];
+    for (const o of only) {
+      const item = data.items.get(o.id)!;
+      const keep = (cur?.cards ?? []).filter((id): id is number => !!id)
+        .filter((id) => { const c = data.items.get(id); return c && fitsCard(c, slot, item); }).slice(0, item.card_slots);
+      const rolls = o.id === cur?.itemId ? cur?.rolls : o.rolls;
+      for (const refine of isRefineable(item) ? [0, 4, 6, 7, 8, 9].filter((r) => r <= maxRefine(item) && r <= maxNewRefine) : [0]) {
+        if (o.id === cur?.itemId && refine === (cur?.refine ?? 0)) continue;
+        out.push({ label: `${slot.label}: ${item.name} +${refine}`,
+          slots: { [slot.key]: { itemId: item.id, refine, cards: keep, ...(rolls ? { rolls } : {}) } as SlotState } });
+      }
+    }
+    return out;
+  }
   const out: Move[] = [];
   for (const item of data.itemList) {
     if (item.id === cur?.itemId || !fitsSlot(item, slot) || !allowed(item, slot.key)) continue;
@@ -264,7 +300,8 @@ function itemMoves(build: Build, slot: SlotDef): Move[] {
     const keep = (cur?.cards ?? []).filter((id): id is number => !!id)
       .filter((id) => { const c = data.items.get(id); return c && fitsCard(c, slot, item); })
       .slice(0, item.card_slots);
-    for (const refine of refines(item)) {
+    // --refine-cap holds for a piece swapped in too (a new class gem at +9 is still past gem=6).
+    for (const refine of [...new Set(refines(item).map((r) => Math.min(r, refineCap.get(slot.key) ?? r)))]) {
       for (const r of rollVariants(item, slot.key)) {
         out.push({ label: `${slot.label}: ${item.name} +${refine}${r.label ? ` (${r.label})` : ''}`,
           slots: { [slot.key]: { itemId: item.id, refine, cards: keep, ...(Object.keys(r.rolls).length ? { rolls: r.rolls } : {}) } } });
@@ -274,10 +311,32 @@ function itemMoves(build: Build, slot: SlotDef): Move[] {
   return out;
 }
 
+/**
+ * The piece worn, refined further: locked slots too (a refine is not a swap)
+ * and class gems (the data marks them not refineable, but every one has
+ * per-refine lines; the planner refines them). Up to +9; +9 costs PENALTY.
+ */
+function refineMoves(build: Build, slot: SlotDef): Move[] {
+  const cur = build.slots[slot.key];
+  const item = cur?.itemId ? data.items.get(cur.itemId) : null;
+  if (!item || !isRefineable(item) || skipSlot(slot, build) || fixedRefine.has(slot.key)) return [];
+  const now = cur!.refine ?? 0;
+  return [3, 4, 5, 6, 7, 8, 9].filter((r) => r > now && r <= maxRefine(item) && r <= maxNewRefine && r <= (refineCap.get(slot.key) ?? 99))
+    .map((refine) => ({ label: `${slot.label}: ${item.name} +${now} -> +${refine}`, slots: { [slot.key]: { ...cur!, refine } } }));
+}
+/** --refine-cap "gem=6,weapon=9": the most a slot's piece is refined to. */
+const refineCap = new Map((one('refine-cap') ?? '').split(',').map((x) => x.trim()).filter(Boolean)
+  .map((x) => { const [k, v] = x.split('='); return [k.trim(), Number(v)] as [string, number]; }));
+/** --fix-refine slot,...: leave these refines alone. */
+const fixedRefine = new Set((one('fix-refine') ?? '').split(',').map((x) => x.trim()).filter(Boolean));
+
+/** --lock-cards weapon,...: these slots keep their cards (the owner swaps whole daggers per race, not cards). */
+const cardLocked = new Set((one('lock-cards') ?? '').split(',').map((x) => x.trim()).filter(Boolean));
+
 function cardMoves(build: Build, slot: SlotDef): Move[] {
   const cur = build.slots[slot.key];
   const host = cur?.itemId ? data.items.get(cur.itemId) : null;
-  if (!host || !host.card_slots || skipSlot(slot, build)) return [];
+  if (!host || !host.card_slots || skipSlot(slot, build) || cardLocked.has(slot.key)) return [];
   const have = (cur!.cards ?? []).filter(Boolean) as number[];
   const out: Move[] = [];
   for (const card of cards) {
@@ -287,8 +346,15 @@ function cardMoves(build: Build, slot: SlotDef): Move[] {
     if (JSON.stringify(all) !== JSON.stringify(have)) {
       out.push({ label: `${slot.label}: ${card.name} x${host.card_slots}`, slots: { [slot.key]: { ...cur!, cards: all } } });
     }
-    if (host.card_slots > 1 && have.length && have[0] !== card.id) {
-      out.push({ label: `${slot.label}: ${card.name} in socket 1`, slots: { [slot.key]: { ...cur!, cards: [card.id, ...have.slice(1)] } } });
+    // Each socket on its own: an empty second socket gets filled, a single
+    // card swapped, the rest kept (Maiden of Past + a Minorous).
+    if (host.card_slots > 1) {
+      const sockets = Array.from({ length: host.card_slots }, (_, i) => (cur!.cards ?? [])[i] ?? null);
+      for (let i = 0; i < host.card_slots; i++) {
+        if (sockets[i] === card.id) continue;
+        const next = [...sockets]; next[i] = card.id;
+        out.push({ label: `${slot.label}: ${card.name} in socket ${i + 1}`, slots: { [slot.key]: { ...cur!, cards: next as number[] } } });
+      }
     }
   }
   return out;
@@ -324,7 +390,11 @@ function setMoves(build: Build): Move[] {
 
 const STAT_CAP = Math.max(99, ...STATS.map((k) => start.baseStats[k] ?? 0));
 /** Status points to raise a stat from 1 to x: floor((v - 1) / 10) + 2 for each step v -> v + 1. */
-const statCost = (x: number) => { let c = 0; for (let v = 1; v < x; v++) c += Math.floor((v - 1) / 10) + 2; return c; };
+// The server's own raise cost (RTM pc.cpp:8091, RENEWAL_STAT): 1 + floor(v / 49)
+// a point from v -- 1 below 49, 2 to 97, 3 from 98. Not stock rAthena's
+// floor((v-1)/10) + 2 (the project owner, 2026-09-28; the owner's spread
+// costs 440 of the 439 Lv136 gives by this rule).
+const statCost = (x: number) => { let c = 0; for (let v = 1; v < x; v++) c += 1 + Math.floor(v / 49); return c; };
 
 /**
  * Stat points moved: 5 or 10 taken out of one stat, and the points that
@@ -425,7 +495,7 @@ function penalty(build: Build): number {
     const was = start.slots[k];
     const item = data.items.get(st.itemId);
     if (item && was?.itemId !== st.itemId) {
-      if (mvpOnly(item)) p += PENALTY;
+      if (mvpOnly(item)) p += MVP_PENALTY;
       if (ssOnly(item)) p += PENALTY;
       if (madeFromNine(item)) p += PENALTY;
     }
@@ -433,7 +503,7 @@ function penalty(build: Build): number {
     const before = new Set((was?.cards ?? []).filter(Boolean));
     for (const id of new Set((st.cards ?? []).filter(Boolean) as number[])) {
       const c = data.items.get(id);
-      if (c && !before.has(id) && mvpOnly(c)) p += PENALTY;
+      if (c && !before.has(id) && mvpOnly(c)) p += MVP_PENALTY;
     }
   }
   return p;
@@ -663,7 +733,8 @@ if (flag('proxy-test')) {
   // top 4 fall in the estimate's top 10 / 20 / 40.
   const groups: [string, Move[]][] = [
     ['rotation', optionMoves(state.options)], ['stats', statMoves(state.build)], ['sets', setMoves(state.build)],
-    ...SLOTS.flatMap((sl) => [[`${sl.key} piece`, itemMoves(state.build, sl)], [`${sl.key} cards`, cardMoves(state.build, sl)]] as [string, Move[]][]),
+    ...SLOTS.flatMap((sl) => [[`${sl.key} piece`, itemMoves(state.build, sl)], [`${sl.key} cards`, cardMoves(state.build, sl)],
+      [`${sl.key} refine`, refineMoves(state.build, sl)]] as [string, Move[]][]),
   ];
   const [base0] = await fightAll([state], screenN, 7);
   for (const [name, moves] of groups) {
@@ -729,6 +800,7 @@ for (let pass = 1; pass <= passes; pass++) {
     ...SLOTS.filter((s) => searching(s.key)).flatMap((s) => [
       { name: `${s.label} piece`, moves: () => itemMoves(state.build, s) },
       { name: `${s.label} cards`, moves: () => cardMoves(state.build, s) },
+      { name: `${s.label} refine`, moves: () => refineMoves(state.build, s) },
     ]),
   ];
   // Pairs go last, and only once the singles are spent.

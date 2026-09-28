@@ -6,7 +6,7 @@
  *     --profile profiles/kingslayer-dummy.json [--vs dummy,jorm,rachel_ss] [--iter 60] \
  *     --variant "VIT boots: shoes=Temporal VIT Boots" \
  *     --variant "Tower Eater: offhand.cards=Tower Eater Card" \
- *     [--policy tas|priority] [--sp-value 0.5] [--time 300] [--json out.json]   (--time: seconds before a fight is a stalemate; bosses 600)
+ *     [--policy tas|priority] [--sp-value 0.5] [--time 300] [--json out.json]   (--time: seconds before a fight is a stalemate; MVPs --boss-time, default 600)
  *
  * A variant is a name, a colon, and changes separated by ';':
  *   slot=Item Name[+refine]        put an item in a slot (its cards are dropped)
@@ -117,7 +117,7 @@ for (const v of variants) {
     }) } : base;
     const sum = simulate(f, m, k.kit, {
       iterations: m.dummy ? Math.min(iterations, 10) : iterations, seed: 1, policy, options: v.profile.options,
-      limitMs: (m.dummy ? DUMMY_SECONDS : m.boss ? 600 : Number(one('time') ?? 60)) * 1000,
+      limitMs: (m.dummy ? DUMMY_SECONDS : m.boss ? Number(one('boss-time') ?? 600) : Number(one('time') ?? 60)) * 1000,
       items: loadout({ carried: v.profile.consumables ?? DEFAULT_CONSUMABLES, healing: !!v.profile.healing, boss: m.boss && !m.dummy, elixirs: f.kafraElixirs }),
     });
     const top = Object.entries(sum.deaths).sort((a, b) => b[1] - a[1]).slice(0, 2).map(([s, n]) => `${s} x${n}`).join(', ');

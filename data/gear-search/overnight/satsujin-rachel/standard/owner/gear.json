@@ -1,0 +1,466 @@
+{
+ "profile": "owner: rotation",
+ "targets": [
+  "Njord Zealot",
+  "Converted Zealot",
+  "Godly Seeker",
+  "Burning Fury",
+  "Tortured Maiden"
+ ],
+ "rules": {
+  "screenN": 80,
+  "confirmN": 400,
+  "timeS": 300,
+  "locked": [
+   "weapon",
+   "sh_manual"
+  ],
+  "penalty": 0,
+  "topStats": [
+   "agi",
+   "str",
+   "dex"
+  ]
+ },
+ "start": "http://localhost:5173/#b=cfZDRasQgEEX_ZZ7vg46aaH-jjyJBsnabkm1CzJZC6b-XSZay3bILIjIez9wxMug5r_X8NrwTtFGIQSEEsIcJsLISYlRw1tuEqOFU46EQtXGtTgmR4QI3aBCFpLrmlUAfw0qIOiVBDLQzgYXRxvlwDebjQIgsGC2lTuelLwQ65c_udSZEsyuspAtWFFZUv9vmWqZxZALVueununZLOZz7cpAEajdP42hEW8ZSukM-5WMhxLDLneQzCIhWm0YqDdhZnRBbMCulLhMHfS96nYv0o1xnaeu3Yp_rOrwfL-VuHE7Xv-LBjTEJMUA7y3bv0Vrzv8flhdYIyijv5cxgH9zjj9dmg_wtVNflCrIb1D6G3AaFW-hvvgZsFWuZ5D7Ugq1uzQNT2m4SvuhlLIWeWvWdfgA",
+ "steps": [
+  {
+   "move": "stats: INT 39->29, DEX 49->56",
+   "before": {
+    "win": 0.575,
+    "loss": 0.425,
+    "dps": 16713.987410339625,
+    "ttk": 18.11933114113362,
+    "value": 0.9982098111550943,
+    "deaths": "Critical Slash x348, Meteor Storm x191"
+   },
+   "after": {
+    "win": 0.5805,
+    "loss": 0.41950000000000004,
+    "dps": 16934.093562982023,
+    "ttk": 18.58352719210845,
+    "value": 1.0086614034447303,
+    "deaths": "Critical Slash x350, Meteor Storm x203"
+   },
+   "tried": 50
+  },
+  {
+   "move": "Blade Study set +6",
+   "before": {
+    "win": 0.5734999999999999,
+    "loss": 0.4265,
+    "dps": 16943.329965542547,
+    "ttk": 18.217294073336024,
+    "value": 0.9996999494831381,
+    "deaths": "Critical Slash x353, Flaming Petals x209"
+   },
+   "after": {
+    "win": 0.6285000000000001,
+    "loss": 0.37150000000000005,
+    "dps": 17218.261853059255,
+    "ttk": 18.0088,
+    "value": 1.0753239277958888,
+    "deaths": "Knuckle Arrow x257, Meteor Storm x249"
+   },
+   "tried": 328
+  },
+  {
+   "move": "Upper Headgear: Ulle's Cap +6",
+   "before": {
+    "win": 0.6265,
+    "loss": 0.37349999999999994,
+    "dps": 17190.001981638205,
+    "ttk": 18.043799999999997,
+    "value": 1.0723000297245728,
+    "deaths": "Knuckle Arrow x252, Meteor Storm x226"
+   },
+   "after": {
+    "win": 0.689,
+    "loss": 0.311,
+    "dps": 17010.84703562363,
+    "ttk": 18.678406228392348,
+    "value": 1.1508627055343543,
+    "deaths": "Flaming Petals x208, Meteor Storm x173"
+   },
+   "tried": 254
+  },
+  {
+   "move": "Upper Headgear: Hunter Fly Card x1",
+   "before": {
+    "win": 0.6890000000000001,
+    "loss": 0.31099999999999994,
+    "dps": 17006.438420832998,
+    "ttk": 18.637430839117823,
+    "value": 1.150796576312495,
+    "deaths": "Flaming Petals x197, Meteor Storm x184"
+   },
+   "after": {
+    "win": 0.7494999999999999,
+    "loss": 0.2505,
+    "dps": 17137.737407835717,
+    "ttk": 18.63888006056878,
+    "value": 1.2314160611175358,
+    "deaths": "Flaming Petals x188, Meteor Storm x188"
+   },
+   "tried": 74
+  },
+  {
+   "move": "Lower Headgear: Ymir Emperium Card x2",
+   "before": {
+    "win": 0.756,
+    "loss": 0.244,
+    "dps": 17155.857820000634,
+    "ttk": 18.646055449843303,
+    "value": 1.2401378673000094,
+    "deaths": "Flaming Petals x189, Meteor Storm x180"
+   },
+   "after": {
+    "win": 0.7625,
+    "loss": 0.2375,
+    "dps": 18671.598705819237,
+    "ttk": 17.410631877183214,
+    "value": 1.2713239805872885,
+    "deaths": "Meteor Storm x232, Flaming Petals x152"
+   },
+   "tried": 228
+  },
+  {
+   "move": "Armor: Power Dragon Plate +9",
+   "before": {
+    "win": 0.7585,
+    "loss": 0.2415,
+    "dps": 18654.395318543888,
+    "ttk": 17.318581617666865,
+    "value": 1.2658659297781583,
+    "deaths": "Meteor Storm x218, Flaming Petals x169"
+   },
+   "after": {
+    "win": 0.7775000000000001,
+    "loss": 0.2225,
+    "dps": 18914.747496356227,
+    "ttk": 17.23430570935965,
+    "value": 1.2944712124453435,
+    "deaths": "Flaming Petals x193, Meteor Storm x185"
+   },
+   "tried": 288
+  },
+  {
+   "move": "Weapon: Murder Knife +6 -> +9",
+   "before": {
+    "win": 0.78,
+    "loss": 0.22000000000000003,
+    "dps": 18956.89313628698,
+    "ttk": 17.275268274238737,
+    "value": 1.2983533970443046,
+    "deaths": "Flaming Petals x193, Meteor Storm x186"
+   },
+   "after": {
+    "win": 0.8085000000000001,
+    "loss": 0.1915,
+    "dps": 21548.14740828686,
+    "ttk": 15.15024366351326,
+    "value": 1.3742722111243029,
+    "deaths": "Meteor Storm x177, Flaming Petals x167"
+   },
+   "tried": 3
+  },
+  {
+   "move": "Off-hand: Master Dagger +9",
+   "before": {
+    "win": 0.7935000000000001,
+    "loss": 0.2065,
+    "dps": 21536.94442464709,
+    "ttk": 15.219546258676738,
+    "value": 1.3546041663697066,
+    "deaths": "Meteor Storm x182, Flaming Petals x172"
+   },
+   "after": {
+    "win": 0.8105,
+    "loss": 0.18949999999999997,
+    "dps": 22167.91076499694,
+    "ttk": 14.798630839117823,
+    "value": 1.386168661474954,
+    "deaths": "Meteor Storm x171, Flaming Petals x170"
+   },
+   "tried": 364
+  },
+  {
+   "move": "Shoes: Surt Shoes +9",
+   "before": {
+    "win": 0.8125,
+    "loss": 0.1875,
+    "dps": 22194.44820268332,
+    "ttk": 14.76524366351326,
+    "value": 1.3891667230402498,
+    "deaths": "Meteor Storm x185, Flaming Petals x160"
+   },
+   "after": {
+    "win": 0.8785000000000001,
+    "loss": 0.12149999999999998,
+    "dps": 20568.919257019294,
+    "ttk": 15.689781617666867,
+    "value": 1.4505837888552895,
+    "deaths": "Flaming Petals x207, Knuckle Arrow x18"
+   },
+   "tried": 214
+  },
+  {
+   "move": "Accessory 2 (right): Ifrit Card x1",
+   "before": {
+    "win": 0.882,
+    "loss": 0.118,
+    "dps": 20496.182165468163,
+    "ttk": 15.786094961095,
+    "value": 1.4540427324820224,
+    "deaths": "Flaming Petals x203, Knuckle Arrow x25"
+   },
+   "after": {
+    "win": 0.8885,
+    "loss": 0.1115,
+    "dps": 21326.63325154637,
+    "ttk": 15.169029801052432,
+    "value": 1.4749494987731955,
+    "deaths": "Flaming Petals x189, Knuckle Arrow x27"
+   },
+   "tried": 117
+  },
+  {
+   "move": "Class Gem: Moonless Gem of Darkness +0 -> +6",
+   "before": {
+    "win": 0.8939999999999999,
+    "loss": 0.10600000000000001,
+    "dps": 21367.588191798743,
+    "ttk": 15.158377465405303,
+    "value": 1.482713822876981,
+    "deaths": "Flaming Petals x185, Knuckle Arrow x16"
+   },
+   "after": {
+    "win": 0.9219999999999999,
+    "loss": 0.07799999999999999,
+    "dps": 22572.21899912265,
+    "ttk": 14.291206228392346,
+    "value": 1.5371832849868396,
+    "deaths": "Flaming Petals x138, Knuckle Arrow x15"
+   },
+   "tried": 4
+  },
+  {
+   "move": "Shadow Shoes: Heir to the King Boots +9",
+   "before": {
+    "win": 0.9125,
+    "loss": 0.0875,
+    "dps": 22537.46593116811,
+    "ttk": 14.311380579601476,
+    "value": 1.5243119889675216,
+    "deaths": "Flaming Petals x158, Knuckle Arrow x14"
+   },
+   "after": {
+    "win": 0.9349999999999999,
+    "loss": 0.065,
+    "dps": 23672.86936009248,
+    "ttk": 13.581117207606606,
+    "value": 1.5705930404013873,
+    "deaths": "Flaming Petals x75, Knuckle Arrow x42"
+   },
+   "tried": 233
+  },
+  {
+   "move": "Shadow Gloves: King's Noble Gloves +6",
+   "before": {
+    "win": 0.9350000000000002,
+    "loss": 0.065,
+    "dps": 23733.959210528516,
+    "ttk": 13.48938579303506,
+    "value": 1.571509388157928,
+    "deaths": "Flaming Petals x72, Knuckle Arrow x42"
+   },
+   "after": {
+    "win": 0.9345000000000001,
+    "loss": 0.0655,
+    "dps": 24942.4591390137,
+    "ttk": 12.779412921017327,
+    "value": 1.5889868870852057,
+    "deaths": "Flaming Petals x79, Knuckle Arrow x34"
+   },
+   "tried": 233
+  },
+  {
+   "move": "Shadow Accessory: Heir to the King Pendant +9",
+   "before": {
+    "win": 0.9345000000000001,
+    "loss": 0.0655,
+    "dps": 24829.196049347367,
+    "ttk": 12.813777219856505,
+    "value": 1.5872879407402107,
+    "deaths": "Flaming Petals x72, Knuckle Arrow x41"
+   },
+   "after": {
+    "win": 0.9309999999999998,
+    "loss": 0.06899999999999999,
+    "dps": 26927.53854111525,
+    "ttk": 12.025368646677949,
+    "value": 1.6142130781167285,
+    "deaths": "Flaming Petals x94, Knuckle Arrow x35"
+   },
+   "tried": 233
+  },
+  {
+   "move": "Rune or Orb: Uruz Rune of Strength +9",
+   "before": {
+    "win": 0.9219999999999999,
+    "loss": 0.078,
+    "dps": 26871.17148194952,
+    "ttk": 12.027847213731556,
+    "value": 1.6016675722292426,
+    "deaths": "Flaming Petals x98, Knuckle Arrow x45"
+   },
+   "after": {
+    "win": 0.9405000000000001,
+    "loss": 0.0595,
+    "dps": 28899.68040853758,
+    "ttk": 11.343280097999187,
+    "value": 1.656145206128064,
+    "deaths": "Flaming Petals x99, Knuckle Arrow x16"
+   },
+   "tried": 76
+  },
+  {
+   "move": "order: Omamori Jutsu up 2 (before New Moon)",
+   "before": {
+    "win": 0.9359999999999999,
+    "loss": 0.064,
+    "dps": 28868.879814775446,
+    "ttk": 11.256977219856505,
+    "value": 1.6498331972216316,
+    "deaths": "Flaming Petals x111, Knuckle Arrow x11"
+   },
+   "after": {
+    "win": 0.9475000000000001,
+    "loss": 0.052500000000000005,
+    "dps": 28935.796156399254,
+    "ttk": 11.33924580528496,
+    "value": 1.665786942345989,
+    "deaths": "Flaming Petals x88, Knuckle Arrow x11"
+   },
+   "tried": 62
+  },
+  {
+   "move": "Middle Headgear: Master Loki Card x1",
+   "before": {
+    "win": 0.9465,
+    "loss": 0.053500000000000006,
+    "dps": 29000.171383810964,
+    "ttk": 11.267462951642072,
+    "value": 1.6654525707571646,
+    "deaths": "Flaming Petals x90, Knuckle Arrow x15"
+   },
+   "after": {
+    "win": 0.9865,
+    "loss": 0.013500000000000002,
+    "dps": 27470.871956899726,
+    "ttk": 11.935204347838772,
+    "value": 1.694513079353496,
+    "deaths": "Knuckle Arrow x15, Pulse Strike 2 x11"
+   },
+   "tried": 95
+  },
+  {
+   "move": "Off-hand: Memory of Thanatos Card x1",
+   "before": {
+    "win": 0.9814999999999999,
+    "loss": 0.0185,
+    "dps": 27359.317366140654,
+    "ttk": 11.962072933267226,
+    "value": 1.6863397604921098,
+    "deaths": "Knuckle Arrow x20, Pulse Strike 2 x17"
+   },
+   "after": {
+    "win": 0.9890000000000001,
+    "loss": 0.011,
+    "dps": 28365.364140287078,
+    "ttk": 11.507700061249492,
+    "value": 1.7111804621043063,
+    "deaths": "Knuckle Arrow x18, Pulse Strike 2 x3"
+   },
+   "tried": 155
+  },
+  {
+   "move": "Middle Headgear: Asgard Blessing +0  +  Shadow Gloves: King's Noble Gloves +6 -> +8",
+   "before": {
+    "win": 0.9894999999999999,
+    "loss": 0.0105,
+    "dps": 28351.601288550504,
+    "ttk": 11.513117207606605,
+    "value": 1.7116240193282575,
+    "deaths": "Knuckle Arrow x16, Pulse Strike 2 x2"
+   },
+   "after": {
+    "win": 0.9904999999999999,
+    "loss": 0.0095,
+    "dps": 29363.252088028832,
+    "ttk": 11.138412830341599,
+    "value": 1.7280987813204325,
+    "deaths": "Knuckle Arrow x14, Pulse Strike 2 x5"
+   },
+   "tried": 729
+  },
+  {
+   "move": "stats: LUK 49->39, DEX 56->63",
+   "before": {
+    "win": 0.9880000000000001,
+    "loss": 0.012,
+    "dps": 29230.57266042583,
+    "ttk": 11.172927041261579,
+    "value": 1.7228585899063877,
+    "deaths": "Knuckle Arrow x13, Pulse Strike 2 x9"
+   },
+   "after": {
+    "win": 0.9914999999999999,
+    "loss": 0.008499999999999999,
+    "dps": 29701.054310258816,
+    "ttk": 11.004089397628254,
+    "value": 1.734465814653882,
+    "deaths": "Knuckle Arrow x11, Pulse Strike 2 x4"
+   },
+   "tried": 50
+  }
+ ],
+ "final": {
+  "win": 0.99125,
+  "loss": 0.008749999999999999,
+  "dps": 29689.559375636738,
+  "ttk": 11.024861234964899,
+  "value": 1.7339683906345509,
+  "deaths": "Knuckle Arrow x25, Pulse Strike 2 x9"
+ },
+ "options": {
+  "slashOpener": true,
+  "backStab": false,
+  "seedTalisman": false,
+  "weaveMs": 0,
+  "mobility": "server",
+  "kite": true,
+  "tankShare": 0.6,
+  "order": [
+   "Stay hidden",
+   "Predict Kawarimi",
+   "Moon guard",
+   "Pull it off the ward",
+   "Morroc's Mark",
+   "Hallucination Walk",
+   "Full Moon",
+   "Dragon Omamori",
+   "Million Stab",
+   "Omamori Jutsu",
+   "New Moon",
+   "Thousand Arms",
+   "Shadow Slash",
+   "Back Stab",
+   "Lotus Pact",
+   "Attack",
+   "Wait for swing"
+  ]
+ },
+ "link": "http://localhost:5173/#b=cfZLRjuMgDEX_hef7gA0ksL-xjwhFKGHSrNI2SuhqRqv99xWkarPStC9I4Ot7bGPPED9j3m6_posAKQnvJJwDW7BDo6BcgPcShlihgddEJgR4AlljJCQ8qYabohJbjllADOlTwFMIRcgwjpuSSqpli3oe1b-n_FQrkFGO4IrcWHcUbnndhfBiTdv1tvZJQJzjZ3daBLyqkfOUpzHm6XoREMvpa5v6OHdrGm59GgQ87yBdunW6gLRyjMdRiet1nrkgl66_bvmQTnLnX-dZFXiaU-qGeI5jEvBuNzfFXMu7uXtY0rFcfhh9TzL_g-I49U_QM6gFxGnpxjhd0tAtae1OdaD3Phuw0RTgW5DRbO-TdfRqstuSCl7EbSlVtPWxj1ueLmN5_shp7cq9G9Icv3ZJEVlwo1SAd5Wky2poreQRFMfp-ddEcFJJa1G2hxisW-vKpnxbW01RYCvb-m2vRRqsNTvYdyJTncx7pwasJVNp5XUbLVhT27xxCjUS8Ed8zCmJH638G_4B",
+ "perTarget": []
+}
