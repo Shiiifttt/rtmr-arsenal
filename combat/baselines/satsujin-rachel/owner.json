@@ -1,0 +1,255 @@
+{
+  "name": "Satsujin baseline: owner (2026-09-28)",
+  "_about": "The owner's build as played (Murder Knife rolls included, status-window offsets). Everything else is measured against this.",
+  "baseLevel": 136,
+  "weaponRaceMatch": true,
+  "build": {
+    "className": "Satsujin",
+    "baseLevel": 130,
+    "baseStats": {
+      "str": 90,
+      "agi": 99,
+      "vit": 28,
+      "int": 39,
+      "dex": 49,
+      "luk": 49
+    },
+    "manual": {
+      "flee": 70
+    },
+    "slots": {
+      "upper": {
+        "itemId": 5484,
+        "refine": 0,
+        "cards": []
+      },
+      "middle": {
+        "itemId": 5068,
+        "refine": 0,
+        "cards": [
+          13571
+        ]
+      },
+      "lower": {
+        "itemId": 5926,
+        "refine": 6,
+        "cards": [],
+        "rolls": {
+          "stat": {
+            "option": "vit",
+            "values": [
+              1
+            ]
+          }
+        }
+      },
+      "armor": {
+        "itemId": 15392,
+        "refine": 6,
+        "cards": [
+          13589
+        ],
+        "rolls": {
+          "stat": {
+            "option": "agi",
+            "values": [
+              2
+            ]
+          },
+          "resource": {
+            "option": "max_hp",
+            "values": [
+              3
+            ]
+          }
+        }
+      },
+      "weapon": {
+        "itemId": 13094,
+        "refine": 6,
+        "cards": [
+          4392,
+          4392,
+          4392
+        ],
+        "rolls": {
+          "roll2": {
+            "option": "sp_cost_reduced",
+            "values": [
+              10
+            ]
+          },
+          "roll3": {
+            "option": "melee_damage",
+            "values": [
+              9
+            ]
+          }
+        }
+      },
+      "offhand": {
+        "itemId": 1533,
+        "refine": 9,
+        "cards": [
+          4136
+        ]
+      },
+      "garment": {
+        "itemId": 2541,
+        "refine": 0,
+        "cards": []
+      },
+      "shoes": {
+        "itemId": 22000,
+        "refine": 0,
+        "cards": [
+          13591
+        ],
+        "rolls": {
+          "stat": {
+            "option": "agi",
+            "values": [
+              2
+            ]
+          },
+          "speed": {
+            "option": "aspd",
+            "values": [
+              8
+            ]
+          },
+          "casting": {
+            "option": "aspd_limit",
+            "values": [
+              1
+            ]
+          }
+        }
+      },
+      "acc1": {
+        "itemId": 2633,
+        "refine": 0,
+        "cards": []
+      },
+      "acc2": {
+        "itemId": 15424,
+        "refine": 0,
+        "cards": [
+          13743
+        ],
+        "rolls": {
+          "stat": {
+            "option": "agi",
+            "values": [
+              1
+            ]
+          }
+        }
+      },
+      "gem": {
+        "itemId": 903088,
+        "refine": 0,
+        "cards": []
+      },
+      "sh_armor": {
+        "itemId": 28956,
+        "refine": 6,
+        "cards": [],
+        "rolls": {
+          "stat": {
+            "option": "vit",
+            "values": [
+              1
+            ]
+          }
+        }
+      },
+      "sh_shoes": {
+        "itemId": 28958,
+        "refine": 6,
+        "cards": [],
+        "rolls": {
+          "stat": {
+            "option": "str",
+            "values": [
+              1
+            ]
+          }
+        }
+      },
+      "sh_gloves": {
+        "itemId": 28957,
+        "refine": 6,
+        "cards": [],
+        "rolls": {
+          "stat": {
+            "option": "str",
+            "values": [
+              1
+            ]
+          }
+        }
+      },
+      "sh_acc": {
+        "itemId": 28959,
+        "refine": 6,
+        "cards": [],
+        "rolls": {
+          "stat": {
+            "option": "agi",
+            "values": [
+              1
+            ]
+          }
+        }
+      },
+      "sh_manual": {
+        "itemId": 24021,
+        "refine": 0,
+        "cards": [],
+        "rolls": {
+          "stat": {
+            "option": "agi",
+            "values": [
+              1
+            ]
+          }
+        }
+      },
+      "runeorb": {
+        "itemId": 24173,
+        "refine": 6,
+        "cards": [],
+        "rolls": {
+          "stat": {
+            "option": "agi",
+            "values": [
+              1
+            ]
+          }
+        }
+      }
+    }
+  },
+  "options": {
+    "slashOpener": true,
+    "backStab": false,
+    "seedTalisman": false,
+    "weaveMs": 0,
+    "mobility": "server",
+    "kite": true
+  },
+  "measured": {
+    "windowAtk": [
+      172,
+      83
+    ],
+    "windowMatk": [
+      132,
+      62
+    ],
+    "fleeOffset": -27,
+    "mdefOffset": 6,
+    "hpScale": 1.152
+  }
+}

@@ -28,16 +28,20 @@
  */
 import type { Passives } from '../character.ts';
 import { defMultiplier, effectivePierce } from '../../../sim/src/derived.ts';
-import { attrFix, magicDamage, physicalCardFix, physicalDamage, refineAtk, TUNE } from '../formulas.ts';
+import { attrFix, countsAsBoss, magicDamage, physicalCardFix, physicalDamage, refineAtk, TUNE } from '../formulas.ts';
 import type { Fighter, MobSkill, Monster } from '../model.ts';
+import { playbookPlan } from '../playbook.ts';
 import {
-  canUse, dot, followUpComing, grant, has, readyAt, say, stacks, strike,
+  canUse, dot, followUpComing, grant, has, mobCloaked, readyAt, say, stacks, strike,
   type Action, type Fight, type Kit,
 } from '../engine.ts';
 import {
-  assessThreat, attackAction, breakSight, hidingAction, lv, morrocsMark, optionOn, orphanHeal, pullOffWard, stayHidden,
+  assessThreat, attackAction, backSlide, breakSight, hidingAction, lv, morrocsMark, optionOn, orphanHeal, pullOffWard, stayHidden,
   cellMs, reactionMs, toolkit, waitAction, walkOut, wardUp,
 } from './common.ts';
+import {
+  autoDefense, COMMON_TOOLS, heldForSnap, isPreempt, predictActions, priorityWith, reactWith, snapThreatDue, stayReadyAction, type DefenseTool,
+} from './defense.ts';
 
 const TREE = ['Kingslayer', 'Duelist', 'Rogue', 'Thief', 'Orphan'];
 
@@ -53,7 +57,7 @@ const SKILLS = [
   'Decoy', 'Riposte', "Pawn's Rod", "King's Gambit", "Queen's Barrier", "Rook's Wall", 'Reflect Shield',
   "Bishop's Guard", "Knight's Regen", "King's Fortress", 'Duel Stance', 'Ready to Rip', 'Hiding',
   "Morroc's Mark", 'Shield Mastery', 'Blade Mastery', 'Improve Dodge', 'Improve Defense', 'Improve Wisdom',
-  'Increase SP Recovery', 'Heal',
+  'Increase SP Recovery', 'Heal', "Pawn's Cure",
 ];
 
 export function maxLevels(): Record<string, number> {
@@ -127,7 +131,12 @@ function gemAutocast(fight: Fight) {
     const hits = (fight.f.autocastWhenHit ?? []).filter((a) => a.skills.includes('Shield Boomerang') && a.skills.includes("King's Chains"));
     autocastChance.set(fight.f, p = Math.min(1, hits.reduce((n, a) => n + a.chance, 0)));
   }
-  if (!p || fight.rng.expect || !hasShield(fight) || !fight.rng.chance(p)) return;
+  // Option gemFirstHit: the first hit taken always procs it -- a test of what
+  // one proc is worth (the project owner, 2026-09-30).
+  const forced = fight.options.gemFirstHit === true && !fight.me.spent.gemFirstHit && !fight.rng.expect && hasShield(fight);
+  if (forced) fight.me.spent.gemFirstHit = true;
+  if (!forced && (!p || fight.rng.expect || !hasShield(fight) || !fight.rng.chance(p))) return;
+  fight.me.buffs.gemProcs = { until: 1e12, stacks: (fight.me.buffs.gemProcs?.stacks ?? 0) + 1 };
   fight.log && say(fight, "Bulwark Gem autocasts Shield Boomerang and King's Chains");
   shieldBoomerang.resolve(fight);
   kingsChains.resolve(fight);
@@ -208,7 +217,13 @@ const hasComboGem = (f: Fighter) => {
 const swing = attackAction(T);
 const attack: Action = { ...swing, ready: (fight) => fight.options.autoAttack === true };
 const orphan = orphanHeal(T);
-const heal: Action = { ...orphan, ready: (fight) => optionOn(fight, 'heal') && orphan.ready!(fight) };
+// Option healBelow (a share of Max HP): Heal only under it -- the owner's 75%
+// (2026-09-29). Unset: whenever a whole Heal fits in the missing HP.
+const heal: Action = {
+  ...orphan,
+  ready: (fight) => optionOn(fight, 'heal') && orphan.ready!(fight)
+    && (typeof fight.options.healBelow !== 'number' || fight.me.hp < fight.options.healBelow * fight.f.maxHp),
+};
 
 const kingsChains: Action = {
   id: "King's Chains",
@@ -232,7 +247,8 @@ const kingsChains: Action = {
     // Counter", "Extra 1% per Soft DEF and Hard DEF", "Finisher Ready: extra
     // 30% per missing HP %".
     const ratio = 200 + 10 * l + s.vit + s.str + s.vit * held + f.softDef + f.def
-      + shieldBonus(fight) + (has(fight, 'finisher') ? 30 * missing : 0);
+      + shieldBonus(fight) + (has(fight, 'finisher') && fight.options.finisher !== false ? 30 * missing : 0);
+    // (option finisher: false turns the Finisher Ready bonus off -- a test while it is unconfirmed live.)
     const combo = has(fight, 'sbCombo') ? 1.5 : 1;
     if (combo > 1) delete fight.me.buffs.sbCombo;
     // "Throws a rebounding shield 4 times": one roll shown as four; ignores flee.
@@ -300,7 +316,11 @@ const rooksSmash: Action = {
     // boss, or the dummy. Anything else is pushed away after two.
     const hits = fight.m.boss || fight.m.dummy || fight.m.noKnockback ? 3 : 2;
     for (let i = 0; i < hits; i++) {
-      strike(fight, "Rook's Smash", { hits: 1, canMiss: true, critBonus: null, kind: 'ranged',
+      // A short-range hit to the server (KN_SPEARSTAB, you slide onto the
+      // target): Reflect Shield sends 38% of it back and Safety Wall stops it.
+      // The owner's log on Heartless (2026-09-29): three hits of 1,562 = 38%
+      // of his ~4,110 Rook's Smash. Its damage still takes long-range bonuses.
+      strike(fight, "Rook's Smash", { hits: 1, canMiss: true, critBonus: null, kind: 'melee',
         damage: (crit) => weaponPart(crit) + hpPart });
     }
   },
@@ -345,9 +365,14 @@ const queensGambit: Action = {
   // not once they are high (the project owner, 2026-09-27). Never below 65%
   // HP, so the cost leaves 40%.
   // Option simple: once a fight, timed to the King's Gambit (simpleGambitNow).
-  ready: (fight) => learned("Queen's Gambit")(fight) && optionOn(fight, 'queensGambit')
-    && fight.me.hp >= 0.65 * fight.f.maxHp
-    && (simple(fight) ? simpleGambitNow(fight) : castIsSafe(fight, cast("Queen's Gambit")(fight)) && counters(fight) <= 5),
+  // A cloaked monster (Famine Incarnate's Invisible): its area pulls it out
+  // (the project owner, 2026-09-29: "can try" -- unconfirmed), whatever the
+  // other rules say. Option revealGambit, on unless a profile turns it off.
+  findsCloaked: true,
+  ready: (fight) => learned("Queen's Gambit")(fight) && fight.me.hp >= 0.65 * fight.f.maxHp
+    && (mobCloaked(fight) ? optionOn(fight, 'revealGambit')
+      : optionOn(fight, 'queensGambit')
+        && (simple(fight) ? simpleGambitNow(fight) : castIsSafe(fight, cast("Queen's Gambit")(fight)) && counters(fight) <= 5)),
   castMs: cast("Queen's Gambit"),
   cooldownMs: cooldown("Queen's Gambit"),
   spCost: spCost("Queen's Gambit"),
@@ -360,6 +385,10 @@ const queensGambit: Action = {
     // MATK with no halving (as the 2023 code), at 100 + 25% a level + INT/2.
     const ratio = 100 + 25 * l + 0.5 * f.stats.int;
     const skillDamage = f.skillMods("Queen's Gambit", 'damage').percent;
+    if (mobCloaked(fight)) {
+      delete fight.mob.buffs.invisible; delete fight.mob.buffs.hiding;
+      fight.log && say(fight, `Queen's Gambit pulls ${fight.m.name} out of hiding`);
+    }
     const ele = element(fight);
     strike(fight, "Queen's Gambit", {
       hits: QG_TICKS, canMiss: false, critBonus: null, kind: 'magic',
@@ -454,7 +483,10 @@ const windSlash = filler('Wind Slash', (x) => 150 + 25 * L(x, 'Wind Slash') + 2 
 // "Damage is 230+10% per level + 3% per AGI", sword or dagger. With Rook's
 // Smash it fills counters to 5 (the project owner, 2026-09-27; the 2023 code:
 // +1 a hit, up to 5).
-const deltaBase = filler('Delta Skyfall', (x) => 230 + 10 * L(x, 'Delta Skyfall') + 3 * x.f.stats.agi, { ranged: true, blade: true });
+// "Extra VIT scaling damage per 2 duel counters": +1% of VIT per 2 counters
+// (Refuge Patch 15, 2026-09-12) -- +5 x VIT% held at 10.
+const deltaBase = filler('Delta Skyfall', (x) => 230 + 10 * L(x, 'Delta Skyfall') + 3 * x.f.stats.agi
+  + x.f.stats.vit * Math.floor(counters(x) / 2), { ranged: true, blade: true });
 const deltaSkyfall: Action = {
   ...deltaBase,
   // As a filler it is poor per SP (~23 damage a point on Heartless, against
@@ -501,7 +533,12 @@ const dragonBreath: Action = {
  * Decoy: a dodge for a skill cast at you, the way Hiding is (the project
  * owner, 2026-09-27) -- you dash back and hide as the clone goes off, so
  * the cast finds nobody. Not a filler.
+ *
+ * Only against a non-boss caster: Decoy puts you in a state of its own, not
+ * Hiding's, which on this server stops single-target casts from anything
+ * (the project owner's reading, 2026-09-29 -- an assumption, untested).
  */
+const decoyAnswers = (m: Monster) => !countsAsBoss(m);
 const decoy: Action = {
   id: 'Decoy',
   isSkill: true,
@@ -566,7 +603,9 @@ const bishopsTax: Action = {
   // Max HP; the owner's first rule was 75%).
   ready: (fight) => learned("Bishop's Tax")(fight) && optionOn(fight, 'bishopsTax')
     && fight.me.hp >= (typeof fight.options.taxHp === 'number' ? fight.options.taxHp : 0.5) * fight.f.maxHp
-    && comboSoon(fight, 3000),
+    // Option keepTaxed: open with it and recast as it runs out, combo or not
+    // (the owner's Ifrit plan, 2026-09-29).
+    && (fight.options.keepTaxed === true ? (fight.mob.buffs.tax?.until ?? -1) <= fight.t + 500 : comboSoon(fight, 3000)),
   castMs: cast("Bishop's Tax"),
   cooldownMs: cooldown("Bishop's Tax"),
   spCost: spCost("Bishop's Tax"),
@@ -649,7 +688,8 @@ const preGambit: Action = {
   id: "Pre-cast King's Gambit",
   isSkill: true,
   offensive: false,
-  ready: (fight) => learned("King's Gambit")(fight) && readyAt(fight, "King's Gambit") <= fight.t
+  // With option defense 'auto' the shared prediction (defense.ts) does this.
+  ready: (fight) => !autoDefense(fight) && learned("King's Gambit")(fight) && readyAt(fight, "King's Gambit") <= fight.t
     && !has(fight, 'landProtector') && optionOn(fight, 'preGambit')
     && fastGroundDueSoon(fight, 1500 + 250 * L(fight, "King's Gambit") - 300),
   castMs: () => 0,
@@ -658,6 +698,32 @@ const preGambit: Action = {
   resolve(fight) {
     kingsGambit.resolve(fight);
     fight.me.cds["King's Gambit"] = fight.t + cooldown("King's Gambit")(fight);
+  },
+};
+
+/**
+ * Pawn's Cure (PR_STRECOVERY) on yourself: the project owner (2026-09-29)
+ * cures most statuses with it and keeps Green Potions for Silence, which
+ * stops skills. The 2023 code clears only the holds and Bleeding; the
+ * tooltip says "and much more". Taken as: Bleeding, Burning, the poisons,
+ * Critical Wound, root and Decrease AGI (the owner). Stun, Freeze and Stone
+ * stop you casting anyway.
+ */
+const CURED_BUFFS = ['magicpoison', 'cloudpoison', 'criticalwound', 'rooted', 'webbed', 'decagi'];
+const CURED_DOTS = ['Bleeding', 'Burning'];
+const afflicted = (fight: Fight) => CURED_BUFFS.some((b) => has(fight, b))
+  || fight.me.dots.some((d) => CURED_DOTS.includes(d.name) && d.until > fight.t);
+const pawnsCure: Action = {
+  id: "Pawn's Cure",
+  isSkill: true,
+  offensive: false,
+  ready: (fight) => learned("Pawn's Cure")(fight) && afflicted(fight),
+  castMs: cast("Pawn's Cure"),
+  cooldownMs: cooldown("Pawn's Cure"),
+  spCost: spCost("Pawn's Cure"),
+  resolve(fight) {
+    for (const b of CURED_BUFFS) delete fight.me.buffs[b];
+    fight.me.dots = fight.me.dots.filter((d) => !CURED_DOTS.includes(d.name));
   },
 };
 
@@ -696,12 +762,64 @@ const stepBack: Action = {
   resolve(fight) { delete fight.me.buffs.close; },
 };
 
+/**
+ * The Kingslayer's dodges for the automatic defence (option defense 'auto',
+ * defense.ts), from the project owner (2026-09-29): King's Gambit stops any
+ * ground spell but Earthquake (noGambit) and is put down ahead of one too
+ * fast to answer; Pawn's Rod eats a spell cast at you for 1.5 s; Decoy is
+ * Hiding's cheaper stand-in against a cast at you; Queen's Barrier (long
+ * cooldown) is kept for a hit that would kill -- and goes up before the
+ * pull (option barrierOpener) to soak the first hits.
+ */
+const readyBy = (fight: Fight, id: string, endsAt: number) => lv(fight.f, id) > 0 && readyAt(fight, id) <= endsAt - 50;
+const groundSpell = (s: MobSkill) => s.targets === 'aoe' && s.avoid.includes('walk') && !s.noGambit;
+const gambitMs = (fight: Fight) => 1500 + 250 * L(fight, "King's Gambit");
+const TOOLS: DefenseTool[] = [
+  ...COMMON_TOOLS,
+  {
+    way: 'gambit', action: "King's Gambit",
+    plan: (fight, s, _from, r) => (groundSpell(s) && readyBy(fight, "King's Gambit", r.endsAt) && s.castMs > FAST_CAST_MS
+      ? Math.max(fight.t, r.endsAt - 100) : null),
+    covers: (fight, s, endsAt) => groundSpell(s) && (fight.me.buffs.landProtector?.until ?? -1) >= endsAt,
+    pre: {
+      holdMs: gambitMs,
+      up: (fight) => has(fight, 'landProtector'),
+      answers: groundSpell,
+      minShare: 0,
+      on: (fight) => optionOn(fight, 'preGambit'),
+    },
+  },
+  {
+    way: 'rod', action: "Pawn's Rod",
+    plan: (fight, s, _from, r) => {
+      const c = rule("Pawn's Rod").castMs(fight);
+      return s.avoid.includes('rod') && readyBy(fight, "Pawn's Rod", r.endsAt) && r.lead >= c ? Math.max(fight.t, r.endsAt - c - 700) : null;
+    },
+  },
+  {
+    way: 'decoy', action: 'Decoy',
+    plan: (fight, s, from, r) => {
+      const c = rule('Decoy').castMs(fight);
+      return s.targets === 'single' && r.hideWorks && decoyAnswers(from) && readyBy(fight, 'Decoy', r.endsAt) && r.lead >= c
+        ? Math.max(fight.t, r.endsAt - c - 150) : null;
+    },
+  },
+  {
+    way: 'barrier', action: "Queen's Barrier", reserve: true,
+    plan: (fight, _s, _from, r) => (readyBy(fight, "Queen's Barrier", r.endsAt) && !has(fight, 'barrier')
+      && r.lead >= rule("Queen's Barrier").castMs(fight) ? Math.max(fight.t, r.endsAt - 400) : null),
+  },
+];
+export const KINGSLAYER_TOOLS = TOOLS;
+
 const ACTIONS: Action[] = [
   attack, waitAction, heal, dragonBreath, kingsChains, shieldBoomerang, rooksSmash, queensBrand, queensGambit, retribution, checkMate,
   windSlash, deltaSkyfall, overpower, faceOff, decoy, sneakAttack, hideToStrike, bishopsTax,
-  hiding, pawnsRod, kingsGambit, preGambit, queensBarrier, walkOut, breakSight, morrocsMark, stayHidden, pullOffWard, stepBack,
+  hiding, pawnsRod, pawnsCure, kingsGambit, preGambit, queensBarrier, walkOut, breakSight, morrocsMark, stayHidden, pullOffWard, stepBack,
+  backSlide, ...predictActions(TOOLS), stayReadyAction(TOOLS),
 ].map(withRules);
 const rule = (id: string) => ACTIONS.find((a) => a.id === id)!;
+const PREEMPTS = ACTIONS.filter(isPreempt);
 
 /**
  * Hard rules: hidden with a monster chain still coming, stay in. Otherwise
@@ -709,8 +827,8 @@ const rule = (id: string) => ACTIONS.find((a) => a.id === id)!;
  * option spendCounters: false.
  */
 /** What a ward would stop: Pneuma the long-range hits, Safety Wall the melee skills. */
-const LONG_RANGE = new Set(["King's Chains", 'Shield Boomerang', "Rook's Smash", 'Delta Skyfall', 'Wind Slash', 'Dragon Breath']);
-const MELEE_SKILLS = new Set(['Retribution', "Queen's Brand", 'Sneak Attack', "Bishop's Tax", 'Overpower', 'Face-Off', 'Check Mate']);
+const LONG_RANGE = new Set(["King's Chains", 'Shield Boomerang', 'Delta Skyfall', 'Wind Slash', 'Dragon Breath']);
+const MELEE_SKILLS = new Set(["Rook's Smash", 'Retribution', "Queen's Brand", 'Sneak Attack', "Bishop's Tax", 'Overpower', 'Face-Off', 'Check Mate']);
 
 /**
  * Skills that leave you next to the monster: melee range (Retribution 3
@@ -734,6 +852,8 @@ function withRules(a: Action): Action {
     ...a,
     resolve,
     ready: (fight) => {
+      // Option defense 'auto': a hard snap cast is due -- stay idle, ready to dodge it.
+      if (heldForSnap(fight, a, TOOLS)) return false;
       // Nothing into a ward: pull the monster off it first (pullOffWard).
       if (LONG_RANGE.has(a.id) && wardUp(fight, 'pneuma')) return false;
       if (MELEE_SKILLS.has(a.id) && wardUp(fight, 'safetywall')) return false;
@@ -757,7 +877,7 @@ function withRules(a: Action): Action {
  * top while they are low, then hits taken in Duel Stance hold them at 10.
  */
 const ORDER = [
-  'Stay hidden', "Morroc's Mark", "Pre-cast King's Gambit", 'Step back', 'Heal', 'Pull it off the ward',
+  'Stay hidden', "Morroc's Mark", "Pre-cast King's Gambit", 'Step back', 'Heal', "Pawn's Cure", 'Pull it off the ward',
   'Sneak Attack', "Bishop's Tax", "King's Chains", 'Shield Boomerang', 'Hide to strike',
   "Rook's Smash", 'Dragon Breath', 'Delta Skyfall', "Queen's Gambit",
   'Retribution', "Queen's Brand",
@@ -780,7 +900,7 @@ export const KINGSLAYER_ORDER = ORDER;
  * as the Gambit's Land Protector ends. Tax waits for half HP (taxHp).
  */
 const SIMPLE_ORDER = [
-  'Stay hidden', "Morroc's Mark", "Pre-cast King's Gambit", 'Step back', 'Heal', 'Pull it off the ward',
+  'Stay hidden', "Morroc's Mark", "Pre-cast King's Gambit", 'Step back', 'Heal', "Pawn's Cure", 'Pull it off the ward',
   "Bishop's Tax", "Queen's Gambit", "Rook's Smash", 'Delta Skyfall', "King's Chains", 'Shield Boomerang',
 ];
 const simple = (fight: Fight) => fight.options.simple === true;
@@ -833,6 +953,23 @@ function react(fight: Fight, s: MobSkill, from: Monster): { action: string; at: 
   const ground = s.targets === 'aoe' && s.avoid.includes('walk');
   // King's Gambit already down and lasting past it: nothing to do.
   if (ground && !s.noGambit && (fight.me.buffs.landProtector?.until ?? -1) >= endsAt) return null;
+  // The playbook first (data/playbook.json): this class's answer to the skill.
+  const rodCast = rule("Pawn's Rod").castMs(fight);
+  const decoyCast = rule('Decoy').castMs(fight);
+  const planned = playbookPlan(fight, s, from, endsAt, {
+    gambit: () => (ground && !s.noGambit && ready("King's Gambit") && s.castMs > FAST_CAST_MS
+      ? { action: "King's Gambit", at: Math.max(fight.t, endsAt - 100) } : null),
+    walk: () => (t.canWalk ? { action: 'Walk out', at: fight.t + reactionMs(fight) } : null),
+    hide: () => (t.hideWorks && t.hideReady ? { action: 'Hiding', at: Math.max(fight.t, endsAt - 150) } : null),
+    decoy: () => (s.targets === 'single' && t.hideWorks && decoyAnswers(from) && ready('Decoy') && t.lead >= decoyCast
+      ? { action: 'Decoy', at: Math.max(fight.t, endsAt - decoyCast - 150) } : null),
+    rod: () => (s.avoid.includes('rod') && ready("Pawn's Rod") && t.lead >= rodCast
+      ? { action: "Pawn's Rod", at: Math.max(fight.t, endsAt - rodCast - 700) } : null),
+    los: () => (t.canLos ? { action: 'Break line of sight', at: fight.t + reactionMs(fight) } : null),
+    barrier: () => (ready("Queen's Barrier") && !has(fight, 'barrier') && t.lead >= rule("Queen's Barrier").castMs(fight)
+      ? { action: "Queen's Barrier", at: Math.max(fight.t, endsAt - 400) } : null),
+  });
+  if (planned !== undefined) return planned;
   // King's Gambit cancels a ground spell outright, and the rest of its waves
   // -- when the cast bar leaves time to see it and answer (the owner: Magnus's
   // 0.3s does not; that one is pre-cast, preGambit).
@@ -841,16 +978,14 @@ function react(fight: Fight, s: MobSkill, from: Monster): { action: string; at: 
   }
   if (t.canWalk && s.targets === 'aoe') return { action: 'Walk out', at: fight.t + reactionMs(fight) };
   // Pawn's Rod: a spell cast at you; it has a 0.5s cast, then 1.5s of cover.
-  const rodCast = rule("Pawn's Rod").castMs(fight);
-  if (s.type === 'magic' && s.targets === 'single' && ready("Pawn's Rod") && t.lead >= rodCast) {
+  if (s.avoid.includes('rod') && ready("Pawn's Rod") && t.lead >= rodCast) {
     return { action: "Pawn's Rod", at: Math.max(fight.t, endsAt - rodCast - 700) };
   }
   if (t.hideWorks && t.hideReady && (t.hideCovers || !t.canWalk)) {
     return { action: 'Hiding', at: Math.max(fight.t, endsAt - 150) };
   }
   // Decoy: Hiding's stand-in for a cast at you, when its cast fits the bar.
-  const decoyCast = rule('Decoy').castMs(fight);
-  if (s.targets === 'single' && t.hideWorks && ready('Decoy') && t.lead >= decoyCast) {
+  if (s.targets === 'single' && t.hideWorks && decoyAnswers(from) && ready('Decoy') && t.lead >= decoyCast) {
     return { action: 'Decoy', at: Math.max(fight.t, endsAt - decoyCast - 150) };
   }
   if (t.canLos) return { action: 'Break line of sight', at: fight.t + reactionMs(fight) };
@@ -882,6 +1017,13 @@ function prep(fight: Fight) {
     fight.f = { ...f, concentration: 1 + rtr, hit: f.hit + 10 * rtr, def: Math.floor(f.def * (1 - (5 + 5 * rtr) / 100)) };
   }
   if (lv(f, 'Duel Stance') > 0) grant(fight, 'duelStance', 1e12);
+  // Option defense 'auto': Queen's Barrier goes up before the pull and soaks
+  // the first hits (the project owner, 2026-09-29); its cooldown runs from the
+  // pull. Option barrierOpener false keeps it for a lethal cast instead.
+  if (autoDefense(fight) && fight.options.barrierOpener !== false && lv(f, "Queen's Barrier") > 0) {
+    queensBarrier.resolve(fight);
+    fight.me.cds["Queen's Barrier"] = queensBarrier.cooldownMs(fight);
+  }
   setCounters(fight, typeof fight.options.startCounters === 'number' ? fight.options.startCounters : 0);
   // King's Fortress: one level at a time. Lv3 (shield skills) unless the profile picks 1 (HP) or 2 (SP).
   const fort = typeof fight.options.fortress === 'number' ? fight.options.fortress : 3;
@@ -889,6 +1031,7 @@ function prep(fight: Fight) {
     fight.me.buffs.fortress = { until: 1e12, stacks: fort };
     // "[Lv 1]: Regen 1% HP every 2 seconds." "[Lv 2]: Regen 1% SP every 2 seconds."
     if (fort === 1) dot(fight, "King's Fortress", 2000, 1e12, 0.01 * f.maxHp, false, true);
+    if (fort === 2) dot(fight, "King's Fortress", 2000, 1e12, 0.01 * f.maxSp, false, false, true);
   }
   // Knight's Regen: "1+1% Max HP per level" every 5 s, "60+60s per level".
   const kr = lv(f, "Knight's Regen");
@@ -911,8 +1054,26 @@ function prepNotes(fight: Fight): string[] {
   if (has(fight, 'fortress')) out.push(`King's Fortress Lv${fight.me.buffs.fortress.stacks}`);
   if (has(fight, 'reflectshield')) out.push(`Reflect Shield ${fight.me.buffs.reflectshield.value}%`);
   if (has(fight, 'defender')) out.push("Rook's Wall");
+  if (has(fight, 'barrier')) out.push(`Queen's Barrier (${fight.me.buffs.barrier.stacks} hits)`);
   if (hasComboGem(fight.f)) out.push('Bulwark Gem combo');
   return out;
+}
+
+/**
+ * Out of combat (the farm tool, between fights): Knight's Regen kept up --
+ * 1+lv % Max HP every 5 s, recast every 60+60 x lv s for 50% of Max SP -- and
+ * King's Fortress Lv1 (1% HP every 2 s) or Lv2 (1% SP every 2 s).
+ */
+function idleRegen(f: Fighter, options: Record<string, unknown>): { hpPerSec: number; spPerSec: number } {
+  let hp = 0; let sp = 0;
+  const kr = f.skillLevels["Knight's Regen"] ?? 0;
+  if (kr > 0) { hp += ((1 + kr) / 100) * f.maxHp / 5; sp -= (0.5 * f.maxSp) / (60 + 60 * kr); }
+  const fort = typeof options.fortress === 'number' ? options.fortress : 3;
+  if ((f.skillLevels["King's Fortress"] ?? 0) >= fort && f.shield) {
+    if (fort === 1) hp += 0.01 * f.maxHp / 2;
+    if (fort === 2) sp += 0.01 * f.maxSp / 2;
+  }
+  return { hpPerSec: hp, spPerSec: sp };
 }
 
 const ROLES: Record<string, string> = {
@@ -931,10 +1092,12 @@ export const kingslayer: Kit = {
   cycleAnchor: 'Shield Boomerang',
   coreRoles: ['Shield', 'Counters'],
   magicActions: [],
-  priority,
-  react,
+  priority: priorityWith(() => PREEMPTS, priority, rule('Stay ready')),
+  holding: (fight) => !!snapThreatDue(fight, TOOLS),
+  react: reactWith(TOOLS, react),
   prep,
   prepNotes,
+  idleRegen,
   onHurt,
   // Rook's Smash puts you on the target: no walk back after a dodge (the project owner, 2026-09-28).
   gapClosers: ["Rook's Smash"],

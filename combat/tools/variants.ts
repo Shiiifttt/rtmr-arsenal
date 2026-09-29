@@ -31,9 +31,9 @@ import { DEFAULT_CONSUMABLES, loadout } from '../src/items.ts';
 import type { MobSkill, Monster } from '../src/model.ts';
 import { buildMonster, DUMMY_SECONDS, dummyMonster } from '../src/monster.ts';
 import { simulate } from '../src/sim.ts';
+import { applyVariant, type Variant } from '../src/variant-spec.ts';
 import { priorityPolicy, tasPolicy } from '../src/tas.ts';
 import { kitFor } from '../src/kits/index.ts';
-import type { Build } from '../../sim/src/types.ts';
 
 const argv: string[] = process.argv.slice(2);
 const one = (k: string) => { const i = argv.indexOf(`--${k}`); return i >= 0 ? argv[i + 1] : undefined; };
@@ -46,53 +46,7 @@ const iterations = Number(one('iter') ?? 60);
 const targets: Monster[] = (one('vs') ?? 'dummy,jorm,rachel_ss').split(',').flatMap((q: string) =>
   (q.trim() === 'dummy' ? [dummyMonster()] : findMobs(q.trim()).map(buildMonster)));
 
-interface Variant {
-  name: string;
-  profile: Profile;
-  res: Record<string, number>;
-  avoid: { skill: string; how: string }[];
-}
-
-const idOf = (name: string) => {
-  const hit = data.itemList.find((i) => i.name.toLowerCase() === name.trim().toLowerCase());
-  if (!hit) throw new Error(`no item named "${name.trim()}"`);
-  return hit.id;
-};
-
-function applyChanges(spec: string): Variant {
-  const [name, rest] = spec.includes(':') ? [spec.slice(0, spec.indexOf(':')), spec.slice(spec.indexOf(':') + 1)] : [spec, ''];
-  const build: Build = structuredClone(baseBuild);
-  const p: Profile = { ...profile, build, skills: { ...(profile.skills ?? {}) }, options: { ...(profile.options ?? {}) } };
-  const res: Record<string, number> = {}; const avoid: Variant['avoid'] = [];
-  for (const change of rest.split(';').map((c) => c.trim()).filter(Boolean)) {
-    const eq = change.indexOf('=');
-    const key = change.slice(0, eq).trim(); const value = change.slice(eq + 1).trim();
-    const [head, field] = key.split(/\.(.+)/);
-    if (head === 'stat') { (build.baseStats as unknown as Record<string, number>)[field] = Number(value); continue; }
-    if (head === 'skill') { p.skills![field] = Number(value); continue; }
-    if (head === 'items') { p.consumables = value === 'none' ? [] : value.split(',').map((x) => x.trim()); continue; }
-    if (head === 'healing') { p.healing = value === 'true'; continue; }
-    if (head === 'res') { res[field] = (res[field] ?? 0) + Number(value); continue; }
-    if (head === 'mob') { avoid.push({ skill: field.split('.')[0], how: value }); continue; }
-    if (head === 'option') { p.options![field] = value === 'true' ? true : value === 'false' ? false : Number.isFinite(Number(value)) ? Number(value) : value; continue; }
-    const slot = (build.slots[head] ??= { itemId: null, refine: 0, cards: [] });
-    if (!field) {
-      const m = /^(.*?)(?:\s*\+(\d+))?$/.exec(value)!;
-      slot.itemId = idOf(m[1]); slot.cards = []; slot.rolls = undefined;
-      if (m[2]) slot.refine = Number(m[2]);
-    } else if (field === 'cards') slot.cards = value.split(',').map(idOf);
-    else if (field === 'refine') slot.refine = Number(value);
-    else if (field === 'rolls') {
-      // "roll1:max_hp:2, roll3:ranged_damage:5" (values joined by '/'), or none.
-      slot.rolls = value === 'none' ? undefined : Object.fromEntries(value.split(',').map((r) => {
-        const [key, option, vals] = r.trim().split(':');
-        return [key, { option, values: vals.split('/').map(Number) }];
-      }));
-    }
-    else throw new Error(`unknown change "${change}"`);
-  }
-  return { name: name.trim(), profile: p, res, avoid };
-}
+const applyChanges = (spec: string) => applyVariant(profile, baseBuild, data, spec);
 
 const variants: Variant[] = [{ name: 'as is', profile, res: {}, avoid: [] }, ...many('variant').map(applyChanges)];
 // --policy priority: the kit's written rotation; tas (default) looks ahead,
@@ -109,7 +63,7 @@ for (const v of variants) {
   const k = kitFor((await resolveBuild(v.profile.build, data)).className);
   const f = await buildFighter(v.profile, { passives: k.passives, aliases: k.aliases, maxLevels: k.maxLevels() });
   for (const [key, n] of Object.entries(v.res)) f.res[key] = (f.res[key] ?? 0) + n;
-  process.stdout.write(`${v.name}: HP ${f.maxHp.toLocaleString("en-US")}, SP ${f.maxSp.toLocaleString("en-US")} (regen ${f.regen.sp}), INT ${f.stats.int}, pen ${f.defPen}, Auto Guard ${f.autoGuard ?? 0}\n`);
+  process.stdout.write(`${v.name}: HP ${f.maxHp.toLocaleString("en-US")}, SP ${f.maxSp.toLocaleString("en-US")} (regen ${f.regen.sp}/1.2s + ${f.regen.spSkill ?? 0}/4s), INT ${f.stats.int}, pen ${f.defPen}, Auto Guard ${f.autoGuard ?? 0}\n`);
   for (const base of targets) {
     const m: Monster = v.avoid.length ? { ...base, skills: base.skills.map((s) => {
       const add = v.avoid.filter((a) => a.skill === s.skill).map((a) => a.how) as MobSkill['avoid'];

@@ -116,6 +116,8 @@ export const TUNE = {
    */
   hpRegenMs: 2000,
   spRegenMs: 1200,
+  /** Skill regen (Increase SP Recovery): natural_heal_skill_interval 4000, standing still only. */
+  skillRegenMs: 4000,
   /**
    * Damage over time you put on a monster (codex "Damage over time"): the
    * raw formula x (base level / 130)^4.8 / 2, capped at level 130.
@@ -382,6 +384,10 @@ export interface PhysicalHit {
   normal?: boolean;
   /** Times the right hand lands in this swing: 2 on a Double Attack (the left hand still once). */
   rightTimes?: number;
+  /** Flat damage added to the right hand before cards and the ratio (Fan of Knives, battle.cpp:3607 ATK_ADD). */
+  flat?: number;
+  /** IgnoreElement (skill_db DamageFlags): every part at 100%. */
+  ignoreElement?: boolean;
 }
 
 /**
@@ -416,7 +422,9 @@ export function walkCellMs(f: Pick<Fighter, 'moveSpeed' | 'moveSpeedWhole'>): nu
  * (Earthquake, Grand Darkness), from beside it: radius. Magnus Exorcismus is
  * a 7x7 with each 2x2 corner cut ("33-cell cross"): two diagonal steps.
  */
-export function escapeCells(s: Pick<MobSkill, 'skill' | 'radius' | 'centeredOnSelf'>): number {
+export function escapeCells(s: Pick<MobSkill, 'skill' | 'radius' | 'centeredOnSelf' | 'escapeCells'>): number {
+  // A shorter way out a player knows (Earth Strain: step behind the caster).
+  if (s.escapeCells !== undefined) return s.escapeCells;
   if (/MAGNUS/.test(s.skill)) return 2 * TUNE.diagonalCost;
   const r = s.radius ?? 3;
   return s.centeredOnSelf ? Math.max(1, r) : r + 1;
@@ -473,7 +481,7 @@ export function magicCardFix(f: Fighter, m: Monster, element: string): number {
  */
 export function physicalDamage(f: Fighter, m: Monster, h: PhysicalHit, rng: Rng): number {
   const final = TUNE.cardMode === 'final';
-  const main = handAtk(f, m, f.weapon, h, rng, false) * (final ? physicalCardFix(f, m) : 1) * (h.rightTimes ?? 1);
+  const main = (handAtk(f, m, f.weapon, h, rng, false) + (h.flat ?? 0)) * (final ? physicalCardFix(f, m) : 1) * (h.rightTimes ?? 1);
   // The project owner's dummy test (2026-09-26): taking the off-hand dagger
   // off leaves New Moon and Full Moon where they were (9,615 -> 9,599,
   // 14,776 -> 15,043), so skills read the right hand only -- as the 2023
@@ -527,8 +535,9 @@ export function offhandCritMultiplier(f: Pick<Fighter, 'stats' | 'critDamage'>):
 /** One hand's ATK before cards (in 'final' mode), melee%, the skill ratio and DEF. */
 function handAtk(f: Fighter, m: Monster, w: Fighter['weapon'], h: PhysicalHit, rng: Rng, left: boolean): number {
   const s = f.stats;
+  const attr = (e: string) => (h.ignoreElement ? 1 : attrFix(e, m.element, m.elementLevel));
   const conc = 1 + (f.concentration ?? 0) / 100;
-  const statusPart = statusAtk(s, f.level) * attrFix(h.statusElement, m.element, m.elementLevel)
+  const statusPart = statusAtk(s, f.level) * attr(h.statusElement)
     * (left ? TUNE.statusAtkLeft : TUNE.statusAtkRight) * conc;
 
   let weaponPart = 0;
@@ -541,9 +550,9 @@ function handAtk(f: Fighter, m: Monster, w: Fighter['weapon'], h: PhysicalHit, r
     const rolled = rng.between(base - variance, base + variance);
     weaponPart = Math.max(0, rolled + strBonus) * conc
       * sizeFix(w.type, m.size, (f.dmg.no_size_penalty ?? 0) > 0)
-      * attrFix(h.element, m.element, m.elementLevel);
+      * attr(h.element);
   }
-  const equipPart = f.equipAtk * attrFix(h.element, m.element, m.elementLevel);
+  const equipPart = f.equipAtk * attr(h.element);
 
   // cardMode 'parts' only: the 2023 code's half-strength cards on the parts.
   const half = TUNE.cardMode === 'parts' ? 1 + (physicalCardFix(f, m) - 1) * TUNE.cardShare : 1;

@@ -1,0 +1,306 @@
+{
+  "name": "Satsujin baseline: budget tier",
+  "_about": "Roadmap budget tier: nothing past +6, legal stats (STR 99 AGI 99 VIT 28 INT 19 DEX 49 LUK 49).",
+  "baseLevel": 136,
+  "weaponRaceMatch": true,
+  "build": {
+    "className": "Satsujin",
+    "baseLevel": 130,
+    "baseStats": {
+      "str": 99,
+      "agi": 99,
+      "vit": 28,
+      "int": 19,
+      "dex": 49,
+      "luk": 49
+    },
+    "manual": {
+      "flee": 70
+    },
+    "slots": {
+      "upper": {
+        "itemId": 5123,
+        "refine": 6,
+        "cards": [
+          4115
+        ]
+      },
+      "middle": {
+        "itemId": 18550,
+        "refine": 0,
+        "cards": [
+          13626
+        ],
+        "rolls": {
+          "stat": {
+            "option": "str",
+            "values": [
+              1
+            ]
+          }
+        }
+      },
+      "lower": {
+        "itemId": 5926,
+        "refine": 6,
+        "cards": [
+          13728,
+          13728
+        ],
+        "rolls": {
+          "stat": {
+            "option": "vit",
+            "values": [
+              1
+            ]
+          }
+        }
+      },
+      "armor": {
+        "itemId": 15392,
+        "refine": 6,
+        "cards": [
+          13589
+        ],
+        "rolls": {
+          "stat": {
+            "option": "agi",
+            "values": [
+              2
+            ]
+          },
+          "resource": {
+            "option": "max_hp",
+            "values": [
+              3
+            ]
+          }
+        }
+      },
+      "weapon": {
+        "itemId": 13094,
+        "refine": 6,
+        "cards": [
+          4392,
+          4392,
+          4392
+        ],
+        "rolls": {
+          "roll2": {
+            "option": "sp_cost_reduced",
+            "values": [
+              10
+            ]
+          },
+          "roll3": {
+            "option": "melee_damage",
+            "values": [
+              9
+            ]
+          }
+        }
+      },
+      "offhand": {
+        "itemId": 13040,
+        "refine": 6,
+        "cards": [
+          4399
+        ],
+        "rolls": {
+          "roll1": {
+            "option": "max_hp",
+            "values": [
+              2
+            ]
+          },
+          "roll2": {
+            "option": "sp_cost_reduced",
+            "values": [
+              5
+            ]
+          },
+          "roll3": {
+            "option": "magic_damage",
+            "values": [
+              5
+            ]
+          },
+          "roll4": {
+            "option": "hp_gained_per_hit",
+            "values": [
+              2
+            ]
+          }
+        }
+      },
+      "garment": {
+        "itemId": 2541,
+        "refine": 0,
+        "cards": []
+      },
+      "shoes": {
+        "itemId": 15428,
+        "refine": 6,
+        "cards": [
+          13591
+        ],
+        "rolls": {
+          "stat": {
+            "option": "str",
+            "values": [
+              1
+            ]
+          },
+          "speed": {
+            "option": "aspd",
+            "values": [
+              7
+            ]
+          },
+          "casting": {
+            "option": "after_cast_delay",
+            "values": [
+              7
+            ]
+          }
+        }
+      },
+      "acc1": {
+        "itemId": 2633,
+        "refine": 0,
+        "cards": []
+      },
+      "acc2": {
+        "itemId": 2671,
+        "refine": 0,
+        "cards": [
+          4430
+        ]
+      },
+      "gem": {
+        "itemId": 903088,
+        "refine": 6,
+        "cards": []
+      },
+      "sh_armor": {
+        "itemId": 28072,
+        "refine": 6,
+        "cards": [],
+        "rolls": {
+          "stat": {
+            "option": "str",
+            "values": [
+              1
+            ]
+          }
+        }
+      },
+      "sh_shoes": {
+        "itemId": 28074,
+        "refine": 6,
+        "cards": [],
+        "rolls": {
+          "stat": {
+            "option": "str",
+            "values": [
+              1
+            ]
+          }
+        }
+      },
+      "sh_gloves": {
+        "itemId": 28073,
+        "refine": 6,
+        "cards": [],
+        "rolls": {
+          "stat": {
+            "option": "str",
+            "values": [
+              1
+            ]
+          }
+        }
+      },
+      "sh_acc": {
+        "itemId": 28075,
+        "refine": 6,
+        "cards": [],
+        "rolls": {
+          "stat": {
+            "option": "str",
+            "values": [
+              1
+            ]
+          }
+        }
+      },
+      "sh_manual": {
+        "itemId": 24021,
+        "refine": 0,
+        "cards": [],
+        "rolls": {
+          "stat": {
+            "option": "agi",
+            "values": [
+              1
+            ]
+          }
+        }
+      },
+      "runeorb": {
+        "itemId": 24170,
+        "refine": 6,
+        "cards": [],
+        "rolls": {
+          "stat": {
+            "option": "str",
+            "values": [
+              1
+            ]
+          }
+        }
+      }
+    }
+  },
+  "options": {
+    "slashOpener": true,
+    "backStab": false,
+    "seedTalisman": false,
+    "weaveMs": 0,
+    "mobility": "server",
+    "kite": true,
+    "tankShare": 0.6,
+    "order": [
+      "Stay hidden",
+      "Predict Kawarimi",
+      "Moon guard",
+      "Pull it off the ward",
+      "Morroc's Mark",
+      "Hallucination Walk",
+      "Full Moon",
+      "Million Stab",
+      "New Moon",
+      "Dragon Omamori",
+      "Thousand Arms",
+      "Omamori Jutsu",
+      "Shadow Slash",
+      "Back Stab",
+      "Lotus Pact",
+      "Attack",
+      "Wait for swing"
+    ]
+  },
+  "measured": {
+    "windowAtk": [
+      172,
+      83
+    ],
+    "windowMatk": [
+      132,
+      62
+    ],
+    "fleeOffset": -27,
+    "mdefOffset": 6,
+    "hpScale": 1.152
+  }
+}

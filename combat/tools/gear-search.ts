@@ -11,6 +11,12 @@
  *     [--only rotation,order  (the rotation optimizer)] [--fix "rogueFillers=false,autoAttack=false"]
  *     [--exclude "Dark Illusion Card"] [--keep-stats str] [--slot-items "lower=Flaming Weaver|Wind Weaver[str:1]"] [--lock-cards weapon] [--fix-refine gem] [--refine-cap gem=6] [--penalty 0.03] [--mvp-penalty 0] [--max-refine 6]
  *     [--per-target [--swap-cost 0.1]] [--proxy-test] [--no-pairs] [--healing] [--allow-ss] [--no-race] [--no-stats] [--workers N] [--out data/gear-search/kingslayer-heartless.json]
+ *     [--no-census] [--shadow-top 3]
+ *
+ * First a census (see "the census" below): every shadow piece at +0/+3/+6/+9
+ * and every card, each alone against its slot left empty. What adds nothing
+ * is never tried again; the best shadow pieces per slot are mixed (the top
+ * --shadow-top in each of the four set slots) and fought against whole sets.
  *
  * The rules (the project owner, 2026-09-27):
  *   - Any drop is fine, but an easier piece beats an MVP-only one: an
@@ -18,7 +24,8 @@
  *     where nothing easier comes close.
  *   - New pieces are tried at +6 and at +9. +9 is an investment: it costs
  *     PENALTY too. So does a piece made from a +9 one (Volan of the Sun).
- *     Pieces already worn keep their refine and cost nothing.
+ *     Pieces already worn keep their refine and cost nothing. Refines are
+ *     only ever +0, +3, +6 or +9 (TIERS; the owner, 2026-09-29).
  *   - New pieces get average random options (the middle of each range),
  *     picked the way the owner would: a stat roll is tried on each of the
  *     three highest base stats; body armour rolls Max HP; a garment HP leech
@@ -40,16 +47,17 @@
  * build on fresh seeds, and a change is kept only if it beats it there.
  */
 import { mkdirSync, writeFileSync } from 'node:fs';
-import { availableParallelism } from 'node:os';
 import { isMainThread, parentPort, Worker } from 'node:worker_threads';
 import { dirname, resolve } from 'node:path';
 
 import { buildFighter, resolveBuild, type Profile } from '../src/character.ts';
-import { findMobs, MOB_GROUPS, mobRows, plannerDataset, readJSON } from '../src/data.ts';
+import { leaveFirstCore, workCores } from '../src/cpu.ts';
+import { accessoryCardFits, findMobs, MOB_GROUPS, mobRows, plannerDataset, readJSON } from '../src/data.ts';
 import { DEFAULT_CONSUMABLES, loadout } from '../src/items.ts';
 import type { Monster } from '../src/model.ts';
 import { buildMonster } from '../src/monster.ts';
-import { simulate } from '../src/sim.ts';
+import { simulate, type Summary } from '../src/sim.ts';
+import { rhythm, type Rhythm } from '../src/rhythm.ts';
 import { farmScore, spawnCounts } from '../src/farm.ts';
 import { newFight, run } from '../src/engine.ts';
 import { Rng } from '../src/rng.ts';
@@ -67,6 +75,8 @@ const one = (k: string) => { const i = argv.indexOf(`--${k}`); return i >= 0 ? a
 const flag = (k: string) => argv.includes(`--${k}`);
 
 const data = plannerDataset();
+/** A card that fits the slot, and the side of an accessory (accessoryCardFits). */
+const cardFits = (c: Item, slot: SlotDef, host?: Item | null) => fitsCard(c, slot, host) && (!host || accessoryCardFits(c.id, host.id));
 const profile = readJSON<Profile>(resolve(process.cwd(), one('profile') ?? 'profiles/kingslayer-jorm.json'));
 const start = applySpec(await resolveBuild(profile.build, data), one('set') ?? '');
 
@@ -152,6 +162,10 @@ const noMvp = flag('no-mvp');
 const maxNewRefine = Number(one('max-refine') ?? 9);
 const hpWeight = Number(one('hp-weight') ?? 0);
 const safeScore = one('score') === 'safe';
+const rhythmScore = one('score') === 'rhythm';
+const deathWeight = Number(one('death-weight') ?? 0.1);
+/** --map (with --score rhythm): weigh each target by how many spawn there. */
+const rhythmWeights = new Map<string, number>(one('map') ? spawnCounts(one('map')!) : []);
 
 // ---- where things come from ---------------------------------------------------
 
@@ -187,9 +201,17 @@ function ssOnly(item: Item): boolean {
 }
 const isWeaver = (item: Item) => / Weaver$/.test(item.name);
 const allowSs = flag('allow-ss');
-const allowed = (item: Item, slot: string) => !excluded.has(item.name.toLowerCase()) && !(noMvp && mvpOnly(item)) && canEquip(item, className, data.classRules, slot)
+/**
+ * --mvp-max-level N: an MVP-only piece or card only when an MVP of level N or
+ * below drops it (the project owner, 2026-09-29: "MVP drops from MVPs below
+ * level 130").
+ */
+const mvpMaxLevel = one('mvp-max-level') ? Number(one('mvp-max-level')) : null;
+const mvpTooHigh = (item: Item) => mvpMaxLevel !== null && mvpOnly(item)
+  && Math.min(...(item.drops ?? []).map((d) => d.mob_level ?? Infinity)) > mvpMaxLevel;
+const allowed = (item: Item, slot: string) => !excluded.has(item.name.toLowerCase()) && !(noMvp && mvpOnly(item)) && !mvpTooHigh(item) && canEquip(item, className, data.classRules, slot)
   && (item.required_level ?? 0) <= level && (allowSs || !ssOnly(item) || isWeaver(item));
-const cards = data.itemList.filter((i) => i.kind === 'Card' && (allowSs || !ssOnly(i)) && !(noMvp && mvpOnly(i)) && !excluded.has(i.name.toLowerCase()));
+const cards = data.itemList.filter((i) => i.kind === 'Card' && (allowSs || !ssOnly(i)) && !(noMvp && mvpOnly(i)) && !mvpTooHigh(i) && !excluded.has(i.name.toLowerCase()));
 
 // ---- rolls --------------------------------------------------------------------------
 
@@ -251,6 +273,13 @@ interface Move { label: string; slots?: Record<string, SlotState>; options?: Rec
 
 const refines = (item: Item) => (isRefineable(item)
   ? [...new Set([Math.min(6, maxNewRefine, maxRefine(item)), Math.min(9, maxNewRefine, maxRefine(item))])] : [0]);
+/** The refines a piece is ever tried at: +0, +3, +6, +9, never +10 (the project owner, 2026-09-29). */
+const TIERS = [0, 3, 6, 9];
+const tiersFor = (item: Item, slotKey: string) => (isRefineable(item)
+  ? [...new Set(TIERS.map((r) => Math.min(r, maxRefine(item), maxNewRefine, refineCap.get(slotKey) ?? 99)))] : [0]);
+/** The cards worn in a slot that still fit a new piece there, in the sockets it has. */
+const keepCards = (cur: SlotState | undefined, slot: SlotDef, item: Item) => (cur?.cards ?? []).filter((id): id is number => !!id)
+  .filter((id) => { const c = data.items.get(id); return c && cardFits(c, slot, item); }).slice(0, item.card_slots);
 const skipSlot = (s: SlotDef, build: Build) => s.group === 'costume'
   || (s.key === 'ammo' && !/Bow/.test(data.items.get(build.slots.weapon?.itemId ?? 0)?.type ?? ''));
 
@@ -279,10 +308,9 @@ function itemMoves(build: Build, slot: SlotDef): Move[] {
     const out: Move[] = [];
     for (const o of only) {
       const item = data.items.get(o.id)!;
-      const keep = (cur?.cards ?? []).filter((id): id is number => !!id)
-        .filter((id) => { const c = data.items.get(id); return c && fitsCard(c, slot, item); }).slice(0, item.card_slots);
+      const keep = keepCards(cur, slot, item);
       const rolls = o.id === cur?.itemId ? cur?.rolls : o.rolls;
-      for (const refine of isRefineable(item) ? [0, 4, 6, 7, 8, 9].filter((r) => r <= maxRefine(item) && r <= maxNewRefine) : [0]) {
+      for (const refine of tiersFor(item, slot.key)) {
         if (o.id === cur?.itemId && refine === (cur?.refine ?? 0)) continue;
         out.push({ label: `${slot.label}: ${item.name} +${refine}`,
           slots: { [slot.key]: { itemId: item.id, refine, cards: keep, ...(rolls ? { rolls } : {}) } as SlotState } });
@@ -293,13 +321,12 @@ function itemMoves(build: Build, slot: SlotDef): Move[] {
   const out: Move[] = [];
   for (const item of data.itemList) {
     if (item.id === cur?.itemId || !fitsSlot(item, slot) || !allowed(item, slot.key)) continue;
+    // The census found it adds nothing on its own at any refine.
+    if (slot.group === 'shadow' && deadShadow?.has(item.id)) continue;
     // Pieces worn across several slots, and two-handers with a shield kept: not here.
     if (item.equip_slots.length > 1 && slot.group === 'gear' && slot.key !== 'weapon') continue;
     if (slot.key === 'weapon' && isTwoHanded(item) && build.slots.offhand?.itemId) continue;
-    // Keep the cards that still fit, in the sockets it has.
-    const keep = (cur?.cards ?? []).filter((id): id is number => !!id)
-      .filter((id) => { const c = data.items.get(id); return c && fitsCard(c, slot, item); })
-      .slice(0, item.card_slots);
+    const keep = keepCards(cur, slot, item);
     // --refine-cap holds for a piece swapped in too (a new class gem at +9 is still past gem=6).
     for (const refine of [...new Set(refines(item).map((r) => Math.min(r, refineCap.get(slot.key) ?? r)))]) {
       for (const r of rollVariants(item, slot.key)) {
@@ -314,14 +341,15 @@ function itemMoves(build: Build, slot: SlotDef): Move[] {
 /**
  * The piece worn, refined further: locked slots too (a refine is not a swap)
  * and class gems (the data marks them not refineable, but every one has
- * per-refine lines; the planner refines them). Up to +9; +9 costs PENALTY.
+ * per-refine lines; the planner refines them). To the next tiers up (+3, +6,
+ * +9); +9 costs PENALTY.
  */
 function refineMoves(build: Build, slot: SlotDef): Move[] {
   const cur = build.slots[slot.key];
   const item = cur?.itemId ? data.items.get(cur.itemId) : null;
   if (!item || !isRefineable(item) || skipSlot(slot, build) || fixedRefine.has(slot.key)) return [];
   const now = cur!.refine ?? 0;
-  return [3, 4, 5, 6, 7, 8, 9].filter((r) => r > now && r <= maxRefine(item) && r <= maxNewRefine && r <= (refineCap.get(slot.key) ?? 99))
+  return tiersFor(item, slot.key).filter((r) => r > now)
     .map((refine) => ({ label: `${slot.label}: ${item.name} +${now} -> +${refine}`, slots: { [slot.key]: { ...cur!, refine } } }));
 }
 /** --refine-cap "gem=6,weapon=9": the most a slot's piece is refined to. */
@@ -340,7 +368,7 @@ function cardMoves(build: Build, slot: SlotDef): Move[] {
   const have = (cur!.cards ?? []).filter(Boolean) as number[];
   const out: Move[] = [];
   for (const card of cards) {
-    if (!fitsCard(card, slot, host)) continue;
+    if (!cardFits(card, slot, host) || deadCards?.has(card.id)) continue;
     // Every socket the same card, and (with two or more) one socket swapped.
     const all = Array(host.card_slots).fill(card.id);
     if (JSON.stringify(all) !== JSON.stringify(have)) {
@@ -360,11 +388,16 @@ function cardMoves(build: Build, slot: SlotDef): Move[] {
   return out;
 }
 
-/** A whole set at once: shadow sets, armour sets -- each piece where it fits, at +6 and at +9. */
+/**
+ * A whole set at once: shadow sets, armour sets -- each piece where it fits,
+ * at +6 and at +9, with the cards worn there kept where they fit. Shadow sets
+ * are the shadow group's once the census has run (shadowMoves).
+ */
 function setMoves(build: Build): Move[] {
   const out: Move[] = [];
   for (const set of data.sets) {
     if (set.member_count < 2 || set.member_count > 5) continue;
+    if (shadowTop && set.member_ids.some((id) => data.items.get(id)?.kind === 'Shadow gear')) continue;
     const members = set.member_ids.map((id) => data.items.get(id)).filter((i): i is Item => !!i);
     if (members.length !== set.member_count || members.some((i) => i.kind === 'Card')) continue;
     for (const refine of [6, 9]) {
@@ -376,12 +409,53 @@ function setMoves(build: Build): Move[] {
         if (!slot) { ok = false; break; }
         const cur = build.slots[slot.key];
         slots[slot.key] = cur?.itemId === item.id ? cur
-          : { itemId: item.id, refine: item.refineable ? Math.min(refine, maxRefine(item)) : 0, cards: [],
+          : { itemId: item.id, refine: item.refineable ? Math.min(refine, maxRefine(item)) : 0, cards: keepCards(cur, slot, item),
             ...(() => { const r = rollVariants(item, slot.key)[0].rolls; return Object.keys(r).length ? { rolls: r } : {}; })() };
       }
       if (!ok || Object.entries(slots).every(([k, s]) => build.slots[k]?.itemId === s.itemId)) continue;
       out.push({ label: `${set.name} set +${refine}`, slots });
     }
+  }
+  return out;
+}
+
+// ---- the census -----------------------------------------------------------------
+//
+// Before the climb, every shadow piece (at each tier) and every card is fought
+// on its own against the slot left empty (the project owner, 2026-09-29). What
+// adds nothing -- a bonus the fight never reads, or one worth less than an
+// empty slot -- is left out of the whole search; what is left ranks the
+// shadow pieces for the mixes. Shadow sets on this server are four pieces or
+// no bonus, so a mix is the best single piece in each slot.
+
+/** Shadow pieces and cards the census found add nothing (null: no census). */
+let deadShadow: Set<number> | null = null;
+let deadCards: Set<number> | null = null;
+/** The live shadow pieces per slot, best first, each at its best tier; and the best whole shadow sets. */
+let shadowTop: Map<string, { id: number; refine: number; gain: number }[]> | null = null;
+let setTop: { name: string; slots: Record<string, SlotState>; refine: number; gain: number }[] = [];
+/** The four slots a shadow set fills. The manual and the rune are single-piece slots. */
+const SET_SHADOW = ['sh_armor', 'sh_gloves', 'sh_shoes', 'sh_acc'];
+/** --shadow-top K: pieces per slot the mixes are made from (K^4 mixes). */
+const shadowK = Number(one('shadow-top') ?? 3);
+
+/** Whole shadow sets and mixes of the census's best pieces, each filling the four set slots. */
+function shadowMoves(build: Build): Move[] {
+  if (!shadowTop) return [];
+  const same = (slots: Record<string, SlotState>) => Object.entries(slots)
+    .every(([k, s]) => build.slots[k]?.itemId === s.itemId && (build.slots[k]?.refine ?? 0) === s.refine);
+  const out: Move[] = [];
+  for (const s of setTop) if (!same(s.slots)) out.push({ label: `shadow: ${s.name} set +${s.refine}`, slots: s.slots });
+  const slots = SET_SHADOW.filter((k) => (shadowTop!.get(k) ?? []).length);
+  let mixes: Record<string, SlotState>[] = [{}];
+  for (const k of slots) {
+    mixes = mixes.flatMap((m) => shadowTop!.get(k)!.slice(0, shadowK)
+      .map((p) => ({ ...m, [k]: { itemId: p.id, refine: p.refine, cards: [] } })));
+  }
+  for (const m of mixes) {
+    if (!Object.keys(m).length || same(m)) continue;
+    const label = slots.map((k) => `${data.items.get(m[k].itemId!)!.name} +${m[k].refine}`).join(', ');
+    out.push({ label: `shadow mix: ${label}`, slots: m });
   }
   return out;
 }
@@ -511,7 +585,7 @@ function penalty(build: Build): number {
 
 // ---- fighting ------------------------------------------------------------------
 
-interface Score { win: number; loss: number; dps: number; ttk: number | null; value: number; deaths: string; farm?: { sb: number; sbkc: number; qg: number } }
+interface Score { win: number; loss: number; dps: number; ttk: number | null; value: number; deaths: string; farm?: { sb: number; sbkc: number; qg: number }; rhythm?: Rhythm; axes?: number[] }
 
 async function fight(s: State, n: number, seed: number): Promise<Score> {
   const f = await buildFighter({ ...profile, build: s.build }, { passives: kit.passives, aliases: kit.aliases, maxLevels: kit.maxLevels() });
@@ -522,12 +596,14 @@ async function fight(s: State, n: number, seed: number): Promise<Score> {
   let win = 0; let loss = 0; let dps = 0; let ttk = 0; let ttkN = 0;
   const deaths: Record<string, number> = {};
   const fought = s.only ? s.only.map((i) => targets[i]) : targets;
+  const sums: { s: Summary; weight: number }[] = [];
   for (const m of fought) {
     const r = simulate(f, m, kit.kit, {
       iterations: n, seed, policy, options: s.options, limitMs: timeS * 1000,
       items: loadout({ carried: profile.consumables ?? DEFAULT_CONSUMABLES, healing: flag('healing') || !!profile.healing,
         boss: m.boss, elixirs: f.kafraElixirs }),
     });
+    sums.push({ s: r, weight: rhythmWeights.get(m.name) ?? 1 });
     win += r.winRate; loss += r.losses / n; dps += r.dps;
     if (r.ttk) { ttk += r.ttk.p50; ttkN++; }
     for (const [k, v] of Object.entries(r.deaths)) deaths[k] = (deaths[k] ?? 0) + v;
@@ -541,6 +617,13 @@ async function fight(s: State, n: number, seed: number): Promise<Score> {
   // --hp-weight W: Max HP toward the 50k cap is worth W at the cap (Rook's Smash and Queen's Brand scale on HP).
   // --score safe: survival first (the project owner, 2026-09-28) -- not losing counts more, and speed on
   // a log scale, so 10% faster is worth about 1% more wins at any DPS. The default weighs DPS linearly.
+  // --score rhythm: kills an hour fighting, sitting back to full and pulling
+  // again (src/rhythm.ts; the project owner's Tomb plan, 2026-09-29), a death
+  // an hour costing --death-weight x 100 kills (0.1: 10 kills). --map weighs the targets by spawns.
+  if (rhythmScore) {
+    const r = rhythm(f, kit.kit, s.options, sums);
+    return { win, loss, dps, ttk: ttkN ? ttk / ttkN : null, value: r.killsPerHour / 100 - deathWeight * r.deathsPerHour, deaths: top, rhythm: r };
+  }
   const speed = safeScore ? 0.1 * Math.log2(1 + dps / 20_000) : 0.3 * (dps / 20_000);
   const value = win + (safeScore ? 0.5 : 0.3) * (1 - loss) + speed + hpWeight * Math.min(1, f.maxHp / 50_000);
   return { win, loss, dps, ttk: ttkN ? ttk / ttkN : null, value, deaths: top };
@@ -556,6 +639,8 @@ async function fight(s: State, n: number, seed: number): Promise<Score> {
 async function estimate(s: State): Promise<Score> {
   const f = await buildFighter({ ...profile, build: s.build }, { passives: kit.passives, aliases: kit.aliases, maxLevels: kit.maxLevels() });
   let value = 0; let dps = 0;
+  // Per target: DPS, lowest HP, lowest HP as a share, won, not lost -- the census's axes.
+  const axes: number[] = [];
   for (const m of targets) {
     const fi = newFight(f, m, kit.kit, policy, { seed: 1, limitMs: timeS * 1000, options: s.options,
       items: loadout({ carried: profile.consumables ?? DEFAULT_CONSUMABLES, healing: flag('healing') || !!profile.healing,
@@ -564,17 +649,19 @@ async function estimate(s: State): Promise<Score> {
     run(fi);
     const d = (m.hp - Math.max(0, fi.mob.hp)) / Math.max(1, fi.t / 1000);
     dps += d;
+    const low = Math.max(0, fi.meter!.minHp);
     value += (fi.result === 'win' ? 1 : 0) + 0.3 * (fi.result === 'loss' ? 0 : 1) + 0.3 * (d / 20_000)
-      + 0.2 * Math.max(0, fi.meter!.minHp) / f.maxHp;
+      + 0.2 * low / f.maxHp;
+    axes.push(d / 20_000, low / 10_000, low / f.maxHp, fi.result === 'win' ? 1 : 0, fi.result === 'loss' ? 0 : 1);
   }
   const k = targets.length;
-  return { win: 0, loss: 0, dps: dps / k, ttk: null, value: value / k, deaths: '' };
+  return { win: 0, loss: 0, dps: dps / k, ttk: null, value: value / k, deaths: '', axes };
 }
 
 const pct = (x: number) => `${Math.round(x * 100)}%`;
 const show = (s: Score) => s.farm
   ? `one-button ${pct(s.farm.sb)} two-button ${pct(s.farm.sbkc)} Queen's Gambit clears ${pct(s.farm.qg)}`
-  : `win ${pct(s.win)} lost ${pct(s.loss)} ${Math.round(s.dps).toLocaleString('en-US')} dps${s.ttk ? ` ${s.ttk.toFixed(0)}s` : ''}`;
+  : `win ${pct(s.win)} lost ${pct(s.loss)} ${Math.round(s.dps).toLocaleString('en-US')} dps${s.ttk ? ` ${s.ttk.toFixed(0)}s` : ''}${s.rhythm ? ` ${s.rhythm.killsPerHour.toFixed(0)} kills/h (sit ${s.rhythm.sitS.toFixed(1)}s) ${s.rhythm.deathsPerHour.toFixed(1)} deaths/h` : ''}`;
 
 // ---- the workers -----------------------------------------------------------------
 //
@@ -634,7 +721,9 @@ const swappedSlots = (b: Build) => (swapBase ? Object.keys({ ...swapBase.slots, 
 function swapCharge(b: Build): number { return swapPenalty * swappedSlots(b).length; }
 
 async function main() {
-const workers = Math.max(1, Number(one('workers') ?? Math.max(1, availableParallelism() - 1)));
+// Core 0 stays free for the player; the worker threads share the pin (src/cpu.ts).
+if (isMainThread) leaveFirstCore();
+const workers = Math.max(1, Number(one('workers') ?? workCores()));
 const pool = new Pool(workers);
 // Many candidates make the very same fighter (a bonus the fight never reads,
 // a roll that changes nothing): fought once, on the same seeds, they would
@@ -763,6 +852,177 @@ if (flag('proxy-test')) {
 
 
 /**
+ * Each state's gain over `bare` (the slot under test left empty) by the
+ * estimate: no dice, so "adds nothing" is exactly zero rather than noise,
+ * at ~1/60 of a screen. null: the very same fighter as bare, not fought.
+ * `axes`: the gain on each of the estimate's axes (per target: DPS, lowest
+ * HP, lowest HP as a share, won, not lost). Farm scoring rolls no dice
+ * either, so it is used as it is, its score the one axis.
+ */
+type Gain = { value: number; axes: number[] } | null;
+async function gainsOver(bare: State, states: State[]): Promise<Gain[]> {
+  const bareKey = await fingerprint(bare);
+  const live: number[] = [];
+  for (let i = 0; i < states.length; i++) if (await fingerprint(states[i]) !== bareKey) live.push(i);
+  const n = farmMode ? screenN : 0;
+  const [b, ...s] = await fightAll([bare, ...live.map((i) => states[i])], n, 5);
+  const out: Gain[] = states.map(() => null);
+  const ax = (x: Score) => x.axes ?? [x.value];
+  live.forEach((i, j) => { out[i] = { value: s[j].value - b.value, axes: ax(s[j]).map((v, a) => v - ax(b)[a]) }; });
+  return out;
+}
+/**
+ * Does it help on any axis, over `plain` (per axis; none: over empty)? What
+ * trades one axis for another -- ATK for Max HP (Absolute Seyren) -- is kept
+ * for the fights to judge: on the Tomb knights 2026-09-29 the score's own
+ * sum called Absolute Seyren and Ifrit worthless, and they made the build.
+ */
+/** The DPS axes summed (farm: the score): the other half of a shortlist, so a glass cannon gets fought. */
+const dpsGain = (g: Gain) => (!g ? 0 : g.axes.length === 1 ? g.axes[0] : g.axes.filter((_, i) => i % 5 === 0).reduce((a, b) => a + b, 0));
+/** The best `k` by the estimate's score, and the best `k` by DPS alone. */
+function shortlist<T>(xs: T[], gain: (x: T) => Gain, k: number): T[] {
+  const by = (f: (g: Gain) => number) => [...xs].sort((a, b) => f(gain(b)) - f(gain(a))).slice(0, k);
+  return [...new Set([...by((g) => g?.value ?? 0), ...by(dpsGain)])];
+}
+const helps = (g: Gain, plain?: number[]) => !!g && g.axes.some((a, i) => a - (plain?.[i] ?? 0) > 1e-6);
+/** The same, fought: a screen on shared seeds, for ranking what the estimate kept. */
+async function screenGains(bare: State, states: State[]): Promise<number[]> {
+  const [b, ...s] = await fightAll([bare, ...states], screenN, 6);
+  return s.map((x) => x.value - b.value);
+}
+const emptySlot = (): SlotState => ({ itemId: null, refine: 0, cards: [] });
+/** Worn now: never pruned, whatever the census says. */
+const worn = new Set(Object.values(start.slots).flatMap((s) => [s?.itemId, ...(s?.cards ?? [])]).filter((x): x is number => !!x));
+
+async function census(): Promise<void> {
+  const tc = performance.now();
+  // -- shadow pieces: each at each tier, all shadow slots emptied.
+  const shSlots = SLOTS.filter((s) => s.group === 'shadow' && !locked.has(s.key) && !skipSlot(s, state.build)
+    && (searching(s.key) || searching('shadow')));
+  const bareBuild = structuredClone(state.build);
+  for (const s of shSlots) bareBuild.slots[s.key] = emptySlot();
+  const bare: State = { ...state, build: bareBuild };
+  const withSlots = (slots: Record<string, SlotState>): State => ({ ...bare, build: { ...bareBuild, slots: { ...bareBuild.slots, ...slots } } });
+  const cand: { slot: string; item: Item; refine: number }[] = [];
+  for (const s of shSlots) {
+    for (const item of data.itemList) {
+      if (!fitsSlot(item, s) || !allowed(item, s.key)) continue;
+      for (const refine of tiersFor(item, s.key)) cand.push({ slot: s.key, item, refine });
+    }
+  }
+  const g = await gainsOver(bare, cand.map((c) => withSlots({ [c.slot]: { itemId: c.item.id, refine: c.refine, cards: [] } })));
+  // Best tier per piece, by the estimate.
+  const best = new Map<string, { slot: string; item: Item; tiers: Map<number, Gain> }>();
+  cand.forEach((c, i) => {
+    const k = `${c.slot}:${c.item.id}`;
+    if (!best.has(k)) best.set(k, { slot: c.slot, item: c.item, tiers: new Map() });
+    best.get(k)!.tiers.set(c.refine, g[i]);
+  });
+  // What any piece gives at a refine (its DEF, say): on each axis, the
+  // commonest gain in that slot at that tier. A piece lives only if its own
+  // bonus beats it somewhere -- on the Tomb build 2026-09-29 most shadow
+  // pieces "lived" on refine alone.
+  const plain = new Map<string, number[]>();
+  {
+    const tally = new Map<string, Map<string, number>[]>();
+    cand.forEach((c, i) => {
+      if (!g[i]) return;
+      const k = `${c.slot}+${c.refine}`;
+      if (!tally.has(k)) tally.set(k, []);
+      g[i]!.axes.forEach((v, a) => {
+        const t = (tally.get(k)![a] ??= new Map()); const key = v.toFixed(6);
+        t.set(key, (t.get(key) ?? 0) + 1);
+      });
+    });
+    for (const [k, per] of tally) plain.set(k, per.map((t) => Number([...t].sort((a, b) => b[1] - a[1])[0][0])));
+  }
+  deadShadow = new Set();
+  const liveBySlot = new Map<string, { item: Item; est: Gain }[]>();
+  for (const p of best.values()) {
+    const tiers = [...p.tiers.values()].filter((x): x is NonNullable<Gain> => !!x);
+    const top: Gain = tiers.length ? { value: Math.max(...tiers.map((x) => x.value)), axes: [Math.max(...tiers.map((x) => dpsGain(x)))] } : null;
+    if (![...p.tiers].some(([r, x]) => helps(x, plain.get(`${p.slot}+${r}`))) && !worn.has(p.item.id)) { deadShadow.add(p.item.id); continue; }
+    if (!liveBySlot.has(p.slot)) liveBySlot.set(p.slot, []);
+    liveBySlot.get(p.slot)!.push({ item: p.item, est: top });
+  }
+  // A piece dead in one slot but alive in another (none on this server) stays in.
+  for (const l of liveBySlot.values()) for (const x of l) deadShadow.delete(x.item.id);
+  // Rank the estimate's best few per slot on real fights, every tier.
+  shadowTop = new Map();
+  const report: string[] = [];
+  for (const [slot, l] of liveBySlot) {
+    const short = shortlist(l, (x) => x.est, Math.max(6, shadowK * 3));
+    const rows = short.flatMap((x) => tiersFor(x.item, slot).map((r) => ({ item: x.item, refine: r })));
+    const sg = await screenGains(bare, rows.map((r) => withSlots({ [slot]: { itemId: r.item.id, refine: r.refine, cards: [] } })));
+    const per = new Map<number, { id: number; refine: number; gain: number; tiers: string[] }>();
+    rows.forEach((r, i) => {
+      const p = per.get(r.item.id) ?? { id: r.item.id, refine: r.refine, gain: -Infinity, tiers: [] };
+      p.tiers.push(`+${r.refine} ${sg[i] >= 0 ? '+' : ''}${sg[i].toFixed(3)}`);
+      if (sg[i] > p.gain) { p.gain = sg[i]; p.refine = r.refine; }
+      per.set(r.item.id, p);
+    });
+    const ranked = [...per.values()].sort((a, b) => b.gain - a.gain);
+    shadowTop.set(slot, ranked);
+    report.push(`  ${SLOTS.find((s) => s.key === slot)!.label}: ${l.length} live of ${[...best.values()].filter((p) => p.slot === slot).length}`);
+    for (const p of ranked.slice(0, 5)) report.push(`    ${data.items.get(p.id)!.name.padEnd(36)} ${p.tiers.join('  ')}`);
+  }
+  // -- whole shadow sets, each tier, on the same empty shadow slots.
+  const sets: { name: string; refine: number; slots: Record<string, SlotState> }[] = [];
+  for (const set of data.sets) {
+    const members = set.member_ids.map((id) => data.items.get(id));
+    if (members.length !== 4 || members.some((i) => !i || i.kind !== 'Shadow gear')) continue;
+    const place = new Map<string, Item>();
+    for (const item of members as Item[]) {
+      const s = SLOTS.find((x) => SET_SHADOW.includes(x.key) && !place.has(x.key) && fitsSlot(item, x));
+      if (!s || !shSlots.some((x) => x.key === s.key) || !allowed(item, s.key)) break;
+      place.set(s.key, item);
+    }
+    if (place.size !== 4) continue;
+    for (const r of TIERS) {
+      sets.push({ name: set.name, refine: r, slots: Object.fromEntries([...place].map(([k, item]) => [k,
+        { itemId: item.id, refine: Math.min(r, Math.max(...tiersFor(item, k))), cards: [] }])) });
+    }
+  }
+  const sgEst = await gainsOver(bare, sets.map((s) => withSlots(s.slots)));
+  const setShort = shortlist(sets.map((s, i) => ({ s, e: sgEst[i] })), (x) => x.e, 12);
+  const setScr = await screenGains(bare, setShort.map((x) => withSlots(x.s.slots)));
+  setTop = setShort.map((x, i) => ({ ...x.s, gain: setScr[i] })).sort((a, b) => b.gain - a.gain).slice(0, 8);
+  report.push(`  whole sets: ${sets.length / TIERS.length} fit; best:`);
+  for (const s of setTop) report.push(`    ${`${s.name} +${s.refine}`.padEnd(36)} ${s.gain >= 0 ? '+' : ''}${s.gain.toFixed(3)}`);
+
+  // -- cards: each alone in a slot emptied of cards, once, in the first slot it fits.
+  deadCards = new Set();
+  const seen = new Set<number>();
+  const cardReport: string[] = [];
+  for (const slot of SLOTS) {
+    const cur = state.build.slots[slot.key];
+    const host = cur?.itemId ? data.items.get(cur.itemId) : null;
+    if (slot.group !== 'gear' || !host?.card_slots || skipSlot(slot, state.build) || cardLocked.has(slot.key) || !searching(slot.key)) continue;
+    const cs = cards.filter((c) => !seen.has(c.id) && cardFits(c, slot, host));
+    cs.forEach((c) => seen.add(c.id));
+    if (!cs.length) continue;
+    const nulls = Array(host.card_slots).fill(null);
+    const bareC = apply(state, { label: '', slots: { [slot.key]: { ...cur!, cards: nulls } } });
+    const cg = await gainsOver(bareC, cs.map((c) => apply(state, { label: '', slots: { [slot.key]: { ...cur!, cards: [c.id, ...nulls.slice(1)] } } })));
+    let dead = 0;
+    cs.forEach((c, i) => {
+      // A card in a set (a card combo) may pay only with its partner: kept.
+      if (!helps(cg[i]) && !worn.has(c.id) && !(c.sets ?? []).length) { deadCards!.add(c.id); dead++; }
+    });
+    cardReport.push(`${slot.key} ${cs.length - dead}/${cs.length}`);
+  }
+  console.log(`census (${((performance.now() - tc) / 1000).toFixed(0)} s): shadow ${deadShadow.size} pieces dead; cards live per slot ${cardReport.join(', ')} (${deadCards.size} dead)`);
+  console.log(report.join('\n'));
+  censusOut = {
+    shadow: Object.fromEntries([...shadowTop].map(([k, l]) => [k, l.slice(0, 8).map((p) => ({ name: data.items.get(p.id)!.name, refine: p.refine, gain: +p.gain.toFixed(4) }))])),
+    sets: setTop.map((s) => ({ name: s.name, refine: s.refine, gain: +s.gain.toFixed(4) })),
+    deadShadow: deadShadow.size, deadCards: [...deadCards].map((id) => data.items.get(id)!.name),
+  };
+}
+let censusOut: unknown = null;
+if (!flag('no-census')) await census();
+
+/**
  * Pairs: once no single change helps, two can -- a rotation switch that only
  * pays with a piece, a stat spread that only pays with a set. The runners-up
  * of this pass's screens (the top 3 of each group, within 0.05 of the build
@@ -797,6 +1057,7 @@ for (let pass = 1; pass <= passes; pass++) {
     ...(searching('order') || (only?.has('rotation') ?? false) ? [{ name: 'order', moves: () => orderMoves(state.options) }] : []),
     ...(flag('no-stats') || !searching('stats') || swapBase ? [] : [{ name: 'stats', moves: () => statMoves(state.build) }]),
     ...(searching('sets') ? [{ name: 'sets', moves: () => setMoves(state.build) }] : []),
+    ...(shadowTop ? [{ name: 'shadow', moves: () => shadowMoves(state.build) }] : []),
     ...SLOTS.filter((s) => searching(s.key)).flatMap((s) => [
       { name: `${s.label} piece`, moves: () => itemMoves(state.build, s) },
       { name: `${s.label} cards`, moves: () => cardMoves(state.build, s) },
@@ -889,7 +1150,7 @@ if (out) {
   writeFileSync(path, `${JSON.stringify({
     profile: profile.name, targets: targets.map((m) => m.name),
     rules: { screenN, confirmN, timeS, locked: [...locked], penalty: PENALTY, topStats },
-    start: profile.build, steps, final, options: state.options, link, perTarget,
+    start: profile.build, steps, final, options: state.options, link, perTarget, census: censusOut,
   }, null, 1)}\n`);
 }
 }

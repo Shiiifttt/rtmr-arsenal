@@ -9,7 +9,7 @@
       "hits": 1,
       "ratio": 180,
       "verified": true,
-      "note": "Project owner, 2026-09-27: Heartless's Magnus hits a Holy-armoured Kingslayer (MDEF 33+188) for ~1,920 a wave. The server's 10 hits a wave are display only; one wave fits 180% of MATK at the element table's Holy-vs-Holy 50%. Without Holy armour that is ~3,840 a wave, which is why the owner calls Holy armour a given against Heartless."
+      "note": "Project owner, 2026-09-27: Heartless's Magnus hits a Holy-armoured Kingslayer (MDEF 33+188) for ~1,920 a wave. The server's 10 hits a wave are display only; one wave fits 180% of MATK at the element table's Holy-vs-Holy 50%. Without Holy armour that is ~3,840 a wave, which is why the owner calls Holy armour a given against Heartless. Second reading (owner, 2026-09-29): ~1,700 a tick, many ticks, on Neutral armour (MDEF 30+171) -- which does not fit ~1,920 a wave on Holy armour; unresolved, calibration unchanged."
     },
     "CR_GRANDCROSS": {
       "avoid": [
@@ -27,6 +27,29 @@
       ],
       "note": "Project owner, 2026-09-27: a cross-shaped area -- stand diagonal to the caster and it misses. The TAS does, unless stunned, frozen or rooted in place."
     },
+    "WL_EARTHSTRAIN": {
+      "hideBlocks": true,
+      "escapeCells": 2,
+      "note": "Project owner, 2026-09-29: walk behind the caster or Hide. The line runs away from the caster, so two cells round behind it clears it (not the radius + 1 a walk out assumes). Hiding stops it live, though the 2023 skill flags it TargetHidden."
+    },
+    "NPC_VAMPIRE_GIFT": {
+      "avoid": [
+        "hide",
+        "walk",
+        "kawarimi"
+      ],
+      "hideBlocks": true,
+      "note": "Project owner, 2026-09-29: on this server Hiding or walking out avoids it. Its damage (300% ATK, ignoring DEF, from the 2023 code) is thought too high: waiting on a reading."
+    },
+    "SP_SWHOO": {
+      "avoid": [
+        "hide",
+        "los",
+        "rod"
+      ],
+      "hideBlocks": true,
+      "note": "Project owner, 2026-09-29 (Umbral Knight): Hiding or line of sight stops it. Whether Pawn's Rod eats it is unconfirmed (owner unsure) -- the playbook leaves Rod out. ~135-200k on a 28.7k-HP Kingslayer: never tanked."
+    },
     "NPC_EARTHQUAKE": {
       "avoid": [
         "hide",
@@ -37,9 +60,31 @@
     }
   },
   "mobs": {
+    "Ifrit": {
+      "WL_COMET": {
+        "ai": {
+          "state": "any",
+          "rate": 0.95,
+          "delayMs": 15000,
+          "cancelable": false,
+          "cond": "afterskill",
+          "condValue": "2299",
+          "target": "target"
+        },
+        "note": "The 2023 row waits on skill 288 (Land Protector), which Ifrit never casts: its 'SA_LANDPROTECTOR' row is id 2299, SC_MANHOLE; the owner dodges Comet every fight, so it comes live, likely after the Manhole (owner, 2026-09-29) -- unconfirmed. Damage: the owner's log (2026-09-29) shows 10 x 5,886 (and on another cast 10 x 3,742 -- further from the centre, it seems); the client splits Comet's one hit into 10 (HitCount -10). 58,860 in all against the 2023 formula's ~20,700 (250 + 6 x INT = 1,066%): ratio scaled to 3,030% to the inner reading. Tanking it killed him every time.",
+        "ratio": 3030
+      },
+      "NPC_EARTHQUAKE": {
+        "note": "Project owner, 2026-09-29: never seen Ifrit cast Earthquake. The 2023 row waits on skill 288 (Land Protector), which Ifrit never casts, so it stays off. With it on, its 6 s casts kept Ifrit off the player (current profile 99% wins); without it, 69%."
+      }
+    },
     "Converted Zealot": {
       "RG_BACKSTAP": {
-        "avoid": ["hide", "kawarimi", "walk"],
+        "avoid": [
+          "hide",
+          "kawarimi",
+          "walk"
+        ],
         "note": "Project owner, 2026-09-28: 'when I see Back Stab I walk out of its cast range, and keep walking' -- its 1.5 s cast bar is the tell for the Cloud Kill that always follows (afterskill 212). Walking out dodges the stab itself too."
       }
     },

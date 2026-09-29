@@ -1,0 +1,25 @@
+{
+  "name": "Satsujin baselines (2026-09-28)",
+  "_about": "Reference builds for testing other setups against. Every profile fights every scenario on the same seeds (tools/baseline.ts). A new setup is judged against these rows, not against a number from memory.",
+  "profiles": {
+    "owner": "owner.json",
+    "minimum": "minimum.json",
+    "minimum-loki": "minimum-loki.json",
+    "budget": "budget.json",
+    "allround": "allround.json",
+    "standard": "standard.json",
+    "standard-rings": "standard-rings.json",
+    "endgame": "endgame.json"
+  },
+  "scenarios": {
+    "rachel5": { "vs": "rachel5", "about": "Rachel SS regulars (boss protocol, count as boss); the roadmap's target" },
+    "lair4": { "vs": "lair4", "about": "Jormungandr's lair regulars (boss, except Heartless)" },
+    "tomb_knights": { "vs": "tomb_knights", "about": "King's Tomb Knights (non-boss); Tornado Knight walls with Safety Wall + Heal" },
+    "guild_regulars": { "vs": "guild_regulars", "about": "Ymir's guild dungeon regulars; several see through Hiding" },
+    "ymir": { "vs": "ymir", "bossTime": 1200, "about": "Soul of Ymir (MVP) and Ymir Emperium (1 damage a hit and a tick)" },
+    "elite": { "vs": "elite", "bossTime": 1200, "about": "Hardest regular per high area + the area MVPs (Desperate Njord, King Schmidt, Soul of Ymir)" }
+  },
+  "iter": 300,
+  "time": 300,
+  "policy": "priority"
+}

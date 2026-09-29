@@ -35615,13 +35615,30 @@
   "sets": [],
   "effects": [
    {
-    "text": "Immune to Confusion SP+5%",
-    "stat": "Immune to Confusion SP",
+    "text": "Immune to Confusion",
+    "stat": "Immune to Confusion",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     131
+    ],
+    "stat_keys": [
+     "res_status_confusion"
+    ]
+   },
+   {
+    "text": "SP+5%",
+    "stat": "SP",
     "value": 5,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     7
+    ],
+    "stat_keys": [
+     "max_sp"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -39780,7 +39797,7 @@
   "enchant": null,
   "lore": null,
   "unparsed": [
-   "Immune to Knockback Regenerates 5 SP per second"
+   "Regenerates 5 SP per second"
   ]
  },
  {
@@ -39829,7 +39846,7 @@
   "enchant": null,
   "lore": null,
   "unparsed": [
-   "Immune to Knockback Regenerates 5 SP per second"
+   "Regenerates 5 SP per second"
   ]
  },
  {
@@ -39872,7 +39889,7 @@
   "enchant": null,
   "lore": null,
   "unparsed": [
-   "Immune to Knockback Regenerates 5 SP per second"
+   "Regenerates 5 SP per second"
   ]
  },
  {
@@ -39919,7 +39936,7 @@
   "enchant": null,
   "lore": null,
   "unparsed": [
-   "Immune to Knockback Regenerates 5 SP per second"
+   "Regenerates 5 SP per second"
   ]
  },
  {
@@ -68002,13 +68019,30 @@
     "stat_keys": []
    },
    {
-    "text": "Immune to Freeze HP+5%",
-    "stat": "Immune to Freeze HP",
+    "text": "Immune to Freeze",
+    "stat": "Immune to Freeze",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     122
+    ],
+    "stat_keys": [
+     "res_status_freeze"
+    ]
+   },
+   {
+    "text": "HP+5%",
+    "stat": "HP",
     "value": 5,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     6
+    ],
+    "stat_keys": [
+     "max_hp"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -72853,13 +72887,30 @@
   "sets": [],
   "effects": [
    {
-    "text": "Immune to Poison VIT+3",
-    "stat": "Immune to Poison VIT",
+    "text": "Immune to Poison",
+    "stat": "Immune to Poison",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     129
+    ],
+    "stat_keys": [
+     "res_status_poison_status"
+    ]
+   },
+   {
+    "text": "VIT+3",
+    "stat": "VIT",
     "value": 3,
     "unit": null,
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     2
+    ],
+    "stat_keys": [
+     "vit"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -77166,13 +77217,30 @@
   "sets": [],
   "effects": [
    {
-    "text": "Immune to Stun SP-25%",
-    "stat": "Immune to Stun SP",
+    "text": "Immune to Stun",
+    "stat": "Immune to Stun",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     123
+    ],
+    "stat_keys": [
+     "res_status_stun"
+    ]
+   },
+   {
+    "text": "SP-25%",
+    "stat": "SP",
     "value": -25,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     7
+    ],
+    "stat_keys": [
+     "max_sp"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -84838,13 +84906,30 @@
   "sets": [],
   "effects": [
    {
-    "text": "Immune to Sleep Move Speed +10%",
-    "stat": "Immune to Sleep Move Speed",
+    "text": "Immune to Sleep",
+    "stat": "Immune to Sleep",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     127
+    ],
+    "stat_keys": [
+     "res_status_sleep"
+    ]
+   },
+   {
+    "text": "Move Speed +10%",
+    "stat": "Move Speed",
     "value": 10,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     39
+    ],
+    "stat_keys": [
+     "move_speed"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -98756,16 +98841,30 @@
     ]
    },
    {
-    "text": "Immune to Silence Variable Cast Time+50%",
-    "stat": "Immune to Silence Variable Cast Time",
+    "text": "Immune to Silence",
+    "stat": "Immune to Silence",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     126
+    ],
+    "stat_keys": [
+     "res_status_silence"
+    ]
+   },
+   {
+    "text": "Variable Cast Time+50%",
+    "stat": "Variable Cast Time",
     "value": 50,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": [],
-    "skill": "Immune to Silence Variable",
-    "skill_metric": "cast time",
-    "skills": []
+    "stat_ids": [
+     33
+    ],
+    "stat_keys": [
+     "variable_cast"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -126270,13 +126369,32 @@
   "sets": [],
   "effects": [
    {
-    "text": "Immune to Silence ATK/MATK +1%",
-    "stat": "Immune to Silence ATK/MATK",
+    "text": "Immune to Silence",
+    "stat": "Immune to Silence",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     126
+    ],
+    "stat_keys": [
+     "res_status_silence"
+    ]
+   },
+   {
+    "text": "ATK/MATK +1%",
+    "stat": "ATK/MATK",
     "value": 1,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     10,
+     11
+    ],
+    "stat_keys": [
+     "atk",
+     "matk"
+    ]
    }
   ],
   "piece_bonus": [],

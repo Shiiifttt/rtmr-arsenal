@@ -266,6 +266,14 @@ export async function buildFighter(profile: Profile, opts: FighterOptions): Prom
     const t = cd && aggregate({ ...build, slots: { weapon: build.slots.weapon } }, data).byStat.get(cd.id);
     critDamageLeft -= (t?.flat ?? 0) + (t?.percent ?? 0);
   }
+  // Perfect Hit: a hit that ignores flee. Never from the left-hand weapon (RTM
+  // pc.cpp:3465-3470, lr_flag != 2), the rest add up (status.cpp:4605).
+  let perfectHit = either('perfect_hit');
+  if (leftWeapon && build.slots.offhand) {
+    const ph = data.stats.find((s) => s.key === 'perfect_hit');
+    const t = ph && aggregate({ ...build, slots: { offhand: build.slots.offhand } }, data).byStat.get(ph.id);
+    perfectHit -= (t?.flat ?? 0) + (t?.percent ?? 0);
+  }
   // weaponRaceMatch: the right weapon's own best race card total, for any race.
   let anyRace = 0;
   if (profile.weaponRaceMatch && build.slots.weapon) {
@@ -312,6 +320,7 @@ export async function buildFighter(profile: Profile, opts: FighterOptions): Prom
     critRate: total('crit_rate'),
     critDamage: either('crit_damage'),
     critDamageLeft,
+    perfectHit: Math.max(0, Math.min(100, perfectHit)),
     aspd,
     moveSpeed: either('move_speed') + (tg.tgMoveSpeed ?? 0),
     defPen: flat('def_pen') + (passives.defPen ?? 0),
@@ -335,8 +344,10 @@ export async function buildFighter(profile: Profile, opts: FighterOptions): Prom
     },
     regen: {
       hp: Math.floor(hpRegenTick(maxHp, stats.vit) * (1 + either('hp_regen') / 100)),
-      sp: Math.floor((spRegenTick(maxSp, stats.int) + passives.spRegen.flat
-        + passives.spRegen.maxShare * maxSp) * (1 + either('sp_regen') / 100)),
+      sp: Math.floor(spRegenTick(maxSp, stats.int) * (1 + either('sp_regen') / 100)),
+      // Increase SP Recovery is the server's skill regen (MG_SRECOVERY:
+      // 2/lv + Max SP/1000 per lv), its own 4 s tick, no gear % (status.cpp:5456).
+      spSkill: Math.floor(passives.spRegen.flat + passives.spRegen.maxShare * maxSp),
     },
     kafraElixirs: KAFRA_ELIXIRS + Object.values(build.slots).reduce((n, s) => {
       const d = s?.itemId ? data.items.get(s.itemId)?.description ?? '' : '';

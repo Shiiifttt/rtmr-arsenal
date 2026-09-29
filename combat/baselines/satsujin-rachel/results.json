@@ -1,0 +1,2742 @@
+{
+ "name": "Satsujin baselines (2026-09-28)",
+ "iter": 300,
+ "results": [
+  {
+   "scenario": "rachel5",
+   "profile": "owner",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Njord Zealot",
+     "dummy": false,
+     "winRate": 0.05333333333333334,
+     "lossRate": 0.9466666666666667,
+     "ttk": 18.652700892897794,
+     "dps": 18140.488471694265,
+     "deaths": "Meteor Storm x213, Flaming Petals x63"
+    },
+    {
+     "variant": "as is",
+     "target": "Converted Zealot",
+     "dummy": false,
+     "winRate": 0.6366666666666667,
+     "lossRate": 0.36333333333333334,
+     "ttk": 21.7650052264967,
+     "dps": 12421.332481647649,
+     "deaths": "Pulse Strike 2 x99, Huuma Shuriken - Grasp x5"
+    },
+    {
+     "variant": "as is",
+     "target": "Godly Seeker",
+     "dummy": false,
+     "winRate": 0.5466666666666666,
+     "lossRate": 0.4533333333333333,
+     "ttk": 18.244,
+     "dps": 17706.70158189207,
+     "deaths": "Storm Gust x105, Godly Seeker: attack x13"
+    },
+    {
+     "variant": "as is",
+     "target": "Burning Fury",
+     "dummy": false,
+     "winRate": 0.01,
+     "lossRate": 0.99,
+     "ttk": 23.643,
+     "dps": 14274.757325816885,
+     "deaths": "Critical Slash x265, Knuckle Arrow x25"
+    },
+    {
+     "variant": "as is",
+     "target": "Tortured Maiden",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 12.51093913328022,
+     "dps": 19881.75102563038,
+     "deaths": ""
+    }
+   ]
+  },
+  {
+   "scenario": "rachel5",
+   "profile": "minimum",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Njord Zealot",
+     "dummy": false,
+     "winRate": 0.8433333333333334,
+     "lossRate": 0.15666666666666668,
+     "ttk": 13.537764538145465,
+     "dps": 25453.212637625347,
+     "deaths": "Flaming Petals x47"
+    },
+    {
+     "variant": "as is",
+     "target": "Converted Zealot",
+     "dummy": false,
+     "winRate": 0.9833333333333333,
+     "lossRate": 0.016666666666666666,
+     "ttk": 15.512601207789906,
+     "dps": 17969.28357427619,
+     "deaths": "Pulse Strike 2 x5"
+    },
+    {
+     "variant": "as is",
+     "target": "Godly Seeker",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 12.265163330355561,
+     "dps": 26867.420687125566,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Burning Fury",
+     "dummy": false,
+     "winRate": 0.7633333333333333,
+     "lossRate": 0.23666666666666666,
+     "ttk": 16.250437877434347,
+     "dps": 21481.274802473163,
+     "deaths": "Knuckle Arrow x62, Sonic Wave x6"
+    },
+    {
+     "variant": "as is",
+     "target": "Tortured Maiden",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 9.822,
+     "dps": 24849.511159528738,
+     "deaths": ""
+    }
+   ]
+  },
+  {
+   "scenario": "rachel5",
+   "profile": "minimum-loki",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Njord Zealot",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 15.712875754868692,
+     "dps": 22603.1609799312,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Converted Zealot",
+     "dummy": false,
+     "winRate": 0.9833333333333333,
+     "lossRate": 0.016666666666666666,
+     "ttk": 15.600601207789907,
+     "dps": 17313.96201830226,
+     "deaths": "Pulse Strike 2 x5"
+    },
+    {
+     "variant": "as is",
+     "target": "Godly Seeker",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 12.656437877434346,
+     "dps": 26106.649316341896,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Burning Fury",
+     "dummy": false,
+     "winRate": 0.7733333333333333,
+     "lossRate": 0.22333333333333333,
+     "ttk": 19.446751509737382,
+     "dps": 18984.614896593594,
+     "deaths": "Knuckle Arrow x56, Sonic Wave x6"
+    },
+    {
+     "variant": "as is",
+     "target": "Tortured Maiden",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 10.143,
+     "dps": 24204.836055555807,
+     "deaths": ""
+    }
+   ]
+  },
+  {
+   "scenario": "rachel5",
+   "profile": "budget",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Njord Zealot",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 15.594,
+     "dps": 22966.639009822928,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Converted Zealot",
+     "dummy": false,
+     "winRate": 0.9766666666666667,
+     "lossRate": 0.023333333333333334,
+     "ttk": 15.317601207789906,
+     "dps": 18712.888774852825,
+     "deaths": "Pulse Strike 2 x7"
+    },
+    {
+     "variant": "as is",
+     "target": "Godly Seeker",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 12.15716333035556,
+     "dps": 27439.509687534526,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Burning Fury",
+     "dummy": false,
+     "winRate": 0.84,
+     "lossRate": 0.10666666666666667,
+     "ttk": 19.04157515097374,
+     "dps": 19633.320732788747,
+     "deaths": "Knuckle Arrow x22, Critical Slash x8"
+    },
+    {
+     "variant": "as is",
+     "target": "Tortured Maiden",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 7.588601207789906,
+     "dps": 31963.00075892261,
+     "deaths": ""
+    }
+   ]
+  },
+  {
+   "scenario": "rachel5",
+   "profile": "allround",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Njord Zealot",
+     "dummy": false,
+     "winRate": 0.7966666666666666,
+     "lossRate": 0.08333333333333333,
+     "ttk": 15.750186207099025,
+     "dps": 22204.651573277897,
+     "deaths": "Flaming Petals x25"
+    },
+    {
+     "variant": "as is",
+     "target": "Converted Zealot",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 15.57629793135844,
+     "dps": 17698.5527953038,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Godly Seeker",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 12.52529793135844,
+     "dps": 26096.312518787014,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Burning Fury",
+     "dummy": false,
+     "winRate": 0.4066666666666667,
+     "lossRate": 0.06333333333333334,
+     "ttk": 20.221186207099024,
+     "dps": 18905.43698922563,
+     "deaths": "Knuckle Arrow x18, Critical Slash x1"
+    },
+    {
+     "variant": "as is",
+     "target": "Tortured Maiden",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 8.941,
+     "dps": 27508.270727671083,
+     "deaths": ""
+    }
+   ]
+  },
+  {
+   "scenario": "rachel5",
+   "profile": "standard",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Njord Zealot",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 8.256438126392759,
+     "dps": 44656.79079989739,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Converted Zealot",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 7.996851503342621,
+     "dps": 36669.31128283511,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Godly Seeker",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 5.193851503342621,
+     "dps": 69431.03290049706,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Burning Fury",
+     "dummy": false,
+     "winRate": 0.9766666666666667,
+     "lossRate": 0.023333333333333334,
+     "ttk": 9.475438126392758,
+     "dps": 40015.12351160062,
+     "deaths": "Burning Fury: attack x5, Sonic Wave x1"
+    },
+    {
+     "variant": "as is",
+     "target": "Tortured Maiden",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 5.193851503342621,
+     "dps": 53181.623340105245,
+     "deaths": ""
+    }
+   ]
+  },
+  {
+   "scenario": "rachel5",
+   "profile": "standard-rings",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Njord Zealot",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 6.971925751671311,
+     "dps": 48772.15692622418,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Converted Zealot",
+     "dummy": false,
+     "winRate": 0.9966666666666667,
+     "lossRate": 0.0033333333333333335,
+     "ttk": 7.995851503342621,
+     "dps": 38814.65620222852,
+     "deaths": "Pulse Strike 2 x1"
+    },
+    {
+     "variant": "as is",
+     "target": "Godly Seeker",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 5.193851503342621,
+     "dps": 73522.75392003122,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Burning Fury",
+     "dummy": false,
+     "winRate": 0.98,
+     "lossRate": 0.02,
+     "ttk": 9.354165882520897,
+     "dps": 40626.832512336514,
+     "deaths": "Burning Fury: attack x5, Sonic Wave x1"
+    },
+    {
+     "variant": "as is",
+     "target": "Tortured Maiden",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 5.193851503342621,
+     "dps": 54562.24385602882,
+     "deaths": ""
+    }
+   ]
+  },
+  {
+   "scenario": "rachel5",
+   "profile": "endgame",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Njord Zealot",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 9.029003369596072,
+     "dps": 38678.83083708349,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Converted Zealot",
+     "dummy": false,
+     "winRate": 0.9933333333333333,
+     "lossRate": 0.006666666666666667,
+     "ttk": 9.017011793586251,
+     "dps": 31642.546916275904,
+     "deaths": "Pulse Strike 2 x2"
+    },
+    {
+     "variant": "as is",
+     "target": "Godly Seeker",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 6.219338949326785,
+     "dps": 52226.73463378213,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Burning Fury",
+     "dummy": false,
+     "winRate": 0.92,
+     "lossRate": 0.08,
+     "ttk": 9.583003369596073,
+     "dps": 37811.22316623445,
+     "deaths": "Knuckle Arrow x21, Burning Fury: attack x3"
+    },
+    {
+     "variant": "as is",
+     "target": "Tortured Maiden",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 6.210011793586249,
+     "dps": 43063.89710592562,
+     "deaths": ""
+    }
+   ]
+  },
+  {
+   "scenario": "lair4",
+   "profile": "owner",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Angel of Genesis",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 12.396949586273617,
+     "dps": 20117.076431498426,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Demon of Apocalypse",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 14.05406609321648,
+     "dps": 18709.099796798455,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Heartless",
+     "dummy": false,
+     "winRate": 0.023333333333333334,
+     "lossRate": 0.9766666666666667,
+     "ttk": 24.502634799681314,
+     "dps": 19295.72136134401,
+     "deaths": "Magnus Exorcismus x148, Critical Slash x106"
+    },
+    {
+     "variant": "as is",
+     "target": "Heart of the Serpent",
+     "dummy": false,
+     "winRate": 0.83,
+     "lossRate": 0.17,
+     "ttk": 7.356187826656043,
+     "dps": 25259.536174147634,
+     "deaths": "Angel of Genesis: Adoramus x46, Demon of Apocalypse: Back Stab x4"
+    }
+   ]
+  },
+  {
+   "scenario": "lair4",
+   "profile": "minimum",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Angel of Genesis",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 7.697202415579811,
+     "dps": 32986.25347747384,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Demon of Apocalypse",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 7.428601207789906,
+     "dps": 33795.7273067135,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Heartless",
+     "dummy": false,
+     "winRate": 0.6433333333333333,
+     "lossRate": 0.3566666666666667,
+     "ttk": 19.0704769626586,
+     "dps": 23842.26161245686,
+     "deaths": "Critical Slash x87, Knuckle Arrow x19"
+    },
+    {
+     "variant": "as is",
+     "target": "Heart of the Serpent",
+     "dummy": false,
+     "winRate": 0.96,
+     "lossRate": 0.04,
+     "ttk": 6.162875754868691,
+     "dps": 32322.982159147126,
+     "deaths": "Angel of Genesis: Adoramus x11, Angel of Genesis: Grand Cross x1"
+    }
+   ]
+  },
+  {
+   "scenario": "lair4",
+   "profile": "minimum-loki",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Angel of Genesis",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 7.697202415579811,
+     "dps": 31607.070331549374,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Demon of Apocalypse",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 9.712875754868692,
+     "dps": 25733.10872080347,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Heartless",
+     "dummy": false,
+     "winRate": 0.5966666666666667,
+     "lossRate": 0.3933333333333333,
+     "ttk": 22.428601207789907,
+     "dps": 21287.33049608521,
+     "deaths": "Critical Slash x110, Knuckle Arrow x7"
+    },
+    {
+     "variant": "as is",
+     "target": "Heart of the Serpent",
+     "dummy": false,
+     "winRate": 0.96,
+     "lossRate": 0.04,
+     "ttk": 6.162875754868691,
+     "dps": 32310.385744023308,
+     "deaths": "Angel of Genesis: Adoramus x11, Angel of Genesis: Grand Cross x1"
+    }
+   ]
+  },
+  {
+   "scenario": "lair4",
+   "profile": "budget",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Angel of Genesis",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 7.697202415579811,
+     "dps": 32834.6395516167,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Demon of Apocalypse",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 9.44,
+     "dps": 26156.996251626842,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Heartless",
+     "dummy": false,
+     "winRate": 0.4633333333333333,
+     "lossRate": 0.47,
+     "ttk": 24.917,
+     "dps": 18407.672096449154,
+     "deaths": "Critical Slash x125, Knuckle Arrow x11"
+    },
+    {
+     "variant": "as is",
+     "target": "Heart of the Serpent",
+     "dummy": false,
+     "winRate": 0.9966666666666667,
+     "lossRate": 0.0033333333333333335,
+     "ttk": 4.428601207789906,
+     "dps": 39319.96636611478,
+     "deaths": "Angel of Genesis: Adoramus x1"
+    }
+   ]
+  },
+  {
+   "scenario": "lair4",
+   "profile": "allround",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Angel of Genesis",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 7.7884841384574655,
+     "dps": 31095.826411665155,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Demon of Apocalypse",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 10.64829793135844,
+     "dps": 22912.4190145129,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Heartless",
+     "dummy": false,
+     "winRate": 0.46,
+     "lossRate": 0.33666666666666667,
+     "ttk": 27.982186207099026,
+     "dps": 17135.349778002816,
+     "deaths": "Critical Slash x91, Knuckle Arrow x7"
+    },
+    {
+     "variant": "as is",
+     "target": "Heart of the Serpent",
+     "dummy": false,
+     "winRate": 0.9833333333333333,
+     "lossRate": 0.016666666666666666,
+     "ttk": 5.635,
+     "dps": 33848.89118235895,
+     "deaths": "Angel of Genesis: Adoramus x5"
+    }
+   ]
+  },
+  {
+   "scenario": "lair4",
+   "profile": "standard",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Angel of Genesis",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 4.355802004456828,
+     "dps": 57545.67503917913,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Demon of Apocalypse",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 4.334363878064069,
+     "dps": 56556.56049411003,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Heartless",
+     "dummy": false,
+     "winRate": 0.96,
+     "lossRate": 0.03,
+     "ttk": 17.354240130849586,
+     "dps": 28012.912491892122,
+     "deaths": "Knuckle Arrow x4, Heartless: attack x4"
+    },
+    {
+     "variant": "as is",
+     "target": "Heart of the Serpent",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 1.7118020044568287,
+     "dps": 108993.6124648407,
+     "deaths": ""
+    }
+   ]
+  },
+  {
+   "scenario": "lair4",
+   "profile": "standard-rings",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Angel of Genesis",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 3.589,
+     "dps": 69275.68153665304,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Demon of Apocalypse",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 4.334363878064069,
+     "dps": 59573.13498413014,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Heartless",
+     "dummy": false,
+     "winRate": 0.8066666666666666,
+     "lossRate": 0.06333333333333334,
+     "ttk": 16.61148762527855,
+     "dps": 28738.42638201292,
+     "deaths": "Knuckle Arrow x12, Heartless: attack x5"
+    },
+    {
+     "variant": "as is",
+     "target": "Heart of the Serpent",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 1.3343638780640696,
+     "dps": 138246.1708528118,
+     "deaths": ""
+    }
+   ]
+  },
+  {
+   "scenario": "lair4",
+   "profile": "endgame",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Angel of Genesis",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 6.31067789865357,
+     "dps": 39589.457632159814,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Demon of Apocalypse",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 9.159,
+     "dps": 34414.24145150045,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Heartless",
+     "dummy": false,
+     "winRate": 0.99,
+     "lossRate": 0.01,
+     "ttk": 12.415,
+     "dps": 37024.133287039585,
+     "deaths": "Knuckle Arrow x3"
+    },
+    {
+     "variant": "as is",
+     "target": "Heart of the Serpent",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 1.6333423189228562,
+     "dps": 119715.59632928562,
+     "deaths": ""
+    }
+   ]
+  },
+  {
+   "scenario": "tomb_knights",
+   "profile": "owner",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Magma Knight",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 7.200883493057136,
+     "dps": 27523.29705370197,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Tornado Knight",
+     "dummy": false,
+     "winRate": 0.8633333333333333,
+     "lossRate": 0.10666666666666667,
+     "ttk": 47.668518292738455,
+     "dps": 4441.976247438059,
+     "deaths": "Vampire Gift x16, Tornado Knight: attack x12"
+    },
+    {
+     "variant": "as is",
+     "target": "Quake Knight",
+     "dummy": false,
+     "winRate": 0.9666666666666667,
+     "lossRate": 0.03333333333333333,
+     "ttk": 8.8330052264967,
+     "dps": 22693.299971960652,
+     "deaths": "Vampire Gift x10"
+    },
+    {
+     "variant": "as is",
+     "target": "Tidal Knight",
+     "dummy": false,
+     "winRate": 0.9766666666666667,
+     "lossRate": 0.023333333333333334,
+     "ttk": 7.844005226496699,
+     "dps": 23662.457728249326,
+     "deaths": "Vampire Gift x7"
+    },
+    {
+     "variant": "as is",
+     "target": "Umbral Knight",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 18.904640026178015,
+     "dps": 13322.9585589707,
+     "deaths": ""
+    }
+   ]
+  },
+  {
+   "scenario": "tomb_knights",
+   "profile": "minimum",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Magma Knight",
+     "dummy": false,
+     "winRate": 0.9966666666666667,
+     "lossRate": 0.0033333333333333335,
+     "ttk": 6.265751509737382,
+     "dps": 30816.37737308116,
+     "deaths": "Flame Launcher x1"
+    },
+    {
+     "variant": "as is",
+     "target": "Tornado Knight",
+     "dummy": false,
+     "winRate": 0.37,
+     "lossRate": 0.04,
+     "ttk": 37.01840483115963,
+     "dps": 5341.185052000679,
+     "deaths": "Vampire Gift x6, Wind Blade x6"
+    },
+    {
+     "variant": "as is",
+     "target": "Quake Knight",
+     "dummy": false,
+     "winRate": 0.9866666666666667,
+     "lossRate": 0.013333333333333334,
+     "ttk": 6.271476962658597,
+     "dps": 29753.601636071206,
+     "deaths": "Vampire Gift x4"
+    },
+    {
+     "variant": "as is",
+     "target": "Tidal Knight",
+     "dummy": false,
+     "winRate": 0.9966666666666667,
+     "lossRate": 0.0033333333333333335,
+     "ttk": 6.271476962658597,
+     "dps": 29353.087718268394,
+     "deaths": "Vampire Gift x1"
+    },
+    {
+     "variant": "as is",
+     "target": "Umbral Knight",
+     "dummy": false,
+     "winRate": 0.9966666666666667,
+     "lossRate": 0,
+     "ttk": 12.612202415579814,
+     "dps": 18415.769988683864,
+     "deaths": ""
+    }
+   ]
+  },
+  {
+   "scenario": "tomb_knights",
+   "profile": "minimum-loki",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Magma Knight",
+     "dummy": false,
+     "winRate": 0.9966666666666667,
+     "lossRate": 0.0033333333333333335,
+     "ttk": 6.465039085224251,
+     "dps": 31900.396161609577,
+     "deaths": "Flame Launcher x1"
+    },
+    {
+     "variant": "as is",
+     "target": "Tornado Knight",
+     "dummy": false,
+     "winRate": 0.48,
+     "lossRate": 0.06666666666666667,
+     "ttk": 37.90475150973738,
+     "dps": 5276.611823507941,
+     "deaths": "Wind Blade x9, Vampire Gift x9"
+    },
+    {
+     "variant": "as is",
+     "target": "Quake Knight",
+     "dummy": false,
+     "winRate": 0.9666666666666667,
+     "lossRate": 0.03333333333333333,
+     "ttk": 6.470764538145466,
+     "dps": 30754.40988392427,
+     "deaths": "Vampire Gift x10"
+    },
+    {
+     "variant": "as is",
+     "target": "Tidal Knight",
+     "dummy": false,
+     "winRate": 0.99,
+     "lossRate": 0.01,
+     "ttk": 6.465039085224251,
+     "dps": 29821.750320781262,
+     "deaths": "Vampire Gift x3"
+    },
+    {
+     "variant": "as is",
+     "target": "Umbral Knight",
+     "dummy": false,
+     "winRate": 0.99,
+     "lossRate": 0,
+     "ttk": 12.814,
+     "dps": 17593.457119643896,
+     "deaths": ""
+    }
+   ]
+  },
+  {
+   "scenario": "tomb_knights",
+   "profile": "budget",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Magma Knight",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 6.465039085224251,
+     "dps": 29589.493720873932,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Tornado Knight",
+     "dummy": false,
+     "winRate": 0.26666666666666666,
+     "lossRate": 0.1,
+     "ttk": 37.355202415579804,
+     "dps": 4945.024765185823,
+     "deaths": "Wind Blade x25, Vampire Gift x4"
+    },
+    {
+     "variant": "as is",
+     "target": "Quake Knight",
+     "dummy": false,
+     "winRate": 0.9666666666666667,
+     "lossRate": 0.03333333333333333,
+     "ttk": 6.470764538145466,
+     "dps": 28823.868393379973,
+     "deaths": "Vampire Gift x10"
+    },
+    {
+     "variant": "as is",
+     "target": "Tidal Knight",
+     "dummy": false,
+     "winRate": 0.9766666666666667,
+     "lossRate": 0.023333333333333334,
+     "ttk": 6.470764538145466,
+     "dps": 29188.99726955193,
+     "deaths": "Vampire Gift x7"
+    },
+    {
+     "variant": "as is",
+     "target": "Umbral Knight",
+     "dummy": false,
+     "winRate": 0.9866666666666667,
+     "lossRate": 0.0033333333333333335,
+     "ttk": 12.571437877434345,
+     "dps": 18498.768387233366,
+     "deaths": "Swhoo x1"
+    }
+   ]
+  },
+  {
+   "scenario": "tomb_knights",
+   "profile": "allround",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Magma Knight",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 6.918484138457465,
+     "dps": 27087.334489676225,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Tornado Knight",
+     "dummy": false,
+     "winRate": 0.05333333333333334,
+     "lossRate": 0.023333333333333334,
+     "ttk": 39.39587517336542,
+     "dps": 4651.985988564459,
+     "deaths": "Lord of Vermilion x4, Wind Blade x3"
+    },
+    {
+     "variant": "as is",
+     "target": "Quake Knight",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 7.45129793135844,
+     "dps": 25833.502887383613,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Tidal Knight",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 7.0752048278089275,
+     "dps": 26795.984098023364,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Umbral Knight",
+     "dummy": false,
+     "winRate": 0.7333333333333333,
+     "lossRate": 0.0033333333333333335,
+     "ttk": 12.750186207099025,
+     "dps": 17632.981473668136,
+     "deaths": "Swhoo x1"
+    }
+   ]
+  },
+  {
+   "scenario": "tomb_knights",
+   "profile": "standard",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Magma Knight",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 4.334363878064069,
+     "dps": 45569.19386574482,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Tornado Knight",
+     "dummy": false,
+     "winRate": 0.7133333333333334,
+     "lossRate": 0.07333333333333333,
+     "ttk": 15.846190631963795,
+     "dps": 11364.535512274655,
+     "deaths": "Vampire Gift x11, Lord of Vermilion x7"
+    },
+    {
+     "variant": "as is",
+     "target": "Quake Knight",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 4.334363878064069,
+     "dps": 45274.763862270745,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Tidal Knight",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 2.0718020044568286,
+     "dps": 92378.64405880992,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Umbral Knight",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 5.817851503342621,
+     "dps": 44903.4936194085,
+     "deaths": ""
+    }
+   ]
+  },
+  {
+   "scenario": "tomb_knights",
+   "profile": "standard-rings",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Magma Knight",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 4,
+     "dps": 51006.471869450565,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Tornado Knight",
+     "dummy": false,
+     "winRate": 0.7466666666666667,
+     "lossRate": 0.05333333333333334,
+     "ttk": 17.54180200445683,
+     "dps": 11400.727564204295,
+     "deaths": "Vampire Gift x14, Wind Blade x2"
+    },
+    {
+     "variant": "as is",
+     "target": "Quake Knight",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 3.861,
+     "dps": 51458.58846870977,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Tidal Knight",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 2.0718020044568286,
+     "dps": 98079.358281355,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Umbral Knight",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 5.193851503342621,
+     "dps": 47794.84417101136,
+     "deaths": ""
+    }
+   ]
+  },
+  {
+   "scenario": "tomb_knights",
+   "profile": "endgame",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Magma Knight",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 4,
+     "dps": 44663.16293079579,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Tornado Knight",
+     "dummy": false,
+     "winRate": 0.5766666666666667,
+     "lossRate": 0.19333333333333333,
+     "ttk": 25.369028641566608,
+     "dps": 7814.373718089105,
+     "deaths": "Vampire Gift x56, Wind Blade x2"
+    },
+    {
+     "variant": "as is",
+     "target": "Quake Knight",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 4,
+     "dps": 43367.91598612462,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Tidal Knight",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 1.9933423189228563,
+     "dps": 88658.78579131607,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Umbral Knight",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 11.226681268249642,
+     "dps": 24098.28431217352,
+     "deaths": ""
+    }
+   ]
+  },
+  {
+   "scenario": "guild_regulars",
+   "profile": "owner",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Guild Warrior",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 10.967193053152743,
+     "dps": 11752.487476647972,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Support",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 6.459944359776917,
+     "dps": 24846.658386712214,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Defender",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 4.33,
+     "dps": 25912.678558272826,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Magician",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 6.8200052264967,
+     "dps": 16427.485542334853,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Chamberlain",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 6.283756533120873,
+     "dps": 23122.104021797804,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Master",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 12.781878266560438,
+     "dps": 21807.0443486892,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Detector",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 0.921878266560437,
+     "dps": 30187.21884204819,
+     "deaths": ""
+    }
+   ]
+  },
+  {
+   "scenario": "guild_regulars",
+   "profile": "minimum",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Guild Warrior",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 6.377875754868691,
+     "dps": 18475.619276662685,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Support",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 3.712875754868691,
+     "dps": 35942.75271251559,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Defender",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 1.908601207789906,
+     "dps": 58433.23703612579,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Magician",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 4.480725452921215,
+     "dps": 25256.83183763934,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Chamberlain",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 4,
+     "dps": 33696.447455386646,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Master",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 10.748601207789907,
+     "dps": 26590.53731202621,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Detector",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 0.8728757548686911,
+     "dps": 38732.25673036119,
+     "deaths": ""
+    }
+   ]
+  },
+  {
+   "scenario": "guild_regulars",
+   "profile": "minimum-loki",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Guild Warrior",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 7.283601207789905,
+     "dps": 16750.265336771125,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Support",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 3.79,
+     "dps": 34299.98666412081,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Defender",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 2.068601207789906,
+     "dps": 50647.92062211463,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Magician",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 4.488601207789905,
+     "dps": 24214.68337205332,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Chamberlain",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 4.428601207789906,
+     "dps": 31025.053727268394,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Master",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 11.664352717527288,
+     "dps": 25608.704826562695,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Detector",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 0.8728757548686911,
+     "dps": 37555.792167669664,
+     "deaths": ""
+    }
+   ]
+  },
+  {
+   "scenario": "guild_regulars",
+   "profile": "budget",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Guild Warrior",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 7.763601207789905,
+     "dps": 14941.857716965185,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Support",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 4.588601207789906,
+     "dps": 29608.032673447593,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Defender",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 3.3486012077899057,
+     "dps": 33064.49441709106,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Magician",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 5.652875754868691,
+     "dps": 20565.10878189678,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Chamberlain",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 4.588601207789906,
+     "dps": 29844.770553453865,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Master",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 10.748601207789907,
+     "dps": 26904.164490089268,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Detector",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 0.8728757548686911,
+     "dps": 43670.95933340022,
+     "deaths": ""
+    }
+   ]
+  },
+  {
+   "scenario": "guild_regulars",
+   "profile": "allround",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Guild Warrior",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 4.6482979313584405,
+     "dps": 22982.567577211812,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Support",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 4.6482979313584405,
+     "dps": 28230.048336820808,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Defender",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 4,
+     "dps": 28858.455924468213,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Magician",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 6.10329793135844,
+     "dps": 18914.877400383026,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Chamberlain",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 5.22,
+     "dps": 25624.15451642432,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Master",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 11.770558621297075,
+     "dps": 25652.832678181454,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Detector",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 0.9101862070990253,
+     "dps": 40000.56603111134,
+     "deaths": ""
+    }
+   ]
+  },
+  {
+   "scenario": "guild_regulars",
+   "profile": "standard",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Guild Warrior",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 6.9358020044568285,
+     "dps": 18641.449456362432,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Support",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 1.8918020044568287,
+     "dps": 72618.69963914635,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Defender",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 1.7118020044568287,
+     "dps": 70461.1454465693,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Magician",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 3.822438126392759,
+     "dps": 35018.99052232575,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Chamberlain",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 1.8918020044568287,
+     "dps": 72885.13129704614,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Master",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 5.193851503342621,
+     "dps": 58629.27968506867,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Detector",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 0.7548762527855178,
+     "dps": 41394.824812200226,
+     "deaths": ""
+    }
+   ]
+  },
+  {
+   "scenario": "guild_regulars",
+   "profile": "standard-rings",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Guild Warrior",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 6.755802004456829,
+     "dps": 18799.7185175591,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Support",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 1.8918020044568287,
+     "dps": 77054.88624906806,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Defender",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 1.3343638780640696,
+     "dps": 86749.78997751253,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Magician",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 3.6898020044568285,
+     "dps": 36406.09366847867,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Chamberlain",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 1.8918020044568287,
+     "dps": 77275.8531079066,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Master",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 5.193851503342621,
+     "dps": 61972.455275790904,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Detector",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 0.7548762527855178,
+     "dps": 44484.89302127367,
+     "deaths": ""
+    }
+   ]
+  },
+  {
+   "scenario": "guild_regulars",
+   "profile": "endgame",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Guild Warrior",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 1.4533423189228563,
+     "dps": 75930.89160235868,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Support",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 1.6333423189228562,
+     "dps": 91583.96017652353,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Defender",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 1.4533423189228563,
+     "dps": 82883.79668425141,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Magician",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 3.431342318922856,
+     "dps": 38905.28581859404,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Chamberlain",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 1.6333423189228562,
+     "dps": 92093.52570723214,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Master",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 6.210011793586249,
+     "dps": 50130.0121504101,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Detector",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 0.7733389493267853,
+     "dps": 77662.75446714924,
+     "deaths": ""
+    }
+   ]
+  },
+  {
+   "scenario": "ymir",
+   "profile": "owner",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Soul of Ymir",
+     "dummy": false,
+     "winRate": 0.03333333333333333,
+     "lossRate": 0.9533333333333334,
+     "ttk": 217.2000052264967,
+     "dps": 7584.449385637425,
+     "deaths": "Chain Lightning x235, Dragon Breath x34"
+    },
+    {
+     "variant": "as is",
+     "target": "Ymir Emperium",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 111.13682262633735,
+     "dps": 10.564592030209656,
+     "deaths": ""
+    }
+   ]
+  },
+  {
+   "scenario": "ymir",
+   "profile": "minimum",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Soul of Ymir",
+     "dummy": false,
+     "winRate": 0,
+     "lossRate": 0.38333333333333336,
+     "ttk": null,
+     "dps": 10282.599384575899,
+     "deaths": "Chain Lightning x64, Dragon Breath x39"
+    },
+    {
+     "variant": "as is",
+     "target": "Ymir Emperium",
+     "dummy": false,
+     "winRate": 0.6033333333333334,
+     "lossRate": 0,
+     "ttk": 166.04339180275156,
+     "dps": 7.463726189808971,
+     "deaths": ""
+    }
+   ]
+  },
+  {
+   "scenario": "ymir",
+   "profile": "minimum-loki",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Soul of Ymir",
+     "dummy": false,
+     "winRate": 0,
+     "lossRate": 0.3566666666666667,
+     "ttk": null,
+     "dps": 9655.521777748163,
+     "deaths": "Chain Lightning x61, Dragon Breath x35"
+    },
+    {
+     "variant": "as is",
+     "target": "Ymir Emperium",
+     "dummy": false,
+     "winRate": 0.6033333333333334,
+     "lossRate": 0,
+     "ttk": 166.04339180275156,
+     "dps": 7.463726189808971,
+     "deaths": ""
+    }
+   ]
+  },
+  {
+   "scenario": "ymir",
+   "profile": "budget",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Soul of Ymir",
+     "dummy": false,
+     "winRate": 0.0033333333333333335,
+     "lossRate": 0.25333333333333335,
+     "ttk": 182.71526056816168,
+     "dps": 9987.877105476677,
+     "deaths": "Dragon Breath x35, Chain Lightning x31"
+    },
+    {
+     "variant": "as is",
+     "target": "Ymir Emperium",
+     "dummy": false,
+     "winRate": 0.13666666666666666,
+     "lossRate": 0,
+     "ttk": 166.54082968018588,
+     "dps": 8.724969490435905,
+     "deaths": ""
+    }
+   ]
+  },
+  {
+   "scenario": "ymir",
+   "profile": "allround",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Soul of Ymir",
+     "dummy": false,
+     "winRate": 0,
+     "lossRate": 0.18666666666666668,
+     "ttk": null,
+     "dps": 9532.078247107838,
+     "deaths": "Dragon Breath x50, Chain Lightning x5"
+    },
+    {
+     "variant": "as is",
+     "target": "Ymir Emperium",
+     "dummy": false,
+     "winRate": 0.06,
+     "lossRate": 0,
+     "ttk": 176.7,
+     "dps": 7.329460867998453,
+     "deaths": ""
+    }
+   ]
+  },
+  {
+   "scenario": "ymir",
+   "profile": "standard",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Soul of Ymir",
+     "dummy": false,
+     "winRate": 0.016666666666666666,
+     "lossRate": 0.18,
+     "ttk": 94.32515115536215,
+     "dps": 18037.400427915407,
+     "deaths": "Dragon Breath x45, Comet x5"
+    },
+    {
+     "variant": "as is",
+     "target": "Ymir Emperium",
+     "dummy": false,
+     "winRate": 0.07,
+     "lossRate": 0,
+     "ttk": 249.50843812639275,
+     "dps": 5.2318492157330585,
+     "deaths": ""
+    }
+   ]
+  },
+  {
+   "scenario": "ymir",
+   "profile": "standard-rings",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Soul of Ymir",
+     "dummy": false,
+     "winRate": 0.006666666666666667,
+     "lossRate": 0.13666666666666666,
+     "ttk": 107.27266353008358,
+     "dps": 18896.18316913892,
+     "deaths": "Dragon Breath x37, Comet x4"
+    },
+    {
+     "variant": "as is",
+     "target": "Ymir Emperium",
+     "dummy": false,
+     "winRate": 0.04666666666666667,
+     "lossRate": 0,
+     "ttk": 268.63059664533426,
+     "dps": 4.871123498418517,
+     "deaths": ""
+    }
+   ]
+  },
+  {
+   "scenario": "ymir",
+   "profile": "endgame",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Soul of Ymir",
+     "dummy": false,
+     "winRate": 0.02,
+     "lossRate": 0.24333333333333335,
+     "ttk": 161.28242655882457,
+     "dps": 10665.228069811368,
+     "deaths": "Dragon Breath x56, Chain Lightning x10"
+    },
+    {
+     "variant": "as is",
+     "target": "Ymir Emperium",
+     "dummy": false,
+     "winRate": 0.4266666666666667,
+     "lossRate": 0,
+     "ttk": 217.52736759089336,
+     "dps": 5.7477141520482125,
+     "deaths": ""
+    }
+   ]
+  },
+  {
+   "scenario": "elite",
+   "profile": "owner",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Burning Fury",
+     "dummy": false,
+     "winRate": 0.01,
+     "lossRate": 0.99,
+     "ttk": 23.643,
+     "dps": 14274.757325816885,
+     "deaths": "Critical Slash x265, Knuckle Arrow x25"
+    },
+    {
+     "variant": "as is",
+     "target": "Heartless",
+     "dummy": false,
+     "winRate": 0.023333333333333334,
+     "lossRate": 0.9766666666666667,
+     "ttk": 24.502634799681314,
+     "dps": 19295.72136134401,
+     "deaths": "Magnus Exorcismus x148, Critical Slash x106"
+    },
+    {
+     "variant": "as is",
+     "target": "Tornado Knight",
+     "dummy": false,
+     "winRate": 0.8633333333333333,
+     "lossRate": 0.10666666666666667,
+     "ttk": 47.668518292738455,
+     "dps": 4441.976247438059,
+     "deaths": "Vampire Gift x16, Tornado Knight: attack x12"
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Master",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 12.781878266560438,
+     "dps": 21807.0443486892,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Desperate Njord",
+     "dummy": false,
+     "winRate": 0,
+     "lossRate": 1,
+     "ttk": null,
+     "dps": 1432.295356976803,
+     "deaths": "Desperate Njord: attack x126, Njord Zealot: Fire Storm x88"
+    },
+    {
+     "variant": "as is",
+     "target": "King Schmidt",
+     "dummy": false,
+     "winRate": 0,
+     "lossRate": 1,
+     "ttk": null,
+     "dps": 13297.521185818912,
+     "deaths": "King Schmidt: attack x217, Pulse Strike x42"
+    },
+    {
+     "variant": "as is",
+     "target": "Soul of Ymir",
+     "dummy": false,
+     "winRate": 0.03333333333333333,
+     "lossRate": 0.9533333333333334,
+     "ttk": 217.2000052264967,
+     "dps": 7584.449385637425,
+     "deaths": "Chain Lightning x235, Dragon Breath x34"
+    }
+   ]
+  },
+  {
+   "scenario": "elite",
+   "profile": "minimum",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Burning Fury",
+     "dummy": false,
+     "winRate": 0.7633333333333333,
+     "lossRate": 0.23666666666666666,
+     "ttk": 16.250437877434347,
+     "dps": 21481.274802473163,
+     "deaths": "Knuckle Arrow x62, Sonic Wave x6"
+    },
+    {
+     "variant": "as is",
+     "target": "Heartless",
+     "dummy": false,
+     "winRate": 0.6433333333333333,
+     "lossRate": 0.3566666666666667,
+     "ttk": 19.0704769626586,
+     "dps": 23842.26161245686,
+     "deaths": "Critical Slash x87, Knuckle Arrow x19"
+    },
+    {
+     "variant": "as is",
+     "target": "Tornado Knight",
+     "dummy": false,
+     "winRate": 0.37,
+     "lossRate": 0.04,
+     "ttk": 37.01840483115963,
+     "dps": 5341.185052000679,
+     "deaths": "Vampire Gift x6, Wind Blade x6"
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Master",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 10.748601207789907,
+     "dps": 26590.53731202621,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Desperate Njord",
+     "dummy": false,
+     "winRate": 0,
+     "lossRate": 1,
+     "ttk": null,
+     "dps": 2015.8209152863085,
+     "deaths": "Njord Zealot: Fire Storm x124, Njord Zealot: Flaming Petals x79"
+    },
+    {
+     "variant": "as is",
+     "target": "King Schmidt",
+     "dummy": false,
+     "winRate": 0,
+     "lossRate": 0.9933333333333333,
+     "ttk": null,
+     "dps": 17450.040651519328,
+     "deaths": "Cannon Spear x137, King Schmidt: attack x88"
+    },
+    {
+     "variant": "as is",
+     "target": "Soul of Ymir",
+     "dummy": false,
+     "winRate": 0,
+     "lossRate": 0.38333333333333336,
+     "ttk": null,
+     "dps": 10282.599384575899,
+     "deaths": "Chain Lightning x64, Dragon Breath x39"
+    }
+   ]
+  },
+  {
+   "scenario": "elite",
+   "profile": "minimum-loki",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Burning Fury",
+     "dummy": false,
+     "winRate": 0.7733333333333333,
+     "lossRate": 0.22333333333333333,
+     "ttk": 19.446751509737382,
+     "dps": 18984.614896593594,
+     "deaths": "Knuckle Arrow x56, Sonic Wave x6"
+    },
+    {
+     "variant": "as is",
+     "target": "Heartless",
+     "dummy": false,
+     "winRate": 0.5966666666666667,
+     "lossRate": 0.3933333333333333,
+     "ttk": 22.428601207789907,
+     "dps": 21287.33049608521,
+     "deaths": "Critical Slash x110, Knuckle Arrow x7"
+    },
+    {
+     "variant": "as is",
+     "target": "Tornado Knight",
+     "dummy": false,
+     "winRate": 0.48,
+     "lossRate": 0.06666666666666667,
+     "ttk": 37.90475150973738,
+     "dps": 5276.611823507941,
+     "deaths": "Wind Blade x9, Vampire Gift x9"
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Master",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 11.664352717527288,
+     "dps": 25608.704826562695,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Desperate Njord",
+     "dummy": false,
+     "winRate": 0,
+     "lossRate": 1,
+     "ttk": null,
+     "dps": 1771.1934488988682,
+     "deaths": "Njord Zealot: Fire Storm x134, Njord Zealot: Flaming Petals x54"
+    },
+    {
+     "variant": "as is",
+     "target": "King Schmidt",
+     "dummy": false,
+     "winRate": 0,
+     "lossRate": 0.9933333333333333,
+     "ttk": null,
+     "dps": 16038.903094234971,
+     "deaths": "Cannon Spear x134, King Schmidt: attack x93"
+    },
+    {
+     "variant": "as is",
+     "target": "Soul of Ymir",
+     "dummy": false,
+     "winRate": 0,
+     "lossRate": 0.3566666666666667,
+     "ttk": null,
+     "dps": 9655.521777748163,
+     "deaths": "Chain Lightning x61, Dragon Breath x35"
+    }
+   ]
+  },
+  {
+   "scenario": "elite",
+   "profile": "budget",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Burning Fury",
+     "dummy": false,
+     "winRate": 0.84,
+     "lossRate": 0.10666666666666667,
+     "ttk": 19.04157515097374,
+     "dps": 19633.320732788747,
+     "deaths": "Knuckle Arrow x22, Critical Slash x8"
+    },
+    {
+     "variant": "as is",
+     "target": "Heartless",
+     "dummy": false,
+     "winRate": 0.4633333333333333,
+     "lossRate": 0.47,
+     "ttk": 24.917,
+     "dps": 18407.672096449154,
+     "deaths": "Critical Slash x125, Knuckle Arrow x11"
+    },
+    {
+     "variant": "as is",
+     "target": "Tornado Knight",
+     "dummy": false,
+     "winRate": 0.26666666666666666,
+     "lossRate": 0.1,
+     "ttk": 37.355202415579804,
+     "dps": 4945.024765185823,
+     "deaths": "Wind Blade x25, Vampire Gift x4"
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Master",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 10.748601207789907,
+     "dps": 26904.164490089268,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Desperate Njord",
+     "dummy": false,
+     "winRate": 0,
+     "lossRate": 1,
+     "ttk": null,
+     "dps": 1797.6753294246719,
+     "deaths": "Njord Zealot: Fire Storm x134, Njord Zealot: Flaming Petals x56"
+    },
+    {
+     "variant": "as is",
+     "target": "King Schmidt",
+     "dummy": false,
+     "winRate": 0,
+     "lossRate": 0.9866666666666667,
+     "ttk": null,
+     "dps": 16151.817575256471,
+     "deaths": "Cannon Spear x136, Pulse Strike x86"
+    },
+    {
+     "variant": "as is",
+     "target": "Soul of Ymir",
+     "dummy": false,
+     "winRate": 0.0033333333333333335,
+     "lossRate": 0.25333333333333335,
+     "ttk": 182.71526056816168,
+     "dps": 9987.877105476677,
+     "deaths": "Dragon Breath x35, Chain Lightning x31"
+    }
+   ]
+  },
+  {
+   "scenario": "elite",
+   "profile": "allround",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Burning Fury",
+     "dummy": false,
+     "winRate": 0.4066666666666667,
+     "lossRate": 0.06333333333333334,
+     "ttk": 20.221186207099024,
+     "dps": 18905.43698922563,
+     "deaths": "Knuckle Arrow x18, Critical Slash x1"
+    },
+    {
+     "variant": "as is",
+     "target": "Heartless",
+     "dummy": false,
+     "winRate": 0.46,
+     "lossRate": 0.33666666666666667,
+     "ttk": 27.982186207099026,
+     "dps": 17135.349778002816,
+     "deaths": "Critical Slash x91, Knuckle Arrow x7"
+    },
+    {
+     "variant": "as is",
+     "target": "Tornado Knight",
+     "dummy": false,
+     "winRate": 0.05333333333333334,
+     "lossRate": 0.023333333333333334,
+     "ttk": 39.39587517336542,
+     "dps": 4651.985988564459,
+     "deaths": "Lord of Vermilion x4, Wind Blade x3"
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Master",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 11.770558621297075,
+     "dps": 25652.832678181454,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Desperate Njord",
+     "dummy": false,
+     "winRate": 0,
+     "lossRate": 1,
+     "ttk": null,
+     "dps": 1598.554667669989,
+     "deaths": "Njord Zealot: Fire Storm x154, Njord Zealot: Flaming Petals x57"
+    },
+    {
+     "variant": "as is",
+     "target": "King Schmidt",
+     "dummy": false,
+     "winRate": 0,
+     "lossRate": 0.97,
+     "ttk": null,
+     "dps": 15089.074457658824,
+     "deaths": "Cannon Spear x146, Pulse Strike x90"
+    },
+    {
+     "variant": "as is",
+     "target": "Soul of Ymir",
+     "dummy": false,
+     "winRate": 0,
+     "lossRate": 0.18666666666666668,
+     "ttk": null,
+     "dps": 9532.078247107838,
+     "deaths": "Dragon Breath x50, Chain Lightning x5"
+    }
+   ]
+  },
+  {
+   "scenario": "elite",
+   "profile": "standard",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Burning Fury",
+     "dummy": false,
+     "winRate": 0.9766666666666667,
+     "lossRate": 0.023333333333333334,
+     "ttk": 9.475438126392758,
+     "dps": 40015.12351160062,
+     "deaths": "Burning Fury: attack x5, Sonic Wave x1"
+    },
+    {
+     "variant": "as is",
+     "target": "Heartless",
+     "dummy": false,
+     "winRate": 0.96,
+     "lossRate": 0.03,
+     "ttk": 17.354240130849586,
+     "dps": 28012.912491892122,
+     "deaths": "Knuckle Arrow x4, Heartless: attack x4"
+    },
+    {
+     "variant": "as is",
+     "target": "Tornado Knight",
+     "dummy": false,
+     "winRate": 0.7133333333333334,
+     "lossRate": 0.07333333333333333,
+     "ttk": 15.846190631963795,
+     "dps": 11364.535512274655,
+     "deaths": "Vampire Gift x11, Lord of Vermilion x7"
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Master",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 5.193851503342621,
+     "dps": 58629.27968506867,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Desperate Njord",
+     "dummy": false,
+     "winRate": 0,
+     "lossRate": 1,
+     "ttk": null,
+     "dps": 3330.2496079281605,
+     "deaths": "Njord Zealot: Fire Storm x104, Njord Zealot: attack x37"
+    },
+    {
+     "variant": "as is",
+     "target": "King Schmidt",
+     "dummy": false,
+     "winRate": 0,
+     "lossRate": 0.93,
+     "ttk": null,
+     "dps": 28595.109719946184,
+     "deaths": "Pulse Strike x188, Cannon Spear x74"
+    },
+    {
+     "variant": "as is",
+     "target": "Soul of Ymir",
+     "dummy": false,
+     "winRate": 0.016666666666666666,
+     "lossRate": 0.18,
+     "ttk": 94.32515115536215,
+     "dps": 18037.400427915407,
+     "deaths": "Dragon Breath x45, Comet x5"
+    }
+   ]
+  },
+  {
+   "scenario": "elite",
+   "profile": "standard-rings",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Burning Fury",
+     "dummy": false,
+     "winRate": 0.98,
+     "lossRate": 0.02,
+     "ttk": 9.354165882520897,
+     "dps": 40626.832512336514,
+     "deaths": "Burning Fury: attack x5, Sonic Wave x1"
+    },
+    {
+     "variant": "as is",
+     "target": "Heartless",
+     "dummy": false,
+     "winRate": 0.8066666666666666,
+     "lossRate": 0.06333333333333334,
+     "ttk": 16.61148762527855,
+     "dps": 28738.42638201292,
+     "deaths": "Knuckle Arrow x12, Heartless: attack x5"
+    },
+    {
+     "variant": "as is",
+     "target": "Tornado Knight",
+     "dummy": false,
+     "winRate": 0.7466666666666667,
+     "lossRate": 0.05333333333333334,
+     "ttk": 17.54180200445683,
+     "dps": 11400.727564204295,
+     "deaths": "Vampire Gift x14, Wind Blade x2"
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Master",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 5.193851503342621,
+     "dps": 61972.455275790904,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Desperate Njord",
+     "dummy": false,
+     "winRate": 0,
+     "lossRate": 1,
+     "ttk": null,
+     "dps": 3380.933159309786,
+     "deaths": "Njord Zealot: Fire Storm x108, Desperate Njord: attack x34"
+    },
+    {
+     "variant": "as is",
+     "target": "King Schmidt",
+     "dummy": false,
+     "winRate": 0,
+     "lossRate": 0.8666666666666667,
+     "ttk": null,
+     "dps": 29480.996238253796,
+     "deaths": "Pulse Strike x170, Cannon Spear x73"
+    },
+    {
+     "variant": "as is",
+     "target": "Soul of Ymir",
+     "dummy": false,
+     "winRate": 0.006666666666666667,
+     "lossRate": 0.13666666666666666,
+     "ttk": 107.27266353008358,
+     "dps": 18896.18316913892,
+     "deaths": "Dragon Breath x37, Comet x4"
+    }
+   ]
+  },
+  {
+   "scenario": "elite",
+   "profile": "endgame",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Burning Fury",
+     "dummy": false,
+     "winRate": 0.92,
+     "lossRate": 0.08,
+     "ttk": 9.583003369596073,
+     "dps": 37811.22316623445,
+     "deaths": "Knuckle Arrow x21, Burning Fury: attack x3"
+    },
+    {
+     "variant": "as is",
+     "target": "Heartless",
+     "dummy": false,
+     "winRate": 0.99,
+     "lossRate": 0.01,
+     "ttk": 12.415,
+     "dps": 37024.133287039585,
+     "deaths": "Knuckle Arrow x3"
+    },
+    {
+     "variant": "as is",
+     "target": "Tornado Knight",
+     "dummy": false,
+     "winRate": 0.5766666666666667,
+     "lossRate": 0.19333333333333333,
+     "ttk": 25.369028641566608,
+     "dps": 7814.373718089105,
+     "deaths": "Vampire Gift x56, Wind Blade x2"
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Master",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 6.210011793586249,
+     "dps": 50130.0121504101,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Desperate Njord",
+     "dummy": false,
+     "winRate": 0,
+     "lossRate": 1,
+     "ttk": null,
+     "dps": 3200.5262362733906,
+     "deaths": "Njord Zealot: Fire Storm x100, Desperate Njord: attack x40"
+    },
+    {
+     "variant": "as is",
+     "target": "King Schmidt",
+     "dummy": false,
+     "winRate": 0,
+     "lossRate": 0.9766666666666667,
+     "ttk": null,
+     "dps": 23962.793453993163,
+     "deaths": "Pulse Strike x159, Cannon Spear x79"
+    },
+    {
+     "variant": "as is",
+     "target": "Soul of Ymir",
+     "dummy": false,
+     "winRate": 0.02,
+     "lossRate": 0.24333333333333335,
+     "ttk": 161.28242655882457,
+     "dps": 10665.228069811368,
+     "deaths": "Dragon Breath x56, Chain Lightning x10"
+    }
+   ]
+  }
+ ]
+}

@@ -77,6 +77,11 @@ def _is_flag_phrase(line: str) -> bool:
     text = line.strip().rstrip(".")
     if not text or re.search(r"\d", text):
         return False
+    # "Immune to Silence" is whole (a 100% resistance); joined, it swallowed
+    # the line below ("Immune to Silence ATK/MATK +1%", Voice of Sorrow Card)
+    # and both halves were lost.
+    if re.match(r"immune to \w", text, re.I):
+        return True
     keys = stat_registry.resolve(text).get("stat_keys") or []
     return bool(keys) and all(k in stat_registry.FLAG_KEYS for k in keys)
 

@@ -5788,7 +5788,20 @@
   "members_text": "Armor, Boots, Cape and Helm",
   "set_bonus": [
    {
-    "text": "Immune to Knockback Regenerates 5 SP per second",
+    "text": "Immune to Knockback",
+    "stat": "Immune to Knockback",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     138
+    ],
+    "stat_keys": [
+     "prevents_knockback"
+    ]
+   },
+   {
+    "text": "Regenerates 5 SP per second",
     "parsed": false
    }
   ],
@@ -9476,13 +9489,30 @@
   "members_text": null,
   "set_bonus": [
    {
-    "text": "Immune to Knockback ATK-15",
-    "stat": "Immune to Knockback ATK",
+    "text": "Immune to Knockback",
+    "stat": "Immune to Knockback",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     138
+    ],
+    "stat_keys": [
+     "prevents_knockback"
+    ]
+   },
+   {
+    "text": "ATK-15",
+    "stat": "ATK",
     "value": -15,
     "unit": null,
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     10
+    ],
+    "stat_keys": [
+     "atk"
+    ]
    },
    {
     "text": "MATK-15",

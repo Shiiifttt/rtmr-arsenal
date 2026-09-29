@@ -1,0 +1,337 @@
+{
+  "name": "Satsujin baseline: standard tier",
+  "_about": "Roadmap standard tier: +9 and MVP drops, legal stats (STR 99 AGI 89 VIT 33 INT 4 DEX 64 LUK 49). Swaps the Moonless Gem for Hidden Gem of Silence +6; flee dropped for burst.",
+  "baseLevel": 136,
+  "weaponRaceMatch": true,
+  "build": {
+    "className": "Satsujin",
+    "baseLevel": 130,
+    "baseStats": {
+      "str": 99,
+      "agi": 89,
+      "vit": 33,
+      "int": 4,
+      "dex": 64,
+      "luk": 49
+    },
+    "manual": {
+      "flee": 70
+    },
+    "slots": {
+      "upper": {
+        "itemId": 31221,
+        "refine": 9,
+        "cards": [
+          13586,
+          13608
+        ]
+      },
+      "middle": {
+        "itemId": 18550,
+        "refine": 0,
+        "cards": [
+          13626
+        ],
+        "rolls": {
+          "stat": {
+            "option": "str",
+            "values": [
+              1
+            ]
+          }
+        }
+      },
+      "lower": {
+        "itemId": 5926,
+        "refine": 8,
+        "cards": [
+          13728,
+          13728
+        ],
+        "rolls": {
+          "stat": {
+            "option": "vit",
+            "values": [
+              1
+            ]
+          }
+        }
+      },
+      "armor": {
+        "itemId": 15391,
+        "refine": 9,
+        "cards": [
+          13583
+        ],
+        "rolls": {
+          "stat": {
+            "option": "str",
+            "values": [
+              1
+            ]
+          },
+          "resource": {
+            "option": "max_hp",
+            "values": [
+              3
+            ]
+          },
+          "mitigation": {
+            "option": "physical_reduced",
+            "values": [
+              2
+            ]
+          }
+        }
+      },
+      "weapon": {
+        "itemId": 13094,
+        "refine": 9,
+        "cards": [
+          4392,
+          4392,
+          4392
+        ],
+        "rolls": {
+          "roll2": {
+            "option": "sp_cost_reduced",
+            "values": [
+              10
+            ]
+          },
+          "roll3": {
+            "option": "melee_damage",
+            "values": [
+              9
+            ]
+          }
+        }
+      },
+      "offhand": {
+        "itemId": 13063,
+        "refine": 9,
+        "cards": [
+          4399
+        ],
+        "rolls": {
+          "roll1": {
+            "option": "max_hp",
+            "values": [
+              2
+            ]
+          },
+          "roll2": {
+            "option": "sp_cost_reduced",
+            "values": [
+              5
+            ]
+          },
+          "roll3": {
+            "option": "magic_damage",
+            "values": [
+              5
+            ]
+          },
+          "roll4": {
+            "option": "hp_gained_per_hit",
+            "values": [
+              2
+            ]
+          }
+        }
+      },
+      "garment": {
+        "itemId": 15434,
+        "refine": 9,
+        "cards": [
+          4608,
+          4608
+        ],
+        "rolls": {
+          "stat": {
+            "option": "str",
+            "values": [
+              1
+            ]
+          },
+          "evasion": {
+            "option": "flee",
+            "values": [
+              7
+            ]
+          },
+          "sustain": {
+            "option": "hp_leech",
+            "values": [
+              15,
+              1
+            ]
+          }
+        }
+      },
+      "shoes": {
+        "itemId": 15428,
+        "refine": 6,
+        "cards": [
+          13716
+        ],
+        "rolls": {
+          "stat": {
+            "option": "str",
+            "values": [
+              1
+            ]
+          },
+          "speed": {
+            "option": "aspd",
+            "values": [
+              7
+            ]
+          },
+          "casting": {
+            "option": "after_cast_delay",
+            "values": [
+              7
+            ]
+          }
+        }
+      },
+      "acc1": {
+        "itemId": 2629,
+        "refine": 0,
+        "cards": []
+      },
+      "acc2": {
+        "itemId": 2671,
+        "refine": 0,
+        "cards": [
+          4430
+        ]
+      },
+      "gem": {
+        "itemId": 903086,
+        "refine": 6,
+        "cards": []
+      },
+      "sh_armor": {
+        "itemId": 28072,
+        "refine": 9,
+        "cards": [],
+        "rolls": {
+          "stat": {
+            "option": "str",
+            "values": [
+              1
+            ]
+          }
+        }
+      },
+      "sh_shoes": {
+        "itemId": 28074,
+        "refine": 9,
+        "cards": [],
+        "rolls": {
+          "stat": {
+            "option": "str",
+            "values": [
+              1
+            ]
+          }
+        }
+      },
+      "sh_gloves": {
+        "itemId": 28073,
+        "refine": 9,
+        "cards": [],
+        "rolls": {
+          "stat": {
+            "option": "str",
+            "values": [
+              1
+            ]
+          }
+        }
+      },
+      "sh_acc": {
+        "itemId": 28075,
+        "refine": 9,
+        "cards": [],
+        "rolls": {
+          "stat": {
+            "option": "str",
+            "values": [
+              1
+            ]
+          }
+        }
+      },
+      "sh_manual": {
+        "itemId": 24021,
+        "refine": 0,
+        "cards": [],
+        "rolls": {
+          "stat": {
+            "option": "agi",
+            "values": [
+              1
+            ]
+          }
+        }
+      },
+      "runeorb": {
+        "itemId": 24162,
+        "refine": 9,
+        "cards": [],
+        "rolls": {
+          "stat": {
+            "option": "str",
+            "values": [
+              1
+            ]
+          }
+        }
+      }
+    }
+  },
+  "options": {
+    "slashOpener": true,
+    "backStab": false,
+    "seedTalisman": false,
+    "weaveMs": 0,
+    "mobility": "server",
+    "kite": true,
+    "tankShare": 0.6,
+    "order": [
+      "Stay hidden",
+      "Predict Kawarimi",
+      "Moon guard",
+      "Pull it off the ward",
+      "Morroc's Mark",
+      "Hallucination Walk",
+      "Full Moon",
+      "Omamori Jutsu",
+      "Million Stab",
+      "New Moon",
+      "Thousand Arms",
+      "Dragon Omamori",
+      "Shadow Slash",
+      "Back Stab",
+      "Lotus Pact",
+      "Attack",
+      "Wait for swing"
+    ]
+  },
+  "measured": {
+    "windowAtk": [
+      172,
+      83
+    ],
+    "windowMatk": [
+      132,
+      62
+    ],
+    "fleeOffset": -27,
+    "mdefOffset": 6,
+    "hpScale": 1.152
+  }
+}

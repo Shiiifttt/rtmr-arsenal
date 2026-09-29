@@ -40,7 +40,15 @@ export interface ServerMob {
   mdef: number;
   stats: { str: number; agi: number; vit: number; int: number; dex: number; luk: number };
   attackRange: number;
+  /** View range: an aggressive monster notices you this close (mob.cpp:1710, range2). */
   skillRange: number;
+  /** It gives up the chase past this (range3). */
+  chaseRange: number;
+  /**
+   * Aegis AI type as a mode mask (mob.hpp e_aegis_monstertype): 0x1 can
+   * move, 0x4 aggressive. Ai 06 (0) when absent.
+   */
+  aiMode: number;
   size: string;
   race: string;
   element: string;
@@ -75,6 +83,13 @@ export interface AiRow {
   vals: string[];
 }
 
+/** Aegis AI types (mob.hpp e_aegis_monstertype). */
+const AI_MODES: Record<string, number> = {
+  '01': 0x81, '02': 0x83, '03': 0x1089, '04': 0x3885, '05': 0x2085, '06': 0, '07': 0x108B, '08': 0x7085,
+  '09': 0x3095, '10': 0x84, '11': 0x84, '12': 0x2085, '13': 0x308D, '17': 0x91, '19': 0x3095, '20': 0x3295,
+  '21': 0x3695, '24': 0xA1, '25': 0x1, '26': 0xB695, '27': 0x8084,
+};
+
 /**
  * mob_db.yml, read line by line: two-space "- Id:" entries, four-space
  * scalar keys, and the Modes / RaceGroups maps below them. Drops are skipped.
@@ -103,6 +118,8 @@ function parseMobDb(text: string): Map<number, ServerMob> {
       },
       attackRange: n('AttackRange'),
       skillRange: n('SkillRange'),
+      chaseRange: n('ChaseRange'),
+      aiMode: AI_MODES[cur.Ai ?? '06'] ?? 0,
       size: cur.Size ?? 'Small',
       race: cur.Race ?? 'Formless',
       element: cur.Element ?? 'Neutral',
@@ -137,14 +154,22 @@ function parseMobDb(text: string): Map<number, ServerMob> {
 
 // ---- mob_skill_db.txt ------------------------------------------------------
 
-function parseMobSkills(text: string, mobs: Map<number, ServerMob>) {
+/**
+ * The server runs a row by its skill id, not its label: Ifrit's
+ * "Ifrit@SA_LANDPROTECTOR" row is id 2299, SC_MANHOLE. Rows are named by
+ * the id where skill_db knows it, and each mismatch is listed.
+ */
+const relabelled: string[] = [];
+function parseMobSkills(text: string, mobs: Map<number, ServerMob>, idNames: Record<number, string>) {
   for (const line of text.split(/\r?\n/)) {
     if (!line.trim() || line.startsWith('//')) continue;
     const c = line.split(',');
     if (c.length < 12) continue;
     const mob = mobs.get(Number(c[0]));
     if (!mob) continue;
-    const skill = c[1].replace(/^.*@/, '');
+    const label = c[1].replace(/^.*@/, '');
+    const skill = idNames[Number(c[3])] ?? label;
+    if (skill !== label) relabelled.push(`${mob.name || c[0]} (${c[0]}): ${label} -> ${skill} (id ${c[3]})`);
     mob.skills.push({
       skill,
       skillId: Number(c[3]),
@@ -163,6 +188,19 @@ function parseMobSkills(text: string, mobs: Map<number, ServerMob>) {
 }
 
 // ---- skill_db.yml: readable names ------------------------------------------
+
+/** skill_db.yml: id -> aegis name. */
+function parseSkillIds(text: string): Record<number, string> {
+  const ids: Record<number, string> = {};
+  let id: number | null = null;
+  for (const raw of text.split(/\r?\n/)) {
+    let m = /^ {2}- Id: (\d+)/.exec(raw);
+    if (m) { id = Number(m[1]); continue; }
+    m = /^ {4}Name: (\S+)/.exec(raw);
+    if (m && id !== null) { ids[id] = m[1]; id = null; }
+  }
+  return ids;
+}
 
 function parseSkillNames(text: string): Record<string, string> {
   const names: Record<string, string> = {};
@@ -292,12 +330,49 @@ function classJobs(tree: Record<string, Set<string>>): Record<string, string> {
   return out;
 }
 
+// ---- accessory sides -------------------------------------------------------------
+
+/**
+ * item_db Locations for everything worn as an accessory, cards included:
+ * Left_Accessory / Right_Accessory / Both_Accessory as the files spell them.
+ * The client shows them mirrored, like the weapon hands: Megingjard and
+ * Despero Card are Right_Accessory here and left-only in game, drawn on the
+ * left of the equipment window (the project owner, 2026-09-28). A one-side
+ * card goes only into an accessory worn on that side alone, never into a
+ * both-sides one like Arch Ring (the owner, same day).
+ */
+function parseAccessorySides(texts: string[]): Record<string, 'left' | 'right' | 'both'> {
+  const out: Record<string, 'left' | 'right' | 'both'> = {};
+  for (const text of texts) {
+    let id: number | null = null; let inLoc = false; let locs: string[] = [];
+    const flush = () => {
+      if (id === null || !locs.some((l) => l.endsWith('_Accessory'))) return;
+      const both = locs.includes('Both_Accessory') || (locs.includes('Left_Accessory') && locs.includes('Right_Accessory'));
+      out[id] = both ? 'both' : locs.includes('Right_Accessory') ? 'left' : 'right';
+    };
+    for (const raw of text.split(/\r?\n/)) {
+      const m = /^ {2}- Id: (\d+)/.exec(raw);
+      if (m) { flush(); id = Number(m[1]); locs = []; inLoc = false; continue; }
+      if (/^ {4}Locations:/.test(raw)) { inLoc = true; continue; }
+      if (inLoc) {
+        const l = /^ {6}(\w+): true/.exec(raw);
+        if (l) { locs.push(l[1]); continue; }
+        inLoc = false;
+      }
+    }
+    flush();
+  }
+  return out;
+}
+
 // ---- out -------------------------------------------------------------------
 
 const mobs = parseMobDb(read('db/re/mob_db.yml'));
 for (const [id, m] of parseMobDb(read('db/import/mob_db.yml'))) mobs.set(id, m);
-parseMobSkills(read('db/re/mob_skill_db.txt'), mobs);
-parseMobSkills(read('db/import/mob_skill_db.txt'), mobs);
+const skillIds = parseSkillIds(read('db/re/skill_db.yml'));
+parseMobSkills(read('db/re/mob_skill_db.txt'), mobs, skillIds);
+parseMobSkills(read('db/import/mob_skill_db.txt'), mobs, skillIds);
+if (relabelled.length) console.log(`rows named by skill id, not label (${relabelled.length}):\n  ${relabelled.join('\n  ')}`);
 const skillNames = parseSkillNames(read('db/re/skill_db.yml'));
 
 if (mobs.size === 0) throw new Error(`no monsters read from ${SERVER}`);
@@ -313,6 +388,15 @@ const doc = {
   skillNames: Object.fromEntries(Object.entries(skillNames).filter(([k]) => used.has(k))),
 };
 writeFileSync(OUT, `${JSON.stringify(doc)}\n`);
+
+const sides = parseAccessorySides(['db/re/item_db_etc.yml', 'db/re/item_db_equip.yml', 'db/import/item_db.yml']
+  .map((f) => { try { return read(f); } catch { return ''; } }));
+const sidesOut = resolve(HERE, '../data/accessory-sides.json');
+writeFileSync(sidesOut, `${JSON.stringify({
+  _about: 'Generated by combat/tools/import-server.ts from the server item_db Locations: which accessory side an item or card goes on, in the CLIENT\'s words (the files spell them mirrored). A one-side card goes only into an accessory of that side alone. Items missing here are newer than the 2023 snapshot.',
+  sides,
+})}\n`);
+console.log(`${Object.keys(sides).length} accessories and accessory cards -> ${sidesOut}`);
 console.log(`${mobs.size} monsters, ${[...mobs.values()].reduce((n, m) => n + m.skills.length, 0)} skill rows -> ${OUT}`);
 
 // The element table: db/import/attr_fix.yml overrides db/re/ (the server's own, 2023-03).

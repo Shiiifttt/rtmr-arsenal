@@ -1,0 +1,853 @@
+{
+ "name": "Satsujin baselines (2026-09-28)",
+ "iter": 150,
+ "results": [
+  {
+   "scenario": "elite",
+   "profile": "owner",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Burning Fury",
+     "dummy": false,
+     "winRate": 0.013333333333333334,
+     "lossRate": 0.9866666666666667,
+     "ttk": 25.073187826656046,
+     "dps": 14328.040465042843,
+     "deaths": "Critical Slash x132, Knuckle Arrow x12"
+    },
+    {
+     "variant": "as is",
+     "target": "Heartless",
+     "dummy": false,
+     "winRate": 0.013333333333333334,
+     "lossRate": 0.9866666666666667,
+     "ttk": 25.473756533120874,
+     "dps": 19300.904777017688,
+     "deaths": "Magnus Exorcismus x84, Critical Slash x48"
+    },
+    {
+     "variant": "as is",
+     "target": "Tornado Knight",
+     "dummy": false,
+     "winRate": 0.7933333333333333,
+     "lossRate": 0.16666666666666666,
+     "ttk": 46.76264002617801,
+     "dps": 4438.569507329079,
+     "deaths": "Wind Blade x12, Vampire Gift x8"
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Master",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 12.781878266560438,
+     "dps": 21973.880361681848,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Desperate Njord",
+     "dummy": false,
+     "winRate": 0,
+     "lossRate": 1,
+     "ttk": null,
+     "dps": 1296.7582989964003,
+     "deaths": "Desperate Njord: attack x65, Njord Zealot: Fire Storm x41"
+    },
+    {
+     "variant": "as is",
+     "target": "King Schmidt",
+     "dummy": false,
+     "winRate": 0,
+     "lossRate": 1,
+     "ttk": null,
+     "dps": 13310.829571542705,
+     "deaths": "King Schmidt: attack x108, Cannon Spear x22"
+    },
+    {
+     "variant": "as is",
+     "target": "Soul of Ymir",
+     "dummy": false,
+     "winRate": 0.02666666666666667,
+     "lossRate": 0.96,
+     "ttk": 219.09524009162297,
+     "dps": 7595.965689688733,
+     "deaths": "Chain Lightning x118, Dragon Breath x18"
+    }
+   ]
+  },
+  {
+   "scenario": "elite",
+   "profile": "budget",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Burning Fury",
+     "dummy": false,
+     "winRate": 0.8266666666666667,
+     "lossRate": 0.12666666666666668,
+     "ttk": 19.10657515097374,
+     "dps": 19501.731548419153,
+     "deaths": "Knuckle Arrow x13, Critical Slash x4"
+    },
+    {
+     "variant": "as is",
+     "target": "Heartless",
+     "dummy": false,
+     "winRate": 0.4533333333333333,
+     "lossRate": 0.4866666666666667,
+     "ttk": 25.328437877434347,
+     "dps": 18317.48400909364,
+     "deaths": "Critical Slash x61, Knuckle Arrow x9"
+    },
+    {
+     "variant": "as is",
+     "target": "Tornado Knight",
+     "dummy": false,
+     "winRate": 0.24,
+     "lossRate": 0.10666666666666667,
+     "ttk": 36.74576453814546,
+     "dps": 4933.398151962061,
+     "deaths": "Wind Blade x13, Vampire Gift x3"
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Master",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 10.748601207789907,
+     "dps": 26895.02341839536,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Desperate Njord",
+     "dummy": false,
+     "winRate": 0,
+     "lossRate": 1,
+     "ttk": null,
+     "dps": 1841.625974979269,
+     "deaths": "Njord Zealot: Fire Storm x70, Desperate Njord: attack x24"
+    },
+    {
+     "variant": "as is",
+     "target": "King Schmidt",
+     "dummy": false,
+     "winRate": 0,
+     "lossRate": 0.9866666666666667,
+     "ttk": null,
+     "dps": 16243.152079268686,
+     "deaths": "Cannon Spear x65, Pulse Strike x44"
+    },
+    {
+     "variant": "as is",
+     "target": "Soul of Ymir",
+     "dummy": false,
+     "winRate": 0,
+     "lossRate": 0.3,
+     "ttk": null,
+     "dps": 9994.697509871445,
+     "deaths": "Chain Lightning x19, Dragon Breath x19"
+    }
+   ]
+  },
+  {
+   "scenario": "elite",
+   "profile": "allround",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Burning Fury",
+     "dummy": false,
+     "winRate": 0.38,
+     "lossRate": 0.08,
+     "ttk": 20.459186207099023,
+     "dps": 18739.459290185987,
+     "deaths": "Knuckle Arrow x11, Critical Slash x1"
+    },
+    {
+     "variant": "as is",
+     "target": "Heartless",
+     "dummy": false,
+     "winRate": 0.4866666666666667,
+     "lossRate": 0.3466666666666667,
+     "ttk": 28.054093103549512,
+     "dps": 17041.962230658646,
+     "deaths": "Critical Slash x43, Knuckle Arrow x7"
+    },
+    {
+     "variant": "as is",
+     "target": "Tornado Knight",
+     "dummy": false,
+     "winRate": 0.05333333333333334,
+     "lossRate": 0.02,
+     "ttk": 38.76202413904464,
+     "dps": 4617.1113717557655,
+     "deaths": "Lord of Vermilion x2, Wind Blade x1"
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Master",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 11.770558621297075,
+     "dps": 25658.809476760165,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Desperate Njord",
+     "dummy": false,
+     "winRate": 0,
+     "lossRate": 1,
+     "ttk": null,
+     "dps": 1622.2584366504032,
+     "deaths": "Njord Zealot: Fire Storm x77, Njord Zealot: Flaming Petals x32"
+    },
+    {
+     "variant": "as is",
+     "target": "King Schmidt",
+     "dummy": false,
+     "winRate": 0,
+     "lossRate": 0.96,
+     "ttk": null,
+     "dps": 15050.73091924047,
+     "deaths": "Cannon Spear x75, Pulse Strike x43"
+    },
+    {
+     "variant": "as is",
+     "target": "Soul of Ymir",
+     "dummy": false,
+     "winRate": 0,
+     "lossRate": 0.21333333333333335,
+     "ttk": null,
+     "dps": 9475.40895322983,
+     "deaths": "Dragon Breath x28, Chain Lightning x4"
+    }
+   ]
+  },
+  {
+   "scenario": "elite",
+   "profile": "standard",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Burning Fury",
+     "dummy": false,
+     "winRate": 0.9933333333333333,
+     "lossRate": 0.006666666666666667,
+     "ttk": 9.451438126392759,
+     "dps": 40023.53011075192,
+     "deaths": "Burning Fury: attack x1"
+    },
+    {
+     "variant": "as is",
+     "target": "Heartless",
+     "dummy": false,
+     "winRate": 0.86,
+     "lossRate": 0.12666666666666668,
+     "ttk": 17.050876252785518,
+     "dps": 27913.68522727424,
+     "deaths": "Knuckle Arrow x14, Heartless: attack x5"
+    },
+    {
+     "variant": "as is",
+     "target": "Tornado Knight",
+     "dummy": false,
+     "winRate": 0.7266666666666667,
+     "lossRate": 0.07333333333333333,
+     "ttk": 15.477678257242346,
+     "dps": 11651.336808619875,
+     "deaths": "Vampire Gift x4, Wind Blade x4"
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Master",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 5.193851503342621,
+     "dps": 58673.24209607152,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Desperate Njord",
+     "dummy": false,
+     "winRate": 0,
+     "lossRate": 1,
+     "ttk": null,
+     "dps": 3373.9589977606483,
+     "deaths": "Njord Zealot: Fire Storm x51, Converted Zealot: Back Stab x19"
+    },
+    {
+     "variant": "as is",
+     "target": "King Schmidt",
+     "dummy": false,
+     "winRate": 0,
+     "lossRate": 0.9533333333333334,
+     "ttk": null,
+     "dps": 28739.784521474623,
+     "deaths": "Pulse Strike x97, Cannon Spear x37"
+    },
+    {
+     "variant": "as is",
+     "target": "Soul of Ymir",
+     "dummy": false,
+     "winRate": 0.02,
+     "lossRate": 0.19333333333333333,
+     "ttk": 91.59907690703344,
+     "dps": 18233.531945368224,
+     "deaths": "Dragon Breath x25, Soul of Ymir: attack x2"
+    }
+   ]
+  },
+  {
+   "scenario": "elite",
+   "profile": "standard-rings",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Burning Fury",
+     "dummy": false,
+     "winRate": 0.9933333333333333,
+     "lossRate": 0.006666666666666667,
+     "ttk": 9.356314379178277,
+     "dps": 40701.153714571556,
+     "deaths": "Burning Fury: attack x1"
+    },
+    {
+     "variant": "as is",
+     "target": "Heartless",
+     "dummy": false,
+     "winRate": 0.74,
+     "lossRate": 0.1,
+     "ttk": 16.361487625278553,
+     "dps": 28664.515787707674,
+     "deaths": "Knuckle Arrow x9, Heartless: attack x6"
+    },
+    {
+     "variant": "as is",
+     "target": "Tornado Knight",
+     "dummy": false,
+     "winRate": 0.76,
+     "lossRate": 0.06,
+     "ttk": 17.193802004456828,
+     "dps": 11533.55460583746,
+     "deaths": "Vampire Gift x8, Wind Blade x1"
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Master",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 5.193851503342621,
+     "dps": 62015.31428575492,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Desperate Njord",
+     "dummy": false,
+     "winRate": 0,
+     "lossRate": 1,
+     "ttk": null,
+     "dps": 3418.393819836349,
+     "deaths": "Njord Zealot: Fire Storm x52, Converted Zealot: Back Stab x21"
+    },
+    {
+     "variant": "as is",
+     "target": "King Schmidt",
+     "dummy": false,
+     "winRate": 0,
+     "lossRate": 0.8666666666666667,
+     "ttk": null,
+     "dps": 29933.32817302348,
+     "deaths": "Pulse Strike x86, Cannon Spear x35"
+    },
+    {
+     "variant": "as is",
+     "target": "Soul of Ymir",
+     "dummy": false,
+     "winRate": 0.006666666666666667,
+     "lossRate": 0.16,
+     "ttk": 107.27266353008358,
+     "dps": 19004.298544705885,
+     "deaths": "Dragon Breath x22, Comet x2"
+    }
+   ]
+  },
+  {
+   "scenario": "elite",
+   "profile": "endgame",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Burning Fury",
+     "dummy": false,
+     "winRate": 0.9333333333333333,
+     "lossRate": 0.06666666666666667,
+     "ttk": 9.591342318922857,
+     "dps": 37451.78629355628,
+     "deaths": "Knuckle Arrow x10"
+    },
+    {
+     "variant": "as is",
+     "target": "Heartless",
+     "dummy": false,
+     "winRate": 0.9933333333333333,
+     "lossRate": 0.006666666666666667,
+     "ttk": 12.415,
+     "dps": 37212.936569057536,
+     "deaths": "Knuckle Arrow x1"
+    },
+    {
+     "variant": "as is",
+     "target": "Tornado Knight",
+     "dummy": false,
+     "winRate": 0.52,
+     "lossRate": 0.24666666666666667,
+     "ttk": 26.104016847980358,
+     "dps": 7673.594871680612,
+     "deaths": "Vampire Gift x36, Wind Blade x1"
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Master",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 6.210011793586249,
+     "dps": 50148.69059051424,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Desperate Njord",
+     "dummy": false,
+     "winRate": 0,
+     "lossRate": 1,
+     "ttk": null,
+     "dps": 3225.6726253576753,
+     "deaths": "Njord Zealot: Fire Storm x46, Desperate Njord: attack x19"
+    },
+    {
+     "variant": "as is",
+     "target": "King Schmidt",
+     "dummy": false,
+     "winRate": 0,
+     "lossRate": 0.98,
+     "ttk": null,
+     "dps": 23945.633862875075,
+     "deaths": "Pulse Strike x82, Cannon Spear x46"
+    },
+    {
+     "variant": "as is",
+     "target": "Soul of Ymir",
+     "dummy": false,
+     "winRate": 0.02666666666666667,
+     "lossRate": 0.25333333333333335,
+     "ttk": 163.18277056254544,
+     "dps": 10775.808986477346,
+     "deaths": "Dragon Breath x24, Chain Lightning x8"
+    }
+   ]
+  },
+  {
+   "scenario": "elite",
+   "profile": "standard-paced",
+   "candidate": true,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Burning Fury",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 9.38643812639276,
+     "dps": 41033.481421943165,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Heartless",
+     "dummy": false,
+     "winRate": 0.8533333333333334,
+     "lossRate": 0.14666666666666667,
+     "ttk": 16.894,
+     "dps": 28013.306842515132,
+     "deaths": "Knuckle Arrow x14, Heartless: attack x8"
+    },
+    {
+     "variant": "as is",
+     "target": "Tornado Knight",
+     "dummy": false,
+     "winRate": 0.9533333333333334,
+     "lossRate": 0.04666666666666667,
+     "ttk": 18.14060400891366,
+     "dps": 10609.422377422894,
+     "deaths": "Vampire Gift x6, Lord of Vermilion x1"
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Master",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 5.193851503342621,
+     "dps": 58673.24209607152,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Desperate Njord",
+     "dummy": false,
+     "winRate": 0,
+     "lossRate": 1,
+     "ttk": null,
+     "dps": 3373.9589977606483,
+     "deaths": "Njord Zealot: Fire Storm x51, Converted Zealot: Back Stab x19"
+    },
+    {
+     "variant": "as is",
+     "target": "King Schmidt",
+     "dummy": false,
+     "winRate": 0,
+     "lossRate": 1,
+     "ttk": null,
+     "dps": 28370.27328892154,
+     "deaths": "Pulse Strike x97, Cannon Spear x42"
+    },
+    {
+     "variant": "as is",
+     "target": "Soul of Ymir",
+     "dummy": false,
+     "winRate": 0.9066666666666666,
+     "lossRate": 0.09333333333333334,
+     "ttk": 114.2307551642758,
+     "dps": 14495.707835501416,
+     "deaths": "Comet x9, Chain Lightning x4"
+    }
+   ]
+  },
+  {
+   "scenario": "elite",
+   "profile": "standard-laev",
+   "candidate": true,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Burning Fury",
+     "dummy": false,
+     "winRate": 0.86,
+     "lossRate": 0.14,
+     "ttk": 9.764678257242347,
+     "dps": 38928.30899630829,
+     "deaths": "Knuckle Arrow x11, Burning Fury: attack x9"
+    },
+    {
+     "variant": "as is",
+     "target": "Heartless",
+     "dummy": false,
+     "winRate": 0.76,
+     "lossRate": 0.24,
+     "ttk": 16.93950501114207,
+     "dps": 29668.294210396954,
+     "deaths": "Knuckle Arrow x33, Heartless: attack x2"
+    },
+    {
+     "variant": "as is",
+     "target": "Tornado Knight",
+     "dummy": false,
+     "winRate": 0.9933333333333333,
+     "lossRate": 0.006666666666666667,
+     "ttk": 17.603802004456828,
+     "dps": 11606.994896045102,
+     "deaths": "Vampire Gift x1"
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Master",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 6.329752505571036,
+     "dps": 49064.75670151806,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Desperate Njord",
+     "dummy": false,
+     "winRate": 0,
+     "lossRate": 1,
+     "ttk": null,
+     "dps": 3236.367336093556,
+     "deaths": "Njord Zealot: Fire Storm x47, Njord Zealot: attack x25"
+    },
+    {
+     "variant": "as is",
+     "target": "King Schmidt",
+     "dummy": false,
+     "winRate": 0,
+     "lossRate": 1,
+     "ttk": null,
+     "dps": 26723.434823196065,
+     "deaths": "Pulse Strike x109, Cannon Spear x37"
+    },
+    {
+     "variant": "as is",
+     "target": "Soul of Ymir",
+     "dummy": false,
+     "winRate": 0.9666666666666667,
+     "lossRate": 0.03333333333333333,
+     "ttk": 105.53415851894152,
+     "dps": 15636.791709701658,
+     "deaths": "Comet x2, Chain Lightning x2"
+    }
+   ]
+  },
+  {
+   "scenario": "elite",
+   "profile": "standard-laguz",
+   "candidate": true,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Burning Fury",
+     "dummy": false,
+     "winRate": 0.4533333333333333,
+     "lossRate": 0.5466666666666666,
+     "ttk": 9.365190631963795,
+     "dps": 39368.61588816684,
+     "deaths": "Knuckle Arrow x64, Burning Fury: attack x14"
+    },
+    {
+     "variant": "as is",
+     "target": "Heartless",
+     "dummy": false,
+     "winRate": 0.9,
+     "lossRate": 0.1,
+     "ttk": 16.23848762527855,
+     "dps": 29601.917540708946,
+     "deaths": "Knuckle Arrow x12, Heartless: attack x3"
+    },
+    {
+     "variant": "as is",
+     "target": "Tornado Knight",
+     "dummy": false,
+     "winRate": 0.9666666666666667,
+     "lossRate": 0.03333333333333333,
+     "ttk": 17.130462875835654,
+     "dps": 11812.814953256187,
+     "deaths": "Vampire Gift x5"
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Master",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 5.193851503342621,
+     "dps": 58673.24209607152,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Desperate Njord",
+     "dummy": false,
+     "winRate": 0,
+     "lossRate": 1,
+     "ttk": null,
+     "dps": 3406.5936209431934,
+     "deaths": "Njord Zealot: Fire Storm x51, Phantom Thrust x20"
+    },
+    {
+     "variant": "as is",
+     "target": "King Schmidt",
+     "dummy": false,
+     "winRate": 0,
+     "lossRate": 1,
+     "ttk": null,
+     "dps": 29481.9234848386,
+     "deaths": "Pulse Strike x114, Cannon Spear x33"
+    },
+    {
+     "variant": "as is",
+     "target": "Soul of Ymir",
+     "dummy": false,
+     "winRate": 0.84,
+     "lossRate": 0.16,
+     "ttk": 95.94890366093317,
+     "dps": 17321.508372194097,
+     "deaths": "Dragon Breath x10, Chain Lightning x10"
+    }
+   ]
+  },
+  {
+   "scenario": "elite",
+   "profile": "owner-paced",
+   "candidate": true,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Burning Fury",
+     "dummy": false,
+     "winRate": 0.013333333333333334,
+     "lossRate": 0.9866666666666667,
+     "ttk": 25.073187826656046,
+     "dps": 14328.040465042843,
+     "deaths": "Critical Slash x132, Knuckle Arrow x12"
+    },
+    {
+     "variant": "as is",
+     "target": "Heartless",
+     "dummy": false,
+     "winRate": 0.006666666666666667,
+     "lossRate": 0.9933333333333333,
+     "ttk": 23.180883493057138,
+     "dps": 15754.847788619962,
+     "deaths": "Critical Slash x111, Magnus Exorcismus x33"
+    },
+    {
+     "variant": "as is",
+     "target": "Tornado Knight",
+     "dummy": false,
+     "winRate": 0.86,
+     "lossRate": 0.14,
+     "ttk": 47.537015679490096,
+     "dps": 4389.3601034583035,
+     "deaths": "Wind Blade x9, Vampire Gift x7"
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Master",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 12.781878266560438,
+     "dps": 21973.880361681848,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Desperate Njord",
+     "dummy": false,
+     "winRate": 0,
+     "lossRate": 1,
+     "ttk": null,
+     "dps": 1296.7582989964003,
+     "deaths": "Desperate Njord: attack x65, Njord Zealot: Fire Storm x41"
+    },
+    {
+     "variant": "as is",
+     "target": "King Schmidt",
+     "dummy": false,
+     "winRate": 0,
+     "lossRate": 1,
+     "ttk": null,
+     "dps": 13310.829571542705,
+     "deaths": "King Schmidt: attack x108, Cannon Spear x22"
+    },
+    {
+     "variant": "as is",
+     "target": "Soul of Ymir",
+     "dummy": false,
+     "winRate": 0.02,
+     "lossRate": 0.98,
+     "ttk": 208.79812358468016,
+     "dps": 7599.4770661036755,
+     "deaths": "Chain Lightning x120, Dragon Breath x20"
+    }
+   ]
+  },
+  {
+   "scenario": "elite",
+   "profile": "owner-mistress",
+   "candidate": true,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Burning Fury",
+     "dummy": false,
+     "winRate": 0.013333333333333334,
+     "lossRate": 0.9866666666666667,
+     "ttk": 25.073187826656046,
+     "dps": 14328.040465042843,
+     "deaths": "Critical Slash x132, Knuckle Arrow x12"
+    },
+    {
+     "variant": "as is",
+     "target": "Heartless",
+     "dummy": false,
+     "winRate": 0.006666666666666667,
+     "lossRate": 0.9933333333333333,
+     "ttk": 23.180883493057138,
+     "dps": 15754.847788619962,
+     "deaths": "Critical Slash x111, Magnus Exorcismus x33"
+    },
+    {
+     "variant": "as is",
+     "target": "Tornado Knight",
+     "dummy": false,
+     "winRate": 0.8466666666666667,
+     "lossRate": 0.15333333333333332,
+     "ttk": 46.39094958627362,
+     "dps": 4515.074532115506,
+     "deaths": "Vampire Gift x9, Tornado Knight: attack x7"
+    },
+    {
+     "variant": "as is",
+     "target": "Guild Master",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 12.781878266560438,
+     "dps": 21973.880361681848,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Desperate Njord",
+     "dummy": false,
+     "winRate": 0,
+     "lossRate": 1,
+     "ttk": null,
+     "dps": 1296.7582989964003,
+     "deaths": "Desperate Njord: attack x65, Njord Zealot: Fire Storm x41"
+    },
+    {
+     "variant": "as is",
+     "target": "King Schmidt",
+     "dummy": false,
+     "winRate": 0,
+     "lossRate": 1,
+     "ttk": null,
+     "dps": 13343.545289168109,
+     "deaths": "King Schmidt: attack x111, Cannon Spear x21"
+    },
+    {
+     "variant": "as is",
+     "target": "Soul of Ymir",
+     "dummy": false,
+     "winRate": 0.05333333333333334,
+     "lossRate": 0.9466666666666667,
+     "ttk": 217.92905226496694,
+     "dps": 7636.704155113105,
+     "deaths": "Chain Lightning x113, Dragon Breath x15"
+    }
+   ]
+  }
+ ]
+}

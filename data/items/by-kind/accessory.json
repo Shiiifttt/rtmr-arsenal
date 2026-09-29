@@ -8984,16 +8984,30 @@
     ]
    },
    {
-    "text": "Immune to Silence Variable Cast Time+50%",
-    "stat": "Immune to Silence Variable Cast Time",
+    "text": "Immune to Silence",
+    "stat": "Immune to Silence",
+    "value": 100,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     126
+    ],
+    "stat_keys": [
+     "res_status_silence"
+    ]
+   },
+   {
+    "text": "Variable Cast Time+50%",
+    "stat": "Variable Cast Time",
     "value": 50,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": [],
-    "skill": "Immune to Silence Variable",
-    "skill_metric": "cast time",
-    "skills": []
+    "stat_ids": [
+     33
+    ],
+    "stat_keys": [
+     "variable_cast"
+    ]
    }
   ],
   "piece_bonus": [],

@@ -105,6 +105,28 @@ you, so the area stays behind); a Manhole a monster dug (Goddess Freya,
 Vision of Surt) holds you 3s where nothing can hurt you; Kawarimi stops
 physical hits.
 
+**Automatic defence** (profile option `"defense": "auto"`, off by default;
+`src/kits/defense.ts`): the dodges work themselves out from the monster's
+skills and the class's tools, so a new class kit only lists its tools and
+writes its rotation. Each cast is read by shape (an area with or without
+time to walk out, a cast at you with or without time to get behind cover)
+and threat (light: tanked; heavy: answered; lethal: may also use reserved
+tools such as Queen's Barrier). Flee and Auto Guard let moderate physical
+hits be tanked, never one that takes half your HP. The answer order per
+shape is in `data/playbook.json` (`archetypes`); `a|b` takes the cheaper
+(SP priced from the fight, time off the target, cooldown). Explicit
+per-skill / per-monster / per-class entries there still win. Casts too
+fast to answer (Magnus, Critical Slash) are pre-empted (King's Gambit,
+Kawarimi) when due. A snap cast (a bar of 300 ms or less, option `snapMs`) is answered only if you are idle or walking as it starts -- not casting, not in a skill's pause, not mid-swing (option `snapSwing` counts a swing as free); while one that would kill or disable you is due (its reuse delay, or the skill it chains from just went off: Wide Bleeding -> Vampire Gift) the character stays idle (Stay ready), up to 3 s past due (`stayReady: false` turns it off; `stayReadyFor: "heavy"` also waits for survivable heavy hits, which costs more than it saves). Kingslayer puts Queen's Barrier up before the pull
+(`barrierOpener`). Options: `risk` (a land chance a lethal hit may be
+gambled on, default 0), `walkLate` (leave an area at the last moment:
+faster, less safe), `spBarSeconds` (fixed SP price). See what it decides
+for a build:
+`node --experimental-strip-types --no-warnings --import ./register.mjs
+tools/defense-book.ts --profile <profile.json> --vs lair4,rachel5 [--md out.md]`.
+A/B it against the kit's own reactions with
+`tools/variants.ts --variant "auto: option.defense=auto"`.
+
 `.claude/scratch/formula-audit.md` has the full comparison of every formula
 against the server code, including what the sim deliberately does
 differently because a reading from the game says so.

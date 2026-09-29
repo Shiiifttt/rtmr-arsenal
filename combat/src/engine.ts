@@ -26,7 +26,7 @@
  */
 import {
   critChance, DOTS, dotTick, escapeMsFor, mobDamage, mobHitChance, perfectDodgeChance, playerHitChance, skillDelayMs,
-  statusResist, TUNE, type DotName,
+  statusResist, TUNE, walkCellMs, type DotName,
 } from './formulas.ts';
 import type { Fighter, MobSkill, Monster, SelfBuff, StatusEffect } from './model.ts';
 import { mobRows } from './data.ts';
@@ -59,12 +59,14 @@ export interface PlayerState {
   spent: Record<string, true>;
   /** A dodge the TAS has planned for an incoming cast. */
   defense: { action: string; at: number; against: string } | null;
+  /** The last action that went off: what `busyUntil` is the pause of (kits/defense.ts readyToDodge). */
+  last?: string;
   /** Next natural regen ticks. */
-  regenAt: { hp: number; sp: number };
+  regenAt: { hp: number; sp: number; skill?: number };
   /** Uses left of limited actions, by id. */
   left: Record<string, number>;
   /** Damage over time on you: bleeding, burning, burnt. */
-  dots: { name: string; nextAt: number; every: number; until: number; dmg: number; lethal: boolean; heal?: boolean }[];
+  dots: { name: string; nextAt: number; every: number; until: number; dmg: number; lethal: boolean; heal?: boolean; sp?: boolean }[];
 }
 
 /**
@@ -105,8 +107,12 @@ export interface MobState {
   dots: { name: string; nextAt: number; every: number; dmg: number; lethal: boolean }[];
 }
 
-/** A monster in the fight: the target, or one of its adds. */
-export interface Actor { m: Monster; st: MobState; add: boolean }
+/**
+ * A monster in the fight: the target, or one of its adds. `reachAt`: an add
+ * walking in (tools/farm.ts packs) is inside your area skills' reach from
+ * this time on; Infinity for one that stays out (a ranged monster at its range).
+ */
+export interface Actor { m: Monster; st: MobState; add: boolean; reachAt?: number }
 
 export interface Meter {
   /** Per action; sp is what it cost in all (percent costs read at the time). */
@@ -136,6 +142,8 @@ export interface Action {
   interruptible?: boolean;
   /** Share of your hard DEF lost while casting it (Queen's Gambit: 0.5). */
   castDefCut?: number;
+  /** Reaches a monster that has hidden or cloaked itself, which nothing targeted can (Queen's Gambit on Famine Incarnate). */
+  findsCloaked?: boolean;
   ready?(fight: Fight): boolean;
   castMs(fight: Fight): number;
   /** The pause after it. Defaults to the attack motion. */
@@ -157,6 +165,12 @@ export interface Kit {
   coreRoles?: string[];
   /** Actions whose damage is magic: left out of the DEF analysis. */
   magicActions?: string[];
+  /**
+   * Regen the class keeps up out of combat (Knight's Regen, King's Fortress),
+   * as HP and SP per second, net of any upkeep: the farm tool adds it between
+   * fights, where a fight's own ticks do not run.
+   */
+  idleRegen?(f: Fighter, options: Record<string, unknown>): { hpPerSec: number; spPerSec: number };
   /** What `prep` put up, in words: "Seven Winds: Holy". */
   prepNotes?(fight: Fight): string[];
   /** The rotation as the player would write it: the rollout policy. */
@@ -173,6 +187,8 @@ export interface Kit {
    * owner, 2026-09-28). Only read with mobility 'server'.
    */
   gapClosers?: string[];
+  /** Holding on purpose (kits/defense.ts: standing ready for a snap cast): not out of SP. */
+  holding?(fight: Fight): boolean;
 }
 
 export type Policy = (fight: Fight) => Action;
@@ -196,6 +212,8 @@ export interface Fight {
   ground: { manholeUntil: number };
   meter: Meter | null;
   log: string[] | null;
+  /** Adds your area skills killed (tools/farm.ts packs); the target's death is `result`. */
+  killed?: Actor[];
   /**
    * How it ended. A stalemate is neither side dying: the clock ran out, or
    * the player can no longer afford any damage skill (the project owner,
@@ -204,9 +222,11 @@ export interface Fight {
   result: 'win' | 'loss' | 'stalemate' | null;
   /** Why the fight ended, for a loss or a stalemate. */
   cause?: string;
+  /** Dodges planned against a cast bar and not taken (option fumble). */
+  fumbles?: number;
 }
 
-const newMobState = (m: Monster): MobState => ({
+export const newMobState = (m: Monster): MobState => ({
   hp: m.hp, nextAttackAt: 0, cast: null, channels: [], cds: {}, lastSkill: 0, used: {}, rushing: true,
   debuffs: {}, buffs: {}, adds: [], dots: [],
 });
@@ -226,7 +246,7 @@ export function newFight(
     items: o.items ?? [],
     me: {
       hp: f.maxHp, sp: f.maxSp, busyUntil: 0, cast: null, cds: {}, buffs: {}, focus: [],
-      spent: {}, defense: null, regenAt: { hp: TUNE.hpRegenMs, sp: TUNE.spRegenMs },
+      spent: {}, defense: null, regenAt: { hp: TUNE.hpRegenMs, sp: TUNE.spRegenMs, skill: TUNE.skillRegenMs },
       left: Object.fromEntries((o.items ?? []).filter((a) => a.charges !== undefined)
         .map((a) => [a.id, a.charges!])),
       dots: [],
@@ -295,8 +315,13 @@ export function canUse(fight: Fight, a: Action): boolean {
   if (a.charges !== undefined && (me.left[a.id] ?? 0) <= 0) return false;
   if (a.spCost(fight) > me.sp) return false;
   if ((a.hpCost?.(fight) ?? 0) >= me.hp) return false;
+  // A hidden or cloaked monster cannot be targeted: attacks wait, not hit nothing.
+  if (a.offensive && !a.findsCloaked && mobCloaked(fight)) return false;
   return a.ready?.(fight) ?? true;
 }
+
+/** The monster has hidden or cloaked itself (Famine Incarnate's Invisible). */
+export const mobCloaked = (fight: Fight) => selfHas(fight, fight.mob, 'hiding') || selfHas(fight, fight.mob, 'invisible');
 
 function start(fight: Fight, a: Action) {
   const cast = a.castMs(fight);
@@ -328,6 +353,7 @@ function complete(fight: Fight, a: Action) {
   me.cds[a.id] = fight.t + a.cooldownMs(fight);
   if (a.charges !== undefined) me.left[a.id] = (me.left[a.id] ?? 0) - 1;
   me.busyUntil = fight.t + (a.delayMs?.(fight) ?? skillDelayMs(0, fight.f));
+  me.last = a.id;
   const meter = fight.meter;
   if (a.idle) return;
   if (meter) {
@@ -441,7 +467,9 @@ export function strike(fight: Fight, id: string, s: Strike): number {
   const { f, m, rng } = fight;
   const kind = s.kind ?? 'melee';
   const monsterFlee = m.flee + (selfHas(fight, fight.mob, 'hallucination') ? fight.mob.buffs.hallucination.value ?? 0 : 0);
-  const pHit = s.canMiss ? playerHitChance(f.hit, monsterFlee) : 1;
+  // Perfect Hit lands whatever the flee (RTM battle.cpp:2916), after the crit check.
+  const perfect = (f.perfectHit ?? 0) / 100;
+  const pHit = s.canMiss ? perfect + (1 - perfect) * playerHitChance(f.hit, monsterFlee) : 1;
   const pCrit = s.critBonus === null ? 0 : critChance(f, m, s.critBonus);
   // A crit always lands (RTM battle.cpp:2914); the rest roll HIT.
   const pLand = pCrit + (1 - pCrit) * pHit;
@@ -521,11 +549,41 @@ function leech(fight: Fight, dmg: number) {
   // A flat HP / SP on every hit that lands ("Leech 5 HP per hit", bHPDrainValue).
   if (dmg > 0 && l.hpPerHit) heal_(fight, l.hpPerHit);
   if (dmg > 0 && l.spPerHit) fight.me.sp = Math.min(fight.f.maxSp, fight.me.sp + l.spPerHit);
+  // SP leech, the same roll on its own rate (bSPDrainRate).
+  if (dmg > 0 && l.spRate && l.spPower) {
+    const sp = fight.rng.expect
+      ? dmg * Math.min(1, l.spRate / 100) * l.spPower / 100
+      : fight.rng.chance(l.spRate / 100) ? dmg * l.spPower / 100 : 0;
+    if (sp > 0) fight.me.sp = Math.min(fight.f.maxSp, fight.me.sp + Math.floor(sp));
+  }
   if (!l.hpRate || !l.hpPower) return;
   const heal = fight.rng.expect
     ? dmg * Math.min(1, l.hpRate / 100) * l.hpPower / 100
     : fight.rng.chance(l.hpRate / 100) ? dmg * l.hpPower / 100 : 0;
   if (heal > 0) heal_(fight, heal);
+}
+
+/**
+ * An area hit on the adds in reach (Fan of Knives on a pack): their
+ * DamageTaken, your leech, and a dead add leaves the fight (`fight.killed`).
+ * No HIT roll and no crit: for skills that ignore flee.
+ */
+export function strikeAdds(fight: Fight, id: string, damage: (m: Monster) => number): number {
+  let total = 0;
+  const row = fight.meter ? (fight.meter.actions[id] ??= { uses: 0, hits: 0, misses: 0, crits: 0, damage: 0 }) : null;
+  for (const a of [...fight.mob.adds]) {
+    if ((a.reachAt ?? 0) > fight.t || a.m.ignores?.includes('melee')) continue;
+    const dmg = Math.floor(damage(a.m) * a.m.damageTaken);
+    a.st.hp -= dmg; total += dmg;
+    if (row) { row.hits++; row.damage += dmg; }
+    leech(fight, dmg);
+    if (a.st.hp <= 0) {
+      fight.mob.adds = fight.mob.adds.filter((x) => x !== a);
+      (fight.killed ??= []).push(a);
+      fight.log && say(fight, `${a.m.name} dies`);
+    }
+  }
+  return total;
 }
 
 export function heal_(fight: Fight, amount: number) {
@@ -700,7 +758,29 @@ function mobSkillUse(fight: Fight, a: Actor, now: 'attack' | 'chase', event: str
     a.st.cast = { skill: s, endsAt: fight.t + s.castMs };
     if (s.castMs > 0) {
       fight.log && say(fight, `${a.m.name} casts ${s.name}${s.level > 1 ? ` ${s.level}` : ''} (${(s.castMs / 1000).toFixed(1)}s)`);
-      const plan = fight.kit.react(fight, s, a.m);
+      let plan = fight.kit.react(fight, s, a.m);
+      // Option fumble (a chance, 0..1): the player misses this dodge and
+      // tanks the cast -- a human error rate for "how many can I take" (the
+      // project owner, 2026-09-29).
+      const fumble = typeof fight.options.fumble === 'number' ? fight.options.fumble : 0;
+      if (plan && fumble > 0 && rng.chance(fumble)) {
+        fight.fumbles = (fight.fumbles ?? 0) + 1;
+        // An area can still be walked out of when the planned answer is
+        // missed (Hiding spent early, a slow key): kite, ready to leave its
+        // range (the project owner, 2026-09-30, on Vampire Gift). Option
+        // kite: already moving, no reaction; otherwise notice, then move.
+        const react = fight.options.kite === true ? TUNE.kiteReactionMs : 2 * TUNE.playerReactionMs;
+        const walkable = s.targets === 'aoe' && s.avoid.includes('walk') && plan.action !== 'Walk out'
+          && !has(fight, 'rooted') && fight.kit.actions.some((x) => x.id === 'Walk out')
+          && s.castMs - react >= escapeMsFor(fight.options, fight.f, s);
+        // A cast aimed at you (Swhoo) can still be line-of-sighted behind
+        // cover when the bar leaves time (kits/common.ts losMs).
+        const losMs = fight.options.mobility === 'server' ? Math.round(TUNE.losCells * walkCellMs(fight.f)) : TUNE.walkOutMs;
+        const coverable = !walkable && s.avoid.includes('los') && plan.action !== 'Break line of sight'
+          && !has(fight, 'rooted') && fight.kit.actions.some((x) => x.id === 'Break line of sight') && s.castMs - react >= losMs;
+        fight.log && say(fight, `misses the dodge against ${s.name} (fumble)${walkable ? ', walks out instead' : coverable ? ', breaks line of sight instead' : ''}`);
+        plan = walkable ? { action: 'Walk out', at: fight.t + react } : coverable ? { action: 'Break line of sight', at: fight.t + react } : null;
+      }
       // One dodge in hand at a time: a second cast bar keeps the one that
       // comes due first (a Hiding in time for it usually covers both).
       const held = fight.me.defense;
@@ -908,7 +988,9 @@ function landMobHit(fight: Fight, a: Actor, s: MobSkill, normal: boolean, ch?: C
   // Pawn's Rod: a spell cast at you inside its window is cancelled (RTM
   // SA_MAGICROD). Its SP refund is left out: monster skills carry no SP cost here.
   // The spell is cancelled whole: no later hit of it lands (Chain Lightning).
-  if (!normal && s.type === 'magic' && s.targets === 'single' && (has(fight, 'magicRod') || ch?.cancelled)) {
+  // Any magic the monster casts itself at you, a splash too (Adoramus): the
+  // server checks src == dsrc, so only a ground unit's hits get past it.
+  if (!normal && s.avoid.includes('rod') && (has(fight, 'magicRod') || ch?.cancelled)) {
     if (ch) ch.cancelled = true;
     return avoided(fight, src, "Pawn's Rod");
   }
@@ -1137,10 +1219,10 @@ function applyStatus(fight: Fight, a: Actor, s: MobSkill, e: StatusEffect) {
 }
 
 /** Something ticking on you: damage, or with `heal` a regen (Knight's Regen). */
-export function dot(fight: Fight, name: string, every: number, ms: number, dmg: number, lethal: boolean, heal = false) {
+export function dot(fight: Fight, name: string, every: number, ms: number, dmg: number, lethal: boolean, heal = false, sp = false) {
   if (ms <= 0) return;
   fight.me.dots = fight.me.dots.filter((d) => d.name !== name);
-  fight.me.dots.push({ name, nextAt: fight.t + every, every, until: fight.t + ms, dmg, lethal, ...(heal ? { heal } : {}) });
+  fight.me.dots.push({ name, nextAt: fight.t + every, every, until: fight.t + ms, dmg, lethal, ...(heal ? { heal } : {}), ...(sp ? { sp } : {}) });
 }
 
 /**
@@ -1198,7 +1280,7 @@ export function run(fight: Fight): Fight {
     const all = actors(fight);
     const tMe = me.cast ? me.cast.endsAt : me.busyUntil;
     const tDef = me.defense?.at ?? Infinity;
-    const tRegen = Math.min(me.regenAt.hp, me.regenAt.sp);
+    const tRegen = Math.min(me.regenAt.hp, me.regenAt.sp, me.regenAt.skill ?? Infinity);
     let tMob = Infinity; let who: Actor | null = null;
     let tTick = Infinity; let tickOf: { a: Actor; ch: Channel } | null = null;
     for (const a of all) {
@@ -1227,12 +1309,19 @@ export function run(fight: Fight): Fight {
         if (!still) me.sp = Math.min(fight.f.maxSp, me.sp + fight.f.regen.sp);
         me.regenAt.sp += TUNE.spRegenMs;
       }
+      if (me.regenAt.skill === next) {
+        // Skill regen: not while hidden, nor while walking out ('away').
+        if (!still && !has(fight, 'away')) me.sp = Math.min(fight.f.maxSp, me.sp + (fight.f.regen.spSkill ?? 0));
+        me.regenAt.skill += TUNE.skillRegenMs;
+      }
       continue;
     }
     if (tDot === next) {
       const d = me.dots.find((x) => x.nextAt === next)!;
       // Skill heals over time (Knight's Regen, King's Fortress): healing received applies.
-      if (d.heal) heal_(fight, d.dmg * Math.max(0, 1 + (fight.f.healReceived ?? 0) / 100));
+      // An SP regen skill (King's Fortress Lv2) restores SP instead.
+      if (d.sp) me.sp = Math.min(fight.f.maxSp, me.sp + d.dmg);
+      else if (d.heal) heal_(fight, d.dmg * Math.max(0, 1 + (fight.f.healReceived ?? 0) / 100));
       else hurtMe(fight, d.dmg, d.name, d.lethal);
       d.nextAt += d.every;
       if (d.nextAt > d.until) me.dots = me.dots.filter((x) => x !== d);
@@ -1290,10 +1379,15 @@ export function run(fight: Fight): Fight {
 function outOfSp(fight: Fight): boolean {
   // Held in Hiding (a kit rule), not dry.
   if (fight.rng.expect || fight.m.dummy || has(fight, 'hidden')) return false;
+  // Option pace: a long fight is paced, not given up -- swing and wait for
+  // SP (regen, leech, Lotus Pact) until a skill is affordable again. The
+  // clock (limitMs) still ends it.
+  if (fight.options.pace === true) return false;
   // Nothing castable into a ward (Pneuma, Safety Wall) is not being dry: the
   // kit pulls the monster off it (kits/common.ts pullOffWard).
   const ward = (k: string) => (fight.mob.buffs[k]?.until ?? -1) > fight.t;
   if (ward('pneuma') || ward('safetywall')) return false;
+  if (fight.kit.holding?.(fight)) return false;
   // A skill counts if it is affordable and its setup holds (cooldowns
   // aside): Omamori Jutsu costs 5 SP, but needs a talisman that costs 150.
   let any = false;

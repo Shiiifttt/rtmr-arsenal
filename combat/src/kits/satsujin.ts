@@ -26,18 +26,23 @@
  *   - Million Stab is melee despite its 7-cell reach (the planner's Moon
  *     preset scores it on melee%); Dragon Omamori (7-11 cells) is ranged.
  */
-import { attrFix, castTimeMs, magicDamage, TUNE, type DotName } from '../formulas.ts';
+import { attrFix, castTimeMs, magicDamage, physicalDamage, statusAtk, TUNE, type DotName } from '../formulas.ts';
 import type { MobSkill, Monster } from '../model.ts';
+import { playbookPlan } from '../playbook.ts';
 import { ratioAt } from '../skilltext.ts';
 import type { Passives } from '../character.ts';
 import {
-  canUse, dotOnMob, enterManhole, focusStacks, followUpComing, grant, has, heal_, MANHOLE_MS, mobHas, readyAt, say, stacks, strike,
+  canUse, dotOnMob, enterManhole, focusStacks, followUpComing, grant, has, heal_, MANHOLE_MS, mobHas, readyAt, say, stacks, strike, strikeAdds,
+  targetNow,
   type Action, type Fight, type Kit,
 } from '../engine.ts';
 import {
-  assessThreat, attackAction, backSlide, backSlideWorks, breakSight, escapeMs, hidingAction, lv, morrocsMark, optionOn, pullOffWard, reactionMs,
+  assessThreat, attackAction, backSlide, backSlideWorks, breakSight, escapeMs, hidingAction, hidingReserved, lv, morrocsMark, optionOn, pullOffWard, reactionMs,
   returnMs, stayHidden, swingWait, toolkit, walkOut,
 } from './common.ts';
+import {
+  autoDefense, COMMON_TOOLS, heldForSnap, isPreempt, predictActions, priorityWith, reactWith, snapThreatDue, stayReadyAction, type DefenseTool,
+} from './defense.ts';
 
 const TREE = ['Satsujin', 'Shinobi', 'Assassin', 'Thief', 'Orphan'];
 
@@ -52,6 +57,7 @@ const SKILLS = [
   'Omamori Jutsu', 'Back Stab', 'Wind Blade', 'Kawarimi', 'Hiding', 'Moonlight Stance',
   'Seven Winds', 'Lotus Pact', "Morroc's Mark", 'Hallucination Walk', 'Advanced Blade Mastery', 'Blade Mastery',
   'Improve Dodge', 'Shadow Mastery', 'Improve Defense', 'Improve Wisdom', 'Increase SP Recovery',
+  'Fan of Knives',
 ];
 
 /**
@@ -454,7 +460,8 @@ const predictKawarimi: Action = {
   id: 'Predict Kawarimi',
   // Just before its next attack turn, where the skill is rolled (75% a turn
   // for Critical Slash): 3 dodges over 4 s then cover two or three turns.
-  ready: (fight) => (kawarimi.ready?.(fight) ?? true) && readyAt(fight, 'Kawarimi') <= fight.t
+  // With option defense 'auto' the shared prediction (defense.ts) does this.
+  ready: (fight) => !autoDefense(fight) && (kawarimi.ready?.(fight) ?? true) && readyAt(fight, 'Kawarimi') <= fight.t
     && fight.mob.nextAttackAt - fight.t <= 300 && !fight.mob.cast && instantKillerDue(fight, 300),
   resolve(fight) {
     kawarimi.resolve(fight);
@@ -584,6 +591,54 @@ const hallucinationWalk: Action = {
   resolve: hallucinate,
 };
 
+/**
+ * Fan of Knives (Assassin), for farming packs: option fanOfKnives true, off
+ * by default. The server's KO_HAPPOKUNAI (battle.cpp:3607): a 100% weapon
+ * hit plus a flat 3 x (status ATK + right weapon ATK) x (level + 1) / 5
+ * added before cards; + AGI x Improve Dodge level under Hallucination Walk.
+ * Ignores DEF, flee and element; one roll shown as 4 (HitCount -4); a 9x9
+ * area at level 5+ (skill_db SplashArea 4). The 2023 code counts status ATK
+ * twice; Refuge Test Patch Notes 8 (2026-09-02) stopped that and "adjusted
+ * the coefficient" (~20% less on a normal build) -- the coefficient is
+ * UNREAD: TUNE-free here, status ATK once, pending a dummy reading.
+ */
+function fanDamage(fight: Fight, m: Monster) {
+  const f = fight.f; const l = lv(f, 'Fan of Knives');
+  let flat = (3 * (statusAtk(f.stats, f.level) + (f.weapon?.atk ?? 0)) * (l + 1)) / 5;
+  if (has(fight, 'hallucination')) flat += f.stats.agi * lv(f, 'Improve Dodge');
+  const skillDamage = f.skillMods('Fan of Knives', 'damage').percent;
+  return (crit: boolean) => physicalDamage(f, m, {
+    ratio: 100, element: 'Neutral', statusElement: 'Neutral', ranged: false, crit, skillDamage,
+    ignoreDef: true, ignoreElement: true, flat,
+  }, fight.rng);
+}
+
+const fanOfKnives: Action = {
+  id: 'Fan of Knives',
+  isSkill: true,
+  offensive: true,
+  // Option fanPack (a number): wait until that many are in reach, or all
+  // that are still walking in have arrived (tools/farm.ts packs).
+  ready: (fight) => {
+    if (fight.options.fanOfKnives !== true || !learned('Fan of Knives')(fight)) return false;
+    const want = fight.options.fanPack;
+    if (typeof want !== 'number') return true;
+    const adds = fight.mob.adds;
+    const inReach = 1 + adds.filter((a) => (a.reachAt ?? 0) <= fight.t).length;
+    const coming = adds.filter((a) => (a.reachAt ?? 0) > fight.t && Number.isFinite(a.reachAt)).length;
+    return inReach >= Math.min(want, inReach + coming);
+  },
+  castMs: cast('Fan of Knives'),
+  // AfterCastActDelay 500 (skill_db).
+  delayMs: () => 500,
+  cooldownMs: cooldown('Fan of Knives'),
+  spCost: spCost('Fan of Knives'),
+  resolve(fight) {
+    strike(fight, 'Fan of Knives', { hits: 4, split: true, canMiss: false, critBonus: null, damage: fanDamage(fight, targetNow(fight)) });
+    strikeAdds(fight, 'Fan of Knives', (m) => fanDamage(fight, m)(false));
+  },
+};
+
 // ---- the rotation ------------------------------------------------------------
 
 /**
@@ -610,21 +665,55 @@ function withRules(a: Action): Action {
   return {
     ...a,
     ready: (fight) => {
+      // Option defense 'auto': a hard snap cast is due -- stay idle, ready to dodge it.
+      if (heldForSnap(fight, a, TOOLS)) return false;
       if (has(fight, 'invisible') && a.id !== 'Full Moon') return false;
       // Hidden with the monster's chain still coming: stay in (stayHidden).
       if (has(fight, 'hidden') && followUpComing(fight)) return false;
       if (NEEDS_COMBO.has(a.id) && optionOn(fight, 'strictCombo') && !has(fight, 'combo')) return false;
+      // Option reserveHiding: a paced fight keeps Hiding's SP in hand -- no
+      // skill spends into it (hidingReserved keeps the cooldown for the one-shot).
+      if (fight.options.reserveHiding === true && a.isSkill && a.id !== 'Hiding') {
+        const cost = a.spCost(fight);
+        if (cost > 0 && fight.me.sp - cost < rule('Hiding').spCost(fight)) return false;
+      }
       return own?.(fight) ?? true;
     },
   };
 }
 
+/**
+ * The Satsujin's dodges for the automatic defence (option defense 'auto',
+ * defense.ts): the shared ones, Kawarimi against physical hits (held for an
+ * instant killer, and put down ahead of one), and Shadow Slash out of an
+ * area aimed at you.
+ */
+const TOOLS: DefenseTool[] = [
+  ...COMMON_TOOLS,
+  {
+    way: 'kawarimi', action: 'Kawarimi',
+    plan: (fight, s, _from, r) => (s.avoid.includes('kawarimi') && s.type === 'physical' && readyAt(fight, 'Kawarimi') <= r.endsAt
+      ? Math.max(fight.t, r.endsAt - 100) : null),
+    covers: (fight, s, endsAt) => s.type === 'physical' && stacks(fight, 'kawarimi') > 0 && fight.me.buffs.kawarimi.until >= endsAt,
+    pre: {
+      holdMs: (fight) => kawarimiAt(lv(fight.f, 'Kawarimi')).ms,
+      up: (fight) => has(fight, 'kawarimi'),
+      answers: (s) => s.type === 'physical' && s.targets === 'single' && s.avoid.includes('kawarimi'),
+      minShare: 0.5,
+    },
+  },
+  { way: 'slashout', action: 'Shadow Slash out', plan: (fight, s) => (slashOutWorks(fight, s) ? fight.t + reactionMs(fight) : null) },
+];
+export const SATSUJIN_TOOLS = TOOLS;
+
 const ACTIONS: Action[] = [
   attack, shadowSlash, newMoon, fullMoon, millionStab, thousandArms, dragonOmamori, omamoriJutsu,
   backStab, refocus, kawarimi, hiding, walkOut, lotusPact, morrocsMark, hallucinationWalk, stayHidden,
   breakSight, pullOffWard, swingWait, predictKawarimi, moonGuard, walkOutOnTell, slashOut, backSlide,
+  fanOfKnives, ...predictActions(TOOLS), stayReadyAction(TOOLS),
 ].map(withRules);
 const rule = (id: string) => ACTIONS.find((a) => a.id === id)!;
+const PREEMPTS = ACTIONS.filter(isPreempt);
 
 /**
  * The written rotation, first usable wins. It is also what every TAS
@@ -634,6 +723,7 @@ const ORDER = [
   'Stay hidden', 'Predict Kawarimi', 'Moon guard', 'Pull it off the ward',
   "Morroc's Mark",
   'Hallucination Walk',
+  'Fan of Knives', // option fanOfKnives only: farming packs
   'Full Moon', // invisible: spend it before a hit takes it
   'Million Stab', 'Thousand Arms', 'Dragon Omamori', 'Omamori Jutsu', // the combo window
   'New Moon', // open the next combo
@@ -662,6 +752,13 @@ function priority(fight: Fight): Action {
 
 // ---- reacting to a cast bar --------------------------------------------------
 
+/**
+ * When a planned Hiding goes off: 150 ms before the hit, but never before
+ * Hiding is off cooldown -- assessThreat calls it ready up to 50 ms before
+ * the hit, and a dodge planned inside its cooldown fails (engine defend).
+ */
+const hideAt = (fight: Fight, endsAt: number) => Math.max(fight.t, readyAt(fight, 'Hiding'), endsAt - 150);
+
 function react(fight: Fight, s: MobSkill, from: Monster): { action: string; at: number } | null {
   const t = assessThreat(fight, s, from);
   if (heavyFollowUp(fight, s, from) && !has(fight, 'rooted')) {
@@ -669,6 +766,20 @@ function react(fight: Fight, s: MobSkill, from: Monster): { action: string; at: 
   }
   if (!t.heavy) return null;
   const { endsAt } = t;
+  // The playbook first (data/playbook.json): this class's answer to the skill.
+  const planned = playbookPlan(fight, s, from, endsAt, {
+    slashout: () => (slashOutWorks(fight, s) ? { action: 'Shadow Slash out', at: fight.t + reactionMs(fight) } : null),
+    backslide: () => (backSlideWorks(fight, s) && fight.t + reactionMs(fight) < endsAt
+      ? { action: 'Back Slide', at: fight.t + reactionMs(fight) } : null),
+    walk: () => (t.canWalk ? { action: 'Walk out', at: fight.t + reactionMs(fight) } : null),
+    hide: () => (t.hideWorks && t.hideReady && !hidingReserved(fight, s, from) ? { action: 'Hiding', at: hideAt(fight, endsAt) } : null),
+    los: () => (t.canLos ? { action: 'Break line of sight', at: fight.t + reactionMs(fight) } : null),
+    manhole: () => (fight.ground.manholeUntil > endsAt && s.durationMs <= MANHOLE_MS - 200 && !has(fight, 'rooted')
+      ? { action: enterManhole.id, at: Math.max(fight.t, endsAt - 150) } : null),
+    kawarimi: () => (s.avoid.includes('kawarimi') && s.type === 'physical' && readyAt(fight, 'Kawarimi') <= endsAt && !hasInstantKiller(fight)
+      ? { action: 'Kawarimi', at: Math.max(fight.t, endsAt - 100) } : null),
+  });
+  if (planned !== undefined) return planned;
   if (slashOutWorks(fight, s)) return { action: 'Shadow Slash out', at: fight.t + reactionMs(fight) };
   // Too little time to walk: Back Slide from gear is out in one step.
   if (!t.canWalk && backSlideWorks(fight, s) && fight.t + reactionMs(fight) < endsAt) {
@@ -679,14 +790,16 @@ function react(fight: Fight, s: MobSkill, from: Monster): { action: string; at: 
   if (t.canWalk && s.targets === 'aoe') {
     return { action: 'Walk out', at: fight.t + reactionMs(fight) };
   }
-  if (t.hideWorks && t.hideReady && (t.hideCovers || !t.canWalk)) {
-    return { action: 'Hiding', at: Math.max(fight.t, endsAt - 150) };
+  const reserved = hidingReserved(fight, s, from);
+  if (t.hideWorks && t.hideReady && (t.hideCovers || !t.canWalk) && !reserved) {
+    return { action: 'Hiding', at: hideAt(fight, endsAt) };
   }
-  if (t.canLos) return { action: 'Break line of sight', at: fight.t + reactionMs(fight) };
-  // A Manhole on the ground: 3s where nothing lands (the Freya fight's answer to Adoramus).
+  // A Manhole on the ground: 3s where nothing lands (the Freya fight's answer
+  // to Adoramus) -- ahead of line of sight, which an aimed splash now allows.
   if (fight.ground.manholeUntil > endsAt && s.durationMs <= MANHOLE_MS - 200 && !has(fight, 'rooted')) {
     return { action: enterManhole.id, at: Math.max(fight.t, endsAt - 150) };
   }
+  if (t.canLos) return { action: 'Break line of sight', at: fight.t + reactionMs(fight) };
   if (t.canWalk) {
     return { action: 'Walk out', at: fight.t + reactionMs(fight) };
   }
@@ -696,8 +809,8 @@ function react(fight: Fight, s: MobSkill, from: Monster): { action: string; at: 
     && !hasInstantKiller(fight)) {
     return { action: 'Kawarimi', at: Math.max(fight.t, endsAt - 100) };
   }
-  if (t.hideWorks && t.hideReady) {
-    return { action: 'Hiding', at: Math.max(fight.t, endsAt - 150) };
+  if (t.hideWorks && t.hideReady && !reserved) {
+    return { action: 'Hiding', at: hideAt(fight, endsAt) };
   }
   return null;
 }
@@ -740,7 +853,7 @@ function prep(fight: Fight) {
 const ROLES: Record<string, string> = {
   'New Moon': 'Moon combo', 'Full Moon': 'Moon combo', 'Million Stab': 'Moon combo',
   'Dragon Omamori': 'Omamori', 'Omamori Explosion': 'Omamori', 'Omamori Jutsu': 'Omamori',
-  'Thousand Arms': 'Fillers', 'Shadow Slash': 'Fillers', 'Back Stab': 'Fillers',
+  'Thousand Arms': 'Fillers', 'Shadow Slash': 'Fillers', 'Back Stab': 'Fillers', 'Fan of Knives': 'Fillers',
   Attack: 'Auto-attacks', Refocus: 'Focus upkeep',
   'Hallucination Walk': 'Buffs', Kawarimi: 'Buffs',
   Bleeding: 'Gem statuses', Poison: 'Gem statuses', Burning: 'Gem statuses',
@@ -753,8 +866,9 @@ export const satsujin: Kit = {
   cycleAnchor: 'New Moon',
   coreRoles: ['Moon combo', 'Omamori'],
   magicActions: ['Refocus'],
-  priority,
-  react,
+  priority: priorityWith(() => PREEMPTS, priority, rule('Stay ready')),
+  holding: (fight) => !!snapThreatDue(fight, TOOLS),
+  react: reactWith(TOOLS, react),
   prep,
   prepNotes,
   // Shadow Slash puts you on the target: no walk back after a dodge, with

@@ -106,8 +106,14 @@ export interface Fighter {
   spCost: number;
   /** Percent leech (a chance and a share), and a flat HP / SP on every hit. */
   leech: { hpRate: number; hpPower: number; spRate: number; spPower: number; hpPerHit: number; spPerHit: number };
-  /** Natural regen per tick (formulas.TUNE.hp/spRegenMs), passives and gear included. */
-  regen: { hp: number; sp: number };
+  /**
+   * Natural regen per tick (formulas.TUNE.hp/spRegenMs), gear % included;
+   * `spSkill`: skill regen (Increase SP Recovery) per TUNE.skillRegenMs,
+   * standing only, no gear % (RTM status.cpp:5456, 15836, 15915).
+   */
+  regen: { hp: number; sp: number; spSkill?: number };
+  /** Perfect Hit, percent: that share of hits ignores flee (main hand and armour only). */
+  perfectHit?: number;
   /**
    * Kafra Elixirs a life against a boss: 2, plus gear's "Increases Kafra
    * Elixir refill limit by +1" (the Elixir Badge).
@@ -222,10 +228,13 @@ export interface MobSkill {
   summon?: { mobIds: number[]; count: number };
   /** How a player may avoid it. */
   /** los: behind cover before it lands. diag: a cross -- standing diagonal to the caster misses it. */
-  avoid: ('hide' | 'walk' | 'kawarimi' | 'los' | 'diag')[];
+  /** rod: Pawn's Rod / Magic Rod eats it -- magic the monster casts itself, single or splash, not a ground unit. */
+  avoid: ('hide' | 'walk' | 'kawarimi' | 'los' | 'diag' | 'rod')[];
   /** An area's radius in cells, and whether it is centred on the monster rather than where it is aimed. */
   radius?: number;
   centeredOnSelf?: boolean;
+  /** Cells to walk to be clear of it, where a player knows a shorter way than the radius (mob-skills.json). */
+  escapeCells?: number;
   /** Set true once someone has checked it in game. */
   verified: boolean;
   note?: string;

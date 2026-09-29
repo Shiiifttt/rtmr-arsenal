@@ -1,0 +1,167 @@
+{
+ "profile": "Kingslayer Tomb, 50% dodges missed (stress test)",
+ "targets": [
+  "Magma Knight",
+  "Tornado Knight",
+  "Quake Knight",
+  "Tidal Knight"
+ ],
+ "rules": {
+  "screenN": 150,
+  "confirmN": 800,
+  "timeS": 300,
+  "locked": [
+   "offhand",
+   "weapon"
+  ],
+  "penalty": 0.03,
+  "topStats": [
+   "vit",
+   "dex",
+   "str"
+  ]
+ },
+ "start": "https://rtmr-arsenal.pages.dev/#b=cdZPNqtswEIVfJWhzN0PR6M9Wlr3L0kXXwhhhTxwRxzGWEnpp--5FcgJO2rsZ0PDNzDnSyAlg38I0xNF_0MIAJQdXc0CwFkSVIzbgHAetsAYOTinDmwYcguamZFDqCnNKgLbCgAGnhK0gh1zLYvKJAbuFxMBh02RWghCc29IRhSncQvFyXTpiwM7-Z3ucGTidYXYOKQw-hcvEgB3Jj2Ea2oU6CjfqGbiqUPc5MS0MnFjnKEC0Biw4xU0FzyEDGgSigBqckqI4M4BaSVNSaDjk8K8PUUbSzcdV1WEkYuDsquQakw9F7NyORN0xOxdwF1UV86rclLTqs-ZxpuyOnS83au8Hh0Uj63xMYRoYMH9ItLT53PY0-o9VRIZqEEaKBpwFNKjl-nz8aZ5Pp3buNg-DCJZLrmrQzaq5tlZkqduy8XralMgCqVcoTNu-qkDyFfJD2EC6QPoVelodNCAUcp7tfK6pypDRoD_tVNKPRUOQeRnzsq-M2CQWPw3Ut_EUxrE9X8eUeaz4l7p6ID0d2pkmBhyEzkmoeHnDXLP_cSWa3uLu6-Kn_nfvz36g3IM_ylcs_8S3uHs_-jDFDabFM_d-pO60--4T_a9XT4cs417UZP-_Hj73qDVfv1ec2b42f5q_",
+ "steps": [
+  {
+   "move": "Shoes: Empathy Card x1",
+   "before": {
+    "win": 0.951875,
+    "loss": 0.048125,
+    "dps": 25479.28777751753,
+    "ttk": 9.63436288689321,
+    "value": 1.619626816662763,
+    "deaths": "Lord of Vermilion x36, Diamond Dust x36"
+   },
+   "after": {
+    "win": 0.973125,
+    "loss": 0.026875000000000003,
+    "dps": 25562.3486667569,
+    "ttk": 9.60086288689321,
+    "value": 1.6484977300013535,
+    "deaths": "Diamond Dust x32, Lord of Vermilion x31"
+   },
+   "tried": 92
+  },
+  {
+   "move": "Class Gem: Bulwark Gem of the Weak +5 -> +8",
+   "before": {
+    "win": 0.9696875,
+    "loss": 0.030312500000000003,
+    "dps": 25432.38639907308,
+    "ttk": 9.63936288689321,
+    "value": 1.6420795459860962,
+    "deaths": "Diamond Dust x40, Lord of Vermilion x32"
+   },
+   "after": {
+    "win": 0.9753125,
+    "loss": 0.0246875,
+    "dps": 26080.588170642317,
+    "ttk": 9.622198582584955,
+    "value": 1.6591150725596346,
+    "deaths": "Diamond Dust x38, Lord of Vermilion x27"
+   },
+   "tried": 4
+  },
+  {
+   "move": "Rune or Orb: Hagalaz Rune of Skies +6",
+   "before": {
+    "win": 0.979375,
+    "loss": 0.020625,
+    "dps": 26316.00374728026,
+    "ttk": 9.59586288689321,
+    "value": 1.6679275562092037,
+    "deaths": "Diamond Dust x27, Lord of Vermilion x24"
+   },
+   "after": {
+    "win": 0.9859375,
+    "loss": 0.014062499999999999,
+    "dps": 26771.272599367734,
+    "ttk": 9.59586288689321,
+    "value": 1.6832878389905161,
+    "deaths": "Lord of Vermilion x17, Diamond Dust x16"
+   },
+   "tried": 76
+  },
+  {
+   "move": "Accessory 2 (right): Conquest Incarnate Card x1  +  Armor: Life Dragon Plate +6",
+   "before": {
+    "win": 0.980625,
+    "loss": 0.019375000000000003,
+    "dps": 26775.70188018216,
+    "ttk": 9.581698582584956,
+    "value": 1.6764480282027323,
+    "deaths": "Diamond Dust x26, Lord of Vermilion x22"
+   },
+   "after": {
+    "win": 0.9821875,
+    "loss": 0.017812500000000002,
+    "dps": 27786.543216578153,
+    "ttk": 9.413413315978962,
+    "value": 1.6936418982486723,
+    "deaths": "Lord of Vermilion x22, Diamond Dust x22"
+   },
+   "tried": 684
+  },
+  {
+   "move": "Rune or Orb: Jera Rune of Land +6",
+   "before": {
+    "win": 0.9859375,
+    "loss": 0.0140625,
+    "dps": 27804.86662955332,
+    "ttk": 9.416327620287218,
+    "value": 1.6987917494432998,
+    "deaths": "Lord of Vermilion x14, Diamond Dust x12"
+   },
+   "after": {
+    "win": 0.9843749999999999,
+    "loss": 0.015625,
+    "dps": 28993.41488692428,
+    "ttk": 9.579173368042078,
+    "value": 1.7145887233038641,
+    "deaths": "Lord of Vermilion x21, Diamond Dust x18"
+   },
+   "tried": 76
+  }
+ ],
+ "final": {
+  "win": 0.9834375,
+  "loss": 0.0165625,
+  "dps": 28875.531386036215,
+  "ttk": 9.579173368042078,
+  "value": 1.7116017207905432,
+  "deaths": "Lord of Vermilion x39, Diamond Dust x33"
+ },
+ "options": {
+  "fortress": 3,
+  "rooksWall": true,
+  "keepRange": true,
+  "heal": true,
+  "startCounters": 10,
+  "queensBrand": false,
+  "queensGambit": false,
+  "sneakAttack": false,
+  "bishopsTax": true,
+  "rogueFillers": false,
+  "windSlash": false,
+  "deltaFiller": false,
+  "autoAttack": false,
+  "order": [
+   "Stay hidden",
+   "Morroc's Mark",
+   "Pre-cast King's Gambit",
+   "Step back",
+   "Heal",
+   "Pawn's Cure",
+   "Pull it off the ward",
+   "Bishop's Tax",
+   "King's Chains",
+   "Shield Boomerang",
+   "Rook's Smash"
+  ],
+  "defense": "auto",
+  "fumble": 0.5
+ },
+ "link": "http://localhost:5173/#b=cdZM9j9swDIb_SqDlFqIQ9WUr491YdOgsGIZgK44QxzEsJ2jQ9r8XlJPCSe4WAqKfl3xpSk4A-x6HLvX-GiYGKDm4kgOCtSAKiliBcxy0whI4OKUMrypwCJqbnEGpC6SUAG2FAQNOCVsABdKyNPuZAbvEmYHDqiJWAmppZYZRmE85cGwK6XSemsCAHf2vej8ycDJ_OcY5dn6Op4EBG_fXFBvf11Noz01oGTix9FGAaA1YcIqbAh5D7jqd-h4ZMD8fluIk0yAQBZTglBT8Pyezjy42deuPvguv_QygVtJkJRoOFF6HE3mEcPFp8b_rQ2DgbE6nc5p9pPR-rPsQmj39DgG3DgUIwbmiP4eyQPFV9TQGMsaOp0uobweHeXes8WmOQ0dT7-Yw1XSu29D76-KCoBKEkVTdAhrUclm1sbhu6OdDPTarvSKC5ZKrEspqcV1aK8jsWtafDyuJzJB6huKwrqsyJJ8h38UVpDOkn6GHm4cGhELOaZ6vPRUEmZd2q0o5fb-UCNICz29lYcQqMfmhC22dDrHv6-O5n4nHgn8rizvShl09hoEBB6EpCQXPSyTN9uc5hOEtbd4nP7R_lqtHNfhdvmD0kN_S5mPv45BWmBaP3Mc-NIfNDz-Hz2q1YUc2bqKK5v99n3OLWvPlKaaRbUvzt_oH",
+ "perTarget": []
+}

@@ -164,7 +164,14 @@ export function resolveSkill(
   if (hideBlocks) avoid.push('hide');
   if (walkable) avoid.push('walk');
   if (type === 'physical') avoid.push('kawarimi');
-  if (type === 'magic' && targets === 'single') avoid.push('los');
+  // A cast aimed at you needs a line to you when it ends (RTM skill_castend_id):
+  // the single-target spells, and a splash aimed at you (Adoramus), not one
+  // centred on the caster.
+  const aimed = targets === 'single' || (area === 'splash' && !e.centeredOnSelf);
+  if (type === 'magic' && aimed) avoid.push('los');
+  // Magic Rod eats any magic the caster lands itself (src == dsrc, RTM
+  // skill.cpp skill_attack): single and splash, not a ground unit's waves.
+  if (type === 'magic' && (area === 'single' || area === 'splash')) avoid.push('rod');
 
   const perm = row.rate > 0 ? Math.max(1, Math.min(10000, Math.floor((row.rate * 95) / 100))) : 0;
   const notes: string[] = [];

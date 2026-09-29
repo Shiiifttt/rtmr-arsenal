@@ -13,10 +13,11 @@ import {
   attackIntervalMs, castTimeMs, escapeCells, escapeMsFor, mobDamage, physicalDamage, statusMatk, statusResist, TUNE, walkCellMs,
 } from '../formulas.ts';
 import type { Fighter, MobSkill, Monster } from '../model.ts';
+import { playEntry } from '../playbook.ts';
 import { Rng } from '../rng.ts';
 import { parseSkillText, type SkillText } from '../skilltext.ts';
 import {
-  disabled, followUpComing, grant, has, heal_, hidingStops, readyAt, strike, targetNow,
+  actionById, disabled, followUpComing, grant, has, heal_, hidingStops, readyAt, strike, targetNow,
   type Action, type Fight,
 } from '../engine.ts';
 
@@ -196,9 +197,13 @@ export const waitAction: Action = {
  * not overheal (the project owner, 2026-09-27: off cooldown in combat).
  */
 export function orphanHeal(kit: Toolkit): Action {
+  // RTM's Heal is Lv1 max, "formula updated to scale better with base level"
+  // (tooltip, no numbers). The owner's Kingslayer reads 3,136 (Lv130, INT 27,
+  // 2026-09-29): the renewal formula at Lv10 gives ~2,950 -- the 2023 code's
+  // Lv1 (~430) is far off, so Lv1 is read as Lv10.
   const amount = (fight: Fight) => {
     const f = fight.f;
-    return Math.floor((35 + 2 * f.level + f.stats.int) / 4) * 35 * Math.max(1, lv(f, 'Heal')) / 10
+    return Math.floor((35 + 2 * f.level + f.stats.int) / 4) * 35 * Math.max(10, lv(f, 'Heal')) / 10
       + statusMatk(f.stats) + f.matk.weapon;
   };
   return {
@@ -359,7 +364,7 @@ export const pullOffWard: Action = {
  * project owner, 2026-09-27: Jormungandr's long casts). Marked per skill with
  * 'los' in its dodges.
  */
-const losMs = (fight: Fight) => (serverMobility(fight) ? Math.round(TUNE.losCells * cellMs(fight)) : TUNE.walkOutMs);
+export const losMs = (fight: Fight) => (serverMobility(fight) ? Math.round(TUNE.losCells * cellMs(fight)) : TUNE.walkOutMs);
 export const breakSight: Action = {
   id: 'Break line of sight',
   isSkill: false,
@@ -416,6 +421,33 @@ export interface Threat {
 }
 
 /** The read on a monster's cast that any kit's dodge plan starts from. */
+/**
+ * Option reserveHiding: keep Hiding for the hit that kills. A cast you would
+ * live through is tanked (or walked / line-of-sighted) when the same monster
+ * has a one-shot Hiding answers that could land before Hiding is back off
+ * its cooldown -- Soul of Ymir's Chain Lightning (~2k a bounce) against its
+ * Dragon Breath (~35k): the project owner expects to take "Ymir's chain
+ * lightning occasionally" in a long fight (2026-09-28).
+ */
+export function hidingReserved(fight: Fight, s: MobSkill, from: Monster): boolean {
+  if (fight.options.reserveHiding !== true) return false;
+  const here = assessThreat(fight, s, from);
+  if (here.dmg >= 0.9 * fight.me.hp || here.badStatus) return false;
+  const st = from === fight.m ? fight.mob : fight.mob.adds.find((a) => a.m === from)?.st;
+  if (!st) return false;
+  const backAt = here.endsAt + actionById(fight, 'Hiding').cooldownMs(fight);
+  const hpAfter = fight.me.hp - here.dmg;
+  const sure = new Rng(0, true);
+  return from.skills.some((k) => {
+    if (k === s || k.type === 'none' || k.type === 'status' || k.targets === 'self') return false;
+    if (!(k.hiddenImmune || (k.avoid.includes('hide') && hidingStops(from, k)))) return false;
+    if (mobDamage(from, fight.f, k, sure) * Math.max(1, k.ticks) < hpAfter) return false;
+    const last = st.cds[k.skill];
+    const ready = last === undefined ? fight.t : last + k.ai.delayMs;
+    return Math.max(ready, fight.t) + k.castMs < backAt;
+  });
+}
+
 export function assessThreat(fight: Fight, s: MobSkill, from: Monster): Threat {
   const endsAt = fight.t + s.castMs;
   const lead = endsAt - fight.t - reactionMs(fight);
@@ -439,7 +471,9 @@ export function assessThreat(fight: Fight, s: MobSkill, from: Monster): Threat {
   // owner, 2026-09-28). Unset: dodge anything over a quarter of current HP.
   const share = typeof fight.options.tankShare === 'number' ? fight.options.tankShare : null;
   const big = share === null ? dmg >= 0.25 * fight.me.hp : dmg >= share * fight.f.maxHp || dmg >= 0.5 * fight.me.hp;
-  const heavy = s.type !== 'none' && s.targets !== 'self' && (big || badStatus);
+  // Dodged whatever it would do: the playbook's "always" (data/playbook.json).
+  const always = !!playEntry(fight, s, from)?.always;
+  const heavy = s.type !== 'none' && s.targets !== 'self' && (big || badStatus || always);
   return {
     endsAt, lead, dmg, badStatus, heavy,
     hideWorks: !!s.hiddenImmune || (s.avoid.includes('hide') && hidingStops(from, s)),

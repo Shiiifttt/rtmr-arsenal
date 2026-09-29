@@ -101,7 +101,9 @@ function wanted(fight: Fight, c: Consumable, hp: number, sp: number): boolean {
  *   - Healing items only when asked for: nobody carries hundreds, and they
  *     cost a fortune to burn through.
  *   - Kafra Elixirs against a boss: free there, but 2 a life (more with an
- *     Elixir Badge -- see `Fighter.kafraElixirs`).
+ *     Elixir Badge -- see `Fighter.kafraElixirs`). A profile that lists
+ *     "Kafra Elixir" carries the same count everywhere (the owner keeps 2
+ *     on him, 2026-09-29).
  */
 export const DEFAULT_CONSUMABLES = ['Green Potion'];
 export const HEALING_ITEMS = ['White Potion', 'Blue Potion', 'Yggdrasil Berry'];
@@ -118,6 +120,6 @@ export function loadout(
   const names = [...o.carried, ...(o.healing ? HEALING_ITEMS : [])]
     .filter((n, i, all) => all.indexOf(n) === i && n !== BOSS_ELIXIR);
   const out = consumables(names);
-  if (o.boss && o.elixirs > 0) out.push(consumableAction(readConsumable(BOSS_ELIXIR), o.elixirs));
+  if ((o.boss || o.carried.includes(BOSS_ELIXIR)) && o.elixirs > 0) out.push(consumableAction(readConsumable(BOSS_ELIXIR), o.elixirs));
   return out;
 }

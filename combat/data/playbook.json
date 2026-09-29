@@ -1,0 +1,182 @@
+{
+  "_about": [
+    "How a player answers a monster's skill (src/playbook.ts). What CAN dodge a skill is a fact about it (mob-skills.json 'avoid'); this file is the player's preference among those.",
+    "Layers, most specific wins field by field: skills.<AEGIS> (every class, every monster) < classes.<Class>.skills.<AEGIS> < mobs.<Monster>.<AEGIS> < classes.<Class>.mobs.<Monster>.<AEGIS>.",
+    "prefer: the ways to try, best first -- only these are tried; if none works in time it is tanked. Ways: gambit (King's Gambit), walk (walk out), hide (Hiding), decoy, rod (Pawn's Rod), los (behind cover), manhole (step into one), kawarimi, barrier (Queen's Barrier), backslide, slashout (Shadow Slash out). A class that lacks a way skips it.",
+    "always: dodge it whatever it would do; otherwise only a heavy hit is (tankShare / a quarter of HP, or a bad status).",
+    "A skill with no entry here is left to the class kit's own reactions.",
+    "archetypes: with profile option defense 'auto' (src/kits/defense.ts), a skill with no 'prefer' entry is answered by the shape of its cast instead: area-slow (an area with time to walk out), area-fast (an area without), single-slow (a cast at you with time to get behind cover), single-fast (a cast at you without, or no cast bar). Each list is tried in order; 'a|b' tries both and takes the cheaper (SP, time off the target, cooldown). classes.<Class>.archetypes overrides one for a class.",
+    "Threat decides how far down the list it goes: a light hit (expected damage after flee and Auto Guard, under tankShare) is tanked; a heavy one uses any way but the reserved ones (Queen's Barrier, and a tool kept for a monster's instant killer); a lethal one (would kill, or a disabling status) may use those too."
+  ],
+  "archetypes": {
+    "area-slow": [
+      "backslide|walk|slashout|gambit",
+      "rod",
+      "hide|kawarimi|decoy",
+      "los",
+      "manhole",
+      "barrier"
+    ],
+    "area-fast": [
+      "backslide|slashout",
+      "gambit",
+      "rod",
+      "hide|kawarimi",
+      "manhole",
+      "barrier"
+    ],
+    "single-slow": [
+      "rod",
+      "decoy|hide|kawarimi",
+      "los",
+      "manhole",
+      "barrier"
+    ],
+    "single-fast": [
+      "kawarimi|decoy|hide",
+      "rod",
+      "manhole",
+      "barrier"
+    ]
+  },
+  "skills": {
+    "WL_EARTHSTRAIN": {
+      "prefer": [
+        "walk",
+        "hide"
+      ],
+      "always": true,
+      "note": "Project owner, 2026-09-29: walk behind the caster or Hide. The line runs away from the caster, so behind it is a short step (mob-skills.json escapeCells)."
+    },
+    "SP_SWHOO": {
+      "prefer": [
+        "hide",
+        "rod",
+        "los"
+      ],
+      "always": true,
+      "note": "Project owner, 2026-09-29 (Umbral Knight): Hiding or line of sight. Pawn's Rod: 'fairly sure' it stops it (magic, and Hiding does) -- not yet tested in game."
+    },
+    "SO_DIAMONDDUST": {
+      "prefer": [
+        "gambit",
+        "hide",
+        "walk"
+      ],
+      "always": true,
+      "note": "Project owner, 2026-09-29 (Tidal Knight): Hiding dodges it. One hit (skill_db Duration1 100 ms), so Hiding's 2 s covers it; 9x9 is too wide to walk out of at the wall's pace."
+    },
+    "WZ_VERMILION": {
+      "prefer": [
+        "gambit",
+        "hide",
+        "walk"
+      ],
+      "always": true,
+      "note": "Project owner, 2026-09-29 (Tornado Knight): Hiding dodges it. One wave here (skill_db Duration1 1000 ms against a 1250 ms tick), so Hiding's 2 s covers it; radius 7 is a long walk."
+    },
+    "WZ_HEAVENDRIVE": {
+      "prefer": [
+        "walk",
+        "gambit",
+        "hide"
+      ],
+      "note": "Project owner, 2026-09-29 (Quake Knight): walk out of the smaller areas when there is time (5x5), saving King's Gambit; Hiding dodges it live (the 2023 flag TargetHidden is not live)."
+    },
+    "NPC_VAMPIRE_GIFT": {
+      "prefer": [
+        "walk",
+        "gambit",
+        "hide"
+      ],
+      "note": "Project owner, 2026-09-29 (the Tomb knights): walk out of the smaller areas when there is time, saving King's Gambit for the big ones."
+    }
+  },
+  "classes": {
+    "Rogue": {
+      "archetypes": {
+        "single-slow": [
+          "decoy",
+          "rod",
+          "hide|los",
+          "manhole",
+          "barrier"
+        ],
+        "single-fast": [
+          "decoy",
+          "rod",
+          "hide",
+          "manhole",
+          "barrier"
+        ],
+        "single-slow:boss": [
+          "rod",
+          "decoy|hide|kawarimi",
+          "los",
+          "manhole",
+          "barrier"
+        ],
+        "single-fast:boss": [
+          "kawarimi|decoy|hide",
+          "rod",
+          "manhole",
+          "barrier"
+        ]
+      },
+      "note": "Project owner, 2026-09-29: any rogue-based job (Kingslayer, Sinner, Arcane Master, Blast Juggler -- the lineage in crawler/class-rules.json) answers a non-boss single-target skill with Decoy first; Pawn's Rod if it is magic; Hiding or walking out of line of sight last. Against a boss (formulas countsAsBoss: MVP, server Boss class, Rachel SS / Jorm lair boss protocol) the default order, and Decoy is never an answer there: it is its own state, not Hiding, and the owner assumes it only fools non-boss monsters (2026-09-29, untested). Hiding stops single-target casts from anything, boss protocol and detectors included (owner)."
+    },
+    "Kingslayer": {
+      "skills": {
+        "NJ_HUUJIN": {
+          "always": true,
+          "note": "Project owner, 2026-09-29 (Tornado Knight's Wind Blade, ~11-15k): always answered; the order is classes.Rogue's (Decoy, Pawn's Rod, Hiding / line of sight)."
+        },
+        "NJ_HYOUSENSOU": {
+          "always": true,
+          "note": "Project owner, 2026-09-29 (Tidal Knight's Freezing Spear, ~12-15k): always answered; the order is classes.Rogue's (Decoy, Pawn's Rod, Hiding / line of sight)."
+        },
+        "KO_KAIHOU": {
+          "always": true,
+          "note": "Project owner, 2026-09-29 (Quake Knight's Eruption, ~11-15k): always answered; the order is classes.Rogue's (Decoy, Pawn's Rod, Hiding / line of sight)."
+        },
+        "WL_EARTHSTRAIN": {
+          "prefer": [
+            "walk",
+            "hide",
+            "gambit"
+          ],
+          "note": "Project owner, 2026-09-29: King's Gambit also cancels it, but it is an easy walk."
+        },
+        "AB_ADORAMUS": {
+          "prefer": [
+            "rod",
+            "hide",
+            "los"
+          ],
+          "always": true,
+          "note": "Project owner, 2026-09-29: not a fast cast (2.5 s), easy to answer. Pawn's Rod eats it (RTM skill_attack: Magic Rod takes any magic the caster lands itself, a splash too); Hiding next (a boss-protocol swing can break it); line of sight last. ~19k a hit on the owner, two thirds of his HP."
+        }
+      }
+    }
+  },
+  "mobs": {
+    "Ifrit": {
+      "WL_COMET": {
+        "prefer": [
+          "gambit",
+          "hide"
+        ],
+        "always": true,
+        "note": "Project owner, 2026-09-29: always Hiding or King's Gambit; too wide to walk out of."
+      },
+      "WZ_METEOR": {
+        "prefer": [
+          "walk",
+          "gambit",
+          "hide"
+        ],
+        "note": "Project owner, 2026-09-29: King's Gambit works, but it is easier to walk away when there is time."
+      }
+    }
+  }
+}

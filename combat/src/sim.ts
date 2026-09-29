@@ -51,6 +51,9 @@ export interface Summary {
   /** Seconds per fight, averaged over every fight. */
   seconds: number;
   healed: number;
+  /** SP and HP spent, per won fight: the bars at the pull less what is left at the kill (the rhythm score, src/rhythm.ts). */
+  spUsed: number;
+  hpUsed: number;
   deaths: Record<string, number>;
   actions: ActionRow[];
   sources: { id: string; hits: number; avoided: number; damage: number }[];
@@ -134,6 +137,7 @@ export function simulate(f: Fighter, m: Monster, kit: Kit, o: SimOptions): Summa
   let wins = 0; let losses = 0; let stalemates = 0;
   const stalls: Record<string, number> = {};
   let timeSum = 0;
+  let spUsed = 0; let hpUsed = 0;
   const deaths: Record<string, number> = {};
   const total: Meter = {
     actions: {}, taken: {}, defenses: {}, healed: 0, sequence: [], minHp: f.maxHp,
@@ -151,7 +155,10 @@ export function simulate(f: Fighter, m: Monster, kit: Kit, o: SimOptions): Summa
     if (i === 0) prep = kit.prepNotes?.(fight) ?? [];
     run(fight);
     if (i === 0) log = fight.log;
-    if (fight.result === 'win') { wins++; ttks.push(fight.t / 1000); }
+    if (fight.result === 'win') {
+      wins++; ttks.push(fight.t / 1000);
+      spUsed += Math.max(0, f.maxSp - fight.me.sp); hpUsed += Math.max(0, f.maxHp - fight.me.hp);
+    }
     else if (fight.result === 'loss') { losses++; deaths[fight.cause ?? '?'] = (deaths[fight.cause ?? '?'] ?? 0) + 1; }
     else { stalemates++; stalls[fight.cause ?? '?'] = (stalls[fight.cause ?? '?'] ?? 0) + 1; }
     timeSum += fight.t;
@@ -192,6 +199,8 @@ export function simulate(f: Fighter, m: Monster, kit: Kit, o: SimOptions): Summa
     dtps: timeSum ? takenTotal / (timeSum / 1000) : 0,
     seconds: timeSum / n / 1000,
     healed: total.healed / n,
+    spUsed: wins ? spUsed / wins : 0,
+    hpUsed: wins ? hpUsed / wins : 0,
     deaths,
     actions,
     sources: Object.entries(total.taken).map(([id, t]) => ({

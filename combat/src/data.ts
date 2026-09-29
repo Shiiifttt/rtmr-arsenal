@@ -228,10 +228,43 @@ export const PROTOCOL_COUNTS_AS_BOSS_MAPS = [...MOB_GROUPS.rachel_ss, ...MOB_GRO
 /** Maps whose monsters run the boss protocol (the project owner, 2026-09-26). */
 export const BOSS_PROTOCOL_MAPS = [...MOB_GROUPS.rachel_ss, ...MOB_GROUPS.jorm];
 
-/** Monsters matching an id, a name, or a group ("rachel_ss", "jorm"). */
+let accessorySides: Record<string, 'left' | 'right' | 'both'> | null = null;
+/**
+ * Whether an accessory card goes into this accessory: a one-side card (left
+ * or right only, data/accessory-sides.json from the server's item_db) only
+ * into an accessory of that side alone -- Despero Card (left only) never into
+ * Arch Ring (both sides) (the project owner, 2026-09-28). Anything not an
+ * accessory card, or newer than the 2023 snapshot, passes.
+ */
+export function accessoryCardFits(cardId: number, hostId: number): boolean {
+  accessorySides ??= readJSON<{ sides: Record<string, 'left' | 'right' | 'both'> }>(resolve(COMBAT_DATA, 'accessory-sides.json')).sides;
+  const side = accessorySides[String(cardId)];
+  return !side || side === 'both' || accessorySides[String(hostId)] === side;
+}
+
+/**
+ * Named monster lists for baselines and tests (combat/baselines/): the
+ * regulars of an area without its MVP. Any tool's --vs takes these names.
+ */
+export const MOB_SETS: Record<string, string[]> = {
+  rachel5: ['Njord Zealot', 'Converted Zealot', 'Godly Seeker', 'Burning Fury', 'Tortured Maiden'],
+  lair4: ['Angel of Genesis', 'Demon of Apocalypse', 'Heartless', 'Heart of the Serpent'],
+  tomb_knights: ['Magma Knight', 'Tornado Knight', 'Quake Knight', 'Tidal Knight', 'Umbral Knight'],
+  guild_regulars: ['Guild Warrior', 'Guild Support', 'Guild Defender', 'Guild Magician', 'Guild Chamberlain', 'Guild Master', 'Detector'],
+  ymir: ['Soul of Ymir', 'Ymir Emperium'],
+  // The hardest regular of each high area (baseline results, 2026-09-28) and
+  // the area MVPs that spawn once every 30-120 min (the project owner:
+  // "hardest non boss and the MVP"). Jormungandr is left out: 18M HP at 5%
+  // damage taken is not a fight the sim can finish.
+  elite: ['Burning Fury', 'Heartless', 'Tornado Knight', 'Guild Master', 'Desperate Njord', 'King Schmidt', 'Soul of Ymir'],
+};
+
+/** Monsters matching an id, a name, a named set (MOB_SETS) or a group ("rachel_ss", "jorm"). */
 export function findMobs(query: string): MobRow[] {
   const rows = mobRows();
   const q = query.trim().toLowerCase();
+  const set = MOB_SETS[q];
+  if (set) return set.flatMap((n) => findMobs(n));
   const group = MOB_GROUPS[q];
   // Shadow placeholders ("Rank S Shadow", 50 HP, level 1) sit on every map.
   const real = (m: MobRow) => m.hp > 1000;
