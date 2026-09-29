@@ -32,6 +32,14 @@ export interface Profile {
    * race-specific bonus counts against whatever race is fought.
    */
   weaponRaceMatch?: boolean;
+  /**
+   * ASPD from stats and gear instead of a fixed reading (the renewal formula,
+   * RTM status.cpp:3035-3072): base = the job's weapon delay plus the shield's
+   * (Shadow_Chaser one-handed sword 63 + shield 1 = 64); mastery = the
+   * skill ASPD value (x AGI/190); offset calibrates it to a reading. Gear
+   * "ASPD +x%" shortens the attack delay, flat "ASPD +x" adds.
+   */
+  aspdModel?: { base: number; mastery?: number; offset?: number };
   measured?: {
     /** Max HP without Moonlight Stance (or the class's stance). */
     maxHp?: number;
@@ -238,8 +246,18 @@ export async function buildFighter(profile: Profile, opts: FighterOptions): Prom
   // The limit, not a flat 180: +1 per 40 AGI and gear's ASPD Limit, up to
   // 190 (the planner's derived total). An AGI build is assumed to reach it.
   const aspdLimit = total('aspd_limit');
-  const aspd = profile.measured?.aspd ?? aspdLimit;
-  if (!profile.measured?.aspd) notes.push(`ASPD taken as ${aspd}, the build's ASPD limit; give a reading if it falls short`);
+  const am = profile.aspdModel;
+  const modelAspd = am ? (() => {
+    const { agi, dex } = stats;
+    const raw = 196 + Math.sqrt((dex * dex) / 9 + 0.7 * agi * agi) * 0.25 + ((am.mastery ?? 0) * agi) / 190
+      - Math.min(am.base - Math.floor(agi / 10), 200);
+    // ASPD +x% shortens the delay (amotion = 2000 - 10 ASPD); flat ASPD adds.
+    const delay = (2000 - 10 * raw) * (1 - pct('aspd') / 100) - 10 * flat('aspd');
+    return Math.min(aspdLimit, Math.floor((2000 - delay) / 10 + (am.offset ?? 0)));
+  })() : null;
+  const aspd = modelAspd ?? profile.measured?.aspd ?? aspdLimit;
+  if (modelAspd !== null) notes.push(`ASPD ${aspd} from stats and gear (aspdModel)`);
+  else if (!profile.measured?.aspd) notes.push(`ASPD taken as ${aspd}, the build's ASPD limit; give a reading if it falls short`);
 
   const dmg: PercentBag = {};
   const res: PercentBag = {};
@@ -334,7 +352,9 @@ export async function buildFighter(profile: Profile, opts: FighterOptions): Prom
     dmgLeft,
     ...(anyRace ? { anyRace } : {}),
     res,
-    cast: { variable: pct('variable_cast') + (tg.tgCast?.variable ?? 0), fixed: pct('fixed_cast') + (tg.tgCast?.fixed ?? 0), all: pct('cast_time') },
+    cast: { variable: pct('variable_cast') + (tg.tgCast?.variable ?? 0), fixed: pct('fixed_cast') + (tg.tgCast?.fixed ?? 0), all: pct('cast_time'),
+      // "Fixed Cast Time -0.2s" lands in the flat column, in seconds.
+      fixedFlatMs: Math.round(flat('fixed_cast') * 1000) },
     afterCastDelay: pct('after_cast_delay'),
     spCost: pct('sp_cost'),
     leech: {

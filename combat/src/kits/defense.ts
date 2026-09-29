@@ -296,9 +296,17 @@ export function toolCost(fight: Fight, tool: DefenseTool, s: MobSkill, r: Read, 
 /** The order the ways are tried in for this cast, and where it came from. */
 export function answerOrder(fight: Fight, s: MobSkill, from: Monster, r: Read): { groups: Way[][]; source: string } {
   const e = playEntry(fight, s, from);
-  if (e?.prefer) return { groups: e.prefer.map((w) => String(w).split('|').map((x) => x.trim()) as Way[]), source: 'playbook' };
   const boss = countsAsBoss(from);
-  return { groups: archetypeOrder(fight.kit.className, r.archetype, boss), source: `${r.archetype}${boss ? ' (boss)' : ''}` };
+  const found = e?.prefer
+    ? { groups: e.prefer.map((w) => String(w).split('|').map((x) => x.trim()) as Way[]), source: 'playbook' }
+    : { groups: archetypeOrder(fight.kit.className, r.archetype, boss), source: `${r.archetype}${boss ? ' (boss)' : ''}` };
+  // Option stayVisible: answers that leave you where the monster can swing at
+  // you (Pawn's Rod, King's Gambit) go first -- building Duel Counters off its
+  // swings (the project owner, 2026-09-30).
+  if (fight.options.stayVisible !== true) return found;
+  const visible = (w: Way) => w === 'rod' || w === 'gambit';
+  const split = found.groups.flatMap((g) => [g.filter(visible), g.filter((w) => !visible(w))]).filter((g) => g.length);
+  return { groups: [...split.filter((g) => g.every(visible)), ...split.filter((g) => !g.every(visible))], source: `${found.source}, visible first` };
 }
 
 /**

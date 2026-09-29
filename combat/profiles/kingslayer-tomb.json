@@ -1,11 +1,16 @@
 {
-  "name": "Kingslayer in the Tomb of Kings (the owner, 2026-09-29): his current build (one Megalodon Card still to farm); Shield Boomerang -> King's Chains, Boomerang alone while Chains cools, Bishop's Tax for the combo, Rook's Smash as filler and off Pneuma; no Delta; buffs up and SP full at the pull; 2 Kafra Elixirs + Yggdrasil Berries",
+  "name": "Kingslayer in the Tomb of Kings (the owner, 2026-09-30): final skills (Retribution 10, Reflect Shield 10, Bishop's Tax 5 kept for parties/bosses but off here, Queen's Gambit 8, other offence at 1); hug, Boomerang -> Chains at 10 counters, Retribution woven in",
   "build": "https://rtmr-arsenal.pages.dev/#b=cdZPNqtswEIVfJWhzN0PR6M9Wlr3L0kXXwhhhTxwRxzGWEnpp--5FcgJO2rsZ0PDNzDnSyAlg38I0xNF_0MIAJQdXc0CwFkSVIzbgHAetsAYOTinDmwYcguamZFDqCnNKgLbCgAGnhK0gh1zLYvKJAbuFxMBh02RWghCc29IRhSncQvFyXTpiwM7-Z3ucGTidYXYOKQw-hcvEgB3Jj2Ea2oU6CjfqGbiqUPc5MS0MnFjnKEC0Biw4xU0FzyEDGgSigBqckqI4M4BaSVNSaDjk8K8PUUbSzcdV1WEkYuDsquQakw9F7NyORN0xOxdwF1UV86rclLTqs-ZxpuyOnS83au8Hh0Uj63xMYRoYMH9ItLT53PY0-o9VRIZqEEaKBpwFNKjl-nz8aZ5Pp3buNg-DCJZLrmrQzaq5tlZkqduy8XralMgCqVcoTNu-qkDyFfJD2EC6QPoVelodNCAUcp7tfK6pypDRoD_tVNKPRUOQeRnzsq-M2CQWPw3Ut_EUxrE9X8eUeaz4l7p6ID0d2pkmBhyEzkmoeHnDXLP_cSWa3uLu6-Kn_nfvz36g3IM_ylcs_8S3uHs_-jDFDabFM_d-pO60--4T_a9XT4cs417UZP-_Hj73qDVfv1ec2b42f5q_",
   "skills": {
     "Rook's Smash": 1,
-    "King's Chains": 9,
+    "King's Chains": 1,
     "King's Gambit": 6,
-    "Delta Skyfall": 1
+    "Delta Skyfall": 1,
+    "Retribution": 10,
+    "Reflect Shield": 10,
+    "Bishop's Tax": 5,
+    "Queen's Gambit": 8,
+    "Blade Mastery": 1
   },
   "consumables": [
     "Green Potion",
@@ -14,14 +19,14 @@
   ],
   "options": {
     "fortress": 3,
-    "rooksWall": true,
-    "keepRange": true,
+    "rooksWall": false,
+    "keepRange": false,
     "heal": true,
     "startCounters": 10,
     "queensBrand": false,
     "queensGambit": false,
     "sneakAttack": false,
-    "bishopsTax": true,
+    "bishopsTax": false,
     "rogueFillers": false,
     "windSlash": false,
     "deltaFiller": false,
@@ -37,9 +42,20 @@
       "Bishop's Tax",
       "King's Chains",
       "Shield Boomerang",
+      "Retribution",
       "Rook's Smash"
     ],
     "defense": "auto",
-    "healBelow": 0.75
+    "healBelow": 0.75,
+    "spendCounters": true,
+    "retributionAt": 10
+  },
+  "measured": {
+    "aspd": 142
+  },
+  "aspdModel": {
+    "base": 64,
+    "mastery": 1,
+    "offset": 2
   }
 }

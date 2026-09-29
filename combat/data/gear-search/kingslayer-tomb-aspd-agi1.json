@@ -1,0 +1,927 @@
+{
+ "profile": "Kingslayer in the Tomb of Kings (the owner, 2026-09-29): his current build (one Megalodon Card still to farm); Shield Boomerang -> King's Chains, Boomerang alone while Chains cools, Bishop's Tax for the combo, Rook's Smash as filler and off Pneuma; no Delta; buffs up and SP full at the pull; 2 Kafra Elixirs + Yggdrasil Berries",
+ "targets": [
+  "Magma Knight",
+  "Tornado Knight",
+  "Quake Knight",
+  "Tidal Knight",
+  "Umbral Knight"
+ ],
+ "rules": {
+  "screenN": 200,
+  "confirmN": 800,
+  "timeS": 120,
+  "locked": [
+   "offhand",
+   "weapon",
+   "shoes",
+   "acc2"
+  ],
+  "penalty": 0,
+  "topStats": [
+   "vit",
+   "dex",
+   "str"
+  ]
+ },
+ "start": "https://rtmr-arsenal.pages.dev/#b=cdZPNqtswEIVfJWhzN0PR6M9Wlr3L0kXXwhhhTxwRxzGWEnpp--5FcgJO2rsZ0PDNzDnSyAlg38I0xNF_0MIAJQdXc0CwFkSVIzbgHAetsAYOTinDmwYcguamZFDqCnNKgLbCgAGnhK0gh1zLYvKJAbuFxMBh02RWghCc29IRhSncQvFyXTpiwM7-Z3ucGTidYXYOKQw-hcvEgB3Jj2Ea2oU6CjfqGbiqUPc5MS0MnFjnKEC0Biw4xU0FzyEDGgSigBqckqI4M4BaSVNSaDjk8K8PUUbSzcdV1WEkYuDsquQakw9F7NyORN0xOxdwF1UV86rclLTqs-ZxpuyOnS83au8Hh0Uj63xMYRoYMH9ItLT53PY0-o9VRIZqEEaKBpwFNKjl-nz8aZ5Pp3buNg-DCJZLrmrQzaq5tlZkqduy8XralMgCqVcoTNu-qkDyFfJD2EC6QPoVelodNCAUcp7tfK6pypDRoD_tVNKPRUOQeRnzsq-M2CQWPw3Ut_EUxrE9X8eUeaz4l7p6ID0d2pkmBhyEzkmoeHnDXLP_cSWa3uLu6-Kn_nfvz36g3IM_ylcs_8S3uHs_-jDFDabFM_d-pO60--4T_a9XT4cs417UZP-_Hj73qDVfv1ec2b42f5q_",
+ "steps": [
+  {
+   "move": "Upper Headgear: Volan of the Sun +8",
+   "before": {
+    "win": 0.999,
+    "loss": 0.001,
+    "dps": 17460.989556636432,
+    "ttk": 13.41009676983819,
+    "value": 1.1460160657054943,
+    "deaths": "Vampire Gift x3, Eruption x1",
+    "rhythm": {
+     "killsPerHour": 122.40097484974392,
+     "cycleS": 29.39280141834049,
+     "sitS": 15.309429418599333,
+     "deathsPerHour": 0.07799368279194499,
+     "per": [
+      {
+       "name": "Magma Knight",
+       "weight": 12,
+       "fightS": 11.204310640125385,
+       "sitS": 18.4578570712076,
+       "spUsed": 387.50875,
+       "hpUsed": 10000.909949749985,
+       "loss": 0
+      },
+      {
+       "name": "Tornado Knight",
+       "weight": 12,
+       "fightS": 11.882500729196444,
+       "sitS": 16.56479415266203,
+       "spUsed": 830.9775,
+       "hpUsed": 4602.926503000002,
+       "loss": 0
+      },
+      {
+       "name": "Quake Knight",
+       "weight": 12,
+       "fightS": 12.730673681782228,
+       "sitS": 11.78827472566033,
+       "spUsed": 426.9612015018773,
+       "hpUsed": 6387.170164956182,
+       "loss": 0.00125
+      },
+      {
+       "name": "Tidal Knight",
+       "weight": 12,
+       "fightS": 11.135298475677867,
+       "sitS": 14.777701486752123,
+       "spUsed": 741.3275,
+       "hpUsed": 4509.70933425,
+       "loss": 0
+      },
+      {
+       "name": "Umbral Knight",
+       "weight": 5,
+       "fightS": 20.504687732979637,
+       "sitS": 14.55720031543577,
+       "spUsed": 730.2659974905897,
+       "hpUsed": 3245.1946509410272,
+       "loss": 0.00375
+      }
+     ]
+    }
+   },
+   "after": {
+    "win": 0.9995,
+    "loss": 0.0005,
+    "dps": 17169.366686437374,
+    "ttk": 13.517896769838188,
+    "value": 1.3089037341028347,
+    "deaths": "Vampire Gift x2",
+    "rhythm": {
+     "killsPerHour": 136.3598234212827,
+     "cycleS": 26.390153004641768,
+     "sitS": 12.143423390292151,
+     "deathsPerHour": 0.05469450010999236,
+     "per": [
+      {
+       "name": "Magma Knight",
+       "weight": 12,
+       "fightS": 11.796751162495113,
+       "sitS": 8.354187023488377,
+       "spUsed": 419.090112640801,
+       "hpUsed": 4215.350710387994,
+       "loss": 0.00125
+      },
+      {
+       "name": "Tornado Knight",
+       "weight": 12,
+       "fightS": 11.662967225434905,
+       "sitS": 16.450646474154876,
+       "spUsed": 825.25125,
+       "hpUsed": 1184.285507750001,
+       "loss": 0
+      },
+      {
+       "name": "Quake Knight",
+       "weight": 12,
+       "fightS": 12.904871666306503,
+       "sitS": 8.430009136465571,
+       "spUsed": 422.89375,
+       "hpUsed": 3993.691142499998,
+       "loss": 0
+      },
+      {
+       "name": "Tidal Knight",
+       "weight": 12,
+       "fightS": 11.316036462612223,
+       "sitS": 14.849763282482902,
+       "spUsed": 744.9425,
+       "hpUsed": 4324.981551500001,
+       "loss": 0
+      },
+      {
+       "name": "Umbral Knight",
+       "weight": 5,
+       "fightS": 20.56070527166892,
+       "sitS": 13.358995042149816,
+       "spUsed": 670.1576971214017,
+       "hpUsed": 1032.7994087609522,
+       "loss": 0.00125
+      }
+     ]
+    }
+   },
+   "tried": 236
+  },
+  {
+   "move": "Upper Headgear: Mistress Card x2",
+   "before": {
+    "win": 0.9984999999999999,
+    "loss": 0.0015,
+    "dps": 17022.54370344272,
+    "ttk": 13.65451694147249,
+    "value": 1.1446819686250813,
+    "deaths": "Vampire Gift x5, Magma Knight: attack x1",
+    "rhythm": {
+     "killsPerHour": 135.23122964069435,
+     "cycleS": 26.580259172573587,
+     "sitS": 12.205836890321144,
+     "deathsPerHour": 0.2076303277818622,
+     "per": [
+      {
+       "name": "Magma Knight",
+       "weight": 12,
+       "fightS": 11.873261102351492,
+       "sitS": 8.28850126965006,
+       "spUsed": 415.7949685534591,
+       "hpUsed": 4309.988280503148,
+       "loss": 0.00625
+      },
+      {
+       "name": "Tornado Knight",
+       "weight": 12,
+       "fightS": 11.759712532782276,
+       "sitS": 16.779484481851654,
+       "spUsed": 841.7475,
+       "hpUsed": 1184.2954517500004,
+       "loss": 0
+      },
+      {
+       "name": "Quake Knight",
+       "weight": 12,
+       "fightS": 12.97131789979387,
+       "sitS": 8.503366649132035,
+       "spUsed": 426.57375,
+       "hpUsed": 3860.2588982499997,
+       "loss": 0
+      },
+      {
+       "name": "Tidal Knight",
+       "weight": 12,
+       "fightS": 11.402107445641855,
+       "sitS": 14.797486087654697,
+       "spUsed": 742.32,
+       "hpUsed": 3917.9880182499996,
+       "loss": 0
+      },
+      {
+       "name": "Umbral Knight",
+       "weight": 5,
+       "fightS": 20.790393638509116,
+       "sitS": 13.437783413823883,
+       "spUsed": 674.1101376720901,
+       "hpUsed": 1158.531863829788,
+       "loss": 0.00125
+      }
+     ]
+    }
+   },
+   "after": {
+    "win": 0.9985000000000002,
+    "loss": 0.0015,
+    "dps": 17227.42034668317,
+    "ttk": 13.63729676983819,
+    "value": 1.4091779518247036,
+    "deaths": "Vampire Gift x5, Quake Knight: attack x1",
+    "rhythm": {
+     "killsPerHour": 154.40344922315887,
+     "cycleS": 23.295195208803325,
+     "sitS": 9.083061714665082,
+     "deathsPerHour": 0.1348565404068852,
+     "per": [
+      {
+       "name": "Magma Knight",
+       "weight": 12,
+       "fightS": 10.811714087719643,
+       "sitS": 7.473390110620006,
+       "spUsed": 252.21875,
+       "hpUsed": 3797.498557250007,
+       "loss": 0
+      },
+      {
+       "name": "Tornado Knight",
+       "weight": 12,
+       "fightS": 11.769399780636844,
+       "sitS": 11.768972009191836,
+       "spUsed": 590.39375,
+       "hpUsed": 1021.7918687500003,
+       "loss": 0
+      },
+      {
+       "name": "Quake Knight",
+       "weight": 12,
+       "fightS": 13.231897899793857,
+       "sitS": 6.668282779458707,
+       "spUsed": 281.0525657071339,
+       "hpUsed": 3388.394538423029,
+       "loss": 0.00125
+      },
+      {
+       "name": "Tidal Knight",
+       "weight": 12,
+       "fightS": 11.456053524250471,
+       "sitS": 10.249943243168413,
+       "spUsed": 514.19125,
+       "hpUsed": 3589.657133250001,
+       "loss": 0
+      },
+      {
+       "name": "Umbral Knight",
+       "weight": 5,
+       "fightS": 21.03923333610338,
+       "sitS": 9.574890547858834,
+       "spUsed": 480.32704402515725,
+       "hpUsed": 1082.4997426415102,
+       "loss": 0.00625
+      }
+     ]
+    }
+   },
+   "tried": 80
+  },
+  {
+   "move": "Shoes: Kraben Card x1",
+   "before": {
+    "win": 0.99825,
+    "loss": 0.0017500000000000003,
+    "dps": 17404.199496485235,
+    "ttk": 13.616896769838188,
+    "value": 1.348061656830097,
+    "deaths": "Vampire Gift x6, Wind Blade x1",
+    "rhythm": {
+     "killsPerHour": 155.35141192252783,
+     "cycleS": 23.14266242273859,
+     "sitS": 9.02344162565297,
+     "deathsPerHour": 0.20545246239518133,
+     "per": [
+      {
+       "name": "Magma Knight",
+       "weight": 12,
+       "fightS": 10.757807475170289,
+       "sitS": 7.21596021734339,
+       "spUsed": 244.5,
+       "hpUsed": 3666.6891610000007,
+       "loss": 0
+      },
+      {
+       "name": "Tornado Knight",
+       "weight": 12,
+       "fightS": 11.632280274200578,
+       "sitS": 11.359297269375972,
+       "spUsed": 569.8423028785983,
+       "hpUsed": 1071.1272012515649,
+       "loss": 0.00125
+      },
+      {
+       "name": "Quake Knight",
+       "weight": 12,
+       "fightS": 13.069003216180684,
+       "sitS": 6.762919006487833,
+       "spUsed": 280.82456140350877,
+       "hpUsed": 3436.4826122807012,
+       "loss": 0.0025
+      },
+      {
+       "name": "Tidal Knight",
+       "weight": 12,
+       "fightS": 11.38521566085727,
+       "sitS": 10.5600681081979,
+       "spUsed": 529.74875,
+       "hpUsed": 3758.833074749999,
+       "loss": 0
+      },
+      {
+       "name": "Umbral Knight",
+       "weight": 5,
+       "fightS": 20.938404545726353,
+       "sitS": 9.615426728036484,
+       "spUsed": 482.3605527638191,
+       "hpUsed": 931.8835864321615,
+       "loss": 0.005
+      }
+     ]
+    }
+   },
+   "after": {
+    "win": 0.999,
+    "loss": 0.001,
+    "dps": 18738.212189807575,
+    "ttk": 12.643345154757284,
+    "value": 1.5140895595979813,
+    "deaths": "Vampire Gift x3, Umbral Knight: attack x1",
+    "rhythm": {
+     "killsPerHour": 161.7132984872464,
+     "cycleS": 22.247443969201747,
+     "sitS": 8.568060090237207,
+     "deathsPerHour": 0.10304342527448261,
+     "per": [
+      {
+       "name": "Magma Knight",
+       "weight": 12,
+       "fightS": 10.263728720951066,
+       "sitS": 5.738756165180193,
+       "spUsed": 264.44,
+       "hpUsed": 2916.0686027500024,
+       "loss": 0
+      },
+      {
+       "name": "Tornado Knight",
+       "weight": 12,
+       "fightS": 11.073463424330791,
+       "sitS": 10.984166228300893,
+       "spUsed": 551.02375,
+       "hpUsed": 787.618675,
+       "loss": 0
+      },
+      {
+       "name": "Quake Knight",
+       "weight": 12,
+       "fightS": 12.469470220085402,
+       "sitS": 6.318787490149115,
+       "spUsed": 316.9837296620776,
+       "hpUsed": 3034.2747331664564,
+       "loss": 0.00125
+      },
+      {
+       "name": "Tidal Knight",
+       "weight": 12,
+       "fightS": 10.727981324124691,
+       "sitS": 10.36827708408317,
+       "spUsed": 520.1275,
+       "hpUsed": 3035.46235775,
+       "loss": 0
+      },
+      {
+       "name": "Umbral Knight",
+       "weight": 5,
+       "fightS": 22.025949262243426,
+       "sitS": 10.696536608755602,
+       "spUsed": 536.5947302383939,
+       "hpUsed": 1106.0952695106657,
+       "loss": 0.00375
+      }
+     ]
+    }
+   },
+   "tried": 42
+  },
+  {
+   "move": "Middle Headgear: Filir's Pinions +0",
+   "before": {
+    "win": 0.999,
+    "loss": 0.001,
+    "dps": 18606.805384480474,
+    "ttk": 12.981979037702263,
+    "value": 1.5284334082974196,
+    "deaths": "Vampire Gift x4",
+    "rhythm": {
+     "killsPerHour": 160.41359049936761,
+     "cycleS": 22.43140294778601,
+     "sitS": 8.702402456649418,
+     "deathsPerHour": 0.07570249669625655,
+     "per": [
+      {
+       "name": "Magma Knight",
+       "weight": 12,
+       "fightS": 10.287675475241924,
+       "sitS": 6.224895575692343,
+       "spUsed": 268.52125,
+       "hpUsed": 3163.0935382500043,
+       "loss": 0
+      },
+      {
+       "name": "Tornado Knight",
+       "weight": 12,
+       "fightS": 11.126977275695262,
+       "sitS": 11.225767601539355,
+       "spUsed": 563.14375,
+       "hpUsed": 1100.0569540000006,
+       "loss": 0
+      },
+      {
+       "name": "Quake Knight",
+       "weight": 12,
+       "fightS": 12.566962711889822,
+       "sitS": 6.3438051994794975,
+       "spUsed": 318.23875,
+       "hpUsed": 3029.185325749998,
+       "loss": 0
+      },
+      {
+       "name": "Tidal Knight",
+       "weight": 12,
+       "fightS": 10.763828713720763,
+       "sitS": 10.252285500706,
+       "spUsed": 514.30875,
+       "hpUsed": 3094.1924739999995,
+       "loss": 0
+      },
+      {
+       "name": "Umbral Knight",
+       "weight": 5,
+       "fightS": 22.095839182333215,
+       "sitS": 10.586187673047817,
+       "spUsed": 531.0590452261307,
+       "hpUsed": 1133.5786989949759,
+       "loss": 0.005
+      }
+     ]
+    }
+   },
+   "after": {
+    "win": 0.99975,
+    "loss": 0.00025,
+    "dps": 21807.715743309895,
+    "ttk": 11.323352405744341,
+    "value": 1.6240123676604905,
+    "deaths": "Vampire Gift x1",
+    "rhythm": {
+     "killsPerHour": 167.1327479858038,
+     "cycleS": 21.53366814971036,
+     "sitS": 9.46108152976508,
+     "deathsPerHour": 0.047315112197547554,
+     "per": [
+      {
+       "name": "Magma Knight",
+       "weight": 12,
+       "fightS": 9.345949195349146,
+       "sitS": 6.36530911708519,
+       "spUsed": 319.3175,
+       "hpUsed": 2207.0567287499966,
+       "loss": 0
+      },
+      {
+       "name": "Tornado Knight",
+       "weight": 12,
+       "fightS": 9.625546532274859,
+       "sitS": 10.048608765469696,
+       "spUsed": 504.09125,
+       "hpUsed": 1256.7948802500002,
+       "loss": 0
+      },
+      {
+       "name": "Quake Knight",
+       "weight": 12,
+       "fightS": 9.851571030157462,
+       "sitS": 8.01388512683408,
+       "spUsed": 402.0187734668335,
+       "hpUsed": 1651.4703361702122,
+       "loss": 0.00125
+      },
+      {
+       "name": "Tidal Knight",
+       "weight": 12,
+       "fightS": 9.705825635906216,
+       "sitS": 12.250679697666047,
+       "spUsed": 614.55875,
+       "hpUsed": 851.1506979999998,
+       "loss": 0
+      },
+      {
+       "name": "Umbral Knight",
+       "weight": 5,
+       "fightS": 19.514576426569505,
+       "sitS": 12.283147373958304,
+       "spUsed": 616.1875,
+       "hpUsed": 1656.4558609999992,
+       "loss": 0
+      }
+     ]
+    }
+   },
+   "tried": 34
+  },
+  {
+   "move": "Armor: Powersuit +8",
+   "before": {
+    "win": 0.99975,
+    "loss": 0.00025,
+    "dps": 21736.498691496843,
+    "ttk": 11.372400790663438,
+    "value": 1.6194836306847444,
+    "deaths": "Vampire Gift x1",
+    "rhythm": {
+     "killsPerHour": 166.66667994917196,
+     "cycleS": 21.593885071527474,
+     "sitS": 9.467859596188072,
+     "deathsPerHour": 0.04718316880697517,
+     "per": [
+      {
+       "name": "Magma Knight",
+       "weight": 12,
+       "fightS": 9.320108429029572,
+       "sitS": 6.389877903596445,
+       "spUsed": 320.55,
+       "hpUsed": 2180.3449454999973,
+       "loss": 0
+      },
+      {
+       "name": "Tornado Knight",
+       "weight": 12,
+       "fightS": 9.715013376359211,
+       "sitS": 10.004330130956006,
+       "spUsed": 501.87,
+       "hpUsed": 1099.707537,
+       "loss": 0
+      },
+      {
+       "name": "Quake Knight",
+       "weight": 12,
+       "fightS": 9.905012445763333,
+       "sitS": 8.01211376065648,
+       "spUsed": 401.9299123904881,
+       "hpUsed": 1454.6281602002496,
+       "loss": 0.00125
+      },
+      {
+       "name": "Tidal Knight",
+       "weight": 12,
+       "fightS": 9.781693430116349,
+       "sitS": 12.311678064176748,
+       "spUsed": 617.61875,
+       "hpUsed": 777.0673895,
+       "loss": 0
+      },
+      {
+       "name": "Umbral Knight",
+       "weight": 5,
+       "fightS": 19.617983603553366,
+       "sitS": 12.2601483983499,
+       "spUsed": 615.03375,
+       "hpUsed": 1767.9422472499996,
+       "loss": 0
+      }
+     ]
+    }
+   },
+   "after": {
+    "win": 0.9969999999999999,
+    "loss": 0.003,
+    "dps": 21885.399983604773,
+    "ttk": 11.347952405744342,
+    "value": 1.6746184762293654,
+    "deaths": "Vampire Gift x10, Heaven's Drive x1",
+    "rhythm": {
+     "killsPerHour": 215.95712433130103,
+     "cycleS": 16.632625450011755,
+     "sitS": 4.458618246363344,
+     "deathsPerHour": 0.484952767083645,
+     "per": [
+      {
+       "name": "Magma Knight",
+       "weight": 12,
+       "fightS": 9.35937016271,
+       "sitS": 4.071201169804986,
+       "spUsed": 268.745,
+       "hpUsed": 1843.8307249999991,
+       "loss": 0
+      },
+      {
+       "name": "Tornado Knight",
+       "weight": 12,
+       "fightS": 9.734710554186881,
+       "sitS": 4.315491267830956,
+       "spUsed": 404.63125,
+       "hpUsed": 806.510025,
+       "loss": 0
+      },
+      {
+       "name": "Quake Knight",
+       "weight": 12,
+       "fightS": 9.89882987489258,
+       "sitS": 3.3884298488348774,
+       "spUsed": 317.7076537013802,
+       "hpUsed": 1068.7837641154333,
+       "loss": 0.00375
+      },
+      {
+       "name": "Tidal Knight",
+       "weight": 12,
+       "fightS": 9.773770587333585,
+       "sitS": 5.839689211029173,
+       "spUsed": 547.5438596491229,
+       "hpUsed": 645.0938847117801,
+       "loss": 0.0025
+      },
+      {
+       "name": "Umbral Knight",
+       "weight": 5,
+       "fightS": 19.42756652877784,
+       "sitS": 5.095929201873545,
+       "spUsed": 477.80706179066834,
+       "hpUsed": 1399.8780075662046,
+       "loss": 0.00875
+      }
+     ]
+    }
+   },
+   "tried": 304
+  }
+ ],
+ "final": {
+  "win": 0.997875,
+  "loss": 0.0021249999999999997,
+  "dps": 21841.99821482898,
+  "ttk": 11.408152405744342,
+  "value": 1.8366573932624077,
+  "deaths": "Vampire Gift x17",
+  "rhythm": {
+   "killsPerHour": 216.0744882938155,
+   "cycleS": 16.63596900749399,
+   "sitS": 4.466949713293389,
+   "deathsPerHour": 0.3240874896757475,
+   "per": [
+    {
+     "name": "Magma Knight",
+     "weight": 12,
+     "fightS": 9.36509242086949,
+     "sitS": 3.9056729409901423,
+     "spUsed": 270.36022514071294,
+     "hpUsed": 1768.8636522826716,
+     "loss": 0.000625
+    },
+    {
+     "name": "Tornado Knight",
+     "weight": 12,
+     "fightS": 9.677203547750256,
+     "sitS": 4.368464204772697,
+     "spUsed": 409.598125,
+     "hpUsed": 797.6905375000001,
+     "loss": 0
+    },
+    {
+     "name": "Quake Knight",
+     "weight": 12,
+     "fightS": 10.005497407013111,
+     "sitS": 3.4783590115348426,
+     "spUsed": 326.1396368190357,
+     "hpUsed": 1220.4111834690054,
+     "loss": 0.001875
+    },
+    {
+     "name": "Tidal Knight",
+     "weight": 12,
+     "fightS": 9.710533121924833,
+     "sitS": 5.860785520628955,
+     "spUsed": 549.5219023779724,
+     "hpUsed": 637.200775969963,
+     "loss": 0.00125
+    },
+    {
+     "name": "Umbral Knight",
+     "weight": 5,
+     "fightS": 19.619183424387906,
+     "sitS": 5.152306522755221,
+     "spUsed": 483.0931403398364,
+     "hpUsed": 1483.5784015103886,
+     "loss": 0.006875
+    }
+   ]
+  }
+ },
+ "options": {
+  "fortress": 3,
+  "rooksWall": false,
+  "keepRange": false,
+  "heal": true,
+  "startCounters": 10,
+  "queensBrand": false,
+  "queensGambit": false,
+  "sneakAttack": false,
+  "bishopsTax": true,
+  "rogueFillers": false,
+  "windSlash": false,
+  "deltaFiller": false,
+  "autoAttack": false,
+  "order": [
+   "Stay hidden",
+   "Morroc's Mark",
+   "Pre-cast King's Gambit",
+   "Step back",
+   "Heal",
+   "Pawn's Cure",
+   "Pull it off the ward",
+   "Bishop's Tax",
+   "King's Chains",
+   "Shield Boomerang",
+   "Rook's Smash"
+  ],
+  "defense": "auto",
+  "healBelow": 0.75,
+  "fumble": 0.1
+ },
+ "link": "http://localhost:5173/#b=cdZNNj6MwDIb_SpXLXF6N8g3pcee42sOeI4QiSGlUoIjQaqrd_e-rAJVoZ3qxFOex_dpxLAf5Gfomtu7mRwImKGxOwWAMeJYsK2AthWCcM-SwkgmOZIoClkFpLQtYDmW4hoZlQpscs02RJE5uIiDXMBFYVhQpTIBpJvWSjutvOVgy-ni-jJUnIJ37LI8DgRXzTRem0LgpnHsCMhxvMVSuLUdfXypfE1i-1JFgzGgYWEl1hkczVx3PbSsIyOj6xtdl7TrX-CUBlltJQA7h09dl5eJUTqHz90IlgaXvay0FzhifWxKcPiTvXBOqNfdXkRpMSbEOQ1Mk83UiiyB_dXFp-tD6pNPM7niJkwvJfRzK1vvqmGbIsVbIwDmlMr2O5Ea9Sh4Hn3SR7nz15XqwjM53qffQNwTEHSY_LrOofetui4gE5eBa8ALWpOdVAhRWSiq39dx0KodqswqMwVBBZY6kK2nOjeFJ6jasvZw2IWKG5DMU-m1eOUPiGXJN2EBqhtQz9LCsTINLRmlq57WmLEFaQb3MNLvve8wgDOj8uRaGbxzrMsZTaNuyu7RT4llG3_PsjtT-UA6-J6DgKjmR0fkNU8z-98X7_i3ufoyur__el5qB3sMXLP38t7j7OLrQxw2m-CP3cfTVaffLTf67XLU_JBlrUJH6_3Pvc8-UosvvjQPZ5_pf8R8",
+ "perTarget": [],
+ "census": {
+  "shadow": {},
+  "sets": [],
+  "deadShadow": 0,
+  "deadCards": [
+   "Abyss Mimic Card",
+   "Ancient Mimic Card",
+   "Apocalipse Card",
+   "Bigfoot Card",
+   "Bruised Drunkard Card",
+   "Buckethead Card",
+   "Enchanted Cornus Card",
+   "Depths Dollocaris Card",
+   "Dark Lord Card",
+   "Demon Pungus Card",
+   "Devoted Knight Card",
+   "Dollocaris Card",
+   "Dream of Kings Card",
+   "Driller Card",
+   "Enchanted Dragon Card",
+   "Enchanted Serpent Card",
+   "Fabre Card",
+   "Fanat Card",
+   "Gazeti Card",
+   "Genesis Card",
+   "Giga Sandworm Card",
+   "Golden Thief Bug Card",
+   "Hunter Fly Card",
+   "Joker Card",
+   "Kobold Card",
+   "Lost Codex Card",
+   "Lake Dragon Card",
+   "Enchanted Fatum Card",
+   "Living Crystal Card",
+   "Mad Drinker Card",
+   "Magetin Card",
+   "Mantis Card",
+   "Martin Card",
+   "Enchanted Mavka Card",
+   "Oracle Spirit Card",
+   "Pitaya Card",
+   "Prayer Card",
+   "Regret of Thanatos Card",
+   "Rotar Zairo Card",
+   "Savage Bebe Card",
+   "Black Swordfish Card",
+   "Temple Watcher Card",
+   "Vanberk Card",
+   "Venatu Card",
+   "Verus Eye Card",
+   "Vision of Surt Card",
+   "Remade Margaretha Card",
+   "Revenant Ebel Card",
+   "Alice Card",
+   "Amistr Card",
+   "Aspect of Lies Card",
+   "Automata Card",
+   "Beetle King Card",
+   "Carat Card",
+   "Chepet Card",
+   "Comodo Card",
+   "Dry Goblin Card",
+   "Eggyra Card",
+   "Filir Card",
+   "Giearth Card",
+   "Goat Card",
+   "Hylozoist Card",
+   "Ice Titan Card",
+   "Jewel Ungoliant Card",
+   "Lif Card",
+   "Marc Card",
+   "Muka Card",
+   "Myst Case Card",
+   "Nepenthes Card",
+   "Noble Devourer Card",
+   "Obsidian Card",
+   "Ruby Golem Card",
+   "Rudo Card",
+   "Sage Worm Card",
+   "Sasquatch Card",
+   "Sky Petite Card",
+   "Soul Cage Azrael Card",
+   "Sropho Card",
+   "Thorn of Death Card",
+   "Tricked Follower Card",
+   "Vanilmirth Card",
+   "Yoyo Card",
+   "Zombie Guard Card",
+   "Zombie Noble Card",
+   "Young Shinshoku Card",
+   "Ash Toad Card",
+   "Aster Card",
+   "Baby Molinet Card",
+   "Bone Ferus Card",
+   "Calmaring Card",
+   "Cat O' Nine Tails Card",
+   "Chimera Card",
+   "Condor Card",
+   "Coyote Card",
+   "Dataring Card",
+   "Death Ruri Card",
+   "Fairy Les Card",
+   "Fallen Rune Knight Card",
+   "Hornet Card",
+   "Injustice Card",
+   "Isis Card",
+   "Magma Terror Card",
+   "Marin Card",
+   "Menblatt Card",
+   "Miming Card",
+   "Mobster Card",
+   "Moonlight Flower Card",
+   "Myst Card",
+   "Nightmare Card",
+   "Nymph Spirit Card",
+   "Phendark Card",
+   "Red Hover Card",
+   "Magma Kaho Card",
+   "Roween Card",
+   "Rybio Card",
+   "Skeleton Prisoner Card",
+   "Sleipnir Avatar Card",
+   "Stormy Knight Card",
+   "Strange Thief Card",
+   "Vine Willow Card",
+   "Warp Assistant Card",
+   "Wild Rose Card",
+   "Zealotus Card",
+   "Zombie Prisoner Card",
+   "Frigg Avatar Card",
+   "Argiope Card",
+   "Ashring Card",
+   "Aunoe Card",
+   "Bar Maids Card",
+   "Bone Detardeurus Card",
+   "Buzzer Card",
+   "Clock Card",
+   "Desert Kaho Card",
+   "Dryad Card",
+   "Echio Card",
+   "Frost Fairy Card",
+   "Ghost Tree Card",
+   "Gibbet Card",
+   "Great Shadow Card",
+   "Holden Card",
+   "King Poring Card",
+   "Kobold Archer Card",
+   "Lavaring Card",
+   "Leaf Cat Card",
+   "Mime Monkey Card",
+   "Navigator Card",
+   "Old Blue Bag Card",
+   "Pest Sandworm Card",
+   "Pirate Skeleton Card",
+   "RSX-0806 Card",
+   "Recon Robot Card",
+   "Remover Card",
+   "Retribution Card",
+   "Roadie Card",
+   "Scream Card",
+   "Silent Ronin Card",
+   "Sleeper Card",
+   "Smokie Card",
+   "Spring Rabbit Card",
+   "Stone Shooter Card",
+   "Strange Wizard Card",
+   "Tao Gunka Card",
+   "Wickebine Tres Card",
+   "Zenorc Card",
+   "Phen Card",
+   "Surtr Avatar Card"
+  ]
+ }
+}

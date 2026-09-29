@@ -157,6 +157,11 @@ const weaponHit = (fight: Fight, name: string, ratio: number, o: { ranged?: bool
  * not the doubled skill ATK weapon skills get. Then the ratio, long-range
  * damage, DEF, the skill's gear bonus, and 10 per shield refine on top.
  * Gives 7,163 and 6,179.
+ *
+ * No weapon mastery (Blade Mastery) on shield skills: the project owner
+ * (2026-09-30) and every Chains reading since. The 2023 renewal code would
+ * add it (battle.cpp battle_skill_stacks_masteries_vvs exempts them only
+ * #ifndef RENEWAL) -- the readings win.
  */
 function shieldHit(fight: Fight, name: string, ratio: number, mult = 1) {
   const f = fight.f; const s = f.shield!;
@@ -232,7 +237,16 @@ const kingsChains: Action = {
   // With the Bulwark Gem it always follows Shield Boomerang, even at a little
   // downtime: the x1.5 is worth it (the project owner, 2026-09-27).
   ready: (fight) => learned("King's Chains")(fight) && hasShield(fight) && counters(fight) >= 1
-    && (!hasComboGem(fight.f) || has(fight, 'sbCombo') || !optionOn(fight, 'alwaysCombo')),
+    && (!hasComboGem(fight.f) || has(fight, 'sbCombo') || !optionOn(fight, 'alwaysCombo'))
+    // Option retriCombo (the project owner's burst, 2026-09-30): build to 10
+    // counters (Delta, Queen's Gambit), Tax, Retribution for Finisher Ready,
+    // Rook's Smash, Boomerang, Chains -- so Chains waits while Retribution is
+    // off cooldown and Finisher Ready is not up.
+    && !(fight.options.retriCombo === true && learned('Retribution')(fight)
+      && readyAt(fight, 'Retribution') <= fight.t && !has(fight, 'finisher'))
+    // Option comboCounters: under Finisher Ready, Chains waits for this many counters (the owner's two Deltas).
+    && !(fight.options.retriCombo === true && has(fight, 'finisher')
+      && counters(fight) < (typeof fight.options.comboCounters === 'number' ? fight.options.comboCounters : 1)),
   castMs: cast("King's Chains"),
   cooldownMs: cooldown("King's Chains"),
   spCost: spCost("King's Chains"),
@@ -495,7 +509,8 @@ const deltaSkyfall: Action = {
     && (fight.options.deltaFiller === true || (has(fight, 'duelStance') && counters(fight) < 5)),
   resolve(fight) {
     deltaBase.resolve(fight);
-    if (has(fight, 'duelStance') && counters(fight) < 5) setCounters(fight, Math.min(5, counters(fight) + 3));
+    // +1 a cast, up to 5 (the project owner, 2026-09-30; was +3 from the 2023 code's per-hit gain).
+    if (has(fight, 'duelStance') && counters(fight) < 5) setCounters(fight, Math.min(5, counters(fight) + 1));
   },
 };
 // "Damage is 160+10% per level +2% per STR", "Ignores flee".
@@ -605,7 +620,11 @@ const bishopsTax: Action = {
     && fight.me.hp >= (typeof fight.options.taxHp === 'number' ? fight.options.taxHp : 0.5) * fight.f.maxHp
     // Option keepTaxed: open with it and recast as it runs out, combo or not
     // (the owner's Ifrit plan, 2026-09-29).
-    && (fight.options.keepTaxed === true ? (fight.mob.buffs.tax?.until ?? -1) <= fight.t + 500 : comboSoon(fight, 3000)),
+    && (fight.options.keepTaxed === true ? (fight.mob.buffs.tax?.until ?? -1) <= fight.t + 500
+      // Option retriCombo: the Tax goes on at Retribution's counters (retributionAt), just before it.
+      : fight.options.retriCombo === true && learned('Retribution')(fight) && readyAt(fight, 'Retribution') <= fight.t
+        ? counters(fight) >= (typeof fight.options.retributionAt === 'number' ? fight.options.retributionAt : 10)
+        : comboSoon(fight, 3000)),
   castMs: cast("Bishop's Tax"),
   cooldownMs: cooldown("Bishop's Tax"),
   spCost: spCost("Bishop's Tax"),
@@ -1014,7 +1033,13 @@ function prep(fight: Fight) {
   // pre-renewal only). The shield skills take none of the ATK.
   const rtr = lv(f, 'Ready to Rip');
   if (rtr > 0 && fight.options.readyToRip === true) {
-    fight.f = { ...f, concentration: 1 + rtr, hit: f.hit + 10 * rtr, def: Math.floor(f.def * (1 - (5 + 5 * rtr) / 100)) };
+    // Option readyToRipAtkRate: the live tooltip's "ATK +(1+lv)%" read as a
+    // plain ATK% (like Angel of Genesis Card's), which shield skills take
+    // -- the project owner's reading (2026-09-30), unconfirmed; the 2023 code
+    // raises status and weapon ATK only (status.cpp:6946, 7024).
+    const rate = fight.options.readyToRipAtkRate === true;
+    fight.f = { ...f, concentration: rate ? 0 : 1 + rtr, atkPercent: f.atkPercent + (rate ? 1 + rtr : 0),
+      hit: f.hit + 10 * rtr, def: Math.floor(f.def * (1 - (5 + 5 * rtr) / 100)) };
   }
   if (lv(f, 'Duel Stance') > 0) grant(fight, 'duelStance', 1e12);
   // Option defense 'auto': Queen's Barrier goes up before the pull and soaks

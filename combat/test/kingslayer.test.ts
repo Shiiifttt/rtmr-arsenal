@@ -197,6 +197,7 @@ test('Grand Cross misses from the diagonal; Jormungandr\'s long casts are line-o
   const gc = only(angel, { CR_GRANDCROSS: { delayMs: 60_000 } });
   const a = newFight(f, { ...gc, adelay: 1e9 } as Monster, kingslayer, priorityPolicy,
     { seed: 1, limitMs: 10_000, log: true, options: { queensGambit: false, bishopsTax: false } });
+  a.mob.swung = true; // already angry: skills on its first act (engine mobAct)
   run(a);
   assert.match(a.log!.join('\n'), /avoids Grand Cross \(diagonal\)/);
 
@@ -206,6 +207,7 @@ test('Grand Cross misses from the diagonal; Jormungandr\'s long casts are line-o
   const swhoo = only(jorm, { SP_SWHOO: { delayMs: 60_000 } });
   const b = newFight(f, swhoo, kingslayer, priorityPolicy,
     { seed: 1, limitMs: 10_000, log: true, options: { queensGambit: false, bishopsTax: false } });
+  b.mob.swung = true;
   run(b);
   assert.match(b.log!.join('\n'), /avoids Swhoo \((line of sight|Hiding)\)/);
 });

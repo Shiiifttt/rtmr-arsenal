@@ -97,6 +97,8 @@ export interface MobState {
   used: Record<string, true>;
   /** Still closing in: chase-state rows apply, attack-state ones do not. */
   rushing: boolean;
+  /** Has swung at you: its first attack is always a normal one (RTM unit.cpp:2762). */
+  swung?: boolean;
   /** What the kit put on it (kit-owned). */
   debuffs: Record<string, Buff & { value?: number }>;
   /** What it put on itself: Magic Mirror, Reflect Shield, Max Pain... */
@@ -701,7 +703,16 @@ function condOk(fight: Fight, a: Actor, s: MobSkill, event: string | null): bool
     case 'always': return true;
     case 'myhpltmaxrate': return hpPct <= n;
     case 'myhpinrate': return hpPct <= n; // lower bound in val1; rarely matters
-    case 'friendhpltmaxrate': return hpPct <= n; // one-on-one: its friend is itself
+    // A friend is another monster, never the caster: RTM conf/battle/monster.conf
+    // monster_ai 0x001 leaves 0x010 ("mob skills defined for friends will also
+    // trigger on themselves") off. Alone, a knight never casts its friend Heal.
+    case 'friendhpltmaxrate': {
+      const others = [
+        ...(a.st === fight.mob ? [] : [{ hp: fight.mob.hp, max: fight.m.hp }]),
+        ...fight.mob.adds.filter((x) => x !== a && x.st.hp > 0).map((x) => ({ hp: x.st.hp, max: x.m.hp })),
+      ];
+      return others.some((o) => Math.floor((100 * o.hp) / o.max) <= n);
+    }
     case 'afterskill': return a.st.lastSkill === n;
     case 'slavelt': return a.st.adds.length < n;
     case 'slavele': return a.st.adds.length <= n;
@@ -813,9 +824,12 @@ function mobAct(fight: Fight, a: Actor) {
   // You stepped out of reach: it chases, and chase rows may fire.
   const away = has(fight, 'away') && !a.add;
   const now = away || st.rushing ? 'chase' : 'attack';
-  if (mobSkillUse(fight, a, now, null)) return;
+  // "First attack is always a normal attack": skills on the attack timer
+  // only once it is angry, after its first swing (RTM unit.cpp:2762).
+  if ((st.swung || away) && mobSkillUse(fight, a, now, null)) return;
   if (away) { st.nextAttackAt = fight.t + 500; return; }
   st.rushing = false;
+  st.swung = true;
   landMobHit(fight, a, NORMAL, true);
   st.nextAttackAt = fight.t + m.adelay;
 }

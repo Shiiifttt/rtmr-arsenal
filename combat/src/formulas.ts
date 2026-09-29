@@ -342,7 +342,8 @@ export function castTimeMs(
   const gearF = Math.max(0, 1 + f.cast.fixed / 100);
   // casting_rate 90: both parts of every cast start 10% shorter (RTM skill.cpp:17996).
   const v = variableMs * TUNE.castingRate; const fx = fixedMs * TUNE.castingRate;
-  return Math.max(0, v * statCut * gearV) + Math.max(0, fx * gearF);
+  // A flat fixed-cast change ("-0.2s") before the percent, never below nothing (RTM skill_vfcastfix).
+  return Math.max(0, v * statCut * gearV) + Math.max(0, (fx + (f.cast.fixedFlatMs ?? 0)) * gearF);
 }
 
 /**

@@ -101,7 +101,8 @@ export interface Fighter {
   anyRace?: number;
   /** Defensive percents: res_neutral, res_race_boss, damage_reduction... */
   res: PercentBag;
-  cast: { variable: number; fixed: number; all: number };
+  /** Cast-time gear: percents, and fixedFlatMs a flat change to the fixed part ("Fixed Cast Time -0.2s", negative). */
+  cast: { variable: number; fixed: number; all: number; fixedFlatMs?: number };
   afterCastDelay: number;
   spCost: number;
   /** Percent leech (a chance and a share), and a flat HP / SP on every hit. */

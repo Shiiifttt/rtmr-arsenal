@@ -292,6 +292,7 @@ test('the Freya fight: Manhole, then Adoramus, dodged by stepping into the hole'
   // No Hiding to fall back on, so the hole is the answer.
   fight.me.cds.Hiding = 1e9;
   fight.mob.nextAttackAt = 0;
+  fight.mob.swung = true; // already angry: skills on its first act (engine mobAct)
   run(fight);
   const text = fight.log!.join('\n');
   assert.match(text, /opens a Manhole[\s\S]*casts Adoramus[\s\S]*Enter Manhole against Adoramus[\s\S]*avoids Adoramus \(Manhole\)/);
@@ -603,6 +604,7 @@ test('a drain heals the monster by what it takes', async () => {
   const fight = newFight(f, m, satsujin, priorityPolicy, { seed: 1, limitMs: 5_000, log: true });
   fight.mob.hp = m.hp / 2;
   fight.mob.nextAttackAt = 0;
+  fight.mob.swung = true; // already angry: skills on its first act (engine mobAct)
   fight.policy = () => satsujin.actions.find((a) => a.id === 'Lotus Pact')!; // stand still
   run(fight);
   assert.match(fight.log!.join('\n'), /drains [\d,]+ HP/);
