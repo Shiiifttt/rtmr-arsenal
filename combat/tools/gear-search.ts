@@ -11,7 +11,8 @@
  *     [--only rotation,order  (the rotation optimizer)] [--fix "rogueFillers=false,autoAttack=false"]
  *     [--exclude "Dark Illusion Card"] [--keep-stats str] [--slot-items "lower=Flaming Weaver|Wind Weaver[str:1]"] [--lock-cards weapon] [--fix-refine gem] [--refine-cap gem=6] [--penalty 0.03] [--mvp-penalty 0] [--max-refine 6]
  *     [--per-target [--swap-cost 0.1]] [--proxy-test] [--no-pairs] [--healing] [--allow-ss] [--no-race] [--no-stats] [--workers N] [--out data/gear-search/kingslayer-heartless.json]
- *     [--no-census] [--shadow-top 3]
+ *     [--no-census] [--shadow-top 3] [--rolls] [--max-rolls] [--min-hp 28000]
+ *     [--flat] [--accept-z 2] [--confirm-more 3] [--cheapen] [--mid-rolls]
  *
  * First a census (see "the census" below): every shadow piece at +0/+3/+6/+9
  * and every card, each alone against its slot left empty. What adds nothing
@@ -44,7 +45,12 @@
  * Scoring: wins, then 0.3 x fights not lost, then 0.3 x DPS / 20k, less the
  * penalties. Every candidate is screened on the same seeds (--screen
  * fights); the best few are fought again (--confirm) against the current
- * build on fresh seeds, and a change is kept only if it beats it there.
+ * build on fresh seeds, and a change is kept only if it beats it there by
+ * 0.01 and by twice the noise of the difference (--accept-z).
+ *
+ * --screen and --confirm are a precision: each target gets the fights that
+ * precision needs (fightsFor) -- few for a monster whose fights all come
+ * out alike, many for one that swings. --flat: every target N fights.
  */
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { isMainThread, parentPort, Worker } from 'node:worker_threads';
@@ -56,8 +62,8 @@ import { accessoryCardFits, findMobs, MOB_GROUPS, mobRows, plannerDataset, readJ
 import { DEFAULT_CONSUMABLES, loadout } from '../src/items.ts';
 import type { Monster } from '../src/model.ts';
 import { buildMonster } from '../src/monster.ts';
-import { simulate, type Summary } from '../src/sim.ts';
-import { rhythm, type Rhythm } from '../src/rhythm.ts';
+import { simulate, type FightRow, type Summary } from '../src/sim.ts';
+import { DEATH_S, rhythm, sitRegen, WALK_S, type Rhythm } from '../src/rhythm.ts';
 import { farmScore, spawnCounts } from '../src/farm.ts';
 import { newFight, run } from '../src/engine.ts';
 import { Rng } from '../src/rng.ts';
@@ -124,12 +130,9 @@ const keepStats = new Set((one('keep-stats') ?? '').split(',').map((x) => x.trim
 const className = start.className ?? null;
 const level = start.baseLevel;
 const kit = kitFor(className ?? '');
-/** The kit's written priority order, where it exports one. */
-const kitOrder: string[] | null = await (async () => {
-  const mod = await import(`../src/kits/${(className ?? '').toLowerCase()}.ts`).catch(() => null);
-  const o = mod && Object.entries(mod).find(([k]) => /_ORDER$/.test(k))?.[1];
-  return Array.isArray(o) ? o as string[] : null;
-})();
+/** The kit's written priority order and switches (kits/index.ts RotationSpace). */
+const space = kit.search;
+const kitOrder: string[] | null = space.order.length ? space.order : null;
 /**
  * --objective farm: score by how much of the --vs maps dies to one or two
  * buttons (src/farm.ts), weighted by spawn counts, bosses left out -- speed
@@ -138,7 +141,10 @@ const kitOrder: string[] | null = await (async () => {
  */
 const farmMode = one('objective') === 'farm';
 const vsList = (one('vs') ?? 'Heartless').split(',').map((q) => q.trim());
-const targets: Monster[] = vsList.flatMap((q) => findMobs(q).map(buildMonster)).filter((m) => !farmMode || !m.boss);
+// --no-mvp-targets: MVPs off the list (a farming build), and each monster once however many --vs groups name it.
+const targets: Monster[] = vsList.flatMap((q) => findMobs(q).map(buildMonster))
+  .filter((m) => !(farmMode || flag('no-mvp-targets')) || !m.boss)
+  .filter((m, i, all) => !flag('no-mvp-targets') || all.findIndex((x) => x.name === m.name) === i);
 const farmWeights: number[] = (() => {
   if (!farmMode) return [];
   const counts = new Map<string, number>();
@@ -162,10 +168,21 @@ const noMvp = flag('no-mvp');
 const maxNewRefine = Number(one('max-refine') ?? 9);
 const hpWeight = Number(one('hp-weight') ?? 0);
 const safeScore = one('score') === 'safe';
+/** --min-hp N: builds under N Max HP score nothing (a safety floor). */
+const minHp = one('min-hp') ? Number(one('min-hp')) : 0;
 const rhythmScore = one('score') === 'rhythm';
 const deathWeight = Number(one('death-weight') ?? 0.1);
+/** --stall-weight: a fight given up (the monster outlived --time) an hour costs this, like --death-weight (default the same). */
+const stallWeight = Number(one('stall-weight') ?? deathWeight);
 /** --map (with --score rhythm): weigh each target by how many spawn there. */
-const rhythmWeights = new Map<string, number>(one('map') ? spawnCounts(one('map')!) : []);
+// Several maps or groups ("tomb,jorm,gorge"): each weighs the same in all, its
+// monsters by their share of its spawns -- a big map does not drown a small one.
+const rhythmWeights = new Map<string, number>();
+for (const g of (one('map') ?? '').split(',').map((x) => x.trim()).filter(Boolean)) {
+  const counts = [...spawnCounts(g)].filter(([n]) => targets.some((m) => m.name === n));
+  const total = counts.reduce((s, [, c]) => s + c, 0) || 1;
+  for (const [n, c] of counts) rhythmWeights.set(n, (rhythmWeights.get(n) ?? 0) + (100 * c) / total);
+}
 
 // ---- where things come from ---------------------------------------------------
 
@@ -209,7 +226,9 @@ const allowSs = flag('allow-ss');
 const mvpMaxLevel = one('mvp-max-level') ? Number(one('mvp-max-level')) : null;
 const mvpTooHigh = (item: Item) => mvpMaxLevel !== null && mvpOnly(item)
   && Math.min(...(item.drops ?? []).map((d) => d.mob_level ?? Infinity)) > mvpMaxLevel;
-const allowed = (item: Item, slot: string) => !excluded.has(item.name.toLowerCase()) && !(noMvp && mvpOnly(item)) && !mvpTooHigh(item) && canEquip(item, className, data.classRules, slot)
+// Under --max-refine 8 or less, a piece made from a +9 (Volan of the Sun) is out as well.
+const allowed = (item: Item, slot: string) => !excluded.has(item.name.toLowerCase()) && !(noMvp && mvpOnly(item)) && !mvpTooHigh(item)
+  && !(maxNewRefine < 9 && madeFromNine(item)) && canEquip(item, className, data.classRules, slot)
   && (item.required_level ?? 0) <= level && (allowSs || !ssOnly(item) || isWeaver(item));
 const cards = data.itemList.filter((i) => i.kind === 'Card' && (allowSs || !ssOnly(i)) && !(noMvp && mvpOnly(i)) && !mvpTooHigh(i) && !excluded.has(i.name.toLowerCase()));
 
@@ -220,7 +239,7 @@ const cards = data.itemList.filter((i) => i.kind === 'Card' && (allowSs || !ssOn
  * these it offers. Long-range damage and King's Chains because the shield
  * skills are long-range; SP cost and SP recovery because SP runs out.
  */
-const ROLL_PREFERENCE = [
+const ROLL_PREFERENCE: string[] = kit.search.rolls ?? [
   'max_hp', 'sp_cost_reduced', 'ranged_damage', 'defense_penetration', 'physical_reduced',
   'physical_damage_reduced', 'sp_regen', 'hp_leech', 'flee',
   'after_cast_delay', 'after_cast_delay_reduced', 'variable_cast', 'hp_gained_per_hit', 'def', 'aspd',
@@ -234,6 +253,34 @@ const topStats = [...STATS].sort((a, b) => (start.baseStats[b] ?? 0) - (start.ba
  * --all-roll-stats keeps all three.
  */
 let rollStats: string[] = [...topStats];
+
+/** --max-rolls: new pieces and re-rolls (--rolls) at the top of each range, not the middle -- bought rolls. */
+const maxRolls = flag('max-rolls');
+
+/**
+ * --rolls (or rolls in --only): re-roll the pieces worn, locked slots too (a
+ * re-roll is not a swap): every option of every roll line, one line at a
+ * time. Skill-damage options are left out, as for new pieces.
+ */
+function rollMoves(build: Build, slot: SlotDef): Move[] {
+  const cur = build.slots[slot.key];
+  const item = cur?.itemId ? data.items.get(cur.itemId) : null;
+  if (!item || skipSlot(slot, build)) return [];
+  const table = rollTableFor(data.rolls, slot.key, item);
+  if (!table) return [];
+  const out: Move[] = [];
+  for (const roll of table.rolls) {
+    for (const opt of roll.options) {
+      if (opt.grants.some((g) => g.skill)) continue;
+      const values = opt.grants.map((g) => clampRoll(g, maxRolls ? (g.max ?? g.min) : (g.min + (g.max ?? g.min)) / 2));
+      const now = cur!.rolls?.[roll.key];
+      if (now && now.option === opt.key && JSON.stringify(now.values) === JSON.stringify(values)) continue;
+      out.push({ label: `${slot.label} ${roll.key}: ${opt.key} ${values.join('/')}`,
+        slots: { [slot.key]: { ...cur!, rolls: { ...(cur!.rolls ?? {}), [roll.key]: { option: opt.key, values } } } } });
+    }
+  }
+  return out;
+}
 
 /** Average rolls for a new piece: one set per variant (stat choice, garment sustain). */
 function rollVariants(item: Item, slotKey: string): { label: string; rolls: Record<string, RollPick> }[] {
@@ -254,7 +301,7 @@ function rollVariants(item: Item, slotKey: string): { label: string; rolls: Reco
     for (const v of variants) {
       for (const key of picks) {
         const opt = roll.options.find((o) => o.key === key)!;
-        const values = opt.grants.map((g) => clampRoll(g, (g.min + (g.max ?? g.min)) / 2));
+        const values = opt.grants.map((g) => clampRoll(g, maxRolls ? (g.max ?? g.min) : (g.min + (g.max ?? g.min)) / 2));
         next.push({ label: picks.length > 1 ? `${v.label} ${key}`.trim() : v.label, rolls: { ...v.rolls, [roll.key]: { option: key, values } } });
       }
     }
@@ -273,15 +320,29 @@ interface Move { label: string; slots?: Record<string, SlotState>; options?: Rec
 
 const refines = (item: Item) => (isRefineable(item)
   ? [...new Set([Math.min(6, maxNewRefine, maxRefine(item)), Math.min(9, maxNewRefine, maxRefine(item))])] : [0]);
-/** The refines a piece is ever tried at: +0, +3, +6, +9, never +10 (the project owner, 2026-09-29). */
+/** The refines a piece is ever tried at: +0, +3, +6, +9, never +10 (the project owner, 2026-09-29) -- weapons +10 too (2026-09-30). */
 const TIERS = [0, 3, 6, 9];
 const tiersFor = (item: Item, slotKey: string) => (isRefineable(item)
-  ? [...new Set(TIERS.map((r) => Math.min(r, maxRefine(item), maxNewRefine, refineCap.get(slotKey) ?? 99)))] : [0]);
+  ? [...new Set((slotKey === 'weapon' ? [...TIERS, 10] : TIERS).map((r) => Math.min(r, maxRefine(item), slotKey === 'weapon' ? 99 : maxNewRefine, refineCap.get(slotKey) ?? 99)))] : [0]);
 /** The cards worn in a slot that still fit a new piece there, in the sockets it has. */
 const keepCards = (cur: SlotState | undefined, slot: SlotDef, item: Item) => (cur?.cards ?? []).filter((id): id is number => !!id)
   .filter((id) => { const c = data.items.get(id); return c && cardFits(c, slot, item); }).slice(0, item.card_slots);
+/** The best `n` cards by the census for a piece's empty sockets, best first (none without a census). */
+function bestCards(slot: SlotDef, host: Item, n: number): number[] {
+  if (!cardEstimate.size || !host.card_slots || cardLocked.has(slot.key)) return [];
+  return cards.filter((c) => cardFits(c, slot, host) && (cardEstimate.get(c.id) ?? 0) > 1e-6)
+    .sort((a, b) => (cardEstimate.get(b.id) ?? 0) - (cardEstimate.get(a.id) ?? 0)).slice(0, n).map((c) => c.id);
+}
+/** A new piece's sockets: the kept cards, then the rest filled with `fill` (all the best card, or the best two alternating). */
+function fillSockets(keep: number[], host: Item, fill: number[]): number[] {
+  const out = [...keep];
+  for (let i = out.length; i < host.card_slots; i++) out.push(fill[(i - keep.length) % fill.length]);
+  return out;
+}
 const skipSlot = (s: SlotDef, build: Build) => s.group === 'costume'
-  || (s.key === 'ammo' && !/Bow/.test(data.items.get(build.slots.weapon?.itemId ?? 0)?.type ?? ''));
+  || (s.key === 'ammo' && !/Bow/.test(data.items.get(build.slots.weapon?.itemId ?? 0)?.type ?? ''))
+  // Nothing in the off hand beside a two-handed weapon (most scythes).
+  || (s.key === 'offhand' && isTwoHanded(data.items.get(build.slots.weapon?.itemId ?? 0)));
 
 /**
  * --slot-items "lower=Flaming Weaver|Wind Weaver[str:1]; ...": a slot may
@@ -329,9 +390,17 @@ function itemMoves(build: Build, slot: SlotDef): Move[] {
     const keep = keepCards(cur, slot, item);
     // --refine-cap holds for a piece swapped in too (a new class gem at +9 is still past gem=6).
     for (const refine of [...new Set(refines(item).map((r) => Math.min(r, refineCap.get(slot.key) ?? r)))]) {
+      const best = keep.length < item.card_slots ? bestCards(slot, item, 2) : [];
+      const fills: { label: string; cards: number[] }[] = [{ label: '', cards: keep }];
+      if (best.length) fills.push({ label: ` [${data.items.get(best[0])!.name} in the empty sockets]`, cards: fillSockets(keep, item, [best[0]]) });
+      if (best.length > 1 && item.card_slots - keep.length > 1) {
+        fills.push({ label: ` [${best.map((c) => data.items.get(c)!.name).join(' + ')}]`, cards: fillSockets(keep, item, best) });
+      }
       for (const r of rollVariants(item, slot.key)) {
-        out.push({ label: `${slot.label}: ${item.name} +${refine}${r.label ? ` (${r.label})` : ''}`,
-          slots: { [slot.key]: { itemId: item.id, refine, cards: keep, ...(Object.keys(r.rolls).length ? { rolls: r.rolls } : {}) } } });
+        for (const fl of fills) {
+          out.push({ label: `${slot.label}: ${item.name} +${refine}${r.label ? ` (${r.label})` : ''}${fl.label}`,
+            slots: { [slot.key]: { itemId: item.id, refine, cards: fl.cards, ...(Object.keys(r.rolls).length ? { rolls: r.rolls } : {}) } } });
+        }
       }
     }
   }
@@ -400,7 +469,8 @@ function setMoves(build: Build): Move[] {
     if (shadowTop && set.member_ids.some((id) => data.items.get(id)?.kind === 'Shadow gear')) continue;
     const members = set.member_ids.map((id) => data.items.get(id)).filter((i): i is Item => !!i);
     if (members.length !== set.member_count || members.some((i) => i.kind === 'Card')) continue;
-    for (const refine of [6, 9]) {
+    // New pieces at +6 and +9 as elsewhere -- within --max-refine (the set moves ignored it before 2026-10-01).
+    for (const refine of [...new Set([6, 9].map((r) => Math.min(r, maxNewRefine)))]) {
       const slots: Record<string, SlotState> = {};
       let ok = true;
       for (const item of members) {
@@ -409,7 +479,7 @@ function setMoves(build: Build): Move[] {
         if (!slot) { ok = false; break; }
         const cur = build.slots[slot.key];
         slots[slot.key] = cur?.itemId === item.id ? cur
-          : { itemId: item.id, refine: item.refineable ? Math.min(refine, maxRefine(item)) : 0, cards: keepCards(cur, slot, item),
+          : { itemId: item.id, refine: item.refineable ? Math.min(refine, maxRefine(item), refineCap.get(slot.key) ?? 99) : 0, cards: keepCards(cur, slot, item),
             ...(() => { const r = rollVariants(item, slot.key)[0].rolls; return Object.keys(r).length ? { rolls: r } : {}; })() };
       }
       if (!ok || Object.entries(slots).every(([k, s]) => build.slots[k]?.itemId === s.itemId)) continue;
@@ -431,6 +501,14 @@ function setMoves(build: Build): Move[] {
 /** Shadow pieces and cards the census found add nothing (null: no census). */
 let deadShadow: Set<number> | null = null;
 let deadCards: Set<number> | null = null;
+/**
+ * The census's estimate of each card alone (a gain over the empty slot).
+ * A new piece with empty sockets is also tried with them filled by the best
+ * card that fits (fillSockets): a weapon or an accessory bought for its
+ * sockets (Ominous Lament, a Sage Ring) cannot win bare against a piece that
+ * came with cards -- the project owner's point, 2026-10-01.
+ */
+const cardEstimate = new Map<number, number>();
 /** The live shadow pieces per slot, best first, each at its best tier; and the best whole shadow sets. */
 let shadowTop: Map<string, { id: number; refine: number; gain: number }[]> | null = null;
 let setTop: { name: string; slots: Record<string, SlotState>; refine: number; gain: number }[] = [];
@@ -496,21 +574,9 @@ function statMoves(build: Build): Move[] {
   return out;
 }
 
-/** The rotation's switches (kits/kingslayer.ts options), each tried the other way. */
-const OPTION_CHOICES: Record<string, unknown[]> = {
-  bishopsTax: [true, false], taxHp: [0.5, 0.75, 0.35], sneakAttack: [true, false], preGambit: [true, false],
-  deltaFiller: [false, true], queensBrand: [false, true], queensGambit: [true, false], reflectCare: [true, false],
-  heal: [true, false], rogueFillers: [false, true], fortress: [3, 2, 1], rooksWall: [false, true], autoAttack: [false, true],
-  rooksSmash: [true, false], keepRange: [true, false], spendCounters: [true, false], windSlash: [false, true], retributionAt: [10, 6, 1], openerGambit: [true, false], safeCasts: [true, false], rookOpener: [true, false],
-  // Dodge only what costs this share of Max HP (kits/common.ts assessThreat); Kingslayer defaults to 0.4.
-  tankShare: [0.4, 0.25, 0.6],
-};
-/** Play styles that take several switches at once. */
-const OPTION_SETS: Record<string, Record<string, unknown>> = {
-  // Rook's Wall up and nothing that brings you into melee: every hit stays long range.
-  "ranged only behind Rook's Wall": { rooksWall: true, rooksSmash: false, spendCounters: false, bishopsTax: false, sneakAttack: false },
-  "Rook's Wall, step back after melee": { rooksWall: true, keepRange: true },
-};
+/** The rotation's switches, each tried the other way, and play styles that set several (the kit's RotationSpace). */
+const OPTION_CHOICES: Record<string, unknown[]> = space.switches;
+const OPTION_SETS: Record<string, Record<string, unknown>> = space.sets ?? {};
 /**
  * --fix "rogueFillers=false,autoAttack=false": switches set as given and
  * never searched -- the owner's rules, where the sim would rather not.
@@ -542,13 +608,25 @@ function optionMoves(options: Record<string, unknown>): Move[] {
 function orderMoves(options: Record<string, unknown>): Move[] {
   const base = (Array.isArray(options.order) ? options.order : kitOrder) as string[];
   if (!base?.length) return [];
+  const pinned = new Set(space.pinned ?? []);
+  const droppable = new Set(space.droppable ?? []);
   const out: Move[] = [];
   for (let i = 0; i < base.length; i++) {
+    if (pinned.has(base[i])) continue;
     for (const d of [-2, -1, 1, 2]) {
       const j = i + d;
       if (j < 0 || j >= base.length) continue;
       const o = [...base]; const [x] = o.splice(i, 1); o.splice(j, 0, x);
       out.push({ label: `order: ${x} ${d < 0 ? 'up' : 'down'} ${Math.abs(d)} (before ${d < 0 ? base[j] : base[j + 1] ?? 'end'})`, options: { order: o } });
+    }
+    // A skill the rotation may do without: left out whole (the kit never casts what its order does not name).
+    if (droppable.has(base[i])) out.push({ label: `order: leave out ${base[i]}`, options: { order: base.filter((y) => y !== base[i]) } });
+  }
+  // What an earlier step (or the profile) left out, put back at each place.
+  for (const x of (kitOrder ?? []).filter((y) => !base.includes(y) && droppable.has(y))) {
+    for (let j = 0; j <= base.length; j++) {
+      const o = [...base]; o.splice(j, 0, x);
+      out.push({ label: `order: put back ${x} before ${base[j] ?? 'the end'}`, options: { order: o } });
     }
   }
   return out;
@@ -557,6 +635,8 @@ function orderMoves(options: Record<string, unknown>): Move[] {
 const apply = (s: State, m: Move): State => {
   const build: Build = structuredClone(s.build);
   for (const [k, v] of Object.entries(m.slots ?? {})) build.slots[k] = structuredClone(v);
+  // A two-handed weapon takes both hands: the off hand empties.
+  if (isTwoHanded(data.items.get(build.slots.weapon?.itemId ?? 0)) && build.slots.offhand?.itemId) build.slots.offhand = { itemId: null, refine: 0, cards: [] };
   if (m.stats) build.baseStats = { ...m.stats };
   return { build, options: { ...s.options, ...(m.options ?? {}) }, ...(s.only ? { only: s.only } : {}) };
 };
@@ -585,9 +665,122 @@ function penalty(build: Build): number {
 
 // ---- fighting ------------------------------------------------------------------
 
-interface Score { win: number; loss: number; dps: number; ttk: number | null; value: number; deaths: string; farm?: { sb: number; sbkc: number; qg: number }; rhythm?: Rhythm; axes?: number[] }
+interface Score {
+  win: number; loss: number; dps: number; ttk: number | null; value: number; deaths: string; farm?: { sb: number; sbkc: number; qg: number }; rhythm?: Rhythm; axes?: number[];
+  /** Per target (by index into targets): the spread of one fight's share of the score, and ms a fight -- what the fight counts are sized from. */
+  spread?: { sd: (number | null)[]; ms: (number | null)[]; z: (number[] | null)[] };
+}
 
-async function fight(s: State, n: number, seed: number): Promise<Score> {
+/**
+ * Fights per target, by index into targets (--flat: none, every target gets
+ * n). A target whose fights all come out alike needs few; one whose fights
+ * swing (stalls, deaths, a long tail) needs many; a slow one costs more a
+ * fight -- the Neyman split, n_t ~ sd_t / sqrt(ms_t), scaled so the score's
+ * noise is what n flat fights a target would give. On the endgame farm
+ * build (62 targets) that is the same precision for ~1/4 of the fights
+ * (2026-09-30): 23 targets never vary, Famine Incarnate's stalls vary most.
+ */
+let alloc: { sd: number[]; ms: number[] } | null = null;
+const flat = flag('flat');
+function fightsFor(n: number): number[] | null {
+  if (!alloc || flat) return null;
+  const { sd, ms } = alloc;
+  const lo = Math.max(2, Math.round(n / 10));
+  const top = Math.max(...sd);
+  if (!(top > 0)) return sd.map(() => lo);
+  // A floor on the spread: a rare death an estimate missed still gets fights.
+  const s2 = sd.map((x) => Math.max(x, 0.05 * top));
+  const sumSq = s2.reduce((a, x) => a + x * x, 0);
+  const sumSc = s2.reduce((a, x, i) => a + x * Math.sqrt(ms[i]), 0);
+  return s2.map((x, i) => Math.min(8 * n, Math.max(lo, Math.round((n * (x / Math.sqrt(ms[i])) * sumSc) / sumSq))));
+}
+/** Take the spread a confirm run measured as the one to size fights by. */
+function learnSpread(sc: Score) {
+  if (!sc.spread || flat) return;
+  const prev = alloc;
+  // A target not fought this time (the per-target phase) keeps what it had.
+  alloc = {
+    sd: targets.map((_, i) => sc.spread!.sd[i] ?? prev?.sd[i] ?? 0),
+    ms: targets.map((_, i) => Math.max(0.02, sc.spread!.ms[i] ?? prev?.ms[i] ?? 1)),
+  };
+}
+
+/**
+ * One fight's share of the score, linearised: what a fight moves the score
+ * by, around the batch's own means. Its spread per target sizes the fight
+ * counts (fightsFor).
+ */
+function spreadOf(f: Awaited<ReturnType<typeof buildFighter>>, options: Record<string, unknown>, fought: { i: number; w: number; s: Summary }[]): Score['spread'] {
+  const sd: (number | null)[] = targets.map(() => null);
+  const ms: (number | null)[] = targets.map(() => null);
+  // Each fight's own share, kept for the paired test of a confirm (pairedSe).
+  const zs: (number[] | null)[] = targets.map(() => null);
+  const std = (z: number[]) => {
+    if (z.length < 2) return 0;
+    const m = z.reduce((a, b) => a + b, 0) / z.length;
+    return Math.sqrt(z.reduce((a, x) => a + (x - m) ** 2, 0) / (z.length - 1));
+  };
+  const W = fought.reduce((a, x) => a + x.w, 0) || 1;
+  if (rhythmScore) {
+    // value = G / C: G = 36 kills - 3600 (dw deaths + sw stalls), C the cycle, both spawn-weighted means.
+    const regen = sitRegen(f, kit.kit, options);
+    const g = (r: FightRow) => (r.result === 'win' ? 36 : 0) - 3600 * (r.result === 'loss' ? deathWeight : r.result === 'stalemate' ? stallWeight : 0);
+    const c = (r: FightRow) => r.t + (r.result === 'loss' ? DEATH_S : Math.max(r.sp / Math.max(1e-6, regen.sp), r.hp / Math.max(1e-6, regen.hp)) + WALK_S);
+    const mean = (rows: FightRow[], fn: (r: FightRow) => number) => rows.reduce((a, r) => a + fn(r), 0) / Math.max(1, rows.length);
+    const G = fought.reduce((a, x) => a + (x.w / W) * mean(x.s.perFight!, g), 0);
+    const C = fought.reduce((a, x) => a + (x.w / W) * mean(x.s.perFight!, c), 0) || 1;
+    for (const x of fought) zs[x.i] = x.s.perFight!.map((r) => ((x.w / W) * (g(r) - (G / C) * c(r))) / C);
+  } else {
+    // value = mean over targets of win + a (1 - loss) + speed(dps); dps linearised around the batch's.
+    const a = safeScore ? 0.5 : 0.3;
+    for (const x of fought) {
+      const rows = x.s.perFight!;
+      const T = rows.reduce((acc, r) => acc + r.t, 0) / Math.max(1, rows.length) || 1;
+      const dps = x.s.dps;
+      const slope = safeScore ? 0.1 / (Math.LN2 * (20_000 + dps)) : 0.3 / 20_000;
+      zs[x.i] = rows.map((r) => ((r.result === 'win' ? 1 : 0) + a * (r.result === 'loss' ? 0 : 1) + (slope * (r.dealt - dps * r.t)) / T) / fought.length);
+    }
+  }
+  for (const x of fought) { ms[x.i] = x.s.msPerFight; sd[x.i] = std(zs[x.i]!); }
+  return { sd, ms, z: zs };
+}
+
+/**
+ * The noise on b's gain over a, fought on the same seeds: each target's
+ * fights paired one by one (the same seed, so much of the luck cancels).
+ * Infinity when the two were not fought alike.
+ */
+function pairedSe(a: Score, b: Score): number {
+  const za = a.spread?.z; const zb = b.spread?.z;
+  if (!za || !zb) return Infinity;
+  let v = 0;
+  for (let t = 0; t < targets.length; t++) {
+    const x = za[t]; const y = zb[t];
+    if (!x && !y) continue;
+    if (!x || !y || x.length !== y.length) return Infinity;
+    const n = x.length;
+    if (n < 2) continue;
+    const d = y.map((yi, i) => yi - x[i]);
+    const m = d.reduce((acc, di) => acc + di, 0) / n;
+    v += d.reduce((acc, di) => acc + (di - m) ** 2, 0) / (n - 1) / n;
+  }
+  return Math.sqrt(v);
+}
+/**
+ * --accept-z Z: a change is kept only if its confirmed gain clears 0.01 and
+ * Z times its paired noise (2 by default; 0 is the old rule, the bar alone).
+ * On the endgame farm build a 150-fight confirm's paired noise was ~0.05 of
+ * score (2026-09-30), five times the bar: best-of-four on one seed set kept
+ * neutral changes about half the time. A finalist that clears the bar but
+ * not the noise is fought again on fresh seeds (--confirm-more, 3 times at
+ * most) and the rounds pooled.
+ */
+const acceptZ = Number(one('accept-z') ?? 2);
+/** A score without its per-fight numbers, for the saved file. */
+const lean = (sc: Score): Score => { const { spread: _s, ...rest } = sc; return rest; };
+const confirmMore = Number(one('confirm-more') ?? 3);
+
+async function fight(s: State, n: number, seed: number, per: number[] | null = null, wantSpread = false): Promise<Score> {
   const f = await buildFighter({ ...profile, build: s.build }, { passives: kit.passives, aliases: kit.aliases, maxLevels: kit.maxLevels() });
   if (farmMode) {
     const fs = farmScore(f, kit.kit, s.options, targets.map((m, i) => ({ m, weight: farmWeights[i] })));
@@ -595,22 +788,27 @@ async function fight(s: State, n: number, seed: number): Promise<Score> {
   }
   let win = 0; let loss = 0; let dps = 0; let ttk = 0; let ttkN = 0;
   const deaths: Record<string, number> = {};
-  const fought = s.only ? s.only.map((i) => targets[i]) : targets;
+  const idx = s.only ?? targets.map((_, i) => i);
+  const fought = idx.map((i) => targets[i]);
   const sums: { s: Summary; weight: number }[] = [];
-  for (const m of fought) {
+  for (let j = 0; j < fought.length; j++) {
+    const m = fought[j];
+    // Per-target counts only across the whole list (the per-target phase fights one target, flat).
+    const iterations = per && !s.only ? per[idx[j]] : n;
     const r = simulate(f, m, kit.kit, {
-      iterations: n, seed, policy, options: s.options, limitMs: timeS * 1000,
+      iterations, seed, policy, options: s.options, limitMs: timeS * 1000, perFight: wantSpread,
       items: loadout({ carried: profile.consumables ?? DEFAULT_CONSUMABLES, healing: flag('healing') || !!profile.healing,
         boss: m.boss, elixirs: f.kafraElixirs }),
     });
     sums.push({ s: r, weight: rhythmWeights.get(m.name) ?? 1 });
-    win += r.winRate; loss += r.losses / n; dps += r.dps;
+    win += r.winRate; loss += r.losses / iterations; dps += r.dps;
     if (r.ttk) { ttk += r.ttk.p50; ttkN++; }
     for (const [k, v] of Object.entries(r.deaths)) deaths[k] = (deaths[k] ?? 0) + v;
   }
   const k = fought.length;
   win /= k; loss /= k; dps /= k;
   const top = Object.entries(deaths).sort((a, b) => b[1] - a[1]).slice(0, 2).map(([c, v]) => `${c} x${v}`).join(', ');
+  const spread = wantSpread ? spreadOf(f, s.options, sums.map((x, j) => ({ i: idx[j], w: x.weight, s: x.s }))) : undefined;
   // Once every fight is a win, speed is what is left to gain: 0.01 of score
   // (the bar a change must clear) is ~670 DPS.
   // The penalty is the main thread's (fightAll), so equal fighters share a score.
@@ -622,11 +820,13 @@ async function fight(s: State, n: number, seed: number): Promise<Score> {
   // an hour costing --death-weight x 100 kills (0.1: 10 kills). --map weighs the targets by spawns.
   if (rhythmScore) {
     const r = rhythm(f, kit.kit, s.options, sums);
-    return { win, loss, dps, ttk: ttkN ? ttk / ttkN : null, value: r.killsPerHour / 100 - deathWeight * r.deathsPerHour, deaths: top, rhythm: r };
+    return { win, loss, dps, ttk: ttkN ? ttk / ttkN : null, value: r.killsPerHour / 100 - deathWeight * r.deathsPerHour - stallWeight * r.stallsPerHour, deaths: top, rhythm: r, spread };
   }
+  // --min-hp N: a build under N Max HP is out, whatever it deals.
+  if (minHp && f.maxHp < minHp) return { win, loss, dps, ttk: ttkN ? ttk / ttkN : null, value: -1, deaths: top, spread };
   const speed = safeScore ? 0.1 * Math.log2(1 + dps / 20_000) : 0.3 * (dps / 20_000);
   const value = win + (safeScore ? 0.5 : 0.3) * (1 - loss) + speed + hpWeight * Math.min(1, f.maxHp / 50_000);
-  return { win, loss, dps, ttk: ttkN ? ttk / ttkN : null, value, deaths: top };
+  return { win, loss, dps, ttk: ttkN ? ttk / ttkN : null, value, deaths: top, spread };
 }
 
 /**
@@ -670,7 +870,7 @@ const show = (s: Score) => s.farm
 // file with the same arguments, so it loads the profile, data and targets
 // itself, then fights whatever states it is sent.
 
-interface Job { id: number; state: State; n: number; seed: number; estimate?: boolean }
+interface Job { id: number; state: State; n: number; seed: number; estimate?: boolean; per?: number[] | null; spread?: boolean }
 
 
 class Pool {
@@ -692,8 +892,8 @@ class Pool {
       this.idle.push(w);
     }
   }
-  run(state: State, n: number, seed: number, est = false): Promise<Score> {
-    return new Promise((done) => { this.queue.push({ job: { id: this.next++, state, n, seed, estimate: est }, done }); this.pump(); });
+  run(state: State, n: number, seed: number, est = false, per: number[] | null = null, spread = false): Promise<Score> {
+    return new Promise((done) => { this.queue.push({ job: { id: this.next++, state, n, seed, estimate: est, per, spread }, done }); this.pump(); });
   }
   private pump() {
     while (this.idle.length && this.queue.length) {
@@ -715,6 +915,8 @@ class Pool {
  */
 let swapBase: Build | null = null;
 let swapPenalty = 0;
+/** --swap-slots weapon,runeorb: in the per-target phase only these slots change (a weapon per race, a rune per element). */
+const swapSlots = one('swap-slots') ? new Set(one('swap-slots')!.split(',').map((x) => x.trim())) : null;
 const slotSig = (st: Build['slots'][string]) => st?.itemId ? `${st.itemId}+${st.refine}:${(st.cards ?? []).join(',')}` : '';
 const swappedSlots = (b: Build) => (swapBase ? Object.keys({ ...swapBase.slots, ...b.slots })
   .filter((k) => slotSig(swapBase!.slots[k]) !== slotSig(b.slots[k])) : []);
@@ -737,14 +939,25 @@ async function fingerprint(st: State): Promise<string> {
   return JSON.stringify([rest, skillBonus, /Shield Boomerang can combo into King's Chains/i.test(gearText ?? ''), st.options, st.only ?? null]);
 }
 let fought = 0; let shared = 0;
-/** n = 0: the estimate (one expected-value fight a target), not a screen. */
-async function fightAll(states: State[], n: number, seed: number): Promise<Score[]> {
+/**
+ * n = 0: the estimate (one expected-value fight a target), not a screen.
+ * Otherwise n is the precision of n fights a target: fightsFor sizes each
+ * target's own count. spread: measure the fights' spread too (confirm runs),
+ * for the next sizing.
+ */
+let fightsRun = 0;
+async function fightAll(states: State[], n: number, seed: number, spread = false): Promise<Score[]> {
+  const per = n ? fightsFor(n) : null;
   const keys: string[] = [];
-  for (const st of states) keys.push(`${await fingerprint(st)}#${n ? `${n}#${seed}` : 'est'}`);
+  for (const st of states) keys.push(`${await fingerprint(st)}#${n ? `${n}#${seed}#${per && !st.only ? per.join(',') : 'flat'}` : 'est'}${spread ? '#s' : ''}`);
   const todo = new Map<string, State>();
   keys.forEach((k, i) => { if (!cache.has(k) && !todo.has(k)) todo.set(k, states[i]); });
   fought += todo.size; shared += states.length - todo.size;
-  await Promise.all([...todo].map(([k, st]) => pool.run(st, n, seed, n === 0).then((sc) => { cache.set(k, sc); })));
+  for (const st of todo.values()) {
+    const idx = st.only ?? targets.map((_, i) => i);
+    fightsRun += n ? idx.reduce((a, i) => a + (per && !st.only ? per[i] : n), 0) : 0;
+  }
+  await Promise.all([...todo].map(([k, st]) => pool.run(st, n, seed, n === 0, per, spread).then((sc) => { cache.set(k, sc); })));
   return states.map((st, i) => { const sc = cache.get(keys[i])!; return { ...sc, value: sc.value - penalty(st.build) - swapCharge(st.build) }; });
 }
 /**
@@ -771,28 +984,98 @@ const t0 = performance.now();
  * --no-mvp starts from the build with its MVP-only pieces and cards taken
  * off, and --max-refine caps what is already worn too: a cheap set is cheap
  * all through, not only in what the search adds.
+ *
+ * --cheapen holds the worn build to every rule the search holds new pieces
+ * to -- for a tier searched from a richer build (budget and baseline from
+ * the maxed-out one): SS-dungeon drops out unless --allow-ss (Weavers kept),
+ * MVP drops over --mvp-max-level out, --refine-cap per slot. --mid-rolls:
+ * the worn pieces' random options set to the middle of their range (what a
+ * new piece is given), not bought ones.
  */
+const midRolls = flag('mid-rolls');
 function cheapen(b: Build): Build {
-  if (!noMvp && !one('max-refine')) return b;
+  const strict = flag('cheapen');
+  if (!noMvp && !one('max-refine') && !strict && !midRolls) return b;
   const out: Build = structuredClone(b);
+  const banned = (item: Item | undefined | null) => !!item && ((noMvp && mvpOnly(item))
+    || (strict && ((!allowSs && ssOnly(item) && !isWeaver(item)) || mvpTooHigh(item) || (maxNewRefine < 9 && madeFromNine(item)))));
   for (const [k, st] of Object.entries(out.slots)) {
     if (!st?.itemId) continue;
     const item = data.items.get(st.itemId);
-    if (noMvp && item && mvpOnly(item)) { out.slots[k] = { itemId: null, refine: 0, cards: [] }; console.log(`cheap: ${k} ${item.name} off (MVP only)`); continue; }
-    if (st.refine > maxNewRefine) { console.log(`cheap: ${k} ${item?.name} +${st.refine} -> +${maxNewRefine}`); st.refine = maxNewRefine; }
+    if (banned(item)) { out.slots[k] = { itemId: null, refine: 0, cards: [] }; console.log(`cheap: ${k} ${item!.name} off`); continue; }
+    // Weapons are exempt from the refine cap (the project owner, 2026-09-29: "+8 except weapons").
+    if (one('max-refine') && st.refine > maxNewRefine && k !== 'weapon') { console.log(`cheap: ${k} ${item?.name} +${st.refine} -> +${maxNewRefine}`); st.refine = maxNewRefine; }
+    const cap = refineCap.get(k);
+    if (strict && cap !== undefined && st.refine > cap) { console.log(`cheap: ${k} ${item?.name} +${st.refine} -> +${cap}`); st.refine = cap; }
     st.cards = st.cards.map((c) => {
       const card = c ? data.items.get(c) : null;
-      if (noMvp && card && mvpOnly(card)) { console.log(`cheap: ${k} ${card.name} out (MVP only)`); return null; }
+      if (banned(card)) { console.log(`cheap: ${k} ${card!.name} out`); return null; }
       return c;
+    }) as typeof st.cards;
+    if (midRolls && st.rolls && item) {
+      const table = rollTableFor(data.rolls, k, item);
+      for (const [rk, pick] of Object.entries(st.rolls)) {
+        const opt = table?.rolls.find((r) => r.key === rk)?.options.find((o) => o.key === pick.option);
+        if (!opt) continue;
+        const values = opt.grants.map((g) => clampRoll(g, (g.min + (g.max ?? g.min)) / 2));
+        if (JSON.stringify(values) !== JSON.stringify(pick.values)) console.log(`cheap: ${k} ${pick.option} ${pick.values.join('/')} -> ${values.join('/')}`);
+        st.rolls[rk] = { option: pick.option, values };
+      }
+    }
+  }
+  return out;
+}
+/**
+ * Cards bound to the character ("Card is character bound": Revenant Ebel,
+ * Trainer Fenrir) -- one per character (the project owner, 2026-10-01).
+ */
+const boundCards = new Set(data.itemList.filter((i) => i.kind === 'Card' && /character bound/i.test(i.description ?? '')).map((i) => i.id));
+function boundOk(b: Build): boolean {
+  const seen = new Set<number>();
+  for (const st of Object.values(b.slots)) {
+    for (const c of st?.cards ?? []) {
+      if (!c || !boundCards.has(c)) continue;
+      if (seen.has(c)) return false;
+      seen.add(c);
+    }
+  }
+  return true;
+}
+/** A build as it may be worn: a second copy of a bound card comes out. */
+function oneBound(b: Build): Build {
+  if (boundOk(b)) return b;
+  const out: Build = structuredClone(b);
+  const seen = new Set<number>();
+  for (const [k, st] of Object.entries(out.slots)) {
+    if (!st) continue;
+    st.cards = st.cards.map((c) => {
+      if (!c || !boundCards.has(c)) return c;
+      if (seen.has(c)) { console.log(`bound: ${k} ${data.items.get(c)?.name} out (one per character)`); return null; }
+      seen.add(c); return c;
     }) as typeof st.cards;
   }
   return out;
 }
-let state: State = { build: cheapen(start), options: { ...(profile.options ?? {}), ...fixedOptions } };
+/** Both hands on a two-handed weapon: whatever the build had in the off hand comes off. */
+function twoHands(b: Build): Build {
+  if (!isTwoHanded(data.items.get(b.slots.weapon?.itemId ?? 0)) || !b.slots.offhand?.itemId) return b;
+  console.log(`off hand: ${data.items.get(b.slots.offhand.itemId)?.name} off (two-handed weapon)`);
+  return { ...b, slots: { ...b.slots, offhand: { itemId: null, refine: 0, cards: [] } } };
+}
+let state: State = { build: oneBound(twoHands(cheapen(start))), options: { ...(profile.options ?? {}), ...fixedOptions } };
 let seedBase = 1;
-const [first] = await fightAll([state], confirmN, 10_000);
+const [first] = await fightAll([state], confirmN, 10_000, true);
+learnSpread(first);
 if (one('set')) console.log(`from the profile with: ${one('set')}`);
 console.log(`start: ${show(first)}  (${targets.map((m) => m.name).join(', ')}, ${confirmN} fights, ${workers} workers)`);
+{
+  const per = fightsFor(confirmN);
+  if (per && targets.length > 1) {
+    const cost = (xs: number[]) => xs.reduce((a, x, i) => a + x * alloc!.ms[i], 0);
+    console.log(`  fights per target (precision of ${screenN} flat): ${fightsFor(screenN)!.map((x, i) => `${targets[i].name} ${x}`).join(', ')}`);
+    console.log(`  a confirm costs ${(100 * cost(per) / cost(targets.map(() => confirmN))).toFixed(0)}% of ${confirmN} flat fights (--flat: every target the same)`);
+  }
+}
 const steps: { move: string; before: Score; after: Score; tried: number }[] = [];
 
 /**
@@ -801,6 +1084,8 @@ const steps: { move: string; before: Score; after: Score; tried: number }[] = []
  */
 async function probeRollStat(): Promise<void> {
   if (flag('all-roll-stats')) return;
+  // Nothing new gets rolled when no gear slot is searched (--only rotation,order).
+  if (only && !SLOTS.some((s) => only.has(s.key)) && !only.has('sets') && !only.has('shadow')) return;
   for (const [key, st] of Object.entries(state.build.slots)) {
     const item = st?.itemId ? data.items.get(st.itemId) : null;
     const table = item ? rollTableFor(data.rolls, key, item) : null;
@@ -1006,6 +1291,7 @@ async function census(): Promise<void> {
     const cg = await gainsOver(bareC, cs.map((c) => apply(state, { label: '', slots: { [slot.key]: { ...cur!, cards: [c.id, ...nulls.slice(1)] } } })));
     let dead = 0;
     cs.forEach((c, i) => {
+      cardEstimate.set(c.id, cg[i]?.value ?? 0);
       // A card in a set (a card combo) may pay only with its partner: kept.
       if (!helps(cg[i]) && !worn.has(c.id) && !(c.sets ?? []).length) { deadCards!.add(c.id); dead++; }
     });
@@ -1020,6 +1306,7 @@ async function census(): Promise<void> {
   };
 }
 let censusOut: unknown = null;
+
 if (!flag('no-census')) await census();
 
 /**
@@ -1052,7 +1339,12 @@ for (let pass = 1; pass <= passes; pass++) {
   let improved = false;
   runnersUp = [];
   await probeRollStat();
-  const groups: { name: string; moves: () => Move[] }[] = [
+  const swapOnly = swapBase && swapSlots;
+  const groups: { name: string; moves: () => Move[] }[] = swapOnly ? SLOTS.filter((s) => swapSlots.has(s.key)).flatMap((s) => [
+    { name: `${s.label} piece`, moves: () => itemMoves(state.build, s) },
+    { name: `${s.label} cards`, moves: () => cardMoves(state.build, s) },
+    { name: `${s.label} refine`, moves: () => refineMoves(state.build, s) },
+  ]) : [
     ...(searching('rotation') ? [{ name: 'rotation', moves: () => optionMoves(state.options) }] : []),
     ...(searching('order') || (only?.has('rotation') ?? false) ? [{ name: 'order', moves: () => orderMoves(state.options) }] : []),
     ...(flag('no-stats') || !searching('stats') || swapBase ? [] : [{ name: 'stats', moves: () => statMoves(state.build) }]),
@@ -1062,6 +1354,7 @@ for (let pass = 1; pass <= passes; pass++) {
       { name: `${s.label} piece`, moves: () => itemMoves(state.build, s) },
       { name: `${s.label} cards`, moves: () => cardMoves(state.build, s) },
       { name: `${s.label} refine`, moves: () => refineMoves(state.build, s) },
+      ...(flag('rolls') || (only?.has('rolls') ?? false) ? [{ name: `${s.label} rolls`, moves: () => rollMoves(state.build, s) }] : []),
     ]),
   ];
   // Pairs go last, and only once the singles are spent.
@@ -1069,7 +1362,8 @@ for (let pass = 1; pass <= passes; pass++) {
   for (let gi = 0; gi <= groups.length; gi++) {
     if (gi === groups.length && (improved || flag('no-pairs'))) break;
     const g = gi === groups.length ? pairGroup : groups[gi];
-    const moves = g.moves();
+    // Only builds a character can wear: one of each bound card.
+    const moves = g.moves().filter((m) => !m.slots || boundOk(apply(state, m).build));
     if (!moves.length) continue;
     seedBase++;
     const { base, scored } = await screen(moves, seedBase);
@@ -1084,20 +1378,34 @@ for (let pass = 1; pass <= passes; pass++) {
       console.log(`  ${tag}${g.name}: ${moves.length} tried; best ${top ? `${(top.s.value - base.value >= 0 ? '+' : '')}${(top.s.value - base.value).toFixed(3)} ${top.m.label}` : '-'}`);
     }
     if (!best.length) continue;
-    // Fresh seeds, more fights: the current build and the finalists.
+    // Fresh seeds, more fights: the current build and the finalists, each
+    // finalist's gain tested against its paired noise (acceptZ).
     const confirmSeed = 20_000 + seedBase;
-    const [now, ...finals] = await fightAll([state, ...best.map((x) => apply(state, x.m))], confirmN, confirmSeed);
-    let pick: { m: Move; s: Score } | null = null;
-    best.forEach((x, i) => {
-      const sc = finals[i];
-      if (sc.value > now.value + 0.01 && (!pick || sc.value > pick.s.value)) pick = { m: x.m, s: sc };
-    });
+    const fin = best.map((x) => ({ m: x.m, st: apply(state, x.m), gains: [] as number[], ses: [] as number[], s: null as Score | null }));
+    let now: Score | null = null;
+    let live = fin;
+    let pick: { m: Move; s: Score; gain: number; se: number } | null = null;
+    for (let round = 0; live.length; round++) {
+      const [n0, ...fs] = await fightAll([state, ...live.map((x) => x.st)], confirmN, confirmSeed + 7_919 * round, true);
+      now ??= n0;
+      live.forEach((x, i) => { x.gains.push(fs[i].value - n0.value); x.ses.push(pairedSe(n0, fs[i])); x.s = fs[i]; });
+      const stat = (x: typeof fin[number]) => ({ gain: x.gains.reduce((a, b) => a + b, 0) / x.gains.length,
+        se: Math.sqrt(x.ses.reduce((a, b) => a + b * b, 0)) / x.ses.length });
+      const passed = live.map((x) => ({ x, ...stat(x) }))
+        .filter((r) => r.gain > 0.01 && (acceptZ <= 0 || r.gain > acceptZ * r.se)).sort((a, b) => b.gain - a.gain);
+      if (passed.length) { pick = { m: passed[0].x.m, s: passed[0].x.s!, gain: passed[0].gain, se: passed[0].se }; break; }
+      // Clears the bar, not yet the noise: fought again, the rest dropped.
+      live = live.filter((x) => stat(x).gain > 0.01);
+      if (flag('verbose') && live.length) console.log(`  ${tag}${g.name}: ${live.map((x) => `${x.m.label} ${stat(x).gain >= 0 ? '+' : ''}${stat(x).gain.toFixed(3)} ± ${stat(x).se.toFixed(3)}`).join('; ')} -- not yet clear of the noise${round < confirmMore ? ', fought again' : ''}`);
+      if (round >= confirmMore) break;
+    }
     if (!pick) continue;
-    const chosen = pick as { m: Move; s: Score };
+    const chosen = pick as { m: Move; s: Score; gain: number; se: number };
     state = apply(state, chosen.m);
-    steps.push({ move: chosen.m.label, before: now, after: chosen.s, tried: moves.length });
+    learnSpread(chosen.s);
+    steps.push({ move: chosen.m.label, before: lean(now!), after: lean(chosen.s), tried: moves.length });
     improved = true;
-    console.log(`${tag}pass ${pass}  ${chosen.m.label.padEnd(64)} ${show(now)}  ->  ${show(chosen.s)}   [${moves.length} tried]`);
+    console.log(`${tag}pass ${pass}  ${chosen.m.label.padEnd(64)} ${show(now!)}  ->  ${show(chosen.s)}   [${moves.length} tried; gain ${chosen.gain.toFixed(3)} ± ${chosen.se.toFixed(3)}]`);
   }
   if (!improved) break;
 }
@@ -1141,7 +1449,7 @@ const link = `http://localhost:5173/#b=${await encodeBuild(state.build)}`;
 console.log(`\nfinal (${confirmN * 2} fights): ${show(final)}; killed by ${final.deaths || 'nothing'}`);
 console.log(`options: ${JSON.stringify(state.options)}`);
 console.log(link);
-console.log(`(${((performance.now() - t0) / 1000).toFixed(0)} s; ${fought} batches fought, ${shared} shared with an identical fighter)`);
+console.log(`(${((performance.now() - t0) / 1000).toFixed(0)} s; ${fought} batches fought, ${shared} shared with an identical fighter; ${fightsRun.toLocaleString('en-US')} fights)`);
 
 const out = one('out');
 if (out) {
@@ -1150,7 +1458,7 @@ if (out) {
   writeFileSync(path, `${JSON.stringify({
     profile: profile.name, targets: targets.map((m) => m.name),
     rules: { screenN, confirmN, timeS, locked: [...locked], penalty: PENALTY, topStats },
-    start: profile.build, steps, final, options: state.options, link, perTarget, census: censusOut,
+    start: profile.build, steps, final: lean(final), options: state.options, link, perTarget, census: censusOut,
   }, null, 1)}\n`);
 }
 }
@@ -1158,7 +1466,7 @@ if (out) {
 if (!isMainThread) {
   parentPort!.on('message', async (job: Job) => {
     try {
-      parentPort!.postMessage({ id: job.id, score: job.estimate ? await estimate(job.state) : await fight(job.state, job.n, job.seed) });
+      parentPort!.postMessage({ id: job.id, score: job.estimate ? await estimate(job.state) : await fight(job.state, job.n, job.seed, job.per ?? null, !!job.spread) });
     } catch (e) {
       // Say which build broke, rather than dying quietly.
       console.error(`worker failed on a batch (${job.n} fights): ${(e as Error)?.stack ?? e}

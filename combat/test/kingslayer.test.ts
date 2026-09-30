@@ -94,7 +94,7 @@ test('Auto Guard blocks 4% a level of physical hits', async () => {
   assert.ok(share > 0.25 && share < 0.6, `blocked ${share}`);
 });
 
-test('Finisher Ready halves the next hit and ends on it; Queen\'s Barrier soaks', async () => {
+test('Finisher Ready halves the next hit only and stays up (Refuge Patch 18)', async () => {
   const f = await fighter();
   const m = { ...buildMonster(findMobs('Angel of Genesis')[0]), skills: [] as MobSkill[] };
   // Nothing that costs HP: the check is on the hit alone.
@@ -106,7 +106,10 @@ test('Finisher Ready halves the next hit and ends on it; Queen\'s Barrier soaks'
   fight.me.dots.push({ name: 'test', nextAt: 0, every: 1e9, until: 1, dmg: 1000, lethal: true });
   run(fight);
   assert.ok(hp - fight.me.hp <= 500 + 5000, 'halved');
-  assert.equal(fight.me.buffs.finisher, undefined, 'ended on the hit');
+  // Refuge Patch 18: "Taking damage no longer removes the buff. Its 50%
+  // damage reduction protects against only the next hit."
+  assert.ok(fight.me.buffs.finisher, 'still up after the hit');
+  assert.equal(fight.me.buffs.finisher.stacks, 0, 'its guard spent');
 });
 
 test('an Auto-Guard card counts: Tower Eater Card is Lv10', async () => {

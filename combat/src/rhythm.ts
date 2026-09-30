@@ -28,6 +28,8 @@ export interface Rhythm {
   sitS: number;
   /** Deaths an hour. */
   deathsPerHour: number;
+  /** Fights given up an hour (stalemates: the monster lived out the time limit). */
+  stallsPerHour: number;
   per: { name: string; weight: number; fightS: number; sitS: number; spUsed: number; hpUsed: number; loss: number }[];
 }
 
@@ -42,7 +44,7 @@ export function sitRegen(f: Fighter, kit: Kit, options: Record<string, unknown>)
 
 export function rhythm(f: Fighter, kit: Kit, options: Record<string, unknown>, fights: { s: Summary; weight: number }[]): Rhythm {
   const regen = sitRegen(f, kit, options);
-  let w = 0; let cycle = 0; let sit = 0; let kills = 0; let deaths = 0;
+  let w = 0; let cycle = 0; let sit = 0; let kills = 0; let deaths = 0; let stalls = 0;
   const per: Rhythm['per'] = [];
   for (const { s, weight } of fights) {
     const fightS = s.seconds;
@@ -50,7 +52,7 @@ export function rhythm(f: Fighter, kit: Kit, options: Record<string, unknown>, f
     const loss = s.losses / Math.max(1, s.iterations);
     // A cycle ends in a kill (win), a death, or a fight given up (stalemate).
     const c = fightS + s.winRate * (sitS + WALK_S) + loss * DEATH_S + (1 - s.winRate - loss) * (sitS + WALK_S);
-    w += weight; cycle += weight * c; sit += weight * s.winRate * sitS; kills += weight * s.winRate; deaths += weight * loss;
+    w += weight; cycle += weight * c; sit += weight * s.winRate * sitS; kills += weight * s.winRate; deaths += weight * loss; stalls += weight * Math.max(0, 1 - s.winRate - loss);
     per.push({ name: s.monster, weight, fightS, sitS, spUsed: s.spUsed, hpUsed: s.hpUsed, loss });
   }
   const mean = (x: number) => (w ? x / w : 0);
@@ -59,6 +61,7 @@ export function rhythm(f: Fighter, kit: Kit, options: Record<string, unknown>, f
     killsPerHour: cycleS ? (3600 * mean(kills)) / cycleS : 0,
     cycleS, sitS: mean(sit),
     deathsPerHour: cycleS ? (3600 * mean(deaths)) / cycleS : 0,
+    stallsPerHour: cycleS ? (3600 * mean(stalls)) / cycleS : 0,
     per,
   };
 }

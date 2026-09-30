@@ -33,7 +33,7 @@ import { countsAsBoss, mobHitChance } from '../formulas.ts';
 import type { MobSkill, Monster } from '../model.ts';
 import { archetypeOrder, playEntry, type Archetype, type Way } from '../playbook.ts';
 import {
-  actionById, canUse, has, MANHOLE_MS, readyAt, rollout, run, say, type Action, type Fight, type Kit,
+  actionById, canUse, has, MANHOLE_MS, readyAt, newFight, rollout, run, say, type Action, type Fight, type Kit,
 } from '../engine.ts';
 import {
   assessThreat, backSlideWorks, escapeMs, hidingReserved, losMs, reactionMs, returnMs, type Threat,
@@ -159,7 +159,31 @@ export const heldForSnap = (fight: Fight, a: Action, tools: DefenseTool[]) =>
  * spBarSeconds (a number) fixes a full bar's worth instead.
  */
 const paces = new WeakMap<object, { burn: number; dps: number }>();
+/**
+ * Per fighter, monster and options: the pace from the pull, shared by every
+ * fight of a batch -- one rollout a batch rather than one a fight (~30% of a
+ * search's time, 2026-09-30; the endgame farm build read 217.1 kills/h
+ * either way). Option paceFrom 'fight' measures it in each fight, from the
+ * first cast it answers, as before.
+ */
+const pullPaces = new WeakMap<object, WeakMap<object, WeakMap<object, { burn: number; dps: number }>>>();
 function rotationPace(fight: Fight): { burn: number; dps: number } {
+  if (fight.options.paceFrom !== 'fight') {
+    let byM = pullPaces.get(fight.f);
+    if (!byM) pullPaces.set(fight.f, byM = new WeakMap());
+    let byO = byM.get(fight.m);
+    if (!byO) byM.set(fight.m, byO = new WeakMap());
+    let p = byO.get(fight.options);
+    if (!p) {
+      const fresh = newFight(fight.f, fight.m, fight.kit, fight.policy, { seed: 1, limitMs: fight.limitMs, options: fight.options, items: fight.items });
+      const copy = run(rollout(fresh, fight.kit.priority, 15_000));
+      const secs = Math.max(1, copy.t / 1000);
+      const regen = regenPerSec(fight);
+      p = { burn: Math.max(1, (fresh.me.sp - copy.me.sp) / secs + regen), dps: Math.max(1, (fresh.mob.hp - copy.mob.hp) / secs) };
+      byO.set(fight.options, p);
+    }
+    return p;
+  }
   let p = paces.get(fight.me.spent);
   if (!p) {
     const copy = run(rollout(fight, fight.kit.priority, fight.t + 15_000));

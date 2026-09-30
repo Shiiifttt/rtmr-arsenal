@@ -96,6 +96,9 @@ export interface Passives {
   stats?: Partial<Record<keyof Stats, number>>;
   /** Defense Penetration % from a buff kept up all fight (Magic Pierce). */
   defPen?: number;
+  /** Crit rate and Perfect Dodge from passives (Scythe Mastery, Advanced Scythe Mastery). */
+  crit?: number;
+  perfectDodge?: number;
   notes: string[];
 }
 
@@ -334,8 +337,8 @@ export async function buildFighter(profile: Profile, opts: FighterOptions): Prom
     matk: { weapon: weaponMatk, equip: flat('matk') - weaponMatk, percent: pct('matk') },
     hit,
     flee,
-    perfectDodge: basePerfectDodge(stats) + flat('perfect_dodge'),
-    critRate: total('crit_rate'),
+    perfectDodge: basePerfectDodge(stats) + flat('perfect_dodge') + (passives.perfectDodge ?? 0),
+    critRate: total('crit_rate') + (passives.crit ?? 0),
     critDamage: either('crit_damage'),
     critDamageLeft,
     perfectHit: Math.max(0, Math.min(100, perfectHit)),
@@ -393,12 +396,13 @@ export async function buildFighter(profile: Profile, opts: FighterOptions): Prom
 }
 
 function skillModLookup(totals: Totals, aliases: Record<string, string[]>, extraDamage: Record<string, number> = {}) {
-  // Asked on every hit: worked out once per skill and metric.
-  const memo = new Map<string, { flat: number; percent: number }>();
+  // Asked on every hit: worked out once per skill and metric (nested maps: no key string built per call).
+  const memo = new Map<string, Map<string, { flat: number; percent: number }>>();
   return (skill: string, metric: string) => {
-    const key = `${skill}|${metric}`;
-    let hit = memo.get(key);
-    if (!hit) memo.set(key, hit = look(skill, metric));
+    let bySkill = memo.get(skill);
+    if (!bySkill) memo.set(skill, bySkill = new Map());
+    let hit = bySkill.get(metric);
+    if (!hit) bySkill.set(metric, hit = look(skill, metric));
     return hit;
   };
   function look(skill: string, metric: string) {
@@ -615,8 +619,19 @@ function weaponOf(build: Build, data: Dataset, slot = 'weapon'): Weapon | null {
     atk: item.atk,
     level: item.weapon_level ?? 1,
     refine: build.slots[slot]?.refine ?? 0,
-    element: item.element,
+    // A card in it can make it an element ("Holy Element Weapon.": Sarah Irine
+    // Card) -- the planner's parser leaves that line unread (2026-10-01).
+    element: cardElement(build, data, slot) ?? item.element,
   };
+}
+
+const ELEMENTS = ['Neutral', 'Water', 'Earth', 'Fire', 'Wind', 'Poison', 'Holy', 'Dark', 'Ghost', 'Undead'];
+function cardElement(build: Build, data: Dataset, slot: string): string | null {
+  for (const id of build.slots[slot]?.cards ?? []) {
+    const m = id ? /\b(\w+) Element Weapon\b/.exec(data.items.get(id)?.description ?? '') : null;
+    if (m && ELEMENTS.includes(m[1])) return m[1];
+  }
+  return null;
 }
 
 // ---- reading a build -------------------------------------------------------

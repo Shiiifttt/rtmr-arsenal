@@ -5,6 +5,11 @@
  *
  *   node --experimental-strip-types --no-warnings --import ./register.mjs tools/build-threats.ts \
  *     [--groups rachel_ss,jorm,gorge,thanatos] [--iter 100] [--profile profiles/x.json]
+ *     [--out data/threats-revenant.json] [--policy priority|tas] [--time 120]
+ *
+ * The profile's class picks the kit (Satsujin's when it has none). --out
+ * writes a threat list of its own (a class's danger database); without it,
+ * data/threats.json, the one advise.ts reads.
  *
  * Rebuild it when the monster data or the kit's play changes. Groups not
  * named keep their existing entries.
@@ -12,14 +17,14 @@
 import { writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
-import { buildFighter, type Profile } from '../src/character.ts';
-import { findMobs, MOB_GROUPS, readJSON, REPO } from '../src/data.ts';
+import { buildFighter, resolveBuild, type Profile } from '../src/character.ts';
+import { findMobs, MOB_GROUPS, plannerDataset, readJSON, REPO } from '../src/data.ts';
 import { DEFAULT_CONSUMABLES, loadout } from '../src/items.ts';
 import { buildMonster } from '../src/monster.ts';
 import { simulate } from '../src/sim.ts';
-import { tasPolicy } from '../src/tas.ts';
+import { priorityPolicy, tasPolicy } from '../src/tas.ts';
 import { readThreats, threatEntry, THREATS_PATH, type ThreatEntry } from '../src/threats.ts';
-import { ALIASES, maxLevels, passives, satsujin } from '../src/kits/satsujin.ts';
+import { kitFor } from '../src/kits/index.ts';
 
 const argv = process.argv.slice(2);
 const arg = (k: string) => { const i = argv.indexOf(`--${k}`); return i >= 0 ? argv[i + 1] : undefined; };
@@ -28,11 +33,14 @@ const iterations = Number(arg('iter') ?? 100);
 const profilePath = arg('profile') ? resolve(process.cwd(), arg('profile')!) : resolve(REPO, 'combat/profiles/satsujin-example.json');
 
 const profile = readJSON<Profile>(profilePath);
-const f = await buildFighter(profile, { passives, aliases: ALIASES, maxLevels: maxLevels() });
-const policy = tasPolicy({ horizonMs: 6000 });
+const k = kitFor((await resolveBuild(profile.build, plannerDataset())).className);
+const f = await buildFighter(profile, { passives: k.passives, aliases: k.aliases, maxLevels: k.maxLevels() });
+const policy = arg('policy') === 'priority' ? priorityPolicy : tasPolicy({ horizonMs: 6000 });
+const outPath = arg('out') ? resolve(process.cwd(), arg('out')!) : THREATS_PATH;
+const limitS = arg('time') ? Number(arg('time')) : null;
 
 // One entry per monster; a monster in two areas lists both.
-const old = readThreats();
+const old = arg('out') ? null : readThreats();
 const byId = new Map<number, ThreatEntry>();
 for (const e of old?.monsters ?? []) {
   const keep = e.groups.filter((g) => !groups.includes(g));
@@ -45,10 +53,10 @@ for (const g of groups) {
     if (known?.groups.includes(g)) continue;
     const m = buildMonster(row);
     const started = Date.now();
-    const sum = simulate(f, m, satsujin, {
+    const sum = simulate(f, m, k.kit, {
       iterations, seed: 1, policy, options: profile.options,
       // Stalemate clock as the CLI: 1 minute, 10 on a boss.
-      limitMs: (m.boss ? 600 : 60) * 1000,
+      limitMs: (limitS ?? (m.boss ? 600 : 60)) * 1000,
       items: loadout({ carried: profile.consumables ?? DEFAULT_CONSUMABLES, healing: !!profile.healing, boss: m.boss, elixirs: f.kafraElixirs }),
     });
     const entry = threatEntry(m, [...new Set([...(known?.groups ?? []), g])], sum);
@@ -69,5 +77,5 @@ const out = {
   iterations,
   monsters: [...byId.values()].sort((a, b) => a.groups[0].localeCompare(b.groups[0]) || a.name.localeCompare(b.name)),
 };
-writeFileSync(THREATS_PATH, `${JSON.stringify(out, null, 1)}\n`);
-console.log(`wrote ${out.monsters.length} monsters to ${THREATS_PATH}`);
+writeFileSync(outPath, `${JSON.stringify(out, null, 1)}\n`);
+console.log(`wrote ${out.monsters.length} monsters to ${outPath}`);

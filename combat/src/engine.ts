@@ -105,8 +105,11 @@ export interface MobState {
   buffs: Record<string, Buff>;
   /** Monsters it summoned: each a full AI of its own, never killed. */
   adds: Actor[];
-  /** Your damage over time on it (Bleeding, Burning, Poison): a tick fixed when it landed, to the end of the fight. */
-  dots: { name: string; nextAt: number; every: number; dmg: number; lethal: boolean }[];
+  /**
+   * Your damage over time on it (Bleeding, Burning, Poison): a tick fixed when it landed, to the end of the fight.
+   * With `hit`, each tick is that call instead (a ground skill of yours ticking on it: Underworld Rainstorm), `left` times.
+   */
+  dots: { name: string; nextAt: number; every: number; dmg: number; lethal: boolean; hit?: (fight: Fight) => void; left?: number }[];
 }
 
 /**
@@ -402,9 +405,17 @@ export const enterManhole: Action = {
   },
 };
 
+/** Actions by id, per kit and per consumables list: looked up on every cast. */
+const idMaps = new WeakMap<object, Map<string, Action>>();
+const byId = (list: Action[]) => {
+  let m = idMaps.get(list);
+  if (!m) { m = new Map(); for (const a of list) if (!m.has(a.id)) m.set(a.id, a); idMaps.set(list, m); }
+  return m;
+};
+
 export function actionById(fight: Fight, id: string): Action {
   if (id === enterManhole.id) return enterManhole;
-  const a = fight.kit.actions.find((x) => x.id === id) ?? fight.items.find((x) => x.id === id);
+  const a = byId(fight.kit.actions).get(id) ?? byId(fight.items).get(id);
   if (!a) throw new Error(`kit has no action ${id}`);
   return a;
 }
@@ -429,19 +440,21 @@ export interface Strike {
   kind?: 'melee' | 'ranged' | 'magic';
   /** A skill rather than a normal attack (the "skillused" event). */
   skill?: boolean;
+  /** An area: it hits a monster that has hidden or cloaked itself (the project owner, 2026-10-01: "any aoe can hit invisible enemies"). */
+  aoe?: boolean;
 }
 
 /**
  * The monster's own defences against one of your hits, as a multiplier, with
  * what they send back. RTM battle.cpp / status.cpp values via skill-effects.json.
  */
-function mobGuard(fight: Fight, kind: NonNullable<Strike['kind']>): { mult: number; reflect: number } {
+function mobGuard(fight: Fight, kind: NonNullable<Strike['kind']>, aoe = false): { mult: number; reflect: number } {
   const st = fight.mob; const m = fight.m;
   // An Ignore* mode is not immunity: every hit does 1 (strike, RTM battle.cpp:2652 is_infinite_defense).
   if (m.ignores?.includes(kind)) return { mult: 1, reflect: 0 };
   const on = (sc: string) => selfHas(fight, st, sc);
   const v = (sc: string) => st.buffs[sc]?.value ?? 0;
-  if (on('hiding') || on('invisible')) return { mult: 0, reflect: 0 };
+  if (!aoe && (on('hiding') || on('invisible'))) return { mult: 0, reflect: 0 };
   // Max Pain: it takes nothing; weapon hits send a share back (RTM battle.cpp:1417, 5839).
   if (on('maxpain')) return { mult: 0, reflect: kind === 'magic' ? 0 : (v('maxpain') || 10) / 100 };
   let mult = 1; let reflect = 0;
@@ -459,8 +472,10 @@ function mobGuard(fight: Fight, kind: NonNullable<Strike['kind']>): { mult: numb
     if (--b.stacks <= 0) delete st.buffs.kyrie;
     return { mult: 0, reflect: 0 };
   }
-  if (kind === 'melee' && on('reflectshield')) reflect += v('reflectshield') / 100;
-  if (kind === 'magic' && on('magicmirror')) reflect += v('magicmirror') / 100;
+  // Mirror Break (KG_KYOMU, kits/revenant.ts): a target under it reflects nothing (RTM battle.cpp:7816).
+  const broken = (st.debuffs.kyomu?.until ?? -1) > fight.t;
+  if (kind === 'melee' && on('reflectshield') && !broken) reflect += v('reflectshield') / 100;
+  if (kind === 'magic' && on('magicmirror') && !broken) reflect += v('magicmirror') / 100;
   return { mult, reflect };
 }
 
@@ -476,7 +491,7 @@ export function strike(fight: Fight, id: string, s: Strike): number {
   // A crit always lands (RTM battle.cpp:2914); the rest roll HIT.
   const pLand = pCrit + (1 - pCrit) * pHit;
   const row = fight.meter ? (fight.meter.actions[id] ??= { uses: 0, hits: 0, misses: 0, crits: 0, damage: 0 }) : null;
-  const guard = mobGuard(fight, kind);
+  const guard = mobGuard(fight, kind, !!s.aoe);
   const plant = !!m.ignores?.includes(kind);
   if (rng.expect && s.canMiss) void pLand;
   let total = 0; let crits = 0; let misses = 0; let reflected = 0;
@@ -507,7 +522,7 @@ export function strike(fight: Fight, id: string, s: Strike): number {
     reflected += (guard.mult > 0 ? dmg : raw * m.damageTaken) * guard.reflect;
     total += dmg;
     if (row) { row.hits++; row.damage += dmg; }
-    leech(fight, dmg);
+    leech(fight, dmg, kind !== 'magic');
   }
   if (fight.log) {
     const shield = guard.mult === 0 ? ' (blocked)' : '';
@@ -546,8 +561,15 @@ function strikeText(
   return `${fmt(total)} (${parts.join(', ')})`;
 }
 
-function leech(fight: Fight, dmg: number) {
+function leech(fight: Fight, dmg: number, physical = true) {
   const l = fight.f.leech;
+  // Vampire Mark (GN_BLOOD_SUCKER): physical hits only, its own chance and power (kits/revenant.ts).
+  const vm = fight.me.buffs.vampireMark;
+  if (physical && dmg > 0 && vm && vm.until > fight.t) {
+    const p = Math.min(1, (vm.value ?? 0) / 100); const power = (vm.value2 ?? 0) / 100;
+    const heal = fight.rng.expect ? dmg * p * power : fight.rng.chance(p) ? dmg * power : 0;
+    if (heal > 0) leechHeal(fight, heal);
+  }
   // A flat HP / SP on every hit that lands ("Leech 5 HP per hit", bHPDrainValue).
   if (dmg > 0 && l.hpPerHit) heal_(fight, l.hpPerHit);
   if (dmg > 0 && l.spPerHit) fight.me.sp = Math.min(fight.f.maxSp, fight.me.sp + l.spPerHit);
@@ -562,7 +584,22 @@ function leech(fight: Fight, dmg: number) {
   const heal = fight.rng.expect
     ? dmg * Math.min(1, l.hpRate / 100) * l.hpPower / 100
     : fight.rng.chance(l.hpRate / 100) ? dmg * l.hpPower / 100 : 0;
-  if (heal > 0) heal_(fight, heal);
+  if (heal > 0) leechHeal(fight, heal);
+}
+
+/**
+ * HP leeched. With an overheal rule up (buff 'ominous': value the share of
+ * overheal kept, value2 the cap -- Ominous Presence, kits/revenant.ts) what
+ * would spill past Max HP becomes a shield for 30 s, refreshed by new overheal.
+ */
+function leechHeal(fight: Fight, heal: number) {
+  const om = fight.me.buffs.ominous;
+  const room = fight.f.maxHp - fight.me.hp;
+  heal_(fight, heal);
+  if (!om || om.until <= fight.t || heal <= room) return;
+  const cur = fight.me.buffs.overheal;
+  const held = cur && cur.until > fight.t ? cur.value ?? 0 : 0;
+  fight.me.buffs.overheal = { until: fight.t + 30_000, stacks: 1, value: Math.min(om.value2 ?? 0, held + (heal - Math.max(0, room)) * (om.value ?? 0)) };
 }
 
 /**
@@ -613,11 +650,23 @@ function hurtMe(fight: Fight, dmg: number, source: string, lethal = true): numbe
   if (has(fight, 'invulnerable')) return 0;
   if (has(fight, 'invisible')) { dmg /= 2; drop(fight, 'invisible'); }
   if (has(fight, 'aeterna')) { dmg *= 2; drop(fight, 'aeterna'); }
-  // Finisher Ready (Retribution at 10 counters): half of everything, ended
-  // by the first hit unless Rook's Wall is up (RTM battle.cpp:1563, status.cpp:2352).
-  if (dmg > 0 && has(fight, 'finisher')) {
+  // Finisher Ready: half of the next hit (RTM battle.cpp:1563). Since Refuge
+  // Patch 18 (2026-09-18) a hit no longer ends the buff -- "its 50% damage
+  // reduction protects against only the next hit; reapplying the buff
+  // restores this protection" -- so the guard is its stacks (1 up, 0 used)
+  // and the buff runs its time for the skills that read it. Rook's Wall
+  // keeps the guard up (the 2023 code, status.cpp:2352).
+  const fin = me.buffs.finisher;
+  if (dmg > 0 && fin && fin.until > fight.t && fin.stacks > 0) {
     dmg *= 0.5;
-    if (!has(fight, 'defender')) drop(fight, 'finisher');
+    if (!has(fight, 'defender')) fin.stacks = 0;
+  }
+  // Ominous Presence's shield (overheal from leech, kits/revenant.ts): soaks what it holds.
+  const oh = me.buffs.overheal;
+  if (dmg > 0 && lethal && oh && oh.until > fight.t && (oh.value ?? 0) > 0) {
+    const soak = Math.min(dmg, oh.value ?? 0);
+    dmg -= soak;
+    oh.value = (oh.value ?? 0) - soak;
   }
   // Queen's Barrier: soaks a pool of HP or a number of hits, whichever runs out first.
   const bar = me.buffs.barrier;
@@ -922,7 +971,19 @@ function stepOffArea(fight: Fight, ch: Channel) {
   if (s.targets !== 'aoe' || !s.avoid.includes('walk') || has(fight, 'rooted') || disabled(fight)) return;
   const step = escapeMsFor(fight.options, fight.f, s);
   const leaveBy = ch.nextAt + ch.every - step;
-  if (fight.t + TUNE.playerReactionMs > leaveBy) return;
+  if (fight.t + TUNE.playerReactionMs > leaveBy) {
+    // Its waves come faster than a walk out (Cloud Kill, every 0.5 s): walk
+    // anyway, taking what lands on the way, rather than stand in it to the
+    // end -- once free to move (after a cast or the pause after a skill).
+    const me = fight.me;
+    if (ch.exitAt !== undefined) return;
+    const exitAt = Math.max(fight.t + TUNE.playerReactionMs, me.cast ? me.cast.endsAt : me.busyUntil) + step;
+    if (exitAt >= ch.nextAt + ch.every * (ch.left - 1)) return;
+    ch.exitAt = exitAt;
+    me.busyUntil = Math.max(me.busyUntil, exitAt);
+    fight.log && say(fight, `walks out of ${s.name} through its waves`);
+    return;
+  }
   const me = fight.me;
   if (me.cast && me.cast.endsAt > leaveBy) me.cast = null;
   const from = Math.max(fight.t + TUNE.playerReactionMs, me.cast ? me.cast.endsAt : me.busyUntil);
@@ -1015,8 +1076,10 @@ function landMobHit(fight: Fight, a: Actor, s: MobSkill, normal: boolean, ch?: C
     return avoided(fight, src, "King's Gambit");
   }
   // Auto Guard: 4% per level of physical attacks blocked (RTM status.cpp:11168, battle.cpp:1243).
-  const guardChance = s.type === 'physical' ? Math.min(1, 0.04 * (f.autoGuard ?? 0)) : 0;
-  if (guardChance > 0 && !rng.expect && rng.chance(guardChance)) return avoided(fight, src, 'Auto Guard');
+  // Shadow Parry (LK_PARRYING, buff 'parry', value a percent): any weapon hit, normal or skill (battle.cpp:1309).
+  const parry = s.type === 'physical' && has(fight, 'parry') ? (me.buffs.parry.value ?? 0) / 100 : 0;
+  const guardChance = s.type === 'physical' ? 1 - (1 - Math.min(1, 0.04 * (f.autoGuard ?? 0))) * (1 - parry) : 0;
+  if (guardChance > 0 && !rng.expect && rng.chance(guardChance)) return avoided(fight, src, parry ? 'Shadow Parry' : 'Auto Guard');
   // Flee and Perfect Dodge: physical only; PD only against normal attacks.
   // Crits and a player who cannot move are always hit (RTM battle.cpp:2914-2924).
   // Magic can be dodged outright by a buff (Hallucination Walk).
@@ -1285,11 +1348,35 @@ function mobDotTick(fight: Fight, d: MobState['dots'][number]) {
 
 // ---- the loop --------------------------------------------------------------
 
+/**
+ * A fight that cannot end in time: from EARLY_STALL_MS to half the time limit, if three times
+ * the damage rate so far would still leave the monster alive at the clock,
+ * it stops here as the time-limit stalemate it was bound to be, booked at the
+ * limit so kills an hour read the same. Ymir Emperium takes 1 a hit: ~1% of
+ * its HP every 10 s, a 120 s fight each time. Real fights only (not
+ * rollouts, not the dummy); option earlyStall false plays every fight out.
+ */
+const EARLY_STALL_MS = 20_000;
+const EARLY_STALL_MARGIN = 3;
+
 /** Run until someone dies or the clock (fight.limitMs, absolute) runs out. */
 export function run(fight: Fight): Fight {
   const { me } = fight;
   let guard = 0;
+  const early = fight.options.earlyStall !== false && !fight.rng.expect && !fight.m.dummy;
+  const t0 = fight.t; const hp0 = fight.mob.hp;
   while (!fight.result) {
+    // Only in the fight's first half: late on, one burst can still finish it (Famine Incarnate out of its cloak).
+    if (early && fight.t - t0 >= EARLY_STALL_MS && fight.t <= fight.limitMs / 2) {
+      const rate = (hp0 - fight.mob.hp) / (fight.t - t0);
+      if (rate * EARLY_STALL_MARGIN * (fight.limitMs - fight.t) < fight.mob.hp) {
+        fight.log && say(fight, `cannot kill it by the time limit at ${EARLY_STALL_MARGIN}x its pace so far: a stalemate at the limit`);
+        fight.t = fight.limitMs;
+        fight.result = 'stalemate';
+        fight.cause = 'time limit';
+        break;
+      }
+    }
     if (++guard > 2_000_000) throw new Error('fight did not progress');
     const all = actors(fight);
     const tMe = me.cast ? me.cast.endsAt : me.busyUntil;
@@ -1334,7 +1421,7 @@ export function run(fight: Fight): Fight {
       const d = me.dots.find((x) => x.nextAt === next)!;
       // Skill heals over time (Knight's Regen, King's Fortress): healing received applies.
       // An SP regen skill (King's Fortress Lv2) restores SP instead.
-      if (d.sp) me.sp = Math.min(fight.f.maxSp, me.sp + d.dmg);
+      if (d.sp) me.sp = Math.max(0, Math.min(fight.f.maxSp, me.sp + d.dmg));
       else if (d.heal) heal_(fight, d.dmg * Math.max(0, 1 + (fight.f.healReceived ?? 0) / 100));
       else hurtMe(fight, d.dmg, d.name, d.lethal);
       d.nextAt += d.every;
@@ -1344,7 +1431,10 @@ export function run(fight: Fight): Fight {
     if (tMobDot === next) {
       const d = fight.mob.dots.find((x) => x.nextAt === next)!;
       d.nextAt += d.every;
-      mobDotTick(fight, d);
+      if (d.hit) {
+        d.hit(fight);
+        if (d.left !== undefined && --d.left <= 0) fight.mob.dots = fight.mob.dots.filter((x) => x !== d);
+      } else mobDotTick(fight, d);
       continue;
     }
     if (tDef === next) { defend(fight); continue; }

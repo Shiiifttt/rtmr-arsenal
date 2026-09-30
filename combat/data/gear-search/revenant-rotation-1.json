@@ -1,0 +1,2997 @@
+{
+ "profile": "Revenant start (2026-10-01): STR/LUK scythe crit, Royal Scythe +9, the Kingslayer endgame gear a Revenant can wear -- a starting point for the searches",
+ "targets": [
+  "Njord Zealot",
+  "Converted Zealot",
+  "Godly Seeker",
+  "Burning Fury",
+  "Tortured Maiden",
+  "Angel of Genesis",
+  "Demon of Apocalypse",
+  "Heartless",
+  "Heart of the Serpent",
+  "Conquest Incarnate",
+  "Famine Incarnate",
+  "War Incarnate",
+  "Death Incarnate",
+  "Vision of Surt",
+  "Empathy",
+  "Smile",
+  "Happiness",
+  "Prayer",
+  "Anger of Thanatos",
+  "Horror of Thanatos",
+  "Resentment of Thanatos",
+  "Regret of Thanatos",
+  "Aunoe",
+  "Fanat",
+  "Ascended Follower",
+  "Dominated Follower",
+  "Doomed Follower",
+  "Ritual Priest",
+  "Magma Knight",
+  "Tornado Knight",
+  "Quake Knight",
+  "Tidal Knight",
+  "Umbral Knight",
+  "Guild Warrior",
+  "Guild Support",
+  "Guild Defender",
+  "Guild Magician",
+  "Guild Chamberlain",
+  "Guild Master",
+  "Ymir Emperium",
+  "Detector",
+  "Agav",
+  "Echio",
+  "Vanberk",
+  "Isilla",
+  "Hodremlin",
+  "Seeker",
+  "Tricked Follower",
+  "Gentleman",
+  "Maiden of Past",
+  "Lost Codex",
+  "Maiden of Present",
+  "Maiden of Future",
+  "Cavalier",
+  "Lost Traveler",
+  "Navigator",
+  "Orc Skeleton",
+  "Orc Zombie",
+  "Zenorc",
+  "Orc Archer",
+  "High Orc",
+  "Grafted Zenorc"
+ ],
+ "rules": {
+  "screenN": 30,
+  "confirmN": 150,
+  "timeS": 120,
+  "locked": [
+   "offhand"
+  ],
+  "penalty": 0.03,
+  "topStats": [
+   "str",
+   "luk",
+   "dex"
+  ]
+ },
+ "start": "https://rtmr-arsenal.pages.dev/#b=cfZHJjsIwEET_xec6uNtb_BtztaLICgaiYYlig4a_H3XgADOCiyWXn6t6SQz1Va7llE9NgYxGihEEp0EIGjH2SEnDEDMhIlkyDGuC7Xsk4XwHjUQmEInEcJG9kGSCiTBacwxiomrLTUFdp6aQqO8FNyBnrX7w1P0HWTC1lHq-LGNRUMf8M-xnheTWl-PUpl1u0_mkoOb9rU5jPgxL2VzGslFI5h5kQc44SDteMo2_d-M15HiXW6653q23h1IUUlzleqktTyLv5-FQyriXHxp8DwtgS4-A4N5517lIhSrXWQolvapjrm067UTftrIMch825ZBvD0aoDhy8l8FzIP8ytdy-h3l8GnEE-xCEtdbojygxuCO3ruMZrG15ggy408H-hV72ShZsLcfPTm51cp-dPNiyWZt9D60TD-aDU9__Ag",
+ "steps": [
+  {
+   "move": "rotation: roaringAt = 1",
+   "before": {
+    "win": 0.9396911519008444,
+    "loss": 0.032869823708911776,
+    "dps": 15512.287713995436,
+    "ttk": 13.538539276963595,
+    "value": -0.4756972201658771,
+    "deaths": "Jupitel Thunder x49, Cloud Kill x31",
+    "rhythm": {
+     "killsPerHour": 137.7346613771864,
+     "cycleS": 25.015378524113473,
+     "sitS": 7.245921517484977,
+     "deathsPerHour": 3.7550653202781943,
+     "stallsPerHour": 2.4217474595142763,
+     "per": [
+      {
+       "name": "Njord Zealot",
+       "weight": 15,
+       "fightS": 35.30652706622824,
+       "sitS": 22.989602446483183,
+       "spUsed": 626.4666666666667,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Converted Zealot",
+       "weight": 15,
+       "fightS": 31.515515483399547,
+       "sitS": 9.54055167055167,
+       "spUsed": 224.9090909090909,
+       "hpUsed": 2232.489090909091,
+       "loss": 0.8817204301075269
+      },
+      {
+       "name": "Godly Seeker",
+       "weight": 15,
+       "fightS": 27.144350249725996,
+       "sitS": 14.786697247706423,
+       "spUsed": 402.9375,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Burning Fury",
+       "weight": 15,
+       "fightS": 41.74640026637439,
+       "sitS": 14.630458715596333,
+       "spUsed": 398.68000000000006,
+       "hpUsed": 5.710666666666657,
+       "loss": 0
+      },
+      {
+       "name": "Tortured Maiden",
+       "weight": 40,
+       "fightS": 35.13540951319858,
+       "sitS": 16.612315818737837,
+       "spUsed": 452.68560606060606,
+       "hpUsed": 45.8864015151515,
+       "loss": 0.18769230769230769
+      },
+      {
+       "name": "Angel of Genesis",
+       "weight": 37.234042553191486,
+       "fightS": 27.97555339627344,
+       "sitS": 16.66422018348624,
+       "spUsed": 454.1,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Demon of Apocalypse",
+       "weight": 37.234042553191486,
+       "fightS": 22.705679361344625,
+       "sitS": 10.829024186822352,
+       "spUsed": 295.09090909090907,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Heartless",
+       "weight": 21.27659574468085,
+       "fightS": 68.93653813119879,
+       "sitS": 18.746941896024467,
+       "spUsed": 510.8541666666667,
+       "hpUsed": 204.03552083333338,
+       "loss": 0.2066115702479339
+      },
+      {
+       "name": "Heart of the Serpent",
+       "weight": 4.25531914893617,
+       "fightS": 10.759901331871932,
+       "sitS": 9.541284403669724,
+       "spUsed": 260,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Conquest Incarnate",
+       "weight": 22.596153846153847,
+       "fightS": 12.276542442577098,
+       "sitS": 10.260278627251106,
+       "spUsed": 279.5925925925926,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Famine Incarnate",
+       "weight": 22.596153846153847,
+       "fightS": 112.31827351182083,
+       "sitS": 3.394120951132747,
+       "spUsed": 92.48979591836735,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "War Incarnate",
+       "weight": 22.596153846153847,
+       "fightS": 4.865490886696794,
+       "sitS": 3.9411213047910296,
+       "spUsed": 107.39555555555556,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Death Incarnate",
+       "weight": 22.596153846153847,
+       "fightS": 13.716031581822698,
+       "sitS": 5.071812717494463,
+       "spUsed": 138.20689655172413,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Vision of Surt",
+       "weight": 9.615384615384615,
+       "fightS": 6.224268648739546,
+       "sitS": 4.909174311926606,
+       "spUsed": 133.775,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Empathy",
+       "weight": 20.192307692307693,
+       "fightS": 16.95034132456494,
+       "sitS": 24.534556574923553,
+       "spUsed": 668.5666666666668,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Smile",
+       "weight": 20.192307692307693,
+       "fightS": 11.052694998629942,
+       "sitS": 10.145642201834862,
+       "spUsed": 276.46875,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Happiness",
+       "weight": 20.192307692307693,
+       "fightS": 9.869677122670895,
+       "sitS": 7.02408256880734,
+       "spUsed": 191.40625,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Prayer",
+       "weight": 20.192307692307693,
+       "fightS": 9.325178718142482,
+       "sitS": 7.520897043832824,
+       "spUsed": 204.94444444444446,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Anger of Thanatos",
+       "weight": 4.8076923076923075,
+       "fightS": 13.44840399561581,
+       "sitS": 7.467889908256881,
+       "spUsed": 203.5,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Horror of Thanatos",
+       "weight": 4.8076923076923075,
+       "fightS": 20.45301164183938,
+       "sitS": 7.133944954128441,
+       "spUsed": 194.4,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Resentment of Thanatos",
+       "weight": 4.8076923076923075,
+       "fightS": 15.183442928493141,
+       "sitS": 8.752293577981652,
+       "spUsed": 238.5,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Regret of Thanatos",
+       "weight": 4.8076923076923075,
+       "fightS": 13.4698504493501,
+       "sitS": 9.888132583604616,
+       "spUsed": 269.4516129032258,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Aunoe",
+       "weight": 25.53191489361702,
+       "fightS": 2.4269019978079016,
+       "sitS": 2.5688073394495414,
+       "spUsed": 70,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Fanat",
+       "weight": 25.53191489361702,
+       "fightS": 2.9924512902509366,
+       "sitS": 3.4655963302752295,
+       "spUsed": 94.4375,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Ascended Follower",
+       "weight": 6.382978723404255,
+       "fightS": 2.8527173080546446,
+       "sitS": 2.8116763969974983,
+       "spUsed": 76.61818181818182,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Dominated Follower",
+       "weight": 12.76595744680851,
+       "fightS": 4.968819386636683,
+       "sitS": 2.762778505897772,
+       "spUsed": 75.28571428571429,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Doomed Follower",
+       "weight": 17.02127659574468,
+       "fightS": 4.71822893328462,
+       "sitS": 5.76717635066259,
+       "spUsed": 157.15555555555557,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Ritual Priest",
+       "weight": 12.76595744680851,
+       "fightS": 5.573180602968853,
+       "sitS": 4.279923191807126,
+       "spUsed": 116.62790697674419,
+       "hpUsed": 2.6623255813953386,
+       "loss": 0
+      },
+      {
+       "name": "Magma Knight",
+       "weight": 22.641509433962263,
+       "fightS": 20.18369525633646,
+       "sitS": 10.986068637444784,
+       "spUsed": 299.3703703703704,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Tornado Knight",
+       "weight": 22.641509433962263,
+       "fightS": 29.25287078127437,
+       "sitS": 17.76625448743518,
+       "spUsed": 484.1304347826087,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Quake Knight",
+       "weight": 22.641509433962263,
+       "fightS": 23.928853917895584,
+       "sitS": 12.104220183486238,
+       "spUsed": 329.84,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Tidal Knight",
+       "weight": 22.641509433962263,
+       "fightS": 22.500546845395046,
+       "sitS": 13.384615384615385,
+       "spUsed": 364.7307692307692,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Umbral Knight",
+       "weight": 9.433962264150944,
+       "fightS": 28.226789164839925,
+       "sitS": 18.07645259938838,
+       "spUsed": 492.5833333333333,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Guild Warrior",
+       "weight": 23.376623376623378,
+       "fightS": 13.095848797661766,
+       "sitS": 3.1009174311926606,
+       "spUsed": 84.5,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Guild Support",
+       "weight": 18.181818181818183,
+       "fightS": 9.876133725345532,
+       "sitS": 8.401686089759483,
+       "spUsed": 228.94594594594594,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Guild Defender",
+       "weight": 22.07792207792208,
+       "fightS": 4.600972040547657,
+       "sitS": 4.491899277766933,
+       "spUsed": 122.40425531914893,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Guild Magician",
+       "weight": 19.48051948051948,
+       "fightS": 8.389565734015454,
+       "sitS": 4.822790922259778,
+       "spUsed": 131.42105263157896,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Guild Chamberlain",
+       "weight": 2.5974025974025974,
+       "fightS": 9.61116383600122,
+       "sitS": 8.081329035457475,
+       "spUsed": 220.21621621621622,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Guild Master",
+       "weight": 1.2987012987012987,
+       "fightS": 23.306066952067802,
+       "sitS": 11.801834862385322,
+       "spUsed": 321.6,
+       "hpUsed": 0,
+       "loss": 0.7619047619047619
+      },
+      {
+       "name": "Ymir Emperium",
+       "weight": 1,
+       "fightS": 120,
+       "sitS": 0,
+       "spUsed": 0,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Detector",
+       "weight": 12.987012987012987,
+       "fightS": 1.6594594594594594,
+       "sitS": 2.0490949665261593,
+       "spUsed": 55.83783783783784,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Agav",
+       "weight": 17.318435754189945,
+       "fightS": 1,
+       "sitS": 1.944954128440367,
+       "spUsed": 53,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Echio",
+       "weight": 14.664804469273744,
+       "fightS": 0.8752475247524752,
+       "sitS": 1.9220637660096285,
+       "spUsed": 52.37623762376238,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Vanberk",
+       "weight": 16.75977653631285,
+       "fightS": 0.8,
+       "sitS": 1.908256880733945,
+       "spUsed": 52,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Isilla",
+       "weight": 21.787709497206706,
+       "fightS": 0.8,
+       "sitS": 1.908256880733945,
+       "spUsed": 52,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Hodremlin",
+       "weight": 6.983240223463687,
+       "fightS": 1.2144958333333327,
+       "sitS": 1.654434250764526,
+       "spUsed": 45.083333333333336,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Seeker",
+       "weight": 14.804469273743017,
+       "fightS": 0.7496999999999986,
+       "sitS": 1.908256880733945,
+       "spUsed": 52,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Tricked Follower",
+       "weight": 7.681564245810056,
+       "fightS": 0.9157894736842105,
+       "sitS": 1.9295026557218735,
+       "spUsed": 52.578947368421055,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Gentleman",
+       "weight": 25.089605734767026,
+       "fightS": 1.9329934979905765,
+       "sitS": 2.8287461773700304,
+       "spUsed": 77.08333333333333,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Maiden of Past",
+       "weight": 8.243727598566307,
+       "fightS": 1.9161778853170932,
+       "sitS": 2.7574622044191752,
+       "spUsed": 75.14084507042253,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Lost Codex",
+       "weight": 25.089605734767026,
+       "fightS": 2,
+       "sitS": 2.8623853211009176,
+       "spUsed": 78,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Maiden of Present",
+       "weight": 21.50537634408602,
+       "fightS": 1.9934633421054084,
+       "sitS": 2.8563528968204097,
+       "spUsed": 77.83561643835617,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Maiden of Future",
+       "weight": 10.75268817204301,
+       "fightS": 3.061808655134619,
+       "sitS": 2.64663081303385,
+       "spUsed": 72.12068965517241,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Cavalier",
+       "weight": 6.810035842293907,
+       "fightS": 2.4062451066339774,
+       "sitS": 2.456094364351245,
+       "spUsed": 66.92857142857143,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Lost Traveler",
+       "weight": 2.150537634408602,
+       "fightS": 2.453948560650417,
+       "sitS": 2.5688073394495414,
+       "spUsed": 70,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Navigator",
+       "weight": 0.35842293906810035,
+       "fightS": 3.4269019978079016,
+       "sitS": 4.697247706422019,
+       "spUsed": 128,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Orc Skeleton",
+       "weight": 14.285714285714286,
+       "fightS": 0.4,
+       "sitS": 1.724770642201835,
+       "spUsed": 47,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Orc Zombie",
+       "weight": 16.666666666666668,
+       "fightS": 0.4,
+       "sitS": 1.724770642201835,
+       "spUsed": 47,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Zenorc",
+       "weight": 16.666666666666668,
+       "fightS": 0.4,
+       "sitS": 1.724770642201835,
+       "spUsed": 47,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Orc Archer",
+       "weight": 21.428571428571427,
+       "fightS": 0.4,
+       "sitS": 1.724770642201835,
+       "spUsed": 47,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "High Orc",
+       "weight": 23.80952380952381,
+       "fightS": 0.4,
+       "sitS": 1.724770642201835,
+       "spUsed": 47,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Grafted Zenorc",
+       "weight": 7.142857142857143,
+       "fightS": 0.6,
+       "sitS": 1.724770642201835,
+       "spUsed": 47,
+       "hpUsed": 0,
+       "loss": 0
+      }
+     ]
+    }
+   },
+   "after": {
+    "win": 0.945308111302756,
+    "loss": 0.02902312394508024,
+    "dps": 14324.277749885205,
+    "ttk": 13.459199506938955,
+    "value": -0.17395602941822108,
+    "deaths": "Cloud Kill x31, Huuma Shuriken - Grasp x28",
+    "rhythm": {
+     "killsPerHour": 132.99331747672562,
+     "cycleS": 26.085769148436857,
+     "sitS": 8.108360243595008,
+     "deathsPerHour": 3.032512066572934,
+     "stallsPerHour": 1.9804519473786575,
+     "per": [
+      {
+       "name": "Njord Zealot",
+       "weight": 15,
+       "fightS": 37.73118039956159,
+       "sitS": 13.115596330275228,
+       "spUsed": 357.4,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Converted Zealot",
+       "weight": 15,
+       "fightS": 31.6860919348946,
+       "sitS": 18.807339449541285,
+       "spUsed": 512.5,
+       "hpUsed": 105.97000000000025,
+       "loss": 0.978494623655914
+      },
+      {
+       "name": "Godly Seeker",
+       "weight": 15,
+       "fightS": 27.758562749725996,
+       "sitS": 15.025229357798166,
+       "spUsed": 409.4375,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Burning Fury",
+       "weight": 15,
+       "fightS": 42.10462679985386,
+       "sitS": 17.293700305810397,
+       "spUsed": 471.25333333333333,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Tortured Maiden",
+       "weight": 40,
+       "fightS": 33.84834293966335,
+       "sitS": 19.25418596905562,
+       "spUsed": 524.6765676567657,
+       "hpUsed": 43.03828382838282,
+       "loss": 0.06769230769230769
+      },
+      {
+       "name": "Angel of Genesis",
+       "weight": 37.234042553191486,
+       "fightS": 30.575617497259874,
+       "sitS": 17.363302752293578,
+       "spUsed": 473.15,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Demon of Apocalypse",
+       "weight": 37.234042553191486,
+       "fightS": 24.195319543959933,
+       "sitS": 12.381984987489576,
+       "spUsed": 337.40909090909093,
+       "hpUsed": 1.0036363636363603,
+       "loss": 0
+      },
+      {
+       "name": "Heartless",
+       "weight": 21.27659574468085,
+       "fightS": 71.41726489118513,
+       "sitS": 16.50227041052729,
+       "spUsed": 449.6868686868687,
+       "hpUsed": 373.88616161616164,
+       "loss": 0.18181818181818182
+      },
+      {
+       "name": "Heart of the Serpent",
+       "weight": 4.25531914893617,
+       "fightS": 12.943912147011511,
+       "sitS": 11.267414203194019,
+       "spUsed": 307.037037037037,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Conquest Incarnate",
+       "weight": 22.596153846153847,
+       "fightS": 14.179748740091233,
+       "sitS": 12.426775399252463,
+       "spUsed": 338.6296296296296,
+       "hpUsed": 1.13555555555555,
+       "loss": 0
+      },
+      {
+       "name": "Famine Incarnate",
+       "weight": 22.596153846153847,
+       "fightS": 84.46004225522884,
+       "sitS": 6.144871970423114,
+       "spUsed": 167.44776119402985,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "War Incarnate",
+       "weight": 22.596153846153847,
+       "fightS": 7.967692884504691,
+       "sitS": 3.6870132517838945,
+       "spUsed": 100.47111111111113,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Death Incarnate",
+       "weight": 22.596153846153847,
+       "fightS": 13.847879857684761,
+       "sitS": 6.290414425814616,
+       "spUsed": 171.41379310344828,
+       "hpUsed": 10.129241379310331,
+       "loss": 0
+      },
+      {
+       "name": "Vision of Surt",
+       "weight": 9.615384615384615,
+       "fightS": 9.522163848520332,
+       "sitS": 7.930275229357798,
+       "spUsed": 216.1,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Empathy",
+       "weight": 20.192307692307693,
+       "fightS": 17.85372049123161,
+       "sitS": 23.910397553516816,
+       "spUsed": 651.5583333333333,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Smile",
+       "weight": 20.192307692307693,
+       "fightS": 11.9482813124315,
+       "sitS": 11.908256880733944,
+       "spUsed": 324.5,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Happiness",
+       "weight": 20.192307692307693,
+       "fightS": 10.481194311883478,
+       "sitS": 8.85665137614679,
+       "spUsed": 241.34375,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Prayer",
+       "weight": 20.192307692307693,
+       "fightS": 10.370470662282468,
+       "sitS": 8.644240570846074,
+       "spUsed": 235.55555555555554,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Anger of Thanatos",
+       "weight": 4.8076923076923075,
+       "fightS": 14.307367395542741,
+       "sitS": 8.020795107033639,
+       "spUsed": 218.56666666666666,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Horror of Thanatos",
+       "weight": 4.8076923076923075,
+       "fightS": 26.718579356281673,
+       "sitS": 8.74442988204456,
+       "spUsed": 238.28571428571428,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Resentment of Thanatos",
+       "weight": 4.8076923076923075,
+       "fightS": 16.608042928493138,
+       "sitS": 9.743119266055047,
+       "spUsed": 265.5,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Regret of Thanatos",
+       "weight": 4.8076923076923075,
+       "fightS": 15.77231651216912,
+       "sitS": 11.334714412548092,
+       "spUsed": 308.8709677419355,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Aunoe",
+       "weight": 25.53191489361702,
+       "fightS": 2.682670752014071,
+       "sitS": 4.036697247706422,
+       "spUsed": 110,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Fanat",
+       "weight": 25.53191489361702,
+       "fightS": 3.6294768313239096,
+       "sitS": 4.627675840978593,
+       "spUsed": 126.10416666666667,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Ascended Follower",
+       "weight": 6.382978723404255,
+       "fightS": 3.2883619251603435,
+       "sitS": 4.4990825688073395,
+       "spUsed": 122.6,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Dominated Follower",
+       "weight": 12.76595744680851,
+       "fightS": 4.651592978339209,
+       "sitS": 2.836921924733196,
+       "spUsed": 77.3061224489796,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Doomed Follower",
+       "weight": 17.02127659574468,
+       "fightS": 5.4387012874762,
+       "sitS": 6.834658511722732,
+       "spUsed": 186.24444444444444,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Ritual Priest",
+       "weight": 12.76595744680851,
+       "fightS": 7.534005998521608,
+       "sitS": 4.264561553232345,
+       "spUsed": 116.20930232558139,
+       "hpUsed": 7.587906976744159,
+       "loss": 0
+      },
+      {
+       "name": "Magma Knight",
+       "weight": 22.641509433962263,
+       "fightS": 23.967248662038898,
+       "sitS": 13.058783554196397,
+       "spUsed": 355.85185185185185,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Tornado Knight",
+       "weight": 22.641509433962263,
+       "fightS": 28.171949129005156,
+       "sitS": 17.63382528919027,
+       "spUsed": 480.5217391304348,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Quake Knight",
+       "weight": 22.641509433962263,
+       "fightS": 27.59281287903548,
+       "sitS": 14.841834862385321,
+       "spUsed": 404.44,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Tidal Knight",
+       "weight": 22.641509433962263,
+       "fightS": 25.2650427687249,
+       "sitS": 16.280875088214536,
+       "spUsed": 443.65384615384613,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Umbral Knight",
+       "weight": 9.433962264150944,
+       "fightS": 29.026976997807903,
+       "sitS": 19.68960244648318,
+       "spUsed": 536.5416666666666,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Guild Warrior",
+       "weight": 23.376623376623378,
+       "fightS": 13.632786063670805,
+       "sitS": 3.5070336391437307,
+       "spUsed": 95.56666666666666,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Guild Support",
+       "weight": 18.181818181818183,
+       "fightS": 10.562768752491058,
+       "sitS": 9.552194396231092,
+       "spUsed": 260.2972972972973,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Guild Defender",
+       "weight": 22.07792207792208,
+       "fightS": 8.82832723217694,
+       "sitS": 7.699394885809096,
+       "spUsed": 209.80851063829786,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Guild Magician",
+       "weight": 19.48051948051948,
+       "fightS": 11.636384999134702,
+       "sitS": 5.796233703524867,
+       "spUsed": 157.94736842105263,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Guild Chamberlain",
+       "weight": 2.5974025974025974,
+       "fightS": 10.203658214616583,
+       "sitS": 9.696999752045624,
+       "spUsed": 264.2432432432432,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Guild Master",
+       "weight": 1.2987012987012987,
+       "fightS": 25.82944304741028,
+       "sitS": 16.053007135575942,
+       "spUsed": 437.44444444444446,
+       "hpUsed": 0,
+       "loss": 0.5714285714285714
+      },
+      {
+       "name": "Ymir Emperium",
+       "weight": 1,
+       "fightS": 120,
+       "sitS": 0,
+       "spUsed": 0,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Detector",
+       "weight": 12.987012987012987,
+       "fightS": 1.6451851351351345,
+       "sitS": 2.507314654103645,
+       "spUsed": 68.32432432432432,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Agav",
+       "weight": 17.318435754189945,
+       "fightS": 1,
+       "sitS": 1.944954128440367,
+       "spUsed": 53,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Echio",
+       "weight": 14.664804469273744,
+       "fightS": 0.8752475247524752,
+       "sitS": 1.9220637660096285,
+       "spUsed": 52.37623762376238,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Vanberk",
+       "weight": 16.75977653631285,
+       "fightS": 0.8,
+       "sitS": 1.908256880733945,
+       "spUsed": 52,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Isilla",
+       "weight": 21.787709497206706,
+       "fightS": 0.8,
+       "sitS": 1.908256880733945,
+       "spUsed": 52,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Hodremlin",
+       "weight": 6.983240223463687,
+       "fightS": 1.2144958333333327,
+       "sitS": 1.654434250764526,
+       "spUsed": 45.083333333333336,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Seeker",
+       "weight": 14.804469273743017,
+       "fightS": 0.7496999999999986,
+       "sitS": 1.908256880733945,
+       "spUsed": 52,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Tricked Follower",
+       "weight": 7.681564245810056,
+       "fightS": 0.9157894736842105,
+       "sitS": 1.9295026557218735,
+       "spUsed": 52.578947368421055,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Gentleman",
+       "weight": 25.089605734767026,
+       "fightS": 1.7517958333333314,
+       "sitS": 3.63302752293578,
+       "spUsed": 99,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Maiden of Past",
+       "weight": 8.243727598566307,
+       "fightS": 1.7496999999999983,
+       "sitS": 3.63302752293578,
+       "spUsed": 99,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Lost Codex",
+       "weight": 25.089605734767026,
+       "fightS": 1.8,
+       "sitS": 3.63302752293578,
+       "spUsed": 99,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Maiden of Present",
+       "weight": 21.50537634408602,
+       "fightS": 1.764169863013697,
+       "sitS": 3.63302752293578,
+       "spUsed": 99,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Maiden of Future",
+       "weight": 10.75268817204301,
+       "fightS": 2.818562103410481,
+       "sitS": 3.247073710850996,
+       "spUsed": 88.48275862068965,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Cavalier",
+       "weight": 6.810035842293907,
+       "fightS": 2.1678571428571427,
+       "sitS": 3.6304062909567496,
+       "spUsed": 98.92857142857143,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Lost Traveler",
+       "weight": 2.150537634408602,
+       "fightS": 2.996875,
+       "sitS": 4.072821100917431,
+       "spUsed": 110.984375,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Navigator",
+       "weight": 0.35842293906810035,
+       "fightS": 4.1766019978079045,
+       "sitS": 4.073394495412844,
+       "spUsed": 111,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Orc Skeleton",
+       "weight": 14.285714285714286,
+       "fightS": 0.4,
+       "sitS": 1.724770642201835,
+       "spUsed": 47,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Orc Zombie",
+       "weight": 16.666666666666668,
+       "fightS": 0.4,
+       "sitS": 1.724770642201835,
+       "spUsed": 47,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Zenorc",
+       "weight": 16.666666666666668,
+       "fightS": 0.4,
+       "sitS": 1.724770642201835,
+       "spUsed": 47,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Orc Archer",
+       "weight": 21.428571428571427,
+       "fightS": 0.4,
+       "sitS": 1.724770642201835,
+       "spUsed": 47,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "High Orc",
+       "weight": 23.80952380952381,
+       "fightS": 0.4,
+       "sitS": 1.724770642201835,
+       "spUsed": 47,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Grafted Zenorc",
+       "weight": 7.142857142857143,
+       "fightS": 0.6,
+       "sitS": 1.724770642201835,
+       "spUsed": 47,
+       "hpUsed": 0,
+       "loss": 0
+      }
+     ]
+    }
+   },
+   "tried": 22
+  },
+  {
+   "move": "order: leave out Final Orchestra",
+   "before": {
+    "win": 0.9446857577512278,
+    "loss": 0.02972556659884716,
+    "dps": 14345.282333548561,
+    "ttk": 13.265525900201897,
+    "value": -0.13865154736238583,
+    "deaths": "Heartless: attack x19, Cloud Kill x16",
+    "rhythm": {
+     "killsPerHour": 133.82218386293366,
+     "cycleS": 25.946863174651735,
+     "sitS": 8.120930838725565,
+     "deathsPerHour": 2.9474089232180667,
+     "stallsPerHour": 1.975502363421008,
+     "per": [
+      {
+       "name": "Njord Zealot",
+       "weight": 15,
+       "fightS": 36.77894706622825,
+       "sitS": 10.556574923547402,
+       "spUsed": 287.6666666666667,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Converted Zealot",
+       "weight": 15,
+       "fightS": 23.00086916976932,
+       "sitS": 18.152136752136744,
+       "spUsed": 305.5,
+       "hpUsed": 4247.5999999999985,
+       "loss": 0.9512195121951219
+      },
+      {
+       "name": "Godly Seeker",
+       "weight": 15,
+       "fightS": 27.65977359970773,
+       "sitS": 14.899082568807339,
+       "spUsed": 406,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Burning Fury",
+       "weight": 15,
+       "fightS": 42.13232013318719,
+       "sitS": 16.778960244648317,
+       "spUsed": 457.2266666666667,
+       "hpUsed": 5.446666666666715,
+       "loss": 0
+      },
+      {
+       "name": "Tortured Maiden",
+       "weight": 40,
+       "fightS": 34.05780707506826,
+       "sitS": 18.396061758782725,
+       "spUsed": 501.2926829268293,
+       "hpUsed": 64.23939024390242,
+       "loss": 0.05384615384615385
+      },
+      {
+       "name": "Angel of Genesis",
+       "weight": 37.234042553191486,
+       "fightS": 30.44476306330545,
+       "sitS": 17.056880733944954,
+       "spUsed": 464.8,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Demon of Apocalypse",
+       "weight": 37.234042553191486,
+       "fightS": 24.017720373218914,
+       "sitS": 12.610091743119266,
+       "spUsed": 343.625,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Heartless",
+       "weight": 21.27659574468085,
+       "fightS": 69.44328049521727,
+       "sitS": 18.37167336416711,
+       "spUsed": 500.6280991735537,
+       "hpUsed": 252.1065289256199,
+       "loss": 0.18791946308724833
+      },
+      {
+       "name": "Heart of the Serpent",
+       "weight": 4.25531914893617,
+       "fightS": 13.251188259439939,
+       "sitS": 10.819305943358597,
+       "spUsed": 294.82608695652175,
+       "hpUsed": 44.56217391304341,
+       "loss": 0
+      },
+      {
+       "name": "Conquest Incarnate",
+       "weight": 22.596153846153847,
+       "fightS": 14.168640399561584,
+       "sitS": 11.961467889908256,
+       "spUsed": 325.95,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Famine Incarnate",
+       "weight": 22.596153846153847,
+       "fightS": 85.82458307086063,
+       "sitS": 5.772327279535667,
+       "spUsed": 157.29591836734693,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "War Incarnate",
+       "weight": 22.596153846153847,
+       "fightS": 7.967692884504692,
+       "sitS": 4.30401630988787,
+       "spUsed": 117.28444444444446,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Death Incarnate",
+       "weight": 22.596153846153847,
+       "fightS": 13.885346852758655,
+       "sitS": 6.304936653560507,
+       "spUsed": 171.8095238095238,
+       "hpUsed": 12.219809523809523,
+       "loss": 0
+      },
+      {
+       "name": "Vision of Surt",
+       "weight": 9.615384615384615,
+       "fightS": 9.33876344676407,
+       "sitS": 7.650743435621639,
+       "spUsed": 208.48275862068965,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Empathy",
+       "weight": 20.192307692307693,
+       "fightS": 17.897427991231613,
+       "sitS": 26.006311926605505,
+       "spUsed": 708.672,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Smile",
+       "weight": 20.192307692307693,
+       "fightS": 12.0875480866706,
+       "sitS": 11.773434383725569,
+       "spUsed": 320.82608695652175,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Happiness",
+       "weight": 20.192307692307693,
+       "fightS": 10.396327614625816,
+       "sitS": 8.505292872265349,
+       "spUsed": 231.76923076923077,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Prayer",
+       "weight": 20.192307692307693,
+       "fightS": 10.350232567044374,
+       "sitS": 8.533682830930537,
+       "spUsed": 232.54285714285714,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Anger of Thanatos",
+       "weight": 4.8076923076923075,
+       "fightS": 14.41346249543313,
+       "sitS": 8.025993883792049,
+       "spUsed": 218.70833333333334,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Horror of Thanatos",
+       "weight": 4.8076923076923075,
+       "fightS": 26.434591907994864,
+       "sitS": 9.000834028356964,
+       "spUsed": 245.27272727272728,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Resentment of Thanatos",
+       "weight": 4.8076923076923075,
+       "fightS": 16.432372222222224,
+       "sitS": 9.82262996941896,
+       "spUsed": 267.6666666666667,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Regret of Thanatos",
+       "weight": 4.8076923076923075,
+       "fightS": 15.561561043339237,
+       "sitS": 11.154215814766275,
+       "spUsed": 303.95238095238096,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Aunoe",
+       "weight": 25.53191489361702,
+       "fightS": 2.687332258868082,
+       "sitS": 4.036697247706422,
+       "spUsed": 110,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Fanat",
+       "weight": 25.53191489361702,
+       "fightS": 3.6179102838353447,
+       "sitS": 4.688859764089122,
+       "spUsed": 127.77142857142857,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Ascended Follower",
+       "weight": 6.382978723404255,
+       "fightS": 3.338356847972307,
+       "sitS": 4.445871559633027,
+       "spUsed": 121.15,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Dominated Follower",
+       "weight": 12.76595744680851,
+       "fightS": 4.555496696196027,
+       "sitS": 2.781310006400683,
+       "spUsed": 75.79069767441861,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Doomed Follower",
+       "weight": 17.02127659574468,
+       "fightS": 5.358052511471526,
+       "sitS": 6.847330039990591,
+       "spUsed": 186.5897435897436,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Ritual Priest",
+       "weight": 12.76595744680851,
+       "fightS": 7.771720276864402,
+       "sitS": 4.003058103975535,
+       "spUsed": 109.08333333333333,
+       "hpUsed": 12.438888888888869,
+       "loss": 0
+      },
+      {
+       "name": "Magma Knight",
+       "weight": 22.641509433962263,
+       "fightS": 23.359713496163835,
+       "sitS": 12.062385321100917,
+       "spUsed": 328.7,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Tornado Knight",
+       "weight": 22.641509433962263,
+       "fightS": 29.04444577631638,
+       "sitS": 18.994903160040774,
+       "spUsed": 517.6111111111111,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Quake Knight",
+       "weight": 22.641509433962263,
+       "fightS": 28.807028554703074,
+       "sitS": 15.914373088685016,
+       "spUsed": 433.6666666666667,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Tidal Knight",
+       "weight": 22.641509433962263,
+       "fightS": 26.7526483801173,
+       "sitS": 16.40541721275666,
+       "spUsed": 447.04761904761904,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Umbral Knight",
+       "weight": 9.433962264150944,
+       "fightS": 27.58420652493131,
+       "sitS": 19.258329309512312,
+       "spUsed": 524.7894736842105,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Guild Warrior",
+       "weight": 23.376623376623378,
+       "fightS": 12.843044482589965,
+       "sitS": 2.6032805115373923,
+       "spUsed": 70.93939393939394,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Guild Support",
+       "weight": 18.181818181818183,
+       "fightS": 10.636003857835952,
+       "sitS": 9.551407782347358,
+       "spUsed": 260.2758620689655,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Guild Defender",
+       "weight": 22.07792207792208,
+       "fightS": 8.695108783913636,
+       "sitS": 7.581913499344692,
+       "spUsed": 206.60714285714286,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Guild Magician",
+       "weight": 19.48051948051948,
+       "fightS": 11.772470537028244,
+       "sitS": 6.392378263937896,
+       "spUsed": 174.19230769230768,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Guild Chamberlain",
+       "weight": 2.5974025974025974,
+       "fightS": 10.808539690958712,
+       "sitS": 10.481298517995766,
+       "spUsed": 285.61538461538464,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Guild Master",
+       "weight": 1.2987012987012987,
+       "fightS": 23.5465150998904,
+       "sitS": 18.14941022280472,
+       "spUsed": 494.57142857142856,
+       "hpUsed": 30.589999999999627,
+       "loss": 0.65
+      },
+      {
+       "name": "Ymir Emperium",
+       "weight": 1,
+       "fightS": 120,
+       "sitS": 0,
+       "spUsed": 0,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Detector",
+       "weight": 12.987012987012987,
+       "fightS": 1.6565132075471696,
+       "sitS": 2.6345854249610525,
+       "spUsed": 71.79245283018868,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Agav",
+       "weight": 17.318435754189945,
+       "fightS": 1,
+       "sitS": 1.944954128440367,
+       "spUsed": 53,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Echio",
+       "weight": 14.664804469273744,
+       "fightS": 0.8586666666666666,
+       "sitS": 1.9190214067278288,
+       "spUsed": 52.29333333333334,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Vanberk",
+       "weight": 16.75977653631285,
+       "fightS": 0.8,
+       "sitS": 1.908256880733945,
+       "spUsed": 52,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Isilla",
+       "weight": 21.787709497206706,
+       "fightS": 0.8,
+       "sitS": 1.908256880733945,
+       "spUsed": 52,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Hodremlin",
+       "weight": 6.983240223463687,
+       "fightS": 1.220661797752808,
+       "sitS": 1.7181733841871973,
+       "spUsed": 46.82022471910113,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Seeker",
+       "weight": 14.804469273743017,
+       "fightS": 0.7496999999999985,
+       "sitS": 1.908256880733945,
+       "spUsed": 52,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Tricked Follower",
+       "weight": 7.681564245810056,
+       "fightS": 0.9264367816091954,
+       "sitS": 1.931456290203522,
+       "spUsed": 52.632183908045974,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Gentleman",
+       "weight": 25.089605734767026,
+       "fightS": 1.7496999999999983,
+       "sitS": 3.63302752293578,
+       "spUsed": 99,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Maiden of Past",
+       "weight": 8.243727598566307,
+       "fightS": 1.7496999999999983,
+       "sitS": 3.63302752293578,
+       "spUsed": 99,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Lost Codex",
+       "weight": 25.089605734767026,
+       "fightS": 1.8,
+       "sitS": 3.63302752293578,
+       "spUsed": 99,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Maiden of Present",
+       "weight": 21.50537634408602,
+       "fightS": 1.7777163934426221,
+       "sitS": 3.6336291171604755,
+       "spUsed": 99.01639344262296,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Maiden of Future",
+       "weight": 10.75268817204301,
+       "fightS": 2.8161149178531066,
+       "sitS": 3.3003459166791997,
+       "spUsed": 89.93442622950819,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Cavalier",
+       "weight": 6.810035842293907,
+       "fightS": 2.193103448275862,
+       "sitS": 3.6241695665928506,
+       "spUsed": 98.75862068965517,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Lost Traveler",
+       "weight": 2.150537634408602,
+       "fightS": 2.996296296296296,
+       "sitS": 4.072714916751614,
+       "spUsed": 110.98148148148148,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Navigator",
+       "weight": 0.35842293906810035,
+       "fightS": 4.1766019978079045,
+       "sitS": 4.073394495412844,
+       "spUsed": 111,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Orc Skeleton",
+       "weight": 14.285714285714286,
+       "fightS": 0.4,
+       "sitS": 1.724770642201835,
+       "spUsed": 47,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Orc Zombie",
+       "weight": 16.666666666666668,
+       "fightS": 0.4,
+       "sitS": 1.724770642201835,
+       "spUsed": 47,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Zenorc",
+       "weight": 16.666666666666668,
+       "fightS": 0.4,
+       "sitS": 1.724770642201835,
+       "spUsed": 47,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Orc Archer",
+       "weight": 21.428571428571427,
+       "fightS": 0.4,
+       "sitS": 1.724770642201835,
+       "spUsed": 47,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "High Orc",
+       "weight": 23.80952380952381,
+       "fightS": 0.4,
+       "sitS": 1.724770642201835,
+       "spUsed": 47,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Grafted Zenorc",
+       "weight": 7.142857142857143,
+       "fightS": 0.6,
+       "sitS": 1.724770642201835,
+       "spUsed": 47,
+       "hpUsed": 0,
+       "loss": 0
+      }
+     ]
+    }
+   },
+   "after": {
+    "win": 0.9475099189008059,
+    "loss": 0.0268333504608382,
+    "dps": 14359.314394409417,
+    "ttk": 13.086460326431405,
+    "value": -0.03475697622172924,
+    "deaths": "Huuma Shuriken - Grasp x17, Cloud Kill x14",
+    "rhythm": {
+     "killsPerHour": 133.64467848861872,
+     "cycleS": 26.046309614986075,
+     "sitS": 8.192609329737884,
+     "deathsPerHour": 2.5895548097013483,
+     "stallsPerHour": 1.9811243939917065,
+     "per": [
+      {
+       "name": "Njord Zealot",
+       "weight": 15,
+       "fightS": 36.77894706622825,
+       "sitS": 10.556574923547402,
+       "spUsed": 287.6666666666667,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Converted Zealot",
+       "weight": 15,
+       "fightS": 29.157327024176382,
+       "sitS": 8.319487179487188,
+       "spUsed": 185.5,
+       "hpUsed": 1946.760000000002,
+       "loss": 0.9024390243902439
+      },
+      {
+       "name": "Godly Seeker",
+       "weight": 15,
+       "fightS": 27.65977359970773,
+       "sitS": 14.899082568807339,
+       "spUsed": 406,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Burning Fury",
+       "weight": 15,
+       "fightS": 42.11266679985386,
+       "sitS": 18.862385321100923,
+       "spUsed": 514.0000000000001,
+       "hpUsed": 5.446666666666715,
+       "loss": 0
+      },
+      {
+       "name": "Tortured Maiden",
+       "weight": 40,
+       "fightS": 34.064000075152585,
+       "sitS": 19.24099351085254,
+       "spUsed": 524.3170731707318,
+       "hpUsed": 130.47613821138202,
+       "loss": 0.05384615384615385
+      },
+      {
+       "name": "Angel of Genesis",
+       "weight": 37.234042553191486,
+       "fightS": 30.44476306330545,
+       "sitS": 17.056880733944954,
+       "spUsed": 464.8,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Demon of Apocalypse",
+       "weight": 37.234042553191486,
+       "fightS": 24.017720373218914,
+       "sitS": 12.610091743119266,
+       "spUsed": 343.625,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Heartless",
+       "weight": 21.27659574468085,
+       "fightS": 69.57424774412786,
+       "sitS": 17.18231358212044,
+       "spUsed": 468.21804511278197,
+       "hpUsed": 292.26729323308274,
+       "loss": 0.10738255033557047
+      },
+      {
+       "name": "Heart of the Serpent",
+       "weight": 4.25531914893617,
+       "fightS": 13.161466520309505,
+       "sitS": 11.27243717590746,
+       "spUsed": 307.17391304347825,
+       "hpUsed": 44.56217391304341,
+       "loss": 0
+      },
+      {
+       "name": "Conquest Incarnate",
+       "weight": 22.596153846153847,
+       "fightS": 14.168640399561584,
+       "sitS": 11.961467889908256,
+       "spUsed": 325.95,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Famine Incarnate",
+       "weight": 22.596153846153847,
+       "fightS": 86.04183453079473,
+       "sitS": 5.686938428071502,
+       "spUsed": 154.96907216494844,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "War Incarnate",
+       "weight": 22.596153846153847,
+       "fightS": 7.967692884504692,
+       "sitS": 4.30401630988787,
+       "spUsed": 117.28444444444446,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Death Incarnate",
+       "weight": 22.596153846153847,
+       "fightS": 13.885346852758655,
+       "sitS": 6.304936653560507,
+       "spUsed": 171.8095238095238,
+       "hpUsed": 12.219809523809523,
+       "loss": 0
+      },
+      {
+       "name": "Vision of Surt",
+       "weight": 9.615384615384615,
+       "fightS": 9.33876344676407,
+       "sitS": 7.650743435621639,
+       "spUsed": 208.48275862068965,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Empathy",
+       "weight": 20.192307692307693,
+       "fightS": 17.897427991231613,
+       "sitS": 26.006311926605505,
+       "spUsed": 708.672,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Smile",
+       "weight": 20.192307692307693,
+       "fightS": 12.0875480866706,
+       "sitS": 11.773434383725569,
+       "spUsed": 320.82608695652175,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Happiness",
+       "weight": 20.192307692307693,
+       "fightS": 10.396327614625816,
+       "sitS": 8.505292872265349,
+       "spUsed": 231.76923076923077,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Prayer",
+       "weight": 20.192307692307693,
+       "fightS": 10.350232567044374,
+       "sitS": 8.533682830930537,
+       "spUsed": 232.54285714285714,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Anger of Thanatos",
+       "weight": 4.8076923076923075,
+       "fightS": 14.41346249543313,
+       "sitS": 8.025993883792049,
+       "spUsed": 218.70833333333334,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Horror of Thanatos",
+       "weight": 4.8076923076923075,
+       "fightS": 26.434591907994864,
+       "sitS": 9.000834028356964,
+       "spUsed": 245.27272727272728,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Resentment of Thanatos",
+       "weight": 4.8076923076923075,
+       "fightS": 16.432372222222224,
+       "sitS": 9.82262996941896,
+       "spUsed": 267.6666666666667,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Regret of Thanatos",
+       "weight": 4.8076923076923075,
+       "fightS": 15.561561043339237,
+       "sitS": 11.154215814766275,
+       "spUsed": 303.95238095238096,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Aunoe",
+       "weight": 25.53191489361702,
+       "fightS": 2.687332258868082,
+       "sitS": 4.036697247706422,
+       "spUsed": 110,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Fanat",
+       "weight": 25.53191489361702,
+       "fightS": 3.6179102838353447,
+       "sitS": 4.688859764089122,
+       "spUsed": 127.77142857142857,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Ascended Follower",
+       "weight": 6.382978723404255,
+       "fightS": 3.338356847972307,
+       "sitS": 4.445871559633027,
+       "spUsed": 121.15,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Dominated Follower",
+       "weight": 12.76595744680851,
+       "fightS": 4.555496696196027,
+       "sitS": 2.781310006400683,
+       "spUsed": 75.79069767441861,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Doomed Follower",
+       "weight": 17.02127659574468,
+       "fightS": 5.358052511471526,
+       "sitS": 6.847330039990591,
+       "spUsed": 186.5897435897436,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Ritual Priest",
+       "weight": 12.76595744680851,
+       "fightS": 7.771720276864402,
+       "sitS": 4.003058103975535,
+       "spUsed": 109.08333333333333,
+       "hpUsed": 12.438888888888869,
+       "loss": 0
+      },
+      {
+       "name": "Magma Knight",
+       "weight": 22.641509433962263,
+       "fightS": 23.359713496163835,
+       "sitS": 12.062385321100917,
+       "spUsed": 328.7,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Tornado Knight",
+       "weight": 22.641509433962263,
+       "fightS": 29.04444577631638,
+       "sitS": 18.994903160040774,
+       "spUsed": 517.6111111111111,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Quake Knight",
+       "weight": 22.641509433962263,
+       "fightS": 28.807028554703074,
+       "sitS": 15.914373088685016,
+       "spUsed": 433.6666666666667,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Tidal Knight",
+       "weight": 22.641509433962263,
+       "fightS": 26.7526483801173,
+       "sitS": 16.40541721275666,
+       "spUsed": 447.04761904761904,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Umbral Knight",
+       "weight": 9.433962264150944,
+       "fightS": 27.58420652493131,
+       "sitS": 19.258329309512312,
+       "spUsed": 524.7894736842105,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Guild Warrior",
+       "weight": 23.376623376623378,
+       "fightS": 12.843044482589965,
+       "sitS": 2.6032805115373923,
+       "spUsed": 70.93939393939394,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Guild Support",
+       "weight": 18.181818181818183,
+       "fightS": 10.636003857835952,
+       "sitS": 9.551407782347358,
+       "spUsed": 260.2758620689655,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Guild Defender",
+       "weight": 22.07792207792208,
+       "fightS": 8.695108783913636,
+       "sitS": 7.581913499344692,
+       "spUsed": 206.60714285714286,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Guild Magician",
+       "weight": 19.48051948051948,
+       "fightS": 11.772470537028244,
+       "sitS": 6.392378263937896,
+       "spUsed": 174.19230769230768,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Guild Chamberlain",
+       "weight": 2.5974025974025974,
+       "fightS": 10.808539690958712,
+       "sitS": 10.481298517995766,
+       "spUsed": 285.61538461538464,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Guild Master",
+       "weight": 1.2987012987012987,
+       "fightS": 23.786815099890397,
+       "sitS": 16.165137614678898,
+       "spUsed": 440.5,
+       "hpUsed": 26.766249999999673,
+       "loss": 0.6
+      },
+      {
+       "name": "Ymir Emperium",
+       "weight": 1,
+       "fightS": 120,
+       "sitS": 0,
+       "spUsed": 0,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Detector",
+       "weight": 12.987012987012987,
+       "fightS": 1.6565132075471696,
+       "sitS": 2.6345854249610525,
+       "spUsed": 71.79245283018868,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Agav",
+       "weight": 17.318435754189945,
+       "fightS": 1,
+       "sitS": 1.944954128440367,
+       "spUsed": 53,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Echio",
+       "weight": 14.664804469273744,
+       "fightS": 0.8586666666666666,
+       "sitS": 1.9190214067278288,
+       "spUsed": 52.29333333333334,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Vanberk",
+       "weight": 16.75977653631285,
+       "fightS": 0.8,
+       "sitS": 1.908256880733945,
+       "spUsed": 52,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Isilla",
+       "weight": 21.787709497206706,
+       "fightS": 0.8,
+       "sitS": 1.908256880733945,
+       "spUsed": 52,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Hodremlin",
+       "weight": 6.983240223463687,
+       "fightS": 1.220661797752808,
+       "sitS": 1.7181733841871973,
+       "spUsed": 46.82022471910113,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Seeker",
+       "weight": 14.804469273743017,
+       "fightS": 0.7496999999999985,
+       "sitS": 1.908256880733945,
+       "spUsed": 52,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Tricked Follower",
+       "weight": 7.681564245810056,
+       "fightS": 0.9264367816091954,
+       "sitS": 1.931456290203522,
+       "spUsed": 52.632183908045974,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Gentleman",
+       "weight": 25.089605734767026,
+       "fightS": 1.7496999999999983,
+       "sitS": 3.63302752293578,
+       "spUsed": 99,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Maiden of Past",
+       "weight": 8.243727598566307,
+       "fightS": 1.7496999999999983,
+       "sitS": 3.63302752293578,
+       "spUsed": 99,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Lost Codex",
+       "weight": 25.089605734767026,
+       "fightS": 1.8,
+       "sitS": 3.63302752293578,
+       "spUsed": 99,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Maiden of Present",
+       "weight": 21.50537634408602,
+       "fightS": 1.7777163934426221,
+       "sitS": 3.6336291171604755,
+       "spUsed": 99.01639344262296,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Maiden of Future",
+       "weight": 10.75268817204301,
+       "fightS": 2.8161149178531066,
+       "sitS": 3.3003459166791997,
+       "spUsed": 89.93442622950819,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Cavalier",
+       "weight": 6.810035842293907,
+       "fightS": 2.193103448275862,
+       "sitS": 3.6241695665928506,
+       "spUsed": 98.75862068965517,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Lost Traveler",
+       "weight": 2.150537634408602,
+       "fightS": 2.996296296296296,
+       "sitS": 4.072714916751614,
+       "spUsed": 110.98148148148148,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Navigator",
+       "weight": 0.35842293906810035,
+       "fightS": 4.1766019978079045,
+       "sitS": 4.073394495412844,
+       "spUsed": 111,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Orc Skeleton",
+       "weight": 14.285714285714286,
+       "fightS": 0.4,
+       "sitS": 1.724770642201835,
+       "spUsed": 47,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Orc Zombie",
+       "weight": 16.666666666666668,
+       "fightS": 0.4,
+       "sitS": 1.724770642201835,
+       "spUsed": 47,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Zenorc",
+       "weight": 16.666666666666668,
+       "fightS": 0.4,
+       "sitS": 1.724770642201835,
+       "spUsed": 47,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Orc Archer",
+       "weight": 21.428571428571427,
+       "fightS": 0.4,
+       "sitS": 1.724770642201835,
+       "spUsed": 47,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "High Orc",
+       "weight": 23.80952380952381,
+       "fightS": 0.4,
+       "sitS": 1.724770642201835,
+       "spUsed": 47,
+       "hpUsed": 0,
+       "loss": 0
+      },
+      {
+       "name": "Grafted Zenorc",
+       "weight": 7.142857142857143,
+       "fightS": 0.6,
+       "sitS": 1.724770642201835,
+       "spUsed": 47,
+       "hpUsed": 0,
+       "loss": 0
+      }
+     ]
+    }
+   },
+   "tried": 89
+  }
+ ],
+ "final": {
+  "win": 0.9471283236084856,
+  "loss": 0.026545363408309847,
+  "dps": 14325.02733166361,
+  "ttk": 13.083297965847544,
+  "value": -0.05127113664871885,
+  "deaths": "Huuma Shuriken - Grasp x88, Cloud Kill x88",
+  "rhythm": {
+   "killsPerHour": 131.8710065628693,
+   "cycleS": 26.38568635838757,
+   "sitS": 8.241850436146823,
+   "deathsPerHour": 2.483102454176316,
+   "stallsPerHour": 2.083501553415057,
+   "per": [
+    {
+     "name": "Njord Zealot",
+     "weight": 15,
+     "fightS": 37.05915026637439,
+     "sitS": 12.93822629969419,
+     "spUsed": 352.56666666666666,
+     "hpUsed": 0,
+     "loss": 0
+    },
+    {
+     "name": "Converted Zealot",
+     "weight": 15,
+     "fightS": 34.39319042281814,
+     "sitS": 13.313303860890068,
+     "spUsed": 199.82758620689654,
+     "hpUsed": 3115.313103448276,
+     "loss": 0.8796680497925311
+    },
+    {
+     "name": "Godly Seeker",
+     "weight": 15,
+     "fightS": 27.740980133187186,
+     "sitS": 15.256269113149848,
+     "spUsed": 415.73333333333335,
+     "hpUsed": 0,
+     "loss": 0
+    },
+    {
+     "name": "Burning Fury",
+     "weight": 15,
+     "fightS": 42.64046353311411,
+     "sitS": 17.025810397553524,
+     "spUsed": 463.9533333333335,
+     "hpUsed": 2.6719999999999953,
+     "loss": 0
+    },
+    {
+     "name": "Tortured Maiden",
+     "weight": 40,
+     "fightS": 34.102474873148076,
+     "sitS": 19.53922809237583,
+     "spUsed": 532.4439655172414,
+     "hpUsed": 110.01743534482756,
+     "loss": 0.06451612903225806
+    },
+    {
+     "name": "Angel of Genesis",
+     "weight": 37.234042553191486,
+     "fightS": 32.01135417889538,
+     "sitS": 16.970809007506254,
+     "spUsed": 462.45454545454544,
+     "hpUsed": 1.0848484848484627,
+     "loss": 0
+    },
+    {
+     "name": "Demon of Apocalypse",
+     "weight": 37.234042553191486,
+     "fightS": 24.244806379177835,
+     "sitS": 12.470948012232416,
+     "spUsed": 339.8333333333333,
+     "hpUsed": 0.6147619047618978,
+     "loss": 0
+    },
+    {
+     "name": "Heartless",
+     "weight": 21.27659574468085,
+     "fightS": 71.69776501802326,
+     "sitS": 18.04042788077201,
+     "spUsed": 491.60165975103735,
+     "hpUsed": 399.95232365145233,
+     "loss": 0.07662835249042145
+    },
+    {
+     "name": "Heart of the Serpent",
+     "weight": 4.25531914893617,
+     "fightS": 13.003059583706207,
+     "sitS": 10.928163406612429,
+     "spUsed": 297.79245283018867,
+     "hpUsed": 0.8849056603773516,
+     "loss": 0
+    },
+    {
+     "name": "Conquest Incarnate",
+     "weight": 22.596153846153847,
+     "fightS": 14.376738726674876,
+     "sitS": 12.122768974145123,
+     "spUsed": 330.3454545454546,
+     "hpUsed": 0.44545454545454544,
+     "loss": 0
+    },
+    {
+     "name": "Famine Incarnate",
+     "weight": 22.596153846153847,
+     "fightS": 90.2468824786141,
+     "sitS": 5.836924028450675,
+     "spUsed": 159.0561797752809,
+     "hpUsed": 0,
+     "loss": 0
+    },
+    {
+     "name": "War Incarnate",
+     "weight": 22.596153846153847,
+     "fightS": 8.078803995615802,
+     "sitS": 3.5899211784468283,
+     "spUsed": 97.82535211267607,
+     "hpUsed": 0,
+     "loss": 0
+    },
+    {
+     "name": "Death Incarnate",
+     "weight": 22.596153846153847,
+     "fightS": 13.874508440060247,
+     "sitS": 6.299694189602446,
+     "spUsed": 171.66666666666666,
+     "hpUsed": 19.476177777777774,
+     "loss": 0
+    },
+    {
+     "name": "Vision of Surt",
+     "weight": 9.615384615384615,
+     "fightS": 9.70748411382485,
+     "sitS": 7.968948482709951,
+     "spUsed": 217.15384615384616,
+     "hpUsed": 0,
+     "loss": 0
+    },
+    {
+     "name": "Empathy",
+     "weight": 20.192307692307693,
+     "fightS": 17.710287060999047,
+     "sitS": 25.406614038830813,
+     "spUsed": 692.3302325581396,
+     "hpUsed": 0,
+     "loss": 0
+    },
+    {
+     "name": "Smile",
+     "weight": 20.192307692307693,
+     "fightS": 12.036036340238974,
+     "sitS": 11.850087839156744,
+     "spUsed": 322.9148936170213,
+     "hpUsed": 0,
+     "loss": 0
+    },
+    {
+     "name": "Happiness",
+     "weight": 20.192307692307693,
+     "fightS": 10.534135061746463,
+     "sitS": 8.989105504587156,
+     "spUsed": 244.953125,
+     "hpUsed": 0,
+     "loss": 0
+    },
+    {
+     "name": "Prayer",
+     "weight": 20.192307692307693,
+     "fightS": 10.384774144869533,
+     "sitS": 8.524168150075312,
+     "spUsed": 232.28358208955223,
+     "hpUsed": 0,
+     "loss": 0
+    },
+    {
+     "name": "Anger of Thanatos",
+     "weight": 4.8076923076923075,
+     "fightS": 14.308106212959457,
+     "sitS": 8.019944156362186,
+     "spUsed": 218.54347826086956,
+     "hpUsed": 0,
+     "loss": 0
+    },
+    {
+     "name": "Horror of Thanatos",
+     "weight": 4.8076923076923075,
+     "fightS": 26.209476377608176,
+     "sitS": 8.84106124473097,
+     "spUsed": 240.9189189189189,
+     "hpUsed": 0,
+     "loss": 0
+    },
+    {
+     "name": "Resentment of Thanatos",
+     "weight": 4.8076923076923075,
+     "fightS": 16.382613636363637,
+     "sitS": 9.479566305254378,
+     "spUsed": 258.3181818181818,
+     "hpUsed": 0,
+     "loss": 0
+    },
+    {
+     "name": "Regret of Thanatos",
+     "weight": 4.8076923076923075,
+     "fightS": 15.81452203213887,
+     "sitS": 11.268723936613844,
+     "spUsed": 307.07272727272726,
+     "hpUsed": 0,
+     "loss": 0
+    },
+    {
+     "name": "Aunoe",
+     "weight": 25.53191489361702,
+     "fightS": 2.681258526192514,
+     "sitS": 4.036697247706422,
+     "spUsed": 110,
+     "hpUsed": 0,
+     "loss": 0
+    },
+    {
+     "name": "Fanat",
+     "weight": 25.53191489361702,
+     "fightS": 3.6553402617609656,
+     "sitS": 4.665792922673656,
+     "spUsed": 127.14285714285714,
+     "hpUsed": 0,
+     "loss": 0
+    },
+    {
+     "name": "Ascended Follower",
+     "weight": 6.382978723404255,
+     "fightS": 3.256702778948182,
+     "sitS": 4.4871996505024025,
+     "spUsed": 122.27619047619048,
+     "hpUsed": 0,
+     "loss": 0
+    },
+    {
+     "name": "Dominated Follower",
+     "weight": 12.76595744680851,
+     "fightS": 4.724600192897806,
+     "sitS": 2.75443128173154,
+     "spUsed": 75.05825242718447,
+     "hpUsed": 0,
+     "loss": 0
+    },
+    {
+     "name": "Doomed Follower",
+     "weight": 17.02127659574468,
+     "fightS": 5.489648905625796,
+     "sitS": 6.922125026669511,
+     "spUsed": 188.62790697674419,
+     "hpUsed": 0,
+     "loss": 0
+    },
+    {
+     "name": "Ritual Priest",
+     "weight": 12.76595744680851,
+     "fightS": 7.3813327733285234,
+     "sitS": 4.43302752293578,
+     "spUsed": 120.8,
+     "hpUsed": 4.3947500000000215,
+     "loss": 0
+    },
+    {
+     "name": "Magma Knight",
+     "weight": 22.641509433962263,
+     "fightS": 23.576040177633264,
+     "sitS": 12.725604670558798,
+     "spUsed": 346.77272727272725,
+     "hpUsed": 0,
+     "loss": 0
+    },
+    {
+     "name": "Tornado Knight",
+     "weight": 22.641509433962263,
+     "fightS": 30.410549859343575,
+     "sitS": 19.921484958395563,
+     "spUsed": 542.8604651162791,
+     "hpUsed": 0,
+     "loss": 0
+    },
+    {
+     "name": "Quake Knight",
+     "weight": 22.641509433962263,
+     "fightS": 27.42561008981304,
+     "sitS": 14.944120100083403,
+     "spUsed": 407.22727272727275,
+     "hpUsed": 0,
+     "loss": 0
+    },
+    {
+     "name": "Tidal Knight",
+     "weight": 22.641509433962263,
+     "fightS": 26.000511367498056,
+     "sitS": 16.075325929502654,
+     "spUsed": 438.05263157894734,
+     "hpUsed": 0,
+     "loss": 0
+    },
+    {
+     "name": "Umbral Knight",
+     "weight": 9.433962264150944,
+     "fightS": 27.782931887427488,
+     "sitS": 20.00611620795107,
+     "spUsed": 545.1666666666666,
+     "hpUsed": 0,
+     "loss": 0
+    },
+    {
+     "name": "Guild Warrior",
+     "weight": 23.376623376623378,
+     "fightS": 13.09497823754486,
+     "sitS": 2.9729663608562693,
+     "spUsed": 81.01333333333334,
+     "hpUsed": 0,
+     "loss": 0
+    },
+    {
+     "name": "Guild Support",
+     "weight": 18.181818181818183,
+     "fightS": 10.581449469453847,
+     "sitS": 9.494929985514245,
+     "spUsed": 258.7368421052632,
+     "hpUsed": 0,
+     "loss": 0
+    },
+    {
+     "name": "Guild Defender",
+     "weight": 22.07792207792208,
+     "fightS": 8.874650921222074,
+     "sitS": 7.723359209597741,
+     "spUsed": 210.46153846153845,
+     "hpUsed": 0,
+     "loss": 0
+    },
+    {
+     "name": "Guild Magician",
+     "weight": 19.48051948051948,
+     "fightS": 11.338015712719928,
+     "sitS": 6.043978447648173,
+     "spUsed": 164.6984126984127,
+     "hpUsed": 0,
+     "loss": 0
+    },
+    {
+     "name": "Guild Chamberlain",
+     "weight": 2.5974025974025974,
+     "fightS": 10.386695080170412,
+     "sitS": 9.85351180628666,
+     "spUsed": 268.5081967213115,
+     "hpUsed": 0,
+     "loss": 0
+    },
+    {
+     "name": "Guild Master",
+     "weight": 1.2987012987012987,
+     "fightS": 25.41265009989038,
+     "sitS": 13.25749235474006,
+     "spUsed": 361.26666666666665,
+     "hpUsed": 0,
+     "loss": 0.625
+    },
+    {
+     "name": "Ymir Emperium",
+     "weight": 1,
+     "fightS": 120,
+     "sitS": 0,
+     "spUsed": 0,
+     "hpUsed": 0,
+     "loss": 0
+    },
+    {
+     "name": "Detector",
+     "weight": 12.987012987012987,
+     "fightS": 1.6538215686274513,
+     "sitS": 2.601187263896384,
+     "spUsed": 70.88235294117646,
+     "hpUsed": 0,
+     "loss": 0
+    },
+    {
+     "name": "Agav",
+     "weight": 17.318435754189945,
+     "fightS": 1,
+     "sitS": 1.944954128440367,
+     "spUsed": 53,
+     "hpUsed": 0,
+     "loss": 0
+    },
+    {
+     "name": "Echio",
+     "weight": 14.664804469273744,
+     "fightS": 0.8463157894736841,
+     "sitS": 1.9167551907291163,
+     "spUsed": 52.23157894736842,
+     "hpUsed": 0,
+     "loss": 0
+    },
+    {
+     "name": "Vanberk",
+     "weight": 16.75977653631285,
+     "fightS": 0.8,
+     "sitS": 1.908256880733945,
+     "spUsed": 52,
+     "hpUsed": 0,
+     "loss": 0
+    },
+    {
+     "name": "Isilla",
+     "weight": 21.787709497206706,
+     "fightS": 0.8,
+     "sitS": 1.908256880733945,
+     "spUsed": 52,
+     "hpUsed": 0,
+     "loss": 0
+    },
+    {
+     "name": "Hodremlin",
+     "weight": 6.983240223463687,
+     "fightS": 1.217337209302326,
+     "sitS": 1.6838062726690846,
+     "spUsed": 45.883720930232556,
+     "hpUsed": 0,
+     "loss": 0
+    },
+    {
+     "name": "Seeker",
+     "weight": 14.804469273743017,
+     "fightS": 0.7496999999999981,
+     "sitS": 1.908256880733945,
+     "spUsed": 52,
+     "hpUsed": 0,
+     "loss": 0
+    },
+    {
+     "name": "Tricked Follower",
+     "weight": 7.681564245810056,
+     "fightS": 0.9186440677966102,
+     "sitS": 1.9300264344580937,
+     "spUsed": 52.59322033898305,
+     "hpUsed": 0,
+     "loss": 0
+    },
+    {
+     "name": "Gentleman",
+     "weight": 25.089605734767026,
+     "fightS": 1.7497000000000045,
+     "sitS": 3.63302752293578,
+     "spUsed": 99,
+     "hpUsed": 0,
+     "loss": 0
+    },
+    {
+     "name": "Maiden of Past",
+     "weight": 8.243727598566307,
+     "fightS": 1.7497000000000025,
+     "sitS": 3.63302752293578,
+     "spUsed": 99,
+     "hpUsed": 0,
+     "loss": 0
+    },
+    {
+     "name": "Lost Codex",
+     "weight": 25.089605734767026,
+     "fightS": 1.8,
+     "sitS": 3.63302752293578,
+     "spUsed": 99,
+     "hpUsed": 0,
+     "loss": 0
+    },
+    {
+     "name": "Maiden of Present",
+     "weight": 21.50537634408602,
+     "fightS": 1.7731344594594627,
+     "sitS": 3.633523431688569,
+     "spUsed": 99.01351351351352,
+     "hpUsed": 0,
+     "loss": 0
+    },
+    {
+     "name": "Maiden of Future",
+     "weight": 10.75268817204301,
+     "fightS": 2.8052828964005454,
+     "sitS": 3.2875672255615314,
+     "spUsed": 89.58620689655173,
+     "hpUsed": 0,
+     "loss": 0
+    },
+    {
+     "name": "Cavalier",
+     "weight": 6.810035842293907,
+     "fightS": 2.1870967741935483,
+     "sitS": 3.6235572654631545,
+     "spUsed": 98.74193548387096,
+     "hpUsed": 0,
+     "loss": 0
+    },
+    {
+     "name": "Lost Traveler",
+     "weight": 2.150537634408602,
+     "fightS": 2.9983870967741937,
+     "sitS": 4.073098549866824,
+     "spUsed": 110.99193548387096,
+     "hpUsed": 0,
+     "loss": 0
+    },
+    {
+     "name": "Navigator",
+     "weight": 0.35842293906810035,
+     "fightS": 4.176601997807906,
+     "sitS": 4.073394495412844,
+     "spUsed": 111,
+     "hpUsed": 0,
+     "loss": 0
+    },
+    {
+     "name": "Orc Skeleton",
+     "weight": 14.285714285714286,
+     "fightS": 0.4,
+     "sitS": 1.724770642201835,
+     "spUsed": 47,
+     "hpUsed": 0,
+     "loss": 0
+    },
+    {
+     "name": "Orc Zombie",
+     "weight": 16.666666666666668,
+     "fightS": 0.4,
+     "sitS": 1.724770642201835,
+     "spUsed": 47,
+     "hpUsed": 0,
+     "loss": 0
+    },
+    {
+     "name": "Zenorc",
+     "weight": 16.666666666666668,
+     "fightS": 0.4,
+     "sitS": 1.724770642201835,
+     "spUsed": 47,
+     "hpUsed": 0,
+     "loss": 0
+    },
+    {
+     "name": "Orc Archer",
+     "weight": 21.428571428571427,
+     "fightS": 0.4,
+     "sitS": 1.724770642201835,
+     "spUsed": 47,
+     "hpUsed": 0,
+     "loss": 0
+    },
+    {
+     "name": "High Orc",
+     "weight": 23.80952380952381,
+     "fightS": 0.4,
+     "sitS": 1.724770642201835,
+     "spUsed": 47,
+     "hpUsed": 0,
+     "loss": 0
+    },
+    {
+     "name": "Grafted Zenorc",
+     "weight": 7.142857142857143,
+     "fightS": 0.6,
+     "sitS": 1.724770642201835,
+     "spUsed": 47,
+     "hpUsed": 0,
+     "loss": 0
+    }
+   ]
+  }
+ },
+ "options": {
+  "defense": "auto",
+  "roaringAt": 1,
+  "order": [
+   "Stay hidden",
+   "Morroc's Mark",
+   "Pull it off the ward",
+   "Heal",
+   "Darkside Shadow",
+   "True Sight",
+   "Vampire Mark",
+   "Shadow Parry",
+   "Mirror Break",
+   "Roaring Overslash",
+   "Reaping Slash",
+   "Hellraiser",
+   "Underworld Rainstorm",
+   "Scythe Reap",
+   "Sweeping Slash",
+   "Haunting Slice",
+   "Dark Message",
+   "Dark Messenger",
+   "Phantom Slice",
+   "Flaming Wave",
+   "Attack"
+  ]
+ },
+ "link": "http://localhost:5173/#b=cfZHJjsIwEET_xec6uNtb_BtztaLICgaiYYlig4a_H3XgADOCiyWXn6t6SQz1Va7llE9NgYxGihEEp0EIGjH2SEnDEDMhIlkyDGuC7Xsk4XwHjUQmEInEcJG9kGSCiTBacwxiomrLTUFdp6aQqO8FNyBnrX7w1P0HWTC1lHq-LGNRUMf8M-xnheTWl-PUpl1u0_mkoOb9rU5jPgxL2VzGslFI5h5kQc44SDteMo2_d-M15HiXW6653q23h1IUUlzleqktTyLv5-FQyriXHxp8DwtgS4-A4N5517lIhSrXWQolvapjrm067UTftrIMch825ZBvD0aoDhy8l8FzIP8ytdy-h3l8GnEE-xCEtdbojygxuCO3ruMZrG15ggy408H-hV72ShZsLcfPTm51cp-dPNiyWZt9D60TD-aDU9__Ag",
+ "perTarget": [],
+ "census": null
+}

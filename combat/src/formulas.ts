@@ -25,6 +25,13 @@ import type { Rng } from './rng.ts';
 
 export const TUNE = {
   /**
+   * Status ATK takes the attack's element (weapon, endow, element card): RTM's
+   * own code, battle.cpp:3466 (statusAtk = battle_attr_fix(..., right_element,
+   * ...)). Stock rAthena keeps it Neutral but for Seven Winds; the sim did
+   * too until the project owner said to follow the RTM code (2026-10-01).
+   */
+  statusAtkTakesElement: true,
+  /**
    * Your crits (RTM battle.cpp:6303-6308), after DEF and element:
    * x1.2 x (1 + LUK/5 % + Crit Damage/2 %) on a normal attack,
    * x1.2 x (1 + LUK/10 % + Crit Damage/2 %) on a skill.
@@ -374,7 +381,11 @@ export interface PhysicalHit {
   /** Skill ratio in percent; 100 for a normal attack. */
   ratio: number;
   element: string;
-  /** Seven Winds carries the endow into status ATK (battle.cpp:3902); otherwise Neutral. */
+  /**
+   * Status ATK's element when TUNE.statusAtkTakesElement is off (stock
+   * rAthena: Neutral, but Seven Winds carries the endow, battle.cpp:3902).
+   * On (the default), status ATK takes the attack's element like the rest.
+   */
   statusElement: string;
   ranged: boolean;
   crit: boolean;
@@ -538,7 +549,7 @@ function handAtk(f: Fighter, m: Monster, w: Fighter['weapon'], h: PhysicalHit, r
   const s = f.stats;
   const attr = (e: string) => (h.ignoreElement ? 1 : attrFix(e, m.element, m.elementLevel));
   const conc = 1 + (f.concentration ?? 0) / 100;
-  const statusPart = statusAtk(s, f.level) * attr(h.statusElement)
+  const statusPart = statusAtk(s, f.level) * attr(TUNE.statusAtkTakesElement ? h.element : h.statusElement)
     * (left ? TUNE.statusAtkLeft : TUNE.statusAtkRight) * conc;
 
   let weaponPart = 0;

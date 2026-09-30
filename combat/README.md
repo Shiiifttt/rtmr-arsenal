@@ -96,6 +96,29 @@ as three. Pinned in test/combat.test.ts.
 and priority order), starting from a profile's own:
 `node --experimental-strip-types --no-warnings --import ./register.mjs
 tools/rotation-search.ts --profile profiles/satsujin-moon.json [--time 60]`.
+Against real monsters, `tools/gear-search.ts --only rotation,order` does
+the same on its worker pool. Both read the search space from the kit
+(`search` in `src/kits/index.ts`: the priority order, the switches its rules
+read, entries never moved, skills that may be left out), so a new kit
+declares it once.
+
+`tools/gear-search.ts` sizes each target's fights by how much they vary
+and cost (a one-shot kill needs a few, a monster that sometimes stalls
+many), keeping the score's noise at what `--screen`/`--confirm` fights a
+target would give flat: on the endgame farm build about a third of the
+time for less noise (2026-09-30; `--flat` turns it off). A change is kept
+only when its confirmed gain clears 0.01 and twice its paired noise
+(`--accept-z`, 0 for the old rule); a finalist that clears the bar but not
+the noise is fought again on fresh seeds (`--confirm-more`, 3 by default).
+A 150-fight confirm tells apart gains of about 0.1 of score (~10 kills/h
+with `--score rhythm`); raise `--confirm` for finer steps.
+
+A fight that cannot end in time stops early: from 20 s to half the time
+limit, if three times its damage pace so far would leave the monster alive
+at the clock, it is booked as the time-limit stalemate it would have been
+(Ymir Emperium: 1 damage a hit). Wins, losses and kills/h came out
+identical on four builds, 20-30% faster; option `earlyStall: false` plays
+every fight out.
 
 Your dodges: Hiding stops monster skills (the project owner: it reliably
 does on the live server); the boss protocol's normal attacks still swing at

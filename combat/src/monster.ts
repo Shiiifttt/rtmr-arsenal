@@ -331,7 +331,16 @@ export function buildMonster(row: MobRow): Monster {
  * A monster the crawl may not have (a summon such as Autumn Blood): the
  * crawl's row by name if there is one, else the server's own numbers.
  */
+const adds = new WeakMap<MobRow[], Map<number, Monster | null>>();
 export function buildAdd(serverId: number, crawl: MobRow[]): Monster | null {
+  // Summons are built mid-fight, often: once per id (a Monster is never changed once built).
+  let memo = adds.get(crawl);
+  if (!memo) adds.set(crawl, memo = new Map());
+  if (!memo.has(serverId)) memo.set(serverId, buildAddFresh(serverId, crawl));
+  return memo.get(serverId)!;
+}
+
+function buildAddFresh(serverId: number, crawl: MobRow[]): Monster | null {
   const srv = serverMobById(serverId);
   if (!srv) return null;
   const row = crawl.filter((r) => r.name === srv.name)

@@ -1,6 +1,6 @@
 {
-  "name": "Kingslayer in the Tomb of Kings (the owner, 2026-09-30): final skills (Retribution 10, Reflect Shield 10, Bishop's Tax 5 kept for parties/bosses but off here, Queen's Gambit 8, other offence at 1); hug, Boomerang -> Chains at 10 counters, Retribution woven in",
-  "build": "https://rtmr-arsenal.pages.dev/#b=cdZPNqtswEIVfJWhzN0PR6M9Wlr3L0kXXwhhhTxwRxzGWEnpp--5FcgJO2rsZ0PDNzDnSyAlg38I0xNF_0MIAJQdXc0CwFkSVIzbgHAetsAYOTinDmwYcguamZFDqCnNKgLbCgAGnhK0gh1zLYvKJAbuFxMBh02RWghCc29IRhSncQvFyXTpiwM7-Z3ucGTidYXYOKQw-hcvEgB3Jj2Ea2oU6CjfqGbiqUPc5MS0MnFjnKEC0Biw4xU0FzyEDGgSigBqckqI4M4BaSVNSaDjk8K8PUUbSzcdV1WEkYuDsquQakw9F7NyORN0xOxdwF1UV86rclLTqs-ZxpuyOnS83au8Hh0Uj63xMYRoYMH9ItLT53PY0-o9VRIZqEEaKBpwFNKjl-nz8aZ5Pp3buNg-DCJZLrmrQzaq5tlZkqduy8XralMgCqVcoTNu-qkDyFfJD2EC6QPoVelodNCAUcp7tfK6pypDRoD_tVNKPRUOQeRnzsq-M2CQWPw3Ut_EUxrE9X8eUeaz4l7p6ID0d2pkmBhyEzkmoeHnDXLP_cSWa3uLu6-Kn_nfvz36g3IM_ylcs_8S3uHs_-jDFDabFM_d-pO60--4T_a9XT4cs417UZP-_Hj73qDVfv1ec2b42f5q_",
+  "name": "Kingslayer in the Tomb, no matching rune (2026-09-30, lean): current gear + Life Dragon Plate +8 [Minorous], Ifrit Card in Corsair Ring, Kraben in boots, Isaz Rune +8, Pickpocket, weapon ATK 3 / ranged 10 / pen 10; owner Tax rotation",
+  "build": "https://rtmr-arsenal.pages.dev/#b=cdZNPj5swEMW_ysqXvTxVHv8D57h7rHroGSFkgZOgEBJhEnXV9rtX45AVSduLJT9-M_NmPFQK4ms_7tIQPuIkQFqiKiUI3kMVfFKNqpKwhkpIVMY4WdeoCFa6rJC2BbGkYL1ycCw5XyKfHC3SHGYBce1ngYrqmmkNstprlKgMKceSAZF38KiMdAUej5xoOg0DCYgwHwQqzUFZ0wJiCuMudk0XjmEXuY78_GwERBe3cUyxOccxzlOY-9O4QIxZKCKVzWglP2tx3mPY9e2Stplid2ljJ1CpW6ADWaPdrQ0nwcffPatsJV5DymXFdohs0Wc5XdIcepb352aIsd2zMYWlQgGlpDQ8V6O8_V_ydI7sSxxP19gsl_sM2pDmftzx4LZznBq-N10cwsfNBEMllNOqRuVBjqy-PbZ-aCbMh-bcrh6RCF5qaUqwL_Zcep_HuA4bLodViM6QeYb6cZ3XZEg_Q2HXryCbIfsMPawZOSgjLbdBBZShQqGsM34MP5r9WYCgPWRe9FusWgnLVqVDPwzN8TLMzFMhv5TFHenilrdKQEJZFlHI_CIcs_l-iXF8TS9vUxi7X_ftJMh7-A3jv_A1vbzvQz-mFWbVI_e-j-3h5VuY479ydXHLNpagmufy897nhqyVyLd0FpvS_a7_AA",
   "skills": {
     "Rook's Smash": 1,
     "King's Chains": 1,
@@ -26,7 +26,7 @@
     "queensBrand": false,
     "queensGambit": false,
     "sneakAttack": false,
-    "bishopsTax": false,
+    "bishopsTax": true,
     "rogueFillers": false,
     "windSlash": false,
     "deltaFiller": false,
@@ -42,12 +42,11 @@
       "Bishop's Tax",
       "King's Chains",
       "Shield Boomerang",
-      "Retribution",
       "Rook's Smash"
     ],
     "defense": "auto",
     "healBelow": 0.75,
-    "spendCounters": true,
+    "spendCounters": false,
     "retributionAt": 10
   },
   "measured": {

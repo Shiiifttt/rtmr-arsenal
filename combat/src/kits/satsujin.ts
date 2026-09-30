@@ -617,6 +617,8 @@ const fanOfKnives: Action = {
   id: 'Fan of Knives',
   isSkill: true,
   offensive: true,
+  // An area: it finds a cloaked monster (the project owner, 2026-10-01).
+  findsCloaked: true,
   // Option fanPack (a number): wait until that many are in reach, or all
   // that are still walking in have arrived (tools/farm.ts packs).
   ready: (fight) => {
@@ -634,7 +636,7 @@ const fanOfKnives: Action = {
   cooldownMs: cooldown('Fan of Knives'),
   spCost: spCost('Fan of Knives'),
   resolve(fight) {
-    strike(fight, 'Fan of Knives', { hits: 4, split: true, canMiss: false, critBonus: null, damage: fanDamage(fight, targetNow(fight)) });
+    strike(fight, 'Fan of Knives', { hits: 4, split: true, canMiss: false, critBonus: null, aoe: true, damage: fanDamage(fight, targetNow(fight)) });
     strikeAdds(fight, 'Fan of Knives', (m) => fanDamage(fight, m)(false));
   },
 };
@@ -712,7 +714,8 @@ const ACTIONS: Action[] = [
   breakSight, pullOffWard, swingWait, predictKawarimi, moonGuard, walkOutOnTell, slashOut, backSlide,
   fanOfKnives, ...predictActions(TOOLS), stayReadyAction(TOOLS),
 ].map(withRules);
-const rule = (id: string) => ACTIONS.find((a) => a.id === id)!;
+const BY_ID = new Map(ACTIONS.map((a) => [a.id, a]));
+const rule = (id: string) => BY_ID.get(id)!;
 const PREEMPTS = ACTIONS.filter(isPreempt);
 
 /**
@@ -735,6 +738,17 @@ const ORDER = [
 
 /** The priority list, or a profile's own (option order: the same ids, reordered or left out). */
 export const SATSUJIN_ORDER = ORDER;
+
+/** The rotation's switches, for the searches (kits/index.ts RotationSpace). */
+export const SATSUJIN_SEARCH = {
+  order: ORDER,
+  switches: {
+    backStab: [true, false], seedTalisman: [true, false], slashOpener: [false, true],
+    hallucinationWalk: [true, false], refocus: [true, false], strictCombo: [true, false],
+  } as Record<string, unknown[]>,
+  pinned: ['Stay hidden', 'Pull it off the ward', "Morroc's Mark", 'Lotus Pact', 'Wait for swing'],
+  droppable: ['Thousand Arms', 'Shadow Slash', 'Back Stab', 'Hallucination Walk', 'Dragon Omamori', 'Million Stab'],
+};
 function priority(fight: Fight): Action {
   // Option slashOpener: Shadow Slash before anything else.
   if (fight.options.slashOpener === true && fight.me.cds['Shadow Slash'] === undefined

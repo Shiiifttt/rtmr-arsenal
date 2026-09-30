@@ -38,22 +38,13 @@ const confirmN = Number(one('confirm') ?? 1000);
 // Combo Ready): a short window rewards breaking it, a real fight does not.
 const fixed = new Set((one('fixed') ?? 'weaveMs,strictCombo').split(',').map((s) => s.trim()));
 
-const kitOrder: string[] = await (async () => {
-  const mod = await import(`../src/kits/${(build.className ?? '').toLowerCase()}.ts`);
-  const o = Object.entries(mod).find(([k]) => /_ORDER$/.test(k))?.[1];
-  if (!Array.isArray(o)) throw new Error(`${build.className}: the kit exports no priority order`);
-  return o as string[];
-})();
-
-/** Switches the kits read, each tried the other way (defaults first). */
-const SWITCHES: Record<string, unknown[]> = {
-  backStab: [true, false], seedTalisman: [true, false], slashOpener: [false, true],
-  hallucinationWalk: [true, false], refocus: [true, false], strictCombo: [true, false],
-};
-/** Entries the search never moves: dodges and upkeep. */
-const PINNED = new Set(['Stay hidden', 'Pull it off the ward', "Morroc's Mark", 'Lotus Pact', 'Wait for swing']);
-/** Entries it may leave out of the rotation altogether. */
-const DROPPABLE = new Set(['Thousand Arms', 'Shadow Slash', 'Back Stab', 'Hallucination Walk', 'Dragon Omamori', 'Million Stab']);
+// The kit's own search space (kits/index.ts RotationSpace): its order, the
+// switches its rules read (defaults first), what never moves, what may go.
+const kitOrder: string[] = kit.search.order;
+if (!kitOrder.length) throw new Error(`${build.className}: the kit has no priority order`);
+const SWITCHES: Record<string, unknown[]> = kit.search.switches;
+const PINNED = new Set(kit.search.pinned ?? []);
+const DROPPABLE = new Set(kit.search.droppable ?? []);
 
 type Opts = Record<string, unknown>;
 interface Move { label: string; options: Opts }

@@ -405,7 +405,7 @@ const queensGambit: Action = {
     }
     const ele = element(fight);
     strike(fight, "Queen's Gambit", {
-      hits: QG_TICKS, canMiss: false, critBonus: null, kind: 'magic',
+      hits: QG_TICKS, canMiss: false, critBonus: null, kind: 'magic', aoe: true,
       damage: (crit) => {
         const atk = physicalDamage(f, fight.m, {
           ratio: 100, element: ele, statusElement: 'Neutral', ranged: false, crit, skillDamage: 0,
@@ -837,7 +837,8 @@ const ACTIONS: Action[] = [
   hiding, pawnsRod, pawnsCure, kingsGambit, preGambit, queensBarrier, walkOut, breakSight, morrocsMark, stayHidden, pullOffWard, stepBack,
   backSlide, ...predictActions(TOOLS), stayReadyAction(TOOLS),
 ].map(withRules);
-const rule = (id: string) => ACTIONS.find((a) => a.id === id)!;
+const BY_ID = new Map(ACTIONS.map((a) => [a.id, a]));
+const rule = (id: string) => BY_ID.get(id)!;
 const PREEMPTS = ACTIONS.filter(isPreempt);
 
 /**
@@ -909,6 +910,26 @@ const castsWards = (m: Monster) => m.skills.some((sk) => /PNEUMA|SAFETYWALL/.tes
 
 /** The priority list, or a profile's own (option order: the same ids, reordered). */
 export const KINGSLAYER_ORDER = ORDER;
+
+/** The rotation's switches and play styles, for the searches (kits/index.ts RotationSpace). */
+export const KINGSLAYER_SEARCH = {
+  order: ORDER,
+  switches: {
+    bishopsTax: [true, false], taxHp: [0.5, 0.75, 0.35], sneakAttack: [true, false], preGambit: [true, false],
+    deltaFiller: [false, true], queensBrand: [false, true], queensGambit: [true, false], reflectCare: [true, false],
+    heal: [true, false], rogueFillers: [false, true], fortress: [3, 2, 1], rooksWall: [false, true], autoAttack: [false, true],
+    rooksSmash: [true, false], keepRange: [true, false], spendCounters: [true, false], windSlash: [false, true], retributionAt: [10, 6, 1], openerGambit: [true, false], safeCasts: [true, false], rookOpener: [true, false],
+    // Dodge only what costs this share of Max HP (kits/common.ts assessThreat); Kingslayer defaults to 0.4.
+    tankShare: [0.4, 0.25, 0.6],
+  } as Record<string, unknown[]>,
+  sets: {
+    // Rook's Wall up and nothing that brings you into melee: every hit stays long range.
+    "ranged only behind Rook's Wall": { rooksWall: true, rooksSmash: false, spendCounters: false, bishopsTax: false, sneakAttack: false },
+    "Rook's Wall, step back after melee": { rooksWall: true, keepRange: true },
+  } as Record<string, Record<string, unknown>>,
+  droppable: ['Sneak Attack', "Bishop's Tax", 'Hide to strike', "Rook's Smash", 'Dragon Breath', 'Delta Skyfall', "Queen's Gambit",
+    'Retribution', "Queen's Brand", 'Wind Slash', 'Overpower', 'Face-Off'],
+};
 /**
  * Option simple: the few-buttons rotation a player can hold in real
  * combat (the project owner, 2026-09-28). Shield Boomerang and King's

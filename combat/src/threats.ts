@@ -63,6 +63,8 @@ export interface ThreatEntry {
   /** Mean fight length, seconds. */
   seconds: number;
   threats: Threat[];
+  /** The dodges the kit took, per fight ("Hiding": 2.3). */
+  defenses?: Record<string, number>;
 }
 
 export interface ThreatFile {
@@ -144,6 +146,7 @@ export function threatEntry(m: Monster, groups: string[], sum: Summary): ThreatE
     elementLevel: m.elementLevel, size: m.size, boss: m.boss,
     fights: sum.iterations, winRate: round(sum.winRate, 3), lossRate: round(sum.losses / sum.iterations, 3),
     seconds: round(sum.seconds, 1), threats,
+    defenses: Object.fromEntries(Object.entries(sum.defenses).map(([k, v]) => [k, round(v, 2)])),
   };
 }
 

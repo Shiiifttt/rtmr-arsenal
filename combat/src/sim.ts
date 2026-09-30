@@ -17,6 +17,19 @@ export interface SimOptions {
   options?: Record<string, unknown>;
   /** Consumables carried (items.ts). */
   items?: import('./engine.ts').Action[];
+  /** Keep one row a fight in `perFight` (the gear search's per-target fight counts read its spread). */
+  perFight?: boolean;
+}
+
+/** One fight, as the rhythm and the search scores read it. */
+export interface FightRow {
+  result: 'win' | 'loss' | 'stalemate';
+  /** Seconds. */
+  t: number;
+  dealt: number;
+  /** SP and HP spent: the bars at the pull less what is left at the end. */
+  sp: number;
+  hp: number;
 }
 
 export interface ActionRow {
@@ -61,6 +74,7 @@ export interface Summary {
   log: string[] | null;
   analysis: Analysis;
   msPerFight: number;
+  perFight?: FightRow[];
 }
 
 /**
@@ -146,6 +160,7 @@ export function simulate(f: Fighter, m: Monster, kit: Kit, o: SimOptions): Summa
   const lows: number[] = [];
   const sequences: string[][] = [];
   let prep: string[] = [];
+  const rows: FightRow[] | null = o.perFight ? [] : null;
 
   for (let i = 0; i < o.iterations; i++) {
     const fight: Fight = newFight(f, m, kit, o.policy, {
@@ -165,6 +180,12 @@ export function simulate(f: Fighter, m: Monster, kit: Kit, o: SimOptions): Summa
     merge(total, fight.meter!);
     lows.push(fight.result === 'loss' ? 0 : Math.max(0, fight.meter!.minHp) / f.maxHp);
     sequences.push(fight.meter!.sequence);
+    if (rows) {
+      let dealt = 0;
+      for (const k in fight.meter!.actions) dealt += fight.meter!.actions[k].damage;
+      rows.push({ result: fight.result ?? 'stalemate', t: fight.t / 1000, dealt,
+        sp: Math.max(0, f.maxSp - fight.me.sp), hp: Math.max(0, f.maxHp - fight.me.hp) });
+    }
   }
 
   const n = o.iterations;
@@ -215,6 +236,7 @@ export function simulate(f: Fighter, m: Monster, kit: Kit, o: SimOptions): Summa
       avoided: Object.values(total.taken).reduce((s, t) => s + t.avoided, 0),
     }),
     msPerFight: (performance.now() - started) / n,
+    ...(rows ? { perFight: rows } : {}),
   };
 }
 
