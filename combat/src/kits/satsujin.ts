@@ -32,7 +32,7 @@ import { playbookPlan } from '../playbook.ts';
 import { ratioAt } from '../skilltext.ts';
 import type { Passives } from '../character.ts';
 import {
-  canUse, dotOnMob, enterManhole, focusStacks, followUpComing, grant, has, heal_, MANHOLE_MS, mobHas, readyAt, say, stacks, strike, strikeAdds,
+  canUse, dotOnMob, enterManhole, focusStacks, followUpComing, grant, has, heal_, MANHOLE_MS, mobHas, readMarks, readyAt, say, stacks, strike, strikeAdds,
   targetNow,
   type Action, type Fight, type Kit,
 } from '../engine.ts';
@@ -55,7 +55,7 @@ export const ALIASES: Record<string, string[]> = {
 const SKILLS = [
   'Shadow Slash', 'New Moon', 'Full Moon', 'Million Stab', 'Thousand Arms', 'Dragon Omamori',
   'Omamori Jutsu', 'Back Stab', 'Wind Blade', 'Kawarimi', 'Hiding', 'Moonlight Stance',
-  'Seven Winds', 'Lotus Pact', "Morroc's Mark", 'Hallucination Walk', 'Advanced Blade Mastery', 'Blade Mastery',
+  'Seven Winds', 'Lotus Pact', "Morroc's Mark", 'Hallucination Walk', 'Magic Pierce', 'Advanced Blade Mastery', 'Blade Mastery',
   'Improve Dodge', 'Shadow Mastery', 'Improve Defense', 'Improve Wisdom', 'Increase SP Recovery',
   'Fan of Knives',
 ];
@@ -88,9 +88,12 @@ export function passives(
     hpPercent: 2 * L('Moonlight Stance'),
     // Increase SP Recovery: "2 SP + 0.1% max SP regen per level".
     spRegen: { flat: 2 * L('Increase SP Recovery'), maxShare: 0.001 * L('Increase SP Recovery') },
+    // Magic Pierce (Assassin, AB_EXPIATIO) "Defense Penetration is 1 per level", self-cast
+    // before the pull (the project owner, 2026-10-02), as on the Night Raven and Kingslayer.
+    defPen: L('Magic Pierce'),
     notes: [
       'passives: Blade Masteries (ATK/HIT), Improve Dodge + Shadow Mastery (flee), '
-        + 'Improve Defense/Wisdom (HP/SP), Moonlight Stance (Max HP)',
+        + 'Improve Defense/Wisdom (HP/SP), Moonlight Stance (Max HP), Magic Pierce (DEF pen, up before the pull)',
     ],
   };
 }
@@ -840,6 +843,7 @@ function react(fight: Fight, s: MobSkill, from: Monster): { action: string; at: 
 function prepNotes(fight: Fight): string[] {
   const out: string[] = [];
   if (has(fight, 'stance')) out.push('Moonlight Stance');
+  if (has(fight, 'hallucination')) out.push('Hallucination Walk');
   const sw = fight.me.buffs.sevenWinds;
   if (sw) {
     const e = SEVEN_WINDS[sw.stacks];
@@ -854,6 +858,10 @@ function prepNotes(fight: Fight): string[] {
 function prep(fight: Fight) {
   const f = fight.f;
   if (lv(f, 'Moonlight Stance') > 0) grant(fight, 'stance', 1e12);
+  // Hallucination Walk is up before the pull (the project owner, 2026-10-02,
+  // replacing the 2026-09-26 "cast in the fight"); option prepHallucination
+  // false for the old way. Recasts in the fight follow hallucinationWalk.
+  if (lv(f, 'Hallucination Walk') > 0 && optionOn(fight, 'prepHallucination')) hallucinate(fight);
   if (lv(f, 'Seven Winds') > 0) {
     const e = bestElement(fight);
     fight.me.buffs.sevenWinds = { until: 1e12, stacks: SEVEN_WINDS.indexOf(e) };
@@ -861,9 +869,8 @@ function prep(fight: Fight) {
   // Two bolt casts: 10 Focus. The second cast's stacks are the freshest,
   // but both land within a few seconds of the pull; 60s is close enough.
   if (optionOn(fight, 'prepFocus')) addFocus(fight, 10);
-  // Hallucination Walk and Kawarimi are not pre-cast (the project owner,
-  // 2026-09-26): the TAS casts them in the fight when they are worth the
-  // time, and the log and the opener say so.
+  // Kawarimi is not pre-cast (the project owner, 2026-09-26): the TAS casts
+  // it in the fight when it is worth the time, and the log and the opener say so.
   // The pull starts on full SP: the buffs' costs are paid and regenerated
   // before the fight, which a TAS can afford to wait for.
 }
@@ -893,4 +900,18 @@ export const satsujin: Kit = {
   // Shadow Slash puts you on the target: no walk back after a dodge, with
   // mobility 'server' (the project owner, 2026-09-28).
   gapClosers: ['Shadow Slash'],
+  // What the Moon combo runs on, for the Rotation overlay's arrows.
+  statuses: (fight) => {
+    const out = readMarks(fight, {
+      me: [
+        { key: 'combo', label: 'Combo Ready' }, { key: 'invisible', label: 'Invisible (New Moon)' },
+        { key: 'hallucination', label: 'Hallucination Walk' }, { key: 'kawarimi', label: 'Kawarimi', stacks: true },
+      ],
+      target: [{ key: 'talisman', label: 'Dragon Omamori talisman' }],
+      dots: { bleeding: 'Bleeding', poison: 'Poison', burning: 'Burning' },
+    });
+    const focus = fight.me.focus.filter((u) => u > fight.t);
+    if (focus.length) out.push({ label: 'Elemental Focus', stacks: focus.length, leftMs: Math.min(...focus) - fight.t });
+    return out;
+  },
 };

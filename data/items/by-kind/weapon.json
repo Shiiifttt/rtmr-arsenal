@@ -1904,7 +1904,21 @@
    },
    {
     "text": "Instant Aces receives 1% per Base DEX extra scaling",
-    "parsed": false
+    "per_base_stat": {
+     "per": 1,
+     "stat": "DEX"
+    },
+    "stat": "Instant Aces Damage",
+    "value": 1,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Instant Aces",
+    "skill_metric": "damage",
+    "skills": [
+     "Instant Aces"
+    ]
    },
    {
     "text": "LUK+5",
@@ -2006,7 +2020,21 @@
    },
    {
     "text": "Instant Aces receives 1% per Base DEX extra scaling",
-    "parsed": false
+    "per_base_stat": {
+     "per": 1,
+     "stat": "DEX"
+    },
+    "stat": "Instant Aces Damage",
+    "value": 1,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Instant Aces",
+    "skill_metric": "damage",
+    "skills": [
+     "Instant Aces"
+    ]
    },
    {
     "text": "LUK+5",
@@ -3478,7 +3506,17 @@
    },
    {
     "text": "Enables Hallucination Walk Lv1",
-    "parsed": false
+    "stat": "Hallucination Walk Lv",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Hallucination Walk",
+    "skill_metric": "level",
+    "skills": [
+     "Hallucination Walk"
+    ]
    },
    {
     "text": "Move Speed +15%",
@@ -3841,7 +3879,16 @@
   "effects": [
    {
     "text": "Use Trinket scales +1% per STR",
-    "parsed": false
+    "per_base_stat": {
+     "per": 1,
+     "stat": "STR"
+    },
+    "stat": "Use Trinket scales",
+    "value": 1,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": []
    }
   ],
   "piece_bonus": [],
@@ -4650,8 +4697,23 @@
   "sets": [],
   "effects": [
    {
-    "text": "Double Attack Lv: ??",
-    "parsed": false
+    "text": "Double Attack Lv: = Spectral Mastery Lv",
+    "stat": "Double Attack Lv",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "per_skill_level": {
+     "skills": [
+      "Spectral Mastery"
+     ],
+     "combine": "sum"
+    },
+    "stat_ids": [
+     20
+    ],
+    "stat_keys": [
+     "double_attack"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -4751,7 +4813,10 @@
   ],
   "enchant": null,
   "lore": null,
-  "override": null
+  "override": {
+   "status": "unverified",
+   "reason": "'Double Attack Lv: ??'. The server script is skill TF_DOUBLE at the GS_SNAKEEYE level -- the same skill its 'Per Level of Spectral Mastery' block counts (bDoubleAddRate 10 a level) -- so Double Attack at the Spectral Mastery level (2026-10-01 audit)."
+  }
  },
  {
   "id": 13011,
@@ -5324,7 +5389,16 @@
    },
    {
     "text": "Special: Defense Penetration 20",
-    "parsed": false
+    "stat": "Defense Penetration",
+    "value": 20,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     28
+    ],
+    "stat_keys": [
+     "def_pen"
+    ]
    },
    {
     "text": "Move Speed +15%",
@@ -7170,7 +7244,7 @@
     ]
    },
    {
-    "text": "Lashing Andromeda DMG +5%",
+    "text": "Lashing Andromeda DMG +5% +2% per refine",
     "stat": "Lashing Andromeda DMG",
     "value": 5,
     "unit": "%",
@@ -7195,7 +7269,7 @@
      "per": 1,
      "effects": [
       {
-       "text": "Lashing Andromeda DMG +2% per refine",
+       "text": "Lashing Andromeda DMG +5% +2% per refine",
        "stat": "Lashing Andromeda DMG",
        "value": 2,
        "unit": "%",
@@ -8266,7 +8340,7 @@
     ]
    },
    {
-    "text": "Chilling Frost DMG+25%Enables Shatter Cross Lv3",
+    "text": "Chilling Frost DMG+25%, Enables Shatter Cross Lv3",
     "parsed": false
    },
    {
@@ -9945,7 +10019,17 @@
   "effects": [
    {
     "text": "Dragon Thrust: Lv5",
-    "parsed": false
+    "stat": "Dragon Thrust Lv",
+    "value": 5,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Dragon Thrust",
+    "skill_metric": "level",
+    "skills": [
+     "Dragon Thrust"
+    ]
    },
    {
     "text": "Heavy Stab DMG +10%",
@@ -10064,17 +10148,17 @@
     "scope": "total"
    },
    {
-    "text": "Physical Damage",
-    "parsed": false
-   },
-   {
-    "text": "Received -5%",
-    "stat": "Received",
+    "text": "Physical Damage Received -5%",
+    "stat": "Physical Damage Received",
     "value": -5,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     53
+    ],
+    "stat_keys": [
+     "physical_damage_received"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -10365,13 +10449,21 @@
     ]
    },
    {
-    "text": "Cannot be Refined EXP Received +10%",
-    "stat": "Cannot be Refined EXP Received",
+    "text": "Cannot be Refined",
+    "parsed": false
+   },
+   {
+    "text": "EXP Received +10%",
+    "stat": "EXP Received",
     "value": 10,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     41
+    ],
+    "stat_keys": [
+     "exp_gain"
+    ]
    },
    {
     "text": "SP Regen+20%",
@@ -11017,7 +11109,17 @@
   "effects": [
    {
     "text": "Dragon Thrust: Lv2",
-    "parsed": false
+    "stat": "Dragon Thrust Lv",
+    "value": 2,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Dragon Thrust",
+    "skill_metric": "level",
+    "skills": [
+     "Dragon Thrust"
+    ]
    },
    {
     "text": "Defense Penetration +100",
@@ -11139,7 +11241,20 @@
    },
    {
     "text": "Critical Damage +1% per base LUK",
-    "parsed": false
+    "per_base_stat": {
+     "per": 1,
+     "stat": "LUK"
+    },
+    "stat": "Critical Damage",
+    "value": 1,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     15
+    ],
+    "stat_keys": [
+     "crit_damage"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -11228,7 +11343,16 @@
   "effects": [
    {
     "text": "Use Trinket scales +1% per AGI",
-    "parsed": false
+    "per_base_stat": {
+     "per": 1,
+     "stat": "AGI"
+    },
+    "stat": "Use Trinket scales",
+    "value": 1,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": []
    }
   ],
   "piece_bonus": [],
@@ -11427,7 +11551,17 @@
   "effects": [
    {
     "text": "Dragon Thrust: Lv3",
-    "parsed": false
+    "stat": "Dragon Thrust Lv",
+    "value": 3,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Dragon Thrust",
+    "skill_metric": "level",
+    "skills": [
+     "Dragon Thrust"
+    ]
    },
    {
     "text": "INT +2",
@@ -13133,7 +13267,17 @@
   "effects": [
    {
     "text": "Dragon Thrust: Lv1",
-    "parsed": false
+    "stat": "Dragon Thrust Lv",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Dragon Thrust",
+    "skill_metric": "level",
+    "skills": [
+     "Dragon Thrust"
+    ]
    },
    {
     "text": "Geirskogul has autocasts Frozen Wind Lv 1",
@@ -13778,10 +13922,6 @@
     "stat_keys": [
      "def_pen"
     ]
-   },
-   {
-    "text": "Enables Wind Slash according to refine",
-    "parsed": false
    }
   ],
   "piece_bonus": [],
@@ -13790,6 +13930,20 @@
     {
      "per": 1,
      "effects": [
+      {
+       "text": "Enables Wind Slash according to refine",
+       "value": 1,
+       "unit": null,
+       "parsed": true,
+       "stat": "Wind Slash Lv",
+       "stat_ids": [],
+       "stat_keys": [],
+       "skill": "Wind Slash",
+       "skill_metric": "level",
+       "skills": [
+        "Wind Slash"
+       ]
+      },
       {
        "text": "Ranged Damage +2% per refine",
        "stat": "Ranged Damage",
@@ -14700,6 +14854,10 @@
    },
    {
     "text": "Autocast Blitz Beat Lv1 at 1% chance per base LUK",
+    "per_base_stat": {
+     "per": 1,
+     "stat": "LUK"
+    },
     "parsed": false
    }
   ],
@@ -16300,13 +16458,21 @@
     ]
    },
    {
-    "text": "Cannot be Refined EXP Received +10%",
-    "stat": "Cannot be Refined EXP Received",
+    "text": "Cannot be Refined",
+    "parsed": false
+   },
+   {
+    "text": "EXP Received +10%",
+    "stat": "EXP Received",
     "value": 10,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     41
+    ],
+    "stat_keys": [
+     "exp_gain"
+    ]
    },
    {
     "text": "SP Regen+20%",
@@ -16604,7 +16770,17 @@
    },
    {
     "text": "Enables Shadow Slash Lv1",
-    "parsed": false
+    "stat": "Shadow Slash Lv",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Shadow Slash",
+    "skill_metric": "level",
+    "skills": [
+     "Shadow Slash"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -16889,14 +17065,6 @@
    {
     "text": "Recover 35 HP and SP per kill with magic.",
     "parsed": false
-   },
-   {
-    "text": "A small scythe that has a very curved blade. Can throw sickling spells easily.",
-    "parsed": false
-   },
-   {
-    "text": "Dark Weapon +10% Damage vs Fire/Water/Earth/Wind/Holy -10% Damage vs Dark",
-    "parsed": false
    }
   ],
   "piece_bonus": [],
@@ -16906,7 +17074,7 @@
   },
   "conditional": [],
   "enchant": null,
-  "lore": null,
+  "lore": "A small scythe that has a very curved blade. Can throw sickling spells easily.",
   "override": null
  },
  {
@@ -17437,7 +17605,16 @@
    },
    {
     "text": "Special: Defense Penetration 15",
-    "parsed": false
+    "stat": "Defense Penetration",
+    "value": 15,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     28
+    ],
+    "stat_keys": [
+     "def_pen"
+    ]
    },
    {
     "text": "Move Speed +10%",
@@ -17744,19 +17921,41 @@
    },
    {
     "text": "Variable Cast Time -1% per level of Rolling Flames Learned.",
-    "parsed": false
+    "per_skill_level": {
+     "skills": [
+      "Rolling Flames"
+     ],
+     "combine": "sum"
+    },
+    "stat": "Variable Cast Time",
+    "value": -1,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     33
+    ],
+    "stat_keys": [
+     "variable_cast"
+    ]
    },
    {
     "text": "Variable Cast Time -1% per level of Claymore Trap Learned.",
-    "parsed": false
-   },
-   {
-    "text": "A flaming sword wielded by Master Asterial who would always raze the land during fights.",
-    "parsed": false
-   },
-   {
-    "text": "Fire Weapon +15% Damage vs Earth -15% Damage vs Fire/Water -10% Damage vs Dark",
-    "parsed": false
+    "per_skill_level": {
+     "skills": [
+      "Claymore Trap"
+     ],
+     "combine": "sum"
+    },
+    "stat": "Variable Cast Time",
+    "value": -1,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     33
+    ],
+    "stat_keys": [
+     "variable_cast"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -17766,7 +17965,7 @@
   },
   "conditional": [],
   "enchant": null,
-  "lore": null,
+  "lore": "A flaming sword wielded by Master Asterial who would always raze the land during fights.",
   "override": null
  },
  {
@@ -17949,8 +18148,23 @@
   "sets": [],
   "effects": [
    {
-    "text": "Double Attack Lv: ??",
-    "parsed": false
+    "text": "Double Attack Lv: = Spectral Mastery Lv",
+    "stat": "Double Attack Lv",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "per_skill_level": {
+     "skills": [
+      "Spectral Mastery"
+     ],
+     "combine": "sum"
+    },
+    "stat_ids": [
+     20
+    ],
+    "stat_keys": [
+     "double_attack"
+    ]
    },
    {
     "text": "Magic Defense Penetration +10",
@@ -18050,7 +18264,10 @@
   ],
   "enchant": null,
   "lore": null,
-  "override": null
+  "override": {
+   "status": "unverified",
+   "reason": "'Double Attack Lv: ??': server script skill TF_DOUBLE at the GS_SNAKEEYE (Spectral Mastery) level (2026-10-01 audit)."
+  }
  },
  {
   "id": 1298,
@@ -18132,14 +18349,6 @@
     "stat_keys": [
      "dmg_vs_race_angel"
     ]
-   },
-   {
-    "text": "A pair of heavy katars filled with dread. Can deal heavy damage to pure creatures.",
-    "parsed": false
-   },
-   {
-    "text": "Dark Weapon +10% Damage vs Fire/Water/Earth/Wind/Holy -10% Damage vs Dark",
-    "parsed": false
    }
   ],
   "piece_bonus": [],
@@ -18149,7 +18358,7 @@
   },
   "conditional": [],
   "enchant": null,
-  "lore": null,
+  "lore": "A pair of heavy katars filled with dread. Can deal heavy damage to pure creatures.",
   "override": null
  },
  {
@@ -18408,7 +18617,17 @@
     "effects": [
      {
       "text": "Ignore Size Penalty",
-      "parsed": false
+      "stat": "Ignore Size Penalty",
+      "value": 1,
+      "unit": null,
+      "parsed": true,
+      "flag": true,
+      "stat_ids": [
+       132
+      ],
+      "stat_keys": [
+       "no_size_penalty"
+      ]
      }
     ]
    }
@@ -18538,7 +18757,17 @@
     "effects": [
      {
       "text": "Ignore Size Penalty",
-      "parsed": false
+      "stat": "Ignore Size Penalty",
+      "value": 1,
+      "unit": null,
+      "parsed": true,
+      "flag": true,
+      "stat_ids": [
+       132
+      ],
+      "stat_keys": [
+       "no_size_penalty"
+      ]
      }
     ]
    }
@@ -18759,7 +18988,16 @@
   "effects": [
    {
     "text": "Use Trinket scales +1% per LUK",
-    "parsed": false
+    "per_base_stat": {
+     "per": 1,
+     "stat": "LUK"
+    },
+    "stat": "Use Trinket scales",
+    "value": 1,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": []
    },
    {
     "text": "Use Trinket Base DMG -50%",
@@ -19590,7 +19828,17 @@
   "effects": [
    {
     "text": "Dragon Thrust: Lv6",
-    "parsed": false
+    "stat": "Dragon Thrust Lv",
+    "value": 6,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Dragon Thrust",
+    "skill_metric": "level",
+    "skills": [
+     "Dragon Thrust"
+    ]
    },
    {
     "text": "Heavy Stab DMG+25%",
@@ -19995,7 +20243,17 @@
   "effects": [
    {
     "text": "Dragon Thrust: Lv10",
-    "parsed": false
+    "stat": "Dragon Thrust Lv",
+    "value": 10,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Dragon Thrust",
+    "skill_metric": "level",
+    "skills": [
+     "Dragon Thrust"
+    ]
    },
    {
     "text": "Range +3",
@@ -20342,7 +20600,29 @@
    },
    {
     "text": "Double Attack Lv4 (40%)",
-    "parsed": false
+    "stat": "Double Attack Lv",
+    "value": 4,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     20
+    ],
+    "stat_keys": [
+     "double_attack"
+    ]
+   },
+   {
+    "text": "Double Attack Lv4 (40%)",
+    "stat": "Double Attack Rate",
+    "value": 40,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     51
+    ],
+    "stat_keys": [
+     "double_attack_rate"
+    ]
    },
    {
     "text": "Critical Damage +7%",
@@ -20453,7 +20733,29 @@
    },
    {
     "text": "Double Attack Lv4 (40%)",
-    "parsed": false
+    "stat": "Double Attack Lv",
+    "value": 4,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     20
+    ],
+    "stat_keys": [
+     "double_attack"
+    ]
+   },
+   {
+    "text": "Double Attack Lv4 (40%)",
+    "stat": "Double Attack Rate",
+    "value": 40,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     51
+    ],
+    "stat_keys": [
+     "double_attack_rate"
+    ]
    },
    {
     "text": "Critical Damage +7%",
@@ -20549,7 +20851,17 @@
   "effects": [
    {
     "text": "Dragon Thrust: Lv7",
-    "parsed": false
+    "stat": "Dragon Thrust Lv",
+    "value": 7,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Dragon Thrust",
+    "skill_metric": "level",
+    "skills": [
+     "Dragon Thrust"
+    ]
    },
    {
     "text": "Move Speed+15%",
@@ -22429,8 +22741,18 @@
      "per": 1,
      "effects": [
       {
-       "text": "30% Extra \"Frost Diver\" Damage per Refine",
-       "parsed": false
+       "text": "Frost Diver Damage +30%",
+       "stat": "Frost Diver Damage",
+       "value": 30,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [],
+       "stat_keys": [],
+       "skill": "Frost Diver",
+       "skill_metric": "damage",
+       "skills": [
+        "Frost Diver"
+       ]
       }
      ]
     }
@@ -22440,7 +22762,10 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "override": null
+  "override": {
+   "status": "unverified",
+   "reason": "'30% Extra \"Frost Diver\" Damage per Refine': the server script is bSkillAtk MG_FROSTDIVER,30*refine (2026-10-01 audit)."
+  }
  },
  {
   "id": 1400,
@@ -22573,7 +22898,16 @@
       },
       {
        "text": "Extra 1 MATK per refine.",
-       "parsed": false
+       "stat": "MATK",
+       "value": 1,
+       "unit": null,
+       "parsed": true,
+       "stat_ids": [
+        11
+       ],
+       "stat_keys": [
+        "matk"
+       ]
       }
      ]
     }
@@ -22656,7 +22990,17 @@
   "effects": [
    {
     "text": "Dragon Thrust: Lv1",
-    "parsed": false
+    "stat": "Dragon Thrust Lv",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Dragon Thrust",
+    "skill_metric": "level",
+    "skills": [
+     "Dragon Thrust"
+    ]
    },
    {
     "text": "50% to Autocast Frozen Crash Lv1 when using Dragon Thrust",
@@ -23047,17 +23391,20 @@
     ]
    },
    {
-    "text": "Permanent Endure Effect SP Cost+35%",
-    "stat": "Permanent Endure Effect SP Cost",
+    "text": "Permanent Endure Effect",
+    "parsed": false
+   },
+   {
+    "text": "SP Cost+35%",
+    "stat": "SP Cost",
     "value": 35,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": [],
-    "skill": "Permanent Endure Effect",
-    "skill_metric": "sp cost",
-    "skills": [
-     "Permanent Endure Effect"
+    "stat_ids": [
+     37
+    ],
+    "stat_keys": [
+     "sp_cost"
     ]
    }
   ],
@@ -23813,7 +24160,17 @@
    },
    {
     "text": "Ignores Reflect damage for physical attacks",
-    "parsed": false
+    "stat": "Ignores Reflect damage for physical attacks",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "flag": true,
+    "stat_ids": [
+     133
+    ],
+    "stat_keys": [
+     "ignores_reflect"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -23898,7 +24255,17 @@
    },
    {
     "text": "Ignores Size Penalty",
-    "parsed": false
+    "stat": "Ignores Size Penalty",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "flag": true,
+    "stat_ids": [
+     132
+    ],
+    "stat_keys": [
+     "no_size_penalty"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -24294,15 +24661,6 @@
   ],
   "effects": [
    {
-    "text": "Lv: 1",
-    "stat": "Lv",
-    "value": 1,
-    "unit": null,
-    "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
-   },
-   {
     "text": "Splash Range: 3",
     "stat": "Splash Range",
     "value": 3,
@@ -24527,15 +24885,28 @@
   "sets": [
    106
   ],
-  "effects": [
-   {
-    "text": "Double Attack Lv: = Refine (max 10)",
-    "parsed": false
-   }
-  ],
+  "effects": [],
   "piece_bonus": [],
   "refine": {
    "per_refine": [
+    {
+     "per": 1,
+     "effects": [
+      {
+       "text": "Double Attack Lv: = Refine (max 10)",
+       "value": 1,
+       "unit": null,
+       "parsed": true,
+       "stat": "Double Attack Lv",
+       "stat_ids": [
+        20
+       ],
+       "stat_keys": [
+        "double_attack"
+       ]
+      }
+     ]
+    },
     {
      "effects": [
       {
@@ -25104,7 +25475,9 @@
    "source_mvp": 0,
    "source_normal": 1
   },
-  "sets": [],
+  "sets": [
+   251
+  ],
   "effects": [
    {
     "text": "Double Attack Lv: 2",
@@ -25330,7 +25703,17 @@
   "effects": [
    {
     "text": "Dragon Thrust: Lv2",
-    "parsed": false
+    "stat": "Dragon Thrust Lv",
+    "value": 2,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Dragon Thrust",
+    "skill_metric": "level",
+    "skills": [
+     "Dragon Thrust"
+    ]
    },
    {
     "text": "INT+3",
@@ -25431,7 +25814,17 @@
   "effects": [
    {
     "text": "Dragon Thrust: Lv2",
-    "parsed": false
+    "stat": "Dragon Thrust Lv",
+    "value": 2,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Dragon Thrust",
+    "skill_metric": "level",
+    "skills": [
+     "Dragon Thrust"
+    ]
    },
    {
     "text": "INT+3",
@@ -26895,7 +27288,17 @@
   "effects": [
    {
     "text": "Dragon Thrust: Lv5",
-    "parsed": false
+    "stat": "Dragon Thrust Lv",
+    "value": 5,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Dragon Thrust",
+    "skill_metric": "level",
+    "skills": [
+     "Dragon Thrust"
+    ]
    },
    {
     "text": "Phantom Spear damage +30%",
@@ -27451,7 +27854,17 @@
   "effects": [
    {
     "text": "Dragon Thrust: Lv10",
-    "parsed": false
+    "stat": "Dragon Thrust Lv",
+    "value": 10,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Dragon Thrust",
+    "skill_metric": "level",
+    "skills": [
+     "Dragon Thrust"
+    ]
    },
    {
     "text": "Crescent Dive Cooldown -2s",
@@ -28488,17 +28901,18 @@
   "sets": [],
   "effects": [
    {
-    "text": "Lv: 2",
-    "stat": "Lv",
-    "value": 2,
+    "text": "Dragon Thrust: Lv3",
+    "stat": "Dragon Thrust Lv",
+    "value": 3,
     "unit": null,
     "parsed": true,
     "stat_ids": [],
-    "stat_keys": []
-   },
-   {
-    "text": "Dragon Thrust: Lv3",
-    "parsed": false
+    "stat_keys": [],
+    "skill": "Dragon Thrust",
+    "skill_metric": "level",
+    "skills": [
+     "Dragon Thrust"
+    ]
    },
    {
     "text": "Max HP +5%",
@@ -29262,7 +29676,17 @@
   "effects": [
    {
     "text": "Dragon Thrust: Lv4",
-    "parsed": false
+    "stat": "Dragon Thrust Lv",
+    "value": 4,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Dragon Thrust",
+    "skill_metric": "level",
+    "skills": [
+     "Dragon Thrust"
+    ]
    },
    {
     "text": "Dragon Thrust SP Cost -25%",
@@ -29348,7 +29772,17 @@
   "effects": [
    {
     "text": "Dragon Thrust: Lv4",
-    "parsed": false
+    "stat": "Dragon Thrust Lv",
+    "value": 4,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Dragon Thrust",
+    "skill_metric": "level",
+    "skills": [
+     "Dragon Thrust"
+    ]
    },
    {
     "text": "Dragon Thrust SP Cost -25%",
@@ -29578,7 +30012,21 @@
    },
    {
     "text": "Underworld Rainstorm DMG+1% per base INT",
-    "parsed": false
+    "per_base_stat": {
+     "per": 1,
+     "stat": "INT"
+    },
+    "stat": "Underworld Rainstorm DMG",
+    "value": 1,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Underworld Rainstorm",
+    "skill_metric": "damage",
+    "skills": [
+     "Underworld Rainstorm"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -29793,21 +30241,37 @@
    },
    {
     "text": "Every 10 INT : ATK+1%",
-    "stat": "Every 10 INT : ATK",
+    "per_base_stat": {
+     "per": 10,
+     "stat": "INT"
+    },
+    "stat": "ATK",
     "value": 1,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     10
+    ],
+    "stat_keys": [
+     "atk"
+    ]
    },
    {
     "text": "Every 10 STR: MATK+1%",
-    "stat": "Every 10 STR: MATK",
+    "per_base_stat": {
+     "per": 10,
+     "stat": "STR"
+    },
+    "stat": "MATK",
     "value": 1,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     11
+    ],
+    "stat_keys": [
+     "matk"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -29978,11 +30442,22 @@
    "source_mvp": 0,
    "source_normal": 1
   },
-  "sets": [],
+  "sets": [
+   252
+  ],
   "effects": [
    {
     "text": "Double Attack: Lv5",
-    "parsed": false
+    "stat": "Double Attack Lv",
+    "value": 5,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     20
+    ],
+    "stat_keys": [
+     "double_attack"
+    ]
    },
    {
     "text": "Backstab DMG +30%",
@@ -31091,7 +31566,16 @@
   "effects": [
    {
     "text": "Use Trinket scales +1% per VIT",
-    "parsed": false
+    "per_base_stat": {
+     "per": 1,
+     "stat": "VIT"
+    },
+    "stat": "Use Trinket scales",
+    "value": 1,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": []
    }
   ],
   "piece_bonus": [],
@@ -31870,7 +32354,17 @@
   "effects": [
    {
     "text": "Dragon Thrust: Lv9",
-    "parsed": false
+    "stat": "Dragon Thrust Lv",
+    "value": 9,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Dragon Thrust",
+    "skill_metric": "level",
+    "skills": [
+     "Dragon Thrust"
+    ]
    },
    {
     "text": "Geirskogul Cooldown -3s",
@@ -32238,7 +32732,22 @@
    },
    {
     "text": "Overpower and Wind Slash DMG+0.5% per INT",
-    "parsed": false
+    "per_base_stat": {
+     "per": 1,
+     "stat": "INT"
+    },
+    "stat": "Overpower and Wind Slash DMG",
+    "value": 0.5,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Overpower and Wind Slash",
+    "skill_metric": "damage",
+    "skills": [
+     "Overpower",
+     "Wind Slash"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -32492,7 +33001,17 @@
   "effects": [
    {
     "text": "Dragon Thrust: Lv6",
-    "parsed": false
+    "stat": "Dragon Thrust Lv",
+    "value": 6,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Dragon Thrust",
+    "skill_metric": "level",
+    "skills": [
+     "Dragon Thrust"
+    ]
    },
    {
     "text": "Ranged Damage +20%",
@@ -33429,7 +33948,16 @@
   "effects": [
    {
     "text": "Double Attack: Lv5",
-    "parsed": false
+    "stat": "Double Attack Lv",
+    "value": 5,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     20
+    ],
+    "stat_keys": [
+     "double_attack"
+    ]
    },
    {
     "text": "STR +2",
@@ -33633,7 +34161,16 @@
   "effects": [
    {
     "text": "Use Trinket scales +3% per INT",
-    "parsed": false
+    "per_base_stat": {
+     "per": 1,
+     "stat": "INT"
+    },
+    "stat": "Use Trinket scales",
+    "value": 3,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": []
    },
    {
     "text": "Use Trinket Base DMG -50%",
@@ -33868,7 +34405,16 @@
   "effects": [
    {
     "text": "Double Attack: Lv5",
-    "parsed": false
+    "stat": "Double Attack Lv",
+    "value": 5,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     20
+    ],
+    "stat_keys": [
+     "double_attack"
+    ]
    },
    {
     "text": "AGI +3",
@@ -33905,7 +34451,22 @@
      "effects": [
       {
        "text": "ASPD +1 per Steel Wings Level",
-       "parsed": false
+       "per_skill_level": {
+        "skills": [
+         "Steel Wings"
+        ],
+        "combine": "sum"
+       },
+       "stat": "ASPD",
+       "value": 1,
+       "unit": null,
+       "parsed": true,
+       "stat_ids": [
+        16
+       ],
+       "stat_keys": [
+        "aspd"
+       ]
       }
      ],
      "at": [
@@ -36091,6 +36652,19 @@
     "stat_keys": [
      "aspd"
     ]
+   },
+   {
+    "text": "Increases SP Recovery speed by 25% + 20% per refine.",
+    "stat": "SP Recovery speed",
+    "value": 25,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     9
+    ],
+    "stat_keys": [
+     "sp_regen"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -36101,12 +36675,16 @@
      "effects": [
       {
        "text": "Increases SP Recovery speed by 25% + 20% per refine.",
-       "stat": "Increases SP Recovery speed by 25%",
+       "stat": "SP Recovery speed",
        "value": 20,
        "unit": "%",
        "parsed": true,
-       "stat_ids": [],
-       "stat_keys": []
+       "stat_ids": [
+        9
+       ],
+       "stat_keys": [
+        "sp_regen"
+       ]
       }
      ]
     }
@@ -36583,8 +37161,17 @@
      "per": 1,
      "effects": [
       {
-       "text": "Increases by 14 SP per refine.",
-       "parsed": false
+       "text": "Recover 14 SP per hit",
+       "stat": "SP per Hit",
+       "value": 14,
+       "unit": null,
+       "parsed": true,
+       "stat_ids": [
+        157
+       ],
+       "stat_keys": [
+        "sp_per_hit"
+       ]
       }
      ]
     }
@@ -36594,7 +37181,10 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "override": null
+  "override": {
+   "status": "unverified",
+   "reason": "'Recover 100 SP per hit.' / 'Increases by 14 SP per refine.' -- the second names no stat. The server script is bonus bSPDrainValue,100+(14*refine): 14 more SP per hit per refine (2026-10-01 audit)."
+  }
  },
  {
   "id": 2199,
@@ -36835,13 +37425,41 @@
   "sets": [],
   "effects": [
    {
-    "text": "Double Attack Lv: Refine All Stats +3",
-    "stat": "Double Attack Lv: Refine All Stats",
+    "text": "Double Attack Lv: = Refine",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "per_refine": 1,
+    "stat": "Double Attack Lv",
+    "stat_ids": [
+     20
+    ],
+    "stat_keys": [
+     "double_attack"
+    ]
+   },
+   {
+    "text": "All Stats +3",
+    "stat": "All Stats",
     "value": 3,
     "unit": null,
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5
+    ],
+    "stat_keys": [
+     "str",
+     "agi",
+     "vit",
+     "int",
+     "dex",
+     "luk"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -36897,7 +37515,10 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "override": null
+  "override": {
+   "status": "unverified",
+   "reason": "'Double Attack Lv: Refine' over 'All Stats +3' was glued into one line and both were lost. Read as Double Attack at the weapon's refine level (capped at 10 like every Double Attack level), as Fallen Dagger writes it ('Double Attack Lv: = Refine (max 10)') (2026-10-01 audit)."
+  }
  },
  {
   "id": 1267,
@@ -37430,7 +38051,17 @@
   "effects": [
    {
     "text": "Dragon Thrust: Lv5",
-    "parsed": false
+    "stat": "Dragon Thrust Lv",
+    "value": 5,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Dragon Thrust",
+    "skill_metric": "level",
+    "skills": [
+     "Dragon Thrust"
+    ]
    },
    {
     "text": "HP/SP+1%",
@@ -37799,7 +38430,17 @@
   "effects": [
    {
     "text": "Dragon Thrust: Lv6",
-    "parsed": false
+    "stat": "Dragon Thrust Lv",
+    "value": 6,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Dragon Thrust",
+    "skill_metric": "level",
+    "skills": [
+     "Dragon Thrust"
+    ]
    },
    {
     "text": "Perfect Dodge +20",
@@ -37846,7 +38487,17 @@
      "effects": [
       {
        "text": "Enables Hallucination Walk Lv3",
-       "parsed": false
+       "stat": "Hallucination Walk Lv",
+       "value": 3,
+       "unit": null,
+       "parsed": true,
+       "stat_ids": [],
+       "stat_keys": [],
+       "skill": "Hallucination Walk",
+       "skill_metric": "level",
+       "skills": [
+        "Hallucination Walk"
+       ]
       }
      ]
     }
@@ -39173,15 +39824,6 @@
   "sets": [],
   "effects": [
    {
-    "text": "Lv: 4",
-    "stat": "Lv",
-    "value": 4,
-    "unit": null,
-    "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
-   },
-   {
     "text": "Auto Cast Real Magic Attack on hit at random level and chance.",
     "parsed": false
    },
@@ -39213,7 +39855,20 @@
    },
    {
     "text": "Max HP +1% per 2 total VIT",
-    "parsed": false
+    "stat": "Max HP",
+    "value": 1,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     6
+    ],
+    "stat_keys": [
+     "max_hp"
+    ],
+    "per_stat": {
+     "per": 2,
+     "stat": "vit"
+    }
    },
    {
     "text": "Unique Defensive Mods",
@@ -39334,16 +39989,31 @@
     ]
    },
    {
-    "text": "Shadow Slash DMG+20%Critical Damage +5%",
-    "stat": "Shadow Slash DMG+20%Critical Damage",
-    "value": 5,
+    "text": "Shadow Slash DMG+20%",
+    "stat": "Shadow Slash DMG",
+    "value": 20,
     "unit": "%",
     "parsed": true,
     "stat_ids": [],
     "stat_keys": [],
-    "skill": "Shadow Slash DMG+20%Critical",
+    "skill": "Shadow Slash",
     "skill_metric": "damage",
-    "skills": []
+    "skills": [
+     "Shadow Slash"
+    ]
+   },
+   {
+    "text": "Critical Damage +5%",
+    "stat": "Critical Damage",
+    "value": 5,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     15
+    ],
+    "stat_keys": [
+     "crit_damage"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -39723,7 +40393,16 @@
   "effects": [
    {
     "text": "Double Attack: Lv5",
-    "parsed": false
+    "stat": "Double Attack Lv",
+    "value": 5,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     20
+    ],
+    "stat_keys": [
+     "double_attack"
+    ]
    },
    {
     "text": "INT +4",
@@ -40315,15 +40994,6 @@
   },
   "sets": [],
   "effects": [
-   {
-    "text": "Lv: 2",
-    "stat": "Lv",
-    "value": 2,
-    "unit": null,
-    "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
-   },
    {
     "text": "Splash Range: 1",
     "stat": "Splash Range",
@@ -41752,7 +42422,30 @@
      "effects": [
       {
        "text": "Double Strafe DMG +1% per Refine +Extra 1 ATK per Refine",
-       "parsed": false
+       "stat": "Double Strafe DMG",
+       "value": 1,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [],
+       "stat_keys": [],
+       "skill": "Double Strafe",
+       "skill_metric": "damage",
+       "skills": [
+        "Double Strafe"
+       ]
+      },
+      {
+       "text": "Double Strafe DMG +1% per Refine +Extra 1 ATK per Refine",
+       "stat": "ATK",
+       "value": 1,
+       "unit": null,
+       "parsed": true,
+       "stat_ids": [
+        10
+       ],
+       "stat_keys": [
+        "atk"
+       ]
       }
      ]
     }
@@ -41873,7 +42566,30 @@
      "effects": [
       {
        "text": "Backstab DMG +1% per Refine +Extra 1 ATK per Refine",
-       "parsed": false
+       "stat": "Backstab DMG",
+       "value": 1,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [],
+       "stat_keys": [],
+       "skill": "Backstab",
+       "skill_metric": "damage",
+       "skills": [
+        "Back Stab"
+       ]
+      },
+      {
+       "text": "Backstab DMG +1% per Refine +Extra 1 ATK per Refine",
+       "stat": "ATK",
+       "value": 1,
+       "unit": null,
+       "parsed": true,
+       "stat_ids": [
+        10
+       ],
+       "stat_keys": [
+        "atk"
+       ]
       }
      ]
     }
@@ -41994,7 +42710,30 @@
      "effects": [
       {
        "text": "Rolling Cutter DMG+1% per Refine +Extra 1 ATK per Refine",
-       "parsed": false
+       "stat": "Rolling Cutter DMG",
+       "value": 1,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [],
+       "stat_keys": [],
+       "skill": "Rolling Cutter",
+       "skill_metric": "damage",
+       "skills": [
+        "Rolling Cutter"
+       ]
+      },
+      {
+       "text": "Rolling Cutter DMG+1% per Refine +Extra 1 ATK per Refine",
+       "stat": "ATK",
+       "value": 1,
+       "unit": null,
+       "parsed": true,
+       "stat_ids": [
+        10
+       ],
+       "stat_keys": [
+        "atk"
+       ]
       }
      ]
     }
@@ -42194,13 +42933,17 @@
     ]
    },
    {
-    "text": "Penetration +100",
-    "stat": "Penetration",
+    "text": "Defense Penetration +100",
+    "stat": "Defense Penetration",
     "value": 100,
     "unit": null,
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     28
+    ],
+    "stat_keys": [
+     "def_pen"
+    ]
    },
    {
     "text": "SP-50%",
@@ -42224,7 +42967,10 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "override": null
+  "override": {
+   "status": "unverified",
+   "reason": "'Penetration +100': the project owner (2026-10-01) -- full DEF penetration. Written out as Defense Penetration so it cannot be read any other way."
+  }
  },
  {
   "id": 1208,
@@ -42750,7 +43496,16 @@
   "effects": [
    {
     "text": "Double Attack: Lv5",
-    "parsed": false
+    "stat": "Double Attack Lv",
+    "value": 5,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     20
+    ],
+    "stat_keys": [
+     "double_attack"
+    ]
    },
    {
     "text": "15% chance to autocast Pneuma Lv1 when hit",
@@ -42900,8 +43655,12 @@
     "value": 20,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     168
+    ],
+    "stat_keys": [
+     "flee_base_pct"
+    ]
    },
    {
     "text": "Critical Rate Total +10%",
@@ -44181,7 +44940,17 @@
   "effects": [
    {
     "text": "Dragon Thrust: Lv10",
-    "parsed": false
+    "stat": "Dragon Thrust Lv",
+    "value": 10,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Dragon Thrust",
+    "skill_metric": "level",
+    "skills": [
+     "Dragon Thrust"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -44653,7 +45422,17 @@
   "effects": [
    {
     "text": "Dragon Thrust: Lv3",
-    "parsed": false
+    "stat": "Dragon Thrust Lv",
+    "value": 3,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Dragon Thrust",
+    "skill_metric": "level",
+    "skills": [
+     "Dragon Thrust"
+    ]
    },
    {
     "text": "STR+2",
@@ -44752,7 +45531,17 @@
   "effects": [
    {
     "text": "Dragon Thrust: Lv3",
-    "parsed": false
+    "stat": "Dragon Thrust Lv",
+    "value": 3,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Dragon Thrust",
+    "skill_metric": "level",
+    "skills": [
+     "Dragon Thrust"
+    ]
    },
    {
     "text": "STR+2",
@@ -46327,7 +47116,16 @@
   "effects": [
    {
     "text": "Double Attack: Lv5",
-    "parsed": false
+    "stat": "Double Attack Lv",
+    "value": 5,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     20
+    ],
+    "stat_keys": [
+     "double_attack"
+    ]
    },
    {
     "text": "INT +2",
@@ -46452,18 +47250,6 @@
   },
   "sets": [],
   "effects": [
-   {
-    "text": "(Odachi) Lv: 4",
-    "stat": "(Odachi) Lv",
-    "value": 4,
-    "unit": null,
-    "parsed": true,
-    "stat_ids": [],
-    "stat_keys": [],
-    "skill": "(Odachi)",
-    "skill_metric": "level",
-    "skills": []
-   },
    {
     "text": "Vengeance Rate: 25%",
     "stat": "Vengeance Rate",
@@ -47200,7 +47986,29 @@
    },
    {
     "text": "Double Attack Lv3 (30%)",
-    "parsed": false
+    "stat": "Double Attack Lv",
+    "value": 3,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     20
+    ],
+    "stat_keys": [
+     "double_attack"
+    ]
+   },
+   {
+    "text": "Double Attack Lv3 (30%)",
+    "stat": "Double Attack Rate",
+    "value": 30,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     51
+    ],
+    "stat_keys": [
+     "double_attack_rate"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -47285,7 +48093,29 @@
    },
    {
     "text": "Double Attack Lv3 (30%)",
-    "parsed": false
+    "stat": "Double Attack Lv",
+    "value": 3,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     20
+    ],
+    "stat_keys": [
+     "double_attack"
+    ]
+   },
+   {
+    "text": "Double Attack Lv3 (30%)",
+    "stat": "Double Attack Rate",
+    "value": 30,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     51
+    ],
+    "stat_keys": [
+     "double_attack_rate"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -47919,7 +48749,17 @@
    },
    {
     "text": "Grants Check Mate Lv1",
-    "parsed": false
+    "stat": "Check Mate Lv",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Check Mate",
+    "skill_metric": "level",
+    "skills": [
+     "Check Mate"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -48253,7 +49093,7 @@
     ]
    },
    {
-    "text": "Queen's Gambit DMG +20%",
+    "text": "Queen's Gambit DMG +20%+5% extra per refine",
     "stat": "Queen's Gambit DMG",
     "value": 20,
     "unit": "%",
@@ -48278,7 +49118,7 @@
      "per": 1,
      "effects": [
       {
-       "text": "Queen's Gambit DMG +5% per refine",
+       "text": "Queen's Gambit DMG +20%+5% extra per refine",
        "stat": "Queen's Gambit DMG",
        "value": 5,
        "unit": "%",
@@ -48720,13 +49560,21 @@
     ]
    },
    {
-    "text": "Permanent Endure Effect ASPD Limit +2",
-    "stat": "Permanent Endure Effect ASPD Limit",
+    "text": "Permanent Endure Effect",
+    "parsed": false
+   },
+   {
+    "text": "ASPD Limit +2",
+    "stat": "ASPD Limit",
     "value": 2,
     "unit": null,
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     17
+    ],
+    "stat_keys": [
+     "aspd_limit"
+    ]
    },
    {
     "text": "SP Cost+35%",
@@ -48754,7 +49602,10 @@
    "text": "Dream Enchants available"
   },
   "lore": null,
-  "override": null
+  "override": {
+   "status": "unverified",
+   "reason": "Two lines of the tooltip ('Permanent Endure Effect' and 'ASPD Limit +2') were read as one, so the +2 ASPD Limit went nowhere -- the limit that holds an auto-attack build's speed (the project owner, 2026-10-01)."
+  }
  },
  {
   "id": 1514,
@@ -49049,7 +49900,31 @@
   "effects": [
    {
     "text": "Dragon Thrust: Lv10",
-    "parsed": false
+    "stat": "Dragon Thrust Lv",
+    "value": 10,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Dragon Thrust",
+    "skill_metric": "level",
+    "skills": [
+     "Dragon Thrust"
+    ]
+   },
+   {
+    "text": "Dragon Thrust DMG +50%",
+    "stat": "Dragon Thrust DMG",
+    "value": 50,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Dragon Thrust",
+    "skill_metric": "damage",
+    "skills": [
+     "Dragon Thrust"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -49059,13 +49934,17 @@
      "per": 1,
      "effects": [
       {
-       "text": "Dragon Thrust DMG +50%Perfect Hit +2% per refine",
-       "stat": "Dragon Thrust DMG +50%Perfect Hit",
+       "text": "Perfect Hit +2% per refine",
+       "stat": "Perfect Hit",
        "value": 2,
        "unit": "%",
        "parsed": true,
-       "stat_ids": [],
-       "stat_keys": []
+       "stat_ids": [
+        13
+       ],
+       "stat_keys": [
+        "perfect_hit"
+       ]
       },
       {
        "text": "HIT +3 per refine",
@@ -49195,10 +50074,10 @@
     "parsed": true,
     "stat_ids": [],
     "stat_keys": [],
-    "skill": "Special: Trig",
+    "skill": "Trigger Heart",
     "skill_metric": "cooldown",
     "skills": [
-     "Special: Trig"
+     "Trigger Heart"
     ]
    },
    {
@@ -49207,7 +50086,22 @@
    },
    {
     "text": "Violent Shot & Scathe DMG +2% per total LUK",
-    "parsed": false
+    "stat": "Violent Shot & Scathe DMG",
+    "value": 2,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Violent Shot & Scathe",
+    "skill_metric": "damage",
+    "skills": [
+     "Violent Shot",
+     "Scathe"
+    ],
+    "per_stat": {
+     "per": 1,
+     "stat": "luk"
+    }
    }
   ],
   "piece_bonus": [],
@@ -49970,11 +50864,7 @@
   "sets": [],
   "effects": [
    {
-    "text": "12% chance to autocast",
-    "parsed": false
-   },
-   {
-    "text": "Earthquake (Lv5)",
+    "text": "12% chance to autocast Earthquake (Lv5)",
     "parsed": false
    },
    {
@@ -50300,7 +51190,17 @@
   "effects": [
    {
     "text": "Dragon Thrust: Lv8",
-    "parsed": false
+    "stat": "Dragon Thrust Lv",
+    "value": 8,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Dragon Thrust",
+    "skill_metric": "level",
+    "skills": [
+     "Dragon Thrust"
+    ]
    },
    {
     "text": "Crescent Dive consumes Dragon Force to deal +100% damage",
@@ -50387,7 +51287,17 @@
   "effects": [
    {
     "text": "Dragon Thrust: Lv6",
-    "parsed": false
+    "stat": "Dragon Thrust Lv",
+    "value": 6,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Dragon Thrust",
+    "skill_metric": "level",
+    "skills": [
+     "Dragon Thrust"
+    ]
    },
    {
     "text": "VIT +5",
@@ -50781,7 +51691,17 @@
   "effects": [
    {
     "text": "Dragon Thrust: Lv5",
-    "parsed": false
+    "stat": "Dragon Thrust Lv",
+    "value": 5,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Dragon Thrust",
+    "skill_metric": "level",
+    "skills": [
+     "Dragon Thrust"
+    ]
    },
    {
     "text": "ASPD+3",
@@ -50866,7 +51786,17 @@
   "effects": [
    {
     "text": "Dragon Thrust: Lv5",
-    "parsed": false
+    "stat": "Dragon Thrust Lv",
+    "value": 5,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Dragon Thrust",
+    "skill_metric": "level",
+    "skills": [
+     "Dragon Thrust"
+    ]
    },
    {
     "text": "ASPD+3",
@@ -51283,7 +52213,17 @@
   "effects": [
    {
     "text": "Dragon Thrust: Lv2",
-    "parsed": false
+    "stat": "Dragon Thrust Lv",
+    "value": 2,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Dragon Thrust",
+    "skill_metric": "level",
+    "skills": [
+     "Dragon Thrust"
+    ]
    },
    {
     "text": "Dragon Thrust autocasts Phantom Spear",
@@ -54095,12 +55035,17 @@
      ],
      "effects": [
       {
-       "text": "Leech Power +4% (total",
-       "parsed": false
-      },
-      {
-       "text": "8%)",
-       "parsed": false
+       "text": "Leech Power +4% (total 8%)",
+       "stat": "Leech Power",
+       "value": 4,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        45
+       ],
+       "stat_keys": [
+        "leech_hp_power"
+       ]
       },
       {
        "text": "10% chance to inflict Curse +15% final damage vs Cursed targets",
@@ -54282,15 +55227,6 @@
   "sets": [],
   "effects": [
    {
-    "text": "Lv: 1",
-    "stat": "Lv",
-    "value": 1,
-    "unit": null,
-    "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
-   },
-   {
     "text": "Max SP +100",
     "stat": "Max SP",
     "value": 100,
@@ -54305,7 +55241,20 @@
    },
    {
     "text": "SP Recovery Rate +1% per base VIT",
-    "parsed": false
+    "per_base_stat": {
+     "per": 1,
+     "stat": "VIT"
+    },
+    "stat": "SP Recovery Rate",
+    "value": 1,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     9
+    ],
+    "stat_keys": [
+     "sp_regen"
+    ]
    },
    {
     "text": "ASPD +10%",
@@ -54536,7 +55485,29 @@
    },
    {
     "text": "Double attack Lv2 (20%)",
-    "parsed": false
+    "stat": "Double Attack Lv",
+    "value": 2,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     20
+    ],
+    "stat_keys": [
+     "double_attack"
+    ]
+   },
+   {
+    "text": "Double attack Lv2 (20%)",
+    "stat": "Double Attack Rate",
+    "value": 20,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     51
+    ],
+    "stat_keys": [
+     "double_attack_rate"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -54621,7 +55592,29 @@
    },
    {
     "text": "Double attack Lv2 (20%)",
-    "parsed": false
+    "stat": "Double Attack Lv",
+    "value": 2,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     20
+    ],
+    "stat_keys": [
+     "double_attack"
+    ]
+   },
+   {
+    "text": "Double attack Lv2 (20%)",
+    "stat": "Double Attack Rate",
+    "value": 20,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     51
+    ],
+    "stat_keys": [
+     "double_attack_rate"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -54725,11 +55718,55 @@
    },
    {
     "text": "Leech: 8% chance, 3% of the damage as HP",
-    "parsed": false
+    "stat": "HP Leech Rate",
+    "value": 8.0,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     44
+    ],
+    "stat_keys": [
+     "leech_hp_rate"
+    ]
+   },
+   {
+    "text": "Leech: 8% chance, 3% of the damage as HP",
+    "stat": "HP Leech Power",
+    "value": 3.0,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     45
+    ],
+    "stat_keys": [
+     "leech_hp_power"
+    ]
    },
    {
     "text": "2% chance, 3% as SP",
-    "parsed": false
+    "stat": "SP Leech Rate",
+    "value": 2.0,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     46
+    ],
+    "stat_keys": [
+     "leech_sp_rate"
+    ]
+   },
+   {
+    "text": "2% chance, 3% as SP",
+    "stat": "SP Leech Power",
+    "value": 3.0,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     47
+    ],
+    "stat_keys": [
+     "leech_sp_power"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -54995,8 +56032,12 @@
     "value": 3,
     "unit": null,
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     19
+    ],
+    "stat_keys": [
+     "splash_range"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -55079,7 +56120,17 @@
    },
    {
     "text": "Enables Eruption Lv10",
-    "parsed": false
+    "stat": "Eruption Lv",
+    "value": 10,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Eruption",
+    "skill_metric": "level",
+    "skills": [
+     "Eruption"
+    ]
    },
    {
     "text": "MATK +5%",
@@ -55846,7 +56897,21 @@
    },
    {
     "text": "Soul Destroyer receives 2% additional scaling on AGI",
-    "parsed": false
+    "per_base_stat": {
+     "per": 1,
+     "stat": "AGI"
+    },
+    "stat": "Soul Destroyer Damage",
+    "value": 2,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Soul Destroyer",
+    "skill_metric": "damage",
+    "skills": [
+     "Soul Destroyer"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -56389,7 +57454,21 @@
    },
    {
     "text": "Thousand Arms receives 2% additional scaling on INT",
-    "parsed": false
+    "per_base_stat": {
+     "per": 1,
+     "stat": "INT"
+    },
+    "stat": "Thousand Arms Damage",
+    "value": 2,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Thousand Arms",
+    "skill_metric": "damage",
+    "skills": [
+     "Thousand Arms"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -56846,7 +57925,17 @@
   "effects": [
    {
     "text": "Dragon Thrust: Lv9",
-    "parsed": false
+    "stat": "Dragon Thrust Lv",
+    "value": 9,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Dragon Thrust",
+    "skill_metric": "level",
+    "skills": [
+     "Dragon Thrust"
+    ]
    },
    {
     "text": "Spear Boomerang pulls the enemy to the caster",
@@ -56943,7 +58032,20 @@
    },
    {
     "text": "SP Regen +1% per INT",
-    "parsed": false
+    "per_base_stat": {
+     "per": 1,
+     "stat": "INT"
+    },
+    "stat": "SP Regen",
+    "value": 1,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     9
+    ],
+    "stat_keys": [
+     "sp_regen"
+    ]
    },
    {
     "text": "DMG vs all sizes +7%",
@@ -58237,11 +59339,26 @@
   "sets": [],
   "effects": [
    {
-    "text": "Double Attack Lv: ??",
-    "parsed": false
+    "text": "Double Attack Lv: = Spectral Mastery Lv",
+    "stat": "Double Attack Lv",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "per_skill_level": {
+     "skills": [
+      "Spectral Mastery"
+     ],
+     "combine": "sum"
+    },
+    "stat_ids": [
+     20
+    ],
+    "stat_keys": [
+     "double_attack"
+    ]
    },
    {
-    "text": "ASPD +1% per 5 base Luk",
+    "text": "ASPD +1% per 5 base LUK",
     "per_base_stat": {
      "per": 5,
      "stat": "LUK"
@@ -58258,7 +59375,7 @@
     ]
    },
    {
-    "text": "MATK+1% per 10 base Luk",
+    "text": "MATK+1% per 10 base LUK",
     "per_base_stat": {
      "per": 10,
      "stat": "LUK"
@@ -58346,7 +59463,10 @@
   ],
   "enchant": null,
   "lore": null,
-  "override": null
+  "override": {
+   "status": "unverified",
+   "reason": "'Double Attack Lv: ??'. The server script ties it to the same skill as the item's per-level block, which the tooltip names Spectral Mastery, so Double Attack at that level. The base-LUK lines are restated because the override replaces the item's effects (2026-10-01 audit)."
+  }
  },
  {
   "id": 13405,
@@ -59568,7 +60688,17 @@
   "effects": [
    {
     "text": "Dragon Thrust: Lv8",
-    "parsed": false
+    "stat": "Dragon Thrust Lv",
+    "value": 8,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Dragon Thrust",
+    "skill_metric": "level",
+    "skills": [
+     "Dragon Thrust"
+    ]
    },
    {
     "text": "ASPD+15%",
@@ -59598,18 +60728,32 @@
    },
    {
     "text": "Double Attack Lv3 (30%)",
-    "parsed": false
+    "stat": "Double Attack Lv",
+    "value": 3,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     20
+    ],
+    "stat_keys": [
+     "double_attack"
+    ]
+   },
+   {
+    "text": "Double Attack Lv3 (30%)",
+    "stat": "Double Attack Rate",
+    "value": 30,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     51
+    ],
+    "stat_keys": [
+     "double_attack_rate"
+    ]
    },
    {
     "text": "5% chance to poison on attacks",
-    "parsed": false
-   },
-   {
-    "text": "A venomous spear forged from the poisoning tail of a dangerous scorpion.",
-    "parsed": false
-   },
-   {
-    "text": "Poison Weapon +15% Damage vs Neutral -15% Damage vs Undead/Ghost -10% Damage vs Holy",
     "parsed": false
    }
   ],
@@ -59620,7 +60764,7 @@
   },
   "conditional": [],
   "enchant": null,
-  "lore": null,
+  "lore": "A venomous spear forged from the poisoning tail of a dangerous scorpion.",
   "override": null
  },
  {
@@ -59706,20 +60850,28 @@
      ],
      "effects": [
       {
-       "text": "Poison chance +5% (total",
-       "parsed": false
+       "text": "Poison chance +5% (total 10%)",
+       "stat": "Poison chance",
+       "value": 5,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [],
+       "stat_keys": [],
+       "skill": "Poison",
+       "skill_metric": "chance",
+       "skills": []
       },
       {
-       "text": "10%)",
-       "parsed": false
-      },
-      {
-       "text": "Bleeding chance +5% (total",
-       "parsed": false
-      },
-      {
-       "text": "10%)",
-       "parsed": false
+       "text": "Bleeding chance +5% (total 10%)",
+       "stat": "Bleeding chance",
+       "value": 5,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [],
+       "stat_keys": [],
+       "skill": "Bleeding",
+       "skill_metric": "chance",
+       "skills": []
       }
      ]
     }
@@ -59801,13 +60953,21 @@
     ]
    },
    {
-    "text": "Cannot be Refined EXP Received +10%",
-    "stat": "Cannot be Refined EXP Received",
+    "text": "Cannot be Refined",
+    "parsed": false
+   },
+   {
+    "text": "EXP Received +10%",
+    "stat": "EXP Received",
     "value": 10,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     41
+    ],
+    "stat_keys": [
+     "exp_gain"
+    ]
    },
    {
     "text": "SP Regen+20%",
@@ -59902,6 +61062,19 @@
     ]
    },
    {
+    "text": "DMG vs Fire Enemies +25%",
+    "stat": "DMG vs Fire Enemies",
+    "value": 25,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     63
+    ],
+    "stat_keys": [
+     "dmg_vs_fire"
+    ]
+   },
+   {
     "text": "INT+5",
     "stat": "INT",
     "value": 5,
@@ -59935,13 +61108,17 @@
      "per": 1,
      "effects": [
       {
-       "text": "DMG vs Fire Enemies +25%Magic Defense Penetration +2 per refine",
-       "stat": "DMG vs Fire Enemies +25%Magic Defense Penetration",
+       "text": "Magic Defense Penetration +2 per refine",
+       "stat": "Magic Defense Penetration",
        "value": 2,
        "unit": null,
        "parsed": true,
-       "stat_ids": [],
-       "stat_keys": []
+       "stat_ids": [
+        29
+       ],
+       "stat_keys": [
+        "mdef_pen"
+       ]
       }
      ]
     }
@@ -60006,7 +61183,9 @@
    "source_mvp": 0,
    "source_normal": 1
   },
-  "sets": [],
+  "sets": [
+   251
+  ],
   "effects": [
    {
     "text": "Double Attack Lv: 2",
@@ -60125,7 +61304,22 @@
   "effects": [
    {
     "text": "Double Attack Lv: Same as Spectral Mastery",
-    "parsed": false
+    "stat": "Double Attack Lv",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "per_skill_level": {
+     "skills": [
+      "Spectral Mastery"
+     ],
+     "combine": "sum"
+    },
+    "stat_ids": [
+     20
+    ],
+    "stat_keys": [
+     "double_attack"
+    ]
    },
    {
     "text": "ASPD Limit +3",
@@ -60143,10 +61337,6 @@
    {
     "text": "Endows weapon attacks with Ghost element",
     "parsed": false
-   },
-   {
-    "text": "Per Level of Spectral",
-    "parsed": false
    }
   ],
   "piece_bonus": [],
@@ -60156,7 +61346,7 @@
   },
   "conditional": [
    {
-    "condition": "Mastery",
+    "condition": "Per Level of Spectral Mastery",
     "effects": [
      {
       "text": "Double Attack Rate +10%",
@@ -60209,7 +61399,13 @@
       "text": "Shadowseer Only",
       "parsed": false
      }
-    ]
+    ],
+    "per_skill_level": {
+     "skills": [
+      "Spectral Mastery"
+     ],
+     "combine": "sum"
+    }
    }
   ],
   "enchant": null,
@@ -60543,7 +61739,17 @@
    },
    {
     "text": "Enables Sniper Nest Lv1",
-    "parsed": false
+    "stat": "Sniper Nest Lv",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Sniper Nest",
+    "skill_metric": "level",
+    "skills": [
+     "Sniper Nest"
+    ]
    },
    {
     "text": "Headshot DMG+20%",
@@ -61049,7 +62255,17 @@
    },
    {
     "text": "Grants Meteor Rush Lv3",
-    "parsed": false
+    "stat": "Meteor Rush Lv",
+    "value": 3,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Meteor Rush",
+    "skill_metric": "level",
+    "skills": [
+     "Meteor Rush"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -61464,7 +62680,22 @@
      "effects": [
       {
        "text": "ASPD +1 per Steel Wings Level",
-       "parsed": false
+       "per_skill_level": {
+        "skills": [
+         "Steel Wings"
+        ],
+        "combine": "sum"
+       },
+       "stat": "ASPD",
+       "value": 1,
+       "unit": null,
+       "parsed": true,
+       "stat_ids": [
+        16
+       ],
+       "stat_keys": [
+        "aspd"
+       ]
       }
      ],
      "at": [
@@ -61872,17 +63103,21 @@
     ]
    },
    {
-    "text": "DMG vs Ghost",
-    "parsed": false
-   },
-   {
-    "text": "Undead and Poison element +25%",
-    "stat": "Undead and Poison element",
+    "text": "DMG vs Ghost, Undead and Poison element +25%",
+    "stat": "DMG vs Ghost, Undead and Poison element",
     "value": 25,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     78,
+     81,
+     69
+    ],
+    "stat_keys": [
+     "dmg_vs_ghost",
+     "dmg_vs_undead",
+     "dmg_vs_poison"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -62619,7 +63854,17 @@
   "effects": [
    {
     "text": "Dragon Thrust: Lv2",
-    "parsed": false
+    "stat": "Dragon Thrust Lv",
+    "value": 2,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Dragon Thrust",
+    "skill_metric": "level",
+    "skills": [
+     "Dragon Thrust"
+    ]
    },
    {
     "text": "HP+100",
@@ -62867,16 +64112,34 @@
   "effects": [
    {
     "text": "Dragon Thrust: Lv5",
+    "stat": "Dragon Thrust Lv",
+    "value": 5,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Dragon Thrust",
+    "skill_metric": "level",
+    "skills": [
+     "Dragon Thrust"
+    ]
+   },
+   {
+    "text": "Cannot be Refined",
     "parsed": false
    },
    {
-    "text": "Cannot be Refined EXP Received +10%",
-    "stat": "Cannot be Refined EXP Received",
+    "text": "EXP Received +10%",
+    "stat": "EXP Received",
     "value": 10,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     41
+    ],
+    "stat_keys": [
+     "exp_gain"
+    ]
    },
    {
     "text": "SP Regen+20%",
@@ -62966,8 +64229,23 @@
   "sets": [],
   "effects": [
    {
-    "text": "Double Attack Lv: ??",
-    "parsed": false
+    "text": "Double Attack Lv: = Spectral Mastery Lv",
+    "stat": "Double Attack Lv",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "per_skill_level": {
+     "skills": [
+      "Spectral Mastery"
+     ],
+     "combine": "sum"
+    },
+    "stat_ids": [
+     20
+    ],
+    "stat_keys": [
+     "double_attack"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -63063,7 +64341,10 @@
   ],
   "enchant": null,
   "lore": null,
-  "override": null
+  "override": {
+   "status": "unverified",
+   "reason": "'Double Attack Lv: ??': server script skill TF_DOUBLE at the GS_SNAKEEYE (Spectral Mastery) level (2026-10-01 audit)."
+  }
  },
  {
   "id": 1528,
@@ -63246,7 +64527,17 @@
   "effects": [
    {
     "text": "Dragon Thrust: Lv7",
-    "parsed": false
+    "stat": "Dragon Thrust Lv",
+    "value": 7,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Dragon Thrust",
+    "skill_metric": "level",
+    "skills": [
+     "Dragon Thrust"
+    ]
    },
    {
     "text": "Phantom Spear DMG+25%",
@@ -63264,7 +64555,21 @@
    },
    {
     "text": "Phantom Spear Receives 1% per VIT Scaling",
-    "parsed": false
+    "per_base_stat": {
+     "per": 1,
+     "stat": "VIT"
+    },
+    "stat": "Phantom Spear Damage",
+    "value": 1,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Phantom Spear",
+    "skill_metric": "damage",
+    "skills": [
+     "Phantom Spear"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -63463,7 +64768,17 @@
   "effects": [
    {
     "text": "Dragon Thrust: Lv8",
-    "parsed": false
+    "stat": "Dragon Thrust Lv",
+    "value": 8,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Dragon Thrust",
+    "skill_metric": "level",
+    "skills": [
+     "Dragon Thrust"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -63574,15 +64889,6 @@
   },
   "sets": [],
   "effects": [
-   {
-    "text": "Lv: 2",
-    "stat": "Lv",
-    "value": 2,
-    "unit": null,
-    "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
-   },
    {
     "text": "Splash Range: 1",
     "stat": "Splash Range",
@@ -63770,12 +65076,21 @@
     ]
    },
    {
-    "text": "(2 Handed Sword)",
-    "parsed": false
-   },
-   {
-    "text": "MATK increased by your base STR",
-    "parsed": false
+    "text": "MATK +1 per base STR",
+    "per_base_stat": {
+     "per": 1,
+     "stat": "STR"
+    },
+    "stat": "MATK",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     11
+    ],
+    "stat_keys": [
+     "matk"
+    ]
    },
    {
     "text": "Dark Property Magic +20%",
@@ -63783,8 +65098,12 @@
     "value": 20,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     77
+    ],
+    "stat_keys": [
+     "magic_dmg_dark"
+    ]
    },
    {
     "text": "INT +5",
@@ -63808,7 +65127,10 @@
   "conditional": [],
   "enchant": null,
   "lore": "A Laphine greatblade the Black Tendrillion swallowed and spat back wrong: now every ounce of the wielder's strength bleeds out of the edge as abyssal magic.",
-  "override": null
+  "override": {
+   "status": "unverified",
+   "reason": "'MATK increased by your / base STR' was wrapped over two lines and read as nothing. Read as MATK +1 per base STR point; the item is newer than the 2023 server snapshot, so there is no script to check it against (2026-10-01 audit)."
+  }
  },
  {
   "id": 1004949,
@@ -63895,7 +65217,21 @@
    },
    {
     "text": "Envenom DMG +2% per total DEX",
-    "parsed": false
+    "stat": "Envenom DMG",
+    "value": 2,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Envenom",
+    "skill_metric": "damage",
+    "skills": [
+     "Envenom"
+    ],
+    "per_stat": {
+     "per": 1,
+     "stat": "dex"
+    }
    },
    {
     "text": "Envenom scales with your ATK",
@@ -63989,7 +65325,17 @@
   "effects": [
    {
     "text": "Dragon Thrust: Lv1",
-    "parsed": false
+    "stat": "Dragon Thrust Lv",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Dragon Thrust",
+    "skill_metric": "level",
+    "skills": [
+     "Dragon Thrust"
+    ]
    },
    {
     "text": "Autocast Freezing Spear Lv5 when using Dragon Thrust",
@@ -64688,7 +66034,17 @@
   "effects": [
    {
     "text": "Dragon Thrust: Lv6",
-    "parsed": false
+    "stat": "Dragon Thrust Lv",
+    "value": 6,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Dragon Thrust",
+    "skill_metric": "level",
+    "skills": [
+     "Dragon Thrust"
+    ]
    },
    {
     "text": "HP +10%",
@@ -64719,7 +66075,17 @@
    },
    {
     "text": "Enables Cover Lv1",
-    "parsed": false
+    "stat": "Cover Lv",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Cover",
+    "skill_metric": "level",
+    "skills": [
+     "Cover"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -65123,16 +66489,42 @@
    },
    {
     "text": "Enables Dragon Pact Lv1",
-    "parsed": false
-   },
-   {
-    "text": "Enables Dragon Breath on the same level as refined",
-    "parsed": false
+    "stat": "Dragon Pact Lv",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Dragon Pact",
+    "skill_metric": "level",
+    "skills": [
+     "Dragon Pact"
+    ]
    }
   ],
   "piece_bonus": [],
   "refine": {
-   "per_refine": [],
+   "per_refine": [
+    {
+     "per": 1,
+     "effects": [
+      {
+       "text": "Enables Dragon Breath on the same level as refined",
+       "value": 1,
+       "unit": null,
+       "parsed": true,
+       "stat": "Dragon Breath Lv",
+       "stat_ids": [],
+       "stat_keys": [],
+       "skill": "Dragon Breath",
+       "skill_metric": "level",
+       "skills": [
+        "Dragon Breath"
+       ]
+      }
+     ]
+    }
+   ],
    "thresholds": []
   },
   "conditional": [],
@@ -65419,10 +66811,6 @@
     ]
    },
    {
-    "text": "Enables Northern Cross at the same level as current refine",
-    "parsed": false
-   },
-   {
     "text": "Northern Cross DMG+35%",
     "stat": "Northern Cross DMG",
     "value": 35,
@@ -65443,6 +66831,20 @@
     {
      "per": 1,
      "effects": [
+      {
+       "text": "Enables Northern Cross at the same level as current refine",
+       "value": 1,
+       "unit": null,
+       "parsed": true,
+       "stat": "Northern Cross Lv",
+       "stat_ids": [],
+       "stat_keys": [],
+       "skill": "Northern Cross",
+       "skill_metric": "level",
+       "skills": [
+        "Northern Cross"
+       ]
+      },
       {
        "text": "HP+1% per refine",
        "stat": "HP",
@@ -65914,7 +67316,17 @@
   "effects": [
    {
     "text": "Dragon Thrust: Lv4",
-    "parsed": false
+    "stat": "Dragon Thrust Lv",
+    "value": 4,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Dragon Thrust",
+    "skill_metric": "level",
+    "skills": [
+     "Dragon Thrust"
+    ]
    },
    {
     "text": "Dragon Thrust DMG+20%",
@@ -65939,11 +67351,7 @@
     "parsed": false
    },
    {
-    "text": "15% chance to autocast",
-    "parsed": false
-   },
-   {
-    "text": "Dragon Thrust Lv4",
+    "text": "15% chance to autocast Dragon Thrust Lv4",
     "parsed": false
    },
    {
@@ -66117,7 +67525,29 @@
    },
    {
     "text": "Leech: 100% chance, 5% of the damage dealt",
-    "parsed": false
+    "stat": "HP Leech Rate",
+    "value": 100.0,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     44
+    ],
+    "stat_keys": [
+     "leech_hp_rate"
+    ]
+   },
+   {
+    "text": "Leech: 100% chance, 5% of the damage dealt",
+    "stat": "HP Leech Power",
+    "value": 5.0,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     45
+    ],
+    "stat_keys": [
+     "leech_hp_power"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -66220,9 +67650,7 @@
        "stat_keys": [],
        "skill": "Stun",
        "skill_metric": "chance",
-       "skills": [
-        "Stun"
-       ]
+       "skills": []
       },
       {
        "text": "Orc Set (with Orc Helm +",
@@ -66259,9 +67687,7 @@
       "stat_keys": [],
       "skill": "Stun",
       "skill_metric": "chance",
-      "skills": [
-       "Stun"
-      ]
+      "skills": []
      }
     ]
    }
@@ -66636,7 +68062,17 @@
   "effects": [
    {
     "text": "Dragon Thrust: Lv5",
-    "parsed": false
+    "stat": "Dragon Thrust Lv",
+    "value": 5,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Dragon Thrust",
+    "skill_metric": "level",
+    "skills": [
+     "Dragon Thrust"
+    ]
    },
    {
     "text": "20% to autocast Geirskogul when casting Phantom Spear",
@@ -66983,7 +68419,17 @@
   "effects": [
    {
     "text": "Dragon Thrust: Lv8",
-    "parsed": false
+    "stat": "Dragon Thrust Lv",
+    "value": 8,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Dragon Thrust",
+    "skill_metric": "level",
+    "skills": [
+     "Dragon Thrust"
+    ]
    },
    {
     "text": "Heavy Stab Autocasts Dragon Breath Lv1",
@@ -67239,7 +68685,17 @@
    },
    {
     "text": "Grants Phantom Slice Lv1",
-    "parsed": false
+    "stat": "Phantom Slice Lv",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Phantom Slice",
+    "skill_metric": "level",
+    "skills": [
+     "Phantom Slice"
+    ]
    },
    {
     "text": "Phantom Slice pulls the enemy to the caster",
@@ -67509,7 +68965,17 @@
   "effects": [
    {
     "text": "Dragon Thrust: Lv7",
-    "parsed": false
+    "stat": "Dragon Thrust Lv",
+    "value": 7,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Dragon Thrust",
+    "skill_metric": "level",
+    "skills": [
+     "Dragon Thrust"
+    ]
    },
    {
     "text": "Dragon Thrust DMG +10%",
@@ -67595,7 +69061,17 @@
   "effects": [
    {
     "text": "Dragon Thrust: Lv7",
-    "parsed": false
+    "stat": "Dragon Thrust Lv",
+    "value": 7,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Dragon Thrust",
+    "skill_metric": "level",
+    "skills": [
+     "Dragon Thrust"
+    ]
    },
    {
     "text": "Dragon Thrust DMG +10%",
@@ -68353,8 +69829,23 @@
   "sets": [],
   "effects": [
    {
-    "text": "Double Attack Lv: ??",
-    "parsed": false
+    "text": "Double Attack Lv: = Spectral Mastery Lv",
+    "stat": "Double Attack Lv",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "per_skill_level": {
+     "skills": [
+      "Spectral Mastery"
+     ],
+     "combine": "sum"
+    },
+    "stat_ids": [
+     20
+    ],
+    "stat_keys": [
+     "double_attack"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -68455,7 +69946,10 @@
   ],
   "enchant": null,
   "lore": null,
-  "override": null
+  "override": {
+   "status": "unverified",
+   "reason": "'Double Attack Lv: ??': server script skill TF_DOUBLE at the GS_SNAKEEYE (Spectral Mastery) level (2026-10-01 audit)."
+  }
  },
  {
   "id": 1809,
@@ -68693,16 +70187,10 @@
        "stat_keys": [],
        "skill": "Silence",
        "skill_metric": "chance",
-       "skills": [
-        "Silence"
-       ]
+       "skills": []
       },
       {
        "text": "Final damage vs Silenced +10% more",
-       "parsed": false
-      },
-      {
-       "text": "(total +30%)",
        "parsed": false
       }
      ]
@@ -69785,12 +71273,14 @@
        ]
       },
       {
-       "text": "Fills your spirit with perfection",
-       "parsed": false
-      },
-      {
-       "text": "granting Critical Rate +50 -1 per base level",
-       "parsed": false
+       "text": "Fills your spirit with perfection, granting Critical Rate +50 -1 per base level",
+       "per_base_level": 1,
+       "stat": "Fills your spirit with perfection, granting Critical Rate +50",
+       "value": -1,
+       "unit": null,
+       "parsed": true,
+       "stat_ids": [],
+       "stat_keys": []
       }
      ]
     }
@@ -70416,8 +71906,28 @@
        "value": 2,
        "unit": "%",
        "parsed": true,
-       "stat_ids": [],
-       "stat_keys": []
+       "stat_ids": [
+        58,
+        61,
+        64,
+        67,
+        70,
+        73,
+        76,
+        79,
+        82
+       ],
+       "stat_keys": [
+        "res_water",
+        "res_earth",
+        "res_fire",
+        "res_wind",
+        "res_poison",
+        "res_holy",
+        "res_dark",
+        "res_ghost",
+        "res_undead"
+       ]
       }
      ]
     }
@@ -71647,7 +73157,17 @@
   "effects": [
    {
     "text": "Dragon Thrust: Lv3",
-    "parsed": false
+    "stat": "Dragon Thrust Lv",
+    "value": 3,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Dragon Thrust",
+    "skill_metric": "level",
+    "skills": [
+     "Dragon Thrust"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -72285,11 +73805,22 @@
   "effects": [
    {
     "text": "Double Attack Lv: = Spectral Mastery Lv",
-    "parsed": false
-   },
-   {
-    "text": "Per Level of Spectral",
-    "parsed": false
+    "stat": "Double Attack Lv",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "per_skill_level": {
+     "skills": [
+      "Spectral Mastery"
+     ],
+     "combine": "sum"
+    },
+    "stat_ids": [
+     20
+    ],
+    "stat_keys": [
+     "double_attack"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -72299,7 +73830,7 @@
   },
   "conditional": [
    {
-    "condition": "Mastery",
+    "condition": "Per Level of Spectral Mastery",
     "effects": [
      {
       "text": "Attack Range +1",
@@ -72395,7 +73926,13 @@
       "text": "Can only be equipped on the offhand.",
       "parsed": false
      }
-    ]
+    ],
+    "per_skill_level": {
+     "skills": [
+      "Spectral Mastery"
+     ],
+     "combine": "sum"
+    }
    }
   ],
   "enchant": null,
@@ -72904,15 +74441,26 @@
     "stat_keys": [
      "luk"
     ]
-   },
-   {
-    "text": "Zeny Limit on Kill +2/Refine",
-    "parsed": false
    }
   ],
   "piece_bonus": [],
   "refine": {
-   "per_refine": [],
+   "per_refine": [
+    {
+     "per": 1,
+     "effects": [
+      {
+       "text": "Zeny Limit on Kill +2/Refine",
+       "stat": "Zeny Limit on Kill",
+       "value": 2,
+       "unit": null,
+       "parsed": true,
+       "stat_ids": [],
+       "stat_keys": []
+      }
+     ]
+    }
+   ],
    "thresholds": []
   },
   "conditional": [],
@@ -72990,7 +74538,17 @@
   "effects": [
    {
     "text": "Dragon Thrust: Lv8",
-    "parsed": false
+    "stat": "Dragon Thrust Lv",
+    "value": 8,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Dragon Thrust",
+    "skill_metric": "level",
+    "skills": [
+     "Dragon Thrust"
+    ]
    },
    {
     "text": "Wind Cutter DMG+15%",
@@ -73019,23 +74577,6 @@
     "skills": [
      "Wind Cutter"
     ]
-   },
-   {
-    "text": "A strong enchanted spear that creates a strong tornado when wielded.",
-    "parsed": false
-   },
-   {
-    "text": "Wind Weapon +15%",
-    "stat": "Wind Weapon",
-    "value": 15,
-    "unit": "%",
-    "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
-   },
-   {
-    "text": "Damage vs Water -15% Damage vs Wind/Earth -10% Damage vs Dark",
-    "parsed": false
    }
   ],
   "piece_bonus": [],
@@ -73045,7 +74586,7 @@
   },
   "conditional": [],
   "enchant": null,
-  "lore": null,
+  "lore": "A strong enchanted spear that creates a strong tornado when wielded.",
   "override": null
  }
 ]

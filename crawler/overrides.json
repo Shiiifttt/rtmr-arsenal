@@ -38,6 +38,16 @@
   ],
 
   "items": {
+    "Ogretooth": {
+      "status": "unverified",
+      "reason": "Two lines of the tooltip ('Permanent Endure Effect' and 'ASPD Limit +2') were read as one, so the +2 ASPD Limit went nowhere -- the limit that holds an auto-attack build's speed (the project owner, 2026-10-01).",
+      "effects": [
+        "Double Attack Lv: 10",
+        "Permanent Endure Effect",
+        "ASPD Limit +2",
+        "SP Cost+35%"
+      ]
+    },
     "Moonless Gem of Darkness": {
       "status": "unverified",
       "reason": "The tooltip calls the skills its damage lines scale '3 skills': the three it gives a status to just above, New Moon Blades, Full Moon Blades and Dragon Omamori. Left to the parser, that is a skill named '3 skills' that nothing has, so the -20% and the +2% per refine went nowhere. Written out per skill here.",
@@ -114,6 +124,155 @@
       ]
     },
 
+    "Turtle General Card": {
+      "status": "unverified",
+      "reason": "'Turns 1/9 your base VIT into ATK' is ATK +1 per 9 base VIT: the server script is bonus bBaseAtk,(readparam(bVit)/9), readparam being the sheet's points. Written in the wording the parser reads (2026-10-01 audit).",
+      "effects": ["ATK +1 per 9 base VIT", "HP+2%"]
+    },
+    "Vine Willow Card": {
+      "status": "unverified",
+      "reason": "'Every 10 base INT increases ATK by 1': server script bonus bBaseAtk,(readparam(bInt))/10. Rewritten as the parser reads it (2026-10-01 audit).",
+      "effects": ["ATK +1 per 10 base INT"]
+    },
+    "Splendide Edge": {
+      "status": "unverified",
+      "reason": "'MATK increased by your / base STR' was wrapped over two lines and read as nothing. Read as MATK +1 per base STR point; the item is newer than the 2023 server snapshot, so there is no script to check it against (2026-10-01 audit).",
+      "effects": ["Vengeance Rate: 12%", "MATK +1 per base STR", "Dark Property Magic +20%", "INT +5"]
+    },
+    "Joker's Wild": {
+      "status": "unverified",
+      "reason": "'Recover 100 SP per hit.' / 'Increases by 14 SP per refine.' -- the second names no stat. The server script is bonus bSPDrainValue,100+(14*refine): 14 more SP per hit per refine (2026-10-01 audit).",
+      "per_refine": [{ "per": 1, "effects": ["Recover 14 SP per hit"] }]
+    },
+    "Evil Wings": {
+      "status": "unverified",
+      "reason": "'Damage vs Fire, Earth, Wind and Water +10%'. The server script gives both halves for each element, bAddEle and bMagicAddEle +10, so it is written as physical and magic damage (2026-10-01 audit).",
+      "effects": ["Physical and magic damage vs Fire/Earth/Wind/Water +10%"]
+    },
+    "Angel Wings": {
+      "status": "unverified",
+      "reason": "'Damage vs Neutral, Poison, Ghost and Undead +10%'. The server script gives bAddEle and bMagicAddEle +10 for each, so it is written as physical and magic damage (2026-10-01 audit).",
+      "effects": ["Physical and magic damage vs Neutral/Poison/Ghost/Undead +10%"]
+    },
+    "Jormungandr's Promise": {
+      "status": "unverified",
+      "reason": "'Double Attack Lv: Refine' over 'All Stats +3' was glued into one line and both were lost. Read as Double Attack at the weapon's refine level (capped at 10 like every Double Attack level), as Fallen Dagger writes it ('Double Attack Lv: = Refine (max 10)') (2026-10-01 audit).",
+      "effects": ["Double Attack Lv: = Refine", "All Stats +3"]
+    },
+    "Eternal Icicle Sword": {
+      "status": "unverified",
+      "reason": "'30% Extra \"Frost Diver\" Damage per Refine': the server script is bSkillAtk MG_FROSTDIVER,30*refine (2026-10-01 audit).",
+      "per_refine": [{ "per": 1, "effects": ["Frost Diver Damage +30%"] }]
+    },
+    "Crimson Wings Helm": {
+      "status": "unverified",
+      "reason": "'8% chance to leech 3% of damage dealt.' / 'Amount increases by 1% per refine'. The amount is the leech power: +1% per refine (the 2023 server script has power 5+refine; the live tooltip's 3 is kept) (2026-10-01 audit).",
+      "per_refine": [{ "per": 1, "effects": ["Leech Power +1%"] }]
+    },
+    "Limitless Legacy Gloves": {
+      "status": "unverified",
+      "reason": "'STR +1 per Hallucination' / 'Walk level' was wrapped mid skill name. Every other Limitless piece has one stat per skill level as a piece bonus, so this is STR +1 per Hallucination Walk level. 'Shadow Slash damage +6% per Blade Mastery level' is skill damage, as the 2023 server writes such lines (the owner, 2026-10-01: refer to the 2023 code); the Night Raven kit no longer adds it to the ratio itself (2026-10-01 audit).",
+      "piece_bonus": ["Shadow Slash damage +6% per Blade Mastery level", "STR +1 per Hallucination Walk level"]
+    },
+    "Limitless Legacy Shoes": {
+      "status": "unverified",
+      "reason": "'LUK +1 per Fury level' sits under the 'On kill with Sonic Blow:' heading, so it read as an on-kill effect. Every other Limitless piece has its stat-per-skill-level line as a plain piece bonus, so it is read as one here too; only the heal is on kill (2026-10-01 audit).",
+      "piece_bonus": ["Sonic Blow damage +6% per Katar Mastery level", "LUK +1 per Fury level"],
+      "conditional": [{ "condition": "On kill with Sonic Blow", "effects": ["heal 1% max HP per refine"] }]
+    },
+    "Limitless Innovation Shoes": {
+      "status": "unverified",
+      "reason": "'DEX +1 per Ricochet Arrow level.' sits under 'On kill with Arrow Vulcan:'. Read as a plain piece bonus like every other Limitless piece's stat-per-skill-level line; only the coin is on kill (2026-10-01 audit).",
+      "piece_bonus": ["Arrow Vulcan damage +6% per Bow Mastery level.", "DEX +1 per Ricochet Arrow level."],
+      "conditional": [{ "condition": "On kill with Arrow Vulcan", "effects": ["gain 1 Coin per refine."] }]
+    },
+    "Driller Card": {
+      "status": "unverified",
+      "reason": "'Adds 0.2% per base AGI scaling to the skill:' is written as a heading over 'Backstab', so it read as a condition with nothing in it. Server script: bSkillAtk RG_BACKSTAP,(readparam(bAgi)/5) -- Back Stab damage +1% per 5 base AGI (2026-10-01 audit).",
+      "effects": ["Backstab Damage +1% per 5 base AGI"],
+      "conditional": []
+    },
+    "Mantis Card": {
+      "status": "unverified",
+      "reason": "'Adds 0.2% per base VIT scaling to the skills:' over 'Rolling Cutter.' / 'Cross Ripper Slasher.'. Server script: bSkillAtk on both, readparam(bVit)/5 (2026-10-01 audit).",
+      "effects": ["Rolling Cutter Damage +1% per 5 base VIT", "Cross Ripper Slasher Damage +1% per 5 base VIT"],
+      "conditional": []
+    },
+    "Demon Pungus Card": {
+      "status": "unverified",
+      "reason": "'Adds 0.5% per base INT scaling to the skill:' over 'Envenom'. Server script: bSkillAtk TF_POISON,(readparam(bInt)/5) -- the 2023 code gives 1% per 5 INT where the tooltip says 0.5% per INT, i.e. 1% per 2. The tooltip is the live number and is used (2026-10-01 audit).",
+      "effects": ["Envenom Damage +1% per 2 base INT"],
+      "conditional": []
+    },
+    "Wayward Gem of Laid Traps": {
+      "status": "unverified",
+      "reason": "Under 'Per Refine:' the three autocast lines start with '+1%', so they were glued onto 'Thief Spells Damage +2%' and all of it was lost. Split back into the damage line and the three autocasts (2026-10-01 audit).",
+      "per_refine": [{ "per": 1, "effects": [
+        "Thief Spells Damage +2%",
+        "+1% per refine chance to autocast Flaming Petals Lv. 2 per Samsara Burst or Makibishi Hit",
+        "+1% per refine chance to autocast Freezing Spear Lv. 2 per Samsara Burst or Makibishi Hit",
+        "+1% per refine chance to autocast Wind Blade Lv. 2 per Samsara Burst or Makibishi Hit"
+      ] }]
+    },
+    "Lust Pick": {
+      "status": "unverified",
+      "reason": "'Penetration +100': the project owner (2026-10-01) -- full DEF penetration. Written out as Defense Penetration so it cannot be read any other way.",
+      "effects": ["Double Attack Lv: 6", "Defense Penetration +100", "SP-50%"]
+    },
+    "Mind Vessel Card": {
+      "status": "unverified",
+      "reason": "'SP Regen 10%+1% per 2 base LUK': a base and a scaling run together with no sign on the first. Read as SP Regen +10%, and +1% per 2 base LUK (2026-10-01 audit).",
+      "effects": ["SP Regen +10%", "SP Regen +1% per 2 base LUK"]
+    },
+    "Deft Gem of Precision": {
+      "status": "unverified",
+      "reason": "'All 4 skills' are the four the first line names: Eruption, Flaming Petals, Freezing Spear and Wind Blade. 'Cooldown on all of them: +3 s' is read on the same four. Written out per skill so they count (2026-10-01 audit).",
+      "effects": [
+        "Eruption, Flaming Petals, Freezing Spear and Wind Blade basic spells autocast Unholy Light on level learned (limited by refine level).",
+        "Eruption Cooldown +3s", "Flaming Petals Cooldown +3s", "Freezing Spear Cooldown +3s", "Wind Blade Cooldown +3s",
+        "Eruption Damage -40%", "Flaming Petals Damage -40%", "Freezing Spear Damage -40%", "Wind Blade Damage -40%",
+        "All Stats -5"
+      ],
+      "per_refine": [{ "per": 1, "effects": [
+        "Magic Defense Penetration +1",
+        "Eruption Damage +4%", "Flaming Petals Damage +4%", "Freezing Spear Damage +4%", "Wind Blade Damage +4%"
+      ] }]
+    },
+    "Polymath Gem of All Schools": {
+      "status": "unverified",
+      "reason": "'All 4 skill Damage +4%' per refine names the four the gem enables just above it: Greater Explosion, Meteor Assault, Thousand Arms and Soul Destroyer (2026-10-01 audit).",
+      "per_refine": [{ "per": 1, "effects": [
+        "Enables Greater Explosion at refine level", "Enables Meteor Assault at refine level",
+        "Enables Thousand Arms at refine level", "Enables Soul Destroyer at refine level",
+        "Greater Explosion Damage +4%", "Meteor Assault Damage +4%", "Thousand Arms Damage +4%", "Soul Destroyer Damage +4%"
+      ] }]
+    },
+    "Astro Dagger": {
+      "status": "unverified",
+      "reason": "'Double Attack Lv: ??'. The server script is skill TF_DOUBLE at the GS_SNAKEEYE level -- the same skill its 'Per Level of Spectral Mastery' block counts (bDoubleAddRate 10 a level) -- so Double Attack at the Spectral Mastery level (2026-10-01 audit).",
+      "effects": ["Double Attack Lv: = Spectral Mastery Lv"]
+    },
+    "Death Rune Dagger": {
+      "status": "unverified",
+      "reason": "'Double Attack Lv: ??': server script skill TF_DOUBLE at the GS_SNAKEEYE (Spectral Mastery) level (2026-10-01 audit).",
+      "effects": ["Double Attack Lv: = Spectral Mastery Lv", "Magic Defense Penetration +10", "5% chance to autocast Lv3 Samsara Burst"]
+    },
+    "Specter Dagger": {
+      "status": "unverified",
+      "reason": "'Double Attack Lv: ??': server script skill TF_DOUBLE at the GS_SNAKEEYE (Spectral Mastery) level (2026-10-01 audit).",
+      "effects": ["Double Attack Lv: = Spectral Mastery Lv"]
+    },
+    "Umbra Dagger": {
+      "status": "unverified",
+      "reason": "'Double Attack Lv: ??': server script skill TF_DOUBLE at the GS_SNAKEEYE (Spectral Mastery) level (2026-10-01 audit).",
+      "effects": ["Double Attack Lv: = Spectral Mastery Lv"]
+    },
+    "Sacrifice": {
+      "status": "unverified",
+      "reason": "'Double Attack Lv: ??'. The server script ties it to the same skill as the item's per-level block, which the tooltip names Spectral Mastery, so Double Attack at that level. The base-LUK lines are restated because the override replaces the item's effects (2026-10-01 audit).",
+      "effects": ["Double Attack Lv: = Spectral Mastery Lv", "ASPD +1% per 5 base LUK", "MATK+1% per 10 base LUK", "ASPD Limit +3", "Holy Endow on Weapon"]
+    },
+
     "Tengu Geta": {
       "status": "verified",
       "reason": "'All Cast Time -5%' / 'ATK +5, MATK +5' / 'Extra 1% and +1 per refine'. One continuation covering two lines with two different units, which no inheritance rule can split on its own -- read alone it parsed as a stat literally named 'Extra 1% and'. Per the project owner the per cent is the cast time and the flat +1 is the ATK and MATK. The cast reduction stays negative because it is more of a reduction.",
@@ -131,6 +290,45 @@
       "member_count": 2
     },
 
+    "sin-daggers": {
+      "create": true,
+      "name": "Sin Daggers",
+      "status": "unverified",
+      "reason": "Both daggers write the heading 'Sin Daggers:' (no 'Set') over 'First and Second', then 'Set Bonus:'. The parser read it as a condition and lost the bonus lines, so the gear search never valued the pair (2026-10-01, Night Raven Definitive Dagger build).",
+      "members": ["First Dagger of Sins", "Second Dagger of Sins"],
+      "member_count": 2,
+      "set_bonus": ["Definitive Dagger Cooldown -0.5s", "AGI+3"]
+    },
+    "gravewhisper-skull-mask": {
+      "create": true,
+      "name": "Skull Mask (Gravewhisper)",
+      "status": "unverified",
+      "reason": "Gravewhisper writes 'Skull Mask Set:' then 'Critical Damage +10%' and 'while wearing Skull Mask', with no 'Set Bonus:' line, so the parser made no set and the bonus was lost (tools/audit-gear.ts, 2026-10-01).",
+      "members": ["Gravewhisper", "Skull Mask"],
+      "member_count": 2,
+      "set_bonus": ["Critical Damage +10%"]
+    },
+    "asgard": {
+      "status": "unverified",
+      "reason": "'Double Max HP/SP' has no number to read. The project owner (2026-10-01): it doubles them -- written as a x2 multiplier on the finished pools. The other lines are restated because the override replaces the whole set bonus.",
+      "set_bonus": ["Max HP/SP Multiplier +100%", "Disables HP/SP Regeneration.", "Healing Received -50%"]
+    },
+    "legacy-of-heroes": {
+      "status": "unverified",
+      "reason": "'Per 10 Refines: +3% All Bonuses (Max 12% at +40 Total)'. The project owner (2026-10-01): each of the set's per cent bonuses -- SP, HP, ATK, MATK -- goes up 3% per 10 total set refines. Four shadow pieces reach +40, so the 12% cap falls out of the steps.",
+      "set_refine_per": [{ "per": 10, "effects": ["SP+3%", "HP+3%", "ATK+3%", "MATK+3%"] }]
+    },
+    "master-thief": {
+      "status": "unverified",
+      "reason": "'All 4 Skills Damage +10%' and 'Per 2 Refines: +1% All 4 Skills Damage. (Max 20% at +40 Total)' name no skill, so they counted for nothing. The four are the ones the pieces name, one each: Backstab (Armor), Rolling Cutter (Gloves), Double Strafe (Pendant), Cross Ripper Slasher (Shoes). Four shadow pieces top out at +40 total, which is where the 20% cap falls, so the cap needs no rule of its own (2026-10-01 audit).",
+      "set_bonus": [
+        "All Stats +3",
+        "Backstab DMG +10%", "Rolling Cutter DMG +10%", "Double Strafe DMG +10%", "Cross Ripper Slasher DMG +10%"
+      ],
+      "set_refine_per": [{ "per": 2, "effects": [
+        "Backstab DMG +1%", "Rolling Cutter DMG +1%", "Double Strafe DMG +1%", "Cross Ripper Slasher DMG +1%"
+      ] }]
+    },
     "full-shadow-card": {
       "create": true,
       "name": "Full Shadow Card",

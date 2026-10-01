@@ -1,0 +1,38 @@
+[
+ {
+  "name": "as is",
+  "spec": "",
+  "final": "win 98% lost 2% 38,219 dps 6s 429 kills/h (sit 0.8s) 13.9 deaths/h; killed by Vampire Gift x1056, Cloud Kill x130",
+  "value": 0.1200000000000001
+ },
+ {
+  "name": "as is (repeat, for noise)",
+  "spec": "stat.str=86",
+  "final": "win 98% lost 2% 38,191 dps 6s 429 kills/h (sit 0.8s) 14.0 deaths/h; killed by Vampire Gift x1063, Cloud Kill x129",
+  "value": 0.08999999999999986
+ },
+ {
+  "name": "Laevateinn +9 off-hand",
+  "spec": "offhand=Laevateinn+9; offhand.cards=Strange Monk Card",
+  "final": "win 96% lost 4% 32,633 dps 6s 367 kills/h (sit 0.7s) 19.9 deaths/h; killed by Vampire Gift x1678, Cloud Kill x187",
+  "value": -2.3
+ },
+ {
+  "name": "Guiding main, DEX 1, STR 99, VIT 58",
+  "spec": "weapon=Guiding Dagger+9; weapon.cards=Sarah Irine Card,Observation Card,Valkyrie Randgris Card; weapon.rolls=roll1:max_hp:2,roll2:sp_cost_reduced:5,roll3:melee_damage:5,roll4:critical_damage:10; stat.dex=1; stat.str=99; stat.vit=58",
+  "final": "win 97% lost 3% 35,825 dps 6s 406 kills/h (sit 0.8s) 14.4 deaths/h; killed by Vampire Gift x1157, Cloud Kill x141",
+  "value": -0.2600000000000007
+ },
+ {
+  "name": "Guiding main, DEX 1 STR 99 VIT 58, Ehwaz",
+  "spec": "weapon=Guiding Dagger+9; weapon.cards=Sarah Irine Card,Observation Card,Valkyrie Randgris Card; weapon.rolls=roll1:max_hp:2,roll2:sp_cost_reduced:5,roll3:melee_damage:5,roll4:critical_damage:10; stat.dex=1; stat.str=99; stat.vit=58; runeorb=Ehwaz Rune of Horse+9",
+  "final": "win 99% lost 1% 32,212 dps 6s 455 kills/h (sit 0.8s) 3.7 deaths/h; killed by Huuma Shuriken - Grasp x215, Vampire Gift x77",
+  "value": 3.4399999999999995
+ },
+ {
+  "name": "Laevateinn off-hand + Ehwaz",
+  "spec": "offhand=Laevateinn+9; offhand.cards=Strange Monk Card; runeorb=Ehwaz Rune of Horse+9",
+  "final": "win 99% lost 1% 29,425 dps 7s 408 kills/h (sit 0.8s) 4.6 deaths/h; killed by Huuma Shuriken - Grasp x164, Cloud Kill x118",
+  "value": 2.7
+ }
+]

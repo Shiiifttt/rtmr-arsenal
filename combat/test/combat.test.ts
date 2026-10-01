@@ -223,13 +223,16 @@ test('a Green Potion cures silence the moment it lands', async () => {
   assert.ok(fight.meter!.actions['Million Stab'] || fight.meter!.actions['New Moon'], 'skills again after the cure');
 });
 
-test('nothing is up at the pull: Hallucination Walk is cast in the fight', async () => {
+test('Hallucination Walk is up at the pull, Kawarimi is cast in the fight', async () => {
   const f = await fighter();
   const fight = newFight(f, dummyMonster(), satsujin, priorityPolicy, { seed: 1, limitMs: 30_000 });
-  assert.equal(has(fight, 'hallucination'), false);
+  assert.equal(has(fight, 'hallucination'), true);
   assert.equal(has(fight, 'kawarimi'), false);
-  run(fight);
-  assert.equal(fight.meter!.sequence[0], 'Hallucination Walk');
+  // The old way (the project owner, 2026-09-26): nothing up, the walk cast in the fight.
+  const old = newFight(f, dummyMonster(), satsujin, priorityPolicy, { seed: 1, limitMs: 30_000, options: { prepHallucination: false } });
+  assert.equal(has(old, 'hallucination'), false);
+  run(old);
+  assert.equal(old.meter!.sequence[0], 'Hallucination Walk');
 });
 
 /**
@@ -505,7 +508,8 @@ test('the project owner\'s dummy test: right hand only on skills, both on autos'
     assert.ok(Math.abs(got / want - 1) <= tol, `${what}: sim ${Math.round(got)} vs game ${want}`);
   const onDummy = (fx: typeof f, skill: string, o: { combo?: boolean; crit?: boolean } = {}) => {
     const fight = newFight({ ...fx, critRate: o.crit ? 10_000 : -1000 }, dummyMonster(), satsujin, priorityPolicy,
-      { seed: 1, limitMs: 30_000, options: { prepFocus: false } });
+      // Read with no Hallucination Walk up (Shadow Slash 1,360 a hit with it against the game's 1,195).
+      { seed: 1, limitMs: 30_000, options: { prepFocus: false, prepHallucination: false } });
     fight.rng = new Rng(0, true);
     delete fight.me.buffs.sevenWinds;
     if (skill === 'Full Moon') grant(fight, 'invisible', 5000);
@@ -617,8 +621,9 @@ test('the pull says what went up: the endow and the Focus', async () => {
   // A [PREFIGHT] block, one line each, so no line is wider than the fight's.
   assert.equal(fight.log![0], '[PREFIGHT]');
   assert.equal(fight.log![1], '  Moonlight Stance');
-  assert.match(fight.log![2], /^ {2}Seven Winds: Holy \(110% vs Ghost 4\)$/);
-  assert.match(fight.log![3], /^ {2}10 Focus/);
+  assert.equal(fight.log![2], '  Hallucination Walk');
+  assert.match(fight.log![3], /^ {2}Seven Winds: Holy \(110% vs Ghost 4\)$/);
+  assert.match(fight.log![4], /^ {2}10 Focus/);
 });
 
 test('armor cards set the element and immunities the fight reads (Scylla Card)', async () => {

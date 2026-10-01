@@ -37,7 +37,7 @@ import { plannerDataset } from '../data.ts';
 import { attackIntervalMs, attrFix, castTimeMs, magicDamage, physicalDamage, skillDelayMs } from '../formulas.ts';
 import type { Fighter, MobSkill, Monster } from '../model.ts';
 import {
-  canUse, dot, grant, has, mobHas, readyAt, say, stacks, strike, targetNow,
+  canUse, dot, grant, has, mobHas, noteProc, readMarks, readyAt, say, stacks, strike, targetNow,
   type Action, type Fight, type Kit,
 } from '../engine.ts';
 import {
@@ -436,6 +436,7 @@ const hauntingSlice: Action = {
     const p = Math.min(1, 0.2 * l);
     if (fight.rng.expect ? p >= 0.5 : fight.rng.chance(p)) {
       fight.log && say(fight, 'Haunting Slice autocasts Scythe Reap');
+      noteProc(fight, 'Scythe Reap');
       reap(fight, l, 'Scythe Reap (autocast)');
     }
   },
@@ -759,4 +760,14 @@ export const revenant: Kit = {
   prepNotes,
   // Haunting Slice dashes in: no walk back after a dodge.
   gapClosers: ['Haunting Slice'],
+  // What the combo runs on, for the Rotation overlay's arrows.
+  statuses: (fight) => readMarks(fight, {
+    me: [
+      { key: 'combo', label: 'Combo Ready' }, { key: 'finisher', label: 'Finisher Ready' },
+      { key: 'overslash', label: 'Overslash', stacks: true }, { key: 'castReady', label: 'Cast Ready' },
+      { key: 'overheal', label: 'Ominous shield', value: true },
+    ],
+    target: [{ key: 'kyomu', label: 'Mirror Break' }],
+    dots: { 'Underworld Rainstorm': 'Underworld Rainstorm' },
+  }),
 };

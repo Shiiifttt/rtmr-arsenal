@@ -940,6 +940,58 @@ input:focus, select:focus, button:focus-visible {
 .combat-progress-track span { display: block; height: 100%; background: var(--accent); transition: width .3s; }
 @media (prefers-reduced-motion: reduce) { .combat-progress-track span { transition: none; } }
 
+/* ---- live search (dev server only) --------------------------------------- */
+
+.picker.live .picker-list { flex: 1; padding: 10px 16px; }
+.picker.live h4 { margin: 12px 0 6px; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--text-faint); }
+.live-figures { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; margin: 4px 0 8px; }
+.live-big { display: flex; align-items: baseline; gap: 6px; color: var(--accent); }
+.live-num { font-family: var(--mono); font-size: 28px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.live-unit { font-size: 12px; color: var(--text-dim); }
+.live-spark { align-self: center; margin-left: 6px; }
+.live-facts { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 12px; color: var(--text-dim); }
+.live-facts b { color: var(--text); font-family: var(--mono); }
+.live-state { font-weight: 600; }
+.live-state.running { color: var(--good); }
+.live-state.done { color: var(--text-dim); }
+.live-state.stopped { color: var(--bad); }
+.live-phase { font-size: 13px; margin: 2px 0; }
+.live-score { display: flex; flex-direction: column; gap: 2px; font-size: 12px; color: var(--text-dim); margin: 6px 0; }
+.live-score b { color: var(--text); font-family: var(--mono); }
+.live-cols { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 20px; }
+@media (max-width: 720px) { .live-cols { grid-template-columns: minmax(0, 1fr); } }
+.live-slots, .live-workers { list-style: none; margin: 0; padding: 0; font-size: 12px; }
+.live-slots li, .live-workers li {
+  display: flex; gap: 8px; align-items: baseline; padding: 2px 4px; border-radius: 3px;
+  border-left: 2px solid transparent; min-width: 0;
+}
+.live-slots li.testing { border-left-color: var(--accent); background: #1d1729; }
+.live-slot { flex: 0 0 92px; color: var(--text-faint); font-size: 11px; }
+.live-item, .live-change { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.live-slots li, .live-workers li { align-items: center; }
+.live-start { border-bottom: 1px solid var(--border); }
+.live-start > summary { cursor: pointer; padding: 8px 16px; font-size: 12px; color: var(--text-dim); }
+.live-start[open] > summary { padding-bottom: 0; }
+.live-start .combat-form { border-bottom: none; }
+.live-start .combat-form input:not([type]) { width: 150px; }
+.live-extra { flex: 1 1 220px; }
+.live-extra input { width: 100% !important; }
+.live-start-msg { margin: 0 16px 10px; }
+.live-actions { display: flex; gap: 8px; margin-left: auto; }
+.live-icons { display: inline-flex; gap: 1px; flex: none; border-radius: 3px; }
+.live-icons .icon { width: 22px; height: 22px; }
+.live-count { font-family: var(--mono); font-size: 10px; color: var(--accent); }
+.live-kind { flex: 0 0 56px; font-size: 10px; text-transform: uppercase; letter-spacing: .04em; color: var(--text-faint); }
+.live-workers li.screen .live-kind { color: var(--accent); }
+.live-workers li.confirm .live-kind { color: var(--warn); }
+.live-workers li.estimate .live-kind { color: var(--info); }
+.live-target { flex: 0 0 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text-dim); }
+.live-steps td:first-child { white-space: normal; }
+/* A swap flashes as it lands: the element is keyed on its text, so it remounts. */
+.flash { animation: live-flash .6s ease-out; }
+@keyframes live-flash { from { color: var(--accent); background: #2a2140; } }
+@media (prefers-reduced-motion: reduce) { .flash { animation: none; } }
+
 /* ---- rotation overlay ---------------------------------------------------- */
 
 .picker.rotation-overlay { width: min(980px, 100%); height: min(860px, 88vh); }
@@ -950,14 +1002,29 @@ input:focus, select:focus, button:focus-visible {
 .rot-note { font-size: 12px; color: var(--text-dim); margin: 4px 0 8px; }
 .rot-note a { color: var(--accent); }
 .rot-sub { font-size: 11px; color: var(--text-faint); margin: 6px 0 0; }
-.rot-section { margin-top: 14px; }
-.rot-section h4 { margin: 0 0 8px; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--text-faint); }
-.rot-chain { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 2px; }
+.rot-section { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--border); }
+.rot-section h4 { margin: 0 0 14px; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--text-faint); }
+/* Tiles sit on one line: every cell the same height, aligned from the top. */
+.rot-section h4 { text-align: center; }
+.rot-note, .rot-sub { text-align: center; }
+/* A combo: its tiles centered on one line, then its share of loops and damage on a line of their own. */
+.rot-combo { display: flex; flex-direction: column; align-items: center; gap: 4px; margin-bottom: 12px; }
+.rot-combo.card {
+  position: relative; padding: 30px 16px 12px; border: 1px solid var(--border); border-radius: 8px;
+  background: rgba(255, 255, 255, .025);
+}
+/* The loop's share: a label on the card's top-left corner, inset from the edges. */
+.rot-loop-share {
+  position: absolute; left: 12px; top: 8px; padding: 1px 8px; border-radius: 10px;
+  background: var(--bg-input); border: 1px solid var(--border); color: var(--text-dim);
+  font-family: var(--mono); font-size: 10.5px; line-height: 16px;
+}
+.rot-chain { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 6px 2px; }
+.rot-buffs { justify-content: center; }
 .rot-step { display: inline-flex; align-items: flex-start; gap: 2px; }
-.rot-step .rot-arrow { margin-top: 8px; }
+.rot-step .rot-arrow, .rot-chain > .rot-arrow { margin-top: 8px; }
 .rot-arrow { color: var(--text-faint); font-size: 14px; padding: 0 3px; }
-.rot-cycle { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
-.rot-share { font-family: var(--mono); font-size: 11px; color: var(--text-dim); min-width: 74px; }
+.rot-share { font-family: var(--mono); font-size: 11px; color: var(--text-dim); }
 .rot-filler, .rot-buff { display: inline-flex; flex-direction: column; align-items: center; gap: 2px; margin-right: 6px; }
 .rot-buffs { display: flex; flex-wrap: wrap; gap: 8px 4px; }
 .rot-gain { font-family: var(--mono); font-size: 10px; color: #7ee787; white-space: nowrap; }
@@ -971,9 +1038,37 @@ input:focus, select:focus, button:focus-visible {
 }
 .rot-tile:hover, .rot-tile:focus { border-color: var(--accent); }
 .rot-tile img { width: 26px; height: 26px; image-rendering: pixelated; }
+/* A run of the same skill: one tile, "×N" in a small black box on its corner. */
+.rot-count {
+  position: absolute; right: -6px; bottom: -6px; padding: 0 3px; border-radius: 3px;
+  background: #000; color: #fff; font-family: var(--mono); font-size: 10px; line-height: 14px;
+  border: 1px solid var(--border-strong); pointer-events: none;
+}
+/* A label in a black box on the tile's top-right corner: AUTO (a cast the game makes by itself), OPTIONAL (a buff up by choice). */
+.rot-tile.auto { border-style: dashed; }
+.rot-badge {
+  position: absolute; right: -8px; top: -7px; white-space: nowrap; padding: 0 3px; border-radius: 3px;
+  background: #000; color: #fff; font-family: var(--mono); font-size: 8.5px; font-weight: 700; line-height: 12px;
+  letter-spacing: .04em; border: 1px solid var(--border-strong); pointer-events: none;
+}
+/* Arrows with the states after the step before them: hoverable, the count of what's up as a small superscript. */
+.rot-arrow.live { cursor: help; border-radius: 4px; outline: none; }
+.rot-arrow.live:hover, .rot-arrow.live:focus { color: var(--accent); background: var(--bg-input); }
+.rot-arrow sup { font-size: 8.5px; font-family: var(--mono); margin-left: 1px; color: var(--text-dim); }
+.rot-states { display: grid; gap: 3px; margin-top: 6px; }
+.rot-states .rot-sub { margin: 0; text-align: left; text-transform: uppercase; letter-spacing: .06em; font-size: 10px; }
+.rot-state { display: flex; gap: 6px; align-items: baseline; font-size: 11.5px; }
+.rot-state b { font-weight: 600; color: #7ee787; }
+.rot-state.tgt b { color: #ff7b72; }
+.rot-state i { font-style: normal; font-family: var(--mono); color: var(--text); }
+.rot-state em { margin-left: auto; font-family: var(--mono); font-size: 10.5px; }
 .rot-ph { font-family: var(--mono); font-size: 10px; color: var(--text-dim); }
 .rot-cell { display: inline-flex; flex-direction: column; align-items: center; gap: 3px; width: 62px; }
-.rot-cap { font-size: 10px; line-height: 1.15; color: var(--text-dim); text-align: center; max-width: 62px; }
+.rot-cap {
+  font-size: 10px; line-height: 1.15; color: var(--text-dim); text-align: center; max-width: 62px;
+  /* Always two lines tall, a longer name clipped (the tooltip has it whole): the plates do not shift. */
+  height: calc(2 * 1.15em); overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+}
 .rot-tip {
   position: fixed; z-index: 70; padding: 10px 12px; text-align: left; pointer-events: none;
   background: var(--bg-raised); border: 1px solid var(--border-strong); border-radius: 6px;
@@ -986,13 +1081,12 @@ input:focus, select:focus, button:focus-visible {
 .rot-desc { display: block; margin-top: 8px; padding-top: 6px; border-top: 1px solid var(--border);
   color: var(--text-faint); font-size: 11px; white-space: pre-line; max-height: 180px; overflow: auto; }
 
-.rot-bars { display: grid; gap: 4px; max-width: 560px; }
+.rot-bars { display: grid; gap: 4px; max-width: 560px; margin: 0 auto; }
 .rot-bar { display: grid; grid-template-columns: 170px 1fr 40px; align-items: center; gap: 8px; font-size: 12px; }
 .rot-bar div { height: 8px; background: var(--bg-input); border-radius: 4px; overflow: hidden; }
 .rot-bar i { display: block; height: 100%; background: var(--accent-dim); }
 .rot-bar span:last-child { font-family: var(--mono); font-size: 11px; color: var(--text-dim); text-align: right; }
 
-.rot-part { font-family: var(--mono); font-size: 10px; color: var(--text-faint); }
+.rot-part { font-family: var(--mono); font-size: 10px; line-height: 12px; min-height: 12px; color: var(--text-faint); }
 .rot-part.big { color: #7ee787; }
-.rot-total { font-family: var(--mono); font-size: 11px; color: var(--text-dim); margin-left: 8px; align-self: center; }
 .rot-dmg { display: block; margin-top: 4px; font-family: var(--mono); font-size: 11px; color: #7ee787; }

@@ -2,7 +2,7 @@
   "_about": [
     "How a player answers a monster's skill (src/playbook.ts). What CAN dodge a skill is a fact about it (mob-skills.json 'avoid'); this file is the player's preference among those.",
     "Layers, most specific wins field by field: skills.<AEGIS> (every class, every monster) < classes.<Class>.skills.<AEGIS> < mobs.<Monster>.<AEGIS> < classes.<Class>.mobs.<Monster>.<AEGIS>.",
-    "prefer: the ways to try, best first -- only these are tried; if none works in time it is tanked. Ways: gambit (King's Gambit), walk (walk out), hide (Hiding), decoy, rod (Pawn's Rod), los (behind cover), manhole (step into one), kawarimi, barrier (Queen's Barrier), backslide, slashout (Shadow Slash out). A class that lacks a way skips it.",
+    "prefer: the ways to try, best first -- only these are tried; if none works in time it is tanked. Ways: gambit (King's Gambit), walk (walk out), hide (Hiding), decoy, rod (Pawn's Rod), los (behind cover), manhole (step into one), kawarimi, barrier (Queen's Barrier), backslide, slashout (Shadow Slash out), steps (Raven Steps: a teleport out). A class that lacks a way skips it.",
     "always: dodge it whatever it would do; otherwise only a heavy hit is (tankShare / a quarter of HP, or a bad status).",
     "A skill with no entry here is left to the class kit's own reactions.",
     "archetypes: with profile option defense 'auto' (src/kits/defense.ts), a skill with no 'prefer' entry is answered by the shape of its cast instead: area-slow (an area with time to walk out), area-fast (an area without), single-slow (a cast at you with time to get behind cover), single-fast (a cast at you without, or no cast bar). Each list is tried in order; 'a|b' tries both and takes the cheaper (SP, time off the target, cooldown). classes.<Class>.archetypes overrides one for a class.",
@@ -10,7 +10,7 @@
   ],
   "archetypes": {
     "area-slow": [
-      "backslide|walk|slashout|gambit",
+      "backslide|steps|walk|slashout|gambit",
       "rod",
       "hide|kawarimi|decoy",
       "los",
@@ -18,7 +18,7 @@
       "barrier"
     ],
     "area-fast": [
-      "backslide|slashout",
+      "backslide|steps|slashout",
       "gambit",
       "rod",
       "hide|kawarimi",
@@ -86,10 +86,11 @@
     "NPC_VAMPIRE_GIFT": {
       "prefer": [
         "walk",
+        "steps",
         "gambit",
         "hide"
       ],
-      "note": "Project owner, 2026-09-29 (the Tomb knights): walk out of the smaller areas when there is time, saving King's Gambit for the big ones."
+      "note": "Project owner, 2026-09-29 (the Tomb knights): walk out of the smaller areas when there is time, saving King's Gambit for the big ones. Raven Steps (Night Raven) clears even the 27x27 one (radius 13, 14-cell teleport) when walking cannot (2026-10-01)."
     }
   },
   "classes": {
@@ -157,6 +158,30 @@
           "note": "Project owner, 2026-09-29: not a fast cast (2.5 s), easy to answer. Pawn's Rod eats it (RTM skill_attack: Magic Rod takes any magic the caster lands itself, a splash too); Hiding next (a boss-protocol swing can break it); line of sight last. ~19k a hit on the owner, two thirds of his HP."
         }
       }
+    },
+    "Night Raven": {
+      "mobs": {
+        "Converted Zealot": {
+          "RG_BACKSTAP": {
+            "prefer": [
+              "walk",
+              "kawarimi",
+              "hide"
+            ],
+            "always": true,
+            "note": "Project owner, 2026-10-01: dodge the Back Stab (1.5 s cast, out of its range) -- it is the tell for the Cloud Kill that follows, which Raven Steps clears ahead of time (kits/nightraven.ts stepsAhead)."
+          },
+          "SO_CLOUD_KILL": {
+            "prefer": [
+              "steps",
+              "walk"
+            ],
+            "always": true,
+            "note": "Project owner, 2026-10-01: save Raven Steps for Converted Zealot's Cloud Kill -- one teleport clears the cloud."
+          }
+        }
+      },
+      "note": "Night Raven (the project owner, 2026-10-01): Hallucination Walk, Raven Steps for quick mobility out, Hiding and walking; Shadow Slash closes the gap back."
     }
   },
   "mobs": {

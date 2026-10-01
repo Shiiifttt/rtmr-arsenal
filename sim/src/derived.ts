@@ -381,6 +381,11 @@ export function fleeFromLuk(luk: number): number {
  * `gear` looks up the aggregated totals for a stat key; it returns undefined
  * for stats nothing has touched.
  */
+/** Gear stats that scale a formula's computed part, before flat gear. */
+const BASE_SCALE: Record<string, string> = { flee: 'flee_base_pct' };
+/** Gear stats that multiply a formula's finished figure, under its cap. */
+const FINAL_SCALE: Record<string, string> = { max_hp: 'max_hp_mult', max_sp: 'max_sp_mult' };
+
 export function derivedStats(
   baseLevel: number,
   stats: BaseStats,
@@ -397,8 +402,19 @@ export function derivedStats(
     return combine(points, total?.flat ?? 0, total?.percent ?? 0);
   };
 
+  // Gear that scales a formula's own part, or its finished figure (2026-10-01
+  // audit, the owner's readings): Masamune's "Agi-based Flee +20%" is a per
+  // cent of the flee from level and stats, before flat flee from gear; the
+  // Asgard set's "Double Max HP/SP" multiplies the pool at the end.
+  const scale = (key: string | undefined) => {
+    const t = key ? gear(key) : undefined;
+    return 1 + ((t?.percent ?? 0) + (t?.flat ?? 0)) / 100;
+  };
   return FORMULAS.filter((f) => !f.applies || f.applies(ctx)).map((f) => {
-    const base = f.compute(baseLevel, stats, statTotal, ctx);
+    const computed = f.compute(baseLevel, stats, statTotal, ctx);
+    const baseScale = scale(BASE_SCALE[f.key]);
+    const base = baseScale === 1 ? computed : Math.floor(computed * baseScale);
+    const finalScale = scale(FINAL_SCALE[f.key]);
     const total = gear(f.key);
     const flat = total?.flat ?? 0;
     const parts = (total?.sources ?? []).filter((s) => s.unit === '%').map((s) => s.value);
@@ -416,7 +432,9 @@ export function derivedStats(
       // The manual box sits outside the percent: skill flee is added to the
       // finished figure rather than scaled by a Total Flee bonus. Gear flat
       // is still inside it -- see combine.
-      total: Math.min(f.max ?? Infinity, f.cap?.(ctx) ?? Infinity, combine(base, flat, percent) + extra),
+      total: Math.min(f.max ?? Infinity, f.cap?.(ctx) ?? Infinity,
+        finalScale === 1 ? combine(base, flat, percent) + extra
+          : Math.floor((combine(base, flat, percent) + extra) * finalScale)),
       formula: f.formula,
       manualHint: f.manualHint,
       verified: f.verified,

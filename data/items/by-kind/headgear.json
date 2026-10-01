@@ -528,7 +528,17 @@
    },
    {
     "text": "Enables Safety Wall Lv1",
-    "parsed": false
+    "stat": "Safety Wall Lv",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Safety Wall",
+    "skill_metric": "level",
+    "skills": [
+     "Safety Wall"
+    ]
    },
    {
     "text": "Safety Wall Cooldown +10s",
@@ -1033,13 +1043,30 @@
   "sets": [],
   "effects": [
    {
-    "text": "DEF+7 MDEF+3",
-    "stat": "DEF+7 MDEF",
+    "text": "DEF+7",
+    "stat": "DEF",
+    "value": 7,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     24
+    ],
+    "stat_keys": [
+     "def"
+    ]
+   },
+   {
+    "text": "MDEF+3",
+    "stat": "MDEF",
     "value": 3,
     "unit": null,
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     25
+    ],
+    "stat_keys": [
+     "mdef"
+    ]
    },
    {
     "text": "Neutral Resistance+1%",
@@ -2099,7 +2126,17 @@
   "effects": [
    {
     "text": "Enables Improve Dodge Lv7",
-    "parsed": false
+    "stat": "Improve Dodge Lv",
+    "value": 7,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Improve Dodge",
+    "skill_metric": "level",
+    "skills": [
+     "Improve Dodge"
+    ]
    },
    {
     "text": "ATK+1",
@@ -3736,7 +3773,17 @@
   "effects": [
    {
     "text": "Enables Improve Defense Lv7",
-    "parsed": false
+    "stat": "Improve Defense Lv",
+    "value": 7,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Improve Defense",
+    "skill_metric": "level",
+    "skills": [
+     "Improve Defense"
+    ]
    },
    {
     "text": "ATK+1",
@@ -6770,11 +6817,31 @@
    },
    {
     "text": "HP+10 per Base Level",
-    "parsed": false
+    "per_base_level": 1,
+    "stat": "HP",
+    "value": 10,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     6
+    ],
+    "stat_keys": [
+     "max_hp"
+    ]
    },
    {
     "text": "SP+1 per Base Level",
-    "parsed": false
+    "per_base_level": 1,
+    "stat": "SP",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     7
+    ],
+    "stat_keys": [
+     "max_sp"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -9292,7 +9359,9 @@
    "source_mvp": 1,
    "source_normal": 1
   },
-  "sets": [],
+  "sets": [
+   252
+  ],
   "effects": [
    {
     "text": "Critical +10",
@@ -10351,7 +10420,17 @@
   "effects": [
    {
     "text": "Enables Improve Wisdom Lv7",
-    "parsed": false
+    "stat": "Improve Wisdom Lv",
+    "value": 7,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Improve Wisdom",
+    "skill_metric": "level",
+    "skills": [
+     "Improve Wisdom"
+    ]
    },
    {
     "text": "ATK+1",
@@ -10644,8 +10723,14 @@
     "value": 5,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     42,
+     43
+    ],
+    "stat_keys": [
+     "healing_power",
+     "healing_received"
+    ]
    }
   ],
   "piece_bonus": [],

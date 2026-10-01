@@ -411,7 +411,7 @@ const hideAt = (fight: Fight, endsAt: number) => Math.max(fight.t, readyAt(fight
  * in it. Option walkLate: go as late as the step and a reaction's margin
  * allow, fighting through the cast bar. Its cost is the time away and back.
  */
-function moveTool(way: Way, action: string, stepMs: (fight: Fight, s: MobSkill) => number,
+export function moveTool(way: Way, action: string, stepMs: (fight: Fight, s: MobSkill) => number,
   works: (fight: Fight, s: MobSkill, r: Read) => boolean,
   backMs: (fight: Fight, s: MobSkill) => number = stepMs): DefenseTool {
   return {

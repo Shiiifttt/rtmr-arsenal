@@ -182,6 +182,8 @@ export interface Kit {
   priority(fight: Fight): Action;
   /** A monster's hit landed on you (after every dodge): Duel Counters and the like. */
   onHurt?(fight: Fight, hit: { physical: boolean; normal: boolean; ranged: boolean; dmg: number }): void;
+  /** A monster's hit was cancelled by Weapon Blocking: `share` 1 rolled, or its chance in a rollout. */
+  onBlock?(fight: Fight, share: number): void;
   /** A cast bar just appeared: plan a dodge, or return null to take it. */
   react(fight: Fight, skill: MobSkill, from: Monster): { action: string; at: number } | null;
   /** Buffs put up before the pull. */
@@ -194,6 +196,55 @@ export interface Kit {
   gapClosers?: string[];
   /** Holding on purpose (kits/defense.ts: standing ready for a snap cast): not out of SP. */
   holding?(fight: Fight): boolean;
+  /**
+   * The states its combos run on, yours and the target's (Combo Ready,
+   * Overslash stacks, Duel Counters; Bishop's Tax on the target): a traced
+   * fight (Fight.trace) records them after every action, for the web app's
+   * Rotation overlay.
+   */
+  statuses?(fight: Fight): StatusMark[];
+}
+
+/** One state as a traced fight shows it: "Combo Ready" 2.4 s, "Overslash" x5, a shield's amount, or on the target. */
+export interface StatusMark { label: string; stacks?: number; leftMs?: number; value?: number; onTarget?: boolean }
+
+/**
+ * A kit's statuses read off the fight: `me` buffs (stacks shown when asked),
+ * the target's debuffs and self-buffs, and its damage over time by name.
+ */
+export function readMarks(fight: Fight, spec: {
+  me?: { key: string; label: string; stacks?: boolean; value?: boolean }[];
+  target?: { key: string; label: string }[];
+  dots?: Record<string, string>;
+}): StatusMark[] {
+  const out: StatusMark[] = [];
+  const left = (until: number) => (until >= 1e11 ? undefined : Math.max(0, until - fight.t));
+  for (const x of spec.me ?? []) {
+    const b = fight.me.buffs[x.key];
+    if (!b || b.until <= fight.t || (x.stacks && !b.stacks) || (x.value && !b.value)) continue;
+    out.push({ label: x.label, leftMs: left(b.until), ...(x.stacks ? { stacks: b.stacks } : {}), ...(x.value ? { value: Math.round(b.value ?? 0) } : {}) });
+  }
+  for (const x of spec.target ?? []) {
+    const b = fight.mob.debuffs[x.key] ?? fight.mob.buffs[x.key];
+    if (b && b.until > fight.t) out.push({ label: x.label, leftMs: left(b.until), onTarget: true });
+  }
+  for (const d of fight.mob.dots) {
+    const label = spec.dots?.[d.name];
+    if (label) out.push({ label, onTarget: true, ...(d.left !== undefined ? { leftMs: d.left * d.every } : {}) });
+  }
+  return out;
+}
+/** An action as a traced fight saw it go off: the states after it, and what autocast inside it. */
+export interface TraceStep { id: string; t: number; states: StatusMark[]; procs: string[] }
+
+/** Something that went off inside an action -- an autocast (Haunting Slice's Scythe Reap): kept with the step in a traced fight. */
+export function noteProc(fight: Fight, label: string) {
+  if (fight.trace) (fight.procs ??= []).push(label);
+}
+function traceStep(fight: Fight, a: Action) {
+  if (!fight.trace) return;
+  fight.trace.push({ id: a.id, t: fight.t, states: fight.kit.statuses?.(fight) ?? [], procs: fight.procs ?? [] });
+  fight.procs = [];
 }
 
 export type Policy = (fight: Fight) => Action;
@@ -231,6 +282,10 @@ export interface Fight {
   fumbles?: number;
   /** An early stall: when the fight was stopped (t is then the limit, as the clock would have run). */
   stoppedAt?: number;
+  /** With newFight's trace: every action and the states after it (TraceStep). */
+  trace?: TraceStep[];
+  /** Autocasts noted since the last traced step (noteProc). */
+  procs?: string[];
 }
 
 export const newMobState = (m: Monster): MobState => ({
@@ -242,6 +297,8 @@ export function newFight(
   f: Fighter, m: Monster, kit: Kit, policy: Policy,
   o: {
     seed: number; limitMs: number; log?: boolean; options?: Record<string, unknown>; items?: Action[];
+    /** Record every action and the kit's statuses after it (Fight.trace). */
+    trace?: boolean;
   },
 ): Fight {
   const fight: Fight = {
@@ -262,6 +319,7 @@ export function newFight(
     ground: { manholeUntil: -1 },
     meter: { actions: {}, taken: {}, defenses: {}, healed: 0, sequence: [], minHp: f.maxHp },
     log: o.log ? [] : null,
+    ...(o.trace ? { trace: [] } : {}),
     result: null,
   };
   kit.prep(fight);
@@ -371,7 +429,7 @@ function complete(fight: Fight, a: Action) {
   }
   // Attacks log their damage; a buff or a move says it happened.
   if (!a.offensive && !a.reactive) fight.log && say(fight, `uses ${a.id}`);
-  if (!fight.f.trueGoddess || !a.isSkill) { a.resolve(fight); return; }
+  if (!fight.f.trueGoddess || !a.isSkill) { a.resolve(fight); traceStep(fight, a); return; }
   // True Goddess: whatever this cast put on cooldown (itself, or the skill it
   // stands for: Predict Kawarimi -> Kawarimi) waits 10 s at least, and Kaupe
   // Lv3 blocks the next hit that lands for 2 s.
@@ -381,6 +439,7 @@ function complete(fight: Fight, a: Action) {
     me.cds[id] = Math.max(me.cds[id] ?? 0, fight.t + TUNE.trueGoddessCdMs);
   }
   grant(fight, 'kaupe', TUNE.kaupeMs, 1);
+  traceStep(fight, a);
 }
 
 /**
@@ -444,6 +503,8 @@ export interface Strike {
   skill?: boolean;
   /** An area: it hits a monster that has hidden or cloaked itself (the project owner, 2026-10-01: "any aoe can hit invisible enemies"). */
   aoe?: boolean;
+  /** HIT added for this skill only (Definitive Dagger "Hit bonus is 5 per level"). */
+  hitBonus?: number;
 }
 
 /**
@@ -513,7 +574,7 @@ export function strike(fight: Fight, id: string, s: Strike): number {
   const monsterFlee = m.flee + (selfHas(fight, fight.mob, 'hallucination') ? fight.mob.buffs.hallucination.value ?? 0 : 0);
   // Perfect Hit lands whatever the flee (RTM battle.cpp:2916), after the crit check.
   const perfect = (f.perfectHit ?? 0) / 100;
-  const pHit = s.canMiss ? perfect + (1 - perfect) * playerHitChance(f.hit, monsterFlee) : 1;
+  const pHit = s.canMiss ? perfect + (1 - perfect) * playerHitChance(f.hit + (s.hitBonus ?? 0), monsterFlee) : 1;
   const pCrit = s.critBonus === null ? 0 : critChance(f, m, s.critBonus);
   // A crit always lands (RTM battle.cpp:2914); the rest roll HIT.
   const pLand = pCrit + (1 - pCrit) * pHit;
@@ -1138,16 +1199,27 @@ function landMobHit(fight: Fight, a: Actor, s: MobSkill, normal: boolean, ch?: C
   // only while you are not up close (the kit's 'close', from melee skills).
   const wall = s.type === 'physical' && m.reach > 3 && has(fight, 'defender') && !has(fight, 'close')
     ? Math.max(0, 1 - (me.buffs.defender.value ?? 0) / 100) : 1;
+  // Weapon Blocking (GC_WEAPONBLOCKING, buff 'weaponBlock', value a percent):
+  // rolled after the hit roll, on any weapon hit or a short-range one -- a
+  // spell from a monster beside you too (RTM battle.cpp:1220-1225). A block
+  // cancels the hit and the kit hears of it (Counter state, kits/nightraven.ts).
+  const blockable = s.type === 'physical' || (s.type === 'magic' && s.targets === 'single' && m.reach <= 3);
+  const block = blockable && has(fight, 'weaponBlock') ? Math.min(1, (me.buffs.weaponBlock.value ?? 0) / 100) : 0;
   if (rng.expect) {
     // A rollout: Kaupe takes the hit whole (it would take the first that lands).
     if (kaupeBlocks(fight, s)) return;
-    const took = hurtMe(fight, p * (1 - guardChance) * wall * mobDamage(m, target, s, rng, ranged), src);
+    if (block > 0) fight.kit.onBlock?.(fight, p * block);
+    const took = hurtMe(fight, p * (1 - guardChance) * (1 - block) * wall * mobDamage(m, target, s, rng, ranged), src);
     drained(fight, a, s, took);
     afterHit(fight, a, s, normal, took);
     return;
   }
   if (!rng.chance(p)) return avoided(fight, src, s.type === 'magic' ? 'magic dodge' : 'flee');
   if (kaupeBlocks(fight, s)) return avoided(fight, src, 'Kaupe');
+  if (block > 0 && rng.chance(block)) {
+    fight.kit.onBlock?.(fight, 1);
+    return avoided(fight, src, 'Weapon Blocking');
+  }
   const dmg = mobDamage(m, target, s, rng, ranged) * vulnerability(fight, s.element) * wall;
   const took = hurtMe(fight, dmg, src);
   drained(fight, a, s, took);
@@ -1517,6 +1589,9 @@ function outOfSp(fight: Fight): boolean {
   // SP (regen, leech, Lotus Pact) until a skill is affordable again. The
   // clock (limitMs) still ends it.
   if (fight.options.pace === true) return false;
+  // An auto-attack build (option autoOnly, kits/nightraven.ts) deals its
+  // damage with the swing: no skill to afford is not being dry.
+  if (fight.options.autoOnly === true) return false;
   // Nothing castable into a ward (Pneuma, Safety Wall) is not being dry: the
   // kit pulls the monster off it (kits/common.ts pullOffWard).
   const ward = (k: string) => (fight.mob.buffs[k]?.until ?? -1) > fight.t;
@@ -1585,6 +1660,9 @@ export function rollout(fight: Fight, policy: Policy, untilMs: number): Fight {
     policy,
     meter: null,
     log: null,
+    // A rollout is imagined: nothing it does goes into the real fight's trace.
+    trace: undefined,
+    procs: undefined,
     limitMs: Math.min(fight.limitMs, untilMs),
     ground: { ...fight.ground },
     me: {

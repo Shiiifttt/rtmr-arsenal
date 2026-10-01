@@ -72,15 +72,17 @@ export function jobLimitFix(
  * is governed by the sentence alone -- an unreviewed class must not lose
  * gear it may well be able to use.
  *
- * Cards are outside all of it: any class can compound any card. A card
- * carries the slot it goes into, so a weapon card would otherwise be judged
- * against the types its class may hold and fail every one of them -- its own
- * type is "Card", never "Dagger".
+ * Cards are outside the type rules: a card carries the slot it goes into,
+ * so a weapon card would otherwise be judged against the types its class
+ * may hold and fail every one of them -- its own type is "Card", never
+ * "Dagger". Only a hand rule in `items` locks a card to a class.
  */
 export function canEquip(
   item: Item, className: string | null, rules?: ClassRules | null, slotKey?: string,
 ): boolean {
-  if (item.kind === 'Card') return true;
+  // A card carries no job sentence of its own; only a hand rule can lock one
+  // to a class (Revenant Ebel Card: the project owner, 2026-10-01).
+  if (item.kind === 'Card') return !className || !rules?.items?.[String(item.id)] || canUse(jobLimitOf(item, rules), className);
   if (!canUse(jobLimitOf(item, rules), className)) return false;
   if (!className) return true;
   if (slotKey === 'offhand' && !dualWields(className, rules)

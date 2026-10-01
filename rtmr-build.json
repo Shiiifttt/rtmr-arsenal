@@ -1,155 +1,36 @@
 {
-  "className": "Kingslayer",
+  "className": "Satsujin",
   "baseLevel": 130,
   "baseStats": {
-    "str": 80,
-    "agi": 1,
-    "vit": 99,
-    "int": 45,
-    "dex": 90,
-    "luk": 24
+    "str": 99,
+    "agi": 79,
+    "vit": 33,
+    "int": 4,
+    "dex": 74,
+    "luk": 49
   },
   "slots": {
     "upper": {
-      "itemId": 5076,
-      "refine": 6,
+      "itemId": 31221,
+      "refine": 9,
       "cards": [
-        4576
+        4132,
+        4132
       ]
     },
     "middle": {
       "itemId": 5068,
       "refine": 0,
       "cards": [
-        13571
+        13729
       ]
     },
     "lower": {
-      "itemId": 31855,
-      "refine": 0,
-      "cards": [
-        4576
-      ],
-      "rolls": {
-        "stat": {
-          "option": "vit",
-          "values": [
-            1
-          ]
-        }
-      }
-    },
-    "armor": {
-      "itemId": 15378,
-      "refine": 6,
-      "cards": [
-        4126
-      ],
-      "rolls": {
-        "stat": {
-          "option": "vit",
-          "values": [
-            1
-          ]
-        },
-        "resource": {
-          "option": "max_hp",
-          "values": [
-            3
-          ]
-        },
-        "mitigation": {
-          "option": "physical_reduced",
-          "values": [
-            2
-          ]
-        }
-      }
-    },
-    "weapon": {
-      "itemId": 1148,
+      "itemId": 5926,
       "refine": 9,
       "cards": [
-        4392,
-        4392,
-        4392
-      ],
-      "rolls": {
-        "roll1": {
-          "option": "max_hp",
-          "values": [
-            2
-          ]
-        },
-        "roll2": {
-          "option": "sp_cost_reduced",
-          "values": [
-            5
-          ]
-        },
-        "roll3": {
-          "option": "ranged_damage",
-          "values": [
-            5
-          ]
-        },
-        "roll4": {
-          "option": "defense_penetration",
-          "values": [
-            10
-          ]
-        }
-      }
-    },
-    "offhand": {
-      "itemId": 2112,
-      "refine": 8,
-      "cards": [
-        4143
-      ],
-      "rolls": {
-        "roll3": {
-          "option": "magic_damage_reduced",
-          "values": [
-            2
-          ]
-        }
-      }
-    },
-    "garment": {
-      "itemId": 15436,
-      "refine": 6,
-      "cards": [
-        4169,
-        4169
-      ],
-      "rolls": {
-        "stat": {
-          "option": "vit",
-          "values": [
-            2
-          ]
-        },
-        "evasion": {
-          "option": "flee",
-          "values": [
-            9
-          ]
-        },
-        "sustain": {
-          "option": "hp_leech",
-          "values": [
-            12,
-            2
-          ]
-        }
-      }
-    },
-    "shoes": {
-      "itemId": 22004,
-      "refine": 6,
-      "cards": [
-        4394
+        13728,
+        13728
       ],
       "rolls": {
         "stat": {
@@ -160,25 +41,182 @@
         }
       }
     },
-    "acc1": {
-      "itemId": 2632,
-      "refine": 0,
-      "cards": []
+    "armor": {
+      "itemId": 15391,
+      "refine": 9,
+      "cards": [
+        4236
+      ],
+      "rolls": {
+        "stat": {
+          "option": "str",
+          "values": [
+            1
+          ]
+        },
+        "resource": {
+          "option": "max_hp",
+          "values": [
+            5
+          ]
+        },
+        "mitigation": {
+          "option": "physical_reduced",
+          "values": [
+            3
+          ]
+        }
+      }
     },
-    "acc2": {
-      "itemId": 16153,
+    "weapon": {
+      "itemId": 13094,
+      "refine": 9,
+      "cards": [
+        4392,
+        4392,
+        4392
+      ],
+      "rolls": {
+        "roll1": {
+          "option": "atk",
+          "values": [
+            3
+          ]
+        },
+        "roll2": {
+          "option": "sp_cost_reduced",
+          "values": [
+            10
+          ]
+        },
+        "roll3": {
+          "option": "melee_damage",
+          "values": [
+            9
+          ]
+        },
+        "roll4": {
+          "option": "perfect_hit",
+          "values": [
+            10
+          ]
+        }
+      }
+    },
+    "offhand": {
+      "itemId": 13063,
+      "refine": 9,
+      "cards": [
+        4399
+      ],
+      "rolls": {
+        "roll1": {
+          "option": "atk",
+          "values": [
+            3
+          ]
+        },
+        "roll2": {
+          "option": "sp_cost_reduced",
+          "values": [
+            5
+          ]
+        },
+        "roll3": {
+          "option": "melee_damage",
+          "values": [
+            10
+          ]
+        },
+        "roll4": {
+          "option": "hp_gained_per_hit",
+          "values": [
+            2
+          ]
+        }
+      }
+    },
+    "garment": {
+      "itemId": 15437,
+      "refine": 9,
+      "cards": [
+        4608,
+        4608
+      ],
+      "rolls": {
+        "stat": {
+          "option": "dex",
+          "values": [
+            2
+          ]
+        },
+        "evasion": {
+          "option": "perfect_dodge",
+          "values": [
+            3
+          ]
+        },
+        "sustain": {
+          "option": "hp_leech",
+          "values": [
+            20,
+            2
+          ]
+        }
+      }
+    },
+    "shoes": {
+      "itemId": 30137,
+      "refine": 9,
+      "cards": [
+        13716,
+        27253
+      ],
+      "rolls": {
+        "stat": {
+          "option": "str",
+          "values": [
+            2
+          ]
+        },
+        "speed": {
+          "option": "aspd",
+          "values": [
+            10
+          ]
+        },
+        "casting": {
+          "option": "after_cast_delay",
+          "values": [
+            10
+          ]
+        }
+      }
+    },
+    "acc1": {
+      "itemId": 15384,
       "refine": 0,
       "cards": [
+        4430,
         4430
       ],
       "rolls": {
         "stat": {
-          "option": "vit",
+          "option": "atk_pct",
           "values": [
             1
           ]
         }
       }
+    },
+    "acc2": {
+      "itemId": 16311,
+      "refine": 6,
+      "cards": [
+        4430,
+        4374,
+        4374
+      ]
     },
     "ammo": {
       "itemId": null,
@@ -186,43 +224,55 @@
       "cards": []
     },
     "gem": {
-      "itemId": 903048,
-      "refine": 6,
+      "itemId": 903086,
+      "refine": 9,
       "cards": []
     },
     "sh_armor": {
-      "itemId": 28992,
-      "refine": 6,
+      "itemId": 28072,
+      "refine": 9,
       "cards": [],
       "rolls": {
         "stat": {
-          "option": "vit",
+          "option": "str",
           "values": [
             1
+          ]
+        },
+        "skill": {
+          "option": "million_stab_damage",
+          "values": [
+            5
           ]
         }
       }
     },
     "sh_shoes": {
-      "itemId": 28994,
-      "refine": 6,
+      "itemId": 28074,
+      "refine": 9,
       "cards": [],
       "rolls": {
         "stat": {
-          "option": "vit",
+          "option": "str",
           "values": [
             1
+          ]
+        },
+        "skill": {
+          "option": "million_stab_damage",
+          "values": [
+            5
           ]
         }
       }
     },
     "sh_gloves": {
-      "itemId": 28993,
-      "refine": 6,
+      "itemId": 28073,
+      "refine": 9,
       "cards": [],
       "rolls": {
         "stat": {
-          "option": "vit",
+          "option": "str",
           "values": [
             1
           ]
@@ -230,25 +280,31 @@
       }
     },
     "sh_acc": {
-      "itemId": 28995,
-      "refine": 6,
+      "itemId": 28075,
+      "refine": 9,
       "cards": [],
       "rolls": {
         "stat": {
-          "option": "vit",
+          "option": "str",
           "values": [
             1
+          ]
+        },
+        "skill": {
+          "option": "million_stab_damage",
+          "values": [
+            5
           ]
         }
       }
     },
     "sh_manual": {
-      "itemId": 24246,
+      "itemId": 24238,
       "refine": 0,
       "cards": [],
       "rolls": {
         "stat": {
-          "option": "vit",
+          "option": "agi",
           "values": [
             1
           ]
@@ -256,12 +312,12 @@
       }
     },
     "runeorb": {
-      "itemId": 24165,
-      "refine": 6,
+      "itemId": 24162,
+      "refine": 9,
       "cards": [],
       "rolls": {
         "stat": {
-          "option": "vit",
+          "option": "agi",
           "values": [
             1
           ]
@@ -290,59 +346,8 @@
     }
   },
   "manual": {
-    "max_hp": 1550,
-    "max_sp": 86
+    "flee": 70
   },
   "locked": [],
-  "goals": [
-    {
-      "key": "max_hp",
-      "column": "percent",
-      "target": 39,
-      "open": true
-    },
-    {
-      "key": "vit",
-      "column": "total",
-      "target": 39,
-      "open": true
-    },
-    {
-      "key": "ranged_skill_mult",
-      "column": "percent",
-      "target": 170.87,
-      "open": true
-    },
-    {
-      "key": "def_pen",
-      "column": "flat",
-      "target": 25,
-      "open": true,
-      "cap": 70
-    },
-    {
-      "key": "skill:Queen's Brand|damage",
-      "column": "percent",
-      "target": 0,
-      "open": true
-    },
-    {
-      "key": "skill:King's Chains|damage",
-      "column": "percent",
-      "target": 52,
-      "open": true
-    },
-    {
-      "key": "skill:Check Mate|damage",
-      "column": "percent",
-      "target": 0,
-      "open": true
-    },
-    {
-      "key": "def",
-      "column": "flat",
-      "target": 52,
-      "open": true
-    }
-  ]
+  "goals": []
 }

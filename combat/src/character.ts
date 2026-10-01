@@ -39,7 +39,16 @@ export interface Profile {
    * skill ASPD value (x AGI/190); offset calibrates it to a reading. Gear
    * "ASPD +x%" shortens the attack delay, flat "ASPD +x" adds.
    */
-  aspdModel?: { base: number; mastery?: number; offset?: number };
+  aspdModel?: {
+    base: number; mastery?: number; offset?: number;
+    /**
+     * The job's weapon delays by weapon type (server job_stats.yml BaseASPD:
+     * Guillotine_Cross Dagger 64, 1hSword 69...): `base` then follows the
+     * right weapon, and a weapon in the off hand adds a quarter of its own,
+     * less AGI/20 (RTM status.cpp:3036-3039). `base` stays the fallback.
+     */
+    byType?: Record<string, number>;
+  };
   measured?: {
     /** Max HP without Moonlight Stance (or the class's stance). */
     maxHp?: number;
@@ -175,6 +184,12 @@ export async function buildFighter(profile: Profile, opts: FighterOptions): Prom
   const levels: Record<string, number> = { ...opts.maxLevels, ...(profile.skills ?? {}) };
   const extras = gearExtras(build, data, totals);
   for (const [n, l] of Object.entries(extras.grants)) levels[n] = Math.max(levels[n] ?? 0, l);
+  // The levels the parser reads off the gear: "Enables Shadow Slash Lv1"
+  // (Dancing Gale), "Grants Raven Steps Lv 1" (Free Samurai Card), "Dragon
+  // Thrust: Lv5". The best one counts, as with the grants above.
+  for (const t of totals.skills.values()) {
+    if (t.metric === 'level' && t.flat > 0) levels[t.skill] = Math.max(levels[t.skill] ?? 0, t.flat);
+  }
   notes.push(...extras.notes);
   const below = Object.entries(profile.skills ?? {}).filter(([n, l]) => l < (opts.maxLevels[n] ?? Infinity));
   if (below.length) notes.push(`skills below max: ${below.map(([n, l]) => `${n} ${l}`).join(', ')}`);
@@ -197,16 +212,12 @@ export async function buildFighter(profile: Profile, opts: FighterOptions): Prom
   // ---- HP / SP --------------------------------------------------------------
   const measuredHp = profile.measured?.maxHp;
   const job = jobBase(data, build.className, build.baseLevel);
-  // "HP-2% per VIT" / "SP-2% per INT" (Opera Mask): the parser leaves them;
-  // read literally, per point of the stat's total. GUESS until confirmed.
-  const perStat = (pool: 'HP' | 'SP', stat: 'vit' | 'int') => gearLines(build, data)
-    .reduce((n, l) => n + Number(new RegExp(String.raw`^\s*${pool}\s*-\s*(\d+)%\s*per\s*${stat}\s*$`, 'i').exec(l)?.[1] ?? 0), 0) * stats[stat];
-  const hpStatCut = perStat('HP', 'vit');
-  const spStatCut = perStat('SP', 'int');
-  if (hpStatCut) notes.push(`Max HP -${hpStatCut}% from "HP -n% per VIT" (read literally)`);
+  // Opera Mask's "HP-2% per VIT" / "SP-2% per INT" are the planner's now, per
+  // base point as the server script has them (read here per total point
+  // until the 2026-10-01 audit).
   const modelHp = job
-    ? poolFromJob(job.hp, stats.vit, flat('max_hp') + passives.hpFlat, pct('max_hp') - hpStatCut, LIVE_HP_FIX[job.job] ?? 1)
-      * (profile.measured?.hpScale ?? 1) : null;
+    ? poolFromJob(job.hp, stats.vit, flat('max_hp') + passives.hpFlat, pct('max_hp'), LIVE_HP_FIX[job.job] ?? 1)
+      * (profile.measured?.hpScale ?? 1) * (1 + either('max_hp_mult') / 100) : null;
   const readHp = measuredHp ?? modelHp ?? DEFAULT_MAX_HP[build.className ?? ''] ?? DEFAULT_MAX_HP_ANY;
   if (measuredHp) notes.push(`Max HP ${measuredHp} as measured (before stance)`);
   else if (modelHp) notes.push(`Max HP ${Math.floor(modelHp)} before stance from the ${job!.job} job table -- a reading confirms it`);
@@ -216,8 +227,9 @@ export async function buildFighter(profile: Profile, opts: FighterOptions): Prom
   const spModel = (base: number) => (base * (1 + stats.int / 100) + flat('max_sp') + passives.spFlat)
     * (1 + pct('max_sp') / 100);
   const jobSp = (JOB_BASE_SP[build.className ?? ''] ?? JOB_BASE_SP.Satsujin)(build.baseLevel);
-  const modelSp = job ? poolFromJob(job.sp, stats.int, flat('max_sp') + passives.spFlat, pct('max_sp') - spStatCut) : spModel(jobSp);
-  const maxSp = Math.min(SP_CAP, Math.floor(profile.measured?.maxSp ?? modelSp));
+  const modelSp = job ? poolFromJob(job.sp, stats.int, flat('max_sp') + passives.spFlat, pct('max_sp')) : spModel(jobSp);
+  // Asgard's "Double Max HP/SP" (max_hp_mult / max_sp_mult) multiplies the modelled pools.
+  const maxSp = Math.min(SP_CAP, Math.floor(profile.measured?.maxSp ?? modelSp * (1 + either('max_sp_mult') / 100)));
   if (!profile.measured?.maxSp) {
     notes.push(job ? `Max SP ${maxSp} from the job table -- a reading confirms it` : `Max SP ${maxSp} from a guessed job base -- give measured.maxSp`);
   }
@@ -252,8 +264,11 @@ export async function buildFighter(profile: Profile, opts: FighterOptions): Prom
   const am = profile.aspdModel;
   const modelAspd = am ? (() => {
     const { agi, dex } = stats;
+    const right = (weapon && am.byType?.[weapon.type]) ?? am.base;
+    const left = leftWeapon ? am.byType?.[leftWeapon.type] : undefined;
+    const weaponDelay = right - Math.floor(agi / 10) + (left !== undefined ? Math.floor(left / 4) - Math.floor(agi / 20) : 0);
     const raw = 196 + Math.sqrt((dex * dex) / 9 + 0.7 * agi * agi) * 0.25 + ((am.mastery ?? 0) * agi) / 190
-      - Math.min(am.base - Math.floor(agi / 10), 200);
+      - Math.min(weaponDelay, 200);
     // ASPD +x% shortens the delay (amotion = 2000 - 10 ASPD); flat ASPD adds.
     const delay = (2000 - 10 * raw) * (1 - pct('aspd') / 100) - 10 * flat('aspd');
     return Math.min(aspdLimit, Math.floor((2000 - delay) / 10 + (am.offset ?? 0)));
@@ -329,6 +344,7 @@ export async function buildFighter(profile: Profile, opts: FighterOptions): Prom
     ...(offhand && offhand.kind === 'Shield' ? {
       shield: { name: offhand.name, type: offhand.type ?? 'Shield', weight: offhand.weight ?? 0, refine: build.slots.offhand?.refine ?? 0 },
     } : {}),
+    ...(itemIn(build, data, 'gem') ? { classGem: { name: itemIn(build, data, 'gem')!.name, refine: build.slots.gem?.refine ?? 0 } } : {}),
     gearText: Object.values(build.slots).flatMap((s) => [s?.itemId, ...(s?.cards ?? [])])
       .map((id) => (id ? data.items.get(id)?.description ?? '' : '')).filter(Boolean).join(' | '),
     equipAtk,
@@ -343,6 +359,8 @@ export async function buildFighter(profile: Profile, opts: FighterOptions): Prom
     critDamageLeft,
     perfectHit: Math.max(0, Math.min(100, perfectHit)),
     aspd,
+    aspdLimit,
+    baseStats: { ...points },
     moveSpeed: either('move_speed') + (tg.tgMoveSpeed ?? 0),
     defPen: flat('def_pen') + (passives.defPen ?? 0),
     mdefPen: flat('mdef_pen'),
@@ -583,27 +601,16 @@ function guardFromText(build: Build, data: Dataset, fromTotals: number): { autoG
  * already floor HP at 1); the set: every skill cast starts a 10 s cooldown
  * on that skill and grants Kaupe Lv3 for 2 s (engine.ts). Readings the
  * project owner gave (2026-09-28): the penalty stacks, "spellcast" is any
- * skill, the cooldown is per skill. The pieces' per-refine lines the parser
- * loses are added here: Move Speed +3% (armour), Variable Cast -5%
- * (gloves), Fixed Cast -3% (shoes) per refine; the set's Variable and
- * Fixed Cast -1% per 2 total refines. ASPD +2% (pendant) is left out: the
- * sim reads ASPD as the build's limit.
+ * skill, the cooldown is per skill. The pieces' per-refine lines and the
+ * set's "Variable Cast -1% and Fixed Cast -1%" per 2 total refines are the
+ * planner's now (they were added here too, which counted the pieces' lines
+ * twice -- 2026-10-01 audit).
  */
-function trueGoddessPart(complete: boolean, build: Build, data: Dataset, notes: string[]):
+function trueGoddessPart(complete: boolean, _build: Build, _data: Dataset, notes: string[]):
   { trueGoddess?: boolean; tgMoveSpeed?: number; tgCast?: { variable: number; fixed: number } } {
   if (!complete || process.env.TRUE_GODDESS !== '1') return {};
-  const refineOf = (name: string) => Object.values(build.slots)
-    .find((st) => st?.itemId && data.items.get(st.itemId)?.name === name)?.refine ?? 0;
-  const [a, g, sh, pe] = ['Armor', 'Gloves', 'Shoes', 'Pendant'].map((w) => refineOf(`True Goddess ${w}`));
-  const set = Math.floor((a + g + sh + pe) / 2);
   notes.push(`True Goddess: 10 s cooldown on every skill, Kaupe 2 s after each cast (experimental)`);
-  return { trueGoddess: true, tgMoveSpeed: 3 * a, tgCast: { variable: -5 * g - set, fixed: -3 * sh - set } };
-}
-
-/** Every line of every worn item's and card's description. */
-function gearLines(build: Build, data: Dataset): string[] {
-  return Object.values(build.slots).flatMap((s) => [s?.itemId, ...(s?.cards ?? [])])
-    .flatMap((id) => (id ? (data.items.get(id)?.description ?? '').split('\n') : []));
+  return { trueGoddess: true };
 }
 
 function itemIn(build: Build, data: Dataset, slot: string) {

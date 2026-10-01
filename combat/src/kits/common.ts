@@ -245,7 +245,10 @@ export const stayHidden: Action = {
   id: 'Stay hidden',
   isSkill: false,
   offensive: false,
-  ready: (fight) => has(fight, 'hidden') && followUpComing(fight),
+  // Not for a cast that lands after Hiding runs out: holding then only wastes
+  // the time to dodge it some other way (Magma Knight's 2.5 s Vampire Gift, 2026-10-01).
+  ready: (fight) => has(fight, 'hidden') && followUpComing(fight)
+    && !(fight.mob.cast && fight.mob.cast.endsAt > fight.me.buffs.hidden.until),
   castMs: () => 0,
   delayMs: (fight) => Math.max(50, Math.min(200, fight.me.buffs.hidden.until - fight.t)),
   cooldownMs: () => 0,

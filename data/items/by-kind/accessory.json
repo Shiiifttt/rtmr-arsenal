@@ -1846,7 +1846,20 @@
      },
      {
       "text": "HP +2 per VIT",
-      "parsed": false
+      "per_base_stat": {
+       "per": 1,
+       "stat": "VIT"
+      },
+      "stat": "HP",
+      "value": 2,
+      "unit": null,
+      "parsed": true,
+      "stat_ids": [
+       6
+      ],
+      "stat_keys": [
+       "max_hp"
+      ]
      }
     ]
    },
@@ -2010,7 +2023,20 @@
      },
      {
       "text": "HP +2 per VIT",
-      "parsed": false
+      "per_base_stat": {
+       "per": 1,
+       "stat": "VIT"
+      },
+      "stat": "HP",
+      "value": 2,
+      "unit": null,
+      "parsed": true,
+      "stat_ids": [
+       6
+      ],
+      "stat_keys": [
+       "max_hp"
+      ]
      }
     ]
    },
@@ -2300,7 +2326,22 @@
   "effects": [
    {
     "text": "SP Regen +3% per level of Increase SP Recovery",
-    "parsed": false
+    "per_skill_level": {
+     "skills": [
+      "Increase SP Recovery"
+     ],
+     "combine": "sum"
+    },
+    "stat": "SP Regen",
+    "value": 3,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     9
+    ],
+    "stat_keys": [
+     "sp_regen"
+    ]
    },
    {
     "text": "Instant Draw DMG +5%",
@@ -2391,13 +2432,31 @@
   "sets": [],
   "effects": [
    {
-    "text": "Ignore Size Penalty ATK+1%",
-    "stat": "Ignore Size Penalty ATK",
+    "text": "Ignore Size Penalty",
+    "stat": "Ignore Size Penalty",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "flag": true,
+    "stat_ids": [
+     132
+    ],
+    "stat_keys": [
+     "no_size_penalty"
+    ]
+   },
+   {
+    "text": "ATK+1%",
+    "stat": "ATK",
     "value": 1,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     10
+    ],
+    "stat_keys": [
+     "atk"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -2758,13 +2817,21 @@
     ]
    },
    {
-    "text": "Skill Random Mods Healing Received -25%",
-    "stat": "Skill Random Mods Healing Received",
+    "text": "Skill Random Mods",
+    "parsed": false
+   },
+   {
+    "text": "Healing Received -25%",
+    "stat": "Healing Received",
     "value": -25,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     43
+    ],
+    "stat_keys": [
+     "healing_received"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -3519,7 +3586,7 @@
   "effects": [
    {
     "text": "Increases Kafra Elixir refill limit by +1.",
-    "stat": "Increases Kafra Elixir refill limit by",
+    "stat": "Kafra Elixir refill limit",
     "value": 1,
     "unit": null,
     "parsed": true,
@@ -4948,8 +5015,15 @@
     "value": 5,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     24,
+     25
+    ],
+    "stat_keys": [
+     "def",
+     "mdef"
+    ],
+    "scope": "total"
    }
   ],
   "piece_bonus": [],
@@ -5247,7 +5321,20 @@
   "effects": [
    {
     "text": "HP+4 per VIT",
-    "parsed": false
+    "per_base_stat": {
+     "per": 1,
+     "stat": "VIT"
+    },
+    "stat": "HP",
+    "value": 4,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     6
+    ],
+    "stat_keys": [
+     "max_hp"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -5804,13 +5891,21 @@
   "sets": [],
   "effects": [
    {
-    "text": "Skill Random Options EXP Received-10%",
-    "stat": "Skill Random Options EXP Received",
+    "text": "Skill Random Options",
+    "parsed": false
+   },
+   {
+    "text": "EXP Received-10%",
+    "stat": "EXP Received",
     "value": -10,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     41
+    ],
+    "stat_keys": [
+     "exp_gain"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -6315,13 +6410,31 @@
   "sets": [],
   "effects": [
    {
-    "text": "Ignore Reflected Damage ASPD +2",
-    "stat": "Ignore Reflected Damage ASPD",
+    "text": "Ignore Reflected Damage",
+    "stat": "Ignore Reflected Damage",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "flag": true,
+    "stat_ids": [
+     133
+    ],
+    "stat_keys": [
+     "ignores_reflect"
+    ]
+   },
+   {
+    "text": "ASPD +2",
+    "stat": "ASPD",
     "value": 2,
     "unit": null,
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     16
+    ],
+    "stat_keys": [
+     "aspd"
+    ]
    },
    {
     "text": "Flee+5",
@@ -8407,8 +8520,12 @@
     "value": 10,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     37
+    ],
+    "stat_keys": [
+     "sp_cost"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -10148,11 +10265,39 @@
   "effects": [
    {
     "text": "Perfect Dodge +1 per Shield Mastery",
-    "parsed": false
+    "per_skill_level": {
+     "skills": [
+      "Shield Mastery"
+     ],
+     "combine": "sum"
+    },
+    "stat": "Perfect Dodge",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     27
+    ],
+    "stat_keys": [
+     "perfect_dodge"
+    ]
    },
    {
     "text": "DEF+1 per 9 VIT",
-    "parsed": false
+    "per_base_stat": {
+     "per": 9,
+     "stat": "VIT"
+    },
+    "stat": "DEF",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     24
+    ],
+    "stat_keys": [
+     "def"
+    ]
    },
    {
     "text": "HP+1%",
@@ -10251,11 +10396,37 @@
   "effects": [
    {
     "text": "HP+10 per base INT",
-    "parsed": false
+    "per_base_stat": {
+     "per": 1,
+     "stat": "INT"
+    },
+    "stat": "HP",
+    "value": 10,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     6
+    ],
+    "stat_keys": [
+     "max_hp"
+    ]
    },
    {
     "text": "SP+2 per base VIT",
-    "parsed": false
+    "per_base_stat": {
+     "per": 1,
+     "stat": "VIT"
+    },
+    "stat": "SP",
+    "value": 2,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     7
+    ],
+    "stat_keys": [
+     "max_sp"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -10691,7 +10862,17 @@
   "effects": [
    {
     "text": "Enables Dual Cast Lv3",
-    "parsed": false
+    "stat": "Dual Cast Lv",
+    "value": 3,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Dual Cast",
+    "skill_metric": "level",
+    "skills": [
+     "Dual Cast"
+    ]
    },
    {
     "text": "INT+1",

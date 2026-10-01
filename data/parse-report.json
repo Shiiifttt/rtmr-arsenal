@@ -1,37 +1,37 @@
 {
  "items": 4148,
- "sets": 252,
- "items_in_a_set": 875,
- "items_with_item_refine_scaling": 891,
+ "sets": 254,
+ "items_in_a_set": 879,
+ "items_with_item_refine_scaling": 926,
  "sets_with_set_refine_scaling": 96,
- "effect_lines": 10237,
- "effect_lines_unstructured": 3871,
- "effect_parse_rate": 62.2,
+ "effect_lines": 10267,
+ "effect_lines_unstructured": 3445,
+ "effect_parse_rate": 66.4,
  "effect_parse_rate_by_kind": {
   "Weapon": {
-   "lines": 2262,
-   "unstructured": 553,
-   "rate": 75.6
+   "lines": 2256,
+   "unstructured": 417,
+   "rate": 81.5
   },
   "Armor": {
-   "lines": 1508,
-   "unstructured": 175,
-   "rate": 88.4
+   "lines": 1505,
+   "unstructured": 127,
+   "rate": 91.6
   },
   "Class gear": {
-   "lines": 1383,
-   "unstructured": 504,
-   "rate": 63.6
+   "lines": 1421,
+   "unstructured": 407,
+   "rate": 71.4
   },
   "Card": {
-   "lines": 1067,
-   "unstructured": 192,
-   "rate": 82.0
+   "lines": 1063,
+   "unstructured": 149,
+   "rate": 86.0
   },
   "Shadow gear": {
-   "lines": 998,
-   "unstructured": 313,
-   "rate": 68.6
+   "lines": 994,
+   "unstructured": 229,
+   "rate": 77.0
   },
   "Costume": {
    "lines": 759,
@@ -39,9 +39,9 @@
    "rate": 0.1
   },
   "Other": {
-   "lines": 445,
-   "unstructured": 312,
-   "rate": 29.9
+   "lines": 446,
+   "unstructured": 310,
+   "rate": 30.5
   },
   "Material": {
    "lines": 404,
@@ -54,19 +54,19 @@
    "rate": 3.3
   },
   "Shield": {
-   "lines": 293,
-   "unstructured": 37,
-   "rate": 87.4
+   "lines": 296,
+   "unstructured": 34,
+   "rate": 88.5
   },
   "Accessory": {
-   "lines": 288,
-   "unstructured": 35,
-   "rate": 87.8
+   "lines": 292,
+   "unstructured": 28,
+   "rate": 90.4
   },
   "Headgear": {
-   "lines": 236,
-   "unstructured": 19,
-   "rate": 91.9
+   "lines": 237,
+   "unstructured": 13,
+   "rate": 94.5
   },
   "Relic": {
    "lines": 204,
@@ -88,6 +88,58 @@
    "changed": [
     "members",
     "member_count"
+   ]
+  },
+  {
+   "set": "Sin Daggers",
+   "key": "sin-daggers",
+   "status": "unverified",
+   "reason": "Both daggers write the heading 'Sin Daggers:' (no 'Set') over 'First and Second', then 'Set Bonus:'. The parser read it as a condition and lost the bonus lines, so the gear search never valued the pair (2026-10-01, Night Raven Definitive Dagger build).",
+   "changed": [
+    "created",
+    "members",
+    "member_count",
+    "set_bonus"
+   ]
+  },
+  {
+   "set": "Skull Mask (Gravewhisper)",
+   "key": "gravewhisper-skull-mask",
+   "status": "unverified",
+   "reason": "Gravewhisper writes 'Skull Mask Set:' then 'Critical Damage +10%' and 'while wearing Skull Mask', with no 'Set Bonus:' line, so the parser made no set and the bonus was lost (tools/audit-gear.ts, 2026-10-01).",
+   "changed": [
+    "created",
+    "members",
+    "member_count",
+    "set_bonus"
+   ]
+  },
+  {
+   "set": "Asgard",
+   "key": "asgard",
+   "status": "unverified",
+   "reason": "'Double Max HP/SP' has no number to read. The project owner (2026-10-01): it doubles them -- written as a x2 multiplier on the finished pools. The other lines are restated because the override replaces the whole set bonus.",
+   "changed": [
+    "set_bonus"
+   ]
+  },
+  {
+   "set": "Legacy of Heroes",
+   "key": "legacy-of-heroes",
+   "status": "unverified",
+   "reason": "'Per 10 Refines: +3% All Bonuses (Max 12% at +40 Total)'. The project owner (2026-10-01): each of the set's per cent bonuses -- SP, HP, ATK, MATK -- goes up 3% per 10 total set refines. Four shadow pieces reach +40, so the 12% cap falls out of the steps.",
+   "changed": [
+    "set_refine.per_set_refine"
+   ]
+  },
+  {
+   "set": "Master Thief",
+   "key": "master-thief",
+   "status": "unverified",
+   "reason": "'All 4 Skills Damage +10%' and 'Per 2 Refines: +1% All 4 Skills Damage. (Max 20% at +40 Total)' name no skill, so they counted for nothing. The four are the ones the pieces name, one each: Backstab (Armor), Rolling Cutter (Gloves), Double Strafe (Pendant), Cross Ripper Slasher (Shoes). Four shadow pieces top out at +40 total, which is where the 20% cap falls, so the cap needs no rule of its own (2026-10-01 audit).",
+   "changed": [
+    "set_bonus",
+    "set_refine.per_set_refine"
    ]
   },
   {
@@ -382,6 +434,14 @@
    ]
   },
   {
+   "item": "Ogretooth",
+   "status": "unverified",
+   "reason": "Two lines of the tooltip ('Permanent Endure Effect' and 'ASPD Limit +2') were read as one, so the +2 ASPD Limit went nowhere -- the limit that holds an auto-attack build's speed (the project owner, 2026-10-01).",
+   "changed": [
+    "effects"
+   ]
+  },
+  {
    "item": "Moonless Gem of Darkness",
    "status": "unverified",
    "reason": "The tooltip calls the skills its damage lines scale '3 skills': the three it gives a status to just above, New Moon Blades, Full Moon Blades and Dragon Omamori. Left to the parser, that is a skill named '3 skills' that nothing has, so the -20% and the +2% per refine went nowhere. Written out per skill here.",
@@ -440,6 +500,212 @@
    ]
   },
   {
+   "item": "Turtle General Card",
+   "status": "unverified",
+   "reason": "'Turns 1/9 your base VIT into ATK' is ATK +1 per 9 base VIT: the server script is bonus bBaseAtk,(readparam(bVit)/9), readparam being the sheet's points. Written in the wording the parser reads (2026-10-01 audit).",
+   "changed": [
+    "effects"
+   ]
+  },
+  {
+   "item": "Vine Willow Card",
+   "status": "unverified",
+   "reason": "'Every 10 base INT increases ATK by 1': server script bonus bBaseAtk,(readparam(bInt))/10. Rewritten as the parser reads it (2026-10-01 audit).",
+   "changed": [
+    "effects"
+   ]
+  },
+  {
+   "item": "Splendide Edge",
+   "status": "unverified",
+   "reason": "'MATK increased by your / base STR' was wrapped over two lines and read as nothing. Read as MATK +1 per base STR point; the item is newer than the 2023 server snapshot, so there is no script to check it against (2026-10-01 audit).",
+   "changed": [
+    "effects"
+   ]
+  },
+  {
+   "item": "Joker's Wild",
+   "status": "unverified",
+   "reason": "'Recover 100 SP per hit.' / 'Increases by 14 SP per refine.' -- the second names no stat. The server script is bonus bSPDrainValue,100+(14*refine): 14 more SP per hit per refine (2026-10-01 audit).",
+   "changed": [
+    "refine.per_refine"
+   ]
+  },
+  {
+   "item": "Evil Wings",
+   "status": "unverified",
+   "reason": "'Damage vs Fire, Earth, Wind and Water +10%'. The server script gives both halves for each element, bAddEle and bMagicAddEle +10, so it is written as physical and magic damage (2026-10-01 audit).",
+   "changed": [
+    "effects"
+   ]
+  },
+  {
+   "item": "Angel Wings",
+   "status": "unverified",
+   "reason": "'Damage vs Neutral, Poison, Ghost and Undead +10%'. The server script gives bAddEle and bMagicAddEle +10 for each, so it is written as physical and magic damage (2026-10-01 audit).",
+   "changed": [
+    "effects"
+   ]
+  },
+  {
+   "item": "Jormungandr's Promise",
+   "status": "unverified",
+   "reason": "'Double Attack Lv: Refine' over 'All Stats +3' was glued into one line and both were lost. Read as Double Attack at the weapon's refine level (capped at 10 like every Double Attack level), as Fallen Dagger writes it ('Double Attack Lv: = Refine (max 10)') (2026-10-01 audit).",
+   "changed": [
+    "effects"
+   ]
+  },
+  {
+   "item": "Eternal Icicle Sword",
+   "status": "unverified",
+   "reason": "'30% Extra \"Frost Diver\" Damage per Refine': the server script is bSkillAtk MG_FROSTDIVER,30*refine (2026-10-01 audit).",
+   "changed": [
+    "refine.per_refine"
+   ]
+  },
+  {
+   "item": "Crimson Wings Helm",
+   "status": "unverified",
+   "reason": "'8% chance to leech 3% of damage dealt.' / 'Amount increases by 1% per refine'. The amount is the leech power: +1% per refine (the 2023 server script has power 5+refine; the live tooltip's 3 is kept) (2026-10-01 audit).",
+   "changed": [
+    "refine.per_refine"
+   ]
+  },
+  {
+   "item": "Limitless Legacy Gloves",
+   "status": "unverified",
+   "reason": "'STR +1 per Hallucination' / 'Walk level' was wrapped mid skill name. Every other Limitless piece has one stat per skill level as a piece bonus, so this is STR +1 per Hallucination Walk level. 'Shadow Slash damage +6% per Blade Mastery level' is skill damage, as the 2023 server writes such lines (the owner, 2026-10-01: refer to the 2023 code); the Night Raven kit no longer adds it to the ratio itself (2026-10-01 audit).",
+   "changed": [
+    "piece_bonus"
+   ]
+  },
+  {
+   "item": "Limitless Legacy Shoes",
+   "status": "unverified",
+   "reason": "'LUK +1 per Fury level' sits under the 'On kill with Sonic Blow:' heading, so it read as an on-kill effect. Every other Limitless piece has its stat-per-skill-level line as a plain piece bonus, so it is read as one here too; only the heal is on kill (2026-10-01 audit).",
+   "changed": [
+    "piece_bonus",
+    "conditional"
+   ]
+  },
+  {
+   "item": "Limitless Innovation Shoes",
+   "status": "unverified",
+   "reason": "'DEX +1 per Ricochet Arrow level.' sits under 'On kill with Arrow Vulcan:'. Read as a plain piece bonus like every other Limitless piece's stat-per-skill-level line; only the coin is on kill (2026-10-01 audit).",
+   "changed": [
+    "piece_bonus",
+    "conditional"
+   ]
+  },
+  {
+   "item": "Driller Card",
+   "status": "unverified",
+   "reason": "'Adds 0.2% per base AGI scaling to the skill:' is written as a heading over 'Backstab', so it read as a condition with nothing in it. Server script: bSkillAtk RG_BACKSTAP,(readparam(bAgi)/5) -- Back Stab damage +1% per 5 base AGI (2026-10-01 audit).",
+   "changed": [
+    "effects",
+    "conditional"
+   ]
+  },
+  {
+   "item": "Mantis Card",
+   "status": "unverified",
+   "reason": "'Adds 0.2% per base VIT scaling to the skills:' over 'Rolling Cutter.' / 'Cross Ripper Slasher.'. Server script: bSkillAtk on both, readparam(bVit)/5 (2026-10-01 audit).",
+   "changed": [
+    "effects",
+    "conditional"
+   ]
+  },
+  {
+   "item": "Demon Pungus Card",
+   "status": "unverified",
+   "reason": "'Adds 0.5% per base INT scaling to the skill:' over 'Envenom'. Server script: bSkillAtk TF_POISON,(readparam(bInt)/5) -- the 2023 code gives 1% per 5 INT where the tooltip says 0.5% per INT, i.e. 1% per 2. The tooltip is the live number and is used (2026-10-01 audit).",
+   "changed": [
+    "effects",
+    "conditional"
+   ]
+  },
+  {
+   "item": "Wayward Gem of Laid Traps",
+   "status": "unverified",
+   "reason": "Under 'Per Refine:' the three autocast lines start with '+1%', so they were glued onto 'Thief Spells Damage +2%' and all of it was lost. Split back into the damage line and the three autocasts (2026-10-01 audit).",
+   "changed": [
+    "refine.per_refine"
+   ]
+  },
+  {
+   "item": "Lust Pick",
+   "status": "unverified",
+   "reason": "'Penetration +100': the project owner (2026-10-01) -- full DEF penetration. Written out as Defense Penetration so it cannot be read any other way.",
+   "changed": [
+    "effects"
+   ]
+  },
+  {
+   "item": "Mind Vessel Card",
+   "status": "unverified",
+   "reason": "'SP Regen 10%+1% per 2 base LUK': a base and a scaling run together with no sign on the first. Read as SP Regen +10%, and +1% per 2 base LUK (2026-10-01 audit).",
+   "changed": [
+    "effects"
+   ]
+  },
+  {
+   "item": "Deft Gem of Precision",
+   "status": "unverified",
+   "reason": "'All 4 skills' are the four the first line names: Eruption, Flaming Petals, Freezing Spear and Wind Blade. 'Cooldown on all of them: +3 s' is read on the same four. Written out per skill so they count (2026-10-01 audit).",
+   "changed": [
+    "effects",
+    "refine.per_refine"
+   ]
+  },
+  {
+   "item": "Polymath Gem of All Schools",
+   "status": "unverified",
+   "reason": "'All 4 skill Damage +4%' per refine names the four the gem enables just above it: Greater Explosion, Meteor Assault, Thousand Arms and Soul Destroyer (2026-10-01 audit).",
+   "changed": [
+    "refine.per_refine"
+   ]
+  },
+  {
+   "item": "Astro Dagger",
+   "status": "unverified",
+   "reason": "'Double Attack Lv: ??'. The server script is skill TF_DOUBLE at the GS_SNAKEEYE level -- the same skill its 'Per Level of Spectral Mastery' block counts (bDoubleAddRate 10 a level) -- so Double Attack at the Spectral Mastery level (2026-10-01 audit).",
+   "changed": [
+    "effects"
+   ]
+  },
+  {
+   "item": "Death Rune Dagger",
+   "status": "unverified",
+   "reason": "'Double Attack Lv: ??': server script skill TF_DOUBLE at the GS_SNAKEEYE (Spectral Mastery) level (2026-10-01 audit).",
+   "changed": [
+    "effects"
+   ]
+  },
+  {
+   "item": "Specter Dagger",
+   "status": "unverified",
+   "reason": "'Double Attack Lv: ??': server script skill TF_DOUBLE at the GS_SNAKEEYE (Spectral Mastery) level (2026-10-01 audit).",
+   "changed": [
+    "effects"
+   ]
+  },
+  {
+   "item": "Umbra Dagger",
+   "status": "unverified",
+   "reason": "'Double Attack Lv: ??': server script skill TF_DOUBLE at the GS_SNAKEEYE (Spectral Mastery) level (2026-10-01 audit).",
+   "changed": [
+    "effects"
+   ]
+  },
+  {
+   "item": "Sacrifice",
+   "status": "unverified",
+   "reason": "'Double Attack Lv: ??'. The server script ties it to the same skill as the item's per-level block, which the tooltip names Spectral Mastery, so Double Attack at that level. The base-LUK lines are restated because the override replaces the item's effects (2026-10-01 audit).",
+   "changed": [
+    "effects"
+   ]
+  },
+  {
    "item": "Tengu Geta",
    "status": "verified",
    "reason": "'All Cast Time -5%' / 'ATK +5, MATK +5' / 'Extra 1% and +1 per refine'. One continuation covering two lines with two different units, which no inheritance rule can split on its own -- read alone it parsed as a stat literally named 'Extra 1% and'. Per the project owner the per cent is the cast time and the flat +1 is the ATK and MATK. The cast reduction stays negative because it is more of a reduction.",
@@ -450,6 +716,11 @@
  ],
  "overrides_unverified": [
   "Valkyries",
+  "Sin Daggers",
+  "Skull Mask (Gravewhisper)",
+  "Asgard",
+  "Legacy of Heroes",
+  "Master Thief",
   "Full Shadow Card",
   "01",
   "02",
@@ -479,34 +750,52 @@
   "Slotted Death",
   "Slotted Bullhorn",
   "Unslotted Bullhorn",
+  "Ogretooth",
   "Moonless Gem of Darkness",
   "Rhyncho Card",
   "Murder Knife",
   "Gravewhisper",
-  "Rank S Shadow Card"
+  "Rank S Shadow Card",
+  "Turtle General Card",
+  "Vine Willow Card",
+  "Splendide Edge",
+  "Joker's Wild",
+  "Evil Wings",
+  "Angel Wings",
+  "Jormungandr's Promise",
+  "Eternal Icicle Sword",
+  "Crimson Wings Helm",
+  "Limitless Legacy Gloves",
+  "Limitless Legacy Shoes",
+  "Limitless Innovation Shoes",
+  "Driller Card",
+  "Mantis Card",
+  "Demon Pungus Card",
+  "Wayward Gem of Laid Traps",
+  "Lust Pick",
+  "Mind Vessel Card",
+  "Deft Gem of Precision",
+  "Polymath Gem of All Schools",
+  "Astro Dagger",
+  "Death Rune Dagger",
+  "Specter Dagger",
+  "Umbra Dagger",
+  "Sacrifice"
  ],
  "overrides_stale": [],
  "enchantable_items": 69,
  "per_stat_count_blocks": 4,
- "element_overrides": 20,
+ "element_overrides": 21,
  "evaluable_conditions": 69,
- "conditions_total": 388,
- "stats_registered": 158,
+ "conditions_total": 384,
+ "stats_registered": 171,
  "stat_mapping": {
-  "mapped_to_stat_ids": 5768,
-  "skill_modifiers": 954,
-  "unmapped": 199,
-  "coverage_percent": 83.3
+  "mapped_to_stat_ids": 6097,
+  "skill_modifiers": 1215,
+  "unmapped": 100,
+  "coverage_percent": 82.3
  },
  "unmapped_stat_names": [
-  [
-   "Lv",
-   6
-  ],
-  [
-   "Abracadabra Cooldown Reduction",
-   5
-  ],
   [
    "1: STR or INT 2: AGI or VIT 3: DEX or LUK Each line can be negative",
    5
@@ -516,16 +805,12 @@
    5
   ],
   [
-   "Penetration",
-   4
+   "Use Trinket scales",
+   5
   ],
   [
-   "Cannot be Refined EXP Received",
+   "Kafra Elixir refill limit",
    4
-  ],
-  [
-   "Increases Kafra Elixir refill limit by",
-   3
   ],
   [
    "Dragon Claw Rate",
@@ -533,10 +818,6 @@
   ],
   [
    "Zeny limit on kill",
-   3
-  ],
-  [
-   "Knockback Immunity Move Speed",
    3
   ],
   [
@@ -572,19 +853,11 @@
    2
   ],
   [
-   "ATK +1 and MATK",
-   2
-  ],
-  [
-   "Weapon Attack Power",
-   2
-  ],
-  [
    "Arrow Shower Knockback",
    2
   ],
   [
-   "Max HP +10% and Max SP",
+   "Zeny Limit on Kill",
    2
   ],
   [
@@ -593,14 +866,6 @@
   ],
   [
    "Dragon Claw Range",
-   1
-  ],
-  [
-   "Natural HP Regen",
-   1
-  ],
-  [
-   "Ghost and Undead",
    1
   ],
   [
@@ -624,7 +889,7 @@
    1
   ],
   [
-   "Reduction",
+   "Damage vs the Dummies",
    1
   ],
   [
@@ -632,55 +897,7 @@
    1
   ],
   [
-   "HP Recov Rate",
-   1
-  ],
-  [
-   "SP Recov Rate",
-   1
-  ],
-  [
-   "Ignore Size Penalty ATK",
-   1
-  ],
-  [
-   "plus",
-   1
-  ],
-  [
    "Critical Resistance",
-   1
-  ],
-  [
-   "It gains",
-   1
-  ],
-  [
-   "and",
-   1
-  ],
-  [
-   "Damage with Dark-element magic",
-   1
-  ],
-  [
-   "Skill Random Mods Healing Received",
-   1
-  ],
-  [
-   "Healing Power and Healing Received",
-   1
-  ],
-  [
-   "All Damage received",
-   1
-  ],
-  [
-   "Perfect Dodge +2",
-   1
-  ],
-  [
-   "Nullify Size Penalty ATK",
    1
   ],
   [
@@ -692,51 +909,131 @@
    1
   ],
   [
-   "+4 refine: Total DEF",
-   1
-  ],
-  [
-   "+7 refine: Max HP",
-   1
-  ],
-  [
-   "+9 refine: Max HP",
-   1
-  ],
-  [
-   "Grants Resurrection: +1 level per set piece worn (max Lv 4). +4 refine: MDEF",
-   1
-  ],
-  [
-   "+7 refine: Max SP",
-   1
-  ],
-  [
-   "+9 refine: Max SP",
-   1
-  ],
-  [
-   "+4 refine: Total Flee",
-   1
-  ],
-  [
-   "+7 refine: Move Speed",
-   1
-  ],
-  [
-   "+9 refine: Move Speed",
-   1
-  ],
-  [
-   "Neutral damage reduction from all sizes",
-   1
-  ],
-  [
    "25%+ ASPD",
    1
   ],
   [
    "75%+ Defense Penetration",
+   1
+  ],
+  [
+   "100%+ ATK",
+   1
+  ],
+  [
+   "Can be used to refine armors between +7 to",
+   1
+  ],
+  [
+   "Can be used to refine weapons between +7 to",
+   1
+  ],
+  [
+   "Earthquake DMG taken",
+   1
+  ],
+  [
+   "AGI: ASPD +1 & ASPD Limit",
+   1
+  ],
+  [
+   "Final ranged damage vs Frozen",
+   1
+  ],
+  [
+   "Can be used to refine armors between +4 to",
+   1
+  ],
+  [
+   "Can be used to refine weapons between +4 to",
+   1
+  ],
+  [
+   "Damage taken from poisoned targets",
+   1
+  ],
+  [
+   "Can be used to refine Runes to",
+   1
+  ],
+  [
+   "Can be used to refine armors to",
+   1
+  ],
+  [
+   "Can be used to refine weapons to",
+   1
+  ],
+  [
+   "Can be used to refine Shadow Items to",
+   1
+  ],
+  [
+   "Ranged Critical Rate",
+   1
+  ],
+  [
+   "Earthquake Damage Received",
+   1
+  ],
+  [
+   "Critical Rate Defense",
+   1
+  ],
+  [
+   "Water Ball Variable Cast",
+   1
+  ],
+  [
+   "Zeny Limit per kil",
+   1
+  ],
+  [
+   "Used to refine Shadow items up to",
+   1
+  ],
+  [
+   "Poison Status Resistance",
+   1
+  ],
+  [
+   "Zeny Limit",
+   1
+  ],
+  [
+   "3% SP Final damage vs Silenced targets",
+   1
+  ],
+  [
+   "Absolution kills grant",
+   1
+  ],
+  [
+   "AGI: ASPD",
+   1
+  ],
+  [
+   "Summon cap",
+   1
+  ],
+  [
+   "Each of these autocast chances",
+   1
+  ],
+  [
+   "damage dealt",
+   1
+  ],
+  [
+   "Added: Critical",
+   1
+  ],
+  [
+   "Potion Pitcher healing Power",
+   1
+  ],
+  [
+   "Fills your spirit with perfection, granting Critical Rate +50",
    1
   ]
  ],
@@ -782,13 +1079,12 @@
    "field": "set_bonus",
    "variants": [
     [
-     "ATK +1 and MATK +1 per set refine"
+     "ATK +1 per set refine",
+     "MATK +1 per set refine"
     ],
     [
-     "ATK +1 & MATK +1 per set refine"
-    ],
-    [
-     "ATK +1 & MATK +1 per total set refine"
+     "ATK +1 per total set refine",
+     "MATK +1 per total set refine"
     ]
    ]
   },
@@ -870,7 +1166,6 @@
   "(Lv3).",
   "(Max 12% at +40 Total)",
   "(Max 20% at +40 Total)",
-  "(Neutral excluded).",
   "(Shields have a small ASPD penalty)",
   "(additional).",
   "(applied at refill).",
@@ -881,20 +1176,14 @@
   "(magic or physical)",
   "(minimum Lv1) when attacking.",
   "(normal attacks and physical skills)",
-  "(total +30%)",
-  "(total 10)",
-  "+0.1% chance of dropping Shadow Ore / Upgrade",
   "+0.1% chance of dropping Shadow Ore per Total Set Refine Level. +0.01% chance of dropping Jewel Ores per 8 Total Set Refine Levels.",
   "+0.1% chance to Freeze the attacker when hit by any attack",
-  "+0.3% chance of dropping Shadow Ore / Upgrade",
   "+0.5% chance of dropping Shadow Ore on killing monsters.",
   "+1 Kafra Elixir capacity",
-  "+1 per 5 base",
   "+1% All 4 Skills Damage.",
   "+1% chance of dropping Shadow Ore on killing monsters.",
   "+1% per highest piece refine",
   "+1% per total set refine",
-  "+10% damage to Earth, Fire, Wind and Water monsters.",
   "+15% final damage vs Poisoned targets +15% final damage vs Bleeding targets",
   "+3% All Bonuses",
   "-2",
@@ -908,7 +1197,14 @@
   "0.2% chance to apply Lex Aeterna on enemy when attacking per base level. (Max 30% at Lv 150)",
   "0.5% additional chance to autocast Heal",
   "0.5% chance to auto cast Burning Spiral per attack.",
-  "0.5% chance to auto cast Frozen Crash per attack."
+  "0.5% chance to auto cast Frozen Crash per attack.",
+  "0.5% chance to auto cast Land Fissure per attack.",
+  "0.5% chance to auto cast Lightning Bolt per attack.",
+  "0.5% chance to autocast Unholy Light, Eruption and Samsara",
+  "01% chance to cast Earthquake Lv1 when hit",
+  "1 Blue Gemstone",
+  "1 Cell Knockback when using Double Strafe",
+  "1 Red Gemstone"
  ],
  "class_rules_applied": [
   {
@@ -925,6 +1221,13 @@
    "changed": [
     "weapons",
     "off_hand"
+   ]
+  },
+  {
+   "item": "Revenant Ebel Card",
+   "status": "verified",
+   "changed": [
+    "usable_by"
    ]
   },
   {

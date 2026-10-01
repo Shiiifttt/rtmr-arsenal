@@ -27,6 +27,8 @@ import { DEFAULT_PREFS, GoalsPanel, type SuggestPrefs } from './components/Goals
  * dev server (see combatPlugin in vite.config.ts).
  */
 const CombatPanel = import.meta.env.DEV ? lazy(() => import('./components/CombatPanel')) : null;
+/** A running gear search, watched live (combat/src/live.ts). Dev only, like the above. */
+const LivePanel = import.meta.env.DEV ? lazy(() => import('./components/LivePanel')) : null;
 
 // Kept apart from the build: these are how the player likes suggestions
 // narrowed, not part of any one character.
@@ -60,6 +62,7 @@ export default function App() {
   const [importing, setImporting] = useState(false);
   const [builds, setBuilds] = useState(false);
   const [fighting, setFighting] = useState(false);
+  const [watching, setWatching] = useState(false);
   const [codex, setCodex] = useState(false);
   /** The recommended-rotation overlay (data/rotations.json, from the combat sim). */
   const [rotation, setRotation] = useState(false);
@@ -303,6 +306,12 @@ export default function App() {
             Simulate
           </button>
         )}
+        {LivePanel && (
+          <button onClick={() => setWatching(true)}
+            title="Watch a gear search running in combat/ (dev server only)">
+            Live
+          </button>
+        )}
         <button onClick={() => setRotation(true)}
           title="The combat sim's recommended rotation for this class: all-round and on the dummy">
           Rotation
@@ -470,6 +479,13 @@ export default function App() {
       {CombatPanel && fighting && (
         <Suspense fallback={null}>
           <CombatPanel build={build} onClose={() => setFighting(false)} />
+        </Suspense>
+      )}
+
+      {LivePanel && watching && (
+        <Suspense fallback={null}>
+          <LivePanel dataset={dataset} build={build} onClose={() => setWatching(false)}
+            onLoad={(next) => { setBuild(next); ownIt(); setWatching(false); }} />
         </Suspense>
       )}
 

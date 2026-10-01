@@ -246,6 +246,8 @@ export function dummyMonster(): Monster {
     size: 'Medium', race: 'Formless', element: 'Neutral', elementLevel: 1, boss: false,
     atk: 0, matk: 0, matkBase: 0, def: 0, softDef: 0, mdef: 0, softMdef: 0, hit: 0, flee: 0,
     str: 0, luk: 0, stats: zero, reach: 1, adelay: Infinity, statusImmune: true, damageTaken: 1,
+    // The server's dummies are KnockBackImmune (mob_db DUMMY_*); the owner's Rook's Smash read 3 hits on one.
+    noKnockback: true,
     dummy: true, skills: [], notes: ['training dummy: cannot die, does not attack, no defences'],
   };
 }

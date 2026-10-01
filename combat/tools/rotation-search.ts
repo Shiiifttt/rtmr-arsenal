@@ -7,10 +7,9 @@
  * fresh seeds against the start.
  *
  *   node --experimental-strip-types --no-warnings --import ./register.mjs tools/rotation-search.ts \
- *     --profile profiles/satsujin-moon.json [--time 10] [--iter 200] [--confirm 1000] [--fixed weaveMs,slashOpener]
+ *     --profile profiles/satsujin-moon.json [--iter 200] [--confirm 1000] [--fixed weaveMs,slashOpener]
  *
- * --time: the dummy window in seconds (default DUMMY_SECONDS). A longer one
- * (60) weighs the loop over the opener and lets SP run short.
+ * The window is always DUMMY_SECONDS (the project owner: the dummy is a 10 s fight).
  * --fixed: options the search leaves as the profile has them.
  */
 import { resolve } from 'node:path';
@@ -31,7 +30,9 @@ const build = await resolveBuild(profile.build, data);
 const kit = kitFor(build.className ?? '');
 const f = await buildFighter(profile, { passives: kit.passives, aliases: kit.aliases, maxLevels: kit.maxLevels() });
 const m = dummyMonster();
-const limitMs = Number(one('time') ?? DUMMY_SECONDS) * 1000;
+// The dummy is a 10 s fight (the project owner): --time no longer changes it.
+const limitMs = DUMMY_SECONDS * 1000;
+if (one('time')) console.log(`--time ignored: the dummy is always ${DUMMY_SECONDS}s`);
 const iterations = Number(one('iter') ?? 200);
 const confirmN = Number(one('confirm') ?? 1000);
 // strictCombo is the owner's rule (Million Stab / Dragon Omamori wait for

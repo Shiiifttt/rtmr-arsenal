@@ -613,13 +613,14 @@ test('a skill line naming several skills counts for each of them', () => {
 });
 
 test('effects that cannot be summed are reported, not dropped', () => {
-  // "All 4 skills Damage -40%" names no one skill, so it has nowhere to go.
-  const gem = itemList.find((i) => i.name === 'Deft Gem of Precision')!;
+  // "All Traps DMG+10%" names no one skill, so it has nowhere to go. (Deft
+  // Gem's "All 4 skills" was the example until an override named its four.)
+  const medallion = itemList.find((i) => i.name === 'Dangerous Medallion')!;
   const build = emptyBuild();
-  build.slots.gem = { itemId: gem.id, refine: 0, cards: [] };
+  build.slots.acc1 = { itemId: medallion.id, refine: 0, cards: [] };
   const totals = aggregate(build, dataset);
   assert.ok(
-    totals.uncounted.some((u) => u.text.startsWith('All 4 skills')),
+    totals.uncounted.some((u) => u.text.startsWith('All Traps')),
     'a skill modifier naming no skill should surface in uncounted',
   );
 });

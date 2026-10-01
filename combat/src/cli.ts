@@ -138,7 +138,7 @@ async function main() {
       iterations: Number(a.iter ?? (m.dummy ? 20 : 200)),
       seed: Number(a.seed ?? 1),
       // Stalemate clock (the project owner): 1 minute, 10 on a boss, DUMMY_SECONDS on the dummy.
-      limitMs: Number(a.time ?? (m.dummy ? DUMMY_SECONDS : m.boss ? 600 : 60)) * 1000,
+      limitMs: (m.dummy ? DUMMY_SECONDS : Number(a.time ?? (m.boss ? 600 : 60))) * 1000,
       policy,
       log: !!a.log,
       options: profile.options,

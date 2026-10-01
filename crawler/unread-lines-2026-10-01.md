@@ -1,0 +1,1562 @@
+# Gear lines still unread after the 2026-10-01 audit
+
+Every effect line on wearable gear (and set bonuses) the parser still leaves as prose, sorted by why.
+Regenerate the per-item checks with `combat/tools/audit-gear.ts`; this file is a snapshot.
+
+Most of these are mechanics the planner has no stat for (procs, status on target, skill behaviour),
+not parsing mistakes. The combat sim reads some of them from the tooltip itself: autocast-when-hit,
+Endure, Auto Guard, Back Slide, reflect cuts, "Grants X LvN", Kafra Elixir limits, element endows on cards.
+
+## not-an-effect (245)
+- [Weapon] Astro Dagger (2193) [if Per Level of Spectral Mastery] This dagger cannot be refined and can't be used for attacks. Can only be equipped on the offhand.
+- [Weapon] Astro Dagger (2193) [if Per Level of Spectral Mastery] Shadowseer Only
+- [Weapon] Avenged Tartaros (1174) [item] (2 Handed Sword)
+- [Weapon] Darkness Metal Sword (13411) [item] (2 Handed Sword)
+- [Weapon] Death Rune Dagger (2168) [if Per Level of Spectral Mastery] This dagger cannot be refined and can't be used for attacks. Can only be equipped on the offhand.
+- [Weapon] Death Rune Dagger (2168) [if Per Level of Spectral Mastery] Shadowseer Only
+- [Weapon] Enma Daikyu (30153) [item] Lv10
+- [Weapon] Fallen Sword (13455) [if Magic Defense Penetration] 10
+- [Weapon] Giant Nail (1490) [+7] Lv2
+- [Weapon] Jormungandr's Fang (2199) [if Per Level of Spectral Mastery] This dagger cannot be refined and can't be used for attacks. Can only be equipped on the offhand.
+- [Weapon] Jormungandr's Fang (2199) [if Per Level of Spectral Mastery] Shadowseer Only
+- [Weapon] Knife (1202) [item] No Special Properties.
+- [Weapon] Knuckle Bucket (1004933) [item] Unique Defensive Mods
+- [Weapon] Leaf-Cutter (1322) [item] Critical hits
+- [Weapon] Master Revolver (13114) [item] Special: Random Options
+- [Weapon] Morroc's Nail (13024) [item] Distance stacks with other equipped sources.
+- [Weapon] Reliquary Claymore (1150) [item] (2 Handed Sword)
+- [Weapon] Sacrifice (2198) [if Per Level of Spectral Mastery] This dagger cannot be refined and can't be used for attacks. Can only be equipped on the offhand.
+- [Weapon] Sacrifice (2198) [if Per Level of Spectral Mastery] Shadowseer Only
+- [Weapon] Second-Hand Stiletto (1004955) [if Per Level of Spectral Mastery] Slash
+- [Weapon] Second-Hand Stiletto (1004955) [if Per Level of Spectral Mastery] Shadowseer Only
+- [Weapon] Sieger Kunai (13292) [item] Prowler Only
+- [Weapon] Specter Dagger (2191) [if Per Level of Spectral Mastery] This dagger cannot be refined and can't be used for attacks. Can only be equipped on the offhand.
+- [Weapon] Specter Dagger (2191) [if Per Level of Spectral Mastery] Shadowseer Only
+- [Weapon] Sylph Lance (32001) [item] Critical hits
+- [Weapon] Tartaros (1193) [item] (2 Handed Sword)
+- [Weapon] Tyrfing (1139) [item] (2 Handed Sword)
+- [Weapon] Umbra Dagger (2194) [if Per Level of Spectral Mastery] This dagger cannot be refined and can't be used for attacks. Can only be equipped on the offhand.
+- [Weapon] Umbra Dagger (2194) [if Per Level of Spectral Mastery] Shadowseer Only
+- [Weapon] Unknown Glove (1809) [item] Unique Defensive Mods
+- [Weapon] Utsusemi Saya (30156) [item] Unique Ronin Off-Hand
+- [Weapon] Utsusemi Saya (30156) [item] Equipment
+- [Weapon] Wasteland Sovereign (32303) [item] Critical hits
+- [Weapon] Wasteland Sovereign (32303) [item] Coin
+- [Weapon] Whirlwind Kunai (13291) [item] Prowler Only
+- [Weapon] Wyrmscale Kris (28762) [if Per Level of Spectral Mastery] Criticals.
+- [Weapon] Wyrmscale Kris (28762) [if Per Level of Spectral Mastery] Cannot be refined or used to attack.
+- [Weapon] Wyrmscale Kris (28762) [if Per Level of Spectral Mastery] Can only be equipped on the offhand.
+- [Weapon] Ormbroddr (30155) [+6] +150% damage Refine 9+: +200% damage Only applies when Crescent Dive is cast manually
+- [Weapon] Knife (1201) [item] No Special Properties.
+- [Weapon] Spear of the Orphan (1437) [item] Cannot be Refined
+- [Weapon] Scythe of the Orphan (1540) [item] Cannot be Refined
+- [Weapon] Joker's Orphan (1591) [item] Cannot be Refined
+- [Weapon] Dagger of the Orphan (13053) [item] Cannot be Refined
+- [Weapon] Sword of the Orphan (13408) [item] Cannot be Refined
+- [Weapon] Bow of the Orphan (18112) [item] Cannot be Refined
+- [Weapon] Slashing Shadows (1280) [item] Distance stacks with other equipped sources.
+- [Weapon] Toy Knife (1240) [item] No Special Properties.(?)
+- [Weapon] Void Saya (2155) [item] Unique Ronin Off-Hand Equipment
+- [Weapon] Holy Cross Trinket (13246) [if While Aspersio is active] Character-Bound
+- [Weapon] Destiny Brush Trinket (13247) [if While Fury is active] Character-Bound
+- [Weapon] Wicked Eden Trinket (13248) [if While Energy Surge is active] Character-Bound
+- [Weapon] Dread Razor Trinket (13249) [if While High Conviction is active] Character-Bound
+- [Weapon] Frost Spinner Trinket (13250) [if While Water Endow is active] Character-Bound
+- [Weapon] Deadly Rose Trinket (13251) [if While Vampire's Mark is active] Character-Bound
+- [Weapon] Guard Rock Trinket (13252) [if While Queen's Barrier is active] Character-Bound
+- [Weapon] Broken Serenade Trinket (13253) [if While Poem of Bragi is active] Character-Bound
+- [Weapon] Amulet of Siegfried Trinket (13254) [if While Energy Surge is active] Character-Bound
+- [Weapon] Rope Kunai (13293) [item] Prowler Only
+- [Weapon] Huuma Job Test (13312) [item] Base Level 99
+- [Weapon] Curse of the Orphan (13410) [item] (2 Handed Sword)
+- [Weapon] Curse of the Orphan (13410) [item] Cannot be Refined
+- [Weapon] Curse of the Orphan (13410) [item] Cannot be Worn past Lv30
+- [Card] Absolute Seyren Card (13668) [item] Strange powers when all 6 cards are united.
+- [Card] Ashring Card (4663) [item] EXP+5%, Doubled bonus if worn with Old Blue Bag Card.(Non-Stacking Bonus)
+- [Card] Dark Rose Dragon Card (13507) [item] Does not stack with itself.
+- [Card] Enchanted Peach Tree Card (4217) [item] Does not stack with itself.
+- [Card] Failed Abomination Card (13520) [item] Only one copy of this card takes effect
+- [Card] Great Shadow Card (13662) [item] All Stats +1 per Shadow Card also equipped (non-stacking on multiple copies)
+- [Card] Hinoenma Card (30159) [+9] Does not stack with itself
+- [Card] Moonlight Flower Card (4131) [item] Move Speed +20% (Non-stacking)
+- [Card] Returned Samurai Card (30160) [item] Lv5
+- [Card] Phen Card (4077) [item] Compound on: Accessory
+- [Card] Remade Eremes Card (13663) [item] Strange powers when all 6 cards are united.
+- [Card] Remade Howard Card (13666) [item] Strange powers when all 6 cards are united.
+- [Card] Remade Margaretha Card (13665) [item] Strange powers when all 6 cards are united.
+- [Card] Remade Cecil Card (13667) [item] Strange powers when all 6 cards are united.
+- [Card] Remade Keyron Card (13664) [item] Strange powers when all 6 cards are united.
+- [Card] Yellow Novus Card (4382) [item] Legendary Card
+- [Card] Trainer Fenrir Card (4557) [item] Card is character bound
+- [Card] Revenant Ebel Card (27151) [item] Card is character bound
+- [Class_gear] Anima Rune of Destiny (24104) [item] Cannot be Refined.
+- [Class_gear] Ansuz Rune of Insight (24019) [item] Job: Night Raven
+- [Class_gear] Arrow Cantrips Book (28450) [if Allows Memorizing] Required Mastery: Lv 5
+- [Class_gear] Initiate Cantrips Book (28599) [if Allows Memorizing] Required Mastery: Lv 0
+- [Class_gear] Celestial Tome (24236) [item] This Item is Account Bound
+- [Class_gear] Eihwaz Rune of Magic (24099) [item] Job: Arcane Master
+- [Class_gear] Exile Rune of Abandon (24010) [item] Job: Dark Knight
+- [Class_gear] Expert Cantrips Book (28452) [if Allows Memorizing] Required Mastery: Lv 8
+- [Class_gear] Fire Cantrips Book (28443) [if Allows Memorizing] Flaming Petals
+- [Class_gear] Fire Cantrips Book (28443) [if Allows Memorizing] Required Mastery: Lv 5
+- [Class_gear] Ante Rune of Payout (24009) [item] Job: Pit Boss
+- [Class_gear] Gebo Rune of Gift (24022) [item] Job: Blast Juggler
+- [Class_gear] Healing Cantrips Book (28446) [if Allows Memorizing] Required Mastery: Lv 3
+- [Class_gear] Hel Rune of Seekers (24030) [item] Job: Prowler
+- [Class_gear] Hel Rune of Witching (24029) [item] Job: Shadowseer
+- [Class_gear] Heretic Rune of Fun (24011) [item] Job: Jester
+- [Class_gear] Ingwaz Rune of Plenty (24076) [item] Job: Satsujin
+- [Class_gear] Ingwaz Rune of Potential (24075) [item] Job: Unchained Classes
+- [Class_gear] Justice Rune of Blame (24005) [item] Job: Peacekeeper
+- [Class_gear] Mannaz Rune of Order (24031) [item] Job: Sinner
+- [Class_gear] Mannaz Rune of Support (24032) [item] Job: Kingslayer
+- [Class_gear] Master Cantrips Book (28453) [if Allows Memorizing] Required Mastery: Lv 10
+- [Class_gear] Othila Rune of Blood (24034) [item] Job: Revenant
+- [Class_gear] Othila Rune of Heritage (24033) [item] Job: Gravekeeper
+- [Class_gear] Perthro Rune of Divination (24043) [item] Job: Illusionist
+- [Class_gear] Power Cantrips Book (28449) [if Allows Memorizing] Required Mastery: Lv 6
+- [Class_gear] Raidho Rune of Journey (24077) [item] Job: Legend
+- [Class_gear] Rune of Darkness (7511) [item] A dark rune with ancient writing engraved inside it. Cannot be worn as it could corrupt anyone wearing it.
+- [Class_gear] Slash Cantrips Book (28448) [if Allows Memorizing] Required Mastery: Lv 4
+- [Class_gear] Special Rune of Visitors (24004) [item] Innate : Cosmetic Only Reward from Special Streamer Box
+- [Class_gear] Special Rune of Visitors (24004) [item] Color Applies only to Ronin and Peacekeeper currently.
+- [Class_gear] Special Rune of Visitors (24004) [item] Account-Bound
+- [Class_gear] Special Rune of Visitors (24004) [item] Job: All Jobs
+- [Class_gear] Specialized Cantrips Book (28451) [if Allows Memorizing] Required Mastery: Lv 7
+- [Class_gear] Spirit Rune of Perfection (24006) [item] Job: Ronin
+- [Class_gear] Strange Rune of Cantrips (24074) [item] Job: Mimic
+- [Class_gear] Teiwaz Rune of Justice (24078) [item] Job: Judge
+- [Class_gear] Thievery Cantrips Book (28447) [if Allows Memorizing] Required Mastery: Lv 1
+- [Class_gear] Thurisaz Rune of Thorns (24087) [item] Job: Black Plague
+- [Class_gear] Vanish Manual (24035) [item] Distance stacks with other equipped sources.
+- [Class_gear] Vanish Manual X (24042) [item] Distance stacks with other equipped sources.
+- [Class_gear] Water Cantrips Book (28444) [if Allows Memorizing] Required Mastery: Lv 5
+- [Class_gear] Wind Cantrips Book (28445) [if Allows Memorizing] Required Mastery: Lv 5
+- [Class_gear] Soul Rune of Destiny (24106) [item] Cannot be Refined.
+- [Class_gear] Soul Rune of Orphans (24108) [item] Cannot be Refined.
+- [Class_gear] Anima Rune of Orphans (24111) [item] Cannot be Refined.
+- [Class_gear] Blade Dancer Manual (24080) [item] Account-Bound
+- [Class_gear] Blade Dancer Manual (24080) [if Required Level] Until Lv99
+- [Class_gear] Blade Dancer Manual (24080) [if Required Level] Assassin Only
+- [Class_gear] Executioner Manual (24081) [item] Account-Bound
+- [Class_gear] Executioner Manual (24081) [if Required Level] Until Lv99
+- [Class_gear] Executioner Manual (24081) [if Required Level] Assassin Only
+- [Class_gear] Shinobi Manual (24082) [item] Account-Bound
+- [Class_gear] Shinobi Manual (24082) [if Required Level] Until Lv99
+- [Class_gear] Shinobi Manual (24082) [if Required Level] Assassin Only
+- [Class_gear] Scoundrel Manual (24083) [item] Account-Bound
+- [Class_gear] Scoundrel Manual (24083) [if Required Level] Until Lv99
+- [Class_gear] Scoundrel Manual (24083) [if Required Level] Assassin Only
+- [Class_gear] Mystic Manual (24084) [item] Account-Bound
+- [Class_gear] Mystic Manual (24084) [if Required Level] Until Lv99
+- [Class_gear] Mystic Manual (24084) [if Required Level] Rogue Only
+- [Class_gear] Duelist Manual (24085) [item] Account-Bound
+- [Class_gear] Duelist Manual (24085) [if Required Level] Until Lv99
+- [Class_gear] Duelist Manual (24085) [if Required Level] Rogue Only
+- [Class_gear] Deadeye Manual (24086) [item] Account-Bound
+- [Class_gear] Deadeye Manual (24086) [if Required Level] Until Lv99
+- [Class_gear] Deadeye Manual (24086) [if Required Level] Rogue Only
+- [Class_gear] Saboteur Manual (24097) [item] Account-Bound
+- [Class_gear] Saboteur Manual (24097) [if Required Level] Until Lv99
+- [Class_gear] Saboteur Manual (24097) [if Required Level] Rogue Only
+- [Class_gear] Ascended Thrust Orb (1466) [if Core] Cannot be refined
+- [Armor] Apocalypse Hell Robes (15442) [item] Distance stacks with other equipped sources.
+- [Armor] Apocalypse Occult Suit (15441) [item] Distance stacks with other equipped sources.
+- [Armor] Apocalypse Scale Mail (15440) [item] Distance stacks with other equipped sources.
+- [Armor] Assassin Mask (5054) [item] Distance stacks with other equipped sources.
+- [Armor] Black Cape (2511) [item] Distance stacks with other equipped sources.
+- [Armor] Broom Scabbard (1004947) [item] Unique Ronin Off-Hand
+- [Armor] Broom Scabbard (1004947) [item] Equipment
+- [Armor] Broom Scabbard (1004947) [item] Bleeding
+- [Armor] Celine Kimi Robes (15426) [item] Illusionist Only
+- [Armor] Cigarette (2267) [item] Auto Attacks Splash Around (Non-Stacking)
+- [Armor] Cotton Shirt (2302) [item] No Special Properties.
+- [Armor] Crown (2235) [item] Base Level 45
+- [Armor] Crown (2235) [item] Male Only, All Jobs except Novice
+- [Armor] Drudge Overalls (1004935) [+9] Drops with Shoes random options
+- [Armor] Honor of the Fallen (20748) [item] Skill Random Mods
+- [Armor] Hat of the Sun God (5022) [item] 2nd Classes
+- [Armor] Insect Wings (16131) [item] This item has no visual effect.
+- [Armor] Kafra Sandals (16140) [item] Has Shadow Random Options
+- [Armor] Kafra Uniform (15186) [item] Has Shadow Random Options
+- [Armor] Paradox Mantle (15153) [item] Complete paradox improves power.
+- [Armor] Paradox Muffler (20782) [item] Complete paradox improves power.
+- [Armor] Paradox Shoes (22078) [item] Complete paradox improves power.
+- [Armor] Temporal Manteau (22006) [item] Skill Random Mods
+- [Armor] Vesper Core04 (2662) [item] Has Skill Random Mods
+- [Headgear] Dandelion Eyepatch (5971) [item] Has Shadow Random Options
+- [Headgear] Dark Flare (18895) [item] Has a random +1 Stat on drop.
+- [Headgear] Skull Mask (18868) [item] Has Accessory random mods
+- [Headgear] Sombrero (5067) [item] Random Stat + Skill mod
+- [Shield] Castle Armguard (2195) [item] Prowler Only
+- [Shield] Demon God Armguard (2196) [item] Prowler Only
+- [Shield] Dragon Soul Armguard (2162) [item] Prowler Only
+- [Shield] Missing Armguard (2161) [item] Prowler Only
+- [Shield] Powerstab Armguard (2188) [item] Prowler Only
+- [Shield] Prowler's Armguard (2186) [item] Prowler Only
+- [Shield] Robotic Armguard (2163) [item] Prowler Only
+- [Shield] Scorpion Armguard (2190) [item] Prowler Only
+- [Shield] Slider Armguard (2189) [item] Prowler Only
+- [Shield] Subterfuge Armguard (2187) [item] Prowler Only
+- [Shield] Shield of the Orphan (2154) [item] Cannot be Refined
+- [Shield] Shield of the Orphan (2154) [item] Cannot be Worn past Lv30
+- [Shield] Shield of the Orphan (2154) [item] Illusionist Only
+- [Shield] Prototype Armguard (2185) [item] Sub Lv80-Thief Only
+- [Shadow_gear] Cacophony Pendant (28648) [piece] (Lv3).
+- [Shadow_gear] Embracing Goddess Armor (28984) [piece] Stacks per piece, up to Lv 4.
+- [Shadow_gear] Embracing Goddess Armor (28984) [+9] (additional).
+- [Shadow_gear] Embracing Goddess Gloves (28985) [+9] (additional).
+- [Shadow_gear] Embracing Goddess Pendant (28987) [piece] Stacks per piece, up to Lv 4.
+- [Shadow_gear] Embracing Goddess Pendant (28987) [+9] (additional).
+- [Shadow_gear] Embracing Goddess Shoes (28986) [piece] Stacks per piece, up to Lv 4.
+- [Shadow_gear] Embracing Goddess Shoes (28986) [+9] (additional).
+- [Shadow_gear] Land of Shadows Armor (28292) [if With any piece equipped] Uses the refine of the highest piece.
+- [Shadow_gear] Land of Shadows Armor (28292) [if Chance to autocast Darkness Rises Lv3] Falls Lv3.
+- [Shadow_gear] Land of Shadows Armor (28292) [if Chance to autocast Darkness Rises Lv3] Does not stack across pieces.
+- [Shadow_gear] Land of Shadows Gloves (28293) [if Chance to autocast Darkness Rises Lv3] Falls Lv3.
+- [Shadow_gear] Land of Shadows Gloves (28293) [if Chance to autocast Darkness Rises Lv3] Does not stack across pieces.
+- [Shadow_gear] Land of Shadows Pendant (28295) [if With any piece equipped] Uses the refine of the highest piece.
+- [Shadow_gear] Land of Shadows Pendant (28295) [if Chance to autocast Darkness Rises Lv3] Falls Lv3.
+- [Shadow_gear] Land of Shadows Pendant (28295) [if Chance to autocast Darkness Rises Lv3] Does not stack across pieces.
+- [Shadow_gear] Land of Shadows Shoes (28294) [if With any piece equipped] Rises Lv3
+- [Shadow_gear] Land of Shadows Shoes (28294) [if With any piece equipped] Falls Lv3.
+- [Shadow_gear] Land of Shadows Shoes (28294) [if With any piece equipped] Does not stack across pieces.
+- [Shadow_gear] Own Reflection Pendant (29907) [piece] Clone.
+- [Shadow_gear] Poring Warrior Armor (24694) [if Classes] Every Class
+- [Shadow_gear] Poring Warrior Gloves (24693) [if Classes] Every Class
+- [Shadow_gear] Poring Warrior Pendant (24697) [if Classes] Every Class
+- [Shadow_gear] Poring Warrior Shoes (24695) [if Classes] Every Class
+- [Shadow_gear] Warring Ragnarok Armor (28186) [piece] None. Effects require the complete set.
+- [Shadow_gear] Warring Ragnarok Shield (28187) [piece] None. Effects require the complete set.
+- [Shadow_gear] Warring Ragnarok Boots (28188) [piece] None. Effects require the complete set.
+- [Shadow_gear] Warring Ragnarok Pendant (28189) [piece] None. Effects require the complete set.
+- [Shadow_gear] Refuge Ragnarok Armor (28190) [piece] None. Effects require the complete set.
+- [Shadow_gear] Refuge Ragnarok Shield (28191) [piece] None. Effects require the complete set.
+- [Shadow_gear] Refuge Ragnarok Boots (28192) [piece] None. Effects require the complete set.
+- [Shadow_gear] Refuge Ragnarok Pendant (28193) [piece] None. Effects require the complete set.
+- [Accessory] Brawler's Tankard (1004928) [item] Tankard
+- [Accessory] Death Hand (2815) [item] Skill Random Mods
+- [Accessory] Flower Ring (2612) [item] Random stat bonus on drop
+- [Accessory] Kafra Ring (15185) [item] Skill Random Options
+- [Accessory] Madlad's Tankard (1004932) [item] Tankard
+- [Accessory] Old Anklet (2673) [item] Job: Illusionist Only
+- [Accessory] Puppet Hand (2980) [item] Dagger Weapon Random Options
+- [Accessory] Puppet Hand (2980) [item] Illusionist Only
+- [Accessory] Slime Ring (16152) [item] Distance stacks with other equipped sources.
+- [Accessory] Vesper Core01 (2659) [item] Has Skill Random Mods
+- [Accessory] Vesper Core02 (2660) [item] Has Skill Random Mods
+- [Accessory] Vesper Core03 (2661) [item] Has Skill Random Mods
+- [Accessory] Arch Anklet (2672) [item] Job: Illusionist Only
+- [Accessory] Ring of the Orphan (15373) [item] Cannot be Worn past Lv30
+- [Accessory] Ring of the Orphan (15373) [item] Judge and Peacekeeper Only
+- [SET] Calamity of Skies [set] (If Job is Illusionist)
+- [SET] Cold of Death [set] (different from Freeze)
+- [SET] Phoenix Sigil [set] (Lv2).
+- [SET] Second Orphan [set] Lv2
+
+## flavour (157)
+- [Weapon] Avenged Tartaros (1174) [item] HP/SP drained when equipped.
+- [Weapon] Axe of Famine (1317) [item] Includes impact and eruption, not Burning.
+- [Weapon] Baron Scythe (13709) [item] A scythe carrying the blood and soul of a lover that was abandoned in exchange for power. You can use it's soul as a messenger.
+- [Weapon] Black Earth Kunai (13256) [item] An earth kunai that can strongly hit any target.
+- [Weapon] Cannon Dagger (13082) [item] Drains HP/SP when unequipped.
+- [Weapon] Falken Strafe (18190) [item] Disables Manual Double Strafe.
+- [Weapon] Heat Wave Kunai (13258) [item] A fire kunai that can burn any target.
+- [Weapon] High Wind Kunai (13257) [item] A wind kunai that can quickly strike any target.
+- [Weapon] Icicle Kunai (13255) [item] A water kunai that can pierce and slice any target.
+- [Weapon] Joker's Calm (1590) [item] Enables SP Recovery while equipped.
+- [Weapon] Joker's Laugh (1589) [item] Enables SP Recovery while equipped.
+- [Weapon] Joker's Wild (1551) [item] Enables SP Recovery while equipped.
+- [Weapon] Knuckle Bucket (1004933) [item] Auto Cast Real Magic Attack on hit at random level and chance.
+- [Weapon] Laceration (1290) [item] Both skills always cause bleeding.
+- [Weapon] Lava Tooth (28007) [item] Impact Tooth Cooldown halved.
+- [Weapon] Nest Avenger (1305) [item] Venom Coat Cooldown Removed.
+- [Weapon] Nopaew Lufrewop (13464) [item] .siht dnatsrednu lliw enoyreve toN
+- [Weapon] Order Flame Dagger (13066) [item] Burning Steps causes burning status on enemies.
+- [Weapon] Sieger Kunai (13292) [item] When equipped with any Prowler Armguard, pulls enemies towards the user.
+- [Weapon] Corrupted Fang Knife (1771) [item] A special throwing knife that is completely coated in terrible poison, can infect even the hardest enemy.
+- [Weapon] Utsusemi Saya (30156) [if Void Dash hits twice] Both use your weapon element.
+- [Weapon] Whirlwind Kunai (13291) [item] When equipped with any Prowler Armguard, pulls enemies towards the user.
+- [Weapon] Eternal Mist Glove (1400) [item] Auto Cast Illusion of Mist on hit at random level and chance.
+- [Weapon] Joker's Loss (1566) [item] Enables SP Recovery while equipped.
+- [Weapon] Joker's Orphan (1591) [item] Enables SP Recovery while equipped.
+- [Weapon] Joker's Orphan (1591) [item] Can Use First Hand without any SP cost while equipped.
+- [Weapon] Joker's Bifrost (1592) [item] Enables SP Recovery while equipped.
+- [Weapon] Joker's Bifrost (1592) [item] Double Natural SP Regeneration speed.
+- [Weapon] Fell Poison Kunai (13259) [item] A poisonous, very sharp kunai, if it doesn't pierce, it stills hurt.
+- [Weapon] Steel Kunai (13294) [item] An easy to throw kunai, it returns for re-use to the owner after piercing its target.
+- [Weapon] Illusion Glove (1807) [item] Auto Cast Real Magic Attack on hit at random level and chance.
+- [Weapon] Vermillion Spirit Glove (5523) [item] Auto Cast Real Magic Attack on hit at random level and chance.
+- [Weapon] Rope Kunai (13293) [item] When equipped with any Prowler Armguard, pulls enemies towards the user.
+- [Weapon] Huuma Job Test (13312) [item] Prototype Huuma Shuriken being prepared by the Ninja Association.
+- [Weapon] Huuma Job Test (13312) [item] Still at the early stages of development and will have to wait a while for actual commercial sales to start.
+- [Card] Desperate Maid Card (1004965) [item] A maid with a fierce urge to kill.
+- [Card] Goddess Freya Card (13697) [item] All your magic spells become Holy element.
+- [Card] Moldy Man Card (1004968) [item] This moldy man is such a funguy!
+- [Card] Star Scourge Card (13744) [if On hit] Summon an astral clone that helps you in combat.
+- [Card] Baroness of Blood Card (902982) [item] The scarf you reached for that night decides what this card gives you.
+- [Card] Phen Card (4077) [item] Protects from skill cast interruption.
+- [Class_gear] Eihwaz Rune of Yggdrasil (24135) [item] Being ressurrected or respawning fully recovers HP/SP.
+- [Class_gear] Deft Gem of Precision (903001) [item] Eruption, Flaming Petals, Freezing Spear and Wind Blade basic spells autocast Unholy Light on level learned (limited by refine level).
+- [Class_gear] Meteor Gem of Impact (903025) [item] Cross Impact autocasts Meteor Rush at learned level.
+- [Class_gear] Marionette Gem of Strings (903031) [item] Summon Puppet, Dismiss Puppet and Resurrect Puppet cooldown removed.
+- [Class_gear] Mix Cooking Guide (11022) [item] Higher Job Level Improvess Success Rate.
+- [Class_gear] Mix Cooking Guide (11022) [item] Requires book to craft items.
+- [Armor] Adventurer Backpack (2576) [item] Breaks all carried Kafra elixir when unequipped.
+- [Armor] Ancient Gold Ornament (18570) [item] Disables all non percentage healing on wearer.
+- [Armor] Costume Angry Look (31946) [item] A costume contact that has sharp eyes like a scary demon king.
+- [Armor] Costume Angry Look (31946) [item] I'm worried that my eyes are so strong that I can't easily look at them.
+- [Armor] Costume Arhat Mask (19563) [item] Mask of a furious demon with dragon markings.
+- [Armor] Costume Dullahan Mask (31819) [item] Masked after the face of the monster Dullahan.
+- [Armor] Costume Dullahan Mask (31819) [item] It is said to be beautiful...
+- [Armor] Costume Fox Doll (31614) [item] It's so tender that I want to stroke it.
+- [Armor] Costume Golden Horns (31589) [item] Horns taken from Baphomet by Njord and covered in gold in order to show his dominance over his prey.
+- [Armor] Costume Jitterbug Cap (31674) [item] A hat with the Jitterbug motif.
+- [Armor] Costume Jitterbug Cap (31674) [item] The round shape of the piano is very cute.
+- [Armor] Costume Alice Wig (31329) [item] Costume wig made based on Alice's hairstyle.
+- [Armor] Costume Alice Wig (31329) [item] It is said that a great effort was required to create this wig.
+- [Armor] Costume Black Cat (31186) [item] Many people mistook this doll as a real cat.
+- [Armor] Costume Black Cat Hood (31028) [item] A lovely costume hood with a big black cat's ears and a ribbon with pompons.
+- [Armor] Costume Black Cat Hood (31028) [item] It's soothing color makes it popular with adults.
+- [Armor] Costume Celestial Hat (19753) [item] A blue hat with a celestial blue color. Very blue.
+- [Armor] Costume Cursed Scroll (19805) [item] A magic scroll which high class ninja use. It has a myterious power.
+- [Armor] Costume Dragon Crown (19841) [item] A legendary headgear if a copper dragon, very scary.
+- [Armor] Costume Black Hand of Fate (20247) [item] Head seized by fate that dominated the feeling.
+- [Armor] Costume Golden Gear (19799) [item] A helmet forged from pure gold which blocks attacks effectively, but is also not really made of gold.
+- [Armor] Costume Drooping Nine Tail (19802) [item] A hat shaped like a fox with nine tails. It makes you warm, definitely.
+- [Armor] Costume Lost Time (400074) [item] If you look closely, it seems like time has stopped.
+- [Armor] Costume Smoking Pipe (20091) [item] Smoke in moderation or not at all. No one's choice but yours.
+- [Armor] Costume Drooping Neko Crew (19544) [item] Lori Ruri's pet 'Crew'. It's very cute but has a tendency to be easily surprised.
+- [Armor] Costume Twin Pom Santa (19702) [item] A Santa Hat with two pom-poms instead of one for double the Christmas fun!
+- [Armor] Crown (2235) [item] A crown adorned with gorgeous jewels that is said to be worn by a wise, ancient king who will grant his wisdom to the wearer.
+- [Armor] Dark Basilium (5808) [item] Enables HP Regeneration while moving.
+- [Armor] Deathbound Armor (15033) [item] Disables natural SP Regeneration.
+- [Armor] Hat of the Sun God (5022) [item] Hat that is attached with the great wings with the emblem of sun.
+- [Armor] Hat of the Sun God (5022) [item] Don't ask or wonder how its wearer could walk or move in this hat.
+- [Armor] Honey Bee Hat (18533) [item] Breaks all carried Kafra elixir when unequipped.
+- [Armor] Costume Mad Drinker Stetson (840036) [if You can read a phrase on the hat] "When you hang a man, you better look at him."
+- [Armor] DeathBound Armor (15032) [item] Disables natural SP Regeneration.
+- [Headgear] Bucket Hat (5120) [item] Enables Full Strip at half refine level.
+- [Headgear] Loki's Scarf (31593) [if Assassin] Sonic Blow, Shadow Slash, Silent Strike, Boomeraxe and Cloaking.
+- [Headgear] Loki's Scarf (31593) [if Rogue] Arrow Vulcan, Throw Acid, Wind Slash, Frost Diver and Sneak Attack.
+- [Shield] Prototype Armguard (2185) [item] Allows extracting information from Orphan Hunters...
+- [Shadow_gear] Astral Stars Shield (28093) [piece] Endows weapon attacks with Fire element.
+- [Shadow_gear] Corporation  Pendant (900500) [if Full Set Bonus (4 pieces)] Disables HP and SP natural regeneration.
+- [Shadow_gear] Corporation  Shoes (900501) [if Full Set Bonus (4 pieces)] Disables HP and SP natural regeneration.
+- [Shadow_gear] Corporation Armor (900502) [if Full Set Bonus (4 pieces)] Disables HP and SP natural regeneration.
+- [Shadow_gear] Corporation Gloves (900503) [if Full Set Bonus (4 pieces)] Disables HP and SP natural regeneration.
+- [Shadow_gear] Dead Faith Shield (28081) [piece] Endows weapon attacks with Dark element.
+- [Shadow_gear] Embracing Goddess Armor (28984) [if On Resurrection cast] the target gains Increase
+- [Shadow_gear] Embracing Goddess Gloves (28985) [if On Resurrection cast] the target gains Increase
+- [Shadow_gear] Embracing Goddess Pendant (28987) [if On Resurrection cast] the target gains Increase
+- [Shadow_gear] Embracing Goddess Shoes (28986) [if On Resurrection cast] the target gains Increase
+- [Shadow_gear] Land of Shadows Armor (28292) [if Autocast upgrades to Lv5] Darkness Rises and Darkness Falls.
+- [Shadow_gear] Land of Shadows Gloves (28293) [if Autocast upgrades to Lv5] Darkness Rises and Darkness Falls.
+- [Shadow_gear] Land of Shadows Pendant (28295) [if Autocast upgrades to Lv5] Darkness Rises and Darkness Falls.
+- [Shadow_gear] Land of Shadows Shoes (28294) [if Autocast upgrades to Lv5] Darkness Rises and Darkness Falls.
+- [Shadow_gear] Morroc Destroyer Shield (28277) [piece] Endows weapon attacks with Earth element.
+- [Shadow_gear] Old Dragon Armor (28084) [if Shoes + Pendant refine] Shadow gear worn by a dragonborn orphan.
+- [Shadow_gear] Old Dragon Boots (28086) [if Shoes + Pendant refine] Shadow gear worn by a dragonborn orphan.
+- [Shadow_gear] Old Dragon Pendant (28087) [if Shoes + Pendant refine] Shadow gear worn by a dragonborn orphan.
+- [Shadow_gear] Old Dragon Shield (28085) [if Shoes + Pendant refine] Shadow gear worn by a dragonborn orphan.
+- [Shadow_gear] Own Reflection Armor (29904) [if On kill, 1% per total set refine] Summons the slain monster's Illusion.
+- [Shadow_gear] Own Reflection Gloves (29905) [if On kill, 1% per total set refine] Summons the slain monster's Illusion.
+- [Shadow_gear] Own Reflection Pendant (29907) [if On kill, 1% per total set refine] Summons the slain monster's Illusion.
+- [Shadow_gear] Own Reflection Shoes (29906) [piece] On magic damage, summons an Illusionist Clone.
+- [Shadow_gear] Own Reflection Shoes (29906) [if On kill, 1% per total set refine] Summons the slain monster's Illusion.
+- [Shadow_gear] Phoenix Sigil Armor (30089) [if Set refine 9+, on each cast] SP as HP/SP, capped by their own maximum.
+- [Shadow_gear] Phoenix Sigil Boots (30091) [if Set refine 9+, on each cast] SP as HP/SP, capped by their own maximum.
+- [Shadow_gear] Phoenix Sigil Gloves (30090) [if Set refine 9+, on each cast] SP as HP/SP, capped by their own maximum.
+- [Shadow_gear] Phoenix Sigil Pendant (30092) [if Set refine 9+, on each cast] SP as HP/SP, capped by their own maximum.
+- [Shadow_gear] Test Subject Armor (29900) [piece] It rolls the Healing and Support pool.
+- [Shadow_gear] Test Subject Gloves (29901) [piece] It rolls the Single Target ATK pool.
+- [Shadow_gear] Test Subject Shoes (29902) [piece] It rolls the Area of Effect pool.
+- [Shadow_gear] Wayward Vow Armor (30097) [if (31x31)] the party gains Move Speed +20% (10s).
+- [Shadow_gear] Wayward Vow Boots (30099) [if (31x31)] the party gains Move Speed +20% (10s).
+- [Shadow_gear] Wayward Vow Gloves (30098) [if (31x31)] the party gains Move Speed +20% (10s).
+- [Shadow_gear] Wayward Vow Pendant (30100) [if (31x31)] the party gains Move Speed +20% (10s).
+- [Shadow_gear] White Abyss Shield (28167) [piece] Endows weapon attacks with Holy element.
+- [Accessory] Elixir Badge (2935) [item] Breaks all carried Kafra elixir when unequipped.
+- [SET] Agni [set] Flaming Petals, Fireball and Burning Spiral always cause burning status.
+- [SET] Asgard [set] Disables HP/SP Regeneration.
+- [SET] Asgard Artifacts [set] HP/SP Always full when revived.
+- [SET] Asgard Artifacts [set] Disables Status Bonus from Left Accessory.
+- [SET] Broken Future [set] Immunity to Poison, Bleeding and Burning is removed.
+- [SET] Broken Future [set] Their negative effects are neutralized.
+- [SET] Lord of Flames [set] Flaming Petals can critically hit.
+- [SET] Phoenix Sigil [set +18] Cast Ready and Combo Ready.
+- [SET] Prepared Future [set] Boss monsters, ignoring their status immunity.
+- [SET] Sea of Dreams [set] Regenerate HP while moving.
+- [SET] Starbound Wrath [set +9] The mark gains half of your elemental damage bonus for the target's element.
+- [SET] Undead Land [set +36] Zombies get ultimate skills.
+- [Ammunition] Arrow (1750) [item] Arrows Are not Consumed on attacks. Ranged attacks consume SP instead according to weapon.
+- [Ammunition] Black Iron Arrow (1770) [item] An arrow made of special iron, making it easier to pierce flesh. Difficult to use compared to regular arrows.
+- [Ammunition] Crystal Arrow (1754) [item] A crystal arrow, the tip is clearly liquid inside!
+- [Ammunition] Dark Arrow (1767) [item] A black arrow filled with evil energy.
+- [Ammunition] Elven Arrow (1773) [item] An bright arrow that iluminates its path.
+- [Ammunition] Fire Arrow (1752) [item] A fire arrow, the tip is actually pretty hot!
+- [Ammunition] Giant Arrow (1774) [item] An evil arrow, can cause enough dread and fear on enemies to curse them.
+- [Ammunition] Gust Arrow (1755) [item] A wood arrow with a decoration of leaves, you can smell the wind blowing when you shoot it.
+- [Ammunition] Immaterial Arrow (1757) [item] An arrow that isn't really an arrow, or is it?
+- [Ammunition] Oridecon Arrow (1765) [item] An oridecon tipped arrow, extremely strong and sharp.
+- [Ammunition] Silver Arrow (1751) [item] A silver arrow, good for hunting evil beings.
+- [Ammunition] Steel Arrow (1753) [item] A steel tipped arrow, it pierces enemies very well.
+- [Ammunition] Stone Arrow (1756) [item] A stone tip in a wood arrow, it's sturdy and does to job.
+- [Ammunition] Rusty Arrow (1762) [item] An old, very strange arrow that can poison the enemies.
+- [Ammunition] Blast Bullet (13201) [item] A bullet, made of lead. Used on Revolvers by Judges.
+- [Ammunition] Toxic Bullet (13215) [item] A venomous bullet, doesn't poison the target, but causes the same effects.
+- [Ammunition] Grave Bullet (13216) [item] A bullet with names of its targets written around it, brings the feeling of dead to its targets.
+- [Ammunition] Sacred Bullet (13220) [item] A bullet blessed by divine light, purifies evil with each shot.
+- [Ammunition] Sacred Bullet (13220) [item] Carries the power of sacred energy to smite the darkness.
+- [Ammunition] Shadow Bullet (13232) [item] A bullet forged from shadow essence, brings darkness to its targets.
+- [Ammunition] Shadow Bullet (13232) [item] Each shot whispers of the void, consuming light in its path.
+- [Ammunition] Last Objection (13217) [item] Destiny is upon one's own hands.
+- [Ammunition] Bullet (13200) [item] A bullet, made of lead. Used on Revolvers by Judges.
+
+## economy (zeny, drops, exp, elixirs, refine mats) (37)
+- [Card] Abyss Mimic Card (13671) [per 1] +0.1% chance of dropping Shadow Ore per Refine Level.
+- [Card] King Poring Card (4030) [item] 100% Chance to drop Jellopy on kills.
+- [Card] Old Blue Bag Card (4664) [item] +0.5% chance of dropping Shadow Ore on killing monsters.
+- [Card] Pirate Skeleton Card (4073) [item] Zeny limit +10 on kill
+- [Card] Pitman Card (4335) [item] +1% chance of dropping Shadow Ore on killing monsters.
+- [Class_gear] Bone Detale Scale Orb (1462) [if Dragon Soul] Auto Revives if killed while active (EXP penalty applies)
+- [Class_gear] Fehu Rune of Farming (24224) [per 1] +0.1% chance of dropping Shadow Ore / Upgrade
+- [Class_gear] Fehu Rune of Wealth (24223) [per 1] 1~5 zeny / Upgrade for each enemy defeated.
+- [Class_gear] Isaz Rune of Challenge (24007) [per 1] +0.3% chance of dropping Shadow Ore / Upgrade
+- [Armor] Coat of Riches (16147) [item] Zeny Limit on kill +100 +1% chance of dropping Shadow Ore on killing monsters.
+- [Armor] Miner Backpack (20822) [item] +1% chance of dropping Shadow Ore on killing monsters.
+- [Armor] Miner Backpack (20822) [item] +1% chance of dropping Shadow Ore on killing monsters.
+- [Armor] Spare Card (5536) [item] 5% Chance to drop "Blank Card" on monster kill. Blank Cards can be used somewhere...
+- [Armor] Treasure Soutane (15401) [per 1] +0.1% chance of dropping Shadow Ore per Refine Level.
+- [Shadow_gear] City Raider Armor (28976) [piece] (except Kafra Elixir) grants Knight's Regen Lv1 for 20s
+- [Shadow_gear] Corporation  Pendant (900500) [piece] +0.5% chance of dropping Shadow Ore on killing monsters.
+- [Shadow_gear] Corporation  Shoes (900501) [piece] +0.5% chance of dropping Shadow Ore on killing monsters.
+- [Shadow_gear] Corporation Armor (900502) [piece] +0.5% chance of dropping Shadow Ore on killing monsters.
+- [Shadow_gear] Corporation Gloves (900503) [piece] +0.5% chance of dropping Shadow Ore on killing monsters.
+- [Shadow_gear] Hel's Desires Armor (28637) [piece] +1 Kafra Elixir capacity
+- [Shadow_gear] Hel's Desires Gloves (28638) [piece] +1 Kafra Elixir capacity
+- [Shadow_gear] Hel's Desires Pendant (28640) [piece] +1 Kafra Elixir capacity
+- [Shadow_gear] Hel's Desires Shoes (28639) [piece] +1 Kafra Elixir capacity
+- [Shadow_gear] Mining Armor (24310) [piece] 0.05% to get a random regular refine material per kill.
+- [Shadow_gear] Mining Gloves (24311) [piece] 0.05% to get a random regular refine material per kill.
+- [Shadow_gear] Mining Pendant (24313) [piece] 0.05% to get a random regular refine material per kill.
+- [Shadow_gear] Mining Shoes (24312) [piece] 0.05% to get a random regular refine material per kill.
+- [Shadow_gear] Pirate King Armor (24294) [piece] Zeny limit +3 on kill
+- [Shadow_gear] Pirate King Gloves (24295) [piece] Zeny limit +3 on kill
+- [Shadow_gear] Pirate King Pendant (24297) [piece] Zeny limit +3 on kill
+- [Shadow_gear] Pirate King Shoes (24296) [piece] Zeny limit +3 on kill
+- [SET] Hel's Desires [set +36] +2 Kafra Elixir capacity
+- [SET] Mining [set] 0.05% to get a random HD or Enriched refine material per kill.
+- [SET] Mining [per set refine 10] 0.05% extra regular refine material chance per kill.
+- [SET] Pirate King [set] Zeny limit +10 on kill
+- [SET] Pirate King [per set refine 1] Zeny limit +1 per kill
+- [SET] Poring Warrior [set] EXP +1% every 5 Refines total.
+
+## autocast / proc / summon (362)
+- [Weapon] 10 of Hearts (1579) [item] Instant Aces activates Combo Ready
+- [Weapon] Air Raid Katar (28001) [if 50% chance for] Sonic Blow autocasts Wind Slash Lv3
+- [Weapon] Air Raid Katar (28001) [if 50% chance for] Rolling Cutter autocasts Wind Cutter Lv3
+- [Weapon] Alto Flagelo (18110) [per 1] 4% chance to autocast Cluster Arrow per refine
+- [Weapon] Arhat Claws (28008) [item] Sonic Blow has 50% chance to autocast your active Auto Spell bolt
+- [Weapon] Arhat Claws (28008) [item] With no Auto Spell active, it casts Envenom
+- [Weapon] Astro Dagger (2193) [if Per Level of Spectral Mastery] 1% chance to summon all 5 spirit spheres at once
+- [Weapon] Baron Scythe (13709) [item] Recover 100 HP/SP when killing enemies with magic.
+- [Weapon] Battery Charger (13064) [item] Backstab autospells Lightning Bolt Lv7
+- [Weapon] Black Wing (13061) [item] 50% chance that Flaming Petals, Freezing Spear and Wind Blade autocasts Unholy Light
+- [Weapon] Blackguard Anti-Sword (13463) [item] Shatter Cross Autocasts Chilling Frost
+- [Weapon] Blue Valentine (13091) [item] Haze Slasher autocasts Shadowstab
+- [Weapon] Bone Slasher (1373) [item] Loses 100 HP on hit
+- [Weapon] Broomlance (1004936) [+9] Sky Prophecy grants Finisher Ready for 2 seconds.
+- [Weapon] Burial Bow (18113) [item] 25% to autocast Eruption Lv3 when casting Double Strafe
+- [Weapon] Burning Bow (1740) [item] 0.5% chance to auto cast Burning Spiral per attack.
+- [Weapon] Cold Soulspear (1426) [item] Geirskogul has autocasts Frozen Wind Lv 1
+- [Weapon] Cross Katar (1282) [item] Cross Impact autocasts Meteor Rush
+- [Weapon] Crow of Destiny (1283) [item] Autocast Blitz Beat Lv1 at 1% chance per base LUK
+- [Weapon] Crow of Destiny (1283) [per 1] Blitz Beat autocasts Sky Assault, 1% chance per refine
+- [Weapon] Curse of the Maniac (1121) [item] All 3 skills have 25% chance to curse on hit.
+- [Weapon] Cursed Knife (1241) [per 1] 2% chance to curse enemy on hit per refine
+- [Weapon] Dagger of Hunters (13038) [item] 50% chance to Backstab when using Wind Slash
+- [Weapon] Dancing Gale (1177) [item] Shadow Slash Autocasts Wind Slash Lv3
+- [Weapon] Darkness Metal Sword (13411) [item] Devil Raid Autocasts Shatter Cross
+- [Weapon] Death Rune Dagger (2168) [item] 5% chance to autocast Lv3 Samsara Burst
+- [Weapon] Demon Wings (1527) [item] 20% to autocast Scythe Reap when attacking
+- [Weapon] Devil Fang (13077) [per 1] Envenom has 5% per refine chance to autocast Plague Impress
+- [Weapon] Earth Bow (1745) [item] 0.5% chance to auto cast Land Fissure per attack.
+- [Weapon] Ecto Reaper (1004954) [item] Overslash Stack per hit
+- [Weapon] Ecto Reaper (1004954) [item] Overslash Stacks per hit
+- [Weapon] Elastring Bow (18129) [item] 10% to autocast Ricochet Arrow Lv10 on attacks
+- [Weapon] Emerald Scorpion (13069) [item] When using Envenom, 25% chance to autocast Backstab Lv3 automatically. Higher level used if known.
+- [Weapon] Enma Daikyu (30153) [per 1] When using Ricochet Arrow, 10% per refine chance to autocast Unholy Light
+- [Weapon] Falken Strafe (18190) [item] 100% chance to autocast Double Strafe Lv10 when attacking.
+- [Weapon] Fishing Spear (1446) [item] Dragon Thrust Autocasts Water Ball Lv1
+- [Weapon] Frost Rupture (1395) [per 1] 2% Crystallize chance on hit per refine
+- [Weapon] Frozen Bow (1744) [item] 0.5% chance to auto cast Frozen Crash per attack.
+- [Weapon] Golden Bow (18102) [item] Double Strafe has 50% chance to cast Coin Flip
+- [Weapon] Guillotine Katar (1291) [item] 15% to autocast Sonic Blow at your learned level
+- [Weapon] Guillotine Katar (1291) [item] (minimum Lv1) when attacking.
+- [Weapon] Gust Bow (1749) [item] 0.5% chance to auto cast Lightning Bolt per attack.
+- [Weapon] Heat Red Blade (1187) [per 1] 2% chance to Burn on hit per refine
+- [Weapon] Helping Hand (1004953) [per 1] Joker's Draw has 5% +2% per refine chance to autocast Joker's Draw
+- [Weapon] Jack of Hearts (1561) [item] 10% chance that First Hand will autocast Arcana of Destiny
+- [Weapon] Jormungandr's Fang (2199) [item] Equinox Summons 5 Seals
+- [Weapon] Jormungandr's Fang (2199) [item] Umbral Cut always autospells Astral Weapon, Astral Mastery and Spectral Servants
+- [Weapon] King of Hearts (1572) [item] 5% chance that Instant Aces will autocast Royal Flush.
+- [Weapon] Lingering Sadness (1186) [item] Delta Skyfall has 50% chance to autocast Retribution Lv5
+- [Weapon] Living Vigil (18106) [item] Using cover autocasts Heal Lv1
+- [Weapon] Metal Bow (1711) [item] 1 Cell Knockback when using Double Strafe
+- [Weapon] Mist Slasher (1518) [item] 2% chance to blind per hit
+- [Weapon] Nepenthes Bow (1715) [per 1] 2% chance to stun on hit per refine.
+- [Weapon] Obsidian Dagger (1218) [item] 10% chance to autocast Fireball Lv7 when attacking
+- [Weapon] Ominous Black Blade (1159) [per 1] 2% chance to Fear on hit per refine
+- [Weapon] Orc Warlord Greatsword (21004) [item] 12% chance to autocast Earthquake (Lv5)
+- [Weapon] Pharaoh Scepter (1436) [item] Dragon Thrust autocasts Phantom Spear
+- [Weapon] Poison Knife (13016) [per 1] 2% chance to poison enemy on hit per refine
+- [Weapon] Queen of Diamonds (1568) [item] 5% chance to autocast Lv3 Heal when using Instant Aces
+- [Weapon] Queen of Diamonds (1568) [item] 10% chance to autocast Lv3 Heal when using Double Down
+- [Weapon] Queen of Spades (1573) [item] First Hand autocasts Double Down
+- [Weapon] Requiem Longbow (18119) [item] 50% chance to gain
+- [Weapon] Requiem Longbow (18119) [item] Increase AGI Lv5 for 10s on kill
+- [Weapon] Royal Dagger (1212) [item] 10% chance to activate Cast Ready when attacking
+- [Weapon] Royal Gladius (1206) [item] 10% chance to activate Combo Ready when attacking
+- [Weapon] Royal Katar (1279) [item] Guard Breaker autocasts Sonic Blow
+- [Weapon] Royal Long Sword (1195) [item] Delta Skyfall activates Shadow Slash
+- [Weapon] Royal Saber (1194) [item] Using Heal activates Cast Ready
+- [Weapon] Ruby Scorpion (13070) [item] When using Backstab, 25% chance to autocast Envenom Lv3 automatically. Higher level used if known.
+- [Weapon] Rusty Knife (1203) [item] 3% Chance to poison on attack.
+- [Weapon] Scorpion Spear (1447) [item] 5% chance to poison on attacks
+- [Weapon] Second-Hand Stiletto (1004955) [item] Endows weapon attacks with Ghost element
+- [Weapon] Second-Hand Stiletto (1004955) [if Per Level of Spectral Mastery] 4% chance to autocast Wind
+- [Weapon] Senbonzakura (13031) [item] Thousand Arms has 20% chance to activate Burst Petals
+- [Weapon] Silent Knife (13019) [per 1] 2% chance to silence enemy on hit per refine
+- [Weapon] Smoking Katar (28000) [item] Autocasts Smoke Bomb when casting Sonic Blow
+- [Weapon] Stalactite Spear (1435) [item] Autocast Freezing Spear Lv5 when using Dragon Thrust
+- [Weapon] Strafe Bow (18114) [item] Double Strafe Autocasts Backslide
+- [Weapon] Sylph Lance (32001) [item] 15% chance to autocast Dragon Thrust Lv4
+- [Weapon] The Tower (1427) [item] 20% to autocast Geirskogul when casting Phantom Spear
+- [Weapon] Tiamat's Reign (1428) [item] Heavy Stab Autocasts Dragon Breath Lv1
+- [Weapon] Trail of Cinders (1958) [item] Conviction Autocasts Flaming Petals Lv7
+- [Weapon] Umbra Dagger (2194) [if Per Level of Spectral Mastery] 1% to autocast Umbral Cut Lv1
+- [Weapon] Unknown Glove (1809) [item] Real Magic Attack autocasts Flaming Petals, Freezing Spear and Wind Blade Lv3
+- [Weapon] Volcano Axe (28100) [item] Boomeraxe autocasts Flaming Petals according to refine level
+- [Weapon] Web Bow (18111) [item] 5% to autocast Snare Trap when attacking
+- [Weapon] Winged Spear (1429) [per 1] Dragon Claw and Heavy Stab autocast Crescent Dive Lv1 at 10% chance per refine
+- [Weapon] Yumi Bow (1739) [per 1] 1% Chance to auto cast Double Strafe on attacks per refine
+- [Weapon] Hrafnsax (30144) [+12] When casting Blitz Beat, 5% chance to autocast Sky Assault Lv3
+- [Weapon] Sigrsverd (30145) [+12] When casting Blitz Beat, 5% chance to autocast Sky Assault Lv3
+- [Weapon] Marishiten Kaiken (30143) [item] 15% chance to autocast Pneuma Lv1 when hit
+- [Weapon] Skeggox (30146) [item] 10% chance to autocast Mjolnir Fall Lv3 when using Boomeraxe
+- [Weapon] Ormgeirr (30154) [per 1] 10% chance per refine to autocast Dragon Breath at learned level when using Dragon Claw
+- [Weapon] Ominous Black Blade (1156) [per 1] 2% chance to Fear on hit per refine
+- [Weapon] Heat Red Blade (1184) [per 1] 2% chance to Burn on hit per refine
+- [Weapon] Eternal Zero Dagger (1227) [item] 10% Freeze chance on hit
+- [Weapon] Cursed Knife (1234) [per 1] 2% chance to curse enemy on hit per refine
+- [Weapon] Poison Knife (1239) [per 1] 2% chance to poison enemy on hit per refine
+- [Weapon] Bone Slasher (1365) [item] Loses 100 HP on hit
+- [Weapon] Flame Rupture (1392) [per 1] 2% Burn chance on hit per refine
+- [Weapon] Frost Rupture (1393) [per 1] 2% Crystallize chance on hit per refine
+- [Weapon] Eternal Stalactite Spear (1434) [item] 50% to Autocast Frozen Crash Lv1 when using Dragon Thrust
+- [Weapon] Fishing Spear (1445) [item] Dragon Thrust Autocasts Water Ball Lv1
+- [Weapon] Mist Slasher (1517) [item] 2% chance to blind per hit
+- [Weapon] Ace of Hearts (1569) [per 1] 2% per refine chance that Instant Aces will autocast Freezing Spear Lv2.
+- [Weapon] Joker's Bifrost (1592) [per 1] Recover 42 Max SP per hit, per refine.
+- [Weapon] Metal Bow (1710) [item] 1 Cell Knockback when using Double Strafe
+- [Weapon] Nepenthes Bow (1712) [per 1] 2% chance to stun on hit per refine.
+- [Weapon] Burning Bow (1730) [item] 0.5% chance to auto cast Burning Spiral per attack.
+- [Weapon] Frozen Bow (1731) [item] 0.5% chance to auto cast Frozen Crash per attack.
+- [Weapon] Earth Bow (1732) [item] 0.5% chance to auto cast Land Fissure per attack.
+- [Weapon] Gust Bow (1733) [item] 0.5% chance to auto cast Lightning Bolt per attack.
+- [Weapon] Yumi Bow (1738) [per 1] 1% Chance to auto cast Double Strafe on attacks per refine
+- [Weapon] Eternal Crystal Whip (1961) [item] Conviction and Eternal Chain autocast Freezing Spear Lv3
+- [Weapon] Silent Knife (13002) [per 1] 2% chance to silence enemy on hit per refine
+- [Weapon] Elastring Bow (18128) [item] 10% to autocast Ricochet Arrow Lv10 on attacks
+- [Weapon] Slashing Shadows (1280) [item] Impact Tooth autocasts Shadow Slash
+- [Weapon] Spellslinger (13059) [item] Using Heal grants Cast Ready
+- [Weapon] Puppet Claws (1808) [item] Auto Cast Real Magic Attack on hit randomly
+- [Weapon] Royal Revolver (13100) [item] 3% chance to generate a Seal per attack
+- [Weapon] Auctoritas Regium (13105) [item] 5% chance to generate a Seal per attack
+- [Weapon] Destiny Brush Trinket (13247) [if Crash Buff] Activates Fury on caster to improve critical chance and critical damage
+- [Weapon] Wicked Eden Trinket (13248) [if Crash Buff] Activates Energy Surge(increases attack and move speed)
+- [Weapon] Dread Razor Trinket (13249) [if Crash Buff] Activates High Conviction
+- [Weapon] Frost Spinner Trinket (13250) [if Crash Buff] Activates Water Endow for weapon
+- [Weapon] Deadly Rose Trinket (13251) [if Crash Buff] Activates Vampire's Mark (leech part of physical damage dealt at a high chance)
+- [Weapon] Guard Rock Trinket (13252) [if Crash Buff] Activates Queen's Barrier at same level as Crash(generates a barrier to block hits according to HP size)
+- [Weapon] Broken Serenade Trinket (13253) [if Crash Buff] Activates Poem of Bragi(decreases cast times and after cast delay)
+- [Weapon] Amulet of Siegfried Trinket (13254) [if Crash Buff] Activates Energy Surge(increases attack and move speed)
+- [Card] Aliza Card (4400) [item] 5% chance to use Pneuma when attacked from range
+- [Card] Baroness of Despair Card (13546) [item] Execution activates after this equipment has remained equipped for 15 seconds
+- [Card] Blood Mage Card (27250) [item] 5% chance to auto-cast Vampire's Gift Lv1 when attacked with close range attacks.
+- [Card] Christmas Cookie Card (4235) [item] 5% chance to Crystalize when casting Freezing Spear
+- [Card] Death Ruri Card (13661) [item] 5% chance to autospell Death Cloud when hit
+- [Card] Emperor Morroc Card (27321) [item] Morroc's Mark Cooldown reduced to 2 minutes
+- [Card] Emperor Morroc Card (27321) [item] (Cannot be used by Unchained Jobs)
+- [Card] Detardeurus Card (4386) [item] When using Dragon Claw, automatically changes into Dragon Force Stance for spear skills
+- [Card] Faceworm Queen Card (27164) [item] 10% chance to autospell Envenom Lv10 when attacking
+- [Card] Famine Incarnate Card (13689) [item] Recover 10 HP per Base Level when an enemy is killed by a direct hit, does not apply to pets/summons/raven
+- [Card] Firewind Card (13565) [item] 5% chance to cause Burning for 10 seconds when casting Flaming Petals
+- [Card] Forgotten Egnigem Card (4352) [item] Devil Raid Autocasts Vengeance Lv1 Twice
+- [Card] General Daehyon Card (4574) [item] 5% chance to activate Combo Ready with auto attacks.
+- [Card] Giant Octopus Card (4534) [item] 5% to autocast Water Ball Lv2 when casting Equinox
+- [Card] Godly Seeker Card (13736) [item] 10% chance to autocast Heal Lv1 when using Hiding
+- [Card] Hillslion Card (4453) [item] 10% chance to cause Critical Wounds Lv2 when attacking
+- [Card] Hornet Card (4019) [item] 5% chance to poison when hit
+- [Card] Jewel Ungoliant Card (13502) [item] 5% Chance to auto-cast Freezing Spear Lv3 when attacked
+- [Card] Junkman Card (27017) [item] 5% chance to auto-cast Kaupe when casting Heal
+- [Card] King Schmidt Card (13658) [item] If Heroic Landing Lv 5 is learned, it autocasts Earthquake Lv 1
+- [Card] KnightSakray Card (13650) [item] 2% when attacking to activate Counter State for 5 seconds.
+- [Card] Kraken Card (4525) [item] Tetragrammaton cast times removed
+- [Card] Leaf Cat Card (4195) [item] 10% chance to autocast Heal Lv1 when using Hiding
+- [Card] Limacone Card (13545) [item] 5% chance to use quagmire when attacked
+- [Card] Mad Drinker Card (1004970) [item] Wind Blade, Flaming Petals and Freezing Spear enable Combo Ready
+- [Card] Magma Terror Card (4166) [item] When defeating enemies with magic damage, heals for 6x VIT as HP
+- [Card] Manananggal Card (4584) [item] 5% to autocast Illusion of Healing when casting Real Magic Attack
+- [Card] Marse Card (4095) [item] 5% to Smoke Bomb when attacked
+- [Card] Medusa Card (4124) [item] 0.07% to petrify when attacking per base INT
+- [Card] Metaling Card (4341) [item] 5% chance to autocast Divest Weapon Lv1 when attacked.
+- [Card] MukaMuka Card (13532) [item] 01% chance to cast Earthquake Lv1 when hit
+- [Card] Mutated Kafra Card (4668) [item] 5% chance to auto-cast Frost Diver Lv1 when hit with short-range attacks.
+- [Card] Osiris Card (4144) [item] 10% chance to autocast Envenom Lv5 when attacking
+- [Card] Paradox Amdarais Card (13595) [item] 0.2% chance to apply Lex Aeterna on enemy when attacking per base level. (Max 30% at Lv 150)
+- [Card] Pitaya Card (13505) [item] 5% Chance to auto-cast Decoy Lv3 when attacked
+- [Card] Returned Samurai Card (30160) [item] On attack, 5% chance to autocast Soul Destroyer
+- [Card] Magma Kaho Card (27347) [item] When defeating enemies with physical damage, heals for INT as SP
+- [Card] Rockullanux Card (13750) [item] Impact Tooth Autocasts Fissure Tooth
+- [Card] Sasquatch Card (4216) [item] 10% chance to Crystallize enemy when hit with melee attacks.
+- [Card] Shining Plant Card (13533) [item] 1% chance to cast Check Mate when hit
+- [Card] Silent Ronin Card (4575) [item] 5% chance to autocast Instant Draw Lv1
+- [Card] Smokie Card (4044) [item] 9% chance to autocast Heal Lv1 when using Hiding
+- [Card] Star Scourge Card (13744) [if On hit] The clone lasts 4 seconds.
+- [Card] Tatacho Card (4442) [item] 5% chance to sleep on attack
+- [Card] Tiyanak Card (4587) [item] 5% to apply Critical Wounds Lv3 when attacking
+- [Card] Wakwak Card (4588) [item] 25% to autocast Heal Lv1 when casting Illusion of Exchange
+- [Card] Warp Assistant Card (4667) [item] Gain Queen's Barrier Lv1 when warped by a Warp Portal
+- [Card] Valhalla Priest Card (30162) [item] 5% chance when hit in melee to swap places with the attacker and deal damage equal to your MaxSP
+- [Card] Star Scourge Echo Card (1004927) [if On spell cast] Summon an astral echo that cast an spell based on your highest total stat
+- [Class_gear] Acidus Scale Orb (1458) [if Dragon Soul] Dragon Thrust autocasts Spear Boomerang on every target hit
+- [Class_gear] Acidus Scale Orb (1458) [if Dragon Soul] Dragon Breath autocasts Sky Prophecy
+- [Class_gear] Acidus Scale Orb (1458) [if Dragon Soul] Cast Ready for duration
+- [Class_gear] Celestial Tome (24236) [item] 10% chance to autocast Heal Lv1 when using Hiding
+- [Class_gear] Codex of Transmutation (1588) [item] On kill: recover 5x BaseLevel HP and BaseLevel SP
+- [Class_gear] Detardeurus Scale Orb (1460) [if Dragon Soul] Dragon Thrust has 50% chance to autocast Kaupe
+- [Class_gear] Doctor Codex (28603) [item] Abracadabra autocasts Heal Lv1 on self
+- [Class_gear] Expert Cantrips Book (28452) [if Allows Memorizing] King's Chains
+- [Class_gear] Explosive Claw Orb (1449) [if Core] 15% chance to autocast Heavy Stab at learned level
+- [Class_gear] Explosive Claw Orb (1449) [if Dragon Soul] If MATK > ATK: Heavy Stab chains Geirskogul Lv3
+- [Class_gear] Explosive Claw Orb (1449) [if Dragon Soul] If ATK > MATK: Heavy Stab chains Crescent Dive Lv1
+- [Class_gear] Explosive Claw Orb (1449) [if Dragon Soul] Combo Ready for duration
+- [Class_gear] Ferus Scale Orb (1457) [if Core] Dragon Claw autocasts Dragon Breath Lv1 on the target
+- [Class_gear] Hydrolancer Scale Orb (1459) [if Dragon Soul] 15% to autocast Heavy Stab, Wind Cutter or Spear Boomerang randomly at max level
+- [Class_gear] Inferno Tome (24225) [item] 10% chance to autocast Heal Lv1 when using Hiding
+- [Class_gear] Nydhogg Scale Orb (1461) [if Core] Heavy Stab always autocasts Crescent Dive Lv1
+- [Class_gear] Nydhogg Scale Orb (1461) [if Dragon Soul] Heavy Stab, Spear Boomerang and Wind Cutter autocast Crescent Dive
+- [Class_gear] Phantom Wing Orb (1450) [if Dragon Soul] Phantom Spear autocasts Heal
+- [Class_gear] Phantom Wing Orb (1450) [if Dragon Soul] Cast Ready for duration
+- [Class_gear] Plagiarist's Grimoire (1582) [item] On kill: gain a Stolen Thought stack
+- [Class_gear] Skyspear Claw Orb (1448) [if Dragon Soul] Combo Ready for duration
+- [Class_gear] Vanish Manual (24035) [item] 5% chance to autocast Heal Lv1 when using Hiding
+- [Class_gear] Vanish Manual X (24042) [item] 10% chance to autocast Heal Lv1 when using Hiding
+- [Class_gear] Water Cantrips Book (28444) [if Allows Memorizing] Illusion of Mist
+- [Class_gear] Lightning Wing Orb (1451) [if Core] Autocasts learned-level Geirskogul when hit, once every 8 seconds
+- [Class_gear] Lightning Wing Orb (1451) [if Dragon Soul] Autocasts Geirskogul when hit, once every 0.5 seconds
+- [Class_gear] Lightning Wing Orb (1451) [if Dragon Soul] Combo Ready for duration
+- [Class_gear] Tetra Gem of Four Storms (903002) [item] Each Arcane Master Spell automatically activates their respective Tetragrammaton elemental hit at your learned Tetragrammaton level
+- [Class_gear] Sludge Gem of Bombs (903005) [item] Monsters killed by Venom Splasher trigger another Venom
+- [Class_gear] Sludge Gem of Bombs (903005) [item] Kills from these explosions can trigger further explosions
+- [Class_gear] Pestilence Gem of Contagion (903008) [item] 10% chance of autocasting Envenom when hit
+- [Class_gear] Pestilence Gem of Contagion (903008) [per 1] Plague Impress Damage +3% +2% chance to autocast Envenom when hit
+- [Class_gear] Bombast Gem of Spectacle (903010) [item] Mr Bombastic Autocast Molotov Lv. 3 at 10% per hit
+- [Class_gear] Triage Gem of Field Care (903011) [item] 50% chance to autocast Full Set Revest when throwing food
+- [Class_gear] Triage Gem of Field Care (903011) [item] 10% to autocast Heal when using Slim Potion Throw.
+- [Class_gear] Detonation Gem of Solutions (903013) [item] 20% to autocast Greater Explosion on Acid Demonstration
+- [Class_gear] Devil Gem of Bidding (903017) [item] Night Menace Autocasts Fatal Menace
+- [Class_gear] Aegis Gem of Interception (903021) [item] Dragon Thrust autocast Colluceo Heal
+- [Class_gear] Meteor Gem of Impact (903025) [item] Alpha autocasts Meteor Rush at learned level
+- [Class_gear] Meteor Gem of Impact (903025) [item] Sonic Blow autocasts Meteor Rush at learned level
+- [Class_gear] Gale Gem of Razors (903027) [item] Sonic Blow autocasts Guard Breaker
+- [Class_gear] Gaia Gem of Reckoning (903028) [item] Mass Grave autocasts Impact Tooth on enemies hit (Rockullanux card doesn't proc Fissure Tooth on these cases)
+- [Class_gear] Calamity Gem of Falling Fire (903029) [item] Your active Illusionist clones echo manually cast Crimson Rock at the same level and target
+- [Class_gear] Calamity Gem of Falling Fire (903029) [item] These echoes use your current MATK
+- [Class_gear] Mirror Gem of Borrowed Shapes (903030) [item] Illusions created +1 (valid for Illusion of Shadows and Illusion of Exchange)
+- [Class_gear] Sleight Gem of Cheating (903037) [item] Joker's Draw has a separate 20% chance to autocast Double Down
+- [Class_gear] Patriot Gem of Devotion (903040) [item] Trigger Heart autocasts Violent Shot Lv. 5 and Scathe Lv. 3
+- [Class_gear] Tribunal Gem of Duels (903043) [item] 10% chance to autocast Violent Barrage after Absolution
+- [Class_gear] Ivory Gem of Redemption (903046) [item] Queen's Barrier the entire party when using Bishop's Guard
+- [Class_gear] Ebony Gem of Counters (903047) [per 1] 1% chance to Autocast Queen's Brand when hit
+- [Class_gear] Bulwark Gem of the Weak (903048) [item] Shield Boomerang can combo into King's Chains within 3 s for 50% more damage
+- [Class_gear] Bulwark Gem of the Weak (903048) [per 1] 1% chance to Autocast Shield Boomerang and King's Chains when hit
+- [Class_gear] Borrowed Gem of Second Wind (903052) [item] Casting Frenzy automatically activates Harness Magic, Harness
+- [Class_gear] Borrowed Gem of Second Wind (903052) [per 1] Harness Speed autocasts Weapon Blocking with half level of refine
+- [Class_gear] Borrowed Gem of Second Wind (903052) [per 1] Harness Magic autocasts Astral Mastery with half level of refine
+- [Class_gear] Pioneer Gem of Untrodden Ground (903053) [item] Safety Wall autocasts Colluceo Heal
+- [Class_gear] Pioneer Gem of Untrodden Ground (903053) [item] Pneuma autocasts Colluceo Heal
+- [Class_gear] Hawk Gem of Night Skies (903059) [per 1] 0.2% autocast Sky Assault when casting Blitz Beat (added to the other ones already exists)
+- [Class_gear] Quarry Gem of Endless Tracking (903060) [item] Counter Slash autocasts Typhoon Edge
+- [Class_gear] Clarion Gem of Endurance (903062) [item] Heal activates Turnabout Mode for 5 s
+- [Class_gear] Lineage Gem of Generations (903063) [item] Dawn to Dusk autocasts Highness Heal Lv. 1
+- [Class_gear] Heraldry Gem of Allies (903064) [item] Lashing Andromeda Autocast Arrow Vulcan Lv. 7 on every enemy hit
+- [Class_gear] Beacon Gem of Bravery (903065) [item] Wrecking Andromeda: autocast Conviction Lv. 1 per target hit
+- [Class_gear] Chip Gem of Small Change (903066) [item] Direct Jab's Combo Ready duration +0.5 s per learned Direct
+- [Class_gear] Marker Gem of Open Tabs (903067) [item] At 100 or more total DEX, Rebounding Bash's third-strike trigger chance becomes 100%
+- [Class_gear] Relentless Gem of No Rest (903072) [item] 15% chance to autocast Shadowstab Lv. 5 on attack
+- [Class_gear] Relentless Gem of No Rest (903072) [item] Whirling Kunai applies Combo Ready for 10 s
+- [Class_gear] Blade Gem of Every Edge (903074) [item] Haze Slasher and Flying Knife grant combo ready for 3 s
+- [Class_gear] Dancer Gem of Grace (903075) [item] Whirling Kunai autocasts Flying Knife on all targets
+- [Class_gear] Solitude Gem of One (903080) [item] Phantom Slice autocasts Dark Messenger
+- [Class_gear] Solitude Gem of One (903080) [item] Haunting Slice autocasts Dark Message
+- [Class_gear] River Gem of Long Meditation (903085) [item] Void Dash autocasts Coluceo Heal Lv. 1
+- [Class_gear] River Gem of Long Meditation (903085) [item] Heal Grants Finisher Ready
+- [Class_gear] Wayward Gem of Laid Traps (903087) [per 1] +1% per refine chance to autocast Flaming Petals Lv. 2 per Samsara Burst or Makibishi Hit
+- [Class_gear] Wayward Gem of Laid Traps (903087) [per 1] +1% per refine chance to autocast Freezing Spear Lv. 2 per Samsara Burst or Makibishi Hit
+- [Class_gear] Wayward Gem of Laid Traps (903087) [per 1] +1% per refine chance to autocast Wind Blade Lv. 2 per Samsara Burst or Makibishi Hit
+- [Class_gear] Bender Gem of Shifting Elements (903089) [item] Darkness Rises autocasts Darkness Flows
+- [Class_gear] Weapon Gem of Flesh and Steel (903090) [per 1] Zephyr Gust has +1% chance to apply Lex Aeterna
+- [Class_gear] Starfall Gem of Made Matter (903092) [item] 15% chance to autocast Wind Slash Lv. 1 on attack
+- [Class_gear] Umbral Gem of Unbroken Focus (903093) [item] 5% chance to autocast Equinox
+- [Class_gear] Umbral Gem of Unbroken Focus (903093) [per 1] 1% chance to autocast Equinox
+- [Class_gear] Torrent Gem of Many Spells (903094) [item] 5% chance to autocast Unholy Light Lv. 1
+- [Class_gear] Torrent Gem of Many Spells (903094) [item] 5% chance to autocast Heal
+- [Class_gear] Torrent Gem of Many Spells (903094) [item] 5% chance to autocast Eruption Lv. 1
+- [Class_gear] Torrent Gem of Many Spells (903094) [item] 5% chance to autocast Samsara Burst Lv. 1
+- [Class_gear] Torrent Gem of Many Spells (903094) [per 1] 0.5% additional chance to autocast Heal
+- [Class_gear] Torrent Gem of Many Spells (903094) [per 1] 0.5% chance to autocast Unholy Light, Eruption and Samsara
+- [Class_gear] Union Gem of Folded Space (903095) [item] Flaming Petals has 5% chance to autocast Freezing Spear Lv. 3
+- [Class_gear] Union Gem of Folded Space (903095) [item] Freezing Spear has 5% chance to autocast Wind Blade Lv. 3
+- [Class_gear] Union Gem of Folded Space (903095) [item] Wind Blade has 5% chance to autocast Flaming Petals Lv. 3
+- [Class_gear] Elven Gem of Enchanted Arrows (903097) [item] Ricochet Arrow Autocasts Unholy Light Lv. 10
+- [Class_gear] Siege Gem of Command (903099) [per 1] 10% chance to autocast Flip Coin per attack
+- [Class_gear] Unbound Gem of Full Power (903103) [item] Morroc's Mark Cooldown is set to 60 s
+- [Class_gear] Unleashed Manual (24238) [item] 10% chance to autocast Heal Lv1 when using Hiding
+- [Class_gear] Ascended Thrust Orb (1466) [if Dragon Soul] Heavy Stab autocasts Wind Cutter Lv5
+- [Class_gear] Ascended Thrust Orb (1466) [if Dragon Soul] Combo Ready for duration
+- [Armor] Assassin Muffler (20714) [item] Backslide when using Flying Knife
+- [Armor] Banana Hat (5116) [item] 5% to Provoke Lv10 on hit
+- [Armor] Broom Scabbard (1004947) [item] Void Dash autocasts
+- [Armor] Contaminated Suit (16148) [per 1] 30% per refine (max 100%) to autocast Envenom at your learned level (minimum Lv1) when hit
+- [Armor] Fluffy Fish Shoes (22210) [per 1] 1% per refine chance to freeze the attacker when hit.
+- [Armor] Giant Snake Skin (20717) [item] 3% chance to autocast Heal Lv1 when using Hiding
+- [Armor] Ice Moon Boots (741) [item] When casting Freezing Spear, 30% chance to autocast Frozen Crash Lv1
+- [Armor] Lush Rose (18848) [item] Recover 100 HP when defeating enemies with magic
+- [Armor] Phoenix Manteau (20941) [item] 5% chance to auto-cast Flaming Petals Lv1 when attacked.
+- [Armor] Snowman Hat (5738) [item] 5% to autocast Water Ball Lv1 when casting Frost Diver.
+- [Armor] Ticking Timer (16143) [item] Decoy autocasts Heal Lv1
+- [Armor] Snapping Turtle (5611) [item] 10% chance to auto-cast Freezing Spear Lv1 when attacking.
+- [Armor] Veidistafur (30136) [+6] On ranged attacks: 20% chance to gain max Move
+- [Shield] Cursed Knight's Shield (28942) [item] Shield Boomerang and King's Chains knockbacks +2 cells
+- [Shield] Core Shield (2127) [per 1] 3% per refine chance to autocast Lv1 Heal when hit
+- [Shield] Electro Buckler (2128) [per 1] Shield Boomerang has 5% per refine chance to autocast Lightning Bolt
+- [Shield] Robotic Armguard (2163) [item] Shadowstab autocasts Fireball
+- [Shield] Star Scale Shield (2121) [item] Shield Boomerang Autocasts Wind Blade Lv3
+- [Shield] Subterfuge Armguard (2187) [item] When Using "Whirling Kunai", automatically backslides
+- [Shield] Eternal Glacier Shield (1407) [item] 5% chance to freeze when hit
+- [Shadow_gear] Cacophony Gloves (28646) [piece] Chance to autocast Flaming
+- [Shadow_gear] Cacophony Pendant (28648) [per 1] 3% +0.2% per refine chance to autocast Wind Blade
+- [Shadow_gear] Cacophony Shoes (28647) [piece] Autocast Freezing Spear (Lv3).
+- [Shadow_gear] City Supplier Boots (29934) [per 1] On taking damage, 0.1% chance per refine of activating
+- [Shadow_gear] City Supplier Gloves (29933) [per 1] On dealing damage, 0.5% chance per refine of activating
+- [Shadow_gear] City Supplier Pendant (29935) [per 1] On dealing damage, 0.1% chance per refine of activating
+- [Shadow_gear] Cold of Death Armor (28162) [per 1] 1%+0.5% per refine chance to Freeze the attacker when hit by a melee physical attack
+- [Shadow_gear] Cold of Death Boots (28164) [per 1] 1%+0.5% per refine chance to Freeze the attacker when hit by a magic attack
+- [Shadow_gear] Cold of Death Shield (28163) [per 1] 1%+0.5% per refine chance to Freeze the attacker when hit by a ranged physical attack
+- [Shadow_gear] Fanatic Servant Armor (28988) [per 1] 1% per refine chance to autocast Vampire's Gift Lv1 when hit
+- [Shadow_gear] Fanatic Servant Gloves (28989) [per 1] On hit: 1% chance per refine to leech HP, recovering 1% of the damage per refine
+- [Shadow_gear] Fanatic Servant Shoes (28990) [per 1] On hit: 1% chance per refine to leech SP, recovering 2 SP per refine
+- [Shadow_gear] Land of Shadows Armor (28292) [if Chance to autocast Darkness Rises Lv3] Always chains into Darkness
+- [Shadow_gear] Land of Shadows Gloves (28293) [if Chance to autocast Darkness Rises Lv3] Always chains into Darkness
+- [Shadow_gear] Land of Shadows Pendant (28295) [if Chance to autocast Darkness Rises Lv3] Always chains into Darkness
+- [Shadow_gear] Land of Shadows Shoes (28294) [if With any piece equipped] Autocast Darkness
+- [Shadow_gear] Land of Shadows Shoes (28294) [if With any piece equipped] It always chains Darkness
+- [Shadow_gear] Limitless Innovation Armor (28288) [per 1] 5%+2% per refine chance to autocast Wind Slash on Face-Off.
+- [Shadow_gear] Limitless Innovation Gloves (28289) [per 2] Decoy spawns 1 Molotov around the clone, plus 1 more per 2 refines.
+- [Shadow_gear] Limitless Legacy Gloves (28285) [per 1] 5%+2% per refine chance to autocast Fan of Knives on Shadow Slash
+- [Shadow_gear] Lord of Flames Armor (29916) [per 1] On getting hit, 1% chance per refine to autocast Flaming Petals Lv5.
+- [Shadow_gear] Lord of Flames Gloves (29917) [per 1] On physical target skill, 10% chance per refine to autocast Flaming
+- [Shadow_gear] Lord of Flames Pendant (29919) [per 1] On magic target skill, 10% chance per refine to autocast Flaming
+- [Shadow_gear] Own Reflection Pendant (29907) [per 1] When hit, 3% +0.2% per refine chance to summon an Illusionist
+- [Shadow_gear] Phoenix Sigil Armor (30089) [if Set refine 9+, on each cast] 10% chance to revive one random dead party member in 31x31.
+- [Shadow_gear] Phoenix Sigil Boots (30091) [if Set refine 9+, on each cast] 10% chance to revive one random dead party member in 31x31.
+- [Shadow_gear] Phoenix Sigil Gloves (30090) [if Set refine 9+, on each cast] 10% chance to revive one random dead party member in 31x31.
+- [Shadow_gear] Phoenix Sigil Pendant (30092) [if Set refine 9+, on each cast] 10% chance to revive one random dead party member in 31x31.
+- [Shadow_gear] Pollution Armor (24346) [piece] 1% Poison chance per hit
+- [Shadow_gear] Pollution Gloves (24347) [piece] 1% Silence chance per hit
+- [Shadow_gear] Pollution Pendant (24349) [piece] 1% Sleep chance per hit
+- [Shadow_gear] Pollution Shoes (24348) [piece] 1% Blind chance per hit
+- [Shadow_gear] Prepared Future Armor (28064) [per 1] 5%+1% per refine chance to inflict Poison when attacking or casting a spell.
+- [Shadow_gear] Prepared Future Boots (28066) [per 1] 5%+1% per refine chance to inflict Burning when attacking or casting a spell.
+- [Shadow_gear] Prepared Future Shield (28065) [per 1] 5%+1% per refine chance to inflict Bleeding when attacking or casting a spell.
+- [Shadow_gear] Test Subject Armor (29900) [piece] On attack, 2% chance to lose
+- [Shadow_gear] Test Subject Armor (29900) [per 1] On attack, 3% +0.2% per refine chance to autocast Abracadabra Lv7.
+- [Shadow_gear] Test Subject Gloves (29901) [piece] On attack, 2% chance to lose
+- [Shadow_gear] Test Subject Gloves (29901) [per 1] On attack, 3% +0.2% per refine chance to autocast Abracadabra Lv2.
+- [Shadow_gear] Test Subject Pendant (29903) [piece] On attack, 2% chance to lose
+- [Shadow_gear] Test Subject Pendant (29903) [per 1] On attack, 3% +0.2% per refine chance to autocast Abracadabra Lv3.
+- [Shadow_gear] Test Subject Shoes (29902) [piece] On attack, 2% chance to lose
+- [Shadow_gear] Test Subject Shoes (29902) [per 1] On attack, 3% +0.2% per refine chance to autocast Abracadabra Lv6.
+- [Shadow_gear] Umbral Stars Shield (28097) [piece] Weapon attacks become
+- [Shadow_gear] Undead Land Armor (28076) [if On attacking or casting spells] 3% + 1.2% per refine chance to raise a Risen Reaver.
+- [Shadow_gear] Undead Land Boots (28078) [if On attacking or casting spells] 3% + 1.2% per refine chance to raise a Risen
+- [Shadow_gear] Undead Land Shield (28077) [if On attacking or casting spells] 3% + 1.2% per refine chance to raise a Risen Vanguard.
+- [Accessory] Infrared Scanner (16163) [item] Vault autocasts Royal Authority
+- [Accessory] Ocean Heart (16162) [item] Unholy Light autocasts Waterball Lv2
+- [SET] 1st Einherjar [set] 10% chance to autocast Heal Lv1 when using Hiding
+- [SET] Aggressive Orphan [set +36] Morroc's Mark cooldown reduced from 60min to 2min
+- [SET] Cacophony [set] Each thief spell has a 5% chance to chain-cast the other two at Lv3.
+- [SET] Cold of Death [per set refine 1] +0.1% chance to Freeze the attacker when hit by any attack
+- [SET] Endless Forest [set] Attacks Splash on Hit
+- [SET] Last Einherjar [set] 10% chance to autocast Heal Lv1 when using Hiding
+- [SET] Nightmare Hunter [set +18] Physical attack skills: 20% chance to grant Cast Ready for 3 seconds.
+- [SET] Nightmare Hunter [set +36] Magical attack skills: 20% chance to grant Combo Ready for 3 seconds.
+- [SET] Pharaoh [set] 5% chance to autocast the respective spell at Lv3
+- [SET] Pollution [set] 1% Extra chance per hit
+- [SET] Pollution [per set refine 1] 0.1% Extra chance on hit
+- [SET] Prime Self [set] On kill, 0.05% chance per total set refine to activate
+- [SET] Prime Self [set] Morroc's Mark for 30 seconds.
+- [SET] Test Subject [set] On attack, also autocasts
+- [SET] Tomb Thief [set] 3% chance to autocast Heal Lv1 when using Hiding
+- [SET] Twin Kings [set] Thousand Arms autocasts Meteor Assault at 50% chance
+- [SET] Twin Kings [set] Soul Destroyer autocasts Shadow Slash at 50% chance
+- [SET] Wasteland Judgment [set] 30% chance to autocast Violent Barrage when using Absolution
+- [SET] Winter Light [set] Recover extra 10 HP and 1 SP on kill
+
+## status on target (inflict %, vs-status damage, boss status) (82)
+- [Weapon] Belt Whip (1004931) [item] Added Effect: Bleeding (10%)
+- [Weapon] Black Hole Sun (1959) [item] Added Effect: Sleep(9%)
+- [Weapon] Bloody Tears (1296) [per 1] 2% Bleeding chance per refine
+- [Weapon] Broomblade (1004946) [item] Physical damage has 20% chance to cause bleeding
+- [Weapon] Broomblade (1004946) [item] Damage taken -3% from Bleeding attackers
+- [Weapon] Chain of Torment (1956) [item] Added Effect: Blind(8%)
+- [Weapon] Chop Chop Chopper (1004938) [item] 20% chance to inflict
+- [Weapon] Chop Chop Chopper (1004938) [item] Bleeding on physical damage
+- [Weapon] Dawnstar (1953) [item] Added Effect: Frost(5%)
+- [Weapon] Frostpiercer (1474) [item] 25% chance to Freeze with Phantom Spear
+- [Weapon] Frostpiercer (1474) [item] Final magic damage +20% against Frozen targets
+- [Weapon] Glacial Longbow (18125) [item] 10% chance to Freeze on any attack
+- [Weapon] Glacial Longbow (18125) [+9] Final ranged damage vs Frozen +10% more (total +30%)
+- [Weapon] Hurricane Plague (1331) [per 1] Axe Tornado applies poison at 4% chance per refine
+- [Weapon] Kitchen Duty Shank (1004937) [item] 20% chance to inflict
+- [Weapon] Kitchen Duty Shank (1004937) [item] Bleeding on physical hits
+- [Weapon] Kitchen Duty Shank (1004937) [item] Final DMG +3% vs Bleeding targets
+- [Weapon] Master Whip (1954) [item] Added Effect: Stun(4%)
+- [Weapon] Mumyo Odachi (30152) [item] Death Bound also works on Boss monsters
+- [Weapon] Oathguard (1952) [item] Added Effect: Silence(7%)
+- [Weapon] Reaper's Toll (1547) [item] 10% chance to inflict
+- [Weapon] Reaper's Toll (1547) [item] Bleeding +15% final damage vs Bleeding targets
+- [Weapon] Reaper's Toll (1547) [+7] 10% chance to inflict Curse +15% final damage vs Cursed targets
+- [Weapon] Roaring Flare (1531) [item] Removes Burning Scythe SP cost
+- [Weapon] Roaring Flare (1531) [item] 10% chance to cause burning on physical attacks and skills.
+- [Weapon] Rosevine (1955) [item] Added Effect: Poison(9%)
+- [Weapon] Rotten Slasher (1314) [item] Death Cloud has 20% base chance to poison enemies
+- [Weapon] Royal Whip (1960) [item] Added Effect: Curse(5%)
+- [Weapon] Rusty Nail (1209) [item] 10% chance to apply blind, poison and bleeding with attacks.
+- [Weapon] Scrapwire Lash (26215) [item] Added Effect: Poison (5%), Bleeding (5%)
+- [Weapon] Scrapwire Lash (26215) [item] +15% final damage vs Poisoned targets +15% final damage vs Bleeding targets
+- [Weapon] Shimenawa (30169) [item] Added Effect: Burning(5%)
+- [Weapon] Shimenawa (30169) [per 1] Burning chance +2% per refine +15% final damage vs Burning targets
+- [Weapon] Shimenawa (30169) [+7] Burning also applies to Boss monsters
+- [Weapon] Spectral Reaper (1528) [item] Immune to Freeze and Burning
+- [Weapon] Swordwhip (1957) [item] Added Effect: Bleeding(4%)
+- [Weapon] Taskmaster's Lash (580002) [item] Added Effect: Stun(5%)
+- [Weapon] Trail of Cinders (1958) [item] Added Effect: Burning(7%)
+- [Weapon] Utan Vinelash (580023) [item] Added Effect: Silence(3%)
+- [Weapon] Utan Vinelash (580023) [+7] Final damage vs Silenced +10% more
+- [Weapon] War Axe (1306) [per 1] Axe Tornado has 30% per refine chance to cause bleeding
+- [Weapon] Yggdrasil Vine (1984) [item] Added Effect: Poison(4%), Sleep(4%)
+- [Weapon] Bloody Tears (1295) [per 1] 2% Bleeding chance per refine
+- [Weapon] Eternal Crystal Whip (1961) [item] Added Effect: Freeze(5%)
+- [Weapon] Herfjotur (30170) [item] Added Effect: Bleeding(5%)
+- [Weapon] Herfjotur (30170) [per 1] Bleeding chance +2% per refine -15% damage taken from Bleeding enemies
+- [Weapon] Herfjotur (30170) [+7] Bleeding also applies to Boss monsters
+- [Weapon] Dread Razor Trinket (13249) [if While High Conviction is active] Conviction becomes poison element, auto-attack conviction replacement chance increased by 5%
+- [Card] Heater Card (4331) [item] Immune to Burning
+- [Card] Hinoenma Card (30159) [item] Magic attacks inflict Burning at 5% chance
+- [Card] Hinoenma Card (30159) [+7] Final Damage +5% on Burning
+- [Card] Hinoenma Card (30159) [+9] Burning applies to Bosses
+- [Card] Surtr Avatar Card (30166) [item] Burning Steps heals you for 10% of the damage it deals
+- [Card] Surtr Avatar Card (30166) [item] Magic attacks have a 5% chance to leave a 3x3 Burning Steps field on the target, on level learned
+- [Class_gear] Codex of Transmutation (1588) [item] 10% chance to inflict Poison
+- [Class_gear] Draco Scale Orb (1453) [if Dragon Soul] Spear Boomerang inflicts Bleeding for 10 seconds
+- [Class_gear] Fire Cantrips Book (28443) [if Allows Memorizing] Burning Steps
+- [Class_gear] Phantom Wing Orb (1450) [if Dragon Soul] All enemies hit by Phantom Spear are Burning for 10 seconds
+- [Class_gear] Skyspear Claw Orb (1448) [if Core] Dragon Thrust always inflicts Burning for 10 seconds
+- [Class_gear] Skyspear Claw Orb (1448) [if Core] Crescent Dive DMG +3% per refine against Burning targets
+- [Class_gear] Skyspear Claw Orb (1448) [if Dragon Soul] Burning also applies to Boss monsters
+- [Class_gear] Skyspear Claw Orb (1448) [if Dragon Soul] Crescent Dive DMG +3% more per refine against Burning targets
+- [Class_gear] Specialized Cantrips Book (28451) [if Allows Memorizing] Burning Field
+- [Class_gear] Miasma Gem of Tolerance (903007) [item] Poison negative effects are neutralized
+- [Class_gear] Miasma Gem of Tolerance (903007) [per 1] Poison magic hits apply +2 percentage points of Poison vulnerability for 60 s
+- [Class_gear] Detonation Gem of Solutions (903013) [item] Rolling Flames always applies Burning (including bosses)
+- [Class_gear] Frostbound Gem of Embrace (903016) [item] Shatter Cross has 50% chance to freeze enemies
+- [Class_gear] Backstab Gem of Turned Backs (903071) [item] Backstab inflicts Burning and Bleeding
+- [Class_gear] Moonless Gem of Darkness (903088) [item] New Moon Blades applies Bleeding
+- [Class_gear] Moonless Gem of Darkness (903088) [item] Full Moon Blades applies Poison
+- [Class_gear] Moonless Gem of Darkness (903088) [item] Dragon Omamori applies Burning
+- [Armor] Ifrit Mask (5420) [item] Immune to Burning
+- [Shield] Corroded Armguard (1004951) [item] Flying Knife applies poison to targets
+- [Shadow_gear] Broken Future Armor (28060) [if On dealing or taking damage] 5% chance each to afflict yourself with Poison, Bleeding or Burning.
+- [Shadow_gear] Broken Future Boots (28062) [piece] Immune to Burning.
+- [Shadow_gear] Broken Future Boots (28062) [if On dealing or taking damage] 5% chance each to afflict yourself with Poison, Bleeding or Burning.
+- [Shadow_gear] Broken Future Pendant (28063) [if On dealing or taking damage] 5% chance each to afflict yourself with Poison, Bleeding or Burning.
+- [Shadow_gear] Broken Future Shield (28061) [if On dealing or taking damage] 5% chance each to afflict yourself with Poison, Bleeding or Burning.
+- [Shadow_gear] Limitless Legacy Pendant (28287) [piece] Silent Strike inflicts Bleeding for 5s
+- [SET] Prepared Future [set] Poison, Bleeding and Burning from this set also affect
+- [SET] Tankard [set] Bleeding can affect Boss monsters
+- [Ammunition] Poison Arrow (1763) [item] Added: Poison
+
+## skill behaviour (crit, cooldown/cast removed, range, AoE, knockback, pull, SP rules) (164)
+- [Weapon] Belt Whip (1004931) [item] Ranged DMG gains 50% of your Melee DMG bonuses
+- [Weapon] Bow of Famine (18109) [item] Godhand Arrow SP cost halved
+- [Weapon] Chop Chop Chopper (1004938) [per 1] Rupture Axe: 5%+2% per refine chance to guarantee a Rolling Cutter stack
+- [Weapon] Despair of Innocence (13462) [+7] Delta Skyfall pulls enemies to caster
+- [Weapon] Devil's Whisper (18127) [item] Ranged DMG+3% when wielded with Angel Slayer Arrows
+- [Weapon] Edge (1132) [+7] Double Effect
+- [Weapon] Eye Crossbow (18108) [item] Sniper's Nest cast time removed
+- [Weapon] Gravewhisper (13045) [item] Backstab can land Critical hits
+- [Weapon] Leaf-Cutter (1322) [item] Axe Tornado can land
+- [Weapon] Leaf-Cutter (1322) [if Jungle Hatchets (with Spirit-Cleaver)] Casting Axe Tornado won't interrupt your auto-attack
+- [Weapon] Living Vigil (18106) [item] Heal SP cost halved
+- [Weapon] Morroc's Nail (13024) [item] Using Hiding slides you 2 cells backwards
+- [Weapon] Rebound Bow (18103) [item] Ricochet Arrow Knocksback 5 cells
+- [Weapon] Royal Spear (1425) [item] Spear Boomerang pulls the enemy to the caster
+- [Weapon] Sacrifice (2198) [item] Holy Endow on Weapon
+- [Weapon] Spirit-Cleaver (1323) [if Jungle Hatchets (with Leaf-Cutter)] Casting Axe Tornado won't interrupt your auto-attack
+- [Weapon] Sporestring Bow (1004949) [item] Envenom scales with your ATK
+- [Weapon] Sylph Lance (32001) [item] Dragon Thrust can land
+- [Weapon] Twin Seam-Rippers (1004945) [item] Tooth can critically strike
+- [Weapon] Utsusemi Saya (30156) [if Void Dash hits twice] Both hits can Critical.
+- [Weapon] Wasteland Sovereign (32303) [item] Absolution can land
+- [Weapon] Wyrmscale Kris (28762) [if Per Level of Spectral Mastery] Spectral Servants can deal
+- [Weapon] Ormbroddr (30155) [item] Crescent Dive consumes Dragon Force to deal +100% damage
+- [Weapon] Slashing Shadows (1280) [item] Using Hiding slides you 2 cells backwards
+- [Weapon] Channeling Scythe (1537) [item] All cast times removed
+- [Weapon] King of Diamonds (1577) [item] All Skills have no flat SP Cost (% costs still apply)
+- [Weapon] Tow Chain (30175) [item] Phantom Slice pulls the enemy to the caster
+- [Weapon] Long Revolver (13102) [item] Heavy Shot Knocksback +3 cells
+- [Weapon] Ignis Divina (13107) [item] Heavy Shot Knocksback +5 cells
+- [Weapon] Aurum Mandatum (13108) [item] Death Sentence Refills one Seal
+- [Weapon] Iudex Draco Arma (13109) [item] Removes Variable Cast from Dragonic Dive
+- [Weapon] King of Seas (13111) [item] Normal attacks hit in a small area around target
+- [Weapon] Tenebris Rosa (13113) [item] Attacks never miss
+- [Weapon] Holy Cross Trinket (13246) [if Crash Buff] Endows Weapon with Holy Element
+- [Weapon] Holy Cross Trinket (13246) [if While Aspersio is active] All whip skills receive 10% +1% per INT bonus damage
+- [Weapon] Destiny Brush Trinket (13247) [if While Fury is active] All whip skills receive 10% +1% per LUK bonus damage
+- [Weapon] Wicked Eden Trinket (13248) [if While Energy Surge is active] All whip skills receive 10% +10% per skill level bonus damage
+- [Weapon] Frost Spinner Trinket (13250) [item] Use Trinket Damage scales based on missing SP
+- [Weapon] Frost Spinner Trinket (13250) [if While Water Endow is active] All whip skills receive bonus damage per missing SP
+- [Weapon] Deadly Rose Trinket (13251) [item] Use Trinket Damage scales based on missing HP
+- [Weapon] Deadly Rose Trinket (13251) [if While Vampire's Mark is active] All whip skills receive bonus damage per missing HP
+- [Weapon] Guard Rock Trinket (13252) [if While Queen's Barrier is active] All whip skills receive 10% +1% per VIT bonus damage
+- [Weapon] Broken Serenade Trinket (13253) [if While Poem of Bragi is active] All whip skills receive 10% +1% per AGI bonus damage
+- [Weapon] Amulet of Siegfried Trinket (13254) [if While Energy Surge is active] All whip skills receive 10% +1% per STR bonus damage
+- [Weapon] Old Wood 38er (1004957) [item] Violent Shot and Scathe can critically strike
+- [Card] Alice Card (4253) [item] Resistance vs All Sizes 6%
+- [Card] Amitera Card (13564) [item] Shield Boomerang Knockbacks +3 Cell
+- [Card] Aspect of Lies Card (13561) [item] Using Hiding slides you 2 cells backwards
+- [Card] Dustiness Card (4056) [item] Using Hiding slides you 2 cells backwards
+- [Card] Godly Seeker Card (13736) [item] Using Hiding slides you 2 cells backwards
+- [Card] Magma Knight Card (13653) [item] Endows weapon with Fire element
+- [Card] Master Loki Card (13626) [item] Using Hiding slides you 2 cells backwards
+- [Card] Muka Card (4036) [item] Reflects 5% damage from short range attacks.
+- [Card] Quake Knight Card (13655) [item] Endows weapon with Earth element
+- [Card] Sarah Irine Card (13552) [item] Holy Element Weapon.
+- [Card] Skeleton General Card (4221) [item] Undead Element Weapon
+- [Card] Stormy Knight Card (4318) [item] Frost Diver becomes AoE
+- [Card] Tidal Knight Card (13656) [item] Endows weapon with Water element
+- [Card] Tornado Knight Card (13654) [item] Endows weapon with Wind element
+- [Card] Umbral Knight Card (13657) [item] Endows weapon with Dark element
+- [Card] Whisper Card (4102) [item] Using Hiding slides you 2 cells backwards
+- [Card] Mega Peco Card (13640) [item] Throw Stone Cooldown is set to 5 seconds
+- [Class_gear] Acidus Scale Orb (1458) [if Core] Dragon Claw no longer dashes to the target
+- [Class_gear] Acidus Scale Orb (1458) [if Dragon Soul] Neither Dragon Thrust nor these Spear Boomerangs consume Sky Prophecy
+- [Class_gear] Acidus Scale Orb (1458) [if Dragon Soul] Ascended Skill: Dragon Breath
+- [Class_gear] Bone Detale Scale Orb (1462) [if Dragon Soul] Ascended Skill: True Dragon Soul
+- [Class_gear] Celestial Tome (24236) [item] Backslide Lv1
+- [Class_gear] Dagaz Rune of Hope (24152) [per 1] Reflects all ranged damage by 2% per Upgrade. The damage is NOT negated.
+- [Class_gear] Detardeurus Scale Orb (1460) [if Core] Dragon Thrust is split: it deals 50% of its ratio as physical and 70% of its ratio as magic
+- [Class_gear] Detardeurus Scale Orb (1460) [if Dragon Soul] Ascended Skill: Dragon Thrust
+- [Class_gear] Draco Scale Orb (1453) [if Dragon Soul] Spear Boomerang has no cooldown during Dragon Soul
+- [Class_gear] Draco Scale Orb (1453) [if Dragon Soul] Endure for duration
+- [Class_gear] Draco Scale Orb (1453) [if Dragon Soul] Ascended Skill: Spear Boomerang
+- [Class_gear] Enchanted Scale Orb (1456) [if Dragon Soul] Removes Cast times from: Life of Dragon, Gaebolg Ascension, Gungnir Flight and Draco Spirit
+- [Class_gear] Enchanted Scale Orb (1456) [if Dragon Soul] Ascended Skill: Defensive Bonuses
+- [Class_gear] Explosive Claw Orb (1449) [if Dragon Soul] Ascended Skill: Heavy Stab
+- [Class_gear] Ferus Scale Orb (1457) [if Dragon Soul] Dragon Claw Cooldown removed
+- [Class_gear] Ferus Scale Orb (1457) [if Dragon Soul] Endure for duration
+- [Class_gear] Ferus Scale Orb (1457) [if Dragon Soul] Ascended Skill: Dragon Claw
+- [Class_gear] Hydrolancer Scale Orb (1459) [if Dragon Soul] Ascended Skill: Raider Triad
+- [Class_gear] Novus Scale Orb (1455) [if Core] If MATK > ATK: Geirskogul can deal critical hits
+- [Class_gear] Novus Scale Orb (1455) [if Core] If ATK >= MATK: Crescent Dive can deal critical hits
+- [Class_gear] Novus Scale Orb (1455) [if Dragon Soul] Ascended Skill: Weapon Quicken
+- [Class_gear] Nydhogg Scale Orb (1461) [if Dragon Soul] Ascended Skill: Crescent Dive
+- [Class_gear] Petite Scale Orb (1454) [if Core] Gaebolg Ascension Cooldown removed
+- [Class_gear] Petite Scale Orb (1454) [if Dragon Soul] Ascended Skill: Heal
+- [Class_gear] Phantom Wing Orb (1450) [if Dragon Soul] Ascended Skill: Phantom Spear
+- [Class_gear] Skyspear Claw Orb (1448) [if Dragon Soul] Ascended Skill: Crescent Dive
+- [Class_gear] Thrusting Claw Orb (1452) [if Dragon Soul] Dragon Thrust Cooldown removed
+- [Class_gear] Thrusting Claw Orb (1452) [if Dragon Soul] Endure for duration
+- [Class_gear] Thrusting Claw Orb (1452) [if Dragon Soul] Ascended Skill: Dragon Thrust
+- [Class_gear] Vanish Manual (24035) [item] Using Hiding slides you 2 cells backwards
+- [Class_gear] Vanish Manual X (24042) [item] Using Hiding slides you 2 cells backwards
+- [Class_gear] Lightning Wing Orb (1451) [if Dragon Soul] Ascended Skill: Geirskogul
+- [Class_gear] Delirium Gem of Haste (903000) [item] Removes Unlimited Power, Dual Cast and Arcane Flow Cooldown
+- [Class_gear] Tetra Gem of Four Storms (903002) [item] Cooldown +1 s on each of them
+- [Class_gear] Mire Gem of Rot (903004) [item] 2% Max HP is added to Living Dead damage pulse
+- [Class_gear] Sludge Gem of Bombs (903005) [item] Splasher explosion at Lv. 1
+- [Class_gear] Sludge Gem of Bombs (903005) [per 1] Venom Splasher explosion level +1 (maximum Lv. 10)
+- [Class_gear] Miasma Gem of Tolerance (903007) [per 1] Adds to Venom Mark; repeated hits refresh instead of stacking
+- [Class_gear] Pestilence Gem of Contagion (903008) [item] Plague Impress hits 5x5 AoE
+- [Class_gear] Abyss Gem of Voices (903014) [item] Removes Black Metal cooldown and cast. (remove buff when unequip)
+- [Class_gear] Devil Gem of Bidding (903017) [item] Knight Ritual Cooldown Removed (need to remove the buff if unequipped)
+- [Class_gear] Obsidian Gem of Restraint (903018) [item] Deathbound Cooldown removed
+- [Class_gear] Plummet Gem of Heights (903019) [item] 10% of Max HP is added to Dragon Thrust Damage
+- [Class_gear] Aegis Gem of Interception (903021) [item] Elusive Feint, Gungnir Flight, Draco Wings Cooldown Removed
+- [Class_gear] Wyrm Gem of Fury (903022) [item] Dragon Breath cast time removed
+- [Class_gear] Dune Gem of First Sands (903024) [item] Alpha +5 Range (becomes Ranged Damage)
+- [Class_gear] Dune Gem of First Sands (903024) [item] Omega +5 Range (becomes Ranged Damage)
+- [Class_gear] Dune Gem of First Sands (903024) [item] Cross Impact Range +5 (becomes Ranged Damage)
+- [Class_gear] Ancestor Gem of Rites (903026) [item] Loki's Fury cooldown Removed
+- [Class_gear] Gale Gem of Razors (903027) [item] Alpha and Omega gain additional damage equal to 1/20 of your
+- [Class_gear] Tribunal Gem of Duels (903043) [item] Violent Barrage and Absolution refill 1 Seal
+- [Class_gear] Anarchy Gem of Crowns (903044) [item] Ready to Rip cooldown Removed (need to remove the buff if unequipped)
+- [Class_gear] Mirage Gem of Avoidance (903045) [item] Delta Skyfall can crit.
+- [Class_gear] Ivory Gem of Redemption (903046) [item] King's Regen cast time removed (need to remove the buff if unequipped)
+- [Class_gear] Ebony Gem of Counters (903047) [item] Rook's Smash and Queen's Brand receives 1/20 max HP in its damage
+- [Class_gear] Eclipse Gem of Covered Skies (903056) [item] Dark Claw Cooldown removed
+- [Class_gear] Omen Gem of a Thousand Blades (903057) [item] Definitive Dagger deals damage on a 3x3 AoE
+- [Class_gear] Armory Gem of Mastery (903058) [item] Northern Cross receives 1/5 max HP in its damage
+- [Class_gear] Hawk Gem of Night Skies (903059) [item] Removes Rising Wings Cooldown
+- [Class_gear] Hawk Gem of Night Skies (903059) [item] Add 1% per base DEX scaling to Blitz Beat
+- [Class_gear] House Gem of Final Collection (903070) [item] Might within 5 s has no Fixed Cast Time and consumes no HP
+- [Class_gear] Stalker Gem of Paranoia (903073) [item] Removes Camouflage flat SP Cost and cooldown
+- [Class_gear] Stalker Gem of Paranoia (903073) [item] Haze Slasher slides you 2 cells backwards
+- [Class_gear] Solitude Gem of One (903080) [item] Phantom Slice no longer pulls targets while this gem is equipped
+- [Class_gear] River Gem of Long Meditation (903085) [item] Enables Backslide Lv. 1
+- [Class_gear] Bullseye Gem of Never Missing (903096) [item] Ready to Rip Cooldown removed
+- [Class_gear] Bullseye Gem of Never Missing (903096) [item] Headshot Fixed Cast Time removed
+- [Class_gear] Final Gem of Guiltless Duty (903100) [item] Inquisition Resolve cooldown removed
+- [Class_gear] Final Gem of Guiltless Duty (903100) [item] Last Inquisition cooldown removed
+- [Class_gear] Ascended Thrust Orb (1466) [if Dragon Soul] Ascended Skill: Raider Skills
+- [Armor] Apocalypse Hell Robes (15442) [item] Using Hiding slides you 2 cells backwards
+- [Armor] Apocalypse Occult Suit (15441) [item] Using Hiding slides you 2 cells backwards
+- [Armor] Apocalypse Scale Mail (15440) [item] Using Hiding slides you 2 cells backwards
+- [Armor] Aspect of Pride (16141) [item] Vault SP Cost removed
+- [Armor] Assassin Mask (5054) [item] Using Hiding slides you 2 cells backwards
+- [Armor] Black Cape (2511) [item] Using Hiding slides you 2 cells backwards
+- [Armor] Galaxy Garment (16102) [item] Enables Backslide
+- [Armor] Showstopper (16133) [item] First Hand and Double Down cost no SP
+- [Armor] Surt Shoes (15428) [item] Enables Backslide
+- [Armor] Tatenashi Armor (15137) [item] Attacks cost 12 SP
+- [Armor] Varnarstafur (30134) [+6] Extra 5% Resistance
+- [Shield] Powerstab Armguard (2188) [item] Backstab Knockbacks 5 cells
+- [Shield] Reginleif's Ward (2129) [item] Shield Boomerang Knockback 10 cells
+- [Shield] Slider Armguard (2189) [item] Enables Backslide with a reduced cooldown of 1 second.
+- [Shield] Star Scale Shield (2121) [item] Shield Boomerang Splashes in a 5x5 area
+- [Shadow_gear] City Supplier Armor (29932) [if On taking damage, chance to drink a potion] Orange Potion 0.1% per refine (heals 300 HP)
+- [Shadow_gear] Limitless Legacy Armor (28284) [per 2] Boomeraxe damage +6% per Axe Mastery level +1 Rolling Cutter stack on Boomeraxe per 2 refines
+- [Shadow_gear] Lord of Flames Boots (29918) [piece] Critical damage +2% per active Fire Focus stack
+- [Shadow_gear] Lord of Flames Gloves (29917) [piece] All skills minimum cooldown raised to 0.5 second.
+- [Shadow_gear] Lord of Flames Gloves (29917) [piece] Petals Lv5.
+- [Shadow_gear] Lord of Flames Pendant (29919) [piece] All skills minimum cooldown raised to 0.5 second.
+- [Shadow_gear] Lord of Flames Pendant (29919) [piece] Petals Lv5.
+- [Shadow_gear] Sleipnir Sky Rider Shield (28650) [piece] Weapon element becomes
+- [Accessory] Ring of White Winter (16157) [item] Removes Frost Diver cast times
+- [Accessory] Slime Ring (16152) [item] Using Hiding slides you 2 cells backwards
+- [SET] End of Kings [set] Adds ATK equal to 10% of your total DEF
+- [SET] End of Kings [set] Adds MATK equal to 10% of your total MDEF
+- [SET] Friendly Orphan [set +36] 20% of Max SP is added to Max HP
+- [SET] Heir to the King [set] Adds DEF equal to 10% of your total ATK
+- [SET] Heir to the King [set] Adds MDEF equal to 10% of your total MATK
+- [SET] Lord of Flames [set] All skills minimum cooldown raised to 1 second.
+- [SET] Sea of Dreams [set] Immune to critical hits.
+
+## defence / survival flags (endure, uninterruptible cast, immunities, revive, reflect) (55)
+- [Weapon] Blade of Princes (1109) [item] Cast can't be interrupted
+- [Weapon] Cursed Mark (13092) [+7] Cast can't be interrupted.
+- [Weapon] Mumyo Odachi (30152) [item] Death Bound reflected damage cannot exceed 2x your
+- [Weapon] Quick Game (30174) [item] Cast can't be interrupted
+- [Weapon] Mysteltainn (1138) [item] Permanent Endure Effect
+- [Weapon] Executioner (1169) [item] Permanent Endure Effect
+- [Weapon] Ogretooth (1224) [item] Permanent Endure Effect
+- [Card] Amon Ra Card (4236) [item] Revives with full HP
+- [Card] Baby Molinet Card (13746) [item] Permanent Endure Effect
+- [Card] Calmaring Card (13557) [item] Reflects 5% damage taken from melee attackers
+- [Card] Corruption Root Card (4603) [item] Cast can't be interrupted.
+- [Card] Crystal Megalith Card (4669) [item] 5% chance to reflect targeted magic back to caster
+- [Card] Eddga Card (4123) [item] Enables Endure Lv10
+- [Card] Fanat Card (4465) [item] Cast can't be interrupted
+- [Card] Godly Seeker Card (13736) [item] Can see invisible enemies
+- [Card] Horong Card (4103) [item] Can see invisible enemies
+- [Card] Old Phoenix Card (13574) [item] Revive with full HP/SP
+- [Card] Satan Morroc Card (13562) [if Base DEX 99] Cast can't be Interrupted
+- [Card] Baroness of Blood Card (902982) [if If you\'re Calm] Cast cannot be interrupted
+- [Card] Detector Card (13721) [item] Can see invisible enemies
+- [Card] Trainer Fenrir Card (4557) [item] Cast cannot be interrupted
+- [Class_gear] Ansuz Rune of True Vision (24110) [item] Can Detect invisible enemies
+- [Class_gear] Celestial Tome (24236) [item] Resurrection Lv4
+- [Class_gear] Eihwaz Rune of Trust (24141) [item] Permanent Endure Effect.
+- [Class_gear] Hagalaz Rune of Transformation (24156) [per 1] Reflects all melee damage by 2% per Upgrade. The damage is NOT negated.
+- [Class_gear] Jera Rune of Reward (24117) [item] Cast can't be interrupted.
+- [Class_gear] Kenaz Rune of Torch (24147) [per 1] Reflects single target magic at 2% chance per Upgrade. The damage is negated.
+- [Class_gear] Perthro Rune of Occult (24123) [item] Enables perfect invisibility. (undetectable except for bosses)
+- [Class_gear] Zenith Gem of Sorcery (903003) [item] Cast can't be interrupted
+- [Class_gear] Bulwark Gem of the Weak (903048) [item] Permanent Endure
+- [Armor] Dark Crystal Armor (15100) [per 1] 2% per refine chance to reflect single target spells back at caster.
+- [Armor] Dark Crystal Boots (15101) [per 1] 1% per refine chance to reflect single target spells back at caster.
+- [Armor] Divine Robes (15429) [item] Cast can't be interrupted
+- [Armor] Great Magician Cape (2517) [item] Cast Can't be Interrupted
+- [Armor] Orleans's Gown (2365) [item] Cast can't be interrupted
+- [Armor] Phoenix Manteau (20941) [item] Revives with full HP/SP
+- [Armor] Spider Queen Shoes (16139) [item] Cast can't be interrupted
+- [Armor] Gapaldur (30137) [item] Permanent Endure Effect
+- [Armor] Emperium Boots (15370) [item] Permanent Endure
+- [Shield] Diamond Shield (2159) [item] 30% chance to reflect targeted magic
+- [Shield] Hervor Alvitr (2182) [item] Permanent Endure effect.
+- [Shadow_gear] Clean Armor (24306) [if If the full set is worn and refined] Refined to +20 Total: Immune to Stun Refined to +40 Total: Immune to Freeze
+- [Shadow_gear] Clean Gloves (24307) [if If the full set is worn and refined] Refined to +20 Total: Immune to Stun Refined to +40 Total: Immune to Freeze
+- [Shadow_gear] Clean Pendant (24309) [if If the full set is worn and refined] Refined to +20 Total: Immune to Stun Refined to +40 Total: Immune to Freeze
+- [Shadow_gear] Clean Shoes (24308) [if If the full set is worn and refined] Refined to +20 Total: Immune to Stun Refined to +40 Total: Immune to Freeze
+- [Shadow_gear] Embracing Goddess Armor (28984) [piece] Grants Resurrection +1 level.
+- [Shadow_gear] Embracing Goddess Gloves (28985) [piece] Grants Resurrection: +1 level per set piece worn (max Lv 4).
+- [Shadow_gear] Embracing Goddess Pendant (28987) [piece] Grants Resurrection +1 level.
+- [Shadow_gear] Embracing Goddess Shoes (28986) [piece] Adds Resurrection +1 level.
+- [Accessory] Faceworm Eye (7341) [item] Can see invisible enemies
+- [Accessory] Infrared Scanner (16163) [item] Can see invisible enemies
+- [Accessory] Red Lantern (2976) [item] Can see invisible enemies
+- [Accessory] Unbreakable Focus (16161) [item] Cast can't be interrupted
+- [SET] Asgard Artifacts [set] Permanent Endure effect.
+- [SET] Phoenix Sigil [set +18] The revived also get
+
+## regen / recovery rules (78)
+- [Weapon] 10 of Diamonds (1575) [item] No SP Regen while equipped
+- [Weapon] 10 of Hearts (1579) [item] No SP Regen while equipped
+- [Weapon] 2 of Clubs (1553) [item] No SP Regen while equipped
+- [Weapon] 2 of Diamonds (1555) [item] No SP Regen while equipped
+- [Weapon] 2 of Hearts (1554) [item] No SP Regen while equipped
+- [Weapon] 2 of Spades (1550) [item] No SP Regen while equipped
+- [Weapon] 3 of Clubs (1562) [item] No SP Regen while equipped
+- [Weapon] 3 of Diamonds (1564) [item] No SP Regen while equipped
+- [Weapon] 3 of Hearts (1563) [item] No SP Regen while equipped
+- [Weapon] 3 of Spades (1565) [item] No SP Regen while equipped
+- [Weapon] 4 of Clubs (1558) [item] No SP Regen while equipped
+- [Weapon] 4 of Diamonds (1560) [item] No SP Regen while equipped
+- [Weapon] 4 of Hearts (1559) [item] No SP Regen while equipped
+- [Weapon] 4 of Spades (1557) [item] No SP Regen while equipped
+- [Weapon] 5 of Clubs (1571) [item] No SP Regen while equipped
+- [Weapon] 5 of Hearts (1581) [item] No SP Regen while equipped
+- [Weapon] 5 of Spades (1567) [item] No SP Regen while equipped
+- [Weapon] 6 of Clubs (1570) [item] No SP Regen while equipped
+- [Weapon] 7 of Hearts (1578) [item] No SP Regen while equipped
+- [Weapon] 8 of Spades (1556) [item] No SP Regen while equipped
+- [Weapon] 9 of Clubs (1574) [item] No SP Regen while equipped
+- [Weapon] Ace of Clubs (1576) [item] No SP Regen while equipped
+- [Weapon] Dark Beak (1526) [item] Recover 35 HP and SP per kill with magic.
+- [Weapon] Jack of Diamonds (1552) [item] No SP Regen while equipped
+- [Weapon] Jack of Hearts (1561) [item] No SP Regen while equipped
+- [Weapon] King of Hearts (1572) [item] No SP Regen while equipped
+- [Weapon] Queen of Diamonds (1568) [item] No SP Regen while equipped
+- [Weapon] Queen of Spades (1573) [item] No SP Regen while equipped
+- [Weapon] Tartaros (1193) [item] Regenerates HP on movement
+- [Weapon] Tyrfing (1139) [item] Disables HP/SP Natural Regeneration
+- [Weapon] Ace of Hearts (1569) [item] No SP Regen while equipped
+- [Weapon] 5 of Hearts (1580) [item] No SP Regen while equipped
+- [Weapon] Pesta (2181) [item] Disables direct healing
+- [Weapon] Heimdall's Legacy (30179) [item] Raises your MaxHP limit by 10,000
+- [Weapon] King of Diamonds (1577) [item] No SP Regen while equipped
+- [Weapon] Blessed Revolver (13104) [item] Doesn't drain SP when unequipped
+- [Weapon] Iudex Draco Arma (13109) [item] Doesn't drain SP when unequipped
+- [Card] Dracula Card (4134) [item] Drains 5 SP when dealing physical damage
+- [Card] Familiar Card (4020) [item] Drain 5 HP when dealing physical damage
+- [Card] Hermit Plant Card (4232) [item] Recover 1% SP per second
+- [Card] Shadow of Reginleif Card (13682) [item] Has 15% Chance to drain 3% of physical damage dealt as HP
+- [Card] Black Tendrillion Card (4463) [item] Enables Continuous Regen of 1 HP per 3 Base Levels
+- [Card] Black Tendrillion Card (4463) [item] Lose 500 HP when unequipped.
+- [Card] War Incarnate Card (13688) [item] Recover 1 SP per Base Level when an enemy is killed
+- [Card] Valhalla Knight Card (30164) [if With two of these equipped] raises your MaxHP limit by 5,000
+- [Card] Guild Master Card (13727) [item] Enables HP regen on movement
+- [Class_gear] Enchanted Scale Orb (1456) [if Dragon Soul] Enables HP regeneration on movement
+- [Class_gear] Healing Cantrips Book (28446) [if Allows Memorizing] Knight's Regen
+- [Class_gear] Obsidian Gem of Restraint (903018) [item] Permanent Black Heart leech: 100% chance to drain 10% HP
+- [Class_gear] Sleight Gem of Cheating (903037) [item] Recover 20 SP per successful auto-attack
+- [Armor] Deathcover Mantle (2548) [per 1] Lose 5 HP per refine every second
+- [Armor] Deathland Greaves (2430) [per 1] Lose 1 SP per refine every second
+- [Armor] Dirty Shoes (2407) [item] Drains 1000 SP when unequipped
+- [Armor] Kafra Headband (5020) [item] Lose 200 SP when unequipped.
+- [Armor] Kafra Sandals (16140) [item] Enables HP Regen on movement
+- [Armor] Surgeon Suit (15044) [item] Loses 500 SP when unequipped.
+- [Armor] Swallowed Brigandine (1004948) [item] HP regen also works while moving
+- [Armor] Vital Tree Shoes (2450) [item] Recover 5 HP per second.
+- [Armor] DeathLand Greaves (2429) [per 1] Lose 1 SP per refine every second
+- [Armor] DeathCover Mantle (2547) [per 1] Lose 5 HP per refine every second
+- [Headgear] Asgard Blessing (18550) [item] Drains SP when unequipped
+- [Headgear] Crown of the Divine (15432) [per 1] Regen 1 SP per refine every second
+- [Headgear] Incubus Horn (5072) [item] Blocks HP Regeneration.
+- [Headgear] Succubus Horn (5066) [item] Blocks SP Regeneration.
+- [Shield] Asgard's Broken Wall (2178) [item] Drains whole SP when unequipped
+- [Shadow_gear] Broken Future Pendant (28063) [piece] Regenerate HP on movement.
+- [Shadow_gear] City Raider Shoes (28978) [per 1] Regenerate Lv1 for 1s per refine.
+- [Shadow_gear] Fanatic Servant Armor (28988) [piece] Drain 50 HP when dealing physical damage
+- [Shadow_gear] Forgotten Memory Pendant (28967) [piece] Disables SP regeneration.
+- [Shadow_gear] Forgotten Memory Shoes (28966) [piece] Disables HP regeneration.
+- [Shadow_gear] Hand of the Father Pendant (28971) [piece] Disables SP regeneration
+- [Shadow_gear] Hand of the Father Shoes (28970) [piece] Disables HP regeneration
+- [Accessory] Dandelion Chains (15406) [item] Ressurrects with full HP and SP
+- [SET] Drowned King [set] Regenerates 5 SP per second
+- [SET] Lords [set] Recover HP while moving
+- [SET] Slotted Bullhorn [set] HP Regen on movement
+- [SET] Tundra [set] Regen 5 SP per second
+- [SET] Unslotted Bullhorn [set] HP Regen on movement
+
+## skill grants the skill list does not know (86)
+- [Weapon] Blackguard Anti-Sword (13463) [item] Chilling Frost DMG+25%, Enables Shatter Cross Lv3
+- [Weapon] Ecto Reaper (1004954) [item] Dark Message grants 1
+- [Weapon] Ecto Reaper (1004954) [item] Dark Messenger grants 2
+- [Weapon] Giant Nail (1490) [+7] Grants Weapon Blocking
+- [Weapon] Juliette D. Rachel (1267) [item] Sonic Blow Cooldown -1s (Base Lv 99 or below)
+- [Weapon] Juliette D. Rachel (1267) [item] Cross Impact Cooldown -1s (Base Lv 100+)
+- [Weapon] Juliette D. Rachel (1266) [item] Sonic Blow Cooldown -1s (Base Lv 99 or below)
+- [Weapon] Juliette D. Rachel (1266) [item] Cross Impact Cooldown -1s (Base Lv 100+)
+- [Weapon] Puppet Claws (1808) [item] Enables Potion Pitcher Lv1
+- [Card] Bangungot Card (4590) [item] Enables Dispell Lv1
+- [Card] Bone Detardeurus Card (13672) [item] Enables Dragon Thrust Lv10 with all spears
+- [Card] Cornutus Card (4061) [item] Enables Auto-Guard Lv7
+- [Card] Baby Hatii Card (4323) [item] Enables Storm Gust Lv 1
+- [Card] Hatii Card (4324) [item] Enables Storm Gust Lv 2
+- [Card] Jakk Card (4109) [item] Enables Fire Wall Lv3
+- [Card] Maya Purple Card (4198) [item] Enables Lv1 Revelation
+- [Card] Mime Monkey Card (13530) [item] Enables Decrease Agility Lv1
+- [Card] Red Hover Card (13673) [item] Enables Gunglir Flight Lv1
+- [Card] Stapo Card (4424) [item] Enables Pick Stone and Throw Stone
+- [Card] Tower Eater Card (13652) [item] Enables Auto-Guard Lv10
+- [Class_gear] Celestial Tome (24236) [item] Convenio Lv1
+- [Class_gear] Celestial Tome (24236) [item] Hammer Fall Lv3
+- [Class_gear] Evasion Manual (24020) [item] Back Slide Lv1
+- [Class_gear] Hammer Manual (24166) [item] Hammer Fall Lv1
+- [Class_gear] Hammer Manual X (24168) [item] Hammer Fall Lv3
+- [Class_gear] Inferno Tome (24225) [item] Hammer Fall Lv3
+- [Class_gear] Life Manual (24102) [item] Ressurrection Lv1
+- [Class_gear] Life Manual X (24105) [item] Ressurrection Lv3
+- [Class_gear] Paradiso Tome (24107) [item] Ressurrection Lv4
+- [Class_gear] Purgatorio Tome (24148) [item] Convenio Lv1
+- [Class_gear] Union Manual (24142) [item] Convenio Lv1
+- [Class_gear] Vision Manual (24051) [item] Ruwach Lv1
+- [Class_gear] Pilfer Gem of Stolen Spells (902999) [item] Grants Touch of Takius (if you don't have it)
+- [Class_gear] Calamity Gem of Falling Fire (903029) [item] Enables Crimson Rock Lv. 5
+- [Class_gear] Marionette Gem of Strings (903031) [item] Enables Potion Pitcher Lv. 5
+- [Class_gear] Sleight Gem of Cheating (903037) [item] Lv. 1 and Instant Aces Lv. 1
+- [Class_gear] Bulwark Gem of the Weak (903048) [item] Enables Auto Guard Lv. 10 while using Two-handed Shield
+- [Class_gear] Borrowed Gem of Second Wind (903052) [item] Speed, Queen's Barrier (Lv. 1) and Bishop's Guard (Lv. 1)
+- [Class_gear] Bullseye Gem of Never Missing (903096) [item] Each % in Perfect Hit grants the same % in Critical Damage
+- [Class_gear] Changeling Gem of Many Faces (903104) [item] Enables Shadow Slash, Burst Petals and Silent Strike
+- [Class_gear] Tradition Gem of the Old Ways (903105) [item] Enables Wind Slash, Decoy and Sneak Attack
+- [Class_gear] Mystic Manual (24084) [item] Double Casting Lv3
+- [Armor] Dirty Shoes (2407) [item] Enables Decrease Agi Lv1
+- [Armor] Oni Mantle (30128) [item] 2 Pieces: Grants Kubi no In 4 Pieces: Grants Shura
+- [Armor] Surgeon Suit (15044) [item] Enable Ressurrection Lv1
+- [Headgear] Unholy Halo (2282) [+7] Enables Highness Heal Lv1
+- [Shadow_gear] City Raider Gloves (28977) [piece] (Awakening, Concentration, Berserk) grants Blessing Lv5 for 20s
+- [Shadow_gear] City Raider Pendant (28979) [piece] Blue Potion grants Magnificat Lv5 for 20s
+- [Shadow_gear] City Raider Shoes (28978) [piece] Using a Green Potion grants
+- [Shadow_gear] City Supplier Boots (29934) [piece] Increase Agi Lv10.
+- [Shadow_gear] Deep Blue Pendant (28177) [piece] Enables Water Ball level 5.
+- [Shadow_gear] Embracing Goddess Armor (28984) [if On Resurrection cast] AGI and Blessing Lv5 for 20 seconds.
+- [Shadow_gear] Embracing Goddess Gloves (28985) [if On Resurrection cast] AGI and Blessing Lv5 for 20 seconds.
+- [Shadow_gear] Embracing Goddess Pendant (28987) [if On Resurrection cast] AGI and Blessing Lv5 for 20 seconds.
+- [Shadow_gear] Embracing Goddess Shoes (28986) [if On Resurrection cast] AGI and Blessing Lv5 for 20 seconds.
+- [Shadow_gear] Old Dragon Pendant (28087) [piece] Grants Dragon Pact
+- [Shadow_gear] Wayward Vow Armor (30097) [piece] Grants Spell Breaker.
+- [Shadow_gear] Wayward Vow Boots (30099) [piece] Grants Spell Breaker.
+- [Shadow_gear] Wayward Vow Gloves (30098) [piece] Grants Spell Breaker.
+- [Shadow_gear] Wayward Vow Pendant (30100) [piece] Grants Spell Breaker.
+- [Accessory] Burial Charm (16151) [item] Enable Ressurrection Lv1
+- [Accessory] Old Anklet (2673) [item] Enables Potion Pitcher Lv2
+- [Accessory] Arch Anklet (2672) [item] Enables Potion Pitcher Lv3
+- [SET] Amatsu [set] 2 Pieces: Grants Kubi no In 4 Pieces: Grants Shura
+- [SET] Bulwark Pact [set] Grants Touch of Heinrich
+- [SET] Calamity of Skies [set] Enable Crimson Rock Lv1
+- [SET] Calamity of Skies [per set refine 1] Crimson Rock Level increases by 1 every 10 refines.(Max Lv5)
+- [SET] Dragon Ward [set] Grants Touch of Fenrir
+- [SET] Dragon Ward [set] Grants Spell Breaker
+- [SET] Feral Bond [set] Grants Touch of Takius
+- [SET] Hatii [set] Enables Storm Gust Lv3
+- [SET] Legacy of Acquiesce [set] Grants Touch of Sorin
+- [SET] Malaya Card [set] Enables Dispell Lv4
+- [SET] Mercy's Tide [set] Grants Touch of Sorin.
+- [SET] Mercy's Tide [set] Coluceo Heal upgraded to Lv 2.
+- [SET] Mercy's Tide [set +36] Coluceo Heal Lv 3, Heal
+- [SET] Old Dragon [set] Grants Dragon Pact
+- [SET] Phoenix Sigil [set] Grants Touch of Varmundt
+- [SET] Second Orphan [set] Grants Touch of Varmundt
+- [SET] Shared Bond [set] Grants Touch of Heinrich
+- [SET] Starbound Wrath [set] Grants Touch of Takius.
+- [SET] Test Subject [set] Tarot Card of Fate Lv1.
+- [SET] True Goddess [set] Each successful spellcast grants Kaupe Lv3
+- [SET] Valhalla [set] 2 Pieces: Grants skill Fjotur
+- [SET] Valhalla [set] 4 Pieces: Grants skill Einherjar
+- [SET] Wayward Vow [set] Grants Touch of Fenrir.
+
+## other (268)
+- [Weapon] Avenged Tartaros (1174) [item] Disables skills use
+- [Weapon] Burning Bow (1740) [if When using Fire Arrows] 5% Bonus Damage
+- [Weapon] Burning Bow (1740) [if When using Fire Arrows] 2% bonus damage per refine
+- [Weapon] Dark Pact (1522) [item] Leeches SP instead of HP
+- [Weapon] Earth Bow (1745) [if When using Stone Arrows] 5% Bonus Damage.
+- [Weapon] Earth Bow (1745) [if When using Stone Arrows] 2% bonus damage per refine.
+- [Weapon] First Dagger of Sins (13095) [if Sin Daggers] First and Second
+- [Weapon] Frozen Bow (1744) [if When using Crystal Arrows] 5% Bonus Damage.
+- [Weapon] Frozen Bow (1744) [if When using Crystal Arrows] 2% bonus damage per refine.
+- [Weapon] Giant Nail (1490) [if (stacks)] LUK: Critical +5 & Critical
+- [Weapon] Giant Nail (1490) [+7] While wearing Stat Gloves
+- [Weapon] Glacial Longbow (18125) [item] (normal attacks and physical skills)
+- [Weapon] Gust Bow (1749) [if When using Wind Arrows] 5% Bonus Damage.
+- [Weapon] Gust Bow (1749) [if When using Wind Arrows] 2% bonus damage per refine.
+- [Weapon] Jormungandr's Fang (2199) [item] Double Attack Lv: ??
+- [Weapon] Masterwork Bow (1720) [item] Attack SP Cost = 0
+- [Weapon] Mumyo Odachi (30152) [item] Max HP
+- [Weapon] Oni Masakari (30139) [item] Claymore Trap and Cluster
+- [Weapon] Oni Masakari (30139) [per 1] Bomb have a 3% chance per refine to deal their damage twice
+- [Weapon] Royal Scythe (1535) [item] Underworld Rainstorm Cast Removed
+- [Weapon] Rudra Bow (1729) [item] Removes 200 SP when Unequipped
+- [Weapon] Second Dagger of Sins (13096) [if Sin Daggers] First and Second
+- [Weapon] Sporestring Bow (1004949) [item] On Arrowstorm: targets receive Envenom at learned level
+- [Weapon] Tartaros (1193) [item] Black Heart costs no SP
+- [Weapon] Taskmaster's Lash (580002) [item] Final damage +15% against Stunned targets
+- [Weapon] Taskmaster's Lash (580002) [+7] Orc Set (with Orc Helm +
+- [Weapon] Turtle Knight Sabre (13402) [if The blade of a turtle-knight] defense that answers in kind.
+- [Weapon] Twin Seam-Rippers (1004945) [item] Impact Tooth and Fissure
+- [Weapon] Utan Vinelash (580023) [item] Leech: 5% HP
+- [Weapon] Utsusemi Saya (30156) [if Void Dash hits twice] 50% physical and 70% magical.
+- [Weapon] Yggdrasil Vine (1984) [if With Stat Gloves (effects stack)] LUK: Critical +5, Critical
+- [Weapon] Hrafnsax (30144) [+18] that chance becomes 10%
+- [Weapon] Sigrsverd (30145) [+18] that chance becomes 10%
+- [Weapon] Masterwork Bow (1719) [item] Attack SP Cost = 0
+- [Weapon] Burning Bow (1730) [if When using Fire Arrows] 5% Bonus Damage
+- [Weapon] Burning Bow (1730) [if When using Fire Arrows] 2% bonus damage per refine
+- [Weapon] Frozen Bow (1731) [if When using Crystal Arrows] 5% Bonus Damage.
+- [Weapon] Frozen Bow (1731) [if When using Crystal Arrows] 2% bonus damage per refine.
+- [Weapon] Earth Bow (1732) [if When using Stone Arrows] 5% Bonus Damage.
+- [Weapon] Earth Bow (1732) [if When using Stone Arrows] 2% bonus damage per refine.
+- [Weapon] Gust Bow (1733) [if When using Wind Arrows] 5% Bonus Damage.
+- [Weapon] Gust Bow (1733) [if When using Wind Arrows] 2% bonus damage per refine.
+- [Weapon] Destiny Brush Trinket (13247) [item] Increases damage taken by target by 30% for 5 seconds
+- [Weapon] Huuma Job Test (13312) [item] Ninja
+- [Card] Baroness of Despair Card (13546) [item] Enemies at or below 5% HP are executed when damaged by weapon or misc attacks
+- [Card] Baroness of Despair Card (13546) [item] Each extra card adds 5% to the threshold; bosses included
+- [Card] Baroness of Despair Card (13546) [item] Unequipping or logging out resets the activation time
+- [Card] Bloody Butterfly Card (4327) [item] Cast can't be canceled
+- [Card] Enenra Card (30161) [if Perfect Hit thresholds] 50%+ Reveals Hiding and Cloaking
+- [Card] Free Samurai Card (30158) [if If Raven Steps Lv 5 is learned] Each cast blocks the next 2 attacks
+- [Card] Hinoenma Card (30159) [per 1] +2% per refine
+- [Card] Mangkukulam Card (4585) [item] Backstab has 25% chance to cause Freeze
+- [Card] Mineral Card (4339) [item] A shiny mineral. It's value is estimated to be between 6 and 500.000z
+- [Card] Myst Case Card (4206) [item] Oh! Look! A pres-punched-
+- [Card] RSX-0806 Card (4342) [item] All equipment becomes unbreakable
+- [Card] Unstable Crystal Card (13501) [item] 2% Chance to explode when auto-attacking or using physical skills
+- [Card] Zombie Guard Card (4641) [item] HP +10 per Job Level
+- [Card] Yellow Novus Card (4382) [item] HP/SP + 3% for Dracomancers
+- [Class_gear] Arrow Cantrips Book (28450) [if Allows Memorizing] Arrow Shower
+- [Class_gear] Arrow Cantrips Book (28450) [if Allows Memorizing] Arrow Vulcan
+- [Class_gear] Arrow Cantrips Book (28450) [if Allows Memorizing] Ricochet Arrow
+- [Class_gear] Initiate Cantrips Book (28599) [if Allows Memorizing] Equinox
+- [Class_gear] Initiate Cantrips Book (28599) [if Allows Memorizing] Dragon Thrust
+- [Class_gear] Initiate Cantrips Book (28599) [if Allows Memorizing] Backstab
+- [Class_gear] Initiate Cantrips Book (28599) [if Allows Memorizing] Real Magic Attack
+- [Class_gear] Celestial Tome (24236) [item] Warped allies get healed by you
+- [Class_gear] Celestial Tome (24236) [item] Warped allies receive Increase Agi for 5 seconds
+- [Class_gear] Celestial Tome (24236) [item] Warped allies receive Pact of the Risen for 2 minutes
+- [Class_gear] Codex of Transmutation (1588) [item] (magic or physical)
+- [Class_gear] Draco Scale Orb (1453) [if Core] Spear Boomerang marks one monster with a buried spear for 10 seconds
+- [Class_gear] Draco Scale Orb (1453) [if Core] A buried target takes +2% damage per refine from you
+- [Class_gear] Draco Scale Orb (1453) [if Core] Spear Boomerang deals +30% damage per refine against a buried target
+- [Class_gear] Draco Scale Orb (1453) [if Core] The spear stores 5% + 4% per refine of your damage to that target
+- [Class_gear] Draco Scale Orb (1453) [if Core] After 10 seconds the spear explodes for everything it stored
+- [Class_gear] Draco Scale Orb (1453) [if Core] It explodes early if what it stored would kill the target
+- [Class_gear] Draco Scale Orb (1453) [if Core] Recasting does not refresh the mark; full slots reject new marks
+- [Class_gear] Draco Scale Orb (1453) [if Dragon Soul] The spear can be buried in up to 3 targets at once
+- [Class_gear] Evasion Manual (24020) [item] Back Slide has 3 seconds of cooldown
+- [Class_gear] Expert Cantrips Book (28452) [if Allows Memorizing] Dragon Breath
+- [Class_gear] Expert Cantrips Book (28452) [if Allows Memorizing] Greater Explosion
+- [Class_gear] Expert Cantrips Book (28452) [if Allows Memorizing] Whirling Kunai
+- [Class_gear] Fire Cantrips Book (28443) [if Allows Memorizing] Flaming Wave
+- [Class_gear] Healing Cantrips Book (28446) [if Allows Memorizing] Final Orchestra
+- [Class_gear] Healing Cantrips Book (28446) [if Allows Memorizing] Lady Luck's Kiss
+- [Class_gear] Hydrolancer Scale Orb (1459) [if Core] Works with Spears
+- [Class_gear] Master Cantrips Book (28453) [if Allows Memorizing] Royal Flush
+- [Class_gear] Master Cantrips Book (28453) [if Allows Memorizing] Million Stab
+- [Class_gear] Master Cantrips Book (28453) [if Allows Memorizing] Mass Grave
+- [Class_gear] Master Cantrips Book (28453) [if Allows Memorizing] Comet
+- [Class_gear] Master Cantrips Book (28453) [if Allows Memorizing] Underworld Rainstorm
+- [Class_gear] Novus Scale Orb (1455) [if Dragon Soul] Set ASPD to 185
+- [Class_gear] Novus Scale Orb (1455) [if Dragon Soul] Geirskogul and Crescent Dive do not stop your auto attacks
+- [Class_gear] Nydhogg Scale Orb (1461) [if Dragon Soul] After Cast Delays Removed
+- [Class_gear] Portal Manual (24124) [item] Warped allies get healed by you
+- [Class_gear] Portal Manual X (24130) [item] Warped allies get healed by you
+- [Class_gear] Portal Manual X (24130) [item] Warped allies receive Increase Agi for 5 seconds
+- [Class_gear] Portal Manual Z (24136) [item] Warped allies get healed by you
+- [Class_gear] Portal Manual Z (24136) [item] Warped allies receive Increase Agi for 5 seconds
+- [Class_gear] Portal Manual Z (24136) [item] Warped allies receive Pact of the Risen for 2 minutes
+- [Class_gear] Power Cantrips Book (28449) [if Allows Memorizing] Sonic Blow
+- [Class_gear] Power Cantrips Book (28449) [if Allows Memorizing] Overpower
+- [Class_gear] Power Cantrips Book (28449) [if Allows Memorizing] Face-Off
+- [Class_gear] Purgatorio Tome (24148) [item] Warped allies get healed by you
+- [Class_gear] Purgatorio Tome (24148) [item] Warped allies receive Increase Agi for 5 seconds
+- [Class_gear] Purgatorio Tome (24148) [item] Warped allies receive Pact of the Risen for 2 minutes
+- [Class_gear] Slash Cantrips Book (28448) [if Allows Memorizing] Sweeping Slash
+- [Class_gear] Slash Cantrips Book (28448) [if Allows Memorizing] Shadow Slash
+- [Class_gear] Slash Cantrips Book (28448) [if Allows Memorizing] Wind Slash
+- [Class_gear] Specialized Cantrips Book (28451) [if Allows Memorizing] Soul Destroyer
+- [Class_gear] Specialized Cantrips Book (28451) [if Allows Memorizing] Meteor Rush
+- [Class_gear] Specialized Cantrips Book (28451) [if Allows Memorizing] Venom Buster
+- [Class_gear] Specialized Cantrips Book (28451) [if Allows Memorizing] Thousand Arms
+- [Class_gear] Specialized Cantrips Book (28451) [if Allows Memorizing] Unholy Light
+- [Class_gear] Specialized Cantrips Book (28451) [if Allows Memorizing] Delta Skyfall
+- [Class_gear] Specialized Cantrips Book (28451) [if Allows Memorizing] Aimed Bolt
+- [Class_gear] Thievery Cantrips Book (28447) [if Allows Memorizing] Double Strafe
+- [Class_gear] Thievery Cantrips Book (28447) [if Allows Memorizing] Rolling Cutter
+- [Class_gear] Thievery Cantrips Book (28447) [if Allows Memorizing] Envenom
+- [Class_gear] Thrusting Claw Orb (1452) [if Core] Dragon Thrust heals 10% of the damage it deals
+- [Class_gear] Velvet-Bound Codex (1004942) [+10] ##!! Y0u f#e3l y0ur th0u@hts b3ing 0v3rt ak3n... [##??//] ...
+- [Class_gear] Water Cantrips Book (28444) [if Allows Memorizing] Freezing Spear
+- [Class_gear] Water Cantrips Book (28444) [if Allows Memorizing] Frozen Wind
+- [Class_gear] Wind Cantrips Book (28445) [if Allows Memorizing] Wind Blade
+- [Class_gear] Wind Cantrips Book (28445) [if Allows Memorizing] Zephyr Gust
+- [Class_gear] Wind Cantrips Book (28445) [if Allows Memorizing] Geirskogul
+- [Class_gear] Pilfer Gem of Stolen Spells (902999) [item] Comet applies Touch of Takius on all targets hit
+- [Class_gear] Guillotine Gem of Finality (903006) [if Add weight of the weapon to the base damage of the skills] Rupture Axe, Mjolnir Fall and Spiral Blade
+- [Class_gear] Ignition Gem of Experiments (903009) [per 1] Greater Explosion Damage +3% +1% Move Speed
+- [Class_gear] Bombast Gem of Spectacle (903010) [item] Mr Bombastic doesn't clear Molotov
+- [Class_gear] Snare Gem of Patience (903012) [item] Hot, Cold, Claymore Trap -20% Damage
+- [Class_gear] Snare Gem of Patience (903012) [per 1] Hot, Cold, Claymore Trap +2% Damage
+- [Class_gear] Detonation Gem of Solutions (903013) [per 1] Rolling Flames +2% Damage
+- [Class_gear] Frostbound Gem of Embrace (903016) [per 1] Conflagration -0.5 s cooldown
+- [Class_gear] Frostbound Gem of Embrace (903016) [per 1] Chilling Frost -0.5 s cooldown
+- [Class_gear] Obsidian Gem of Restraint (903018) [item] Equipping or unequipping removes all Black Hearts in your inventory
+- [Class_gear] Dune Gem of First Sands (903024) [item] Cross Impact no longer moves you to the target
+- [Class_gear] Dune Gem of First Sands (903024) [item] Cross Impact can be combo-cast after Omega within 3 s with +50% Damage
+- [Class_gear] Gale Gem of Razors (903027) [item] Max HP
+- [Class_gear] Gale Gem of Razors (903027) [item] Sonic Blow can be combo-cast after Omega within 3 s
+- [Class_gear] Marionette Gem of Strings (903031) [per 1] You keep +1% of the stats given through Life Strings
+- [Class_gear] Quickdraw Gem of First Shots (903041) [item] Absolution Applies Magister Eye
+- [Class_gear] Mirage Gem of Avoidance (903045) [item] Delta Skyfall can combo into Wind Slash within 3 s for +50% more damage
+- [Class_gear] Ivory Gem of Redemption (903046) [item] Queen's Gambit leeches 5% of the damage dealt.
+- [Class_gear] Pioneer Gem of Untrodden Ground (903053) [item] Halved SP Cost and removed cast times of Safety Wall and Pneuma
+- [Class_gear] Armory Gem of Mastery (903058) [item] Bloody Fangs threshold for triple damage is 50%
+- [Class_gear] Chip Gem of Small Change (903066) [item] Jab level
+- [Class_gear] Cooler Gem of Broken Streaks (903068) [item] After manually casting Cross Punch, your next manual Diplomacy against the same enemy within 3 s deals 35% more damage
+- [Class_gear] House Gem of Final Collection (903070) [item] After manually casting Swanton Bomb, your next manual Thug
+- [Class_gear] Zantetsu Gem of the Clean Cut (903082) [per 1] Enemies at or below 0.5% HP are executed when damaged by weapon or misc attack
+- [Class_gear] Torrent Gem of Many Spells (903094) [per 1] Burst at maximum level
+- [Class_gear] Torrent Gem of Many Spells (903094) [per 1] Each spell rolls independently
+- [Class_gear] Mix Cooking Guide (11022) [item] Food must be thrown.
+- [Class_gear] Mix Cooking Guide (11022) [if Recipes for a Large Cookpot] Savage BBQ
+- [Class_gear] Mix Cooking Guide (11022) [if Recipes for a Large Cookpot] (+10 STR) -Savage Meat -Black Charcoal
+- [Class_gear] Mix Cooking Guide (11022) [if Recipes for a Large Cookpot] Drosera Herb Stew
+- [Class_gear] Mix Cooking Guide (11022) [if Recipes for a Large Cookpot] (+10 AGI) -Drosera Tentacle -Cooking Oil
+- [Class_gear] Mix Cooking Guide (11022) [if Recipes for a Large Cookpot] Petite Tail Noodles
+- [Class_gear] Mix Cooking Guide (11022) [if Recipes for a Large Cookpot] (+10 LUK) -Petite Tail -Fine Noodles
+- [Class_gear] Mix Cooking Guide (11022) [if Recipes for a Chowder Jar] Warg Blood Cocktail
+- [Class_gear] Mix Cooking Guide (11022) [if Recipes for a Chowder Jar] (+10 INT) -Cold Ice -Blood of Wolf
+- [Class_gear] Mix Cooking Guide (11022) [if Recipes for a Chowder Jar] Minor Brisket
+- [Class_gear] Mix Cooking Guide (11022) [if Recipes for a Chowder Jar] (+10 VIT) -Beef Head -Savory Sauce
+- [Class_gear] Mix Cooking Guide (11022) [if Recipes for a Chowder Jar] Siroma Icetea
+- [Class_gear] Mix Cooking Guide (11022) [if Recipes for a Chowder Jar] (+10 DEX) -Comodo Tropical Fruit -Ice Crystal
+- [Class_gear] Unleashed Manual (24238) [item] Warped allies get healed by you
+- [Class_gear] Unleashed Manual (24238) [item] Warped allies receive Increase Agi for 5 seconds
+- [Armor] Bone Helm (5017) [item] High Defenses
+- [Armor] Broom Scabbard (1004947) [item] Ascending Steel
+- [Armor] Broom Scabbard (1004947) [item] Descending Steel causes
+- [Armor] Costume Fox Doll (31614) [item] Fox doll with fluffy fur.
+- [Armor] Costume Dark Pumpkin Hat (19917) [item] Welcome to Halloween town! October 31st's best place! Except With a bigger head. AND IT LIGHTS UP!
+- [Armor] Costume Jormungandr's Shadow (14629) [item] Always following you.
+- [Armor] Celine Kimi Robes (15426) [item] You keep 20% of the stats given through Life Strings
+- [Armor] Costume Black Cat (31186) [item] Designer Heidam can exchange it with Costume Enchant Stone Box 12.
+- [Armor] Costume Lost Time (400074) [item] Mysterious hat.
+- [Armor] Costume Pumpkin-Head (20225) [item] Welcome to Halloween town! October 31st's best place! Except With a bigger head.
+- [Armor] Deathcover Mantle (2548) [per 1] Reduces all special damage by 1% per refine
+- [Armor] Drooping Cat (5058) [item] High MDEF
+- [Armor] Onikiri Do-maru (30127) [if Cut narrow, for killing oni] everything not in front of you was somebody else's problem.
+- [Armor] Onikiri Do-maru (30127) [if Cut narrow, for killing oni] There was nobody else.
+- [Armor] Temporal Manteau (22006) [if Temporal Boots Combo] Boot Bonus for stat 90 increased to 1.5x (Except ASPD Limit)
+- [Armor] Veidistafur (30136) [+6] Speed for 2 seconds
+- [Armor] DeathCover Mantle (2547) [per 1] Reduces all special damage by 1% per refine
+- [Headgear] Diver Goggles (2205) [item] Extra MDEF
+- [Shield] Shield of Living Flame (28906) [item] (Shields have a small ASPD penalty)
+- [Shield] Memento of Families (2158) [item] All Stats +3 when worn along with one of Mother's Scarf
+- [Shield] Scorpion Armguard (2190) [item] Flying Knife has regular cooldown with Rope Kunai
+- [Shield] Eternal Glacier Shield (1407) [per 1] Chance improves 1% per refine
+- [Shadow_gear] City Raider Armor (28976) [piece] Any HP healing potion
+- [Shadow_gear] City Raider Armor (28976) [per 1] +4s per refine
+- [Shadow_gear] City Raider Gloves (28977) [piece] Any ASPD potion
+- [Shadow_gear] City Raider Gloves (28977) [per 1] +4s per refine
+- [Shadow_gear] City Raider Pendant (28979) [per 1] +4s per refine
+- [Shadow_gear] City Supplier Armor (29932) [if On taking damage, chance to drink a potion] Red Potion 0.5% per refine
+- [Shadow_gear] City Supplier Armor (29932) [if On taking damage, chance to drink a potion] (heals 150 HP)
+- [Shadow_gear] City Supplier Armor (29932) [if On taking damage, chance to drink a potion] White Potion 0.01% per refine (heals 1500 HP)
+- [Shadow_gear] City Supplier Gloves (29933) [piece] Berserk Potion for 10 seconds.
+- [Shadow_gear] City Supplier Pendant (29935) [piece] Blue Potion (heals 150 SP).
+- [Shadow_gear] Fanatic Servant Gloves (28989) [piece] (Affects attacks and skills.)
+- [Shadow_gear] Fanatic Servant Shoes (28990) [piece] (Affects attacks and skills.)
+- [Shadow_gear] Hel's Desires Armor (28637) [piece] (applied at refill).
+- [Shadow_gear] Hel's Desires Gloves (28638) [piece] (applied at refill).
+- [Shadow_gear] Hel's Desires Pendant (28640) [piece] (applied at refill).
+- [Shadow_gear] Hel's Desires Shoes (28639) [piece] (applied at refill).
+- [Shadow_gear] Land of Shadows Gloves (28293) [if Chance to autocast Darkness Rises Lv3] 5%
+- [Shadow_gear] Land of Shadows Gloves (28293) [if Chance to autocast Darkness Rises Lv3] +1% per highest piece refine
+- [Shadow_gear] Land of Shadows Gloves (28293) [if Chance to autocast Darkness Rises Lv3] ASPD -2 per highest piece refine.
+- [Shadow_gear] Land of Shadows Shoes (28294) [if With any piece equipped] chance 5% +1% per highest piece refine
+- [Shadow_gear] Land of Shadows Shoes (28294) [if With any piece equipped] ASPD -2 per highest piece refine.
+- [Shadow_gear] Limitless Innovation Pendant (28291) [piece] It also adds 5% of your current HP as extra damage, increasing with refine (up to 10%).
+- [Shadow_gear] Limitless Innovation Shoes (28290) [if On kill with Arrow Vulcan] gain 1 Coin per refine.
+- [Shadow_gear] Limitless Legacy Pendant (28287) [per 1] +1s per refine
+- [Shadow_gear] Limitless Legacy Shoes (28286) [piece] LUK +1 per Fury level
+- [Shadow_gear] Limitless Legacy Shoes (28286) [if On kill with Sonic Blow] heal 1% max HP per refine
+- [Shadow_gear] Own Reflection Armor (29904) [if On kill, 1% per total set refine] It lasts 10 seconds.
+- [Shadow_gear] Own Reflection Gloves (29905) [if On kill, 1% per total set refine] It lasts 10 seconds.
+- [Shadow_gear] Own Reflection Pendant (29907) [if On kill, 1% per total set refine] It lasts 10 seconds.
+- [Shadow_gear] Own Reflection Shoes (29906) [if On kill, 1% per total set refine] It lasts 10 seconds.
+- [Shadow_gear] Phoenix Sigil Armor (30089) [if Set refine 9+, on each cast] They wake with your Max
+- [Shadow_gear] Phoenix Sigil Boots (30091) [if Set refine 9+, on each cast] They wake with your Max
+- [Shadow_gear] Phoenix Sigil Gloves (30090) [if Set refine 9+, on each cast] They wake with your Max
+- [Shadow_gear] Phoenix Sigil Pendant (30092) [if Set refine 9+, on each cast] They wake with your Max
+- [Shadow_gear] Poring Warrior Armor (24694) [item] Poring Warrior Gloves
+- [Shadow_gear] Poring Warrior Armor (24694) [item] Poring Warrior Shoes
+- [Shadow_gear] Poring Warrior Armor (24694) [item] Poring Warrior Pendant
+- [Shadow_gear] Poring Warrior Gloves (24693) [item] Poring Warrior Gloves
+- [Shadow_gear] Poring Warrior Gloves (24693) [item] Poring Warrior Shoes
+- [Shadow_gear] Poring Warrior Gloves (24693) [item] Poring Warrior Pendant
+- [Shadow_gear] Poring Warrior Pendant (24697) [item] Poring Warrior Gloves
+- [Shadow_gear] Poring Warrior Pendant (24697) [item] Poring Warrior Shoes
+- [Shadow_gear] Poring Warrior Pendant (24697) [item] Poring Warrior Pendant
+- [Shadow_gear] Poring Warrior Shoes (24695) [item] Poring Warrior Gloves
+- [Shadow_gear] Poring Warrior Shoes (24695) [item] Poring Warrior Shoes
+- [Shadow_gear] Poring Warrior Shoes (24695) [item] Poring Warrior Pendant
+- [Shadow_gear] Sleipnir Sky Rider Shield (28650) [piece] Wind.
+- [Shadow_gear] Test Subject Armor (29900) [piece] 5% of your own Max HP.
+- [Shadow_gear] Test Subject Gloves (29901) [piece] 5% of your own Max HP.
+- [Shadow_gear] Test Subject Pendant (29903) [piece] It rolls the Single Target
+- [Shadow_gear] Test Subject Pendant (29903) [piece] MATK pool.
+- [Shadow_gear] Test Subject Pendant (29903) [piece] 5% of your own Max HP.
+- [Shadow_gear] Test Subject Shoes (29902) [piece] 5% of your own Max HP.
+- [Shadow_gear] Undead Land Boots (28078) [if On attacking or casting spells] Necromancer.
+- [SET] Darkness [set] ?
+- [SET] Embracing Goddess [set] 20 seconds at +40 total refine.
+- [SET] Fallen Gods [per set refine 1] Total flee +1% per 2 combined refines (Armor+Shoes).
+- [SET] Fallen Gods [per set refine 1] MDEF +1 per 2 combined refines (Gloves+Pendant).
+- [SET] Friendly Orphan [set] Casting Heal applies
+- [SET] Friendly Orphan [set] Move Speed +40% (3s) on target, ignoring diminishing returns.
+- [SET] Lovers [set] Double Card Bonuses
+- [SET] Mercy's Tide [set +9] Touch of Sorin heals are affected by Heal Power and Healing
+- [SET] Mercy's Tide [set +9] Received.
+- [SET] Phoenix Sigil [set] Cooldown -0.5s per 1000
+- [SET] Phoenix Sigil [set] Max SP (min 5s)
+- [SET] Phoenix Sigil [set +36] All buffed members also get
+- [SET] Phoenix Sigil [set +36] Pact of the Risen for 10 seconds.
+- [SET] Prisoner [set] Move Speed Penalties Removed
+- [SET] Starbound Wrath [set] Its mark damage explodes in 3x3.
+- [SET] Starbound Wrath [set] The blast deals 10% of that damage
+- [SET] Starbound Wrath [set] +1% per total set refine
+- [SET] True Goddess [set] All your skills enter a 10-second cooldown when cast.
+- [SET] True Goddess [set] (1-hit dodge) for 2s.
+- [SET] Undead Land [set +18] Zombies get new skills.
+- [SET] Wayward Vow [set] On Spell Breaker success
+- [Ammunition] Angel Slayer Arrow (1761) [item] Added: Curse
+- [Ammunition] Devil Slayer Arrow (1766) [item] Added: Silence
+- [Ammunition] Frozen Arrow (1759) [item] Added: Freeze
+- [Ammunition] Stun Arrow (1758) [item] Added: Stun
+- [Ammunition] Flash Arrow (1760) [item] Added: Blind

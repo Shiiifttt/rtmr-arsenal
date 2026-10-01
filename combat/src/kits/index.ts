@@ -6,6 +6,7 @@ import type { Passives } from '../character.ts';
 import type { Kit } from '../engine.ts';
 import type { DefenseTool } from './defense.ts';
 import * as kingslayer from './kingslayer.ts';
+import * as nightraven from './nightraven.ts';
 import * as revenant from './revenant.ts';
 import * as satsujin from './satsujin.ts';
 
@@ -41,6 +42,7 @@ export interface RotationSpace {
 export const KITS: Record<string, KitEntry> = {
   Satsujin: { kit: satsujin.satsujin, passives: satsujin.passives, aliases: satsujin.ALIASES, maxLevels: satsujin.maxLevels, tools: satsujin.SATSUJIN_TOOLS, search: satsujin.SATSUJIN_SEARCH },
   Revenant: { kit: revenant.revenant, passives: revenant.passives, aliases: revenant.ALIASES, maxLevels: revenant.maxLevels, tools: revenant.REVENANT_TOOLS, search: revenant.REVENANT_SEARCH },
+  'Night Raven': { kit: nightraven.nightraven, passives: nightraven.passives, aliases: nightraven.ALIASES, maxLevels: nightraven.maxLevels, tools: nightraven.NIGHTRAVEN_TOOLS, search: nightraven.NIGHTRAVEN_SEARCH },
   Kingslayer: { kit: kingslayer.kingslayer, passives: kingslayer.passives, aliases: kingslayer.ALIASES, maxLevels: kingslayer.maxLevels, tools: kingslayer.KINGSLAYER_TOOLS, search: kingslayer.KINGSLAYER_SEARCH },
 };
 

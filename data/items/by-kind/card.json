@@ -2458,20 +2458,20 @@
   "sets": [],
   "effects": [
    {
-    "text": "Fire, Water",
-    "parsed": false
-   },
-   {
-    "text": "Wind and Earth Magic DMG+7%",
-    "stat": "Wind and Earth Magic DMG",
+    "text": "Fire, Water, Wind and Earth Magic DMG+7%",
+    "stat": "Fire, Water, Wind and Earth Magic DMG",
     "value": 7,
     "unit": "%",
     "parsed": true,
     "stat_ids": [
+     65,
+     59,
      68,
      62
     ],
     "stat_keys": [
+     "magic_dmg_fire",
+     "magic_dmg_water",
      "magic_dmg_wind",
      "magic_dmg_earth"
     ]
@@ -4038,7 +4038,17 @@
   "effects": [
    {
     "text": "Enables Cloaking Lv3",
-    "parsed": false
+    "stat": "Cloaking Lv",
+    "value": 3,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Cloaking",
+    "skill_metric": "level",
+    "skills": [
+     "Cloaking"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -5699,8 +5709,12 @@
       "value": 10,
       "unit": null,
       "parsed": true,
-      "stat_ids": [],
-      "stat_keys": []
+      "stat_ids": [
+       29
+      ],
+      "stat_keys": [
+       "mdef_pen"
+      ]
      }
     ]
    },
@@ -5726,8 +5740,12 @@
       "value": 10,
       "unit": null,
       "parsed": true,
-      "stat_ids": [],
-      "stat_keys": []
+      "stat_ids": [
+       28
+      ],
+      "stat_keys": [
+       "def_pen"
+      ]
      }
     ]
    },
@@ -5834,8 +5852,14 @@
       "value": 10,
       "unit": "%",
       "parsed": true,
-      "stat_ids": [],
-      "stat_keys": []
+      "stat_ids": [
+       8,
+       9
+      ],
+      "stat_keys": [
+       "hp_regen",
+       "sp_regen"
+      ]
      },
      {
       "text": "Max HP and SP +5%",
@@ -5843,8 +5867,14 @@
       "value": 5,
       "unit": "%",
       "parsed": true,
-      "stat_ids": [],
-      "stat_keys": []
+      "stat_ids": [
+       6,
+       7
+      ],
+      "stat_keys": [
+       "max_hp",
+       "max_sp"
+      ]
      },
      {
       "text": "ATK and MATK +1%",
@@ -6792,7 +6822,17 @@
   "effects": [
    {
     "text": "Enables Dual Cast Lv4",
-    "parsed": false
+    "stat": "Dual Cast Lv",
+    "value": 4,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Dual Cast",
+    "skill_metric": "level",
+    "skills": [
+     "Dual Cast"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -6870,6 +6910,7 @@
   "effects": [
    {
     "text": "Enables Continuous Regen of 1 HP per 3 Base Levels",
+    "per_base_level": 3,
     "parsed": false
    },
    {
@@ -7828,7 +7869,21 @@
   "effects": [
    {
     "text": "Dragon Claw receives extra 0.2% per base AGI scaling",
-    "parsed": false
+    "per_base_stat": {
+     "per": 5,
+     "stat": "AGI"
+    },
+    "stat": "Dragon Claw Damage",
+    "value": 1,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Dragon Claw",
+    "skill_metric": "damage",
+    "skills": [
+     "Dragon Claw"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -8732,17 +8787,17 @@
     ]
    },
    {
-    "text": "Physical Damage",
-    "parsed": false
-   },
-   {
-    "text": "Reduction -4%",
-    "stat": "Reduction",
+    "text": "Physical Damage Reduction -4%",
+    "stat": "Physical Damage Reduction",
     "value": -4,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     53
+    ],
+    "stat_keys": [
+     "physical_damage_received"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -11822,7 +11877,17 @@
   "effects": [
    {
     "text": "Enables Dark Claw Lv1",
-    "parsed": false
+    "stat": "Dark Claw Lv",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Dark Claw",
+    "skill_metric": "level",
+    "skills": [
+     "Dark Claw"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -13135,8 +13200,14 @@
     "value": 7,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     42,
+     43
+    ],
+    "stat_keys": [
+     "healing_power",
+     "healing_received"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -13490,26 +13561,38 @@
    "source_normal": 1
   },
   "sets": [],
-  "effects": [],
+  "effects": [
+   {
+    "text": "Envenom Damage +1% per 2 base INT",
+    "per_base_stat": {
+     "per": 2,
+     "stat": "INT"
+    },
+    "stat": "Envenom Damage",
+    "value": 1,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Envenom",
+    "skill_metric": "damage",
+    "skills": [
+     "Envenom"
+    ]
+   }
+  ],
   "piece_bonus": [],
   "refine": {
    "per_refine": [],
    "thresholds": []
   },
-  "conditional": [
-   {
-    "condition": "Adds 0.5% per base INT scaling to the skill",
-    "effects": [
-     {
-      "text": "Envenom",
-      "parsed": false
-     }
-    ]
-   }
-  ],
+  "conditional": [],
   "enchant": null,
   "lore": null,
-  "override": null
+  "override": {
+   "status": "unverified",
+   "reason": "'Adds 0.5% per base INT scaling to the skill:' over 'Envenom'. Server script: bSkillAtk TF_POISON,(readparam(bInt)/5) -- the 2023 code gives 1% per 5 INT where the tooltip says 0.5% per INT, i.e. 1% per 2. The tooltip is the live number and is used (2026-10-01 audit)."
+  }
  },
  {
   "id": 13542,
@@ -15946,13 +16029,31 @@
   ],
   "effects": [
    {
-    "text": "Nullify Size Penalty ATK+1%",
-    "stat": "Nullify Size Penalty ATK",
+    "text": "Nullify Size Penalty",
+    "stat": "Nullify Size Penalty",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "flag": true,
+    "stat_ids": [
+     132
+    ],
+    "stat_keys": [
+     "no_size_penalty"
+    ]
+   },
+   {
+    "text": "ATK+1%",
+    "stat": "ATK",
     "value": 1,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     10
+    ],
+    "stat_keys": [
+     "atk"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -16114,26 +16215,38 @@
    "source_normal": 1
   },
   "sets": [],
-  "effects": [],
+  "effects": [
+   {
+    "text": "Backstab Damage +1% per 5 base AGI",
+    "per_base_stat": {
+     "per": 5,
+     "stat": "AGI"
+    },
+    "stat": "Backstab Damage",
+    "value": 1,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Backstab",
+    "skill_metric": "damage",
+    "skills": [
+     "Back Stab"
+    ]
+   }
+  ],
   "piece_bonus": [],
   "refine": {
    "per_refine": [],
    "thresholds": []
   },
-  "conditional": [
-   {
-    "condition": "Adds 0.2% per base AGI scaling to the skill",
-    "effects": [
-     {
-      "text": "Backstab",
-      "parsed": false
-     }
-    ]
-   }
-  ],
+  "conditional": [],
   "enchant": null,
   "lore": null,
-  "override": null
+  "override": {
+   "status": "unverified",
+   "reason": "'Adds 0.2% per base AGI scaling to the skill:' is written as a heading over 'Backstab', so it read as a condition with nothing in it. Server script: bSkillAtk RG_BACKSTAP,(readparam(bAgi)/5) -- Back Stab damage +1% per 5 base AGI (2026-10-01 audit)."
+  }
  },
  {
   "id": 4004,
@@ -18699,7 +18812,20 @@
   "effects": [
    {
     "text": "HP Regen +5% per base VIT",
-    "parsed": false
+    "per_base_stat": {
+     "per": 1,
+     "stat": "VIT"
+    },
+    "stat": "HP Regen",
+    "value": 5,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     8
+    ],
+    "stat_keys": [
+     "hp_regen"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -19802,7 +19928,20 @@
   "effects": [
    {
     "text": "SP+1 per INT.",
-    "parsed": false
+    "per_base_stat": {
+     "per": 1,
+     "stat": "INT"
+    },
+    "stat": "SP",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     7
+    ],
+    "stat_keys": [
+     "max_sp"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -20681,6 +20820,7 @@
   "effects": [
    {
     "text": "Recover 10 HP per Base Level when an enemy is killed by a direct hit, does not apply to pets/summons/raven",
+    "per_base_level": 1,
     "parsed": false
    }
   ],
@@ -21742,7 +21882,17 @@
   "effects": [
    {
     "text": "Grants Raven Steps Lv 1",
-    "parsed": false
+    "stat": "Raven Steps Lv",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Raven Steps",
+    "skill_metric": "level",
+    "skills": [
+     "Raven Steps"
+    ]
    },
    {
     "text": "Raven Steps Cooldown +5s",
@@ -22745,7 +22895,17 @@
   "effects": [
    {
     "text": "Enables Frost Diver Lv3",
-    "parsed": false
+    "stat": "Frost Diver Lv",
+    "value": 3,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Frost Diver",
+    "skill_metric": "level",
+    "skills": [
+     "Frost Diver"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -26199,7 +26359,17 @@
   "effects": [
    {
     "text": "Enables Cloaking Exceed Lv1",
-    "parsed": false
+    "stat": "Cloaking Exceed Lv",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Cloaking Exceed",
+    "skill_metric": "level",
+    "skills": [
+     "Cloaking Exceed"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -30530,6 +30700,19 @@
   "sets": [],
   "effects": [
    {
+    "text": "Weight Limit +500 +300 per Refine",
+    "stat": "Weight Limit",
+    "value": 500,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     40
+    ],
+    "stat_keys": [
+     "weight_limit"
+    ]
+   },
+   {
     "text": "All Stats +1",
     "stat": "All Stats",
     "value": 1,
@@ -30561,12 +30744,16 @@
      "effects": [
       {
        "text": "Weight Limit +500 +300 per Refine",
-       "stat": "Weight Limit +500",
+       "stat": "Weight Limit",
        "value": 300,
        "unit": null,
        "parsed": true,
-       "stat_ids": [],
-       "stat_keys": []
+       "stat_ids": [
+        40
+       ],
+       "stat_keys": [
+        "weight_limit"
+       ]
       }
      ]
     }
@@ -31561,7 +31748,17 @@
   "effects": [
    {
     "text": "Grants Heroic Landing Lv 3",
-    "parsed": false
+    "stat": "Heroic Landing Lv",
+    "value": 3,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Heroic Landing",
+    "skill_metric": "level",
+    "skills": [
+     "Heroic Landing"
+    ]
    },
    {
     "text": "If Heroic Landing Lv 5 is learned, it autocasts Earthquake Lv 1",
@@ -32796,7 +32993,17 @@
   "effects": [
    {
     "text": "Enables Flaming Petals Lv5",
-    "parsed": false
+    "stat": "Flaming Petals Lv",
+    "value": 5,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Flaming Petals",
+    "skill_metric": "level",
+    "skills": [
+     "Flaming Petals"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -34606,8 +34813,12 @@
     "value": -25,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     43
+    ],
+    "stat_keys": [
+     "healing_received"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -35709,30 +35920,56 @@
    "source_normal": 1
   },
   "sets": [],
-  "effects": [],
+  "effects": [
+   {
+    "text": "Rolling Cutter Damage +1% per 5 base VIT",
+    "per_base_stat": {
+     "per": 5,
+     "stat": "VIT"
+    },
+    "stat": "Rolling Cutter Damage",
+    "value": 1,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Rolling Cutter",
+    "skill_metric": "damage",
+    "skills": [
+     "Rolling Cutter"
+    ]
+   },
+   {
+    "text": "Cross Ripper Slasher Damage +1% per 5 base VIT",
+    "per_base_stat": {
+     "per": 5,
+     "stat": "VIT"
+    },
+    "stat": "Cross Ripper Slasher Damage",
+    "value": 1,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Cross Ripper Slasher",
+    "skill_metric": "damage",
+    "skills": [
+     "Cross Ripper Slasher"
+    ]
+   }
+  ],
   "piece_bonus": [],
   "refine": {
    "per_refine": [],
    "thresholds": []
   },
-  "conditional": [
-   {
-    "condition": "Adds 0.2% per base VIT scaling to the skills",
-    "effects": [
-     {
-      "text": "Rolling Cutter.",
-      "parsed": false
-     },
-     {
-      "text": "Cross Ripper Slasher.",
-      "parsed": false
-     }
-    ]
-   }
-  ],
+  "conditional": [],
   "enchant": null,
   "lore": null,
-  "override": null
+  "override": {
+   "status": "unverified",
+   "reason": "'Adds 0.2% per base VIT scaling to the skills:' over 'Rolling Cutter.' / 'Cross Ripper Slasher.'. Server script: bSkillAtk on both, readparam(bVit)/5 (2026-10-01 audit)."
+  }
  },
  {
   "id": 4105,
@@ -36236,7 +36473,17 @@
   "effects": [
    {
     "text": "Enables Dual Cast Lv5",
-    "parsed": false
+    "stat": "Dual Cast Lv",
+    "value": 5,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Dual Cast",
+    "skill_metric": "level",
+    "skills": [
+     "Dual Cast"
+    ]
    },
    {
     "text": "INT+1",
@@ -36522,7 +36769,17 @@
    },
    {
     "text": "Enables Tunnel Drive Lv3",
-    "parsed": false
+    "stat": "Tunnel Drive Lv",
+    "value": 3,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Tunnel Drive",
+    "skill_metric": "level",
+    "skills": [
+     "Tunnel Drive"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -36962,6 +37219,10 @@
   "effects": [
    {
     "text": "0.07% to petrify when attacking per base INT",
+    "per_base_stat": {
+     "per": 1,
+     "stat": "INT"
+    },
     "parsed": false
    }
   ],
@@ -37390,7 +37651,20 @@
   "effects": [
    {
     "text": "SP+1 per DEX",
-    "parsed": false
+    "per_base_stat": {
+     "per": 1,
+     "stat": "DEX"
+    },
+    "stat": "SP",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     7
+    ],
+    "stat_keys": [
+     "max_sp"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -38098,7 +38372,20 @@
   "effects": [
    {
     "text": "SP+1 per STR",
-    "parsed": false
+    "per_base_stat": {
+     "per": 1,
+     "stat": "STR"
+    },
+    "stat": "SP",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     7
+    ],
+    "stat_keys": [
+     "max_sp"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -38194,17 +38481,34 @@
   "sets": [],
   "effects": [
    {
-    "text": "SP Regen 10%+1% per 2 base LUK",
+    "text": "SP Regen +10%",
+    "stat": "SP Regen",
+    "value": 10,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     9
+    ],
+    "stat_keys": [
+     "sp_regen"
+    ]
+   },
+   {
+    "text": "SP Regen +1% per 2 base LUK",
     "per_base_stat": {
      "per": 2,
      "stat": "LUK"
     },
-    "stat": "SP Regen 10%",
+    "stat": "SP Regen",
     "value": 1,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     9
+    ],
+    "stat_keys": [
+     "sp_regen"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -38215,7 +38519,10 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "override": null
+  "override": {
+   "status": "unverified",
+   "reason": "'SP Regen 10%+1% per 2 base LUK': a base and a scaling run together with no sign on the first. Read as SP Regen +10%, and +1% per 2 base LUK (2026-10-01 audit)."
+  }
  },
  {
   "id": 4339,
@@ -40069,7 +40376,17 @@
   "effects": [
    {
     "text": "Enables Smoke Bomb Lv1",
-    "parsed": false
+    "stat": "Smoke Bomb Lv",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Smoke Bomb",
+    "skill_metric": "level",
+    "skills": [
+     "Smoke Bomb"
+    ]
    },
    {
     "text": "Smoke Bomb Cooldown +8s",
@@ -40414,20 +40731,20 @@
   "sets": [],
   "effects": [
    {
-    "text": "Fire, Water",
-    "parsed": false
-   },
-   {
-    "text": "Wind and Earth Resistance +5%",
-    "stat": "Wind and Earth Resistance",
+    "text": "Fire, Water, Wind and Earth Resistance +5%",
+    "stat": "Fire, Water, Wind and Earth Resistance",
     "value": 5,
     "unit": "%",
     "parsed": true,
     "stat_ids": [
+     64,
+     58,
      67,
      61
     ],
     "stat_keys": [
+     "res_fire",
+     "res_water",
      "res_wind",
      "res_earth"
     ]
@@ -41079,11 +41396,37 @@
   "effects": [
    {
     "text": "HP Regen +1% per base INT",
-    "parsed": false
+    "per_base_stat": {
+     "per": 1,
+     "stat": "INT"
+    },
+    "stat": "HP Regen",
+    "value": 1,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     8
+    ],
+    "stat_keys": [
+     "hp_regen"
+    ]
    },
    {
     "text": "SP Regen +1% per base VIT",
-    "parsed": false
+    "per_base_stat": {
+     "per": 1,
+     "stat": "VIT"
+    },
+    "stat": "SP Regen",
+    "value": 1,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     9
+    ],
+    "stat_keys": [
+     "sp_regen"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -42505,7 +42848,17 @@
   "effects": [
    {
     "text": "Enables Free Cast Lv5",
-    "parsed": false
+    "stat": "Free Cast Lv",
+    "value": 5,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Free Cast",
+    "skill_metric": "level",
+    "skills": [
+     "Free Cast"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -43686,6 +44039,7 @@
   "effects": [
    {
     "text": "0.2% chance to apply Lex Aeterna on enemy when attacking per base level. (Max 30% at Lv 150)",
+    "per_base_level": 1,
     "parsed": false
    },
    {
@@ -44510,20 +44864,17 @@
   ],
   "effects": [
    {
-    "text": "Flaming Petals",
-    "parsed": false
-   },
-   {
-    "text": "Freezing Spear and Wind Blade DMG+10%",
-    "stat": "Freezing Spear and Wind Blade DMG",
+    "text": "Flaming Petals, Freezing Spear and Wind Blade DMG+10%",
+    "stat": "Flaming Petals, Freezing Spear and Wind Blade DMG",
     "value": 10,
     "unit": "%",
     "parsed": true,
     "stat_ids": [],
     "stat_keys": [],
-    "skill": "Freezing Spear and Wind Blade",
+    "skill": "Flaming Petals, Freezing Spear and Wind Blade",
     "skill_metric": "damage",
     "skills": [
+     "Flaming Petals",
      "Freezing Spear",
      "Wind Blade"
     ]
@@ -44600,7 +44951,16 @@
    },
    {
     "text": "Increases Variable Casting Time of all skills by 25%.",
-    "parsed": false
+    "stat": "Variable Casting Time of all skills",
+    "value": 25,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     33
+    ],
+    "stat_keys": [
+     "variable_cast"
+    ]
    },
    {
     "text": "Compound on: Accessory",
@@ -45561,7 +45921,17 @@
   "effects": [
    {
     "text": "Enables Envenom Lv5",
-    "parsed": false
+    "stat": "Envenom Lv",
+    "value": 5,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Envenom",
+    "skill_metric": "level",
+    "skills": [
+     "Envenom"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -46106,7 +46476,17 @@
   "effects": [
    {
     "text": "Enables Weapon Blocking Lv3",
-    "parsed": false
+    "stat": "Weapon Blocking Lv",
+    "value": 3,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Weapon Blocking",
+    "skill_metric": "level",
+    "skills": [
+     "Weapon Blocking"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -47254,7 +47634,7 @@
    "source_normal": 1
   },
   "sets": [
-   251
+   253
   ],
   "effects": [
    {
@@ -47338,7 +47718,7 @@
    "source_normal": 1
   },
   "sets": [
-   251
+   253
   ],
   "effects": [
    {
@@ -47422,7 +47802,7 @@
    "source_normal": 1
   },
   "sets": [
-   251
+   253
   ],
   "effects": [
    {
@@ -47506,7 +47886,7 @@
    "source_normal": 1
   },
   "sets": [
-   251
+   253
   ],
   "effects": [
    {
@@ -47590,7 +47970,7 @@
    "source_normal": 1
   },
   "sets": [
-   251
+   253
   ],
   "effects": [
    {
@@ -47674,7 +48054,7 @@
    "source_normal": 1
   },
   "sets": [
-   251
+   253
   ],
   "effects": [
    {
@@ -48186,7 +48566,17 @@
   "effects": [
    {
     "text": "Enables Spectral Servants Lv2",
-    "parsed": false
+    "stat": "Spectral Servants Lv",
+    "value": 2,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Spectral Servants",
+    "skill_metric": "level",
+    "skills": [
+     "Spectral Servants"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -50945,7 +51335,17 @@
   "effects": [
    {
     "text": "Enable Cover Lv1",
-    "parsed": false
+    "stat": "Cover Lv",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Cover",
+    "skill_metric": "level",
+    "skills": [
+     "Cover"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -51489,8 +51889,12 @@
     "value": 3,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     10
+    ],
+    "stat_keys": [
+     "atk"
+    ]
    },
    {
     "text": "Magic Defense Penetration +3",
@@ -51504,14 +51908,6 @@
     "stat_keys": [
      "mdef_pen"
     ]
-   },
-   {
-    "text": "A valkyrie that roams the sky garden awaiting challenges to allow entrance to valhalla.",
-    "parsed": false
-   },
-   {
-    "text": "Holy Weapon +10% Damage vs Neutral/Poison/Ghost/Undead/Dark -10% Damage vs Holy",
-    "parsed": false
    }
   ],
   "piece_bonus": [],
@@ -51521,7 +51917,7 @@
   },
   "conditional": [],
   "enchant": null,
-  "lore": null,
+  "lore": "A valkyrie that roams the sky garden awaiting challenges to allow entrance to valhalla.",
   "override": null
  },
  {
@@ -52861,7 +53257,17 @@
   "effects": [
    {
     "text": "Enables Chase Walk Lv2",
-    "parsed": false
+    "stat": "Chase Walk Lv",
+    "value": 2,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Chase Walk",
+    "skill_metric": "level",
+    "skills": [
+     "Chase Walk"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -58028,7 +58434,17 @@
   "effects": [
    {
     "text": "Grants Burning Steps Lv 3",
-    "parsed": false
+    "stat": "Burning Steps Lv",
+    "value": 3,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Burning Steps",
+    "skill_metric": "level",
+    "skills": [
+     "Burning Steps"
+    ]
    },
    {
     "text": "Burning Steps heals you for 10% of the damage it deals",
@@ -58595,7 +59011,22 @@
   "effects": [
    {
     "text": "SP+1% per Improve Defense skill level",
-    "parsed": false
+    "per_skill_level": {
+     "skills": [
+      "Improve Defense"
+     ],
+     "combine": "sum"
+    },
+    "stat": "SP",
+    "value": 1,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     7
+    ],
+    "stat_keys": [
+     "max_sp"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -59677,7 +60108,17 @@
   "effects": [
    {
     "text": "Enables Regenerate Lv1",
-    "parsed": false
+    "stat": "Regenerate Lv",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Regenerate",
+    "skill_metric": "level",
+    "skills": [
+     "Regenerate"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -61158,8 +61599,21 @@
   "sets": [],
   "effects": [
    {
-    "text": "Turns 1/9 your base VIT into ATK",
-    "parsed": false
+    "text": "ATK +1 per 9 base VIT",
+    "per_base_stat": {
+     "per": 9,
+     "stat": "VIT"
+    },
+    "stat": "ATK",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     10
+    ],
+    "stat_keys": [
+     "atk"
+    ]
    },
    {
     "text": "HP+2%",
@@ -61183,7 +61637,10 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "override": null
+  "override": {
+   "status": "unverified",
+   "reason": "'Turns 1/9 your base VIT into ATK' is ATK +1 per 9 base VIT: the server script is bonus bBaseAtk,(readparam(bVit)/9), readparam being the sheet's points. Written in the wording the parser reads (2026-10-01 audit)."
+  }
  },
  {
   "id": 13657,
@@ -61709,12 +62166,23 @@
   "sets": [],
   "effects": [
    {
-    "text": "Fire, Water",
-    "parsed": false
-   },
-   {
-    "text": "Wind and Earth magical damage +8% each",
-    "parsed": false
+    "text": "Fire, Water, Wind and Earth magical damage +8% each",
+    "stat": "Fire, Water, Wind and Earth magical damage",
+    "value": 8,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     65,
+     59,
+     68,
+     62
+    ],
+    "stat_keys": [
+     "magic_dmg_fire",
+     "magic_dmg_water",
+     "magic_dmg_wind",
+     "magic_dmg_earth"
+    ]
    },
    {
     "text": "Variable Cast Time +10%",
@@ -62777,8 +63245,21 @@
   "sets": [],
   "effects": [
    {
-    "text": "Every 10 base INT increases ATK by 1",
-    "parsed": false
+    "text": "ATK +1 per 10 base INT",
+    "per_base_stat": {
+     "per": 10,
+     "stat": "INT"
+    },
+    "stat": "ATK",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     10
+    ],
+    "stat_keys": [
+     "atk"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -62789,7 +63270,10 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "override": null
+  "override": {
+   "status": "unverified",
+   "reason": "'Every 10 base INT increases ATK by 1': server script bonus bBaseAtk,(readparam(bInt))/10. Rewritten as the parser reads it (2026-10-01 audit)."
+  }
  },
  {
   "id": 4209,
@@ -63593,6 +64077,7 @@
   "effects": [
    {
     "text": "Recover 1 SP per Base Level when an enemy is killed",
+    "per_base_level": 1,
     "parsed": false
    }
   ],
@@ -64350,7 +64835,17 @@
   "effects": [
    {
     "text": "Enables Kawarimi Lv1",
-    "parsed": false
+    "stat": "Kawarimi Lv",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Kawarimi",
+    "skill_metric": "level",
+    "skills": [
+     "Kawarimi"
+    ]
    }
   ],
   "piece_bonus": [],

@@ -88,6 +88,12 @@ export function effectQualifier(eff: Effect, inScaledSection = false): string {
     const { per, stat } = eff.per_stat;
     parts.push(per > 1 ? `per ${per} ${stat}` : `per ${stat}`);
   }
+  if (eff.per_base_level) {
+    parts.push(eff.per_base_level > 1 ? `per ${eff.per_base_level} base levels` : 'per base level');
+  }
+  if (eff.per_skill_level) {
+    parts.push(`per ${eff.per_skill_level.skills.join(eff.per_skill_level.combine === 'best' ? ' or ' : ' + ')} level`);
+  }
 
   let out = parts.length > 0 ? ` ${parts.join(', ')}` : '';
 

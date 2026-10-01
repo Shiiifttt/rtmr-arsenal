@@ -262,6 +262,13 @@ const SIZE_FIX: Record<string, [number, number, number]> = {
   Whip: [90, 100, 75],
   Book: [100, 100, 75],
   Katar: [90, 100, 90],
+  // The planner's names for the server's types (item_db SubType): "Sword" and
+  // "Long Sword" are 1hSword, "Knight Sword" 2hSword, "Axe" 1hAxe. Until
+  // 2026-10-01 they missed the table and hit every size fully.
+  Sword: [90, 100, 90],
+  'Long Sword': [90, 100, 90],
+  'Knight Sword': [90, 90, 100],
+  Axe: [70, 90, 100],
 };
 
 export function sizeFix(weaponType: string | undefined, size: string, noPenalty: boolean): number {
@@ -423,8 +430,11 @@ export const countsAsBoss = (m: Monster) => m.boss || !!m.bossClass || !!m.proto
  */
 export function walkCellMs(f: Pick<Fighter, 'moveSpeed' | 'moveSpeedWhole'>): number {
   const whole = f.moveSpeedWhole ?? 0;
-  const halved = Math.max(0, (f.moveSpeed ?? 0) - whole) / 2;
-  const haste = Math.min(55, whole + halved);
+  // A penalty (Soul of Ymir Card -25%, Verporte -15%) slows you, halved like
+  // gear's haste (GUESS: the halving is the live rule for bonuses); before
+  // 2026-10-01 a penalty was dropped and cost nothing.
+  const halved = ((f.moveSpeed ?? 0) - whole) / 2;
+  const haste = Math.max(-80, Math.min(55, whole + halved));
   return (TUNE.walkCellMs * (100 - haste)) / 100;
 }
 
@@ -504,6 +514,8 @@ export function physicalDamage(f: Fighter, m: Monster, h: PhysicalHit, rng: Rng)
   let dmg = h.normal ? main + off : main * TUNE.skillAtkFactor;
 
   dmg *= 1 + (h.ranged ? f.dmg.ranged_damage ?? 0 : f.dmg.melee_damage ?? 0) / 100;
+  // "Damage with Fire property" (Old Dragon Boots): the hit's own element.
+  dmg *= 1 + (f.dmg[`atk_ele_${h.element.toLowerCase()}`] ?? 0) / 100;
   dmg *= h.ratio / 100;
   if (!h.ignoreDef) {
     dmg = dmg * defMultiplier(m.def, effectivePierce(f.defPen)) - m.softDef;

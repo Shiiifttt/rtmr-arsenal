@@ -20,7 +20,7 @@ import type { Fight } from './engine.ts';
 import type { MobSkill, Monster } from './model.ts';
 
 /** A generic way to not be hit. */
-export type Way = 'gambit' | 'walk' | 'hide' | 'decoy' | 'rod' | 'los' | 'manhole' | 'kawarimi' | 'barrier' | 'backslide' | 'slashout';
+export type Way = 'gambit' | 'walk' | 'hide' | 'decoy' | 'rod' | 'los' | 'manhole' | 'kawarimi' | 'barrier' | 'backslide' | 'slashout' | 'steps';
 
 export interface PlayEntry {
   /** The ways to try, best first. Only these are tried. */

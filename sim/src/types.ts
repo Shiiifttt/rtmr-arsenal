@@ -39,6 +39,14 @@ export interface Effect {
    * once the first is complete.
    */
   per_stat?: { per: number; stat: string };
+  /** Scales with the character's base level: "HP+10 per Base Level" (Loki's Scarf). */
+  per_base_level?: number;
+  /**
+   * Scales with a skill's level, the "Per Level of X:" heading written into
+   * the line itself: "ASPD +1 per Steel Wings Level". Counted like the
+   * heading: a class that learns the skill is taken to have maxed it.
+   */
+  per_skill_level?: { skills: string[]; combine: 'sum' | 'best' };
   /**
    * A property rather than a quantity: "Unbreakable Weapon". Carries a
    * value of 1 so it travels with everything else, but two sources of it

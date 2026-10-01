@@ -311,6 +311,9 @@ export const MAX_REFINE = 10;
  */
 export function isRefineable(item: Item | null | undefined): boolean {
   if (!item) return false;
+  // Accessories cannot be refined (the project owner, 2026-10-01), whatever
+  // the column says for the four that claim it (Sage Necklace...).
+  if ((item.equip_slots ?? []).includes('Accessory')) return false;
   return item.refineable || item.type === 'Class Gem';
 }
 

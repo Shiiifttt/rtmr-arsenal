@@ -335,7 +335,32 @@
      "effects": [
       {
        "text": "Increase resistance to all elements except neutral by 2% per refine",
-       "parsed": false
+       "stat": "resistance to all elements except neutral",
+       "value": 2,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        58,
+        61,
+        64,
+        67,
+        70,
+        73,
+        76,
+        79,
+        82
+       ],
+       "stat_keys": [
+        "res_water",
+        "res_earth",
+        "res_fire",
+        "res_wind",
+        "res_poison",
+        "res_holy",
+        "res_dark",
+        "res_ghost",
+        "res_undead"
+       ]
       },
       {
        "text": "SP+2% per refine",
@@ -2636,7 +2661,17 @@
    },
    {
     "text": "Enables Elusive Feint Lv1",
-    "parsed": false
+    "stat": "Elusive Feint Lv",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Elusive Feint",
+    "skill_metric": "level",
+    "skills": [
+     "Elusive Feint"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -2759,6 +2794,19 @@
     "scope": "total"
    },
    {
+    "text": "Perfect Dodge +2 +1 per refine",
+    "stat": "Perfect Dodge",
+    "value": 2,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     27
+    ],
+    "stat_keys": [
+     "perfect_dodge"
+    ]
+   },
+   {
     "text": "Prowler Only",
     "parsed": false
    }
@@ -2785,12 +2833,16 @@
       },
       {
        "text": "Perfect Dodge +2 +1 per refine",
-       "stat": "Perfect Dodge +2",
+       "stat": "Perfect Dodge",
        "value": 1,
        "unit": null,
        "parsed": true,
-       "stat_ids": [],
-       "stat_keys": []
+       "stat_ids": [
+        27
+       ],
+       "stat_keys": [
+        "perfect_dodge"
+       ]
       }
      ]
     }
@@ -2892,7 +2944,7 @@
     ]
    },
    {
-    "text": "Wind Resistance +15%",
+    "text": "Wind Resistance +15%, +2% per refine",
     "stat": "Wind Resistance",
     "value": 15,
     "unit": "%",
@@ -2930,7 +2982,7 @@
        "parsed": false
       },
       {
-       "text": "+2% per refine",
+       "text": "Wind Resistance +15%, +2% per refine",
        "stat": "Wind Resistance",
        "value": 2,
        "unit": "%",
@@ -2940,8 +2992,7 @@
        ],
        "stat_keys": [
         "res_wind"
-       ],
-       "stat_inherited": true
+       ]
       }
      ]
     }
@@ -4808,7 +4859,17 @@
    },
    {
     "text": "Enables Coluceo Heal Lv2",
-    "parsed": false
+    "stat": "Coluceo Heal Lv",
+    "value": 2,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Coluceo Heal",
+    "skill_metric": "level",
+    "skills": [
+     "Coluceo Heal"
+    ]
    },
    {
     "text": "All Stats +3 when worn along with one of Mother's Scarf",
@@ -6656,16 +6717,34 @@
      "per": 2,
      "stat": "INT"
     },
-    "stat": "Shadowstab Scaling",
+    "stat": "Shadowstab Damage",
     "value": 1,
     "unit": "%",
     "parsed": true,
     "stat_ids": [],
-    "stat_keys": []
+    "stat_keys": [],
+    "skill": "Shadowstab",
+    "skill_metric": "damage",
+    "skills": [
+     "Shadowstab"
+    ]
    },
    {
     "text": "Shadowstab autocasts Fireball",
     "parsed": false
+   },
+   {
+    "text": "Perfect Dodge +3 +1 per refine",
+    "stat": "Perfect Dodge",
+    "value": 3,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     27
+    ],
+    "stat_keys": [
+     "perfect_dodge"
+    ]
    },
    {
     "text": "Prowler Only",
@@ -6680,12 +6759,16 @@
      "effects": [
       {
        "text": "Perfect Dodge +3 +1 per refine",
-       "stat": "Perfect Dodge +3",
+       "stat": "Perfect Dodge",
        "value": 1,
        "unit": null,
        "parsed": true,
-       "stat_ids": [],
-       "stat_keys": []
+       "stat_ids": [
+        27
+       ],
+       "stat_keys": [
+        "perfect_dodge"
+       ]
       },
       {
        "text": "Backstab DMG +2%per refine",
@@ -9185,13 +9268,24 @@
     ]
    },
    {
-    "text": "Holy Element Armor HP Regen+100%",
-    "stat": "Holy Element Armor HP Regen",
+    "text": "Holy Element Armor",
+    "parsed": true,
+    "sets_element": "Holy",
+    "stat_ids": [],
+    "stat_keys": []
+   },
+   {
+    "text": "HP Regen+100%",
+    "stat": "HP Regen",
     "value": 100,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     8
+    ],
+    "stat_keys": [
+     "hp_regen"
+    ]
    },
    {
     "text": "SP Cost-5%",

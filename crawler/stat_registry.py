@@ -182,6 +182,20 @@ STATS.append(("sp_on_kill", "SP on Kill", "resource"))
 STATS.append(("hp_per_hit", "HP per Hit", "resource"))
 STATS.append(("sp_per_hit", "SP per Hit", "resource"))
 
+# From the 2026-10-01 audit, the owner's readings. Appended last, like the
+# families above.
+# Physical damage of attacks of an element, the attacker's side: Old Dragon
+# Boots' "Damage with Fire property +2% per refine", for Dragon Breath, which
+# the 2023 server runs through its weapon attack (battle.cpp).
+for _e in ELEMENTS:
+    STATS.append((f"atk_ele_{_e}", f"{_e.title()} Property DMG", "element_damage"))
+# Masamune's "Agi-based Flee +20%": a per cent of the flee from level and
+# stats, before any flat flee from equipment or cards.
+STATS.append(("flee_base_pct", "Base Flee %", "defence"))
+# Asgard set: "Double Max HP/SP" -- a multiplier on the finished pool.
+STATS.append(("max_hp_mult", "Max HP Multiplier", "resource"))
+STATS.append(("max_sp_mult", "Max SP Multiplier", "resource"))
+
 INDEX = {key: i for i, (key, _, _) in enumerate(STATS)}
 
 # Stats that do not simply add up.
@@ -376,6 +390,44 @@ ALIASES: dict[str, list[str]] = {
     "healing done and received": ["healing_power", "healing_received"],
     "variable casting time": ["variable_cast"],
     "fixed casting time": ["fixed_cast"],
+    "variable casting time of all skills": ["variable_cast"],
+    # More wordings, from the 2026-10-01 audit of lines read and then dropped.
+    "max hp and sp": ["max_hp", "max_sp"],
+    "hp and sp recovery": ["hp_regen", "sp_regen"],
+    "hp/sp recovery": ["hp_regen", "sp_regen"],
+    "hp recov rate": ["hp_regen"], "sp recov rate": ["sp_regen"],
+    "hp recovery rate": ["hp_regen"], "sp recovery rate": ["sp_regen"],
+    "natural hp regen": ["hp_regen"], "natural sp regen": ["sp_regen"],
+    "experience received": ["exp_gain"],
+    "sp costs": ["sp_cost"],
+    "heal received": ["healing_received"],
+    "healing received from skills": ["healing_received"],
+    "healing power and healing received": ["healing_power", "healing_received"],
+    "healing power and received": ["healing_power", "healing_received"],
+    "neutral dmg resistance": ["res_neutral"],
+    "neutral damage resistance": ["res_neutral"],
+    "non-neutral element resistance": _NON_NEUTRAL,
+    "resistance to all elements except neutral": _NON_NEUTRAL,
+    "all elements resistance except neutral": _NON_NEUTRAL,
+    "all element resistance except neutral": _NON_NEUTRAL,
+    "dark property magic": ["magic_dmg_dark"],
+    "damage with dark-element magic": ["magic_dmg_dark"],
+    "attack splash range": ["splash_range"],
+    "defense / magic defense penetration": ["def_pen", "mdef_pen"],
+    # The owner's readings (2026-10-01): Lust Pick's "Penetration +100" is
+    # full DEF penetration; "All Elemental Magic DMG" covers every element;
+    # End of Kings Boots' "Neutral damage reduction from all sizes" is damage
+    # reduction from all sizes (his best guess of an either-or).
+    "penetration": ["def_pen"], "magic penetration": ["mdef_pen"],
+    "all elemental magic dmg": [f"magic_dmg_{e}" for e in ELEMENTS],
+    "all elemental magic damage": [f"magic_dmg_{e}" for e in ELEMENTS],
+    "neutral damage reduction from all sizes": ["def_vs_size_all_sizes"],
+    "agi-based flee": ["flee_base_pct"],
+    "max hp/sp multiplier": ["max_hp_mult", "max_sp_mult"],
+    # Sarah Irine Card's "Weapon Attack Power +3%" is bAtkRate,3 in the
+    # server script: ATK +3%.
+    "weapon attack power": ["atk"],
+    "sp recovery speed": ["sp_regen"], "hp recovery speed": ["hp_regen"],
 
     # Flags. The tooltip writes them as a bare phrase with no value.
     "no size penalty": ["no_size_penalty"],
@@ -390,6 +442,18 @@ ALIASES: dict[str, list[str]] = {
     "unstrippable armour": ["unstrippable_armor"],
     "prevents knockback": ["prevents_knockback"],
     "prevent knockback": ["prevents_knockback"],
+    "knockback immunity": ["prevents_knockback"],
+    "no knockback": ["prevents_knockback"],
+    "cannot be knocked back": ["prevents_knockback"],
+    "ignore reflected damage": ["ignores_reflect"],
+    "ignores reflected damage": ["ignores_reflect"],
+    "ignores all reflected damage": ["ignores_reflect"],
+    "ignores reflect damage for physical attacks": ["ignores_reflect"],
+    "ignore size penalty": ["no_size_penalty"],
+    "ignores size penalty": ["no_size_penalty"],
+    "nullify size penalty": ["no_size_penalty"],
+    "negate size penalty of weapons": ["no_size_penalty"],
+    "ignore weapon size penalty and reflected damage": ["no_size_penalty", "ignores_reflect"],
 }
 
 _ALIAS_DUPES = _duplicate_alias_keys()
@@ -446,12 +510,12 @@ _VS_GENERIC = re.compile(
 
 # "DMG vs Fire/Water/Wind/Earth" names four at once.
 _DMG_VS = re.compile(r"^(?:dmg|damage)\s+(?:vs\.?|against|to)\s+(?P<what>.+)$")
-_RESIST = re.compile(r"^(?P<what>[\w\- ]+?)\s+(?:resistance|resist)$")
-_ELEM_MAGIC = re.compile(r"^(?P<what>[\w\- ]+?)\s+magic\s+(?:dmg|damage)$")
+_RESIST = re.compile(r"^(?P<what>[\w\-, ]+?)\s+(?:resistance|resist)$")
+_ELEM_MAGIC = re.compile(r"^(?P<what>[\w\-, ]+?)\s+magic(?:al)?\s+(?:dmg|damage|atk)$")
 
 # Suffixes that mark a per-skill modifier rather than a character stat.
 _SKILL_SUFFIX = re.compile(
-    r"\b(dmg|damage|sp cost|cooldown|cast time|lv|level|duration|chance)$", re.I)
+    r"\b(dmg|damage|sp cost|cooldown(?: reduction)?|cast time|lv|level|duration|chance)$", re.I)
 
 
 def resolve(stat_text: str) -> dict:
@@ -470,7 +534,9 @@ def resolve(stat_text: str) -> dict:
     # total rather than added to the base pool. Ragnarok stacks those
     # differently, so the distinction is kept.
     scope = None
-    m = re.match(r"^total\s+(?P<rest>.+)$", raw)
+    # Written after the stat too: "DEF/MDEF Total +5%" (Gjallar).
+    m = re.match(r"^total\s+(?P<rest>.+)$", raw) or (
+        None if raw in ALIASES else re.match(r"^(?P<rest>.+?)\s+total$", raw))
     if m:
         scope = "total"
         raw = m.group("rest")
@@ -489,9 +555,15 @@ def resolve(stat_text: str) -> dict:
         metric = m.group(1).lower()
         skill = raw[:m.start()].strip(" :-")
         if skill:
-            out["skill"] = stat_text.strip()[:len(skill)].strip() or skill
-            out["skill_metric"] = {"dmg": "damage", "damage": "damage",
-                                   "lv": "level"}.get(metric, metric)
+            # Sliced from the wording with the same label taken off that _n
+            # took off, or "Special: Trigger Heart" came out "Special: Trig".
+            shown = re.sub(r"^(effect|bonus|special|innate)\s*:\s*", "", stat_text.strip(),
+                           flags=re.I)
+            out["skill"] = shown[:len(skill)].strip() or skill
+            # "Abracadabra Cooldown Reduction: -1 second" (the codexes) is the
+            # cooldown, already written as a negative.
+            out["skill_metric"] = {"dmg": "damage", "damage": "damage", "lv": "level",
+                                   "cooldown reduction": "cooldown"}.get(metric, metric)
     return out
 
 
@@ -524,12 +596,18 @@ _SKILL_TYPOS = {
     "shield boomerand": "Shield Boomerang",
     "thow molotov": "Throw Molotov",
     "illusion of vermillion": "Illusion of Vermilion",
+    "flame petals": "Flaming Petals",
 }
 
 # Words that mark a phrase as being about skills in general, or a group,
 # rather than naming one: "All 4 skills Damage", "Thief Spells Damage".
+#
+# Status names too: "Bleeding chance +2% per refine" (Herfjotur) is how often
+# the weapon inflicts it, not a skill called Bleeding.
 _NOT_A_SKILL = re.compile(
-    r"\d|^\(|\b(all|skills?|spells?|every|each|these|them|basic|immune)\b", re.I)
+    r"\d|^\(|\b(all|skills?|spells?|every|each|these|them|basic|immune)\b"
+    r"|^(bleeding|burning|poison|freeze|frozen|stun|curse|silence|sleep|blind|fear"
+    r"|crystallize|petrify|confusion)$", re.I)
 
 
 def _squash(name: str) -> str:
@@ -600,6 +678,15 @@ def _one_skill(text: str) -> str | None:
     return loose.get(_squash(t))
 
 
+# Groups the tooltips name as one. The thief spells are three: Cacophony's set
+# bonus has "each thief spell ... chain-cast the other two", and Wayward Gem
+# autocasts exactly these (2026-10-01 audit, a reading, not a server list).
+_SKILL_GROUPS = {
+    "thief spells": ("Flaming Petals", "Freezing Spear", "Wind Blade"),
+    "thief magic spells": ("Flaming Petals", "Freezing Spear", "Wind Blade"),
+}
+
+
 def canonical_skills(skill_text: str) -> list[str]:
     """The skills one modifier names, spelled as the server spells them.
 
@@ -612,6 +699,9 @@ def canonical_skills(skill_text: str) -> list[str]:
     text = re.sub(r"\s+", " ", skill_text or "").strip(" :-")
     if not text:
         return []
+    group = _SKILL_GROUPS.get(text.lower())
+    if group:
+        return list(group)
     whole = _one_skill(text)
     if whole:
         return [whole]
@@ -732,6 +822,14 @@ def _lookup(raw: str) -> list[str]:
     if raw in ALIASES:
         return ALIASES[raw]
 
+    # "ATK/MATK/HP/SP +1%" (Awakened Orphan): one-word stats run together.
+    # Only single words, so "Defense / Magic Defense Penetration" is not read
+    # as DEF plus magic penetration.
+    if "/" in raw and " " not in raw:
+        parts = [ALIASES.get(p, []) for p in raw.split("/")]
+        if all(parts):
+            return list(dict.fromkeys(k for p in parts for k in p))
+
     m = _DMG_VS.match(raw)
     if m:
         return _vs_keys(["dmg"], _targets(m.group("what")))
@@ -744,6 +842,11 @@ def _lookup(raw: str) -> list[str]:
     if m:
         keys = [_as_resist(w) for w in _targets(m.group("what"))]
         return [k for k in keys if k and k in INDEX]
+
+    # "Damage with Fire property" -- the attacker's element, physical.
+    m = re.match(r"^(?:damage|dmg)\s+with\s+(?P<e>\w+)\s+property$|^(?P<e2>\w+)\s+property\s+(?:damage|dmg)$", raw)
+    if m and _ELEMENT_WORDS.get(m["e"] or m["e2"]):
+        return [f"atk_ele_{_ELEMENT_WORDS[m['e'] or m['e2']]}"]
 
     m = _ELEM_MAGIC.match(raw)
     if m:

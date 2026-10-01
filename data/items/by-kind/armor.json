@@ -196,7 +196,7 @@
    },
    {
     "text": "Increases Kafra Elixir refill limit by +3",
-    "stat": "Increases Kafra Elixir refill limit by",
+    "stat": "Kafra Elixir refill limit",
     "value": 3,
     "unit": null,
     "parsed": true,
@@ -950,7 +950,23 @@
   "effects": [
    {
     "text": "Adds 0.1% AGI scaling to Flaming Petals, Freezing Spear and Wind Blade",
-    "parsed": false
+    "per_base_stat": {
+     "per": 10,
+     "stat": "AGI"
+    },
+    "stat": "Flaming Petals, Freezing Spear and Wind Blade Damage",
+    "value": 1,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Flaming Petals, Freezing Spear and Wind Blade",
+    "skill_metric": "damage",
+    "skills": [
+     "Flaming Petals",
+     "Freezing Spear",
+     "Wind Blade"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -1028,8 +1044,12 @@
     "value": 400,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     8
+    ],
+    "stat_keys": [
+     "hp_regen"
+    ]
    },
    {
     "text": "Disables all non percentage healing on wearer.",
@@ -1310,17 +1330,31 @@
   "sets": [],
   "effects": [
    {
-    "text": "Damage vs Neutral, Poison",
-    "parsed": false
-   },
-   {
-    "text": "Ghost and Undead +10%",
-    "stat": "Ghost and Undead",
+    "text": "Physical and magic damage vs Neutral/Poison/Ghost/Undead +10%",
+    "stat": "Physical and magic damage vs Neutral/Poison/Ghost/Undead",
     "value": 10,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     54,
+     69,
+     78,
+     81,
+     56,
+     71,
+     80,
+     83
+    ],
+    "stat_keys": [
+     "dmg_vs_neutral",
+     "dmg_vs_poison",
+     "dmg_vs_ghost",
+     "dmg_vs_undead",
+     "magic_dmg_neutral",
+     "magic_dmg_poison",
+     "magic_dmg_ghost",
+     "magic_dmg_undead"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -1331,7 +1365,10 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "override": null
+  "override": {
+   "status": "unverified",
+   "reason": "'Damage vs Neutral, Poison, Ghost and Undead +10%'. The server script gives bAddEle and bMagicAddEle +10 for each, so it is written as physical and magic damage (2026-10-01 audit)."
+  }
  },
  {
   "id": 15442,
@@ -5577,7 +5614,21 @@
    },
    {
     "text": "Instant Draw damage +1% per total INT",
-    "parsed": false
+    "stat": "Instant Draw damage",
+    "value": 1,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Instant Draw",
+    "skill_metric": "damage",
+    "skills": [
+     "Instant Draw"
+    ],
+    "per_stat": {
+     "per": 1,
+     "stat": "int"
+    }
    },
    {
     "text": "Critical -50",
@@ -5859,7 +5910,20 @@
    },
    {
     "text": "HP +4 per VIT",
-    "parsed": false
+    "per_base_stat": {
+     "per": 1,
+     "stat": "VIT"
+    },
+    "stat": "HP",
+    "value": 4,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     6
+    ],
+    "stat_keys": [
+     "max_hp"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -5959,7 +6023,20 @@
    },
    {
     "text": "HP +4 per VIT",
-    "parsed": false
+    "per_base_stat": {
+     "per": 1,
+     "stat": "VIT"
+    },
+    "stat": "HP",
+    "value": 4,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     6
+    ],
+    "stat_keys": [
+     "max_hp"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -6044,7 +6121,20 @@
    },
    {
     "text": "HP +2 per VIT",
-    "parsed": false
+    "per_base_stat": {
+     "per": 1,
+     "stat": "VIT"
+    },
+    "stat": "HP",
+    "value": 2,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     6
+    ],
+    "stat_keys": [
+     "max_hp"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -6071,7 +6161,20 @@
      },
      {
       "text": "HP +2 per VIT",
-      "parsed": false
+      "per_base_stat": {
+       "per": 1,
+       "stat": "VIT"
+      },
+      "stat": "HP",
+      "value": 2,
+      "unit": null,
+      "parsed": true,
+      "stat_ids": [
+       6
+      ],
+      "stat_keys": [
+       "max_hp"
+      ]
      }
     ]
    },
@@ -6185,7 +6288,20 @@
    },
    {
     "text": "HP +2 per VIT",
-    "parsed": false
+    "per_base_stat": {
+     "per": 1,
+     "stat": "VIT"
+    },
+    "stat": "HP",
+    "value": 2,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     6
+    ],
+    "stat_keys": [
+     "max_hp"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -6212,7 +6328,20 @@
      },
      {
       "text": "HP +2 per VIT",
-      "parsed": false
+      "per_base_stat": {
+       "per": 1,
+       "stat": "VIT"
+      },
+      "stat": "HP",
+      "value": 2,
+      "unit": null,
+      "parsed": true,
+      "stat_ids": [
+       6
+      ],
+      "stat_keys": [
+       "max_hp"
+      ]
      }
     ]
    },
@@ -6324,7 +6453,20 @@
    },
    {
     "text": "HP +2 per VIT",
-    "parsed": false
+    "per_base_stat": {
+     "per": 1,
+     "stat": "VIT"
+    },
+    "stat": "HP",
+    "value": 2,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     6
+    ],
+    "stat_keys": [
+     "max_hp"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -6351,7 +6493,20 @@
      },
      {
       "text": "HP +2 per VIT",
-      "parsed": false
+      "per_base_stat": {
+       "per": 1,
+       "stat": "VIT"
+      },
+      "stat": "HP",
+      "value": 2,
+      "unit": null,
+      "parsed": true,
+      "stat_ids": [
+       6
+      ],
+      "stat_keys": [
+       "max_hp"
+      ]
      }
     ]
    },
@@ -6465,7 +6620,20 @@
    },
    {
     "text": "HP +2 per VIT",
-    "parsed": false
+    "per_base_stat": {
+     "per": 1,
+     "stat": "VIT"
+    },
+    "stat": "HP",
+    "value": 2,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     6
+    ],
+    "stat_keys": [
+     "max_hp"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -6492,7 +6660,20 @@
      },
      {
       "text": "HP +2 per VIT",
-      "parsed": false
+      "per_base_stat": {
+       "per": 1,
+       "stat": "VIT"
+      },
+      "stat": "HP",
+      "value": 2,
+      "unit": null,
+      "parsed": true,
+      "stat_ids": [
+       6
+      ],
+      "stat_keys": [
+       "max_hp"
+      ]
      }
     ]
    },
@@ -6617,7 +6798,20 @@
    },
    {
     "text": "SP +2 per INT",
-    "parsed": false
+    "per_base_stat": {
+     "per": 1,
+     "stat": "INT"
+    },
+    "stat": "SP",
+    "value": 2,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     7
+    ],
+    "stat_keys": [
+     "max_sp"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -6717,7 +6911,20 @@
    },
    {
     "text": "SP +2 per INT",
-    "parsed": false
+    "per_base_stat": {
+     "per": 1,
+     "stat": "INT"
+    },
+    "stat": "SP",
+    "value": 2,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     7
+    ],
+    "stat_keys": [
+     "max_sp"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -7356,7 +7563,17 @@
    },
    {
     "text": "Enables Life Strings Lv5",
-    "parsed": false
+    "stat": "Life Strings Lv",
+    "value": 5,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Life Strings",
+    "skill_metric": "level",
+    "skills": [
+     "Life Strings"
+    ]
    },
    {
     "text": "You keep 20% of the stats given through Life Strings",
@@ -10587,8 +10804,17 @@
      "per": 1,
      "effects": [
       {
-       "text": "Amount increases by 1% per refine",
-       "parsed": false
+       "text": "Leech Power +1%",
+       "stat": "Leech Power",
+       "value": 1,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        45
+       ],
+       "stat_keys": [
+        "leech_hp_power"
+       ]
       }
      ]
     }
@@ -10598,7 +10824,10 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "override": null
+  "override": {
+   "status": "unverified",
+   "reason": "'8% chance to leech 3% of damage dealt.' / 'Amount increases by 1% per refine'. The amount is the leech power: +1% per refine (the 2023 server script has power 5+refine; the live tooltip's 3 is kept) (2026-10-01 audit)."
+  }
  },
  {
   "id": 2235,
@@ -12171,7 +12400,16 @@
      "effects": [
       {
        "text": "Reduces all magic damage by 2% per refine",
-       "parsed": false
+       "stat": "Magic Damage Received",
+       "value": -2,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        52
+       ],
+       "stat_keys": [
+        "magic_damage_received"
+       ]
       }
      ]
     }
@@ -12281,7 +12519,16 @@
      "effects": [
       {
        "text": "Reduces all magic damage by 2% per refine",
-       "parsed": false
+       "stat": "Magic Damage Received",
+       "value": -2,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        52
+       ],
+       "stat_keys": [
+        "magic_damage_received"
+       ]
       }
      ]
     }
@@ -12564,7 +12811,16 @@
      "effects": [
       {
        "text": "Reduces all physical damage by 1% per refine",
-       "parsed": false
+       "stat": "Physical Damage Received",
+       "value": -1,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        53
+       ],
+       "stat_keys": [
+        "physical_damage_received"
+       ]
       },
       {
        "text": "Lose 1 SP per refine every second",
@@ -12661,7 +12917,16 @@
      "effects": [
       {
        "text": "Reduces all physical damage by 1% per refine",
-       "parsed": false
+       "stat": "Physical Damage Received",
+       "value": -1,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        53
+       ],
+       "stat_keys": [
+        "physical_damage_received"
+       ]
       },
       {
        "text": "Lose 1 SP per refine every second",
@@ -13610,7 +13875,20 @@
    },
    {
     "text": "SP+2 per STR",
-    "parsed": false
+    "per_base_stat": {
+     "per": 1,
+     "stat": "STR"
+    },
+    "stat": "SP",
+    "value": 2,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     7
+    ],
+    "stat_keys": [
+     "max_sp"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -14185,10 +14463,6 @@
     "parsed": false
    },
    {
-    "text": "Enables Free Cast equal refine level",
-    "parsed": false
-   },
-   {
     "text": "MATK+1%",
     "stat": "MATK",
     "value": 1,
@@ -14204,7 +14478,27 @@
   ],
   "piece_bonus": [],
   "refine": {
-   "per_refine": [],
+   "per_refine": [
+    {
+     "per": 1,
+     "effects": [
+      {
+       "text": "Enables Free Cast equal refine level",
+       "value": 1,
+       "unit": null,
+       "parsed": true,
+       "stat": "Free Cast Lv",
+       "stat_ids": [],
+       "stat_keys": [],
+       "skill": "Free Cast",
+       "skill_metric": "level",
+       "skills": [
+        "Free Cast"
+       ]
+      }
+     ]
+    }
+   ],
    "thresholds": []
   },
   "conditional": [],
@@ -16513,8 +16807,28 @@
        "value": 2,
        "unit": "%",
        "parsed": true,
-       "stat_ids": [],
-       "stat_keys": []
+       "stat_ids": [
+        58,
+        61,
+        64,
+        67,
+        70,
+        73,
+        76,
+        79,
+        82
+       ],
+       "stat_keys": [
+        "res_water",
+        "res_earth",
+        "res_fire",
+        "res_wind",
+        "res_poison",
+        "res_holy",
+        "res_dark",
+        "res_ghost",
+        "res_undead"
+       ]
       }
      ]
     }
@@ -16937,17 +17251,31 @@
   "sets": [],
   "effects": [
    {
-    "text": "Damage vs Fire, Earth",
-    "parsed": false
-   },
-   {
-    "text": "Wind and Water +10%",
-    "stat": "Wind and Water",
+    "text": "Physical and magic damage vs Fire/Earth/Wind/Water +10%",
+    "stat": "Physical and magic damage vs Fire/Earth/Wind/Water",
     "value": 10,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     63,
+     60,
+     66,
+     57,
+     65,
+     62,
+     68,
+     59
+    ],
+    "stat_keys": [
+     "dmg_vs_fire",
+     "dmg_vs_earth",
+     "dmg_vs_wind",
+     "dmg_vs_water",
+     "magic_dmg_fire",
+     "magic_dmg_earth",
+     "magic_dmg_wind",
+     "magic_dmg_water"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -16958,7 +17286,10 @@
   "conditional": [],
   "enchant": null,
   "lore": null,
-  "override": null
+  "override": {
+   "status": "unverified",
+   "reason": "'Damage vs Fire, Earth, Wind and Water +10%'. The server script gives both halves for each element, bAddEle and bMagicAddEle +10, so it is written as physical and magic damage (2026-10-01 audit)."
+  }
  },
  {
   "id": 22103,
@@ -21974,7 +22305,17 @@
   "effects": [
    {
     "text": "SP +1 per Base Level",
-    "parsed": false
+    "per_base_level": 1,
+    "stat": "SP",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     7
+    ],
+    "stat_keys": [
+     "max_sp"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -22076,13 +22417,31 @@
     "stat_keys": []
    },
    {
-    "text": "Knockback Immunity Move Speed +10%",
-    "stat": "Knockback Immunity Move Speed",
+    "text": "Knockback Immunity",
+    "stat": "Knockback Immunity",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "flag": true,
+    "stat_ids": [
+     138
+    ],
+    "stat_keys": [
+     "prevents_knockback"
+    ]
+   },
+   {
+    "text": "Move Speed +10%",
+    "stat": "Move Speed",
     "value": 10,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     39
+    ],
+    "stat_keys": [
+     "move_speed"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -22203,13 +22562,31 @@
     "stat_keys": []
    },
    {
-    "text": "Knockback Immunity Move Speed +10%",
-    "stat": "Knockback Immunity Move Speed",
+    "text": "Knockback Immunity",
+    "stat": "Knockback Immunity",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "flag": true,
+    "stat_ids": [
+     138
+    ],
+    "stat_keys": [
+     "prevents_knockback"
+    ]
+   },
+   {
+    "text": "Move Speed +10%",
+    "stat": "Move Speed",
     "value": 10,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     39
+    ],
+    "stat_keys": [
+     "move_speed"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -22343,13 +22720,31 @@
     "stat_keys": []
    },
    {
-    "text": "Knockback Immunity Move Speed +10%",
-    "stat": "Knockback Immunity Move Speed",
+    "text": "Knockback Immunity",
+    "stat": "Knockback Immunity",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "flag": true,
+    "stat_ids": [
+     138
+    ],
+    "stat_keys": [
+     "prevents_knockback"
+    ]
+   },
+   {
+    "text": "Move Speed +10%",
+    "stat": "Move Speed",
     "value": 10,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     39
+    ],
+    "stat_keys": [
+     "move_speed"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -22676,27 +23071,35 @@
     ]
    },
    {
-    "text": "Poison",
-    "parsed": false
-   },
-   {
-    "text": "Ghost and Undead Resistance +15%",
-    "stat": "Ghost and Undead Resistance",
+    "text": "Poison, Ghost and Undead Resistance +15%",
+    "stat": "Poison, Ghost and Undead Resistance",
     "value": 15,
     "unit": "%",
     "parsed": true,
     "stat_ids": [
+     70,
      79,
      82
     ],
     "stat_keys": [
+     "res_poison",
      "res_ghost",
      "res_undead"
     ]
    },
    {
     "text": "Enable Tunnel Drive Lv5",
-    "parsed": false
+    "stat": "Tunnel Drive Lv",
+    "value": 5,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Tunnel Drive",
+    "skill_metric": "level",
+    "skills": [
+     "Tunnel Drive"
+    ]
    },
    {
     "text": "Hiding SP Cost -15%",
@@ -23472,8 +23875,12 @@
        "value": 2,
        "unit": "%",
        "parsed": true,
-       "stat_ids": [],
-       "stat_keys": []
+       "stat_ids": [
+        41
+       ],
+       "stat_keys": [
+        "exp_gain"
+       ]
       }
      ]
     }
@@ -24210,7 +24617,7 @@
   "effects": [
    {
     "text": "Increases Kafra Elixir refill limit by +2.",
-    "stat": "Increases Kafra Elixir refill limit by",
+    "stat": "Kafra Elixir refill limit",
     "value": 2,
     "unit": null,
     "parsed": true,
@@ -24660,7 +25067,17 @@
   "effects": [
    {
     "text": "Enables Frost Diver Lv7",
-    "parsed": false
+    "stat": "Frost Diver Lv",
+    "value": 7,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Frost Diver",
+    "skill_metric": "level",
+    "skills": [
+     "Frost Diver"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -26182,7 +26599,17 @@
    },
    {
     "text": "Enable Teleport Lv2",
-    "parsed": false
+    "stat": "Teleport Lv",
+    "value": 2,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Teleport",
+    "skill_metric": "level",
+    "skills": [
+     "Teleport"
+    ]
    },
    {
     "text": "Lose 200 SP when unequipped.",
@@ -26674,7 +27101,20 @@
    },
    {
     "text": "SP+1% per 5 VIT",
-    "parsed": false
+    "per_base_stat": {
+     "per": 5,
+     "stat": "VIT"
+    },
+    "stat": "SP",
+    "value": 1,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     7
+    ],
+    "stat_keys": [
+     "max_sp"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -26767,7 +27207,20 @@
    },
    {
     "text": "Perfect Dodge +1 per 5 VIT",
-    "parsed": false
+    "per_base_stat": {
+     "per": 5,
+     "stat": "VIT"
+    },
+    "stat": "Perfect Dodge",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     27
+    ],
+    "stat_keys": [
+     "perfect_dodge"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -26873,7 +27326,20 @@
    },
    {
     "text": "HP+1% per 5 VIT",
-    "parsed": false
+    "per_base_stat": {
+     "per": 5,
+     "stat": "VIT"
+    },
+    "stat": "HP",
+    "value": 1,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     6
+    ],
+    "stat_keys": [
+     "max_hp"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -27508,20 +27974,20 @@
     ]
    },
    {
-    "text": "Fire, Water",
-    "parsed": false
-   },
-   {
-    "text": "Wind and Earth Resistance +5%",
-    "stat": "Wind and Earth Resistance",
+    "text": "Fire, Water, Wind and Earth Resistance +5%",
+    "stat": "Fire, Water, Wind and Earth Resistance",
     "value": 5,
     "unit": "%",
     "parsed": true,
     "stat_ids": [
+     64,
+     58,
      67,
      61
     ],
     "stat_keys": [
+     "res_fire",
+     "res_water",
      "res_wind",
      "res_earth"
     ]
@@ -27535,15 +28001,19 @@
      "effects": [
       {
        "text": "Extra +1% per refine.",
-       "stat": "Wind and Earth Resistance",
+       "stat": "Fire, Water, Wind and Earth Resistance",
        "value": 1,
        "unit": "%",
        "parsed": true,
        "stat_ids": [
+        64,
+        58,
         67,
         61
        ],
        "stat_keys": [
+        "res_fire",
+        "res_water",
         "res_wind",
         "res_earth"
        ],
@@ -27760,20 +28230,18 @@
     ]
    },
    {
-    "text": "Poison",
-    "parsed": false
-   },
-   {
-    "text": "Ghost and Undead Resistance +5%",
-    "stat": "Ghost and Undead Resistance",
+    "text": "Poison, Ghost and Undead Resistance +5%",
+    "stat": "Poison, Ghost and Undead Resistance",
     "value": 5,
     "unit": "%",
     "parsed": true,
     "stat_ids": [
+     70,
      79,
      82
     ],
     "stat_keys": [
+     "res_poison",
      "res_ghost",
      "res_undead"
     ]
@@ -27787,15 +28255,17 @@
      "effects": [
       {
        "text": "Extra +1% per refine.",
-       "stat": "Ghost and Undead Resistance",
+       "stat": "Poison, Ghost and Undead Resistance",
        "value": 1,
        "unit": "%",
        "parsed": true,
        "stat_ids": [
+        70,
         79,
         82
        ],
        "stat_keys": [
+        "res_poison",
         "res_ghost",
         "res_undead"
        ],
@@ -29471,7 +29941,11 @@
     "stat_keys": [],
     "skill": "Thief Magic Spells",
     "skill_metric": "damage",
-    "skills": []
+    "skills": [
+     "Flaming Petals",
+     "Freezing Spear",
+     "Wind Blade"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -30931,11 +31405,30 @@
        "value": 10,
        "unit": "%",
        "parsed": true,
-       "stat_ids": [],
-       "stat_keys": [],
-       "skill": "All Elemental Magic",
-       "skill_metric": "damage",
-       "skills": []
+       "stat_ids": [
+        56,
+        59,
+        62,
+        65,
+        68,
+        71,
+        74,
+        77,
+        80,
+        83
+       ],
+       "stat_keys": [
+        "magic_dmg_neutral",
+        "magic_dmg_water",
+        "magic_dmg_earth",
+        "magic_dmg_fire",
+        "magic_dmg_wind",
+        "magic_dmg_poison",
+        "magic_dmg_holy",
+        "magic_dmg_dark",
+        "magic_dmg_ghost",
+        "magic_dmg_undead"
+       ]
       }
      ]
     }
@@ -31175,10 +31668,6 @@
     ]
    },
    {
-    "text": "Enables Decoy with the same level as current refine",
-    "parsed": false
-   },
-   {
     "text": "Total Flee +7%",
     "stat": "Total Flee",
     "value": 7,
@@ -31199,6 +31688,20 @@
     {
      "per": 1,
      "effects": [
+      {
+       "text": "Enables Decoy with the same level as current refine",
+       "value": 1,
+       "unit": null,
+       "parsed": true,
+       "stat": "Decoy Lv",
+       "stat_ids": [],
+       "stat_keys": [],
+       "skill": "Decoy",
+       "skill_metric": "level",
+       "skills": [
+        "Decoy"
+       ]
+      },
       {
        "text": "Decoy DMG+10% per refine",
        "stat": "Decoy DMG",
@@ -33733,10 +34236,6 @@
        "stat_keys": [
         "def_pen"
        ]
-      },
-      {
-       "text": "(total 10)",
-       "parsed": false
       }
      ]
     },
@@ -34282,11 +34781,37 @@
    },
    {
     "text": "HP-2% per VIT",
-    "parsed": false
+    "per_base_stat": {
+     "per": 1,
+     "stat": "VIT"
+    },
+    "stat": "HP",
+    "value": -2,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     6
+    ],
+    "stat_keys": [
+     "max_hp"
+    ]
    },
    {
     "text": "SP-2% per INT",
-    "parsed": false
+    "per_base_stat": {
+     "per": 1,
+     "stat": "INT"
+    },
+    "stat": "SP",
+    "value": -2,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     7
+    ],
+    "stat_keys": [
+     "max_sp"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -34477,7 +35002,19 @@
   "effects": [
    {
     "text": "Ignore Weapon Size Penalty and Reflected Damage",
-    "parsed": false
+    "stat": "Ignore Weapon Size Penalty and Reflected Damage",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "flag": true,
+    "stat_ids": [
+     132,
+     133
+    ],
+    "stat_keys": [
+     "no_size_penalty",
+     "ignores_reflect"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -36241,7 +36778,20 @@
    },
    {
     "text": "Flat Defense +1 per INT",
-    "parsed": false
+    "per_base_stat": {
+     "per": 1,
+     "stat": "INT"
+    },
+    "stat": "Flat Defense",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     24
+    ],
+    "stat_keys": [
+     "def"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -41478,7 +42028,17 @@
    },
    {
     "text": "Enables Teleport Lv2",
-    "parsed": false
+    "stat": "Teleport Lv",
+    "value": 2,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Teleport",
+    "skill_metric": "level",
+    "skills": [
+     "Teleport"
+    ]
    },
    {
     "text": "Teleport Cooldown -5s",
@@ -44877,8 +45437,12 @@
     "value": 5,
     "unit": "%",
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     55
+    ],
+    "stat_keys": [
+     "res_neutral"
+    ]
    },
    {
     "text": "ASPD Limit +2",
@@ -46558,7 +47122,17 @@
    },
    {
     "text": "Enables Free Cast Lv5",
-    "parsed": false
+    "stat": "Free Cast Lv",
+    "value": 5,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Free Cast",
+    "skill_metric": "level",
+    "skills": [
+     "Free Cast"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -46641,7 +47215,17 @@
    },
    {
     "text": "No Knockback",
-    "parsed": false
+    "stat": "No Knockback",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "flag": true,
+    "stat_ids": [
+     138
+    ],
+    "stat_keys": [
+     "prevents_knockback"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -46748,7 +47332,17 @@
   "effects": [
    {
     "text": "Enables Land Fissure Lv 2",
-    "parsed": false
+    "stat": "Land Fissure Lv",
+    "value": 2,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Land Fissure",
+    "skill_metric": "level",
+    "skills": [
+     "Land Fissure"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -47880,7 +48474,7 @@
    },
    {
     "text": "Increase Kafra Elixir refill limit by +6.",
-    "stat": "Increase Kafra Elixir refill limit by",
+    "stat": "Kafra Elixir refill limit",
     "value": 6,
     "unit": null,
     "parsed": true,
@@ -52558,7 +53152,17 @@
    },
    {
     "text": "Enables Gungnir Flight Lv3",
-    "parsed": false
+    "stat": "Gungnir Flight Lv",
+    "value": 3,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Gungnir Flight",
+    "skill_metric": "level",
+    "skills": [
+     "Gungnir Flight"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -53846,7 +54450,20 @@
    },
    {
     "text": "HP+1 per flee",
-    "parsed": false
+    "stat": "HP",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     6
+    ],
+    "stat_keys": [
+     "max_hp"
+    ],
+    "per_stat": {
+     "per": 1,
+     "stat": "flee"
+    }
    },
    {
     "text": "Perfect Dodge +3",
@@ -54930,7 +55547,17 @@
    },
    {
     "text": "Enables High Jump Lv2",
-    "parsed": false
+    "stat": "High Jump Lv",
+    "value": 2,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "High Jump",
+    "skill_metric": "level",
+    "skills": [
+     "High Jump"
+    ]
    }
   ],
   "piece_bonus": [],
@@ -55241,7 +55868,20 @@
    },
    {
     "text": "DEF +1 per base AGI",
-    "parsed": false
+    "per_base_stat": {
+     "per": 1,
+     "stat": "AGI"
+    },
+    "stat": "DEF",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     24
+    ],
+    "stat_keys": [
+     "def"
+    ]
    },
    {
     "text": "ASPD -7",

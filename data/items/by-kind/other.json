@@ -899,8 +899,18 @@
        "value": 1,
        "unit": "%",
        "parsed": true,
-       "stat_ids": [],
-       "stat_keys": []
+       "stat_ids": [
+        10,
+        11,
+        6,
+        7
+       ],
+       "stat_keys": [
+        "atk",
+        "matk",
+        "max_hp",
+        "max_sp"
+       ]
       },
       {
        "text": "Phantom Thieves can see a strange glow in it...",
@@ -3629,7 +3639,12 @@
    },
    {
     "text": "Increases Damage vs the Dummies by 500%",
-    "parsed": false
+    "stat": "Damage vs the Dummies",
+    "value": 500,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": []
    }
   ],
   "piece_bonus": [],
@@ -9871,7 +9886,12 @@
     "effects": [
      {
       "text": "Increases damage dealt by 10%",
-      "parsed": false
+      "stat": "damage dealt",
+      "value": 10,
+      "unit": "%",
+      "parsed": true,
+      "stat_ids": [],
+      "stat_keys": []
      }
     ]
    },
@@ -9981,13 +10001,30 @@
     "condition": "Passive",
     "effects": [
      {
-      "text": "Leech Power +10%Perfect Dodge +5",
-      "stat": "Leech Power +10%Perfect Dodge",
+      "text": "Leech Power +10%",
+      "stat": "Leech Power",
+      "value": 10,
+      "unit": "%",
+      "parsed": true,
+      "stat_ids": [
+       45
+      ],
+      "stat_keys": [
+       "leech_hp_power"
+      ]
+     },
+     {
+      "text": "Perfect Dodge +5",
+      "stat": "Perfect Dodge",
       "value": 5,
       "unit": null,
       "parsed": true,
-      "stat_ids": [],
-      "stat_keys": []
+      "stat_ids": [
+       27
+      ],
+      "stat_keys": [
+       "perfect_dodge"
+      ]
      }
     ]
    }

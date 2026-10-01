@@ -32,7 +32,7 @@ import { attrFix, countsAsBoss, magicDamage, physicalCardFix, physicalDamage, re
 import type { Fighter, MobSkill, Monster } from '../model.ts';
 import { playbookPlan } from '../playbook.ts';
 import {
-  canUse, dot, followUpComing, grant, has, mobCloaked, readyAt, say, stacks, strike,
+  canUse, dot, followUpComing, grant, has, mobCloaked, noteProc, readMarks, readyAt, say, stacks, strike,
   type Action, type Fight, type Kit,
 } from '../engine.ts';
 import {
@@ -58,6 +58,8 @@ const SKILLS = [
   "Bishop's Guard", "Knight's Regen", "King's Fortress", 'Duel Stance', 'Ready to Rip', 'Hiding',
   "Morroc's Mark", 'Shield Mastery', 'Blade Mastery', 'Improve Dodge', 'Improve Defense', 'Improve Wisdom',
   'Increase SP Recovery', 'Heal', "Pawn's Cure",
+  // Rogue's Magic Pierce: passives() read it for DEF pen, but it was missing here, so always 0 (found 2026-10-02).
+  'Magic Pierce',
 ];
 
 export function maxLevels(): Record<string, number> {
@@ -138,6 +140,7 @@ function gemAutocast(fight: Fight) {
   if (!forced && (!p || fight.rng.expect || !hasShield(fight) || !fight.rng.chance(p))) return;
   fight.me.buffs.gemProcs = { until: 1e12, stacks: (fight.me.buffs.gemProcs?.stacks ?? 0) + 1 };
   fight.log && say(fight, "Bulwark Gem autocasts Shield Boomerang and King's Chains");
+  noteProc(fight, 'Shield Boomerang'); noteProc(fight, "King's Chains");
   shieldBoomerang.resolve(fight);
   kingsChains.resolve(fight);
 }
@@ -1147,5 +1150,14 @@ export const kingslayer: Kit = {
   onHurt,
   // Rook's Smash puts you on the target: no walk back after a dodge (the project owner, 2026-09-28).
   gapClosers: ["Rook's Smash"],
+  // What the shield combo runs on, for the Rotation overlay's arrows.
+  statuses: (fight) => readMarks(fight, {
+    me: [
+      { key: 'counters', label: 'Duel Counters', stacks: true }, { key: 'sbCombo', label: 'Boomerang → Chains combo' },
+      { key: 'finisher', label: 'Finisher Ready' }, { key: 'landProtector', label: "King's Gambit" },
+      { key: 'barrier', label: "Queen's Barrier", value: true }, { key: 'hidden', label: 'Hiding' },
+    ],
+    target: [{ key: 'tax', label: "Bishop's Tax" }, { key: 'raid', label: 'Sneak Attack mark' }],
+  }),
 };
 

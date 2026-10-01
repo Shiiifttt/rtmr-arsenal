@@ -120,6 +120,29 @@ export function aggregate(build: Build, data: Dataset): Totals {
       }
       multiplier *= steps;
     }
+    if (eff.per_base_level) {
+      const steps = Math.floor(level / eff.per_base_level);
+      if (steps <= 0) {
+        uncounted.push({ label, text: eff.text, reason: `needs base level ${eff.per_base_level}` });
+        return;
+      }
+      multiplier *= steps;
+    }
+    if (eff.per_skill_level) {
+      // As the "Per Level of X:" heading below: the class's max level, or none.
+      const { skills: names, combine } = eff.per_skill_level;
+      const levels = names.map((n) => classSkills?.[n] ?? 0);
+      const steps = combine === 'best' ? Math.max(0, ...levels) : levels.reduce((a, b) => a + b, 0);
+      if (steps <= 0) {
+        uncounted.push({
+          label, text: eff.text,
+          reason: build.className ? `${build.className} does not learn ${names.join(' or ')}`
+            : 'scales with a skill level (no class picked)',
+        });
+        return;
+      }
+      multiplier *= steps;
+    }
     if ((!eff.stat_ids || eff.stat_ids.length === 0) && eff.skills?.length && eff.skill_metric) {
       // A skill modifier: totalled against the skill, never a global stat.
       const value = eff.value * multiplier;
@@ -431,13 +454,23 @@ export function aggregate(build: Build, data: Dataset): Totals {
     for (const { eff, label, multiplier, halved } of deferred) {
       const { per, stat } = eff.per_stat!;
       const source = derivedByKey.get(stat);
-      const total = source ? source.total : gear(stat)?.flat ?? 0;
+      // "per 2 total VIT": the sheet's points and the gear's together.
+      const baseKey = (BASE_STAT_KEYS as readonly string[]).includes(stat) ? stat as keyof BaseStats : null;
+      const total = source ? source.total
+        : baseKey ? Math.floor(((base[baseKey] ?? 0) + (gear(stat)?.flat ?? 0)) * (1 + (gear(stat)?.percent ?? 0) / 100))
+        : gear(stat)?.flat ?? 0;
       const steps = Math.floor(total / per);
       if (steps <= 0) {
         uncounted.push({
           label, text: eff.text,
           reason: `needs ${per} ${stat} (have ${total})`,
         });
+        continue;
+      }
+      if (!eff.stat_ids?.length) {
+        // A skill modifier ("Envenom DMG +2% per total DEX"): totalled
+        // against the skill the same way as in the first pass.
+        add({ ...eff, per_stat: undefined }, `${label} (${steps}x from ${total} ${stat})`, multiplier * steps);
         continue;
       }
       for (const statId of eff.stat_ids ?? []) {

@@ -37,6 +37,8 @@ export interface Fighter {
   offhand: Weapon | null;
   /** The shield in the off hand: its weight (display units) and refine feed the shield skills. */
   shield?: { name: string; type: string; weight: number; refine: number };
+  /** The Class Gem worn (the gem slot) and its refine: its prose lines are the kit's to read. */
+  classGem?: { name: string; refine: number };
   /** Every equipped item's and card's description, for effects the parser leaves as prose (class gems). */
   gearText?: string;
   /**
@@ -70,6 +72,10 @@ export interface Fighter {
   critDamageLeft?: number;
   /** ASPD as the character window shows it. */
   aspd: number;
+  /** The most ASPD can reach (180 + 1 per 40 AGI + gear's ASPD Limit, 190 at most): for ASPD a kit adds in a fight. */
+  aspdLimit?: number;
+  /** Base stat points, before gear: what "per base LUK" lines read (Crow of Destiny). */
+  baseStats?: Stats;
   /**
    * Ready to Rip (LK_CONCENTRATION): % on status ATK and weapon ATK only --
    * not equip ATK or ATK%, so not the shield skills (RTM status.cpp:6946, 7024).

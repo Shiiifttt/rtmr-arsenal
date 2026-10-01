@@ -48,11 +48,20 @@ _CONTINUES = re.compile(r"^[a-z]|^[+\-,;)]|^\d+%|^and\b|^per\b|^or\b", re.I | re
 # A bare "10%" on its own line is a fragment of the line above; "10% chance
 # to autocast Heal" is a new statement, so the digit rule only fires when
 # the whole line is that fragment.
-_CONTINUES_LOWER = re.compile(r"^[a-z]|^[+\-,;)]|^\d+%\s*[,.]?$")
+#
+# Except "+4 refine: MDEF +5", which opens a refine threshold of its own.
+# Nor "(Neutral excluded)", which finishes the line above but is read there.
+_CONTINUES_LOWER = re.compile(
+    r"^[a-z]|^[+\-,;)](?!\d+\s+(?i:refines?)\s*:)|^\d+%\s*[,.]?$"
+    r"|^\((?i:neutral\s+excluded|except\s+neutral)\)\.?$")
 
 # "... and" / "... from" / "... a" cannot be the end of a sentence.
+#
+# "base" and "autocast" too: "HP Regen +1% per 3 base" + "LUK." (Sea of
+# Dreams) and "1% chance per refine to autocast" + "Flaming Petals Lv5." (Lord
+# of Flames) were each read as two lines, the second a stray skill grant.
 _DANGLING = re.compile(
-    r"[,(]$|\b(and|or|the|of|to|from|with|a|an|vs|by|per|at|in|for|on)$", re.I)
+    r"[,(]$|\(total$|\b(and|or|the|of|to|from|with|a|an|vs|by|per|at|in|for|on|base|autocast)$", re.I)
 
 # A heading whose own payload got cut by the wrap:
 #   "Set refine 18+: Fixed Cast" + "Time -0.1s"
@@ -60,7 +69,12 @@ _DANGLING = re.compile(
 # value -- "Set refine 9+: ASPD Limit +1" is complete and must not swallow
 # the line below it.
 _CUT_HEADING_TAIL = re.compile(r":\s*(?P<tail>[^:]{1,15})$")
-_ENDS_IN_VALUE = re.compile(r"[\d%]\s*(s|sec|secs|seconds?|min|mins)?\.?$", re.I)
+# "Innate : HP+1%/Upgrade" (the class runes) is complete too: the scaling is
+# written after the value, and without this the rune's skill line below was
+# glued on and both were lost.
+_ENDS_IN_VALUE = re.compile(
+    r"(?:[\d%]\s*(s|sec|secs|seconds?|min|mins)?"
+    r"|(?:/|\bper\b)\s*(?:\d+\s*)?(?:refine|upgrade)s?)\.?$", re.I)
 
 
 def _starts_structure(line: str) -> bool:
@@ -84,6 +98,16 @@ def _is_flag_phrase(line: str) -> bool:
         return True
     keys = stat_registry.resolve(text).get("stat_keys") or []
     return bool(keys) and all(k in stat_registry.FLAG_KEYS for k in keys)
+
+
+def _names_a_stat(text: str) -> bool:
+    """Does this line, read alone, give a value to a stat the planner knows?"""
+    return bool(_stat_keys(text))
+
+
+def _stat_keys(text: str) -> set[str]:
+    """The stats this line, read alone, gives a value to."""
+    return {k for e in parse_line(text) if e.get("parsed") for k in (e.get("stat_keys") or [])}
 
 
 def unwrap(desc: str) -> list[str]:
@@ -132,10 +156,20 @@ def unwrap(desc: str) -> list[str]:
 
             if _CONTINUES_LOWER.match(line):
                 joined = True
+            # "Per Level of Spectral" + "Mastery:" -- a heading the wrap cut
+            # in two, which left its block under a condition called "Mastery".
+            elif (line.endswith(":") and len(line.split()) <= 2
+                  and PER_SKILL_LEVEL.match(f"{prev} {line}".rstrip(":").strip())):
+                joined = True
             # "<Name> Set" / "Bonus:" split across the wrap.
             elif line == "Bonus:" and re.search(r"\bSet$", prev):
                 joined = True
             elif _DANGLING.search(prev):
+                joined = True
+            # "Variable Cast -1% and Fixed" + "Cast -1%." (True Goddess): the
+            # second stat's name cut off after its first word.
+            elif (re.search(r"\d%?\s+and\s+[A-Z]\w*$", prev) and re.search(r"\d", line)
+                  and not _starts_structure(line) and not _names_a_stat(line)):
                 joined = True
             elif not prev.endswith(":"):
                 m = _CUT_HEADING_TAIL.search(prev)
@@ -152,13 +186,34 @@ def unwrap(desc: str) -> list[str]:
                 # happen to be short and adjacent get welded together:
                 # "No Size Penalty" + "Ignores Reflect Damage" is one line
                 # that means nothing, where they are two effects.
+                #
+                # And not when the line below already reads as a stat on its
+                # own: "Knockback Immunity" + "Move Speed +10%" (Genesis
+                # armours) and "Skill Random Mods" + "Healing Received -25%"
+                # (Death Hand) are two statements, and welded they were both
+                # lost.
                 elif (forced
                       and re.search(r"\d", line)
                       and not re.search(r"\d", prev)
                       and len(prev.split()) <= 3
                       and not prev.endswith((".", "!", "?"))
                       and not _is_flag_phrase(prev)
-                      and not _starts_structure(line)):
+                      and not _starts_structure(line)
+                      and not _names_a_stat(line)):
+                    joined = True
+                # The same split where the width test cannot see it, decided
+                # on what the words mean instead: the line below is a value
+                # with no stat it can name, and the two together name one.
+                # "Defense and Magic Defense" + "Penetration +1" (the shadow
+                # sets), "Physical Damage" + "Received -5%" (Boss Chain).
+                # "Penetration +1" alone is DEF penetration, so the test is
+                # that the two together name more than the second does.
+                elif (re.search(r"\d", line)
+                      and not re.search(r"\d", prev)
+                      and len(prev.split()) <= 5
+                      and not prev.endswith((".", "!", "?"))
+                      and not _starts_structure(line)
+                      and _stat_keys(prev + " " + line) > _stat_keys(line)):
                     joined = True
 
         if joined:
@@ -187,6 +242,9 @@ _NOISE = re.compile(
     r"^(?:requirement\s*:.*"
     r"|colou?r\s*:.*"
     r"|slotted\.?"
+    # The weapon level, which `weapon_level` already holds: "Lv: 2", and
+    # "(Odachi) Lv: 4". Read as a stat it was a skill called "Lv".
+    r"|(?:\(\w+\)\s*)?lv\s*:\s*\d+"
     # Written both ways: "3 Slots" and "Two Slots".
     r"|(?:\d+|one|two|three|four)\s+slots?\.?)$", re.I)
 # "Job: Night Raven Color: Awakened" -- the job half is real, the colour is
@@ -194,11 +252,34 @@ _NOISE = re.compile(
 _NOISE_TAIL = re.compile(r"\s*\bcolou?r\s*:.*$", re.I)
 
 
+# Some elemental weapons end on a hard-coded element chart: "Dark Weapon" /
+# "+10% Damage vs Fire/Water/Earth/Wind/Holy" / "-10% Damage vs Dark" (Dark
+# Beak, Demon Claws, Daybreak Sword, Zephyrus, Scorpion Spear, Sarah Irine
+# Card). The project owner (2026-10-01): it describes the element table, is
+# likely not accurate, and is not a bonus. The wrap glues it into one line.
+_ELEM_WORD = r"(?:neutral|water|earth|fire|wind|poison|holy|dark|shadow|ghost|undead)"
+_CHART_HEAD = re.compile(rf"^{_ELEM_WORD}\s+weapon\b", re.I)
+# The wrap cuts the rows anywhere, so a value can land either side of its
+# "Damage vs ...": the body is just values and target phrases, in any order.
+_CHART_BODY = re.compile(r"^(?:\s*(?:[+\-]\d+%|damage\s+vs\s+[\w/]+))*\s*$", re.I)
+
+
+def _is_element_chart(line: str) -> bool:
+    text = line.strip()
+    head = _CHART_HEAD.match(text)
+    rest = text[head.end():] if head else text
+    if not _CHART_BODY.match(rest):
+        return False
+    # Alone, "Damage vs Water +10%" is a real bonus; only the chart's shape
+    # -- its heading, or several rows at once -- marks it.
+    return bool(head) or len(re.findall(r"damage\s+vs", rest, re.I)) >= 2
+
+
 def strip_noise(lines: list[str]) -> list[str]:
     out: list[str] = []
     for line in lines:
         cut = _NOISE_TAIL.sub("", line).strip() if _NOISE_TAIL.search(line) else line
-        if not cut or _NOISE.match(cut.strip()):
+        if not cut or _NOISE.match(cut.strip()) or _is_element_chart(cut):
             # An emptied line still separates blocks, so it is kept blank
             # rather than removed, or two unrelated sections would merge.
             out.append("")
@@ -264,14 +345,42 @@ H_SET_BONUS_NAMED = re.compile(r"^(?P<name>.+?)\s+set\s+bonus\s*:$", re.I)
 # "HP+2% per 3 refines", "+0.1% ... per Refine Level."
 # Shadow gear says "upgrade" for the same thing ("Damage vs Angel +2% per
 # Upgrade"): its refine is what the tooltip elsewhere calls an upgrade.
+# The class runes write it with a slash: "HP+1%/Upgrade", "SP: 1% / Upgrade",
+# "+1% /2 Upgrades", "Fixed Cast Time -0.03s/Refine".
 INLINE_PER_REFINE = re.compile(
-    r"\bper\s+(?P<n>\d+\s+)?(?:refine|upgrade)(?:\s+level)?s?\b\.?", re.I)
+    r"(?:\bper\s+|\s*/\s*)(?:(?P<n>\d+)\s*)?(?:refine|upgrade)(?:\s+level)?s?\b\.?", re.I)
 INLINE_PER_SET_REFINE = re.compile(
     r"\bper\s+(?P<n>\d+\s+)?(?:total\s+)?set\s+refines?\b\.?", re.I)
 # A third scaling axis, and one a damage calculation has to keep apart from
 # both refine numbers: "INT +1 per 5 base STR."
+#
+# "base" is often left out -- "HP +2 per VIT", "SP+1% per 5 VIT", "Max HP +20
+# per base INT" -- and means the same: the server scripts behind those lines
+# read readparam(bVit), the points on the character sheet (Bullhorn Armor,
+# Silver Moon, King's Suit, Fairy Les Card ...). "per base LUK/10" is per 10.
+# "per 2 total VIT" is a different number and is not matched.
 INLINE_PER_BASE_STAT = re.compile(
-    r"\bper\s+(?P<n>\d+)\s+base\s+(?P<stat>STR|AGI|VIT|INT|DEX|LUK)\b\.?", re.I)
+    r"\bper\s+(?:(?P<n>\d+)\s+)?(?:base\s+)?(?P<stat>STR|AGI|VIT|INT|DEX|LUK)"
+    r"(?:\s*/\s*(?P<div>\d+))?\b(?!\s+(?:skill|level|bonus))\.?", re.I)
+
+
+# "HP+10 per Base Level" (Loki's Scarf), "SP +1 per Base Level" (Gemini Eyes).
+INLINE_PER_BASE_LEVEL = re.compile(r"\bper\s+(?:(?P<n>\d+)\s+)?base\s+levels?\b\.?", re.I)
+
+
+# "ASPD +1 per Steel Wings Level", "STR +1 per Overpower level", "Perfect Dodge
+# +2 per Improve Dodge Skill Level", "Variable Cast Time -1% per level of
+# Rolling Flames Learned": the "Per Level of X:" heading, written inline. The
+# skill has to be on the server's list, or it is prose ("per hit level").
+INLINE_PER_SKILL_LEVEL = re.compile(
+    r"\bper\s+(?:level\s+of\s+(?P<a>[A-Za-z][\w' ]*?)(?:\s+learned)?"
+    # "Perfect Dodge +1 per Shield Mastery" (Shield Ring) leaves "level" out.
+    r"|(?P<b>[A-Za-z][\w' ]*?)(?:(?:\s+skill)?\s+level)?)\b\.?$", re.I)
+
+
+def per_base_stat_of(m: re.Match) -> dict:
+    return {"per": int(m.group("n") or 1) * int(m.group("div") or 1),
+            "stat": m.group("stat").upper()}
 
 # "8% chance to leech 5% of damage dealt" -- one sentence, two stats. How
 # often it fires and how much it returns come from different gear and stack
@@ -338,9 +447,13 @@ REQ_INLINE_STAT = re.compile(
 # "ATK +1 every 20 flee" -- scaling off another stat's running total rather
 # than off a base stat or a refine. A third axis, kept apart from the other
 # two because it is read after everything else has been added up.
+#
+# "HP+1 per flee" (Wandering Boots, readparam(bFlee)) gives no number: one.
+# "Max HP +1% per 2 total VIT" (Knuckle Bucket) scales off a base stat's
+# total, points and gear together -- not the sheet, which is "per base VIT".
 EVERY_N_STAT = re.compile(
-    r"^(?P<body>.+?)\s+(?:every|per)\s+(?P<per>\d+)\s+(?P<stat>[A-Za-z][\w /]*?)\s*\.?$",
-    re.I)
+    r"^(?P<body>.+?)\s+(?:every|per)\s+(?:(?P<per>\d+)\s+)?(?P<total>total\s+)?"
+    r"(?P<stat>[A-Za-z][\w /]*?)\s*\.?$", re.I)
 
 EVERY_N_BASE = re.compile(
     r"^every\s+(?P<per>\d+)\s+base\s+(?P<stat>STR|AGI|VIT|INT|DEX|LUK)\s+"
@@ -459,15 +572,17 @@ EFFECT_COLON = re.compile(
     r"(?P<unit>%|s\b|sec\b|seconds?\b)?\s*\.?$", re.I)
 # "Fire Damage Taken", "Damage taken from Boss monsters", "Ranged Damage
 # Taken", "Melee physical damage taken", "Long Range Damage Taken".
+# "received" is the same: "All Damage received -25%" (Detardeurus Scale Orb).
 DAMAGE_TAKEN = re.compile(
-    r"^(?:(?P<elem>[a-z\-]+(?:\s+range)?)\s+)?(?:physical\s+)?damage\s+taken"
+    r"^(?:(?P<elem>[a-z\-]+(?:\s+range)?)\s+)?(?:physical\s+)?damage\s+(?:taken|received)"
     r"(?:\s+from\s+(?P<target>.+))?$", re.I)
 # "Ranged Damage Taken" reads as a resistance by range, not by element.
 _RANGE_TAKEN = {"ranged": "Ranged Resistance", "long range": "Ranged Resistance",
                 "melee": "Melee Resistance", "short range": "Melee Resistance",
                 "short-range": "Melee Resistance",
-                # "Final Damage Taken -5%" is Final Damage Reduction +5%.
-                "final": "Final Damage Reduction"}
+                # "Final Damage Taken -5%" is Final Damage Reduction +5%, and
+                # "All Damage taken -5%" (Excelion) the same.
+                "final": "Final Damage Reduction", "all": "Final Damage Reduction"}
 
 # HP and SP back per kill. "Recover 500 HP when killing an enemy.", "Recover
 # 50 HP and 5 SP per kill.", "Regain 3 SP on kill", "On kill: recover 20 HP
@@ -548,7 +663,9 @@ REFLECT = re.compile(
 # dropping Shadow Ore", "+1 more per refine").
 EFFECT_PREFIX = re.compile(
     r"^(?P<sign>[+\-])?\s*(?P<value>\d+(?:\.\d+)?)\s*(?P<unit>%)?\s+"
-    r"(?P<stat>[A-Za-z][A-Za-z /']*?)\s*\.?$")
+    # Commas too, for a list of targets: "+10% damage to Earth, Fire, Wind
+    # and Water monsters." (Starbound Wrath). Still only taken when it resolves.
+    r"(?P<stat>[A-Za-z][A-Za-z /',]*?)\s*\.?$")
 
 
 def parse_effect(text: str, per_refine: int | None = None,
@@ -573,10 +690,28 @@ def parse_effect(text: str, per_refine: int | None = None,
     per_base_stat = None
     m = INLINE_PER_BASE_STAT.search(body)
     if m:
-        per_base_stat = {"per": int(m.group("n")), "stat": m.group("stat").upper()}
+        per_base_stat = per_base_stat_of(m)
         body = INLINE_PER_BASE_STAT.sub("", body).strip(" .,")
 
+    per_base_level = None
+    m = INLINE_PER_BASE_LEVEL.search(body)
+    if m:
+        per_base_level = int(m.group("n") or 1)
+        body = INLINE_PER_BASE_LEVEL.sub("", body).strip(" .,")
+
+    per_skill_level = None
+    m = INLINE_PER_SKILL_LEVEL.search(body)
+    if m:
+        skill = stat_registry._one_skill((m.group("a") or m.group("b")).strip())
+        if skill:
+            per_skill_level = {"skills": [skill], "combine": "sum"}
+            body = body[:m.start()].strip(" .,")
+
     eff: dict = {"text": text.strip()}
+    if per_skill_level is not None:
+        eff["per_skill_level"] = per_skill_level
+    if per_base_level is not None:
+        eff["per_base_level"] = per_base_level
     if per_refine is not None:
         eff["per_refine"] = per_refine
     if per_set_refine is not None:
@@ -616,6 +751,12 @@ def parse_effect(text: str, per_refine: int | None = None,
         if (eff["value"] > 0 and keys and keys <= stat_registry.LOWER_IS_BETTER
                 and re.search(r"\breduction\b", stat_text, re.I)):
             eff["value"] = -eff["value"]
+        # A skill named on its own with a per cent: "Vengeance +2%", "Joker's
+        # Draw +2%" (the class runes). The server scripts behind them are all
+        # bSkillAtk, the skill's damage.
+        if (not eff.get("stat_ids") and not eff.get("skill") and eff.get("unit") == "%"
+                and stat_registry._one_skill(stat_text)):
+            eff.update(stat_registry.resolve(f"{stat_text} Damage"))
         if eff.get("skill") and not eff.get("stat_ids"):
             # Which skills, by their proper names, so bonuses to one skill
             # from different items can be added up as one figure.
@@ -653,10 +794,62 @@ def split_effects(line: str) -> list[str]:
     # The full stop must follow a value to count as a separator. "ATK -2.
     # MATK -2." is two effects; "Water Element Resist. +10%" is one, with an
     # abbreviation in the middle of it.
+    # Two lines the wrap glued with no space at all: "Dragon Thrust DMG
+    # +50%Perfect Hit +2% per refine" (Old King Spear). A per cent sign
+    # straight into a capital never happens inside one effect.
+    line = re.sub(r"(?<=%)(?=[A-Z])", ", ", line)
     parts = [p.strip(" .") for p in
              re.split(r"(?:,|(?<=[%\d])\.\s)\s*(?=[^,]*?[+\-]\s*\d)", line)
              if p.strip(" .")]
+    # A part with no number is the head of a list, not an effect: "Fire,
+    # Water, Earth and Wind Magic ATK +10%" (Sphinx) is one effect on four
+    # elements, and cut at the commas it counted Earth and Wind only.
+    merged: list[str] = []
+    for p in parts:
+        if merged and not re.search(r"\d", merged[-1]):
+            merged[-1] = f"{merged[-1]}, {p}"
+        else:
+            merged.append(p)
+    parts = [q for p in merged for q in _split_pair(p)]
     return parts if len(parts) > 1 else [line]
+
+
+# "ATK +1 and MATK +1 per refine", "Max HP +2% and Max SP +2% per total set
+# refine", "ATK +5 / MATK +5", "ATK +1 & MATK +1", "DEF+7 MDEF+3": two stats,
+# each with its own value. Split only where the left half already ends in a
+# value and the right half names a stat and gives one, so "HP+1%/Upgrade" and
+# "Increase AGI and Blessing Lv5" stay whole.
+_PAIR = re.compile(
+    r"(?<=\d)%?\s*(?:\s(?:and|&)\s|\s*/\s*|\s+)(?=[A-Za-z][A-Za-z' ]*?\s*[+\-]\s*\d)")
+
+
+def _split_pair(part: str) -> list[str]:
+    m = _PAIR.search(part)
+    if not m:
+        return [part]
+    left, right = part[:m.start()] + ("%" if m.group(0).startswith("%") else ""), part[m.end():]
+    if not re.search(r"[+\-]\s*\d+(?:\.\d+)?%?$", left.strip()):
+        return [part]
+    pieces = [left.strip(), *(_split_pair(right.strip()))]
+    # Both halves have to name something on their own, or it was one phrase
+    # after all: "refine armors between +7 to +9", and End of Kings' "DEF +1%
+    # and Soft DEF +1%", which the combat sim reads whole.
+    def named(p: str) -> bool:
+        e = parse_effect(_scaling_stripped(p))
+        return bool(e.get("parsed") and (e.get("stat_ids") or e.get("skills")))
+    if not (named(pieces[0]) and named(pieces[1])):
+        return [part]
+    # A scaling written once at the end belongs to every half: "ATK +1 and
+    # MATK +1 per refine" is +1 of each per refine, not a flat ATK +1.
+    tail = None
+    for pattern in (INLINE_PER_SET_REFINE, INLINE_PER_REFINE, INLINE_PER_BASE_STAT):
+        t = pattern.search(pieces[-1])
+        if t and t.end() >= len(pieces[-1].rstrip(" .")):
+            tail = t.group(0).strip()
+            break
+    if tail:
+        pieces = [p if p == pieces[-1] or tail in p else f"{p} {tail}" for p in pieces]
+    return pieces
 
 
 # "+1% per 10 base STR" on its own names no stat: it is a second clause about
@@ -678,10 +871,15 @@ _BARE_VALUE = re.compile(r"^[+\-]\s*\d")
 # "for all" reaches back over the whole run of stat lines above it rather than
 # just the last one -- Dream Shoes writes three, then "Extra 1% per refine for
 # all".
+#
+# Also "It gains +1 per refine." (Croc's Gift Boots, under "Magic Defense
+# Penetration +5.") and the class runes' "Extra 3% damage/Upgrade", where the
+# word is the skill damage named on the line above (Ansuz Rune of Insight:
+# Blitz Beat +2% +3% per refine, as the server script has it).
 _CARRY_OVER = re.compile(
-    r"^(?:extra\s+|an\s+extra\s+)?"
+    r"^(?:extra\s+|an\s+extra\s+|it\s+gains\s+)?"
     r"(?P<sign>[+\-])?\s*(?P<value>\d+(?:\.\d+)?)\s*(?P<unit>%)?"
-    r"(?:\s+more)?(?P<all>\s+for\s+all)?\s*\.?$", re.I)
+    r"(?:\s+more)?(?:\s+(?:damage|dmg))?(?P<all>\s+for\s+all)?\s*\.?$", re.I)
 
 
 def parse_leech(line: str) -> list[dict] | None:
@@ -776,25 +974,108 @@ def parse_every_n_stat(line: str) -> list[dict] | None:
         return None
     source = stat_registry.resolve(m.group("stat"))
     keys = source.get("stat_keys") or []
-    if len(keys) != 1 or keys[0] in ("str", "agi", "vit", "int", "dex", "luk"):
+    base = bool(keys) and keys[0] in ("str", "agi", "vit", "int", "dex", "luk")
+    if len(keys) != 1 or (base and not m.group("total")):
         # Base stats have their own axis, which reads the character sheet
-        # rather than the running total. Sending them here would let a
-        # bonus scale off a bonus.
+        # rather than the running total -- unless the line says "total".
         return None
 
     effects = parse_line(m.group("body"))
-    if not effects or not all(e.get("parsed") and e.get("stat_ids") for e in effects):
+    # A skill's damage may scale too ("Envenom DMG +2% per total DEX").
+    if not effects or not all(e.get("parsed") and (e.get("stat_ids") or e.get("skills"))
+                              for e in effects):
         return None
     for eff in effects:
-        eff["per_stat"] = {"per": int(m.group("per")), "stat": keys[0]}
+        eff["per_stat"] = {"per": int(m.group("per") or 1), "stat": keys[0]}
         eff["text"] = line.strip()
     return effects
+
+
+# A skill the gear gives, at a level: "Enables Frost Diver Lv3", "Grants Raven
+# Steps Lv 1", "Dragon Thrust: Lv5", "Enables Double Attack Lv. 10 (applies to
+# all weapons)", "Double Attack Lv3 (30%)" -- the last also a 30% chance, as
+# the server scripts give it (skill "TF_DOUBLE",3; bDoubleRate,30).
+SKILL_LEVEL = re.compile(
+    r"^(?:(?P<verb>enables?|grants?)\s+)?(?:skill\s+)?(?P<skill>[A-Za-z][A-Za-z' \-]*?)"
+    r"\s*(?P<colon>:)?\s*Lv\.?\s*:?\s*(?P<n>\d+)\s*(?:\((?P<rate>\d+)%\))?"
+    r"\s*(?:\(applies to all weapons\))?\s*\.?$", re.I)
+
+# Set while parsing a manual, tome or class book, where a bare "Teleport Lv2"
+# is a grant. Elsewhere a bare "Abracadabra Lv7." is the end of an autocast
+# sentence the wrap cut in two, and must not read as a skill learned.
+_BARE_SKILL_LEVELS = False
+
+
+# A skill at the item's refine: "Enables Free Cast equal refine level", "Enables
+# Shadow Slash Lvl = refine", "Enables Northern Cross at the same level as
+# current refine", "Enables Dragon Breath on the same level as refined",
+# "Double Attack Lv: = Refine (max 10)". Or at another skill's level: "Double
+# Attack Lv: = Spectral Mastery Lv", "Double Attack Lv: Same as Spectral Mastery".
+SKILL_AT_REFINE = re.compile(
+    r"^(?:(?:enables?|grants?)\s+)?(?P<skill>[A-Za-z][A-Za-z' \-]*?)\s*(?:lvl?\.?\s*:?\s*=\s*refine"
+    r"|lv\s*:\s*=\s*refine(?:\s*\(max\s+\d+\))?"
+    r"|at\s+refine\s+level|equal\s+(?:to\s+)?refine\s+level"
+    r"|(?:with|on|at)\s+the\s+same\s+level\s+as\s+(?:current\s+)?refine(?:d|\s+level)?"
+    r"|according\s+to\s+refine(?:\s+level)?)\.?$", re.I)
+SKILL_AT_SKILL = re.compile(
+    r"^(?P<skill>double\s+attack)\s+lv\s*:\s*(?:=|same\s+as)\s*(?P<of>[A-Za-z' ]+?)(?:\s+lv)?\.?$", re.I)
+
+
+def parse_skill_level(line: str) -> list[dict] | None:
+    text = line.strip()
+    m = SKILL_AT_REFINE.match(text)
+    if m:
+        name = m.group("skill").strip(" -")
+        da = re.fullmatch(r"double\s+attack", name, re.I)
+        skill = None if da else stat_registry._one_skill(name)
+        if da or skill:
+            base = ({"stat": "Double Attack Lv", **stat_registry.resolve("Double Attack Lv")} if da else
+                    {"stat": f"{name} Lv", "stat_ids": [], "stat_keys": [], "skill": name,
+                     "skill_metric": "level", "skills": [skill]})
+            return [{"text": text, "value": 1, "unit": None, "parsed": True, "per_refine": 1, **base}]
+    m = SKILL_AT_SKILL.match(text)
+    if m:
+        of = stat_registry._one_skill(m.group("of").strip())
+        if of:
+            return [{"text": text, "stat": "Double Attack Lv", "value": 1, "unit": None,
+                     "parsed": True, "per_skill_level": {"skills": [of], "combine": "sum"},
+                     **stat_registry.resolve("Double Attack Lv")}]
+    m = SKILL_LEVEL.match(text)
+    if not m:
+        return None
+    name = m.group("skill").strip(" -")
+    n = int(m.group("n"))
+    text = line.strip()
+    if re.fullmatch(r"double\s+attack", name, re.I):
+        out = [{"text": text, "stat": "Double Attack Lv", "value": n, "unit": None,
+                "parsed": True, **stat_registry.resolve("Double Attack Lv")}]
+        if m.group("rate"):
+            out.append({"text": text, "stat": "Double Attack Rate", "value": int(m.group("rate")),
+                        "unit": "%", "parsed": True, **stat_registry.resolve("Double Attack Rate")})
+        return out
+    if not (m.group("verb") or m.group("colon") or _BARE_SKILL_LEVELS):
+        return None
+    skill = stat_registry._one_skill(name)
+    if not skill:
+        return None
+    return [{"text": text, "stat": f"{name} Lv", "value": n, "unit": None, "parsed": True,
+             "stat_ids": [], "stat_keys": [], "skill": name, "skill_metric": "level",
+             "skills": [skill]}]
 
 
 def parse_line(line: str) -> list[dict]:
     flag = parse_flag(line)
     if flag:
         return [flag]
+    levels = parse_skill_level(line)
+    if levels:
+        return levels
+    # "All elements resistance +1% (Neutral excluded)." (Nature's Chosen): the
+    # exclusion is written after the value, where the stat cannot see it.
+    m = re.match(r"^(?P<stat>.+?)\s*(?P<val>[+\-]\s*\d+(?:\.\d+)?%?)\s*"
+                 r"\(\s*(?:neutral\s+excluded|except\s+neutral)\s*\)\.?$", line.strip(), re.I)
+    if m:
+        return [dict(e, text=line.strip()) for e in parse_line(f"{m['stat']} except neutral {m['val']}")]
     enchant = parse_enchant(line)
     if enchant:
         return [{"text": line.strip(), "parsed": True, "enchant": enchant,
@@ -898,7 +1179,7 @@ def inherit_stat(eff: dict, src: dict) -> dict | None:
         return None
     sign = m.group("sign") or ("-" if (src.get("value") or 0) < 0 else "+")
     out = parse_effect(f"{src['stat']} {sign}{m.group('value')}{m.group('unit') or ''}")
-    if not out.get("parsed") or not out.get("stat_ids"):
+    if not out.get("parsed") or not (out.get("stat_ids") or out.get("skills")):
         return None
     out["text"] = eff["text"]
     out["stat_inherited"] = True
@@ -926,7 +1207,11 @@ def carry_over(effects: list[dict], run: list[dict]) -> list[dict]:
     """
     out: list[dict] = []
     for eff in effects:
-        if eff.get("parsed") or not run:
+        # Parsed onto nothing counts as unread here: "It gains +1 per refine"
+        # reads as a stat called "It gains".
+        mapped = eff.get("parsed") and (eff.get("stat_ids") or eff.get("skills")
+                                        or eff.get("sets_element") or eff.get("enchant"))
+        if mapped or not run:
             out.append(eff)
             continue
         sources = run if carries_to_all(eff["text"]) else run[-1:]
@@ -947,7 +1232,7 @@ def stat_run(effects: list[dict], previous: list[dict]) -> list[dict]:
     tooltip than the lines it follows.
     """
     named = [e for e in effects if e.get("parsed") and e.get("stat")
-             and e.get("stat_ids") and not e.get("stat_inherited")]
+             and (e.get("stat_ids") or e.get("skills")) and not e.get("stat_inherited")]
     if named:
         return previous + named
     return previous if any(e.get("stat_inherited") for e in effects) else []
@@ -999,16 +1284,166 @@ BASE_PLUS_PER_REFINE = re.compile(
     re.I)
 
 
+# The same in the other wordings the newer gear uses, each a base and then
+# how much more per refine (or per base stat):
+#   "Rolling Cutter damage +20%, plus 5% per refine." (Prime Self)
+#   "Heal SP cost -9%, plus 9% more per refine."      (Friendly Orphan)
+#   "Fire resistance +5% (+3% per refine)."           (Nature's Chosen)
+#   "DEF +5, plus +1 per refine."                     (Cold of Darkness)
+#   "Magic Defense Penetration +5, and +1 per refine." (Croc's Gift)
+#   "Perfect Dodge +2 +1 per refine"                  (Dragon Soul Armguard)
+#   "Melee Attack +1% +1% /2 Upgrades"                (Raidho Rune)
+#   "HP/SP-10% +1% recovered per Upgrade"             (Eihwaz Rune of Trust)
+#   "Max HP and SP +1%, plus 1% per 20 base LUK"      (Fumbling Tech)
+# Where the second number has no sign it takes the first one's: "-9%, plus
+# 9% more" is a bigger cut, not a smaller one. "recovered" gives its own.
+BASE_PLUS_SCALING = re.compile(
+    r"^(?P<stat>[A-Za-z][^+\-\d]*?)\s*(?P<s1>[+\-])\s*(?P<v1>\d+(?:\.\d+)?)(?P<u1>%|s)?"
+    # Something has to stand between the two numbers, or "-0.03s/Refine"
+    # reads as -0.0 and then 3.
+    r"(?:\s*[,(]\s*(?:(?:plus|and)\s+)?|\s+(?:(?:plus|and)\s+)?|(?=[+\-]))"
+    r"(?P<s2>[+\-])?\s*(?P<v2>\d+(?:\.\d+)?)(?P<u2>%|s)?"
+    r"\s*(?:extra\s+|more\s+|recovered\s+)?"
+    r"(?P<per>(?:per|/)\s*(?:\d+\s*)?(?:refine|upgrade)s?(?:\s+level)?"
+    r"|per\s+(?:\d+\s+)?(?:base\s+)?(?:STR|AGI|VIT|INT|DEX|LUK)\b)\s*\)?\.?$", re.I)
+
+
+_STAT_WORD = r"(?:STR|AGI|VIT|INT|DEX|LUK)"
+
+
+# A skill's "scaling" on a base stat. Every one the 2023 server has a script
+# for is bSkillAtk, the skill's damage, by whole steps of the sheet's points:
+# Driller Card's "0.2% per base AGI" is AGI/5, Haedonggum's "0.5% per INT" is
+# INT/2, Spectral Spear's "1% per VIT" is VIT. So a fraction becomes 1% per N.
+#   "Phantom Spear Receives 1% per VIT Scaling", "Backstab receives 1% base
+#   DEX scaling", "Instant Aces receives 1% per Base DEX extra scaling",
+#   "Dragon Claw receives extra 0.2% per base AGI scaling",
+#   "Adds 0.1% AGI scaling to Flaming Petals, Freezing Spear and Wind Blade",
+#   "Adds 1% per base INT scaling to Crescent Dive",
+#   "Shadowstab Scaling+ 1% per 2 Base INT", "Shatter Cross +1% base INT scaling".
+# Not "receives 2% additional scaling on AGI" (Royal Dreams): the Night Raven
+# kit reads that one itself, onto the ratio, pending the owner's word.
+_SCALE_STAT = rf"(?:per\s+)?(?:(?P<k>\d+)\s+)?(?:base\s+)?(?P<st>{_STAT_WORD})"
+_SCALING = [
+    re.compile(rf"^(?P<sk>.+?)\s+receives?\s+(?:extra\s+)?(?P<n>\d+(?:\.\d+)?)%\s+{_SCALE_STAT}"
+               r"\s+(?:extra\s+)?scaling\.?$", re.I),
+    re.compile(rf"^adds\s+(?P<n>\d+(?:\.\d+)?)%\s+{_SCALE_STAT}\s+scaling\s+to\s+(?P<sk>.+?)\.?$", re.I),
+    re.compile(rf"^(?P<sk>.+?)\s+scaling\s*\+\s*(?P<n>\d+(?:\.\d+)?)%\s+{_SCALE_STAT}\.?$", re.I),
+    re.compile(rf"^(?P<sk>.+?)\s+\+(?P<n>\d+(?:\.\d+)?)%\s+{_SCALE_STAT}\s+scaling\.?$", re.I),
+    # "Soul Destroyer receives 2% additional scaling on AGI" (Royal Dreams):
+    # skill damage too, per the 2023 code (the owner, 2026-10-01). The 2%
+    # is the tooltip's; the 2023 script had 1%.
+    re.compile(rf"^(?P<sk>.+?)\s+receives?\s+(?P<n>\d+(?:\.\d+)?)%\s+additional\s+scaling\s+on\s+"
+               rf"(?P<st>{_STAT_WORD})\.?$", re.I),
+]
+
+
+def _scaling_line(t: str) -> str:
+    for rx in _SCALING:
+        m = rx.match(t)
+        if not m:
+            continue
+        n, k = float(m["n"]), int(m.groupdict().get("k") or 1)
+        if n < 1 and (1 / n).is_integer():
+            value, per = 1, k * int(1 / n)
+        else:
+            value, per = (int(n) if n.is_integer() else n), k
+        return f"{m['sk'].strip()} Damage +{value}% per {per} base {m['st'].upper()}"
+    return t
+
+
+def _normalise(text: str) -> str:
+    """Rewrite one line's wording into the shape the effect patterns read.
+
+    Each rule is a wording seen on real items (2026-10-01 audit); none of
+    them changes what a line means, only where its parts sit.
+    """
+    t = text.replace("%%", "%")                                # "SP+1%% per refine"
+    # Asides that restate or qualify, never add: "Leech Power +4% (total 8%)",
+    # "Leech Power +5% (no rate)", "magical damage +8% each".
+    t = re.sub(r"\s*\((?:total\b[^)]*|no rate)\)", "", t, flags=re.I)
+    t = re.sub(r"(\d%?)\s+each\.?$", r"\1", t, flags=re.I)
+    # "Special: Defense Penetration 15" (the revolvers): a value with no sign.
+    t = re.sub(r"^special\s*:\s*(?P<s>[A-Za-z][A-Za-z /]*?)\s+(?P<n>\d+(?:\.\d+)?%?)\.?$",
+               r"\g<s> +\g<n>", t, flags=re.I)
+    # "Reduces all magic damage by 2% per refine" (DeathBound Armor), and the
+    # physical half on the greaves: damage received, lower being better.
+    t = re.sub(r"^reduces?\s+(?:all\s+)?(?P<k>magic|physical)\s+damage\s+(?:taken\s+)?by\s+(?=\d)",
+               lambda m: f"{m['k'].title()} Damage Received -", t, flags=re.I)
+    # "SP Cost reduced by 1%, plus ..." / "ATK increased by 5".
+    t = re.sub(r"^(?P<s>[A-Za-z][A-Za-z /]*?)\s+reduced\s+by\s+(?=\d)", r"\g<s> -", t, flags=re.I)
+    t = re.sub(r"^(?P<s>[A-Za-z][A-Za-z /]*?)\s+increased\s+by\s+(?=\d)", r"\g<s> +", t, flags=re.I)
+    # "Double Strafe DMG +1% per Refine +Extra 1 ATK per Refine" (Lost Bow).
+    t = re.sub(r"\s+\+\s*extra\s+(?=\d)", ", +", t, flags=re.I)
+    # "Extra 1 MATK per refine." -- a stat of its own, unlike "Extra 1% per
+    # refine", which continues the line above.
+    t = re.sub(r"^extra\s+(?P<n>\d+(?:\.\d+)?%?)\s+(?!per\b|more\b|damage\b|dmg\b|for\b)(?=[A-Za-z])",
+               r"+\g<n> ", t, flags=re.I)
+    t = _scaling_line(t)
+    # "Every 10 INT : ATK+1%" (Grace Dagger, bAtkRate INT/10).
+    m = re.match(rf"^every\s+(?P<n>\d+)\s+(?:base\s+)?(?P<st>{_STAT_WORD})\s*:\s*(?P<body>.+)$", t, re.I)
+    if m:
+        t = f"{m['body']} per {m['n']} base {m['st'].upper()}"
+    # "Leech: 8% chance, 3% of the damage as HP", "2% chance, 3% as SP",
+    # "Leech: 100% chance, 5% of the damage dealt" -> the LEECH wording.
+    m = re.match(r"^(?:leech\s*:\s*)?(?P<r>\d+(?:\.\d+)?)%\s*chance,\s*(?P<p>\d+(?:\.\d+)?)%\s*"
+                 r"(?:of\s+the\s+damage\s*)?(?:dealt\s*)?(?:as\s+(?P<pool>hp|sp))?\.?$", t, re.I)
+    if m:
+        t = f"{m['r']}% chance to leech {m['p']}% of damage as {(m['pool'] or 'HP').upper()}"
+    return t
+
+
+# The tooltip line each rewritten line came from, so an effect still shows
+# the words the player reads rather than the parser's rewording of them.
+# Filled per description by split_base_plus_per_refine.
+_TOOLTIP: dict[str, str] = {}
+
+
 def split_base_plus_per_refine(lines: list[str]) -> list[str]:
+    _TOOLTIP.clear()
     out: list[str] = []
     for line in lines:
-        m = BASE_PLUS_PER_REFINE.match(line.strip())
-        if m:
-            out.append(f"{m['stat']} +{m['base']}%")
-            out.append(f"{m['stat']} +{m['per']}% per refine")
-        else:
-            out.append(line)
+        start = len(out)
+        _rewrite_line(line, out)
+        for new in out[start:]:
+            if new != line:
+                _TOOLTIP[new] = line.strip()
     return out
+
+
+def _rewrite_line(line: str, out: list[str]) -> None:
+    """Append one tooltip line to `out` as the line or lines the parser reads."""
+    text = line.strip()
+    # "Innate :" is a label on the class runes, nothing more.
+    text = re.sub(r"^innate\s*:\s*", "", text, flags=re.I)
+    text = _normalise(text)
+    # "Increases SP Recovery speed by 25% + 20% per refine" (Joker's Calm)
+    # is "SP Recovery speed +25% ...", the stat first.
+    text = re.sub(r"^increases?\s+(?P<stat>[a-z][^\d]*?)\s+by\s+(?=[+\-]?\s*\d)",
+                  lambda m: m["stat"] + (" " if text[m.end():].lstrip()[:1] in "+-" else " +"),
+                  text, flags=re.I)
+    m = BASE_PLUS_PER_REFINE.match(text)
+    if m:
+        out.append(f"{m['stat']} +{m['base']}%")
+        out.append(f"{m['stat']} +{m['per']}% per refine")
+        return
+    # "+4 refine: MDEF +5." (Embracing Goddess) is a refine threshold
+    # written inline, heading and payload on one line.
+    m = re.match(r"^\+(?P<n>\d+)\s+refine\s*:\s*(?P<rest>.*)$", text, re.I)
+    if m:
+        out.append(f"Refine +{m['n']}:")
+        if m["rest"]:
+            out.append(m["rest"])
+        return
+    m = BASE_PLUS_SCALING.match(text)
+    if m and not re.search(r"\bchance\b", m["stat"], re.I):
+        stat = m["stat"].strip(" :")
+        s2 = m["s2"] or m["s1"]
+        per = re.sub(r"^/\s*", "per ", m["per"].strip())
+        out.append(f"{stat} {m['s1']}{m['v1']}{m['u1'] or ''}")
+        out.append(f"{stat} {s2}{m['v2']}{m['u2'] or m['u1'] or ''} {per}")
+        return
+    out.append(text if text != line.strip() else line)
 
 
 def parse_description(desc: str) -> dict:
@@ -1220,6 +1655,9 @@ def parse_description(desc: str) -> dict:
         # line above it, so it is resolved before anything is filed away.
         line_effects = carry_over(parse_line(line), carry_from)
         carry_run = stat_run(line_effects, carry_from)
+        if line in _TOOLTIP:
+            for eff in line_effects:
+                eff["text"] = _TOOLTIP[line]
 
         for eff in line_effects:
             # An enchant note is a property of the item; lift it out rather
@@ -1560,6 +1998,12 @@ def apply_item_overrides(records: list[dict], overrides: dict) -> tuple[list[dic
                                  for e in parse_line(line)]
             record["changed"].append("effects")
 
+        if "piece_bonus" in patch:
+            # A shadow piece's own lines, where the wrap broke one apart
+            # ("STR +1 per Hallucination" + "Walk level").
+            target["piece_bonus"] = [e for line in patch["piece_bonus"] for e in parse_line(line)]
+            record["changed"].append("piece_bonus")
+
         if "conditional" in patch:
             # For a tooltip that writes a condition as though it were a
             # heading of its own, so the effect under it landed somewhere
@@ -1725,9 +2169,14 @@ def class_skills(skills: dict | None, trees: dict,
 
 
 def build(items: list[dict], overrides: dict | None = None) -> tuple[list[dict], list[dict], dict]:
+    global _BARE_SKILL_LEVELS
     parsed: dict[int, dict] = {}
     for it in items:
-        parsed[it["id"]] = parse_description(it["description"])
+        _BARE_SKILL_LEVELS = it.get("kind") == "Class gear"
+        try:
+            parsed[it["id"]] = parse_description(it["description"])
+        finally:
+            _BARE_SKILL_LEVELS = False
 
     # ---- group items into sets by the name they give themselves ----------
     # keyed slug -> {item id -> that item's block for this set}

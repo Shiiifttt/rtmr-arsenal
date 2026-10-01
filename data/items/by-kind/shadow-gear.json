@@ -2657,7 +2657,7 @@
   "effects": [],
   "piece_bonus": [
    {
-    "text": "Max SP +1%",
+    "text": "Max SP +1%, +1% per 10 base STR.",
     "stat": "Max SP",
     "value": 1,
     "unit": "%",
@@ -2670,7 +2670,11 @@
     ]
    },
    {
-    "text": "+1% per 10 base STR",
+    "text": "Max SP +1%, +1% per 10 base STR.",
+    "per_base_stat": {
+     "per": 10,
+     "stat": "STR"
+    },
     "stat": "Max SP",
     "value": 1,
     "unit": "%",
@@ -2680,12 +2684,7 @@
     ],
     "stat_keys": [
      "max_sp"
-    ],
-    "stat_inherited": true,
-    "per_base_stat": {
-     "per": 10,
-     "stat": "STR"
-    }
+    ]
    }
   ],
   "refine": {
@@ -2761,7 +2760,7 @@
   "effects": [],
   "piece_bonus": [
    {
-    "text": "SP Regen +1%",
+    "text": "SP Regen +1%, +1% per 3 base STR.",
     "stat": "SP Regen",
     "value": 1,
     "unit": "%",
@@ -2774,7 +2773,11 @@
     ]
    },
    {
-    "text": "+1% per 3 base STR",
+    "text": "SP Regen +1%, +1% per 3 base STR.",
+    "per_base_stat": {
+     "per": 3,
+     "stat": "STR"
+    },
     "stat": "SP Regen",
     "value": 1,
     "unit": "%",
@@ -2784,12 +2787,7 @@
     ],
     "stat_keys": [
      "sp_regen"
-    ],
-    "stat_inherited": true,
-    "per_base_stat": {
-     "per": 3,
-     "stat": "STR"
-    }
+    ]
    }
   ],
   "refine": {
@@ -2865,7 +2863,7 @@
   "effects": [],
   "piece_bonus": [
    {
-    "text": "Variable Cast Time -1%",
+    "text": "Variable Cast Time -1%, -1% per 5 base STR.",
     "stat": "Variable Cast Time",
     "value": -1,
     "unit": "%",
@@ -2878,7 +2876,11 @@
     ]
    },
    {
-    "text": "-1% per 5 base STR",
+    "text": "Variable Cast Time -1%, -1% per 5 base STR.",
+    "per_base_stat": {
+     "per": 5,
+     "stat": "STR"
+    },
     "stat": "Variable Cast Time",
     "value": -1,
     "unit": "%",
@@ -2888,12 +2890,7 @@
     ],
     "stat_keys": [
      "variable_cast"
-    ],
-    "stat_inherited": true,
-    "per_base_stat": {
-     "per": 5,
-     "stat": "STR"
-    }
+    ]
    }
   ],
   "refine": {
@@ -2969,7 +2966,7 @@
   "effects": [],
   "piece_bonus": [
    {
-    "text": "MATK +1%",
+    "text": "MATK +1%, +1% per 20 base STR.",
     "stat": "MATK",
     "value": 1,
     "unit": "%",
@@ -2982,7 +2979,11 @@
     ]
    },
    {
-    "text": "+1% per 20 base STR",
+    "text": "MATK +1%, +1% per 20 base STR.",
+    "per_base_stat": {
+     "per": 20,
+     "stat": "STR"
+    },
     "stat": "MATK",
     "value": 1,
     "unit": "%",
@@ -2992,12 +2993,7 @@
     ],
     "stat_keys": [
      "matk"
-    ],
-    "stat_inherited": true,
-    "per_base_stat": {
-     "per": 20,
-     "stat": "STR"
-    }
+    ]
    }
   ],
   "refine": {
@@ -6077,8 +6073,12 @@
        "value": 4,
        "unit": "%",
        "parsed": true,
-       "stat_ids": [],
-       "stat_keys": []
+       "stat_ids": [
+        8
+       ],
+       "stat_keys": [
+        "hp_regen"
+       ]
       }
      ]
     }
@@ -6164,8 +6164,12 @@
        "value": 4,
        "unit": "%",
        "parsed": true,
-       "stat_ids": [],
-       "stat_keys": []
+       "stat_ids": [
+        9
+       ],
+       "stat_keys": [
+        "sp_regen"
+       ]
       }
      ]
     }
@@ -7479,7 +7483,7 @@
   "effects": [],
   "piece_bonus": [
    {
-    "text": "DEF +5",
+    "text": "DEF +5, plus +1 per refine.",
     "stat": "DEF",
     "value": 5,
     "unit": null,
@@ -7498,13 +7502,17 @@
      "per": 1,
      "effects": [
       {
-       "text": "plus +1 per refine",
-       "stat": "plus",
+       "text": "DEF +5, plus +1 per refine.",
+       "stat": "DEF",
        "value": 1,
        "unit": null,
        "parsed": true,
-       "stat_ids": [],
-       "stat_keys": []
+       "stat_ids": [
+        24
+       ],
+       "stat_keys": [
+        "def"
+       ]
       }
      ]
     }
@@ -8637,7 +8645,7 @@
   "effects": [],
   "piece_bonus": [
    {
-    "text": "Max HP +1%",
+    "text": "Max HP +1%, +1% per 10 base INT.",
     "stat": "Max HP",
     "value": 1,
     "unit": "%",
@@ -8650,7 +8658,11 @@
     ]
    },
    {
-    "text": "+1% per 10 base INT",
+    "text": "Max HP +1%, +1% per 10 base INT.",
+    "per_base_stat": {
+     "per": 10,
+     "stat": "INT"
+    },
     "stat": "Max HP",
     "value": 1,
     "unit": "%",
@@ -8660,12 +8672,7 @@
     ],
     "stat_keys": [
      "max_hp"
-    ],
-    "stat_inherited": true,
-    "per_base_stat": {
-     "per": 10,
-     "stat": "INT"
-    }
+    ]
    }
   ],
   "refine": {
@@ -8741,7 +8748,7 @@
   "effects": [],
   "piece_bonus": [
    {
-    "text": "HP Regen +1%",
+    "text": "HP Regen +1%, +1% per 3 base INT.",
     "stat": "HP Regen",
     "value": 1,
     "unit": "%",
@@ -8754,7 +8761,11 @@
     ]
    },
    {
-    "text": "+1% per 3 base INT",
+    "text": "HP Regen +1%, +1% per 3 base INT.",
+    "per_base_stat": {
+     "per": 3,
+     "stat": "INT"
+    },
     "stat": "HP Regen",
     "value": 1,
     "unit": "%",
@@ -8764,12 +8775,7 @@
     ],
     "stat_keys": [
      "hp_regen"
-    ],
-    "stat_inherited": true,
-    "per_base_stat": {
-     "per": 3,
-     "stat": "INT"
-    }
+    ]
    }
   ],
   "refine": {
@@ -8845,7 +8851,7 @@
   "effects": [],
   "piece_bonus": [
    {
-    "text": "ASPD +1%",
+    "text": "ASPD +1%, +1% per 10 base INT.",
     "stat": "ASPD",
     "value": 1,
     "unit": "%",
@@ -8858,7 +8864,11 @@
     ]
    },
    {
-    "text": "+1% per 10 base INT",
+    "text": "ASPD +1%, +1% per 10 base INT.",
+    "per_base_stat": {
+     "per": 10,
+     "stat": "INT"
+    },
     "stat": "ASPD",
     "value": 1,
     "unit": "%",
@@ -8868,12 +8878,7 @@
     ],
     "stat_keys": [
      "aspd"
-    ],
-    "stat_inherited": true,
-    "per_base_stat": {
-     "per": 10,
-     "stat": "INT"
-    }
+    ]
    }
   ],
   "refine": {
@@ -8949,7 +8954,7 @@
   "effects": [],
   "piece_bonus": [
    {
-    "text": "ATK +1%",
+    "text": "ATK +1%, +1% per 20 base INT.",
     "stat": "ATK",
     "value": 1,
     "unit": "%",
@@ -8962,7 +8967,11 @@
     ]
    },
    {
-    "text": "+1% per 20 base INT",
+    "text": "ATK +1%, +1% per 20 base INT.",
+    "per_base_stat": {
+     "per": 20,
+     "stat": "INT"
+    },
     "stat": "ATK",
     "value": 1,
     "unit": "%",
@@ -8972,12 +8981,7 @@
     ],
     "stat_keys": [
      "atk"
-    ],
-    "stat_inherited": true,
-    "per_base_stat": {
-     "per": 20,
-     "stat": "INT"
-    }
+    ]
    }
   ],
   "refine": {
@@ -9617,12 +9621,17 @@
      "effects": [
       {
        "text": "It gains +1 per refine.",
-       "stat": "It gains",
+       "stat": "Magic Defense Penetration",
        "value": 1,
        "unit": null,
        "parsed": true,
-       "stat_ids": [],
-       "stat_keys": []
+       "stat_ids": [
+        29
+       ],
+       "stat_keys": [
+        "mdef_pen"
+       ],
+       "stat_inherited": true
       },
       {
        "text": "MATK -1 per refine",
@@ -9711,7 +9720,7 @@
   "effects": [],
   "piece_bonus": [
    {
-    "text": "Magic Defense Penetration +5",
+    "text": "Magic Defense Penetration +5, and +1 per refine.",
     "stat": "Magic Defense Penetration",
     "value": 5,
     "unit": null,
@@ -9730,13 +9739,17 @@
      "per": 1,
      "effects": [
       {
-       "text": "and +1 per refine",
-       "stat": "and",
+       "text": "Magic Defense Penetration +5, and +1 per refine.",
+       "stat": "Magic Defense Penetration",
        "value": 1,
        "unit": null,
        "parsed": true,
-       "stat_ids": [],
-       "stat_keys": []
+       "stat_ids": [
+        29
+       ],
+       "stat_keys": [
+        "mdef_pen"
+       ]
       },
       {
        "text": "MATK -1 per refine",
@@ -10518,8 +10531,12 @@
        "value": 2,
        "unit": "%",
        "parsed": true,
-       "stat_ids": [],
-       "stat_keys": []
+       "stat_ids": [
+        77
+       ],
+       "stat_keys": [
+        "magic_dmg_dark"
+       ]
       }
      ]
     }
@@ -13713,7 +13730,7 @@
   "effects": [],
   "piece_bonus": [
    {
-    "text": "Move Speed +5%",
+    "text": "Move Speed +5%, +1% per refine.",
     "stat": "Move Speed",
     "value": 5,
     "unit": "%",
@@ -13732,7 +13749,7 @@
      "per": 1,
      "effects": [
       {
-       "text": "+1% per refine",
+       "text": "Move Speed +5%, +1% per refine.",
        "stat": "Move Speed",
        "value": 1,
        "unit": "%",
@@ -13742,8 +13759,7 @@
        ],
        "stat_keys": [
         "move_speed"
-       ],
-       "stat_inherited": true
+       ]
       }
      ]
     }
@@ -14013,48 +14029,82 @@
     "parsed": false
    },
    {
-    "text": "Stacks per piece",
-    "parsed": false
-   },
-   {
-    "text": "up to Lv 4",
-    "parsed": false
-   },
-   {
-    "text": "+4 refine: Total DEF +5%",
-    "stat": "+4 refine: Total DEF",
-    "value": 5,
-    "unit": "%",
-    "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
-   },
-   {
-    "text": "+7 refine: Max HP +5%",
-    "stat": "+7 refine: Max HP",
-    "value": 5,
-    "unit": "%",
-    "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
-   },
-   {
-    "text": "+9 refine: Max HP +5%",
-    "stat": "+9 refine: Max HP",
-    "value": 5,
-    "unit": "%",
-    "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
-   },
-   {
-    "text": "(additional).",
+    "text": "Stacks per piece, up to Lv 4.",
     "parsed": false
    }
   ],
   "refine": {
    "per_refine": [],
-   "thresholds": []
+   "thresholds": [
+    {
+     "kind": "refine_threshold",
+     "at": [
+      4
+     ],
+     "effects": [
+      {
+       "text": "+4 refine: Total DEF +5%.",
+       "stat": "Total DEF",
+       "value": 5,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        24
+       ],
+       "stat_keys": [
+        "def"
+       ],
+       "scope": "total"
+      }
+     ]
+    },
+    {
+     "kind": "refine_threshold",
+     "at": [
+      7
+     ],
+     "effects": [
+      {
+       "text": "+7 refine: Max HP +5%.",
+       "stat": "Max HP",
+       "value": 5,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        6
+       ],
+       "stat_keys": [
+        "max_hp"
+       ]
+      }
+     ]
+    },
+    {
+     "kind": "refine_threshold",
+     "at": [
+      9
+     ],
+     "effects": [
+      {
+       "text": "+9 refine: Max HP +5%",
+       "stat": "Max HP",
+       "value": 5,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        6
+       ],
+       "stat_keys": [
+        "max_hp"
+       ]
+      },
+      {
+       "text": "(additional).",
+       "parsed": false
+      }
+     ]
+    }
+   ]
   },
   "conditional": [
    {
@@ -14139,40 +14189,81 @@
   "effects": [],
   "piece_bonus": [
    {
-    "text": "Grants Resurrection: +1 level per set piece worn (max Lv 4). +4 refine: MDEF +5",
-    "stat": "Grants Resurrection: +1 level per set piece worn (max Lv 4). +4 refine: MDEF",
-    "value": 5,
-    "unit": null,
-    "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
-   },
-   {
-    "text": "+7 refine: Max SP +5%",
-    "stat": "+7 refine: Max SP",
-    "value": 5,
-    "unit": "%",
-    "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
-   },
-   {
-    "text": "+9 refine: Max SP +5%",
-    "stat": "+9 refine: Max SP",
-    "value": 5,
-    "unit": "%",
-    "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
-   },
-   {
-    "text": "(additional).",
+    "text": "Grants Resurrection: +1 level per set piece worn (max Lv 4).",
     "parsed": false
    }
   ],
   "refine": {
    "per_refine": [],
-   "thresholds": []
+   "thresholds": [
+    {
+     "kind": "refine_threshold",
+     "at": [
+      4
+     ],
+     "effects": [
+      {
+       "text": "+4 refine: MDEF +5.",
+       "stat": "MDEF",
+       "value": 5,
+       "unit": null,
+       "parsed": true,
+       "stat_ids": [
+        25
+       ],
+       "stat_keys": [
+        "mdef"
+       ]
+      }
+     ]
+    },
+    {
+     "kind": "refine_threshold",
+     "at": [
+      7
+     ],
+     "effects": [
+      {
+       "text": "+7 refine: Max SP +5%.",
+       "stat": "Max SP",
+       "value": 5,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        7
+       ],
+       "stat_keys": [
+        "max_sp"
+       ]
+      }
+     ]
+    },
+    {
+     "kind": "refine_threshold",
+     "at": [
+      9
+     ],
+     "effects": [
+      {
+       "text": "+9 refine: Max SP +5%",
+       "stat": "Max SP",
+       "value": 5,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        7
+       ],
+       "stat_keys": [
+        "max_sp"
+       ]
+      },
+      {
+       "text": "(additional).",
+       "parsed": false
+      }
+     ]
+    }
+   ]
   },
   "conditional": [
    {
@@ -14259,35 +14350,85 @@
    {
     "text": "Grants Resurrection +1 level.",
     "parsed": false
+   },
+   {
+    "text": "Stacks per piece, up to Lv 4.",
+    "parsed": false
    }
   ],
   "refine": {
    "per_refine": [],
-   "thresholds": []
+   "thresholds": [
+    {
+     "kind": "refine_threshold",
+     "at": [
+      4
+     ],
+     "effects": [
+      {
+       "text": "+4 refine: Fixed Cast -0.3s.",
+       "stat": "Fixed Cast",
+       "value": -0.3,
+       "unit": "s",
+       "parsed": true,
+       "stat_ids": [
+        34
+       ],
+       "stat_keys": [
+        "fixed_cast"
+       ]
+      }
+     ]
+    },
+    {
+     "kind": "refine_threshold",
+     "at": [
+      7
+     ],
+     "effects": [
+      {
+       "text": "+7 refine: Variable Cast -5%.",
+       "stat": "Variable Cast",
+       "value": -5,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        33
+       ],
+       "stat_keys": [
+        "variable_cast"
+       ]
+      }
+     ]
+    },
+    {
+     "kind": "refine_threshold",
+     "at": [
+      9
+     ],
+     "effects": [
+      {
+       "text": "Variable Cast -5%",
+       "stat": "Variable Cast",
+       "value": -5,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        33
+       ],
+       "stat_keys": [
+        "variable_cast"
+       ]
+      },
+      {
+       "text": "(additional).",
+       "parsed": false
+      }
+     ]
+    }
+   ]
   },
   "conditional": [
-   {
-    "condition": "Stacks per piece, up to Lv 4. +4 refine: Fixed Cast -0.3s. +7 refine: Variable Cast -5%. +9 refine",
-    "effects": [
-     {
-      "text": "Variable Cast -5%",
-      "stat": "Variable Cast",
-      "value": -5,
-      "unit": "%",
-      "parsed": true,
-      "stat_ids": [
-       33
-      ],
-      "stat_keys": [
-       "variable_cast"
-      ]
-     },
-     {
-      "text": "(additional).",
-      "parsed": false
-     }
-    ]
-   },
    {
     "condition": "On Resurrection cast",
     "effects": [
@@ -14374,48 +14515,82 @@
     "parsed": false
    },
    {
-    "text": "Stacks per piece",
-    "parsed": false
-   },
-   {
-    "text": "up to Lv 4",
-    "parsed": false
-   },
-   {
-    "text": "+4 refine: Total Flee +5%",
-    "stat": "+4 refine: Total Flee",
-    "value": 5,
-    "unit": "%",
-    "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
-   },
-   {
-    "text": "+7 refine: Move Speed +5%",
-    "stat": "+7 refine: Move Speed",
-    "value": 5,
-    "unit": "%",
-    "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
-   },
-   {
-    "text": "+9 refine: Move Speed +5%",
-    "stat": "+9 refine: Move Speed",
-    "value": 5,
-    "unit": "%",
-    "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
-   },
-   {
-    "text": "(additional).",
+    "text": "Stacks per piece, up to Lv 4.",
     "parsed": false
    }
   ],
   "refine": {
    "per_refine": [],
-   "thresholds": []
+   "thresholds": [
+    {
+     "kind": "refine_threshold",
+     "at": [
+      4
+     ],
+     "effects": [
+      {
+       "text": "+4 refine: Total Flee +5%.",
+       "stat": "Total Flee",
+       "value": 5,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        26
+       ],
+       "stat_keys": [
+        "flee"
+       ],
+       "scope": "total"
+      }
+     ]
+    },
+    {
+     "kind": "refine_threshold",
+     "at": [
+      7
+     ],
+     "effects": [
+      {
+       "text": "+7 refine: Move Speed +5%.",
+       "stat": "Move Speed",
+       "value": 5,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        39
+       ],
+       "stat_keys": [
+        "move_speed"
+       ]
+      }
+     ]
+    },
+    {
+     "kind": "refine_threshold",
+     "at": [
+      9
+     ],
+     "effects": [
+      {
+       "text": "+9 refine: Move Speed +5%",
+       "stat": "Move Speed",
+       "value": 5,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        39
+       ],
+       "stat_keys": [
+        "move_speed"
+       ]
+      },
+      {
+       "text": "(additional).",
+       "parsed": false
+      }
+     ]
+    }
+   ]
   },
   "conditional": [
    {
@@ -14645,8 +14820,12 @@
        "value": 1,
        "unit": "%",
        "parsed": true,
-       "stat_ids": [],
-       "stat_keys": []
+       "stat_ids": [
+        120
+       ],
+       "stat_keys": [
+        "def_vs_size_all_sizes"
+       ]
       }
      ]
     }
@@ -17020,10 +17199,6 @@
    {
     "text": "Drain 50 HP when dealing physical damage",
     "parsed": false
-   },
-   {
-    "text": "Vampire's Gift Lv1 when hit",
-    "parsed": false
    }
   ],
   "refine": {
@@ -17032,7 +17207,7 @@
      "per": 1,
      "effects": [
       {
-       "text": "1% per refine chance to autocast",
+       "text": "1% per refine chance to autocast Vampire's Gift Lv1 when hit",
        "parsed": false
       }
      ]
@@ -18598,7 +18773,16 @@
      "effects": [
       {
        "text": "SP+1%% per refine",
-       "parsed": false
+       "stat": "SP",
+       "value": 1,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        7
+       ],
+       "stat_keys": [
+        "max_sp"
+       ]
       }
      ]
     }
@@ -19155,7 +19339,7 @@
   "effects": [],
   "piece_bonus": [
    {
-    "text": "Variable cast -5%",
+    "text": "Variable cast -5%, -2% per refine.",
     "stat": "Variable cast",
     "value": -5,
     "unit": "%",
@@ -19174,7 +19358,7 @@
      "per": 1,
      "effects": [
       {
-       "text": "-2% per refine",
+       "text": "Variable cast -5%, -2% per refine.",
        "stat": "Variable cast",
        "value": -2,
        "unit": "%",
@@ -19184,8 +19368,7 @@
        ],
        "stat_keys": [
         "variable_cast"
-       ],
-       "stat_inherited": true
+       ]
       },
       {
        "text": "Max HP -2% per refine.",
@@ -19274,7 +19457,7 @@
   "effects": [],
   "piece_bonus": [
    {
-    "text": "Magic Defense Penetration +5",
+    "text": "Magic Defense Penetration +5, +2 per refine.",
     "stat": "Magic Defense Penetration",
     "value": 5,
     "unit": null,
@@ -19293,7 +19476,7 @@
      "per": 1,
      "effects": [
       {
-       "text": "+2 per refine",
+       "text": "Magic Defense Penetration +5, +2 per refine.",
        "stat": "Magic Defense Penetration",
        "value": 2,
        "unit": null,
@@ -19303,8 +19486,7 @@
        ],
        "stat_keys": [
         "mdef_pen"
-       ],
-       "stat_inherited": true
+       ]
       },
       {
        "text": "Max HP -2% per refine.",
@@ -19607,7 +19789,22 @@
    93
   ],
   "effects": [],
-  "piece_bonus": [],
+  "piece_bonus": [
+   {
+    "text": "Heal SP cost -9%, plus 9% more per refine.",
+    "stat": "Heal SP cost",
+    "value": -9,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Heal",
+    "skill_metric": "sp cost",
+    "skills": [
+     "Heal"
+    ]
+   }
+  ],
   "refine": {
    "per_refine": [
     {
@@ -19615,7 +19812,17 @@
      "effects": [
       {
        "text": "Heal SP cost -9%, plus 9% more per refine.",
-       "parsed": false
+       "stat": "Heal SP cost",
+       "value": -9,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [],
+       "stat_keys": [],
+       "skill": "Heal",
+       "skill_metric": "sp cost",
+       "skills": [
+        "Heal"
+       ]
       }
      ]
     }
@@ -19705,7 +19912,22 @@
    93
   ],
   "effects": [],
-  "piece_bonus": [],
+  "piece_bonus": [
+   {
+    "text": "Increase Agi SP cost -9%, plus 9% more per refine.",
+    "stat": "Increase Agi SP cost",
+    "value": -9,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Increase Agi",
+    "skill_metric": "sp cost",
+    "skills": [
+     "Increase Agility"
+    ]
+   }
+  ],
   "refine": {
    "per_refine": [
     {
@@ -19713,7 +19935,17 @@
      "effects": [
       {
        "text": "Increase Agi SP cost -9%, plus 9% more per refine.",
-       "parsed": false
+       "stat": "Increase Agi SP cost",
+       "value": -9,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [],
+       "stat_keys": [],
+       "skill": "Increase Agi",
+       "skill_metric": "sp cost",
+       "skills": [
+        "Increase Agility"
+       ]
       }
      ]
     }
@@ -19803,7 +20035,22 @@
    93
   ],
   "effects": [],
-  "piece_bonus": [],
+  "piece_bonus": [
+   {
+    "text": "Hiding SP cost -9%, plus 9% more per refine.",
+    "stat": "Hiding SP cost",
+    "value": -9,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Hiding",
+    "skill_metric": "sp cost",
+    "skills": [
+     "Hiding"
+    ]
+   }
+  ],
   "refine": {
    "per_refine": [
     {
@@ -19811,7 +20058,17 @@
      "effects": [
       {
        "text": "Hiding SP cost -9%, plus 9% more per refine.",
-       "parsed": false
+       "stat": "Hiding SP cost",
+       "value": -9,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [],
+       "stat_keys": [],
+       "skill": "Hiding",
+       "skill_metric": "sp cost",
+       "skills": [
+        "Hiding"
+       ]
       }
      ]
     }
@@ -19995,11 +20252,37 @@
   "piece_bonus": [
    {
     "text": "Max HP and SP +1%, plus 1% per 20 base LUK",
+    "stat": "Max HP and SP",
+    "value": 1,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     6,
+     7
+    ],
+    "stat_keys": [
+     "max_hp",
+     "max_sp"
+    ]
+   },
+   {
+    "text": "Max HP and SP +1%, plus 1% per 20 base LUK",
     "per_base_stat": {
      "per": 20,
      "stat": "LUK"
     },
-    "parsed": false
+    "stat": "Max HP and SP",
+    "value": 1,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     6,
+     7
+    ],
+    "stat_keys": [
+     "max_hp",
+     "max_sp"
+    ]
    }
   ],
   "refine": {
@@ -20076,11 +20359,33 @@
   "piece_bonus": [
    {
     "text": "SP Cost reduced by 1%, plus 1% per 10 base LUK",
+    "stat": "SP Cost",
+    "value": -1,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     37
+    ],
+    "stat_keys": [
+     "sp_cost"
+    ]
+   },
+   {
+    "text": "SP Cost reduced by 1%, plus 1% per 10 base LUK",
     "per_base_stat": {
      "per": 10,
      "stat": "LUK"
     },
-    "parsed": false
+    "stat": "SP Cost",
+    "value": -1,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     37
+    ],
+    "stat_keys": [
+     "sp_cost"
+    ]
    }
   ],
   "refine": {
@@ -20157,11 +20462,33 @@
   "piece_bonus": [
    {
     "text": "Perfect Hit +1%, plus 1% per 4 base LUK",
+    "stat": "Perfect Hit",
+    "value": 1,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     13
+    ],
+    "stat_keys": [
+     "perfect_hit"
+    ]
+   },
+   {
+    "text": "Perfect Hit +1%, plus 1% per 4 base LUK",
     "per_base_stat": {
      "per": 4,
      "stat": "LUK"
     },
-    "parsed": false
+    "stat": "Perfect Hit",
+    "value": 1,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     13
+    ],
+    "stat_keys": [
+     "perfect_hit"
+    ]
    }
   ],
   "refine": {
@@ -20238,11 +20565,33 @@
   "piece_bonus": [
    {
     "text": "Long Range Attack +1%, plus 1% per 10 base LUK",
+    "stat": "Long Range Attack",
+    "value": 1,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     22
+    ],
+    "stat_keys": [
+     "ranged_damage"
+    ]
+   },
+   {
+    "text": "Long Range Attack +1%, plus 1% per 10 base LUK",
     "per_base_stat": {
      "per": 10,
      "stat": "LUK"
     },
-    "parsed": false
+    "stat": "Long Range Attack",
+    "value": 1,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     22
+    ],
+    "stat_keys": [
+     "ranged_damage"
+    ]
    }
   ],
   "refine": {
@@ -21086,7 +21435,7 @@
   "effects": [],
   "piece_bonus": [
    {
-    "text": "ASPD +5%",
+    "text": "ASPD +5%, +2% per refine",
     "stat": "ASPD",
     "value": 5,
     "unit": "%",
@@ -21105,7 +21454,7 @@
      "per": 1,
      "effects": [
       {
-       "text": "+2% per refine",
+       "text": "ASPD +5%, +2% per refine",
        "stat": "ASPD",
        "value": 2,
        "unit": "%",
@@ -21115,8 +21464,7 @@
        ],
        "stat_keys": [
         "aspd"
-       ],
-       "stat_inherited": true
+       ]
       },
       {
        "text": "Max HP -2% per refine",
@@ -21205,7 +21553,7 @@
   "effects": [],
   "piece_bonus": [
    {
-    "text": "Defense Penetration +5",
+    "text": "Defense Penetration +5, +2 per refine",
     "stat": "Defense Penetration",
     "value": 5,
     "unit": null,
@@ -21224,7 +21572,7 @@
      "per": 1,
      "effects": [
       {
-       "text": "+2 per refine",
+       "text": "Defense Penetration +5, +2 per refine",
        "stat": "Defense Penetration",
        "value": 2,
        "unit": null,
@@ -21234,8 +21582,7 @@
        ],
        "stat_keys": [
         "def_pen"
-       ],
-       "stat_inherited": true
+       ]
       },
       {
        "text": "Max HP -2% per refine",
@@ -21420,7 +21767,7 @@
   "effects": [],
   "piece_bonus": [
    {
-    "text": "Critical Rate +5",
+    "text": "Critical Rate +5, +1 per refine",
     "stat": "Critical Rate",
     "value": 5,
     "unit": null,
@@ -21443,7 +21790,7 @@
      "per": 1,
      "effects": [
       {
-       "text": "+1 per refine",
+       "text": "Critical Rate +5, +1 per refine",
        "stat": "Critical Rate",
        "value": 1,
        "unit": null,
@@ -21453,8 +21800,7 @@
        ],
        "stat_keys": [
         "crit_rate"
-       ],
-       "stat_inherited": true
+       ]
       }
      ]
     }
@@ -25173,7 +25519,17 @@
   "piece_bonus": [
    {
     "text": "Negate Size Penalty of Weapons",
-    "parsed": false
+    "stat": "Negate Size Penalty of Weapons",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "flag": true,
+    "stat_ids": [
+     132
+    ],
+    "stat_keys": [
+     "no_size_penalty"
+    ]
    }
   ],
   "refine": {
@@ -25778,15 +26134,11 @@
      {
       "text": "Uses the refine of the highest piece.",
       "parsed": false
-     },
-     {
-      "text": "Chance to autocast",
-      "parsed": false
      }
     ]
    },
    {
-    "condition": "Darkness Rises Lv3",
+    "condition": "Chance to autocast Darkness Rises Lv3",
     "effects": [
      {
       "text": "5% +1% per refine.",
@@ -25975,15 +26327,10 @@
   "conditional": [
    {
     "condition": "With any piece equipped",
-    "effects": [
-     {
-      "text": "Chance to autocast",
-      "parsed": false
-     }
-    ]
+    "effects": []
    },
    {
-    "condition": "Darkness Rises Lv3",
+    "condition": "Chance to autocast Darkness Rises Lv3",
     "effects": [
      {
       "text": "5%",
@@ -26163,15 +26510,11 @@
      {
       "text": "Uses the refine of the highest piece.",
       "parsed": false
-     },
-     {
-      "text": "Chance to autocast",
-      "parsed": false
      }
     ]
    },
    {
-    "condition": "Darkness Rises Lv3",
+    "condition": "Chance to autocast Darkness Rises Lv3",
     "effects": [
      {
       "text": "5% +1% per refine.",
@@ -26688,7 +27031,16 @@
      "effects": [
       {
        "text": "SP+2%% per refine",
-       "parsed": false
+       "stat": "SP",
+       "value": 2,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        7
+       ],
+       "stat_keys": [
+        "max_sp"
+       ]
       }
      ]
     }
@@ -29563,7 +29915,20 @@
   "piece_bonus": [
    {
     "text": "HP+1 per VIT",
-    "parsed": false
+    "per_base_stat": {
+     "per": 1,
+     "stat": "VIT"
+    },
+    "stat": "HP",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     6
+    ],
+    "stat_keys": [
+     "max_hp"
+    ]
    }
   ],
   "refine": {
@@ -29635,7 +30000,20 @@
   "piece_bonus": [
    {
     "text": "HP+1 per VIT",
-    "parsed": false
+    "per_base_stat": {
+     "per": 1,
+     "stat": "VIT"
+    },
+    "stat": "HP",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     6
+    ],
+    "stat_keys": [
+     "max_hp"
+    ]
    }
   ],
   "refine": {
@@ -29707,7 +30085,20 @@
   "piece_bonus": [
    {
     "text": "HP+1 per VIT",
-    "parsed": false
+    "per_base_stat": {
+     "per": 1,
+     "stat": "VIT"
+    },
+    "stat": "HP",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     6
+    ],
+    "stat_keys": [
+     "max_hp"
+    ]
    }
   ],
   "refine": {
@@ -29779,7 +30170,20 @@
   "piece_bonus": [
    {
     "text": "HP+1 per VIT",
-    "parsed": false
+    "per_base_stat": {
+     "per": 1,
+     "stat": "VIT"
+    },
+    "stat": "HP",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     6
+    ],
+    "stat_keys": [
+     "max_hp"
+    ]
    }
   ],
   "refine": {
@@ -29866,11 +30270,42 @@
   "piece_bonus": [
    {
     "text": "Wind Slash damage +6% per Blade Mastery level.",
-    "parsed": false
+    "per_skill_level": {
+     "skills": [
+      "Blade Mastery"
+     ],
+     "combine": "sum"
+    },
+    "stat": "Wind Slash damage",
+    "value": 6,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Wind Slash",
+    "skill_metric": "damage",
+    "skills": [
+     "Wind Slash"
+    ]
    },
    {
     "text": "STR +1 per Overpower level.",
-    "parsed": false
+    "per_skill_level": {
+     "skills": [
+      "Overpower"
+     ],
+     "combine": "sum"
+    },
+    "stat": "STR",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     0
+    ],
+    "stat_keys": [
+     "str"
+    ]
    }
   ],
   "refine": {
@@ -29955,11 +30390,42 @@
   "piece_bonus": [
    {
     "text": "Throw Acid damage +6% per Gadget Mastery level.",
-    "parsed": false
+    "per_skill_level": {
+     "skills": [
+      "Gadget Mastery"
+     ],
+     "combine": "sum"
+    },
+    "stat": "Throw Acid damage",
+    "value": 6,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Throw Acid",
+    "skill_metric": "damage",
+    "skills": [
+     "Throw Acid"
+    ]
    },
    {
     "text": "INT +1 per Throw Molotov level.",
-    "parsed": false
+    "per_skill_level": {
+     "skills": [
+      "Throw Molotov"
+     ],
+     "combine": "sum"
+    },
+    "stat": "INT",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     3
+    ],
+    "stat_keys": [
+     "int"
+    ]
    }
   ],
   "refine": {
@@ -30044,7 +30510,23 @@
   "piece_bonus": [
    {
     "text": "Shield Boomerang damage +6% per Shield Mastery level.",
-    "parsed": false
+    "per_skill_level": {
+     "skills": [
+      "Shield Mastery"
+     ],
+     "combine": "sum"
+    },
+    "stat": "Shield Boomerang damage",
+    "value": 6,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Shield Boomerang",
+    "skill_metric": "damage",
+    "skills": [
+     "Shield Boomerang"
+    ]
    },
    {
     "text": "It also adds 5% of your current HP as extra damage, increasing with refine (up to 10%).",
@@ -30052,7 +30534,22 @@
    },
    {
     "text": "VIT +1 per Cover level.",
-    "parsed": false
+    "per_skill_level": {
+     "skills": [
+      "Cover"
+     ],
+     "combine": "sum"
+    },
+    "stat": "VIT",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     2
+    ],
+    "stat_keys": [
+     "vit"
+    ]
    }
   ],
   "refine": {
@@ -30127,7 +30624,42 @@
   "piece_bonus": [
    {
     "text": "Arrow Vulcan damage +6% per Bow Mastery level.",
-    "parsed": false
+    "per_skill_level": {
+     "skills": [
+      "Bow Mastery"
+     ],
+     "combine": "sum"
+    },
+    "stat": "Arrow Vulcan damage",
+    "value": 6,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Arrow Vulcan",
+    "skill_metric": "damage",
+    "skills": [
+     "Arrow Vulcan"
+    ]
+   },
+   {
+    "text": "DEX +1 per Ricochet Arrow level.",
+    "per_skill_level": {
+     "skills": [
+      "Ricochet Arrow"
+     ],
+     "combine": "sum"
+    },
+    "stat": "DEX",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     4
+    ],
+    "stat_keys": [
+     "dex"
+    ]
    }
   ],
   "refine": {
@@ -30142,17 +30674,16 @@
       "text": "gain 1 Coin per refine.",
       "per_refine": 1,
       "parsed": false
-     },
-     {
-      "text": "DEX +1 per Ricochet Arrow level.",
-      "parsed": false
      }
     ]
    }
   ],
   "enchant": null,
   "lore": "Shadow gear worn by a schemer who reinvented every crime as a craft.",
-  "override": null
+  "override": {
+   "status": "unverified",
+   "reason": "'DEX +1 per Ricochet Arrow level.' sits under 'On kill with Arrow Vulcan:'. Read as a plain piece bonus like every other Limitless piece's stat-per-skill-level line; only the coin is on kill (2026-10-01 audit)."
+  }
  },
  {
   "id": 28284,
@@ -30217,7 +30748,22 @@
   "piece_bonus": [
    {
     "text": "VIT +1 per Venom Coat level",
-    "parsed": false
+    "per_skill_level": {
+     "skills": [
+      "Venom Coat"
+     ],
+     "combine": "sum"
+    },
+    "stat": "VIT",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     2
+    ],
+    "stat_keys": [
+     "vit"
+    ]
    }
   ],
   "refine": {
@@ -30314,15 +30860,42 @@
   "piece_bonus": [
    {
     "text": "Shadow Slash damage +6% per Blade Mastery level",
-    "parsed": false
+    "per_skill_level": {
+     "skills": [
+      "Blade Mastery"
+     ],
+     "combine": "sum"
+    },
+    "stat": "Shadow Slash damage",
+    "value": 6,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Shadow Slash",
+    "skill_metric": "damage",
+    "skills": [
+     "Shadow Slash"
+    ]
    },
    {
-    "text": "STR +1 per Hallucination",
-    "parsed": false
-   },
-   {
-    "text": "Walk level",
-    "parsed": false
+    "text": "STR +1 per Hallucination Walk level",
+    "per_skill_level": {
+     "skills": [
+      "Hallucination Walk"
+     ],
+     "combine": "sum"
+    },
+    "stat": "STR",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     0
+    ],
+    "stat_keys": [
+     "str"
+    ]
    }
   ],
   "refine": {
@@ -30342,7 +30915,10 @@
   "conditional": [],
   "enchant": null,
   "lore": "Shadow gear worn by a killer who refused to specialize: every weapon another way to end a life.",
-  "override": null
+  "override": {
+   "status": "unverified",
+   "reason": "'STR +1 per Hallucination' / 'Walk level' was wrapped mid skill name. Every other Limitless piece has one stat per skill level as a piece bonus, so this is STR +1 per Hallucination Walk level. 'Shadow Slash damage +6% per Blade Mastery level' is skill damage, as the 2023 server writes such lines (the owner, 2026-10-01: refer to the 2023 code); the Night Raven kit no longer adds it to the ratio itself (2026-10-01 audit)."
+  }
  },
  {
   "id": 28287,
@@ -30407,7 +30983,23 @@
   "piece_bonus": [
    {
     "text": "Silent Strike damage +6% per Shadow Mastery level",
-    "parsed": false
+    "per_skill_level": {
+     "skills": [
+      "Shadow Mastery"
+     ],
+     "combine": "sum"
+    },
+    "stat": "Silent Strike damage",
+    "value": 6,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Silent Strike",
+    "skill_metric": "damage",
+    "skills": [
+     "Silent Strike"
+    ]
    },
    {
     "text": "Silent Strike inflicts Bleeding for 5s",
@@ -30415,7 +31007,22 @@
    },
    {
     "text": "DEX +1 per Quickening level",
-    "parsed": false
+    "per_skill_level": {
+     "skills": [
+      "Quickening"
+     ],
+     "combine": "sum"
+    },
+    "stat": "DEX",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     4
+    ],
+    "stat_keys": [
+     "dex"
+    ]
    }
   ],
   "refine": {
@@ -30500,6 +31107,26 @@
   "piece_bonus": [
    {
     "text": "Sonic Blow damage +6% per Katar Mastery level",
+    "per_skill_level": {
+     "skills": [
+      "Katar Mastery"
+     ],
+     "combine": "sum"
+    },
+    "stat": "Sonic Blow damage",
+    "value": 6,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Sonic Blow",
+    "skill_metric": "damage",
+    "skills": [
+     "Sonic Blow"
+    ]
+   },
+   {
+    "text": "LUK +1 per Fury level",
     "parsed": false
    }
   ],
@@ -30515,17 +31142,16 @@
       "text": "heal 1% max HP per refine",
       "per_refine": 1,
       "parsed": false
-     },
-     {
-      "text": "LUK +1 per Fury level",
-      "parsed": false
      }
     ]
    }
   ],
   "enchant": null,
   "lore": "Shadow gear worn by a killer who refused to specialize: every weapon another way to end a life.",
-  "override": null
+  "override": {
+   "status": "unverified",
+   "reason": "'LUK +1 per Fury level' sits under the 'On kill with Sonic Blow:' heading, so it read as an on-kill effect. Every other Limitless piece has its stat-per-skill-level line as a plain piece bonus, so it is read as one here too; only the heal is on kill (2026-10-01 audit)."
+  }
  },
  {
   "id": 28641,
@@ -30609,8 +31235,12 @@
        "value": 4,
        "unit": "%",
        "parsed": true,
-       "stat_ids": [],
-       "stat_keys": []
+       "stat_ids": [
+        43
+       ],
+       "stat_keys": [
+        "healing_received"
+       ]
       }
      ]
     }
@@ -30988,19 +31618,14 @@
    135
   ],
   "effects": [],
-  "piece_bonus": [
-   {
-    "text": "Flaming Petals Lv5.",
-    "parsed": false
-   }
-  ],
+  "piece_bonus": [],
   "refine": {
    "per_refine": [
     {
      "per": 1,
      "effects": [
       {
-       "text": "On getting hit, 1% chance per refine to autocast",
+       "text": "On getting hit, 1% chance per refine to autocast Flaming Petals Lv5.",
        "parsed": false
       }
      ]
@@ -31544,13 +32169,30 @@
   "effects": [],
   "piece_bonus": [
    {
-    "text": "Atk+3 / mAtk+3",
-    "stat": "Atk+3 / mAtk",
+    "text": "Atk+3",
+    "stat": "Atk",
     "value": 3,
     "unit": null,
     "parsed": true,
-    "stat_ids": [],
-    "stat_keys": []
+    "stat_ids": [
+     10
+    ],
+    "stat_keys": [
+     "atk"
+    ]
+   },
+   {
+    "text": "mAtk+3",
+    "stat": "mAtk",
+    "value": 3,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     11
+    ],
+    "stat_keys": [
+     "matk"
+    ]
    }
   ],
   "refine": {
@@ -33639,7 +34281,7 @@
     ]
    },
    {
-    "text": "Heal Power +5%",
+    "text": "Heal Power +5% +1% per refine.",
     "stat": "Heal Power",
     "value": 5,
     "unit": "%",
@@ -33653,7 +34295,17 @@
    },
    {
     "text": "Grants Coluceo Heal Lv 1.",
-    "parsed": false
+    "stat": "Coluceo Heal Lv",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Coluceo Heal",
+    "skill_metric": "level",
+    "skills": [
+     "Coluceo Heal"
+    ]
    }
   ],
   "refine": {
@@ -33662,7 +34314,7 @@
      "per": 1,
      "effects": [
       {
-       "text": "Heal Power +1% per refine",
+       "text": "Heal Power +5% +1% per refine.",
        "stat": "Heal Power",
        "value": 1,
        "unit": "%",
@@ -33762,7 +34414,17 @@
    },
    {
     "text": "Grants Coluceo Heal Lv 1.",
-    "parsed": false
+    "stat": "Coluceo Heal Lv",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Coluceo Heal",
+    "skill_metric": "level",
+    "skills": [
+     "Coluceo Heal"
+    ]
    }
   ],
   "refine": {
@@ -33870,7 +34532,7 @@
     ]
    },
    {
-    "text": "Healing Received +5%",
+    "text": "Healing Received +5% +1% per refine.",
     "stat": "Healing Received",
     "value": 5,
     "unit": "%",
@@ -33884,7 +34546,17 @@
    },
    {
     "text": "Grants Coluceo Heal Lv 1.",
-    "parsed": false
+    "stat": "Coluceo Heal Lv",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Coluceo Heal",
+    "skill_metric": "level",
+    "skills": [
+     "Coluceo Heal"
+    ]
    }
   ],
   "refine": {
@@ -33893,7 +34565,7 @@
      "per": 1,
      "effects": [
       {
-       "text": "Healing Received +1% per refine",
+       "text": "Healing Received +5% +1% per refine.",
        "stat": "Healing Received",
        "value": 1,
        "unit": "%",
@@ -33993,7 +34665,17 @@
    },
    {
     "text": "Grants Coluceo Heal Lv 1.",
-    "parsed": false
+    "stat": "Coluceo Heal Lv",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Coluceo Heal",
+    "skill_metric": "level",
+    "skills": [
+     "Coluceo Heal"
+    ]
    }
   ],
   "refine": {
@@ -34915,7 +35597,7 @@
   "effects": [],
   "piece_bonus": [
    {
-    "text": "Move Speed +5%",
+    "text": "Move Speed +5%, +1% per refine",
     "stat": "Move Speed",
     "value": 5,
     "unit": "%",
@@ -34934,7 +35616,7 @@
      "per": 1,
      "effects": [
       {
-       "text": "+1% per refine",
+       "text": "Move Speed +5%, +1% per refine",
        "stat": "Move Speed",
        "value": 1,
        "unit": "%",
@@ -34944,8 +35626,7 @@
        ],
        "stat_keys": [
         "move_speed"
-       ],
-       "stat_inherited": true
+       ]
       }
      ]
     }
@@ -35219,7 +35900,34 @@
    159
   ],
   "effects": [],
-  "piece_bonus": [],
+  "piece_bonus": [
+   {
+    "text": "Fire resistance +5% (+3% per refine).",
+    "stat": "Fire resistance",
+    "value": 5,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     64
+    ],
+    "stat_keys": [
+     "res_fire"
+    ]
+   },
+   {
+    "text": "Neutral resistance -5% (-1% per refine).",
+    "stat": "Neutral resistance",
+    "value": -5,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     55
+    ],
+    "stat_keys": [
+     "res_neutral"
+    ]
+   }
+  ],
   "refine": {
    "per_refine": [
     {
@@ -35227,11 +35935,29 @@
      "effects": [
       {
        "text": "Fire resistance +5% (+3% per refine).",
-       "parsed": false
+       "stat": "Fire resistance",
+       "value": 3,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        64
+       ],
+       "stat_keys": [
+        "res_fire"
+       ]
       },
       {
        "text": "Neutral resistance -5% (-1% per refine).",
-       "parsed": false
+       "stat": "Neutral resistance",
+       "value": -1,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        55
+       ],
+       "stat_keys": [
+        "res_neutral"
+       ]
       }
      ]
     }
@@ -35307,7 +36033,7 @@
   "effects": [],
   "piece_bonus": [
    {
-    "text": "Wind resistance +5%",
+    "text": "Wind resistance +5%, +3% per refine.",
     "stat": "Wind resistance",
     "value": 5,
     "unit": "%",
@@ -35320,7 +36046,7 @@
     ]
    },
    {
-    "text": "Neutral resistance -5%",
+    "text": "Neutral resistance -5%, -1% per refine.",
     "stat": "Neutral resistance",
     "value": -5,
     "unit": "%",
@@ -35339,7 +36065,7 @@
      "per": 1,
      "effects": [
       {
-       "text": "+3% per refine",
+       "text": "Wind resistance +5%, +3% per refine.",
        "stat": "Wind resistance",
        "value": 3,
        "unit": "%",
@@ -35349,11 +36075,10 @@
        ],
        "stat_keys": [
         "res_wind"
-       ],
-       "stat_inherited": true
+       ]
       },
       {
-       "text": "-1% per refine",
+       "text": "Neutral resistance -5%, -1% per refine.",
        "stat": "Neutral resistance",
        "value": -1,
        "unit": "%",
@@ -35363,8 +36088,7 @@
        ],
        "stat_keys": [
         "res_neutral"
-       ],
-       "stat_inherited": true
+       ]
       }
      ]
     }
@@ -35438,7 +36162,34 @@
    159
   ],
   "effects": [],
-  "piece_bonus": [],
+  "piece_bonus": [
+   {
+    "text": "Earth resistance +5% (+3% per refine).",
+    "stat": "Earth resistance",
+    "value": 5,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     61
+    ],
+    "stat_keys": [
+     "res_earth"
+    ]
+   },
+   {
+    "text": "Neutral resistance -5% (-1% per refine).",
+    "stat": "Neutral resistance",
+    "value": -5,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     55
+    ],
+    "stat_keys": [
+     "res_neutral"
+    ]
+   }
+  ],
   "refine": {
    "per_refine": [
     {
@@ -35446,11 +36197,29 @@
      "effects": [
       {
        "text": "Earth resistance +5% (+3% per refine).",
-       "parsed": false
+       "stat": "Earth resistance",
+       "value": 3,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        61
+       ],
+       "stat_keys": [
+        "res_earth"
+       ]
       },
       {
        "text": "Neutral resistance -5% (-1% per refine).",
-       "parsed": false
+       "stat": "Neutral resistance",
+       "value": -1,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        55
+       ],
+       "stat_keys": [
+        "res_neutral"
+       ]
       }
      ]
     }
@@ -35524,7 +36293,34 @@
    159
   ],
   "effects": [],
-  "piece_bonus": [],
+  "piece_bonus": [
+   {
+    "text": "Water resistance +5% (+3% per refine).",
+    "stat": "Water resistance",
+    "value": 5,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     58
+    ],
+    "stat_keys": [
+     "res_water"
+    ]
+   },
+   {
+    "text": "Neutral resistance -5% (-1% per refine).",
+    "stat": "Neutral resistance",
+    "value": -5,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     55
+    ],
+    "stat_keys": [
+     "res_neutral"
+    ]
+   }
+  ],
   "refine": {
    "per_refine": [
     {
@@ -35532,11 +36328,29 @@
      "effects": [
       {
        "text": "Water resistance +5% (+3% per refine).",
-       "parsed": false
+       "stat": "Water resistance",
+       "value": 3,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        58
+       ],
+       "stat_keys": [
+        "res_water"
+       ]
       },
       {
        "text": "Neutral resistance -5% (-1% per refine).",
-       "parsed": false
+       "stat": "Neutral resistance",
+       "value": -1,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [
+        55
+       ],
+       "stat_keys": [
+        "res_neutral"
+       ]
       }
      ]
     }
@@ -35918,13 +36732,30 @@
      "per": 1,
      "effects": [
       {
-       "text": "ATK +1 and MATK +1 per refine.",
-       "stat": "ATK +1 and MATK",
+       "text": "ATK +1 per refine",
+       "stat": "ATK",
        "value": 1,
        "unit": null,
        "parsed": true,
-       "stat_ids": [],
-       "stat_keys": []
+       "stat_ids": [
+        10
+       ],
+       "stat_keys": [
+        "atk"
+       ]
+      },
+      {
+       "text": "MATK +1 per refine",
+       "stat": "MATK",
+       "value": 1,
+       "unit": null,
+       "parsed": true,
+       "stat_ids": [
+        11
+       ],
+       "stat_keys": [
+        "matk"
+       ]
       }
      ]
     }
@@ -36262,8 +37093,12 @@
        "value": 2,
        "unit": "%",
        "parsed": true,
-       "stat_ids": [],
-       "stat_keys": []
+       "stat_ids": [
+        161
+       ],
+       "stat_keys": [
+        "atk_ele_fire"
+       ]
       }
      ]
     }
@@ -36398,7 +37233,17 @@
   "piece_bonus": [
    {
     "text": "Grants Dragon Breath Lv5",
-    "parsed": false
+    "stat": "Dragon Breath Lv",
+    "value": 5,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Dragon Breath",
+    "skill_metric": "level",
+    "skills": [
+     "Dragon Breath"
+    ]
    },
    {
     "text": "Grants Dragon Pact",
@@ -37009,7 +37854,7 @@
   "effects": [],
   "piece_bonus": [
    {
-    "text": "Defense Penetration +5",
+    "text": "Defense Penetration +5, +1 more per refine",
     "stat": "Defense Penetration",
     "value": 5,
     "unit": null,
@@ -37028,7 +37873,7 @@
      "per": 1,
      "effects": [
       {
-       "text": "+1 more per refine",
+       "text": "Defense Penetration +5, +1 more per refine",
        "stat": "Defense Penetration",
        "value": 1,
        "unit": null,
@@ -37038,8 +37883,7 @@
        ],
        "stat_keys": [
         "def_pen"
-       ],
-       "stat_inherited": true
+       ]
       },
       {
        "text": "ATK -1 per refine",
@@ -37128,7 +37972,7 @@
   "effects": [],
   "piece_bonus": [
    {
-    "text": "Defense Penetration +5",
+    "text": "Defense Penetration +5, +1 more per refine",
     "stat": "Defense Penetration",
     "value": 5,
     "unit": null,
@@ -37147,7 +37991,7 @@
      "per": 1,
      "effects": [
       {
-       "text": "+1 more per refine",
+       "text": "Defense Penetration +5, +1 more per refine",
        "stat": "Defense Penetration",
        "value": 1,
        "unit": null,
@@ -37157,8 +38001,7 @@
        ],
        "stat_keys": [
         "def_pen"
-       ],
-       "stat_inherited": true
+       ]
       },
       {
        "text": "ATK -1 per refine",
@@ -37247,7 +38090,7 @@
   "effects": [],
   "piece_bonus": [
    {
-    "text": "Defense Penetration +5",
+    "text": "Defense Penetration +5, +1 more per refine",
     "stat": "Defense Penetration",
     "value": 5,
     "unit": null,
@@ -37266,7 +38109,7 @@
      "per": 1,
      "effects": [
       {
-       "text": "+1 more per refine",
+       "text": "Defense Penetration +5, +1 more per refine",
        "stat": "Defense Penetration",
        "value": 1,
        "unit": null,
@@ -37276,8 +38119,7 @@
        ],
        "stat_keys": [
         "def_pen"
-       ],
-       "stat_inherited": true
+       ]
       },
       {
        "text": "ATK -1 per refine",
@@ -37366,7 +38208,7 @@
   "effects": [],
   "piece_bonus": [
    {
-    "text": "Defense Penetration +5",
+    "text": "Defense Penetration +5, +1 more per refine",
     "stat": "Defense Penetration",
     "value": 5,
     "unit": null,
@@ -37385,7 +38227,7 @@
      "per": 1,
      "effects": [
       {
-       "text": "+1 more per refine",
+       "text": "Defense Penetration +5, +1 more per refine",
        "stat": "Defense Penetration",
        "value": 1,
        "unit": null,
@@ -37395,8 +38237,7 @@
        ],
        "stat_keys": [
         "def_pen"
-       ],
-       "stat_inherited": true
+       ]
       },
       {
        "text": "ATK -1 per refine",
@@ -37691,10 +38532,6 @@
   "effects": [],
   "piece_bonus": [
    {
-    "text": "When hit",
-    "parsed": false
-   },
-   {
     "text": "Clone.",
     "parsed": false
    }
@@ -37705,7 +38542,7 @@
      "per": 1,
      "effects": [
       {
-       "text": "3% +0.2% per refine chance to summon an Illusionist",
+       "text": "When hit, 3% +0.2% per refine chance to summon an Illusionist",
        "parsed": false
       }
      ]
@@ -40509,7 +41346,36 @@
    185
   ],
   "effects": [],
-  "piece_bonus": [],
+  "piece_bonus": [
+   {
+    "text": "Rolling Cutter damage +20%, plus 5% per refine.",
+    "stat": "Rolling Cutter damage",
+    "value": 20,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Rolling Cutter",
+    "skill_metric": "damage",
+    "skills": [
+     "Rolling Cutter"
+    ]
+   },
+   {
+    "text": "Cross Ripper Slasher damage +20%, plus 5% per refine.",
+    "stat": "Cross Ripper Slasher damage",
+    "value": 20,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Cross Ripper Slasher",
+    "skill_metric": "damage",
+    "skills": [
+     "Cross Ripper Slasher"
+    ]
+   }
+  ],
   "refine": {
    "per_refine": [
     {
@@ -40517,11 +41383,31 @@
      "effects": [
       {
        "text": "Rolling Cutter damage +20%, plus 5% per refine.",
-       "parsed": false
+       "stat": "Rolling Cutter damage",
+       "value": 5,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [],
+       "stat_keys": [],
+       "skill": "Rolling Cutter",
+       "skill_metric": "damage",
+       "skills": [
+        "Rolling Cutter"
+       ]
       },
       {
        "text": "Cross Ripper Slasher damage +20%, plus 5% per refine.",
-       "parsed": false
+       "stat": "Cross Ripper Slasher damage",
+       "value": 5,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [],
+       "stat_keys": [],
+       "skill": "Cross Ripper Slasher",
+       "skill_metric": "damage",
+       "skills": [
+        "Cross Ripper Slasher"
+       ]
       }
      ]
     }
@@ -40725,7 +41611,50 @@
    185
   ],
   "effects": [],
-  "piece_bonus": [],
+  "piece_bonus": [
+   {
+    "text": "Wind Blade damage +10%, plus 2% per refine.",
+    "stat": "Wind Blade damage",
+    "value": 10,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Wind Blade",
+    "skill_metric": "damage",
+    "skills": [
+     "Wind Blade"
+    ]
+   },
+   {
+    "text": "Freezing Spear damage +10%, plus 2% per refine.",
+    "stat": "Freezing Spear damage",
+    "value": 10,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Freezing Spear",
+    "skill_metric": "damage",
+    "skills": [
+     "Freezing Spear"
+    ]
+   },
+   {
+    "text": "Flaming Petals damage +10%, plus 2% per refine.",
+    "stat": "Flaming Petals damage",
+    "value": 10,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Flaming Petals",
+    "skill_metric": "damage",
+    "skills": [
+     "Flaming Petals"
+    ]
+   }
+  ],
   "refine": {
    "per_refine": [
     {
@@ -40733,15 +41662,45 @@
      "effects": [
       {
        "text": "Wind Blade damage +10%, plus 2% per refine.",
-       "parsed": false
+       "stat": "Wind Blade damage",
+       "value": 2,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [],
+       "stat_keys": [],
+       "skill": "Wind Blade",
+       "skill_metric": "damage",
+       "skills": [
+        "Wind Blade"
+       ]
       },
       {
        "text": "Freezing Spear damage +10%, plus 2% per refine.",
-       "parsed": false
+       "stat": "Freezing Spear damage",
+       "value": 2,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [],
+       "stat_keys": [],
+       "skill": "Freezing Spear",
+       "skill_metric": "damage",
+       "skills": [
+        "Freezing Spear"
+       ]
       },
       {
        "text": "Flaming Petals damage +10%, plus 2% per refine.",
-       "parsed": false
+       "stat": "Flaming Petals damage",
+       "value": 2,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [],
+       "stat_keys": [],
+       "skill": "Flaming Petals",
+       "skill_metric": "damage",
+       "skills": [
+        "Flaming Petals"
+       ]
       }
      ]
     }
@@ -40827,7 +41786,36 @@
    185
   ],
   "effects": [],
-  "piece_bonus": [],
+  "piece_bonus": [
+   {
+    "text": "Double Strafe damage +20%, plus 5% per refine.",
+    "stat": "Double Strafe damage",
+    "value": 20,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Double Strafe",
+    "skill_metric": "damage",
+    "skills": [
+     "Double Strafe"
+    ]
+   },
+   {
+    "text": "Arrow Shower damage +20%, plus 5% per refine.",
+    "stat": "Arrow Shower damage",
+    "value": 20,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Arrow Shower",
+    "skill_metric": "damage",
+    "skills": [
+     "Arrow Shower"
+    ]
+   }
+  ],
   "refine": {
    "per_refine": [
     {
@@ -40835,11 +41823,31 @@
      "effects": [
       {
        "text": "Double Strafe damage +20%, plus 5% per refine.",
-       "parsed": false
+       "stat": "Double Strafe damage",
+       "value": 5,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [],
+       "stat_keys": [],
+       "skill": "Double Strafe",
+       "skill_metric": "damage",
+       "skills": [
+        "Double Strafe"
+       ]
       },
       {
        "text": "Arrow Shower damage +20%, plus 5% per refine.",
-       "parsed": false
+       "stat": "Arrow Shower damage",
+       "value": 5,
+       "unit": "%",
+       "parsed": true,
+       "stat_ids": [],
+       "stat_keys": [],
+       "skill": "Arrow Shower",
+       "skill_metric": "damage",
+       "skills": [
+        "Arrow Shower"
+       ]
       }
      ]
     }
@@ -41817,7 +42825,17 @@
   "piece_bonus": [
    {
     "text": "Grants Rook's Smash Lv5.",
-    "parsed": false
+    "stat": "Rook's Smash Lv",
+    "value": 5,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [],
+    "stat_keys": [],
+    "skill": "Rook's Smash",
+    "skill_metric": "level",
+    "skills": [
+     "Rook's Smash"
+    ]
    }
   ],
   "refine": {
@@ -43545,12 +44563,21 @@
   "effects": [],
   "piece_bonus": [
    {
-    "text": "HP Regen +1% per 3 base",
-    "parsed": false
-   },
-   {
-    "text": "LUK.",
-    "parsed": false
+    "text": "HP Regen +1% per 3 base LUK.",
+    "per_base_stat": {
+     "per": 3,
+     "stat": "LUK"
+    },
+    "stat": "HP Regen",
+    "value": 1,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     8
+    ],
+    "stat_keys": [
+     "hp_regen"
+    ]
    }
   ],
   "refine": {
@@ -43626,12 +44653,21 @@
   "effects": [],
   "piece_bonus": [
    {
-    "text": "HP Regen +1% per 3 base",
-    "parsed": false
-   },
-   {
-    "text": "LUK.",
-    "parsed": false
+    "text": "HP Regen +1% per 3 base LUK.",
+    "per_base_stat": {
+     "per": 3,
+     "stat": "LUK"
+    },
+    "stat": "HP Regen",
+    "value": 1,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     8
+    ],
+    "stat_keys": [
+     "hp_regen"
+    ]
    }
   ],
   "refine": {
@@ -43707,12 +44743,21 @@
   "effects": [],
   "piece_bonus": [
    {
-    "text": "HP Regen +1% per 3 base",
-    "parsed": false
-   },
-   {
-    "text": "LUK.",
-    "parsed": false
+    "text": "HP Regen +1% per 3 base LUK.",
+    "per_base_stat": {
+     "per": 3,
+     "stat": "LUK"
+    },
+    "stat": "HP Regen",
+    "value": 1,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     8
+    ],
+    "stat_keys": [
+     "hp_regen"
+    ]
    }
   ],
   "refine": {
@@ -43788,12 +44833,21 @@
   "effects": [],
   "piece_bonus": [
    {
-    "text": "HP Regen +1% per 3 base",
-    "parsed": false
-   },
-   {
-    "text": "LUK.",
-    "parsed": false
+    "text": "HP Regen +1% per 3 base LUK.",
+    "per_base_stat": {
+     "per": 3,
+     "stat": "LUK"
+    },
+    "stat": "HP Regen",
+    "value": 1,
+    "unit": "%",
+    "parsed": true,
+    "stat_ids": [
+     8
+    ],
+    "stat_keys": [
+     "hp_regen"
+    ]
    }
   ],
   "refine": {
@@ -44221,7 +45275,20 @@
   "piece_bonus": [
    {
     "text": "Max SP +1 per 5 VIT",
-    "parsed": false
+    "per_base_stat": {
+     "per": 5,
+     "stat": "VIT"
+    },
+    "stat": "Max SP",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     7
+    ],
+    "stat_keys": [
+     "max_sp"
+    ]
    }
   ],
   "refine": {
@@ -44293,7 +45360,20 @@
   "piece_bonus": [
    {
     "text": "Max SP +1 per 5 VIT",
-    "parsed": false
+    "per_base_stat": {
+     "per": 5,
+     "stat": "VIT"
+    },
+    "stat": "Max SP",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     7
+    ],
+    "stat_keys": [
+     "max_sp"
+    ]
    }
   ],
   "refine": {
@@ -44365,7 +45445,20 @@
   "piece_bonus": [
    {
     "text": "Max SP +1 per 5 VIT",
-    "parsed": false
+    "per_base_stat": {
+     "per": 5,
+     "stat": "VIT"
+    },
+    "stat": "Max SP",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     7
+    ],
+    "stat_keys": [
+     "max_sp"
+    ]
    }
   ],
   "refine": {
@@ -44437,7 +45530,20 @@
   "piece_bonus": [
    {
     "text": "Max SP +1 per 5 VIT",
-    "parsed": false
+    "per_base_stat": {
+     "per": 5,
+     "stat": "VIT"
+    },
+    "stat": "Max SP",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     7
+    ],
+    "stat_keys": [
+     "max_sp"
+    ]
    }
   ],
   "refine": {
@@ -44892,28 +45998,24 @@
    210
   ],
   "effects": [],
-  "piece_bonus": [
-   {
-    "text": "Flaming Petals",
-    "parsed": false
-   }
-  ],
+  "piece_bonus": [],
   "refine": {
    "per_refine": [
     {
      "per": 1,
      "effects": [
       {
-       "text": "Freezing Spear and Wind Blades DMG +3% per Refine",
-       "stat": "Freezing Spear and Wind Blades DMG",
+       "text": "Flaming Petals, Freezing Spear and Wind Blades DMG +3% per Refine",
+       "stat": "Flaming Petals, Freezing Spear and Wind Blades DMG",
        "value": 3,
        "unit": "%",
        "parsed": true,
        "stat_ids": [],
        "stat_keys": [],
-       "skill": "Freezing Spear and Wind Blades",
+       "skill": "Flaming Petals, Freezing Spear and Wind Blades",
        "skill_metric": "damage",
        "skills": [
+        "Flaming Petals",
         "Freezing Spear",
         "Wind Blade"
        ]
@@ -44985,28 +46087,24 @@
    210
   ],
   "effects": [],
-  "piece_bonus": [
-   {
-    "text": "Flaming Petals",
-    "parsed": false
-   }
-  ],
+  "piece_bonus": [],
   "refine": {
    "per_refine": [
     {
      "per": 1,
      "effects": [
       {
-       "text": "Freezing Spear and Wind Blades Cast Time -3% per Refine",
-       "stat": "Freezing Spear and Wind Blades Cast Time",
+       "text": "Flaming Petals, Freezing Spear and Wind Blades Cast Time -3% per Refine",
+       "stat": "Flaming Petals, Freezing Spear and Wind Blades Cast Time",
        "value": -3,
        "unit": "%",
        "parsed": true,
        "stat_ids": [],
        "stat_keys": [],
-       "skill": "Freezing Spear and Wind Blades",
+       "skill": "Flaming Petals, Freezing Spear and Wind Blades",
        "skill_metric": "cast time",
        "skills": [
+        "Flaming Petals",
         "Freezing Spear",
         "Wind Blade"
        ]
@@ -45078,28 +46176,25 @@
    210
   ],
   "effects": [],
-  "piece_bonus": [
-   {
-    "text": "Fire",
-    "parsed": false
-   }
-  ],
+  "piece_bonus": [],
   "refine": {
    "per_refine": [
     {
      "per": 1,
      "effects": [
       {
-       "text": "Water and Wind magic damage +3% per Refine",
-       "stat": "Water and Wind magic damage",
+       "text": "Fire, Water and Wind magic damage +3% per Refine",
+       "stat": "Fire, Water and Wind magic damage",
        "value": 3,
        "unit": "%",
        "parsed": true,
        "stat_ids": [
+        65,
         59,
         68
        ],
        "stat_keys": [
+        "magic_dmg_fire",
         "magic_dmg_water",
         "magic_dmg_wind"
        ]
@@ -45171,28 +46266,24 @@
    210
   ],
   "effects": [],
-  "piece_bonus": [
-   {
-    "text": "Flaming Petals",
-    "parsed": false
-   }
-  ],
+  "piece_bonus": [],
   "refine": {
    "per_refine": [
     {
      "per": 1,
      "effects": [
       {
-       "text": "Freezing Spear and Wind Blades SP Cost -3% per Refine",
-       "stat": "Freezing Spear and Wind Blades SP Cost",
+       "text": "Flaming Petals, Freezing Spear and Wind Blades SP Cost -3% per Refine",
+       "stat": "Flaming Petals, Freezing Spear and Wind Blades SP Cost",
        "value": -3,
        "unit": "%",
        "parsed": true,
        "stat_ids": [],
        "stat_keys": [],
-       "skill": "Freezing Spear and Wind Blades",
+       "skill": "Flaming Petals, Freezing Spear and Wind Blades",
        "skill_metric": "sp cost",
        "skills": [
+        "Flaming Petals",
         "Freezing Spear",
         "Wind Blade"
        ]
@@ -46029,14 +47120,6 @@
   "effects": [],
   "piece_bonus": [
    {
-    "text": "On attack",
-    "parsed": false
-   },
-   {
-    "text": "Abracadabra Lv7.",
-    "parsed": false
-   },
-   {
     "text": "It rolls the Healing and Support pool.",
     "parsed": false
    },
@@ -46081,7 +47164,7 @@
      "per": 1,
      "effects": [
       {
-       "text": "3% +0.2% per refine chance to autocast",
+       "text": "On attack, 3% +0.2% per refine chance to autocast Abracadabra Lv7.",
        "parsed": false
       }
      ]
@@ -46170,14 +47253,6 @@
   "effects": [],
   "piece_bonus": [
    {
-    "text": "On attack",
-    "parsed": false
-   },
-   {
-    "text": "Abracadabra Lv2.",
-    "parsed": false
-   },
-   {
     "text": "It rolls the Single Target ATK pool.",
     "parsed": false
    },
@@ -46222,7 +47297,7 @@
      "per": 1,
      "effects": [
       {
-       "text": "3% +0.2% per refine chance to autocast",
+       "text": "On attack, 3% +0.2% per refine chance to autocast Abracadabra Lv2.",
        "parsed": false
       }
      ]
@@ -46311,14 +47386,6 @@
   "effects": [],
   "piece_bonus": [
    {
-    "text": "On attack",
-    "parsed": false
-   },
-   {
-    "text": "Abracadabra Lv3.",
-    "parsed": false
-   },
-   {
     "text": "It rolls the Single Target",
     "parsed": false
    },
@@ -46367,7 +47434,7 @@
      "per": 1,
      "effects": [
       {
-       "text": "3% +0.2% per refine chance to autocast",
+       "text": "On attack, 3% +0.2% per refine chance to autocast Abracadabra Lv3.",
        "parsed": false
       }
      ]
@@ -46462,14 +47529,6 @@
   "effects": [],
   "piece_bonus": [
    {
-    "text": "On attack",
-    "parsed": false
-   },
-   {
-    "text": "Abracadabra Lv6.",
-    "parsed": false
-   },
-   {
     "text": "It rolls the Area of Effect pool.",
     "parsed": false
    },
@@ -46514,7 +47573,7 @@
      "per": 1,
      "effects": [
       {
-       "text": "3% +0.2% per refine chance to autocast",
+       "text": "On attack, 3% +0.2% per refine chance to autocast Abracadabra Lv6.",
        "parsed": false
       }
      ]
@@ -46599,20 +47658,17 @@
     ]
    },
    {
-    "text": "Flame Petals",
-    "parsed": false
-   },
-   {
-    "text": "Freezing Spear and Wind Blades DMG +3%",
-    "stat": "Freezing Spear and Wind Blades DMG",
+    "text": "Flame Petals, Freezing Spear and Wind Blades DMG +3%",
+    "stat": "Flame Petals, Freezing Spear and Wind Blades DMG",
     "value": 3,
     "unit": "%",
     "parsed": true,
     "stat_ids": [],
     "stat_keys": [],
-    "skill": "Freezing Spear and Wind Blades",
+    "skill": "Flame Petals, Freezing Spear and Wind Blades",
     "skill_metric": "damage",
     "skills": [
+     "Flaming Petals",
      "Freezing Spear",
      "Wind Blade"
     ]
@@ -46725,20 +47781,17 @@
     ]
    },
    {
-    "text": "Flame Petals",
-    "parsed": false
-   },
-   {
-    "text": "Freezing Spear and Wind Blades DMG +3%",
-    "stat": "Freezing Spear and Wind Blades DMG",
+    "text": "Flame Petals, Freezing Spear and Wind Blades DMG +3%",
+    "stat": "Flame Petals, Freezing Spear and Wind Blades DMG",
     "value": 3,
     "unit": "%",
     "parsed": true,
     "stat_ids": [],
     "stat_keys": [],
-    "skill": "Freezing Spear and Wind Blades",
+    "skill": "Flame Petals, Freezing Spear and Wind Blades",
     "skill_metric": "damage",
     "skills": [
+     "Flaming Petals",
      "Freezing Spear",
      "Wind Blade"
     ]
@@ -46851,20 +47904,17 @@
     ]
    },
    {
-    "text": "Flame Petals",
-    "parsed": false
-   },
-   {
-    "text": "Freezing Spear and Wind Blades DMG +3%",
-    "stat": "Freezing Spear and Wind Blades DMG",
+    "text": "Flame Petals, Freezing Spear and Wind Blades DMG +3%",
+    "stat": "Flame Petals, Freezing Spear and Wind Blades DMG",
     "value": 3,
     "unit": "%",
     "parsed": true,
     "stat_ids": [],
     "stat_keys": [],
-    "skill": "Freezing Spear and Wind Blades",
+    "skill": "Flame Petals, Freezing Spear and Wind Blades",
     "skill_metric": "damage",
     "skills": [
+     "Flaming Petals",
      "Freezing Spear",
      "Wind Blade"
     ]
@@ -46977,20 +48027,17 @@
     ]
    },
    {
-    "text": "Flame Petals",
-    "parsed": false
-   },
-   {
-    "text": "Freezing Spear and Wind Blades DMG +3%",
-    "stat": "Freezing Spear and Wind Blades DMG",
+    "text": "Flame Petals, Freezing Spear and Wind Blades DMG +3%",
+    "stat": "Flame Petals, Freezing Spear and Wind Blades DMG",
     "value": 3,
     "unit": "%",
     "parsed": true,
     "stat_ids": [],
     "stat_keys": [],
-    "skill": "Freezing Spear and Wind Blades",
+    "skill": "Flame Petals, Freezing Spear and Wind Blades",
     "skill_metric": "damage",
     "skills": [
+     "Flaming Petals",
      "Freezing Spear",
      "Wind Blade"
     ]
@@ -49091,7 +50138,7 @@
   "effects": [],
   "piece_bonus": [
    {
-    "text": "Critical +1",
+    "text": "Critical +1, +1 per 5 base DEX.",
     "stat": "Critical",
     "value": 1,
     "unit": null,
@@ -49104,12 +50151,21 @@
     ]
    },
    {
-    "text": "+1 per 5 base",
-    "parsed": false
-   },
-   {
-    "text": "DEX.",
-    "parsed": false
+    "text": "Critical +1, +1 per 5 base DEX.",
+    "per_base_stat": {
+     "per": 5,
+     "stat": "DEX"
+    },
+    "stat": "Critical",
+    "value": 1,
+    "unit": null,
+    "parsed": true,
+    "stat_ids": [
+     14
+    ],
+    "stat_keys": [
+     "crit_rate"
+    ]
    }
   ],
   "refine": {
@@ -49191,7 +50247,7 @@
   "effects": [],
   "piece_bonus": [
    {
-    "text": "Move Speed +1%",
+    "text": "Move Speed +1%, +1% per 10 base DEX.",
     "stat": "Move Speed",
     "value": 1,
     "unit": "%",
@@ -49204,7 +50260,11 @@
     ]
    },
    {
-    "text": "+1% per 10 base DEX",
+    "text": "Move Speed +1%, +1% per 10 base DEX.",
+    "per_base_stat": {
+     "per": 10,
+     "stat": "DEX"
+    },
     "stat": "Move Speed",
     "value": 1,
     "unit": "%",
@@ -49214,12 +50274,7 @@
     ],
     "stat_keys": [
      "move_speed"
-    ],
-    "stat_inherited": true,
-    "per_base_stat": {
-     "per": 10,
-     "stat": "DEX"
-    }
+    ]
    }
   ],
   "refine": {
@@ -49301,7 +50356,7 @@
   "effects": [],
   "piece_bonus": [
    {
-    "text": "Perfect Dodge +1",
+    "text": "Perfect Dodge +1, +1 per 10 base DEX.",
     "stat": "Perfect Dodge",
     "value": 1,
     "unit": null,
@@ -49314,7 +50369,11 @@
     ]
    },
    {
-    "text": "+1 per 10 base DEX",
+    "text": "Perfect Dodge +1, +1 per 10 base DEX.",
+    "per_base_stat": {
+     "per": 10,
+     "stat": "DEX"
+    },
     "stat": "Perfect Dodge",
     "value": 1,
     "unit": null,
@@ -49324,12 +50383,7 @@
     ],
     "stat_keys": [
      "perfect_dodge"
-    ],
-    "stat_inherited": true,
-    "per_base_stat": {
-     "per": 10,
-     "stat": "DEX"
-    }
+    ]
    }
   ],
   "refine": {
@@ -49411,7 +50465,7 @@
   "effects": [],
   "piece_bonus": [
    {
-    "text": "Critical Damage +1%",
+    "text": "Critical Damage +1%, +1% per 10 base DEX.",
     "stat": "Critical Damage",
     "value": 1,
     "unit": "%",
@@ -49424,7 +50478,11 @@
     ]
    },
    {
-    "text": "+1% per 10 base DEX",
+    "text": "Critical Damage +1%, +1% per 10 base DEX.",
+    "per_base_stat": {
+     "per": 10,
+     "stat": "DEX"
+    },
     "stat": "Critical Damage",
     "value": 1,
     "unit": "%",
@@ -49434,12 +50492,7 @@
     ],
     "stat_keys": [
      "crit_damage"
-    ],
-    "stat_inherited": true,
-    "per_base_stat": {
-     "per": 10,
-     "stat": "DEX"
-    }
+    ]
    }
   ],
   "refine": {
