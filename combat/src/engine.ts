@@ -481,9 +481,34 @@ function mobGuard(fight: Fight, kind: NonNullable<Strike['kind']>, aoe = false):
   return { mult, reflect };
 }
 
+/**
+ * Gear that may kill you on your own attack: Unstable Crystal Card's "2%
+ * Chance to explode when auto-attacking or using physical skills" is
+ * percentheal -100,-100 (RTM item_db_etc.yml:33790), which kills
+ * (pc_percentheal -> status_percent_damage(..., hp == -100), pc.cpp:9882).
+ * The tooltip's chance, once per physical action.
+ */
+const explodeChance = new WeakMap<Fighter, number>();
+function explodes(fight: Fight): boolean {
+  let p = explodeChance.get(fight.f);
+  if (p === undefined) {
+    p = 0;
+    for (const m of (fight.f.gearText ?? '').matchAll(/(\d+)%\s+chance\s+to\s+explode\s+when\s+auto-attacking\s+or\s+using\s+physical\s+skills/gi)) p += Number(m[1]) / 100;
+    explodeChance.set(fight.f, p);
+  }
+  return p > 0 && !fight.rng.expect && fight.rng.chance(p);
+}
+
 /** Land an attack on the monster, rolling (or weighing) hit and crit per hit. */
 export function strike(fight: Fight, id: string, s: Strike): number {
   const { f, m, rng } = fight;
+  if ((s.kind ?? 'melee') !== 'magic' && !fight.result && explodes(fight)) {
+    fight.me.hp = 0;
+    fight.result = 'loss';
+    fight.cause = 'Unstable Crystal Card (explodes)';
+    fight.log && say(fight, `explodes (Unstable Crystal Card): dies`);
+    return 0;
+  }
   const kind = s.kind ?? 'melee';
   const monsterFlee = m.flee + (selfHas(fight, fight.mob, 'hallucination') ? fight.mob.buffs.hallucination.value ?? 0 : 0);
   // Perfect Hit lands whatever the flee (RTM battle.cpp:2916), after the crit check.

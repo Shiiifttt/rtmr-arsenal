@@ -16,6 +16,7 @@ import { SetsPanel, StatsPanel, UncountedPanel } from './components/StatsPanel';
 import { ImportPanel } from './components/ImportPanel';
 import { RollImport } from './components/RollImport';
 import { SourcesPanel } from './components/SourcesPanel';
+import { RotationOverlay } from './components/RotationOverlay';
 import { ItemTooltipLayer } from './components/ItemTooltip';
 import { DEFAULT_PREFS, GoalsPanel, type SuggestPrefs } from './components/GoalsPanel';
 
@@ -60,6 +61,8 @@ export default function App() {
   const [builds, setBuilds] = useState(false);
   const [fighting, setFighting] = useState(false);
   const [codex, setCodex] = useState(false);
+  /** The recommended-rotation overlay (data/rotations.json, from the combat sim). */
+  const [rotation, setRotation] = useState(false);
   /** The item the codex last showed, so reopening it lands there again. */
   const [codexItem, setCodexItem] = useState<number | null>(null);
   /** Open the Builds panel with the share link already made. */
@@ -184,6 +187,18 @@ export default function App() {
     [build, dataset],
   );
 
+  /** Total base stats (points + gear, its percent too), for the rotation overlay's scaling lines. */
+  const statTotals = useMemo(() => {
+    const out = { STR: 0, AGI: 0, VIT: 0, INT: 0, DEX: 0, LUK: 0 };
+    if (!dataset || !totals) return out;
+    for (const key of ['str', 'agi', 'vit', 'int', 'dex', 'luk'] as const) {
+      const id = dataset.stats.find((st) => st.key === key)?.id;
+      const t = id !== undefined ? totals.byStat.get(id) : undefined;
+      out[key.toUpperCase() as keyof typeof out] = Math.floor(((build.baseStats[key] ?? 0) + (t?.flat ?? 0)) * (1 + (t?.percent ?? 0) / 100));
+    }
+    return out;
+  }, [build, dataset, totals]);
+
   // One per goals-and-options, shared by the goals panel and the picker, so
   // the relevance filters are worked out once rather than on every open.
   // The goals as ranked, with the guard rails after them: a suggestion is
@@ -288,6 +303,10 @@ export default function App() {
             Simulate
           </button>
         )}
+        <button onClick={() => setRotation(true)}
+          title="The combat sim's recommended rotation for this class: all-round and on the dummy">
+          Rotation
+        </button>
         <button onClick={() => setCodex(true)}
           title="Look up any item in the game: equipment, cards, materials, costumes">
           Codex
@@ -452,6 +471,10 @@ export default function App() {
         <Suspense fallback={null}>
           <CombatPanel build={build} onClose={() => setFighting(false)} />
         </Suspense>
+      )}
+
+      {rotation && (
+        <RotationOverlay className={build.className} stats={statTotals} onClose={() => setRotation(false)} />
       )}
 
       {codex && (

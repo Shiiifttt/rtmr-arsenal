@@ -1,6 +1,6 @@
 {
-  "name": "Revenant maxed-out tier, final (2026-10-01): RTM status-ATK element, areas hit cloaked, 1 Ebel, bought rolls incl. shadow skill rolls; weapon cards settled head to head -- ~602 kills/h, 0.2 deaths/h in the sim",
-  "build": "https://rtmr-arsenal.pages.dev/#b=crVLLiuMwEPwXnYtF3ZJs6zf2KowRtuKIOLGxlJD9-0V2JpsZJrALe-lDV6kejRxD_Ay3cPGXLEBKwjUWimAkmGEMrG3hnIQiZoKF06QYpCrZtC0cwVgly55UTVS4ImWfBcQQ7gKO2rbwGMZy9eApi22-ZSuQlNrqBhUc12Q-CU_Xk4DjQhRrSPN17YOAOPt7d1wEnNmQc8xx9DnOlw0bY--nbg3DtQ-DgFO7kwYZ1ey5KpbQyvLmtc7TRALC59POxr5jAZGWrp9TflEj-SSoYhemELrBn_0YPqNaQBziPQxd71PucjyHD5lOwMkfvOeqoCTxFkxzU6GMdzcIN5_2mocpvPila8o-lv1x6aYQ-mN5IvGwqEEVKbNbWPNOPS2hVBQ-LS9NS_p4Gcv-kMO6txnC5H89OIXVgCpFGrJc10iC1kpuo6B2Q1VBn_snSAy2Vm0_5ttvUpKd4jQJiHX2a7yM3XwLa5p8Ov65vNmDkAI3stZf1fae_6ymwVqz_U9qZmv6d2rBL0XtjVIF1qyqctFvlTZSDdZUq692t5g_SG37Gw",
+  "name": "Revenant maxed-out tier, final (2026-10-01): RTM rules, Unstable Crystal Card's explosion modelled (it kills), bought + skill rolls -- win 98% lost 0% 45,720 dps 4s 565 kills/h (sit 0.3s) 2.3 deaths/h",
+  "build": "https://rtmr-arsenal.pages.dev/#b=crVLbbuMgEP2XeT5awQC2-Y19RZaFbBJbIbFlSJT-fYWddtOqeVipLwjNHM5lBsegv-EWLv6SCVIJOCuhJbSArGEMrG3hnICSzBIWTkvFkKoSTdvCSRirRKlLZWpZsJSyzwQawp3gZNsWHMNYrnZcrSy28yVaQQqhrW5QwXEtzRfieD0RHBcgrSHN17UPBDr7ezcuBGe2znnK09Hnab4QaBnf0tT72K1huPZhIDi1S2lIo5rdWMUCWlnexNY5Rkkgn087GnuNCZSWrp9TfmKT4hOgipcQQ-gGf_bH8LWrCXSY7mHoep9yl6dz-KDpCE784d1XBSUkb8Y0NxXK8WoI4ebTnvMQw5Neuqbsp1Ifly6G0I_licBDogYzC7FLWPOKPS2hRCSflqekxf10OZb6IYd1TzOE6N8emIJqwJUqu7NgKxUEnNZKPCsV1u4Qy_1j-5LB1qrtt_z4RYqp0xQjgdbZr9Pl2M23sKbo0_hv6ObBpsBam-Y72x7xv9l0YWP7S2wG3Ija_FLSCqxZVWXMP3rbQDVYy1p9l7xNnxto23c",
   "consumables": [
     "Green Potion",
     "Kafra Elixir",
@@ -31,7 +31,9 @@
       "Attack"
     ],
     "tankShare": 0.6,
-    "comboRefreshMs": 2000
+    "comboRefreshMs": 2000,
+    "rainstorm": false,
+    "autoAttack": false
   },
   "aspdModel": {
     "base": 58

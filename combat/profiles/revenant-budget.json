@@ -1,6 +1,6 @@
 {
-  "name": "Revenant budget tier (2026-10-01, new rules): no MVP or SS-dungeon drops (Weavers aside), nothing made from a +9, +6 at most, average rolls; from the baseline build -- win 97% lost 1% 26,732 dps 6s 285 kills/h (sit 4.0s) 3.8 deaths/h",
-  "build": "https://rtmr-arsenal.pages.dev/#b=cfZLdjqMwDIXfxde-iJ0_eI29jRCKwG3RAEVNWnXefhXoduhq2hskki_Hx8cOjPBHbjLHOQOSVhhqg5rQKiRGa7GuGwxBoSZmgw5D-YXLeRwJEMbrF2CgpsHtjAFhivf2tAAGfh5rQIiHLJe2iym3vYzxu71If-2kBwy-aQpaqroKFQbS1q-ijLZmV8qS9lzh-l0dpBwzIPRy3wwUWiNrbwvNniwVmn6niy9J5-ulk71jvd5MQx6OMQ_nGRCW03caujju7PJWzSBZXZVqxnqHRtf8kk3MXy8hlGzS0nbnlHdi9iWkSUaRto9TPMrLpQGEw3CXfkswD5PsREhtlhySNexXT1y5d63LLaatu8Mosg0AA6RrynGYN5ujSHcqLyw-0vXIrJTa4mWr36mnRYopiGnpn9rF9TAff9mDn_lXyM7RY_6K9vrPPStcjVxp6_-B9bo7jGwM1c8NfTxM-fLzkHSBmP6HbkPeQWaF1GfIrpD-DDlkw9oVo2-bIY9syH9Sapq_",
+  "name": "Revenant budget tier (2026-10-01): no MVP or SS-dungeon drops (Weavers aside), nothing made from a +9, +6 at most, average rolls; Unstable Crystal Card modelled -- win 97% lost 1% 29,127 dps 6s 296 kills/h (sit 4.3s) 3.4 deaths/h",
+  "build": "https://rtmr-arsenal.pages.dev/#b=cfZLNbqtADIXfxeuzYDw_wGt0O0KjETgJKiGImUTt21cD97akUrpBYH8-Pjb2DHqTh8xxzgSlK_jWgBVsBcVwFdq2g_cVVNNwDdfBl6RrUMErbWvVdfAM27KFK6GaG2zPUkcpx0yg6f5O8KrrCq3But5orpVVhVZP9CAfOw1Pq6Tbfe2FQNf4ES4Lwestcx3zeI55vM0EWi6faezjFFYZ7r0MBM97NwNldVO6GVs7GN3y1mu9TZMiUMzvO4w9xgRKS-hvKR_E7HdeFycyiYQhXuNZnpKGQJclnOM4yxAWWcNlzARf714clDVljfCGG_dqZnnEtI91mkT2cnhK95TjOO_-JpH-Uios_q21BnNVVfte2epX6mmRMhLFtAzf2n1MeZzPJXzKsobyHQaZ4ueP-wbsuJxDC26V3i-gNk-Nimg4TeX9_-9WDDZGtcXYEU15PUC6QKx-Q4_xqGQ2qPobshuk_4Yc2LB2ZYbXUA02ytnfSodj7rov",
   "consumables": [
     "Green Potion",
     "Kafra Elixir",
@@ -19,11 +19,12 @@
       "True Sight",
       "Vampire Mark",
       "Shadow Parry",
+      "Roaring Overslash",
       "Reaping Slash",
       "Hellraiser",
-      "Roaring Overslash",
       "Scythe Reap",
       "Sweeping Slash",
+      "Dark Messenger",
       "Underworld Rainstorm",
       "Haunting Slice",
       "Dark Message",
@@ -32,7 +33,9 @@
     ],
     "tankShare": 0.6,
     "comboRefreshMs": 2000,
-    "rainAt": 5
+    "rainAt": 5,
+    "rainstorm": false,
+    "autoAttack": false
   },
   "aspdModel": {
     "base": 58

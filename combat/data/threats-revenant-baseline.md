@@ -1,6 +1,6 @@
 # Danger database: Revenant
 
-Reference build: Revenant baseline tier (2026-10-01, new rules): MVP drops only from MVPs up to Lv130, no SS-dungeon drops but Weavers, average rolls; from the final maxed build -- win 98% lost 0% 38,285 dps 5s 454 kills/h (sit 1.3s) 0.4 deaths/h (Lv130, 6,982 Max HP, Dark armour), 100 fights a monster, built 2026-10-01. Damage is this build's; how often a skill comes and what dodges it are the monster's.
+Reference build: Revenant baseline tier (2026-10-01): MVP drops only from MVPs up to Lv130, no SS-dungeon drops but Weavers, average rolls; Unstable Crystal Card modelled -- win 98% lost 1% 30,673 dps 6s 424 kills/h (sit 1.0s) 3.3 deaths/h (Lv130, 7,350 Max HP, Undead armour), 100 fights a monster, built 2026-10-01. Damage is this build's; how often a skill comes and what dodges it are the monster's.
 
 Danger: **lethal** = it killed, or one landed hit is half your Max HP; **heavy** = a quarter; notable = a tenth, or a tenth of all damage taken.
 
@@ -8,58 +8,58 @@ Danger: **lethal** = it killed, or one landed hit is half your Max HP; **heavy**
 
 | Monster | Wins | Deaths | Time | Dangerous skills (danger, hit, per min, dodged) | Dodges used per fight |
 |---|---|---|---|---|---|
-| Goddess Freya (MVP) | 92% | 8% | 76.9s | Adoramus +other/blind: **lethal**, 14.0k 3.0s cast, 3.12/min, 98% dodged, 88% of deaths<br>Phantom Thrust: **lethal**, 576 1.0s cast, 4.38/min, 96% dodged, 13% of deaths<br>Goddess Freya: attack: notable, 233, 11.21/min, 79% dodged | Walk out 6.07, Hiding 9.7, Enter Manhole 3.72 |
-| Ascended Follower | 100% | 0% | 1.9s | nothing dangerous | - |
-| Aunoe | 100% | 0% | 1.6s | Aunoe: attack: notable, 44, 49.84/min, 55% dodged | - |
-| Dominated Follower | 100% | 0% | 3.1s | Dominated Follower: attack: notable, 16, 19.79/min, 54% dodged | Walk out 0.87 |
-| Doomed Follower | 100% | 0% | 2s | Doomed Follower: attack: notable, 22, 41.95/min, 58% dodged | Back Slide 0.25 |
-| Fanat | 100% | 0% | 2s | Fanat: attack: notable, 62, 64.22/min, 58% dodged | Back Slide 0.71 |
-| Ritual Priest | 100% | 0% | 2.4s | Ritual Priest: attack: notable, 16, 37.89/min, 44% dodged | Walk out 0.16 |
+| Ascended Follower | 100% | 0% | 2s | nothing dangerous | - |
+| Aunoe | 100% | 0% | 2s | Aunoe: attack: notable, 47, 42.12/min, 57% dodged | - |
+| Dominated Follower | 100% | 0% | 3.5s | Dominated Follower: attack: notable, 14, 18.92/min, 55% dodged | Walk out 0.88 |
+| Doomed Follower | 100% | 0% | 2.1s | Doomed Follower: attack: notable, 23, 42.37/min, 56% dodged | Back Slide 0.27 |
+| Fanat | 100% | 0% | 2.1s | Fanat: attack: notable, 69, 63.24/min, 61% dodged | Back Slide 0.7 |
+| Goddess Freya (MVP) | 100% | 0% | 91.2s | Goddess Freya: attack: notable, 186, 9.51/min, 71% dodged | Hiding 9.93, Walk out 7.94, Enter Manhole 2.39 |
+| Ritual Priest | 100% | 0% | 2.5s | Ritual Priest: attack: notable, 17, 38.03/min, 53% dodged | Walk out 0.16 |
 
 ## gorge
 
 | Monster | Wins | Deaths | Time | Dangerous skills (danger, hit, per min, dodged) | Dodges used per fight |
 |---|---|---|---|---|---|
-| Emperor Morroc (MVP) | 0% | 100% | 33.7s | Emperor Morroc: attack: **lethal**, 1.2k, 14.39/min, 54% dodged, 25% of deaths<br>Death Incarnate: attack: **lethal**, 168, 58.09/min, 54% dodged, 19% of deaths<br>War Incarnate: attack: **lethal**, 462, 18.54/min, 53% dodged, 17% of deaths<br>Conquest Incarnate: Hammer of God: **lethal**, 3.7k 2.0s cast, 2.03/min, 55% dodged, 15% of deaths<br>Conquest Incarnate: attack: **lethal**, 550, 13.34/min, 51% dodged, 11% of deaths | Walk out 3.9, Hiding 1.42 |
-| Conquest Incarnate | 100% | 0% | 2.1s | Conquest Incarnate: attack: notable, 94, 28.58/min, 53% dodged<br>Conquest Incarnate: reflected: notable, 215, 3.92/min, 0% dodged | Hiding 0.07 |
-| Death Incarnate | 100% | 0% | 6.1s | Death Incarnate: attack: notable, 17, 19.35/min, 58% dodged<br>Critical Wounds +criticalwound: notable, 6 0.3s cast, 9.77/min, 27% dodged | Walk out 1.93 |
-| Famine Incarnate | 100% | 0% | 4.1s | Famine Incarnate: attack: notable, 24, 14.91/min, 51% dodged | Walk out 0.99 |
-| Vision of Surt | 100% | 0% | 1.9s | Vision of Surt: attack: notable, 36, 35.47/min, 52% dodged | - |
-| War Incarnate | 100% | 0% | 1.9s | War Incarnate: attack: notable, 95, 35.16/min, 55% dodged | - |
+| Emperor Morroc (MVP) | 0% | 100% | 33s | Emperor Morroc: attack: **lethal**, 1.5k, 13.76/min, 52% dodged, 26% of deaths<br>Death Incarnate: attack: **lethal**, 205, 54.75/min, 55% dodged, 20% of deaths<br>War Incarnate: attack: **lethal**, 549, 17.34/min, 55% dodged, 15% of deaths<br>Conquest Incarnate: Hammer of God: **lethal**, 4.5k 2.0s cast, 2.04/min, 59% dodged, 14% of deaths<br>Conquest Incarnate: attack: **lethal**, 667, 12.21/min, 57% dodged, 11% of deaths | Walk out 3.22, Hiding 1.47 |
+| Conquest Incarnate | 100% | 0% | 2.7s | Conquest Incarnate: attack: notable, 46, 23.82/min, 57% dodged | - |
+| Death Incarnate | 100% | 0% | 6.4s | Death Incarnate: attack: notable, 14, 21.44/min, 58% dodged<br>Critical Wounds +criticalwound: notable, 6 0.3s cast, 8.97/min, 30% dodged | Walk out 1.95 |
+| Famine Incarnate | 100% | 0% | 3.7s | Famine Incarnate: attack: notable, 30, 16.13/min, 51% dodged | Walk out 0.99 |
+| Vision of Surt | 100% | 0% | 2s | Vision of Surt: attack: notable, 43, 33.82/min, 52% dodged | - |
+| War Incarnate | 100% | 0% | 2.1s | War Incarnate: attack: notable, 72, 46.21/min, 55% dodged | - |
 
 ## guild
 
 | Monster | Wins | Deaths | Time | Dangerous skills (danger, hit, per min, dodged) | Dodges used per fight |
 |---|---|---|---|---|---|
-| Soul of Ymir (MVP) | 0% | 13% | 106.9s | Dragon Breath +burning: **lethal**, 11.5k 2.5s cast, 0.52/min, 84% dodged, 100% of deaths<br>Soul of Ymir: attack: **heavy**, 1.8k, 0.81/min, 50% dodged<br>Chain Lightning: notable, 247 x4 0.3s cast, 3.46/min, 62% dodged | Hiding 1.75, Walk out 4.02 |
-| Ymir Emperium | 0% | 0% | 54.2s | Magnus Exorcismus: notable, 46 x5 3.5s cast, 21.54/min, 78% dodged | - |
-| Detector | 100% | 0% | 1.1s | Detector: attack: notable, 4, 52.6/min, 45% dodged | - |
-| Guild Chamberlain | 100% | 0% | 3.7s | Guild Chamberlain: attack: notable, 271, 17.56/min, 54% dodged | Hiding 0.18 |
-| Guild Defender | 100% | 0% | 2s | Guild Defender: attack: notable, 42, 31.59/min, 44% dodged | - |
-| Guild Magician | 100% | 0% | 3.4s | nothing dangerous | Walk out 1 |
-| Guild Master | 100% | 0% | 9.2s | nothing dangerous | - |
-| Guild Support | 100% | 0% | 2.6s | Guild Support: attack: notable, 28, 25.14/min, 46% dodged | - |
-| Guild Warrior | 100% | 0% | 7.4s | Guild Warrior: attack: notable, 68, 24.46/min, 57% dodged | Walk out 2 |
+| Soul of Ymir (MVP) | 0% | 11% | 108.8s | Dragon Breath +burning: **lethal**, 17.2k 2.5s cast, 0.29/min, 79% dodged, 100% of deaths<br>Chain Lightning: notable, 744 x4 0.3s cast, 2.82/min, 69% dodged<br>Soul of Ymir: attack: **heavy**, 2.0k, 0.72/min, 49% dodged | Hiding 1.32, Walk out 3.76 |
+| Guild Master | 98% | 2% | 15.1s | Guild Warrior: Spear Stab: **lethal**, 11.1k x2 0.5s cast, 2.82/min, 93% dodged, 100% of deaths | Back Slide 0.67, Hiding 0.47, Walk out 0.14 |
+| Ymir Emperium | 0% | 0% | 43.7s | Magnus Exorcismus: notable, 54 x5 3.5s cast, 21.29/min, 77% dodged | - |
+| Detector | 100% | 0% | 1.3s | Detector: attack: notable, 16, 49.12/min, 49% dodged | - |
+| Guild Chamberlain | 100% | 0% | 5.9s | Guild Chamberlain: attack: notable, 302, 11.12/min, 56% dodged | Hiding 0.73 |
+| Guild Defender | 100% | 0% | 2.9s | Guild Defender: attack: notable, 40, 23.46/min, 47% dodged | - |
+| Guild Magician | 100% | 0% | 4.3s | Guild Magician: attack: notable, 17, 14.77/min, 49% dodged | Walk out 1.03 |
+| Guild Support | 100% | 0% | 6s | Guild Support: attack: notable, 29, 10.85/min, 48% dodged | Hiding 0.99 |
+| Guild Warrior | 100% | 0% | 9.8s | Guild Warrior: attack: notable, 58, 23.74/min, 59% dodged | Walk out 2.76 |
 
 ## jorm
 
 | Monster | Wins | Deaths | Time | Dangerous skills (danger, hit, per min, dodged) | Dodges used per fight |
 |---|---|---|---|---|---|
-| Jormungandr (MVP) | 0% | 49% | 68.4s | Dragon Breath +burning: **lethal**, 52.1k 2.0s cast, 0.67/min, 40% dodged, 94% of deaths<br>Jormungandr: attack: **lethal**, 4.0k, 1.04/min, 53% dodged, 6% of deaths | Walk out 1.51, Hiding 2.43, Break line of sight 0.42 |
-| Angel of Genesis | 100% | 0% | 10.6s | Angel of Genesis: attack: notable, 81, 17.25/min, 56% dodged | Hiding 1, Walk out 1 |
-| Demon of Apocalypse | 100% | 0% | 9.8s | Demon of Apocalypse: attack: notable, 44, 17.53/min, 51% dodged | Hiding 0.89, Walk out 0.79 |
-| Heart of the Serpent | 100% | 0% | 3s | nothing dangerous | - |
-| Heartless | 100% | 0% | 20.5s | Heartless: attack: notable, 93, 14.2/min, 56% dodged<br>Magnus Exorcismus: notable, 17 x5 0.3s cast, 57.05/min, 77% dodged | Hiding 2.88 |
+| Jormungandr (MVP) | 0% | 54% | 63s | Dragon Breath +burning: **lethal**, 55.9k 2.0s cast, 0.77/min, 40% dodged, 91% of deaths<br>Jormungandr: attack: **lethal**, 4.1k, 1.12/min, 50% dodged, 7% of deaths<br>Swhoo: **lethal**, 189.0k 3.0s cast, 1.16/min, 99% dodged, 2% of deaths<br>Phantom Thrust +other: **lethal**, 3.7k, 0.02/min, 50% dodged | Walk out 1.48, Hiding 2.34, Break line of sight 0.39 |
+| Angel of Genesis | 100% | 0% | 10.9s | Angel of Genesis: attack: notable, 81, 20.5/min, 55% dodged | Hiding 1, Walk out 1 |
+| Demon of Apocalypse | 100% | 0% | 9.7s | Demon of Apocalypse: attack: notable, 54, 19.74/min, 56% dodged | Hiding 0.92, Walk out 0.29 |
+| Heart of the Serpent | 100% | 0% | 5.1s | nothing dangerous | Hiding 0.05 |
+| Heartless | 100% | 0% | 24.7s | Magnus Exorcismus: notable, 29 x5 0.3s cast, 60.01/min, 78% dodged<br>Heartless: attack: notable, 55, 13.46/min, 54% dodged | Hiding 3.53 |
 
 ## orcs
 
 | Monster | Wins | Deaths | Time | Dangerous skills (danger, hit, per min, dodged) | Dodges used per fight |
 |---|---|---|---|---|---|
-| Fallen Orc Hero (MVP) | 100% | 0% | 1.2s | nothing dangerous | - |
+| Fallen Orc Hero (MVP) | 100% | 0% | 1.7s | nothing dangerous | - |
 | Grafted Zenorc | 100% | 0% | 0s | nothing dangerous | - |
 | High Orc | 100% | 0% | 0s | nothing dangerous | - |
 | Orc Archer | 100% | 0% | 0s | nothing dangerous | - |
-| Orc Lord Zombie (MVP) | 100% | 0% | 1.6s | nothing dangerous | - |
+| Orc Lord Zombie (MVP) | 100% | 0% | 2s | nothing dangerous | - |
 | Orc Skeleton | 100% | 0% | 0s | nothing dangerous | - |
 | Orc Zombie | 100% | 0% | 0s | nothing dangerous | - |
 | Zenorc | 100% | 0% | 0s | nothing dangerous | - |
@@ -68,62 +68,62 @@ Danger: **lethal** = it killed, or one landed hit is half your Max HP; **heavy**
 
 | Monster | Wins | Deaths | Time | Dangerous skills (danger, hit, per min, dodged) | Dodges used per fight |
 |---|---|---|---|---|---|
-| Agav | 100% | 0% | 0.9s | Agav: attack: notable, 2, 68.33/min, 54% dodged | - |
+| Agav | 100% | 0% | 0.9s | Agav: attack: notable, 2, 65.75/min, 54% dodged | - |
 | Echio | 100% | 0% | 0.9s | nothing dangerous | - |
-| Gloom Under Night (MVP) | 100% | 0% | 11.4s | Gloom Under Night: attack: notable, 25, 7.93/min, 54% dodged | - |
-| Hodremlin | 100% | 0% | 0.9s | Hodremlin: attack: notable, 6, 68.33/min, 50% dodged | - |
-| Isilla | 100% | 0% | 0.4s | nothing dangerous | - |
+| Gloom Under Night (MVP) | 100% | 0% | 15.7s | Gloom Under Night: attack: notable, 53, 7.46/min, 61% dodged | - |
+| Hodremlin | 100% | 0% | 0.9s | Hodremlin: attack: notable, 5, 64.7/min, 51% dodged | - |
+| Isilla | 100% | 0% | 0.7s | nothing dangerous | - |
 | Seeker | 100% | 0% | 0.4s | nothing dangerous | - |
-| Tricked Follower | 100% | 0% | 0.4s | nothing dangerous | - |
-| Vanberk | 100% | 0% | 0.4s | nothing dangerous | - |
+| Tricked Follower | 100% | 0% | 0.9s | Tricked Follower: attack: notable, 5, 65.75/min, 56% dodged | - |
+| Vanberk | 100% | 0% | 0.9s | nothing dangerous | - |
 
 ## rachel_ss
 
 | Monster | Wins | Deaths | Time | Dangerous skills (danger, hit, per min, dodged) | Dodges used per fight |
 |---|---|---|---|---|---|
-| Desperate Njord (MVP) | 0% | 82% | 32.7s | Njord Zealot: Fire Storm +burnt: **lethal**, 32.4k 1.0s cast, 2.57/min, 70% dodged, 51% of deaths<br>Njord Zealot: Flaming Petals: **lethal**, 11.8k 0.5s cast, 2.63/min, 90% dodged, 17% of deaths<br>Converted Zealot: Cloud Kill +cloudpoison: **lethal**, 1.1k x16 0.3s cast, 19.84/min, 87% dodged, 11% of deaths<br>Desperate Njord: attack: **lethal**, 2.2k, 6.49/min, 56% dodged, 9% of deaths<br>Converted Zealot: Back Stab: **lethal**, 2.6k 1.5s cast, 2.66/min, 69% dodged, 6% of deaths | Hiding 1.59, Back Slide 0.56, Walk out 1.25 |
-| Converted Zealot | 91% | 9% | 13.9s | Cloud Kill +cloudpoison: **lethal**, 255 x16 0.3s cast, 104.93/min, 63% dodged, 56% of deaths<br>Converted Zealot: attack: **lethal**, 296, 28.93/min, 55% dodged, 33% of deaths<br>Huuma Shuriken - Grasp: **lethal**, 10.6k 1.5s cast, 4.32/min, 99% dodged, 11% of deaths | Hiding 2.64 |
-| Burning Fury | 99% | 1% | 18.3s | Critical Slash: **lethal**, 511, 4.26/min, 40% dodged, 100% of deaths<br>Burning Fury: attack: notable, 87, 29.69/min, 54% dodged | Walk out 1.96, Hiding 2.42 |
-| Godly Seeker | 100% | 0% | 10.1s | Godly Seeker: attack: notable, 28, 16.34/min, 52% dodged | Back Slide 1.33, Hiding 0.92 |
-| Njord Zealot | 100% | 0% | 18.6s | Njord Zealot: attack: notable, 43, 30.71/min, 55% dodged | Walk out 2.69, Hiding 3.57, Back Slide 2.13 |
-| Tortured Maiden | 100% | 0% | 12.7s | Jupitel Thunder: notable, 1.5k 2.5s cast, 1.7/min, 97% dodged<br>Tortured Maiden: attack: notable, 30, 42.39/min, 56% dodged | Hiding 1.35 |
+| Desperate Njord (MVP) | 0% | 86% | 28s | Njord Zealot: Fire Storm +burnt: **lethal**, 42.9k 1.0s cast, 2.78/min, 65% dodged, 52% of deaths<br>Njord Zealot: Flaming Petals: **lethal**, 15.8k 0.5s cast, 2.87/min, 94% dodged, 9% of deaths<br>Converted Zealot: Cloud Kill +cloudpoison: **lethal**, 1.1k x16 0.3s cast, 20.41/min, 87% dodged, 9% of deaths<br>Desperate Njord: attack: **lethal**, 2.8k, 6.83/min, 57% dodged, 8% of deaths<br>Converted Zealot: Back Stab: **lethal**, 3.5k 1.5s cast, 2.83/min, 68% dodged, 8% of deaths | Hiding 1.47, Walk out 1.19, Back Slide 0.52 |
+| Converted Zealot | 55% | 45% | 18.9s | Huuma Shuriken - Grasp: **lethal**, 9.5k 1.5s cast, 3.1/min, 57% dodged, 73% of deaths<br>Cloud Kill +cloudpoison: **lethal**, 585 x16 0.3s cast, 144.19/min, 83% dodged, 16% of deaths<br>Converted Zealot: attack: **lethal**, 862, 28.47/min, 56% dodged, 7% of deaths<br>Pulse Strike 2: **lethal**, 563 x3 0.3s cast, 4.78/min, 27% dodged, 4% of deaths | Hiding 3.09 |
+| Burning Fury | 99% | 1% | 23.8s | Critical Slash: **lethal**, 605, 4.91/min, 42% dodged, 100% of deaths<br>Burning Fury: attack: notable, 100, 33.16/min, 55% dodged<br>Knuckle Arrow: notable, 217 1.0s cast, 14.87/min, 75% dodged | Walk out 2.12, Hiding 3.73 |
+| Njord Zealot | 99% | 1% | 21.5s | Meteor Storm +stun: **lethal**, 8.9k x7 0.5s cast, 33.9/min, 100% dodged, 100% of deaths<br>Njord Zealot: attack: notable, 62, 30.32/min, 54% dodged | Walk out 2.91, Hiding 4.07, Back Slide 2.34 |
+| Godly Seeker | 100% | 0% | 15.1s | Godly Seeker: attack: notable, 19, 22.6/min, 57% dodged | Back Slide 1.99, Hiding 0.93 |
+| Tortured Maiden | 100% | 0% | 10.7s | Tortured Maiden: attack: notable, 33, 45.41/min, 55% dodged | Hiding 1.03 |
 
 ## thanatos
 
 | Monster | Wins | Deaths | Time | Dangerous skills (danger, hit, per min, dodged) | Dodges used per fight |
 |---|---|---|---|---|---|
-| Broken Thanatos (MVP) | 0% | 0% | 90.1s | Broken Thanatos: attack: notable, 1.6k, 15.18/min, 53% dodged | Walk out 7.59 |
-| Anger of Thanatos | 100% | 0% | 4.4s | nothing dangerous | - |
-| Empathy | 100% | 0% | 1.9s | Empathy: attack: notable, 5, 31.12/min, 54% dodged | - |
-| Happiness | 100% | 0% | 1.9s | Happiness: attack: notable, 70, 33.3/min, 51% dodged | - |
-| Horror of Thanatos | 100% | 0% | 8.8s | Horror of Thanatos: attack: notable, 60, 8.54/min, 53% dodged | Walk out 0.92, Hiding 0.93 |
-| Prayer | 100% | 0% | 1.9s | nothing dangerous | - |
-| Regret of Thanatos | 100% | 0% | 4.2s | Regret of Thanatos: attack: notable, 2, 20.22/min, 48% dodged | - |
-| Resentment of Thanatos | 100% | 0% | 6.1s | Resentment of Thanatos: attack: notable, 54, 30.66/min, 53% dodged<br>Resentment of Thanatos: reflected: notable, 103, 3.93/min, 0% dodged | Hiding 0.99, Walk out 1.07 |
-| Smile | 100% | 0% | 2.1s | Great Echo: notable, 310 1.7s cast, 1.71/min, 0% dodged<br>Smile: attack: notable, 9, 31.14/min, 49% dodged | Hiding 0.08 |
+| Broken Thanatos (MVP) | 0% | 0% | 77.7s | Broken Thanatos: attack: notable, 1.6k, 18.16/min, 56% dodged | Walk out 7.11 |
+| Anger of Thanatos | 100% | 0% | 7.7s | nothing dangerous | Hiding 0.4 |
+| Empathy | 100% | 0% | 2s | Empathy: attack: notable, 10, 29.66/min, 54% dodged | - |
+| Happiness | 100% | 0% | 2s | Happiness: attack: notable, 62, 38.86/min, 56% dodged | - |
+| Horror of Thanatos | 100% | 0% | 9.3s | Horror of Thanatos: attack: notable, 69, 9.28/min, 58% dodged | Walk out 0.99, Hiding 1 |
+| Prayer | 100% | 0% | 2s | Prayer: attack: notable, 1, 56.36/min, 54% dodged | - |
+| Regret of Thanatos | 100% | 0% | 8.3s | Regret of Thanatos: attack: notable, 11, 12.79/min, 48% dodged<br>Critical Slash: notable, 6 0.5s cast, 7.08/min, 33% dodged | Hiding 1 |
+| Resentment of Thanatos | 100% | 0% | 9.1s | Resentment of Thanatos: reflected: notable, 1.2k, 5.24/min, 0% dodged<br>Resentment of Thanatos: attack: notable, 102, 38.32/min, 55% dodged | Hiding 1, Walk out 2.04 |
+| Smile | 100% | 0% | 2s | nothing dangerous | - |
 
 ## tomb
 
 | Monster | Wins | Deaths | Time | Dangerous skills (danger, hit, per min, dodged) | Dodges used per fight |
 |---|---|---|---|---|---|
-| King Schmidt (MVP) | 0% | 96% | 41.5s | Cannon Spear: **lethal**, 10.4k 3.0s cast, 7.75/min, 79% dodged, 99% of deaths<br>King Schmidt: attack: **lethal**, 283, 22.78/min, 53% dodged, 1% of deaths<br>Pulse Strike: notable, 1.3k 1.5s cast, 5.13/min, 91% dodged | Hiding 5.39 |
-| Magma Knight | 100% | 0% | 9.8s | Magma Knight: attack: notable, 65, 28.66/min, 53% dodged | Hiding 1, Walk out 1 |
-| Quake Knight | 100% | 0% | 8.5s | Quake Knight: attack: notable, 91, 9.98/min, 58% dodged | Walk out 1.83, Hiding 0.75 |
-| Tidal Knight | 100% | 0% | 10.9s | Tidal Knight: attack: notable, 148, 7.87/min, 55% dodged | Hiding 1.55, Walk out 1.6, Break line of sight 0.07 |
-| Tornado Knight | 100% | 0% | 12.5s | Tornado Knight: attack: notable, 185, 5.81/min, 57% dodged | Walk out 2.03, Hiding 2.05, Break line of sight 0.09 |
-| Umbral Knight | 100% | 0% | 10.1s | Umbral Knight: attack: notable, 207, 6.46/min, 54% dodged | Hiding 0.42, Walk out 0.17 |
+| King Schmidt (MVP) | 0% | 92% | 42.4s | Cannon Spear: **lethal**, 11.4k 3.0s cast, 7.64/min, 81% dodged, 96% of deaths<br>Pulse Strike: **lethal**, 2.2k 1.5s cast, 5.07/min, 95% dodged, 2% of deaths<br>King Schmidt: attack: **lethal**, 305, 23.52/min, 53% dodged, 2% of deaths | Hiding 5.46 |
+| Magma Knight | 100% | 0% | 9.3s | Magma Knight: attack: notable, 89, 25.87/min, 53% dodged | Hiding 1, Walk out 1 |
+| Quake Knight | 100% | 0% | 10.8s | Quake Knight: attack: notable, 79, 9.97/min, 53% dodged | Walk out 2.01, Hiding 1.03 |
+| Tidal Knight | 100% | 0% | 11.1s | Tidal Knight: attack: notable, 183, 7.93/min, 54% dodged | Hiding 1.64, Walk out 1.67 |
+| Tornado Knight | 100% | 0% | 11.1s | Tornado Knight: attack: notable, 197, 7.86/min, 57% dodged | Walk out 1.65, Hiding 1.89, Break line of sight 0.05 |
+| Umbral Knight | 100% | 0% | 12.9s | Umbral Knight: attack: notable, 308, 5.49/min, 53% dodged | Hiding 1.07, Walk out 0.22 |
 
 ## varmundt
 
 | Monster | Wins | Deaths | Time | Dangerous skills (danger, hit, per min, dodged) | Dodges used per fight |
 |---|---|---|---|---|---|
-| Cavalier | 100% | 0% | 1.2s | nothing dangerous | - |
-| Gentleman | 100% | 0% | 1.2s | Gentleman: attack: notable, 27, 48.85/min, 52% dodged | - |
-| Lost Codex | 100% | 0% | 1.2s | nothing dangerous | - |
-| Lost Traveler | 100% | 0% | 1.9s | Lost Traveler: attack: notable, 61, 32.05/min, 56% dodged | - |
-| Maiden of Future | 100% | 0% | 1.6s | nothing dangerous | - |
-| Maiden of Past | 100% | 0% | 1.2s | nothing dangerous | - |
-| Maiden of Present | 100% | 0% | 1.2s | Maiden of Present: attack: notable, 12, 48.85/min, 55% dodged | - |
-| Navigator | 100% | 0% | 1.9s | Navigator: attack: notable, 22, 33.92/min, 57% dodged | - |
-| Paradox Amdarais (MVP) | 100% | 0% | 35.2s | Paradox Amdarais: attack: notable, 34, 10.65/min, 55% dodged | Walk out 4.03, Hiding 1.6 |
+| Cavalier | 100% | 0% | 1.3s | nothing dangerous | - |
+| Gentleman | 100% | 0% | 1.3s | Gentleman: attack: notable, 26, 46.78/min, 54% dodged | - |
+| Lost Codex | 100% | 0% | 1.3s | nothing dangerous | - |
+| Lost Traveler | 100% | 0% | 2s | Lost Traveler: attack: notable, 60, 30.55/min, 58% dodged | - |
+| Maiden of Future | 100% | 0% | 3.1s | nothing dangerous | Walk out 0.93 |
+| Maiden of Past | 100% | 0% | 1.3s | nothing dangerous | - |
+| Maiden of Present | 100% | 0% | 1.3s | Maiden of Present: attack: notable, 11, 46.78/min, 56% dodged | - |
+| Navigator | 100% | 0% | 2s | Navigator: attack: notable, 23, 32.33/min, 59% dodged | - |
+| Paradox Amdarais (MVP) | 100% | 0% | 46.2s | Paradox Amdarais: attack: notable, 36, 11.83/min, 56% dodged | Walk out 5.25, Hiding 1.95 |
 

@@ -1,6 +1,6 @@
 {
-  "name": "Revenant baseline tier (2026-10-01, new rules): MVP drops only from MVPs up to Lv130, no SS-dungeon drops but Weavers, average rolls; from the final maxed build -- win 98% lost 0% 38,285 dps 5s 454 kills/h (sit 1.3s) 0.4 deaths/h",
-  "build": "https://rtmr-arsenal.pages.dev/#b=chZLNjqMwEITfpc91cLf_4DX2aiFkgSdBQwjCTpR5-5FhNppdTXYvltz9UV2uJgjoV7qnJS6FwFohtAbCsAoisBZt2yEEBc0ijBbBsBawdqrpOoRKugYKgbX1XEsC24qrKGsvDfazilAusRBoTA9C4K6rtIaIYgWHIJ4tfwfn2_sBItCW8vW2DYlAl_jozysh6L1zmcp0imW6LgRazx95GuLcb2m8DWkkBDkGGbDVzWHLiYLRrezDtus8M4FieT9oHDUhUF774ZrLNzX77OtqJc0p9WO8xFP6o2kIlB7VJKtjvgNbI36PUBr3YyAIlO4xH095m1PV9Hs533KJ03JYmlMazvULi68UfU1RqSouXqx-pZ7XVF9BMa_jU3uIuUzLqZbfStr6eu_HNMePA6lQs6dnvhatGIb966W2YKdZV9oYrfA89l9GIMYw15X_uO0d0hWy-75eQ6ZC0v4bspC21f-BHMSIdtXxa8hDDHv9t9J9Kr-hrvsE",
+  "name": "Revenant baseline tier (2026-10-01): MVP drops only from MVPs up to Lv130, no SS-dungeon drops but Weavers, average rolls; Unstable Crystal Card modelled -- win 98% lost 1% 30,673 dps 6s 424 kills/h (sit 1.0s) 3.3 deaths/h",
+  "build": "https://rtmr-arsenal.pages.dev/#b=chZJNbuswDITvwvUsROrH1jXeVjAMwVYTo44dWEqR3r6QXRTpQ5suPfzEGZIOAvqX3tISl0JgrRC8gTCsggishfcdQlDQLMLwCIa1gLVTbdchVNK1UAisbcNVElgvbkeddmDdSFt7UC6xEGhMd0LgrquwBitlvGnhEKRhy4_ofHs9UATaUl5v25AIdIn3_nwlBL1XLlOZTrFM60Kg6_k9T0Oc-y2NtyGNhCCHlQFb3dZcrJ0oGO1lN9vWeWYCxfJ60Dg0IVC-9sOay0M3-1XXNUqaU-rHeImn9K1oCJTuNSSrw9-BrZFmX4y07seVIFB6i_lzlLS9pKH04zruzY9k-ZZLnJYj25zScK5PLT4X2kBEKVVdpBGrf7PJ11THoZivdapmF4eYy7ScqvxS0tbX735Mc3w_kAq1EK-aevEfL1URD_HMTxEWSOvdfo7fIQ0xxv4BmQqJfw5ZiPf6D8hBjGj3PHgDMdzo_zs9_NVd9wE",
   "consumables": [
     "Green Potion",
     "Kafra Elixir",
@@ -18,11 +18,12 @@
       "True Sight",
       "Vampire Mark",
       "Shadow Parry",
-      "Reaping Slash",
       "Hellraiser",
       "Roaring Overslash",
+      "Reaping Slash",
       "Scythe Reap",
       "Sweeping Slash",
+      "Dark Messenger",
       "Underworld Rainstorm",
       "Haunting Slice",
       "Dark Message",
@@ -32,7 +33,8 @@
     ],
     "tankShare": 0.6,
     "comboRefreshMs": 2000,
-    "rainAt": 5
+    "rainAt": 5,
+    "rainstorm": false
   },
   "aspdModel": {
     "base": 58

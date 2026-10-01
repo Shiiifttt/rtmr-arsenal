@@ -939,3 +939,60 @@ input:focus, select:focus, button:focus-visible {
 .combat-progress-track { height: 4px; border-radius: 2px; background: var(--border); overflow: hidden; }
 .combat-progress-track span { display: block; height: 100%; background: var(--accent); transition: width .3s; }
 @media (prefers-reduced-motion: reduce) { .combat-progress-track span { transition: none; } }
+
+/* ---- rotation overlay ---------------------------------------------------- */
+
+.picker.rotation-overlay { width: min(980px, 100%); height: min(860px, 88vh); }
+.picker.rotation-overlay .picker-list { flex: 1; }
+.rot-tabs { display: flex; gap: 4px; }
+.rot-tabs button.on { border-color: var(--accent); color: var(--text); background: #221c30; }
+.rot-body { padding: 10px 18px 18px; }
+.rot-note { font-size: 12px; color: var(--text-dim); margin: 4px 0 8px; }
+.rot-note a { color: var(--accent); }
+.rot-sub { font-size: 11px; color: var(--text-faint); margin: 6px 0 0; }
+.rot-section { margin-top: 14px; }
+.rot-section h4 { margin: 0 0 8px; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--text-faint); }
+.rot-chain { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 2px; }
+.rot-step { display: inline-flex; align-items: flex-start; gap: 2px; }
+.rot-step .rot-arrow { margin-top: 8px; }
+.rot-arrow { color: var(--text-faint); font-size: 14px; padding: 0 3px; }
+.rot-cycle { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.rot-share { font-family: var(--mono); font-size: 11px; color: var(--text-dim); min-width: 74px; }
+.rot-filler, .rot-buff { display: inline-flex; flex-direction: column; align-items: center; gap: 2px; margin-right: 6px; }
+.rot-buffs { display: flex; flex-wrap: wrap; gap: 8px 4px; }
+.rot-gain { font-family: var(--mono); font-size: 10px; color: #7ee787; white-space: nowrap; }
+.rot-gain.def { color: var(--text-faint); }
+.rot-gain.req { color: var(--accent); }
+
+.rot-tile {
+  position: relative; display: inline-grid; place-items: center;
+  width: 34px; height: 34px; border: 1px solid var(--border); border-radius: 5px;
+  background: var(--bg-input); cursor: help; outline: none;
+}
+.rot-tile:hover, .rot-tile:focus { border-color: var(--accent); }
+.rot-tile img { width: 26px; height: 26px; image-rendering: pixelated; }
+.rot-ph { font-family: var(--mono); font-size: 10px; color: var(--text-dim); }
+.rot-cell { display: inline-flex; flex-direction: column; align-items: center; gap: 3px; width: 62px; }
+.rot-cap { font-size: 10px; line-height: 1.15; color: var(--text-dim); text-align: center; max-width: 62px; }
+.rot-tip {
+  position: fixed; z-index: 70; padding: 10px 12px; text-align: left; pointer-events: none;
+  background: var(--bg-raised); border: 1px solid var(--border-strong); border-radius: 6px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .5); font-size: 12px; line-height: 1.45; color: var(--text);
+}
+.rot-tip em { color: var(--text-faint); font-style: normal; }
+.rot-sum { display: block; margin-top: 6px; }
+.rot-scales { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; }
+.rot-scale { font-family: var(--mono); font-size: 10.5px; border: 1px solid; border-radius: 4px; padding: 1px 5px; }
+.rot-desc { display: block; margin-top: 8px; padding-top: 6px; border-top: 1px solid var(--border);
+  color: var(--text-faint); font-size: 11px; white-space: pre-line; max-height: 180px; overflow: auto; }
+
+.rot-bars { display: grid; gap: 4px; max-width: 560px; }
+.rot-bar { display: grid; grid-template-columns: 170px 1fr 40px; align-items: center; gap: 8px; font-size: 12px; }
+.rot-bar div { height: 8px; background: var(--bg-input); border-radius: 4px; overflow: hidden; }
+.rot-bar i { display: block; height: 100%; background: var(--accent-dim); }
+.rot-bar span:last-child { font-family: var(--mono); font-size: 11px; color: var(--text-dim); text-align: right; }
+
+.rot-part { font-family: var(--mono); font-size: 10px; color: var(--text-faint); }
+.rot-part.big { color: #7ee787; }
+.rot-total { font-family: var(--mono); font-size: 11px; color: var(--text-dim); margin-left: 8px; align-self: center; }
+.rot-dmg { display: block; margin-top: 4px; font-family: var(--mono); font-size: 11px; color: #7ee787; }

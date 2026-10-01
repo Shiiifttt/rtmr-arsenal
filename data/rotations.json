@@ -1,0 +1,1530 @@
+{
+ "builtAt": "2026-10-01T01:33:39.292Z",
+ "allroundVs": "Heartless",
+ "dummySeconds": 60,
+ "classes": {
+  "Revenant": {
+   "build": "https://rtmr-arsenal.pages.dev/#b=crVLbbuMgEP2XeT5awQC2-Y19RZaFbBJbIbFlSJT-fYWddtOqeVipLwjNHM5lBsegv-EWLv6SCVIJOCuhJbSArGEMrG3hnICSzBIWTkvFkKoSTdvCSRirRKlLZWpZsJSyzwQawp3gZNsWHMNYrnZcrSy28yVaQQqhrW5QwXEtzRfieD0RHBcgrSHN17UPBDr7ezcuBGe2znnK09Hnab4QaBnf0tT72K1huPZhIDi1S2lIo5rdWMUCWlnexNY5Rkkgn087GnuNCZSWrp9TfmKT4hOgipcQQ-gGf_bH8LWrCXSY7mHoep9yl6dz-KDpCE784d1XBSUkb8Y0NxXK8WoI4ebTnvMQw5Neuqbsp1Ifly6G0I_licBDogYzC7FLWPOKPS2hRCSflqekxf10OZb6IYd1TzOE6N8emIJqwJUqu7NgKxUEnNZKPCsV1u4Qy_1j-5LB1qrtt_z4RYqp0xQjgdbZr9Pl2M23sKbo0_hv6ObBpsBam-Y72x7xv9l0YWP7S2wG3Ija_FLSCqxZVWXMP3rbQDVYy1p9l7xNnxto23c",
+   "note": "maxed-out farm tier",
+   "profileName": "Revenant maxed-out tier, final (2026-10-01): RTM rules, Unstable Crystal Card's explosion modelled (it kills), bought + skill rolls -- win 98% lost 0% 45,720 dps 4s 565 kills/h (sit 0.3s) 2.3 deaths/h",
+   "allround": {
+    "vs": "Heartless",
+    "opener": [
+     "Scythe Reap",
+     "Reaping Slash",
+     "Hellraiser",
+     "Sweeping Slash",
+     "Haunting Slice",
+     "Reaping Slash",
+     "Roaring Overslash",
+     "Phantom Slice",
+     "Reaping Slash",
+     "Reaping Slash"
+    ],
+    "cycles": [
+     {
+      "steps": [
+       "Roaring Overslash",
+       "Reaping Slash",
+       "Scythe Reap",
+       "Reaping Slash",
+       "Reaping Slash",
+       "Scythe Reap",
+       "Reaping Slash",
+       "Reaping Slash"
+      ],
+      "share": 0.23
+     },
+     {
+      "steps": [
+       "Roaring Overslash",
+       "Reaping Slash",
+       "Reaping Slash",
+       "Scythe Reap",
+       "Reaping Slash",
+       "Reaping Slash",
+       "Scythe Reap",
+       "Reaping Slash"
+      ],
+      "share": 0.19
+     },
+     {
+      "steps": [
+       "Roaring Overslash",
+       "Scythe Reap",
+       "Reaping Slash",
+       "Reaping Slash",
+       "Reaping Slash",
+       "Scythe Reap",
+       "Reaping Slash",
+       "Reaping Slash",
+       "Scythe Reap"
+      ],
+      "share": 0.15
+     }
+    ],
+    "fillers": [
+     {
+      "id": "Phantom Slice",
+      "perLoop": 3.6
+     },
+     {
+      "id": "Sweeping Slash",
+      "perLoop": 1.8
+     },
+     {
+      "id": "Flaming Wave",
+      "perLoop": 1.3
+     },
+     {
+      "id": "Haunting Slice",
+      "perLoop": 0.6
+     }
+    ],
+    "roles": [
+     {
+      "role": "Combo",
+      "share": 0.79
+     },
+     {
+      "role": "Fillers",
+      "share": 0.21
+     },
+     {
+      "role": "Magic",
+      "share": 0
+     }
+    ],
+    "damage": [
+     {
+      "id": "Roaring Overslash",
+      "share": 0.448,
+      "perCast": 77749
+     },
+     {
+      "id": "Reaping Slash",
+      "share": 0.201,
+      "perCast": 8831
+     },
+     {
+      "id": "Sweeping Slash",
+      "share": 0.166,
+      "perCast": 18968
+     },
+     {
+      "id": "Scythe Reap",
+      "share": 0.091,
+      "perCast": 8547
+     },
+     {
+      "id": "Phantom Slice",
+      "share": 0.04,
+      "perCast": 2833
+     },
+     {
+      "id": "Scythe Reap (autocast)",
+      "share": 0.03,
+      "perCast": null
+     },
+     {
+      "id": "Hellraiser",
+      "share": 0.021,
+      "perCast": 10979
+     },
+     {
+      "id": "Haunting Slice",
+      "share": 0.003,
+      "perCast": 661
+     },
+     {
+      "id": "Flaming Wave",
+      "share": 0,
+      "perCast": 76
+     }
+    ],
+    "prep": [
+     "Burning Scythe (Fire)",
+     "Darkside Shadow",
+     "True Sight",
+     "Vampire Mark",
+     "Shadow Parry 30%",
+     "Ominous Presence shield up to 17,471"
+    ],
+    "dps": 31433
+   },
+   "dummy": {
+    "seconds": 60,
+    "options": {
+     "defense": "auto",
+     "roaringAt": 3,
+     "order": [
+      "Stay hidden",
+      "Morroc's Mark",
+      "Pull it off the ward",
+      "Heal",
+      "Darkside Shadow",
+      "True Sight",
+      "Vampire Mark",
+      "Shadow Parry",
+      "Hellraiser",
+      "Roaring Overslash",
+      "Reaping Slash",
+      "Scythe Reap",
+      "Sweeping Slash",
+      "Haunting Slice",
+      "Dark Message",
+      "Phantom Slice",
+      "Underworld Rainstorm",
+      "Flaming Wave",
+      "Attack"
+     ],
+     "tankShare": 0.6,
+     "comboRefreshMs": 2000,
+     "rainstorm": true,
+     "autoAttack": false,
+     "mobility": "server"
+    },
+    "opener": [
+     "Scythe Reap",
+     "Reaping Slash",
+     "Hellraiser",
+     "Sweeping Slash",
+     "Haunting Slice",
+     "Reaping Slash",
+     "Roaring Overslash",
+     "Dark Message",
+     "Reaping Slash",
+     "Phantom Slice"
+    ],
+    "cycles": [
+     {
+      "steps": [
+       "Roaring Overslash",
+       "Scythe Reap",
+       "Reaping Slash",
+       "Reaping Slash",
+       "Reaping Slash",
+       "Scythe Reap",
+       "Reaping Slash",
+       "Reaping Slash",
+       "Scythe Reap",
+       "Reaping Slash"
+      ],
+      "share": 0.25
+     },
+     {
+      "steps": [
+       "Roaring Overslash",
+       "Reaping Slash",
+       "Reaping Slash",
+       "Reaping Slash",
+       "Scythe Reap",
+       "Reaping Slash",
+       "Reaping Slash",
+       "Scythe Reap",
+       "Reaping Slash",
+       "Reaping Slash"
+      ],
+      "share": 0.25
+     },
+     {
+      "steps": [
+       "Roaring Overslash",
+       "Reaping Slash",
+       "Reaping Slash",
+       "Reaping Slash",
+       "Scythe Reap",
+       "Reaping Slash",
+       "Reaping Slash",
+       "Scythe Reap",
+       "Reaping Slash"
+      ],
+      "share": 0.13
+     }
+    ],
+    "fillers": [
+     {
+      "id": "Phantom Slice",
+      "perLoop": 5.3
+     },
+     {
+      "id": "Sweeping Slash",
+      "perLoop": 2.6
+     },
+     {
+      "id": "Flaming Wave",
+      "perLoop": 1
+     },
+     {
+      "id": "Haunting Slice",
+      "perLoop": 0.9
+     },
+     {
+      "id": "Dark Message",
+      "perLoop": 0.5
+     },
+     {
+      "id": "Underworld Rainstorm",
+      "perLoop": 0.5
+     }
+    ],
+    "roles": [
+     {
+      "role": "Combo",
+      "share": 0.69
+     },
+     {
+      "role": "Fillers",
+      "share": 0.25
+     },
+     {
+      "role": "Rainstorm",
+      "share": 0.06
+     },
+     {
+      "role": "Magic",
+      "share": 0
+     }
+    ],
+    "damage": [
+     {
+      "id": "Roaring Overslash",
+      "share": 0.339,
+      "perCast": 85854
+     },
+     {
+      "id": "Reaping Slash",
+      "share": 0.233,
+      "perCast": 9822
+     },
+     {
+      "id": "Sweeping Slash",
+      "share": 0.185,
+      "perCast": 19202
+     },
+     {
+      "id": "Scythe Reap",
+      "share": 0.087,
+      "perCast": 9384
+     },
+     {
+      "id": "Phantom Slice",
+      "share": 0.058,
+      "perCast": 3156
+     },
+     {
+      "id": "Underworld Rainstorm",
+      "share": 0.057,
+      "perCast": 32188
+     },
+     {
+      "id": "Scythe Reap (autocast)",
+      "share": 0.031,
+      "perCast": null
+     },
+     {
+      "id": "Hellraiser",
+      "share": 0.005,
+      "perCast": 11980
+     },
+     {
+      "id": "Haunting Slice",
+      "share": 0.003,
+      "perCast": 884
+     },
+     {
+      "id": "Flaming Wave",
+      "share": 0.001,
+      "perCast": 321
+     },
+     {
+      "id": "Dark Message",
+      "share": 0,
+      "perCast": 133
+     }
+    ],
+    "prep": [
+     "Darkside Shadow",
+     "True Sight",
+     "Vampire Mark",
+     "Shadow Parry 30%",
+     "Ominous Presence shield up to 17,471"
+    ],
+    "dps": 37965
+   },
+   "buffs": [
+    {
+     "skill": "Darkside Shadow",
+     "icon": "KG_KAGEMUSYA",
+     "dpsGain": 0.23,
+     "required": false
+    },
+    {
+     "skill": "True Sight",
+     "icon": "SN_SIGHT",
+     "dpsGain": 0.034,
+     "required": false
+    },
+    {
+     "skill": "Vampire Mark",
+     "icon": "GN_BLOOD_SUCKER",
+     "dpsGain": 0,
+     "required": false
+    },
+    {
+     "skill": "Shadow Parry",
+     "icon": "LK_PARRYING",
+     "dpsGain": 0,
+     "required": false
+    },
+    {
+     "skill": "Burning Scythe",
+     "icon": "SA_FLAMELAUNCHER",
+     "dpsGain": 0,
+     "required": false
+    },
+    {
+     "skill": "Ominous Presence",
+     "icon": "GS_SINGLEACTION",
+     "dpsGain": 0,
+     "required": false
+    }
+   ],
+   "skills": {
+    "Scythe Reap": {
+     "name": "Scythe Reap",
+     "icon": "LK_SPIRALPIERCE",
+     "level": 10,
+     "desc": "A multi-strike attack that slices the skin, which can immobilize the enemy for 4 seconds.\nRequires a Scythe to use.\nDamage is 150+25% per level +2% per Luk.\nSkill can be a critical hit.\nGrants or refreshes Combo Ready for 4 seconds.\nThis also applies to autocasts.\nDamage is slightly boosted by weapon weight.\nSkill has decreasing delay per level.\nBase Starting Cooldown is 1 second.",
+     "summary": "Your combo opener: a three-slash hit that turns on Combo Ready for 4 s. Recast it whenever Combo Ready is about to drop.",
+     "scalings": [
+      {
+       "per": 2,
+       "every": 1,
+       "stats": [
+        "LUK"
+       ],
+       "text": "+2% per Luk"
+      }
+     ]
+    },
+    "Reaping Slash": {
+     "name": "Reaping Slash",
+     "icon": "LG_MOONSLASHER",
+     "level": 10,
+     "desc": "Deals damage to all targets in a 5x5 cell radius around the caster.\nDamage is 110+10% per level +2% per LUK\nExtra 5% per Overslash Stack\nSkill can be critical.\nGrants an Overslash Stack per cast, but\nOnly goes past 1 if Combo Ready\nFinisher Ready instantly maximizes stacks if Combo Ready and already has 1 stack or higher\nOverslash stack increases Roaring Overslash and Underworld Rainstorm power\nMaximum amount of stacks is 5\nStacks duration is 6 seconds\nBase Starting Cooldown is 1.5 seconds\nSP Cost: 5 per level.\nRequires an extra 5% Current HP per cast",
+     "summary": "Spin attack around you that builds Overslash stacks (max 5, last 6 s). Needs Combo Ready to go past 1 stack; with Finisher Ready up it jumps straight to 5 — and it always ends Finisher Ready. Costs 5% of your current HP.",
+     "scalings": [
+      {
+       "per": 2,
+       "every": 1,
+       "stats": [
+        "LUK"
+       ],
+       "text": "+2% per LUK"
+      }
+     ]
+    },
+    "Hellraiser": {
+     "name": "Hellraiser",
+     "icon": "RK_IGNITIONBREAK",
+     "level": 10,
+     "desc": "Strucks weapon to the ground causing strong explosion that damage all enemies around the caster.\nSkill can be critical.\nSkill activates Finisher Ready for 5s\nDamage is 250+15% per level +3% per LUK\nDamage is always Fire Element.\nVariable cast time is 0.5s\nBase starting cooldown is 12 seconds.",
+     "summary": "Fire explosion around you that grants Finisher Ready for 5 s. Cast it with 1 Overslash stack, so the next Reaping Slash takes you to 5.",
+     "scalings": [
+      {
+       "per": 3,
+       "every": 1,
+       "stats": [
+        "LUK"
+       ],
+       "text": "+3% per LUK"
+      }
+     ]
+    },
+    "Sweeping Slash": {
+     "name": "Sweeping Slash",
+     "icon": "KN_PIERCE",
+     "level": 5,
+     "desc": "Sweeps the legs with the scythe,\nDamage is 200+25% per level +2% per LUK per hit\nSkill deals 2 individual hits\nIncreased to 3 hits if Finisher Ready\nDamage greatly reduced outside combos\nSkill can be critical\nBase Starting Cooldown is 2.5 seconds.",
+     "summary": "Two-hit filler (three under Finisher Ready) that also refreshes Combo Ready for 3 s. Weak outside a combo.",
+     "scalings": [
+      {
+       "per": 2,
+       "every": 1,
+       "stats": [
+        "LUK"
+       ],
+       "text": "+2% per LUK"
+      }
+     ]
+    },
+    "Haunting Slice": {
+     "name": "Haunting Slice",
+     "icon": "GC_DARKILLUSION",
+     "level": 5,
+     "desc": "Quickly reaches and attacks\nDamage is fixed based on ATK and Str.\nRange is 3+1 cells per level.\n20% chance per level to autocast Scythe Reap.\nAutocast uses Haunting Slice's skill level.\nStarting cooldown is 7 seconds.",
+     "summary": "Dash to the target; at Lv5 it always autocasts Scythe Reap for free — a gap closer that also restarts Combo Ready.",
+     "scalings": []
+    },
+    "Roaring Overslash": {
+     "name": "Roaring Overslash",
+     "icon": "LG_OVERBRAND",
+     "level": 10,
+     "desc": "Draws crosses on the skies to cause damage at a range of 7x7.\nDamage is 150+15% per level +2% per LUK\nDamage reduced if not combo ready\nDeals one extra hit per Roaring Stack\nSkill can be critical\nBase cooldown is 7 seconds.\nRequires extra 10% Current SP per cast.",
+     "summary": "Your finisher: one hit, plus one extra full hit per Overslash stack (6 hits at 5 stacks). Does not use up the stacks. Weaker without Combo Ready. Costs 10% of current SP.",
+     "scalings": [
+      {
+       "per": 2,
+       "every": 1,
+       "stats": [
+        "LUK"
+       ],
+       "text": "+2% per LUK"
+      }
+     ]
+    },
+    "Phantom Slice": {
+     "name": "Phantom Slice",
+     "icon": "RK_PHANTOMTHRUST",
+     "level": 5,
+     "desc": "Throws Scythe and Attacks a distant enemy to pull them close to yourself. Can be used on a party member, but won't deal damage.\n\nDamage is 100+20% +2% per Vit.\nRange is 3+1 cells per level.\nStarting cooldown is 1 second.",
+     "summary": "Ranged scythe throw that pulls the target in. A cheap 1-second-cooldown filler between combos.",
+     "scalings": [
+      {
+       "per": 2,
+       "every": 1,
+       "stats": [
+        "VIT"
+       ],
+       "text": "+2% per Vit"
+      }
+     ]
+    },
+    "Flaming Wave": {
+     "name": "Flaming Wave",
+     "icon": "NC_FLAMELAUNCHER",
+     "level": 10,
+     "desc": "Sets flames on the ground and inflicts Burning status to enemies around the targeted enemy.\nDamage is 30% per level +3% per INT.\nBurning chance is 5% per level\nBurning duration is 2.5+0.5s per level\nBase Starting Cooldown is 5 seconds",
+     "summary": "Fire line that can set targets Burning. Scales on INT, so weak on a STR/LUK build — only a filler.",
+     "scalings": [
+      {
+       "per": 3,
+       "every": 1,
+       "stats": [
+        "INT"
+       ],
+       "text": "+3% per INT"
+      }
+     ]
+    },
+    "Dark Message": {
+     "name": "Dark Message",
+     "icon": "SL_STIN",
+     "level": 5,
+     "desc": "Pushes back a targeted enemy 3 cells away. Only Small sized targets are fully damaged by this skill.\nDamage is very small and focused on control.\nDamage is 10% per level +1% per STR.\nDamage is calculated based on MATK insteat of ATK\nEnables Combo Ready for 1s per level\nEnables Cast Ready for 1s per level\nVariable cast time is 0.5s\nFixed cast time is 0.1s\nBase Starting Cooldown is 7 seconds",
+     "summary": "Small push that grants Combo Ready and Cast Ready (variable cast −95%) — used to make Underworld Rainstorm instant.",
+     "scalings": [
+      {
+       "per": 1,
+       "every": 1,
+       "stats": [
+        "STR"
+       ],
+       "text": "+1% per STR"
+      }
+     ]
+    },
+    "Underworld Rainstorm": {
+     "name": "Underworld Rainstorm",
+     "icon": "WM_SEVERE_RAINSTORM",
+     "level": 10,
+     "desc": "Summons a rain of rays from the underworld to continuously strike enemies in an 11x11 AoE for a duration.\nDamage is 2% per Level +1% per 2 LUK and INT\nExtra 4% per Overslash Stack\nSkill duration is 3 seconds.\nEnemies are hit every 0.2 seconds.\nVariable cast time is 5s\nFixed cast time is 0.5s\nCooldown is 12 seconds.\nCast can't be interrupted and skill never misses.\nDefenses halved during casting\nRequires a Shadow Orb to cast.",
+     "summary": "Rain of hits on an 11x11 area for 3 s, +4% per Overslash stack. Its 5 s cast is cut by Dark Message's Cast Ready or removed by Royal Scythe.",
+     "scalings": [
+      {
+       "per": 1,
+       "every": 2,
+       "stats": [
+        "LUK",
+        "INT"
+       ],
+       "text": "+1% per 2 LUK and INT"
+      }
+     ]
+    },
+    "Darkside Shadow": {
+     "name": "Darkside Shadow",
+     "icon": "KG_KAGEMUSYA",
+     "level": 10,
+     "desc": "Summons your shadow to repeat your normal attacks, allowing use of the\nDouble Attack skill with a Scythe.\nAdds 2% per DEX Scaling to all Physical skills\nUnderworld Rainstorm bonus is halved\nDuration is 15 seconds per level.\nCooldown is 60 seconds.\nDouble Attack chance is 10% per level.",
+     "summary": "Pre-fight buff, 150 s: your shadow gives normal attacks a 100% Double Attack chance, and every physical skill gains +2% damage per DEX.",
+     "scalings": [
+      {
+       "per": 2,
+       "every": 1,
+       "stats": [
+        "DEX"
+       ],
+       "text": "2% per DEX"
+      }
+     ]
+    },
+    "True Sight": {
+     "name": "True Sight",
+     "icon": "SN_SIGHT",
+     "level": 10,
+     "desc": "Focus to improve\nCurrent combat capabilities for a short time.\nDuration is 60 seconds.\nStarting Cooldown is 80 seconds.\nIncreases all stats by 3 for duration.\nIncreases hit by 3 and crit by 3 per level.",
+     "summary": "Pre-fight buff, 60 s: +3 to all stats, +30 HIT and +30 crit; also +20% to every weapon attack's ratio (server code).",
+     "scalings": []
+    },
+    "Vampire Mark": {
+     "name": "Vampire Mark",
+     "icon": "GN_BLOOD_SUCKER",
+     "level": 5,
+     "desc": "Imbodies blood into an ally or self to allow leeching physical damage.\nDuration is 60s at Lv1 -5s per level\nDuration is 40s at Lv5.\nBase Starting Cooldown is 60 seconds\nLeeching chance is 10% per level\nLeeching power is 3% per level\nDoesn't work with magic damage",
+     "summary": "Pre-fight buff, 40 s: physical hits have a 50% chance to heal you for 15% of the damage. Feeds the Ominous Presence shield.",
+     "scalings": []
+    },
+    "Shadow Parry": {
+     "name": "Shadow Parry",
+     "icon": "LK_PARRYING",
+     "level": 10,
+     "desc": "Blocks damage from physical attack using a Scythe. When successfully blocking an attack, caster will be forced to pause momentarily.\nRequires a Scythe.\nBlock chance is 10 + 2% per level.\nRequires 5% extra Max SP per cast.\nDuration is 20+10s per level",
+     "summary": "Pre-fight buff, 120 s: blocks 30% of physical hits (normal attacks and weapon skills) outright.",
+     "scalings": []
+    },
+    "Burning Scythe": {
+     "name": "Burning Scythe",
+     "icon": "SA_FLAMELAUNCHER",
+     "level": 10,
+     "desc": "Endows your own weapon with Fire element for the skill's duration.\nDuration is 30 seconds per level.\nVariable cast time is 1s\nFixed cast time is 1s",
+     "summary": "Fire endow, cast before the pull only when Fire beats your weapon's element on the target (Holy monsters, for a Neutral or Holy scythe).",
+     "scalings": []
+    },
+    "Ominous Presence": {
+     "name": "Ominous Presence",
+     "icon": "GS_SINGLEACTION",
+     "level": 10,
+     "desc": "Increases Lecching effects and Overheals of Scythes.\nOverHeal (Scythe HP Leech):\nLeeching HP with full health converts into a Shield\nDuration: 30s (refreshes on new Overheal).\nShield Max: MaxHP + (10% x Lv) x (STR + 2xLUK + BaseLv) x Leech Power.\nLeech Power uses percentage points (5% = 5).\nRequires positive Leech Power.\nConversion: 8% per Skill Lv against a single target,\n4% per Skill Lv when the hit strikes several targets.",
+     "summary": "Passive: leech that would overheal you becomes a shield (80% of the overheal), up to Max HP + your STR/LUK/level times Leech Power. This is what keeps a low-HP Revenant alive.",
+     "scalings": []
+    }
+   }
+  },
+  "Satsujin": {
+   "build": "https://rtmr-arsenal.pages.dev/#b=cpZPNjtwgDMffhbMPgIGEvkaPKIpowmToMJMoMKtdVX33yiSdTbWzvezFUmzj398fcRLYd1_y_We8MRDIwVkLjQVEUNAoULYD5zigkFKABacESiDTdeAEaG5a4OAENtKSS4K20lAmuVqolmqwXHxhwHJZGTjRdZSNIDTarbBE8zQPHFtDnu_rEBiwq3_tzwsDp2vkGkucfInzjQFbzm85Dj71axjvQxgZONw4inqzqnLQSniYSlznlCQhl36Yczk8F3zjzykhwUMKoR_91U-BgbOPoGDAfLlswN2nSFFYT2Eo_TmWvRqFNakxuKuxDw3PqjzXpf8n6yCaNJyXfvLxFsZ-CeuuRG5CDAitsKlCDG-BzHEHY3jdksGx8OLzPua9qXEeK28Tm--5eLoiAqYQhjM95bCjGkAuNpTARhiQjdT4ceEbLC-B-mQ-L4c1DD6XeJvIfyph7em7H0Pyb4fhtnRSraKjVAo5kDlifLn0y1Deb9CCMCgEmL8PkO4eG1UvXIDlyFsDtCYhQba8kdTFZ7eaLzElWkpMKc63Phf_4303emMKrIXU1wupWgg_LVSTdE3SX6cZkEpi_eP_mekUD7QGpBLmw5AOSV2NdPCLnVII7FvDf3d_AA",
+   "note": "maxed-out farm tier",
+   "profileName": "Satsujin farm, maxed-out tier A (2026-10-01): 10 endgame areas, free for all except +10, bought + skill rolls; from standard-rings -- win 98% lost 0% 79,042 dps 2s 778 kills/h (sit 0.5s) 0.3 deaths/h",
+   "allround": {
+    "vs": "Heartless",
+    "opener": [
+     "Shadow Slash",
+     "New Moon",
+     "Full Moon",
+     "Million Stab",
+     "Thousand Arms",
+     "Dragon Omamori",
+     "Omamori Jutsu",
+     "Full Moon",
+     "Attack",
+     "Thousand Arms"
+    ],
+    "cycles": [
+     {
+      "steps": [
+       "New Moon",
+       "Full Moon",
+       "Million Stab",
+       "Dragon Omamori",
+       "Omamori Jutsu",
+       "Full Moon",
+       "Million Stab"
+      ],
+      "share": 0.4
+     },
+     {
+      "steps": [
+       "New Moon",
+       "Full Moon",
+       "Dragon Omamori",
+       "Omamori Jutsu",
+       "Full Moon",
+       "Million Stab"
+      ],
+      "share": 0.33
+     },
+     {
+      "steps": [
+       "New Moon",
+       "Full Moon",
+       "Million Stab",
+       "Dragon Omamori",
+       "Omamori Jutsu",
+       "Dragon Omamori",
+       "Million Stab"
+      ],
+      "share": 0.11
+     }
+    ],
+    "fillers": [
+     {
+      "id": "Attack",
+      "perLoop": 8.6
+     },
+     {
+      "id": "Thousand Arms",
+      "perLoop": 2
+     },
+     {
+      "id": "Kawarimi",
+      "perLoop": 0.3
+     }
+    ],
+    "roles": [
+     {
+      "role": "Moon combo",
+      "share": 0.65
+     },
+     {
+      "role": "Omamori",
+      "share": 0.15
+     },
+     {
+      "role": "Fillers",
+      "share": 0.1
+     },
+     {
+      "role": "Auto-attacks",
+      "share": 0.1
+     }
+    ],
+    "damage": [
+     {
+      "id": "Million Stab",
+      "share": 0.316,
+      "perCast": 47657
+     },
+     {
+      "id": "Full Moon",
+      "share": 0.24,
+      "perCast": 22786
+     },
+     {
+      "id": "Omamori Explosion",
+      "share": 0.098,
+      "perCast": null
+     },
+     {
+      "id": "Attack",
+      "share": 0.097,
+      "perCast": 2522
+     },
+     {
+      "id": "New Moon",
+      "share": 0.094,
+      "perCast": 15229
+     },
+     {
+      "id": "Thousand Arms",
+      "share": 0.081,
+      "perCast": 9640
+     },
+     {
+      "id": "Dragon Omamori",
+      "share": 0.056,
+      "perCast": 8135
+     },
+     {
+      "id": "Shadow Slash",
+      "share": 0.02,
+      "perCast": 9517
+     }
+    ],
+    "prep": [
+     "Moonlight Stance",
+     "Seven Winds: Dark (125% vs Holy 4)",
+     "10 Focus (Wind Blade ×2)"
+    ],
+    "dps": 38066
+   },
+   "dummy": {
+    "seconds": 60,
+    "options": {
+     "slashOpener": true,
+     "backStab": true,
+     "seedTalisman": false,
+     "weaveMs": 0,
+     "mobility": "server",
+     "kite": true,
+     "tankShare": 0.6,
+     "order": [
+      "Stay hidden",
+      "Predict Kawarimi",
+      "Moon guard",
+      "Pull it off the ward",
+      "Morroc's Mark",
+      "Hallucination Walk",
+      "Full Moon",
+      "Attack",
+      "Million Stab",
+      "Shadow Slash",
+      "Omamori Jutsu",
+      "New Moon",
+      "Thousand Arms",
+      "Back Stab",
+      "Lotus Pact",
+      "Dragon Omamori",
+      "Wait for swing"
+     ],
+     "hallucinationWalk": false
+    },
+    "opener": [
+     "Shadow Slash",
+     "Attack",
+     "New Moon",
+     "Full Moon",
+     "Attack",
+     "Million Stab",
+     "Thousand Arms",
+     "Attack",
+     "Back Stab",
+     "Dragon Omamori"
+    ],
+    "cycles": [
+     {
+      "steps": [
+       "New Moon",
+       "Full Moon",
+       "Dragon Omamori",
+       "Omamori Jutsu",
+       "Full Moon",
+       "Million Stab"
+      ],
+      "share": 0.55
+     },
+     {
+      "steps": [
+       "New Moon",
+       "Full Moon",
+       "Million Stab",
+       "Dragon Omamori",
+       "Omamori Jutsu",
+       "Full Moon",
+       "Million Stab"
+      ],
+      "share": 0.36
+     },
+     {
+      "steps": [
+       "New Moon",
+       "Full Moon",
+       "Dragon Omamori",
+       "Million Stab",
+       "Omamori Jutsu",
+       "Full Moon"
+      ],
+      "share": 0.09
+     }
+    ],
+    "fillers": [
+     {
+      "id": "Attack",
+      "perLoop": 12.4
+     },
+     {
+      "id": "Thousand Arms",
+      "perLoop": 1.7
+     },
+     {
+      "id": "Back Stab",
+      "perLoop": 1.7
+     },
+     {
+      "id": "Shadow Slash",
+      "perLoop": 1.3
+     }
+    ],
+    "roles": [
+     {
+      "role": "Moon combo",
+      "share": 0.58
+     },
+     {
+      "role": "Auto-attacks",
+      "share": 0.16
+     },
+     {
+      "role": "Fillers",
+      "share": 0.14
+     },
+     {
+      "role": "Omamori",
+      "share": 0.12
+     }
+    ],
+    "damage": [
+     {
+      "id": "Million Stab",
+      "share": 0.298,
+      "perCast": 77785
+     },
+     {
+      "id": "Full Moon",
+      "share": 0.208,
+      "perCast": 35296
+     },
+     {
+      "id": "Attack",
+      "share": 0.161,
+      "perCast": 4530
+     },
+     {
+      "id": "Omamori Explosion",
+      "share": 0.077,
+      "perCast": null
+     },
+     {
+      "id": "Thousand Arms",
+      "share": 0.073,
+      "perCast": 15099
+     },
+     {
+      "id": "New Moon",
+      "share": 0.073,
+      "perCast": 23725
+     },
+     {
+      "id": "Shadow Slash",
+      "share": 0.041,
+      "perCast": 10671
+     },
+     {
+      "id": "Dragon Omamori",
+      "share": 0.039,
+      "perCast": 12815
+     },
+     {
+      "id": "Back Stab",
+      "share": 0.029,
+      "perCast": 6018
+     }
+    ],
+    "prep": [
+     "Moonlight Stance",
+     "Seven Winds: Ghost (125% vs Neutral 1)",
+     "10 Focus (Wind Blade ×2)"
+    ],
+    "dps": 65162
+   },
+   "buffs": [
+    {
+     "skill": "Moonlight Stance",
+     "icon": "SJ_LUNARSTANCE",
+     "dpsGain": null,
+     "required": true
+    },
+    {
+     "skill": "Seven Winds",
+     "icon": "TK_SEVENWIND",
+     "dpsGain": 0.227,
+     "required": false
+    }
+   ],
+   "skills": {
+    "Shadow Slash": {
+     "name": "Shadow Slash",
+     "icon": "NJ_KIRIKAGE",
+     "level": 10,
+     "desc": "Shadow Slash dashes to a target and attempts a critical hit 3 times.\nDamage is 200+15% per level +1% per LUK\nBonus Crit Rate is 5+ 5 per level\nOnly Right Hand Weapon ATK is used\nRequires a Dagger or Sword equipped\nDamage increases by 5% per Improve Dodge level while under Hallucination Walk\nBase Starting Cooldown is 4 seconds.",
+     "summary": "Dash-in opener: three crit attempts on the target. Puts you in melee instantly.",
+     "scalings": [
+      {
+       "per": 1,
+       "every": 1,
+       "stats": [
+        "LUK"
+       ],
+       "text": "+1% per LUK"
+      }
+     ]
+    },
+    "New Moon": {
+     "name": "New Moon",
+     "icon": "SJ_NEWMOONKICK",
+     "level": 5,
+     "desc": "Moon-only skill:\nAttacks nearby enemies and enters\nNew Moon, hiding the caster for 5 seconds.\nThe state can be maintained until attacking.\nCosts 1 SP per second while hiding.\nHalves damage taken while invisible.\nDamage: 150 +30% per level +5% per AGI.\nFocus: +5% per level per Focus.\nVariable cast time is 1s\nBase Starting Cooldown is 5 seconds.\nLoses Focus stacks if autocasting.",
+     "summary": "Starts the Moon combo: hits around you and turns you invisible (halves damage taken) until you attack. Scales with AGI and Elemental Focus.",
+     "scalings": [
+      {
+       "per": 5,
+       "every": 1,
+       "stats": [
+        "AGI"
+       ],
+       "text": "+5% per AGI"
+      }
+     ]
+    },
+    "Full Moon": {
+     "name": "Full Moon",
+     "icon": "SJ_FULLMOONKICK",
+     "level": 5,
+     "desc": "Moon-only skill:\nCan only be used while in New Moon.\nEnds New Moon and damages nearby enemies.\nHas a high chance to inflict Blind.\nDamage: 250 +50% per level +8% per AGI.\nFocus: +10% per level per Focus.\nGrants Combo Ready for 5 seconds.\nRequires extra 10% Current SP per cast.",
+     "summary": "Only from New Moon: the big hit of the combo (AGI and Focus scaling), and it grants Combo Ready.",
+     "scalings": [
+      {
+       "per": 8,
+       "every": 1,
+       "stats": [
+        "AGI"
+       ],
+       "text": "+8% per AGI"
+      }
+     ]
+    },
+    "Million Stab": {
+     "name": "Million Stab",
+     "icon": "RK_HUNDREDSPEAR",
+     "level": 10,
+     "desc": "Rapidly stabs the target and nearby enemies for physical damage.\nDamage: 20 +5% per level +1% per AGI.\nCombo Ready adds +1% per DEX.\nDoes not consume Combo Ready.\nVariable cast time decreases with level: 1s to 0.1s\nStarting cooldown is 5 seconds.",
+     "summary": "Rapid stabs; only cast under Combo Ready, where DEX adds to it.",
+     "scalings": [
+      {
+       "per": 1,
+       "every": 1,
+       "stats": [
+        "AGI"
+       ],
+       "text": "+1% per AGI"
+      },
+      {
+       "per": 1,
+       "every": 1,
+       "stats": [
+        "DEX"
+       ],
+       "text": "+1% per DEX"
+      }
+     ]
+    },
+    "Thousand Arms": {
+     "name": "Thousand Arms",
+     "icon": "SR_SKYNETBLOW",
+     "level": 5,
+     "desc": "Spins quickly hitting all enemies around multiple times.\nHits a 7x7 area around the caster.\nDamage is 200+20% per level +5% per Agi.\nBase cooldown is 3 seconds.\nRequires extra 5% Current HP to cast",
+     "summary": "7x7 spin filler between Moon combos; costs 5% current HP.",
+     "scalings": [
+      {
+       "per": 5,
+       "every": 1,
+       "stats": [
+        "AGI"
+       ],
+       "text": "+5% per Agi"
+      }
+     ]
+    },
+    "Dragon Omamori": {
+     "name": "Dragon Omamori",
+     "icon": "RL_H_MINE",
+     "level": 10,
+     "desc": "Applies a talisman to the target and deals physical damage.\nThe talisman can be detonated by\nOmamori Jutsu for stronger damage.\nTalismans last 50 seconds.\nOnly one talisman per target.\nApply Damage: 50 +10% per level.\nExplosion: 200 +50% per level +2% per DEX.\nCombo Ready adds +5% per STR.\nRequires an extra 5% Max SP per talisman.\nVariable cast time is 0.5s",
+     "summary": "Puts a talisman on the target (cast under Combo Ready); Omamori Jutsu detonates it.",
+     "scalings": [
+      {
+       "per": 2,
+       "every": 1,
+       "stats": [
+        "DEX"
+       ],
+       "text": "+2% per DEX"
+      },
+      {
+       "per": 5,
+       "every": 1,
+       "stats": [
+        "STR"
+       ],
+       "text": "+5% per STR"
+      }
+     ]
+    },
+    "Omamori Jutsu": {
+     "name": "Omamori Jutsu",
+     "icon": "RL_FLICKER",
+     "level": 1,
+     "desc": "Activates and detonates caster's Dragon Omamori and\nBinding Omamori on screen.\nBase Starting Cooldown is 5 seconds\nActivates Invisibility when activated",
+     "summary": "Detonates your Dragon Omamori talisman for big damage, and makes you invisible — which lets Full Moon follow.",
+     "scalings": []
+    },
+    "Attack": {
+     "name": "Attack",
+     "icon": "",
+     "level": 0,
+     "desc": "",
+     "summary": null,
+     "scalings": []
+    },
+    "Kawarimi": {
+     "name": "Kawarimi",
+     "icon": "NJ_UTSUSEMI",
+     "level": 5,
+     "desc": "Enables Kawarimi status ensuring the caster to automatically dodges a set number of attacks. Each special dodge is followed by a backward movement of\n1 cell. Has a 20s cooldown.\n[Lv 1]: Lasts 2 seconds, 1 Dodge\n[Lv 2]: Lasts 2,5 seconds, 1 Dodge\n[Lv 3]: Lasts 3 seconds, 2 Dodges\n[Lv 4]: Lasts 3,5 seconds, 2 Dodges\n[Lv 5]: Lasts 4 seconds, 3 Dodges",
+     "summary": "Dodge: the next physical hit misses and you step back a cell.",
+     "scalings": []
+    },
+    "Back Stab": {
+     "name": "Back Stab",
+     "icon": "RG_BACKSTAP",
+     "level": 10,
+     "desc": "teleports the caster behind the enemy to deal damage.\nDamage is 150+5% per level +1% per AGI.\nRequires a Sword or Dagger equipped\nRequires 5% extra Current SP to cast.\nStarting Cooldown is 3 seconds.\nEnemy's back must be unobstructed to use\nSingle-Wielding a Dagger:\nAGI bonus is tripled\nBonus per skill level tripled\nExtra 5% scaling per level of Improve Dodge",
+     "summary": null,
+     "scalings": [
+      {
+       "per": 1,
+       "every": 1,
+       "stats": [
+        "AGI"
+       ],
+       "text": "+1% per AGI"
+      }
+     ]
+    },
+    "Moonlight Stance": {
+     "name": "Moonlight Stance",
+     "icon": "SJ_LUNARSTANCE",
+     "level": 5,
+     "desc": "Prepares your stance to operate with the moonlight. You can use the\nMoon skills while this skill is activated.\nIncreases also your MaxHP.\nHP Bonus is 2% per level.\nRequires extra 50% Current SP to cast.",
+     "summary": "Pre-fight stance: required for every Moon skill, and +2% Max HP per level.",
+     "scalings": []
+    },
+    "Seven Winds": {
+     "name": "Seven Winds",
+     "icon": "TK_SEVENWIND",
+     "level": 7,
+     "desc": "Summons a wind that will enchant the caster's attacks for 5 minutes with an elemental property based on the level of the casted skill.\n[Lv 1]: Earth (50 SP)\n[Lv 2]: Wind (50 SP)\n[Lv 3]: Water (50 SP)\n[Lv 4]: Fire (50 SP)\n[Lv 5]: Ghost (50 SP)\n[Lv 6]: Dark (50 SP)\n[Lv 7]: Holy (50 SP)",
+     "summary": "Pre-fight endow: picks the element that hits the target hardest for 5 minutes.",
+     "scalings": []
+    }
+   }
+  },
+  "Kingslayer": {
+   "build": "https://rtmr-arsenal.pages.dev/#b=cfZRNb5xADIb_SjSXXKxqPJ-QY3KseugZITQCs6BlWcTMRona_vfKsKRs2-xlJDyPP16PTaFAfO3HQxzCO80CUEsovAUHeQ4mgxwBSygKCRqVQsihMKgVGO1NWUKBYKXLQEKB2iOySYHNlWMStdc5aClV7jmIiCkkAeK1TwIKLEvGNaA1Rl55zP4FFWNipni-zDUJEKfwVnWTgMIuN6c-9YeQ-vMoQEzde-zrMFQzNZeaGgGFXhMZQGRFUBjN4rZjSTifhwEFiJCOqwesNiVAxKmqzzHtIqL8ALQAMYfxQE3VhFM40O21ESAaammMVE00UpqvhS4QYxZUlhsFDgojbXZTTUNvf_Rfq2mo_VC-FdBRGPrxUFHbUs2F1tS_flTKqOMua7e-n5PAx2edptcQ12a2A7GefDHHS0yhZ3M3VQNR3bGHBLVm8KAMXhN4-1nsOBHXJUKcdo2sQ0z9eGB7m2iu-LtqaAjvOwkZKO8cj5ry6G7mJKRjNdW7ocpBOe-ZNUbLuygi5FJLkwEXjQpUhnYZx71bTPPORYPKpDd_QzdzjQaUMSq_H8kukez9SA6UUXqR_jm09N_rO5EW87Y7CDoHuSz3yqid4TrQ8dgPQ3W6DIl59PJL5jekoZYHWoAEZdkIXi4PzD5P3y9E42N8eJ7D2PzcFgNBbu4rxn-ex_jw0oV-jDvMqlvupaP6-PAtJPpfrGUj5OZUsv4fm84ntFauf4w4iafM_Sp_Aw",
+   "note": "endgame farm build",
+   "profileName": "Kingslayer endgame farming (2026-09-30): unrestricted gear search over 10 areas (MVPs out, areas weighted equally), kills/h with deaths and stalls penalised",
+   "allround": {
+    "vs": "Heartless",
+    "opener": [
+     "Bishop's Tax",
+     "Shield Boomerang",
+     "King's Chains",
+     "Rook's Smash",
+     "Shield Boomerang",
+     "Shield Boomerang",
+     "Shield Boomerang",
+     "King's Chains",
+     "Rook's Smash",
+     "Shield Boomerang"
+    ],
+    "cycles": [
+     {
+      "steps": [
+       "Shield Boomerang"
+      ],
+      "share": 0.52
+     },
+     {
+      "steps": [
+       "Shield Boomerang",
+       "King's Chains"
+      ],
+      "share": 0.2
+     },
+     {
+      "steps": [
+       "Shield Boomerang",
+       "Rook's Smash"
+      ],
+      "share": 0.14
+     }
+    ],
+    "fillers": [],
+    "roles": [
+     {
+      "role": "Shield",
+      "share": 0.79
+     },
+     {
+      "role": "Counters",
+      "share": 0.2
+     },
+     {
+      "role": "Openers",
+      "share": 0.01
+     },
+     {
+      "role": "Dodges",
+      "share": 0
+     }
+    ],
+    "damage": [
+     {
+      "id": "King's Chains",
+      "share": 0.481,
+      "perCast": 29440
+     },
+     {
+      "id": "Shield Boomerang",
+      "share": 0.306,
+      "perCast": 6460
+     },
+     {
+      "id": "Rook's Smash",
+      "share": 0.195,
+      "perCast": 15140
+     },
+     {
+      "id": "Bishop's Tax",
+      "share": 0.014,
+      "perCast": 1536
+     },
+     {
+      "id": "Decoy",
+      "share": 0.003,
+      "perCast": 1561
+     }
+    ],
+    "prep": [
+     "Duel Stance",
+     "Bishop's Guard",
+     "Knight's Regen",
+     "King's Fortress Lv3",
+     "Reflect Shield 50%",
+     "Rook's Wall",
+     "Queen's Barrier (5 hits)",
+     "Bulwark Gem combo"
+    ],
+    "dps": 7445
+   },
+   "dummy": {
+    "seconds": 60,
+    "options": {
+     "fortress": 3,
+     "rooksWall": false,
+     "keepRange": true,
+     "heal": true,
+     "startCounters": 10,
+     "queensBrand": false,
+     "queensGambit": false,
+     "sneakAttack": false,
+     "bishopsTax": true,
+     "rogueFillers": false,
+     "windSlash": false,
+     "deltaFiller": true,
+     "autoAttack": false,
+     "order": [
+      "Stay hidden",
+      "Morroc's Mark",
+      "Pre-cast King's Gambit",
+      "Step back",
+      "Heal",
+      "Pawn's Cure",
+      "Pull it off the ward",
+      "Bishop's Tax",
+      "King's Chains",
+      "Rook's Smash",
+      "Delta Skyfall",
+      "Shield Boomerang"
+     ],
+     "defense": "auto",
+     "healBelow": 0.75,
+     "spendCounters": false,
+     "retributionAt": 10,
+     "mobility": "server",
+     "tankShare": 0.4
+    },
+    "opener": [
+     "Bishop's Tax",
+     "Rook's Smash",
+     "Delta Skyfall",
+     "Shield Boomerang",
+     "King's Chains",
+     "Delta Skyfall",
+     "Shield Boomerang",
+     "Delta Skyfall",
+     "Shield Boomerang",
+     "Delta Skyfall"
+    ],
+    "cycles": [
+     {
+      "steps": [
+       "Shield Boomerang",
+       "King's Chains"
+      ],
+      "share": 0.33
+     },
+     {
+      "steps": [
+       "Shield Boomerang"
+      ],
+      "share": 0.33
+     },
+     {
+      "steps": [
+       "Shield Boomerang",
+       "Rook's Smash"
+      ],
+      "share": 0.33
+     }
+    ],
+    "fillers": [
+     {
+      "id": "Delta Skyfall",
+      "perLoop": 1.3
+     }
+    ],
+    "roles": [
+     {
+      "role": "Shield",
+      "share": 0.6
+     },
+     {
+      "role": "Counters",
+      "share": 0.21
+     },
+     {
+      "role": "Fillers",
+      "share": 0.17
+     },
+     {
+      "role": "Openers",
+      "share": 0.02
+     }
+    ],
+    "damage": [
+     {
+      "id": "King's Chains",
+      "share": 0.325,
+      "perCast": 35818
+     },
+     {
+      "id": "Shield Boomerang",
+      "share": 0.271,
+      "perCast": 10867
+     },
+     {
+      "id": "Rook's Smash",
+      "share": 0.211,
+      "perCast": 23240
+     },
+     {
+      "id": "Delta Skyfall",
+      "share": 0.172,
+      "perCast": 5230
+     },
+     {
+      "id": "Bishop's Tax",
+      "share": 0.021,
+      "perCast": 3076
+     }
+    ],
+    "prep": [
+     "Duel Stance",
+     "Bishop's Guard",
+     "Knight's Regen",
+     "King's Fortress Lv3",
+     "Reflect Shield 50%",
+     "Queen's Barrier (5 hits)",
+     "Bulwark Gem combo"
+    ],
+    "dps": 14694
+   },
+   "buffs": [
+    {
+     "skill": "Duel Stance",
+     "icon": "LG_FORCEOFVANGUARD",
+     "dpsGain": 0.031,
+     "required": false
+    },
+    {
+     "skill": "King's Fortress",
+     "icon": "LG_SHIELDSPELL",
+     "dpsGain": 0.148,
+     "required": false
+    },
+    {
+     "skill": "Knight's Regen",
+     "icon": "AB_RENOVATIO",
+     "dpsGain": 0,
+     "required": false
+    },
+    {
+     "skill": "Bishop's Guard",
+     "icon": "AL_ANGELUS",
+     "dpsGain": 0.028,
+     "required": false
+    },
+    {
+     "skill": "Reflect Shield",
+     "icon": "CR_REFLECTSHIELD",
+     "dpsGain": 0,
+     "required": false
+    }
+   ],
+   "skills": {
+    "Bishop's Tax": {
+     "name": "Bishop's Tax",
+     "icon": "MC_MAMMONITE",
+     "level": 5,
+     "desc": "Attacks and taxes the enemy defenses, increasing damage taken.\nDamage is 200+30% per level + 2% per Dex\nCooldown is 10 seconds\nEnemies hit receive 15% extra damage\nDamage bonus duration is 3s to 12s by level\nRequires 25% extra Max HP to cast",
+     "summary": "Hit that makes the target take 15% more damage for up to 12 s; cast right before Shield Boomerang into King's Chains. Costs 25% Max HP.",
+     "scalings": [
+      {
+       "per": 2,
+       "every": 1,
+       "stats": [
+        "DEX"
+       ],
+       "text": "2% per Dex"
+      }
+     ]
+    },
+    "Shield Boomerang": {
+     "name": "Shield Boomerang",
+     "icon": "CR_SHIELDBOOMERANG",
+     "level": 10,
+     "desc": "Throws shield quickly at an enemy\nDamage is 200+20% per level +1% per vit\nDamage is improved by shield refine/weight\nBase Starting Cooldown is 3 seconds",
+     "summary": "Shield throw that opens the King's Chains combo (x1.5 with the Bulwark Gem).",
+     "scalings": [
+      {
+       "per": 1,
+       "every": 1,
+       "stats": [
+        "VIT"
+       ],
+       "text": "+1% per vit"
+      }
+     ]
+    },
+    "King's Chains": {
+     "name": "King's Chains",
+     "icon": "PA_SHIELDCHAIN",
+     "level": 1,
+     "desc": "Throws a rebounding shield 4 times at an enemy to deal damage.\nDamage is 200+10% per level +1% per VIT/STR\nDamage is based on shield refine/weight.\nWeapon ATK does not apply; only your base ATK and the shield count.\nExtra 1% per VIT per Duel Counter\nExtra 1% per Soft DEF and Hard DEF\nSkill ignores flee\nRequires a Shield.\nVariable cast time is 0.4s\nFixed cast time is 0.1s\nBase Starting Cooldown is 8 seconds\nRequires extra 15% Current SP\nRequires 1 Duel Counter to cast\nFinisher Ready: extra 30% per missing HP %",
+     "summary": "The main hit: four shield throws, scaling with VIT, STR and your Duel Counters; spends one counter.",
+     "scalings": [
+      {
+       "per": 1,
+       "every": 1,
+       "stats": [
+        "VIT",
+        "STR"
+       ],
+       "text": "+1% per VIT/STR"
+      },
+      {
+       "per": 1,
+       "every": 1,
+       "stats": [
+        "VIT"
+       ],
+       "text": "1% per VIT"
+      }
+     ]
+    },
+    "Rook's Smash": {
+     "name": "Rook's Smash",
+     "icon": "KN_SPEARSTAB",
+     "level": 1,
+     "desc": "Smashes a small area of enemies and knock them back.\nDealing 2 hits, with full damage on each.\nUsable with any weapon.\nRequires a Shield equipped.\nSlides you onto the target, then pushes enemies away from where you land.\nAdditional Damage equal 1/5 HP\nDamage is 150+5% per level + 1% per Str.\nExtra 25% Damage per Duel Counter\nGenerates up to 3 Duel Counters under Duel Stance.\nBase Starting Cooldown is 8 seconds",
+     "summary": "Slide onto the target for 2-3 hits plus a fifth of your current HP as damage; fills Duel Counters to 3.",
+     "scalings": [
+      {
+       "per": 1,
+       "every": 1,
+       "stats": [
+        "STR"
+       ],
+       "text": "1% per Str"
+      }
+     ]
+    },
+    "Delta Skyfall": {
+     "name": "Delta Skyfall",
+     "icon": "SC_TRIANGLESHOT",
+     "level": 1,
+     "desc": "Drops blades from the sky hitting distant enemies directly.\nDamage is 230+10% per level + 3% per AGI\nExtra VIT scaling damage per 2 duel counters.\nRequires a sword or dagger equipped.\nBase Starting Cooldown is 2 seconds.",
+     "summary": null,
+     "scalings": [
+      {
+       "per": 3,
+       "every": 1,
+       "stats": [
+        "AGI"
+       ],
+       "text": "3% per AGI"
+      }
+     ]
+    },
+    "Duel Stance": {
+     "name": "Duel Stance",
+     "icon": "LG_FORCEOFVANGUARD",
+     "level": 5,
+     "desc": "Increases your Duel Counter when you receive physical attacks. The\nDuel Counters can be used for boost\nStrenght of other Duelist skills according to VIT. consumes some SP at regular time interval to stay active.\nIncrease Max HP by 2% per level\nCounter chance is 25+15% per level\nMaximum Amount of Counters is 10.\nLearning this skill disabled Flip Coin\nFixed cast time is 0.5s",
+     "summary": "Pre-fight stance: physical hits you take build Duel Counters; +Max HP.",
+     "scalings": []
+    },
+    "King's Fortress": {
+     "name": "King's Fortress",
+     "icon": "LG_SHIELDSPELL",
+     "level": 3,
+     "desc": "Enchants the shield with a unique aura that improves the flow of energy of the caster depending on the skill level used.\nRequires a Shield.\n[Lv 1]: Regen 1% HP every 2 seconds.\n[Lv 2]: Regen 1% SP every 2 seconds.\n[Lv 3]: King's Chains and Shield Boomerang\nExtra +1% per STR and 2% per VIT scaling damage.\nFortress Bonus Effects:\n[Lv 1]: Cover Ally reduces damage taken by 75%\n[Lv 2]: Cover Ally receives Hallucination Walk\n[Lv 3]: Cover Ally receives Endure effect\nDuration is 5 minutes\nVariable cast time is 10s\nCooldown is 60 seconds",
+     "summary": "Pre-fight shield aura; at Lv3 it adds STR and VIT scaling to King's Chains and Shield Boomerang.",
+     "scalings": [
+      {
+       "per": 1,
+       "every": 1,
+       "stats": [
+        "STR"
+       ],
+       "text": "+1% per STR"
+      },
+      {
+       "per": 2,
+       "every": 1,
+       "stats": [
+        "VIT"
+       ],
+       "text": "2% per VIT"
+      }
+     ]
+    },
+    "Knight's Regen": {
+     "name": "Knight's Regen",
+     "icon": "AB_RENOVATIO",
+     "level": 5,
+     "desc": "Recovers a percentage of HP to self and all party members on screen every 5 seconds. Has no effect on\nUndead elemental players.\nRecovery amount is 1+1% Max HP per level.\nRequires 50% Max SP as extra cost.\nDuration is 60+60s per level.\nVariable cast time is 4s\nFixed cast time is 2s\nCooldown is 60 seconds",
+     "summary": "Pre-fight regen: heals a share of Max HP every 5 s for minutes.",
+     "scalings": []
+    },
+    "Bishop's Guard": {
+     "name": "Bishop's Guard",
+     "icon": "AL_ANGELUS",
+     "level": 5,
+     "desc": "Increases MaxHP and physical defense from VIT of all party members including caster.\nDuration is 5 minutes\nBonus HP is 500 per level.\nBonus Vit Defense is 10% per level.\nVariable cast time is 3.5s\nFixed cast time is 1.5s\nRequires 10% Max HP to cast",
+     "summary": "Pre-fight buff: +500 Max HP per level and more VIT defence.",
+     "scalings": []
+    },
+    "Reflect Shield": {
+     "name": "Reflect Shield",
+     "icon": "CR_REFLECTSHIELD",
+     "level": 10,
+     "desc": "Reflect a certain amount of damage back to the enemy after they inflict damage with short Physical Ranged attacks.\nRequires Shield.\nDamage reflected is 10+4% per level",
+     "summary": "Pre-fight buff: sends a share of melee damage you take back at the attacker.",
+     "scalings": []
+    }
+   }
+  }
+ }
+}
