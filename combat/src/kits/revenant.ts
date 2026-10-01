@@ -670,7 +670,7 @@ export const REVENANT_SEARCH = {
   } as Record<string, unknown[]>,
   pinned: ['Stay hidden', "Morroc's Mark", 'Pull it off the ward'],
   // Melee crit skills on a leech build: what a new piece's random options go to first.
-  rolls: ['melee_damage', 'critical_damage', 'atk_pct', 'max_hp', 'defense_penetration', 'sp_cost_reduced', 'hp_leech',
+  rolls: ['roaring_overslash_damage', 'reaping_slash_damage', 'melee_damage', 'critical_damage', 'atk_pct', 'max_hp', 'defense_penetration', 'sp_cost_reduced', 'hp_leech',
     'physical_reduced', 'physical_damage_reduced', 'after_cast_delay', 'after_cast_delay_reduced', 'aspd', 'crit', 'sp_regen', 'flee'],
   droppable: ['Hellraiser', 'Underworld Rainstorm', 'Sweeping Slash', 'Haunting Slice', 'Dark Message', 'Dark Messenger',
     'Phantom Slice', 'Flaming Wave', 'Attack', 'Final Orchestra', 'Heal', 'Mirror Break', 'Darkside Shadow', 'True Sight',

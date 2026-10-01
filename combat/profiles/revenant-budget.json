@@ -1,6 +1,6 @@
 {
-  "name": "Revenant budget tier (2026-10-01): endgame farm over 10 areas; no MVP or SS-dungeon drops (Weavers aside), nothing made from a +9, +6 at most, average rolls -- 130 kills/h, 1.6 deaths/h in the sim",
-  "build": "https://rtmr-arsenal.pages.dev/#b=cfVLLjuMgEPwXzqUVtHnYv7FXZFnI7iRoSGIZEmX-foWdmSS7s7lYclFUdTXlCeI3X_kUTkVANRK-IyhoA0VwBl3Xw3sJIx3Bwtc_kUsoAmLim4BXfd_38ApG2hYSXjWukRUimI5svaUaRy3W77NALstDoAG1TSsrnZwy6pl4jWUjwouF8_myjCwgjuE2HGYB36wnx1jiPpR4PgmI-fCZ4xjSsPB0GXkS8LQZaSijH2GWc0pKQITysXGwYVSxPE8P43NKTXXlxDxM4Rj2LODN96EWELt442kYQy5DiUf-ch8EvPx1H8CuSWlbjJXux5XAC76GvIXZJa5WboXzJZcQK3yYh8Q8HuoNg_se3aqu7mtX9Kwe9vFbPc9ct_KVcdOug8fTvsK7wssWZOIUPjdKJbUgS7q-tDbOQmup_9uKDmSdq1xyyr48frp8PLWHQFpT-75itSLU_UN6qZHSq1L3XsmAuk67v0mvM1mQpsbW6X8s40pyIK2seaPU938A",
+  "name": "Revenant budget tier (2026-10-01, new rules): no MVP or SS-dungeon drops (Weavers aside), nothing made from a +9, +6 at most, average rolls; from the baseline build -- win 97% lost 1% 26,732 dps 6s 285 kills/h (sit 4.0s) 3.8 deaths/h",
+  "build": "https://rtmr-arsenal.pages.dev/#b=cfZLdjqMwDIXfxde-iJ0_eI29jRCKwG3RAEVNWnXefhXoduhq2hskki_Hx8cOjPBHbjLHOQOSVhhqg5rQKiRGa7GuGwxBoSZmgw5D-YXLeRwJEMbrF2CgpsHtjAFhivf2tAAGfh5rQIiHLJe2iym3vYzxu71If-2kBwy-aQpaqroKFQbS1q-ijLZmV8qS9lzh-l0dpBwzIPRy3wwUWiNrbwvNniwVmn6niy9J5-ulk71jvd5MQx6OMQ_nGRCW03caujju7PJWzSBZXZVqxnqHRtf8kk3MXy8hlGzS0nbnlHdi9iWkSUaRto9TPMrLpQGEw3CXfkswD5PsREhtlhySNexXT1y5d63LLaatu8Mosg0AA6RrynGYN5ujSHcqLyw-0vXIrJTa4mWr36mnRYopiGnpn9rF9TAff9mDn_lXyM7RY_6K9vrPPStcjVxp6_-B9bo7jGwM1c8NfTxM-fLzkHSBmP6HbkPeQWaF1GfIrpD-DDlkw9oVo2-bIY9syH9Sapq_",
   "consumables": [
     "Green Potion",
     "Kafra Elixir",
@@ -8,32 +8,31 @@
   ],
   "options": {
     "defense": "auto",
-    "roaringAt": 5,
+    "roaringAt": 3,
     "order": [
-      "Heal",
+      "Mirror Break",
       "Stay hidden",
       "Morroc's Mark",
       "Pull it off the ward",
+      "Heal",
       "Darkside Shadow",
       "True Sight",
       "Vampire Mark",
       "Shadow Parry",
       "Reaping Slash",
       "Hellraiser",
-      "Underworld Rainstorm",
-      "Scythe Reap",
       "Roaring Overslash",
+      "Scythe Reap",
       "Sweeping Slash",
-      "Mirror Break",
+      "Underworld Rainstorm",
+      "Haunting Slice",
       "Dark Message",
       "Phantom Slice",
-      "Attack",
-      "Dark Messenger",
-      "Haunting Slice",
-      "Flaming Wave"
+      "Attack"
     ],
     "tankShare": 0.6,
-    "comboRefreshMs": 0
+    "comboRefreshMs": 2000,
+    "rainAt": 5
   },
   "aspdModel": {
     "base": 58

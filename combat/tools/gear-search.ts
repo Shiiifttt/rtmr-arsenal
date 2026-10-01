@@ -271,7 +271,7 @@ function rollMoves(build: Build, slot: SlotDef): Move[] {
   const out: Move[] = [];
   for (const roll of table.rolls) {
     for (const opt of roll.options) {
-      if (opt.grants.some((g) => g.skill)) continue;
+      if (!rollOptionOk(opt)) continue;
       const values = opt.grants.map((g) => clampRoll(g, maxRolls ? (g.max ?? g.min) : (g.min + (g.max ?? g.min)) / 2));
       const now = cur!.rolls?.[roll.key];
       if (now && now.option === opt.key && JSON.stringify(now.values) === JSON.stringify(values)) continue;
@@ -282,6 +282,16 @@ function rollMoves(build: Build, slot: SlotDef): Move[] {
   return out;
 }
 
+/**
+ * --skill-rolls: a roll line may take a skill-damage option, for a skill the
+ * class learns (a maxed tier's bought rolls: shadow gear's +5% Roaring
+ * Overslash). Off, the owner's rule of 2026-09-27 holds: a skill roll is
+ * never assumed, the pool being hundreds of skills.
+ */
+const skillRolls = flag('skill-rolls');
+const learnedSkills = new Set(Object.keys(kit.maxLevels()));
+const rollOptionOk = (o: { grants: { skill?: unknown; skill_name?: string }[] }) => !o.grants.some((g) => g.skill)
+  || (skillRolls && o.grants.every((g) => !g.skill || learnedSkills.has(g.skill_name ?? '')));
 /** Average rolls for a new piece: one set per variant (stat choice, garment sustain). */
 function rollVariants(item: Item, slotKey: string): { label: string; rolls: Record<string, RollPick> }[] {
   const table = rollTableFor(data.rolls, slotKey, item);
@@ -290,10 +300,12 @@ function rollVariants(item: Item, slotKey: string): { label: string; rolls: Reco
   for (const roll of table.rolls) {
     // A skill-damage roll names one of hundreds of skills: never assume it
     // lands on ours (the project owner, 2026-09-27).
-    const keys = roll.options.filter((o) => !o.grants.some((g) => g.skill)).map((o) => o.key);
+    const keys = roll.options.filter(rollOptionOk).map((o) => o.key);
     if (!keys.length) continue;
     let picks: string[];
-    if (topStats.every((s) => keys.includes(s))) picks = [...rollStats];
+    const skillKeys = keys.filter((k) => roll.options.find((o) => o.key === k)!.grants.some((g) => g.skill));
+    if (skillKeys.length) picks = [ROLL_PREFERENCE.find((k) => skillKeys.includes(k)) ?? skillKeys[0]];
+    else if (topStats.every((s) => keys.includes(s))) picks = [...rollStats];
     else if (slotKey === 'armor' && keys.includes('max_hp')) picks = ['max_hp'];
     else if (slotKey === 'garment' && keys.includes('hp_leech') && keys.includes('sp_regen')) picks = ['hp_leech', 'sp_regen'];
     else picks = [ROLL_PREFERENCE.find((k) => keys.includes(k)) ?? keys[0]];

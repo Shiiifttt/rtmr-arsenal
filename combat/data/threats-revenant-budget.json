@@ -4,13 +4,13 @@
   "perMin and dodged are how often a threat came and how much the TAS avoided -- mostly the monster's, not the build's.",
   "refDamage and deathShare are the reference build's; combat/src/advise.ts works damage out again for any build."
  ],
- "builtAt": "2026-09-30T22:48:39.893Z",
+ "builtAt": "2026-10-01T00:13:05.212Z",
  "reference": {
-  "name": "Revenant budget tier (2026-10-01): endgame farm over 10 areas; no MVP or SS-dungeon drops (Weavers aside), nothing made from a +9, +6 at most, average rolls -- 130 kills/h, 1.6 deaths/h in the sim",
+  "name": "Revenant budget tier (2026-10-01, new rules): no MVP or SS-dungeon drops (Weavers aside), nothing made from a +9, +6 at most, average rolls; from the baseline build -- win 97% lost 1% 26,732 dps 6s 285 kills/h (sit 4.0s) 3.8 deaths/h",
   "className": "Revenant",
   "level": 130,
-  "maxHp": 8648,
-  "element": "Dark"
+  "maxHp": 8174,
+  "element": "Neutral"
  },
  "iterations": 100,
  "monsters": [
@@ -29,7 +29,7 @@
    "fights": 100,
    "winRate": 1,
    "lossRate": 0,
-   "seconds": 2.4,
+   "seconds": 1.9,
    "threats": [
     {
      "source": "Ascended Follower: attack",
@@ -45,9 +45,9 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 25.65,
-     "dodged": 0.592,
-     "refDamage": 19,
+     "perMin": 31.98,
+     "dodged": 0.51,
+     "refDamage": 48,
      "deathShare": 0
     }
    ],
@@ -68,7 +68,7 @@
    "fights": 100,
    "winRate": 1,
    "lossRate": 0,
-   "seconds": 2.4,
+   "seconds": 1.9,
    "threats": [
     {
      "source": "Aunoe: attack",
@@ -84,9 +84,9 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 40.39,
-     "dodged": 0.478,
-     "refDamage": 52,
+     "perMin": 42.85,
+     "dodged": 0.545,
+     "refDamage": 156,
      "deathShare": 0
     }
    ],
@@ -107,7 +107,7 @@
    "fights": 100,
    "winRate": 1,
    "lossRate": 0,
-   "seconds": 3.9,
+   "seconds": 3.1,
    "threats": [
     {
      "source": "Dominated Follower: attack",
@@ -123,9 +123,9 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 17.83,
-     "dodged": 0.522,
-     "refDamage": 22,
+     "perMin": 19.55,
+     "dodged": 0.549,
+     "refDamage": 64,
      "deathShare": 0
     },
     {
@@ -151,7 +151,7 @@
        "resist": "none"
       }
      ],
-     "perMin": 17.37,
+     "perMin": 16.67,
      "dodged": 1,
      "refDamage": 0,
      "deathShare": 0
@@ -179,14 +179,14 @@
        "resist": "poison"
       }
      ],
-     "perMin": 2.48,
-     "dodged": 0.375,
+     "perMin": 2.11,
+     "dodged": 0.182,
      "refDamage": 0,
      "deathShare": 0
     }
    ],
    "defenses": {
-    "Walk out": 0.99
+    "Walk out": 0.87
    }
   },
   {
@@ -204,7 +204,7 @@
    "fights": 100,
    "winRate": 1,
    "lossRate": 0,
-   "seconds": 5.3,
+   "seconds": 1.9,
    "threats": [
     {
      "source": "Doomed Follower: attack",
@@ -220,31 +220,9 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 26.04,
-     "dodged": 0.478,
-     "refDamage": 41,
-     "deathShare": 0
-    },
-    {
-     "source": "Bowling Bash",
-     "kind": "skill",
-     "skill": "KN_BOWLINGBASH",
-     "level": 9,
-     "caster": "Doomed Follower",
-     "type": "physical",
-     "element": "Neutral",
-     "targets": "aoe",
-     "castMs": 1000,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [
-      "hide",
-      "kawarimi"
-     ],
-     "statuses": [],
-     "perMin": 9.51,
-     "dodged": 1,
-     "refDamage": 0,
+     "perMin": 40.29,
+     "dodged": 0.568,
+     "refDamage": 150,
      "deathShare": 0
     },
     {
@@ -264,15 +242,14 @@
       "walk"
      ],
      "statuses": [],
-     "perMin": 40.42,
+     "perMin": 8.06,
      "dodged": 1,
      "refDamage": 0,
      "deathShare": 0
     }
    ],
    "defenses": {
-    "Hiding": 0.84,
-    "Back Slide": 0.96
+    "Back Slide": 0.25
    }
   },
   {
@@ -290,7 +267,7 @@
    "fights": 100,
    "winRate": 1,
    "lossRate": 0,
-   "seconds": 4.1,
+   "seconds": 2,
    "threats": [
     {
      "source": "Fanat: attack",
@@ -306,9 +283,9 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 68.1,
-     "dodged": 0.528,
-     "refDamage": 48,
+     "perMin": 64.93,
+     "dodged": 0.594,
+     "refDamage": 215,
      "deathShare": 0
     },
     {
@@ -334,14 +311,14 @@
        "resist": "stun"
       }
      ],
-     "perMin": 39.82,
+     "perMin": 21.24,
      "dodged": 1,
      "refDamage": 0,
      "deathShare": 0
     }
    ],
    "defenses": {
-    "Back Slide": 1
+    "Back Slide": 0.71
    }
   },
   {
@@ -357,9 +334,9 @@
    "size": "Large",
    "boss": true,
    "fights": 100,
-   "winRate": 0,
-   "lossRate": 0.28,
-   "seconds": 89.4,
+   "winRate": 0.03,
+   "lossRate": 0.38,
+   "seconds": 65.6,
    "threats": [
     {
      "source": "Adoramus",
@@ -391,9 +368,9 @@
       }
      ],
      "perMin": 3.19,
-     "dodged": 0.922,
-     "refDamage": 13184,
-     "deathShare": 0.821
+     "dodged": 0.931,
+     "refDamage": 24290,
+     "deathShare": 0.632
     },
     {
      "source": "Phantom Thrust",
@@ -412,10 +389,10 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 4.56,
-     "dodged": 0.925,
-     "refDamage": 1220,
-     "deathShare": 0.107
+     "perMin": 4.35,
+     "dodged": 0.941,
+     "refDamage": 3341,
+     "deathShare": 0.184
     },
     {
      "source": "Crimson Fire Formation",
@@ -434,10 +411,10 @@
       "walk"
      ],
      "statuses": [],
-     "perMin": 38.92,
-     "dodged": 0.889,
-     "refDamage": 91,
-     "deathShare": 0.071
+     "perMin": 38.56,
+     "dodged": 0.901,
+     "refDamage": 525,
+     "deathShare": 0.158
     },
     {
      "source": "Goddess Freya: attack",
@@ -453,10 +430,10 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 11.24,
-     "dodged": 0.77,
-     "refDamage": 427,
-     "deathShare": 0
+     "perMin": 10.88,
+     "dodged": 0.823,
+     "refDamage": 612,
+     "deathShare": 0.026
     },
     {
      "source": "Wide Stone Curse",
@@ -480,16 +457,16 @@
        "resist": "stone"
       }
      ],
-     "perMin": 3.97,
-     "dodged": 0.893,
+     "perMin": 4.11,
+     "dodged": 0.929,
      "refDamage": 0,
      "deathShare": 0
     }
    ],
    "defenses": {
-    "Walk out": 6.64,
-    "Hiding": 10.37,
-    "Enter Manhole": 4.42
+    "Hiding": 7.66,
+    "Walk out": 4.86,
+    "Enter Manhole": 3.45
    }
   },
   {
@@ -507,7 +484,7 @@
    "fights": 100,
    "winRate": 1,
    "lossRate": 0,
-   "seconds": 6.6,
+   "seconds": 2.4,
    "threats": [
     {
      "source": "Ritual Priest: attack",
@@ -523,9 +500,9 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 36.76,
-     "dodged": 0.517,
-     "refDamage": 11,
+     "perMin": 39.65,
+     "dodged": 0.478,
+     "refDamage": 64,
      "deathShare": 0
     },
     {
@@ -545,9 +522,9 @@
       "walk"
      ],
      "statuses": [],
-     "perMin": 30.54,
+     "perMin": 12.63,
      "dodged": 0,
-     "refDamage": 0,
+     "refDamage": 9,
      "deathShare": 0
     },
     {
@@ -573,14 +550,14 @@
        "resist": "none"
       }
      ],
-     "perMin": 5.39,
+     "perMin": 4.04,
      "dodged": 1,
      "refDamage": 0,
      "deathShare": 0
     }
    ],
    "defenses": {
-    "Walk out": 0.66
+    "Walk out": 0.16
    }
   },
   {
@@ -598,8 +575,30 @@
    "fights": 100,
    "winRate": 1,
    "lossRate": 0,
-   "seconds": 10.8,
+   "seconds": 4.9,
    "threats": [
+    {
+     "source": "Hammer of God",
+     "kind": "skill",
+     "skill": "RL_HAMMER_OF_GOD",
+     "level": 6,
+     "caster": "Conquest Incarnate",
+     "type": "physical",
+     "element": "Neutral",
+     "targets": "aoe",
+     "castMs": 2000,
+     "ticks": 1,
+     "tickMs": 0,
+     "avoid": [
+      "hide",
+      "kawarimi"
+     ],
+     "statuses": [],
+     "perMin": 1.59,
+     "dodged": 0.692,
+     "refDamage": 2675,
+     "deathShare": 0
+    },
     {
      "source": "Conquest Incarnate: attack",
      "kind": "attack",
@@ -614,9 +613,9 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 19.79,
-     "dodged": 0.563,
-     "refDamage": 58,
+     "perMin": 13.24,
+     "dodged": 0.546,
+     "refDamage": 282,
      "deathShare": 0
     },
     {
@@ -641,30 +640,8 @@
        "resist": "stun"
       }
      ],
-     "perMin": 5.54,
-     "dodged": 0.92,
-     "refDamage": 0,
-     "deathShare": 0
-    },
-    {
-     "source": "Hammer of God",
-     "kind": "skill",
-     "skill": "RL_HAMMER_OF_GOD",
-     "level": 6,
-     "caster": "Conquest Incarnate",
-     "type": "physical",
-     "element": "Neutral",
-     "targets": "aoe",
-     "castMs": 2000,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [
-      "hide",
-      "kawarimi"
-     ],
-     "statuses": [],
-     "perMin": 5.43,
-     "dodged": 0.724,
+     "perMin": 5.76,
+     "dodged": 1,
      "refDamage": 0,
      "deathShare": 0
     },
@@ -685,59 +662,14 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 5.27,
-     "dodged": 0.526,
-     "refDamage": 0,
-     "deathShare": 0
-    },
-    {
-     "source": "Phantom Thrust",
-     "kind": "skill",
-     "skill": "NPC_PHANTOMTHRUST",
-     "level": 1,
-     "caster": "Conquest Incarnate",
-     "type": "physical",
-     "element": "Neutral",
-     "targets": "single",
-     "castMs": 500,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [
-      "hide",
-      "kawarimi"
-     ],
-     "statuses": [
-      {
-       "sc": "other",
-       "chance": 1,
-       "resist": "none"
-      }
-     ],
-     "perMin": 4.77,
-     "dodged": 0.314,
-     "refDamage": 0,
-     "deathShare": 0
-    },
-    {
-     "source": "Conquest Incarnate: reflected",
-     "kind": "reflect",
-     "caster": "Conquest Incarnate",
-     "type": "none",
-     "element": "Neutral",
-     "targets": "single",
-     "castMs": 0,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [],
-     "statuses": [],
-     "perMin": 1.33,
-     "dodged": 0,
+     "perMin": 1.35,
+     "dodged": 0.909,
      "refDamage": 0,
      "deathShare": 0
     }
    ],
    "defenses": {
-    "Hiding": 1.39
+    "Hiding": 0.58
    }
   },
   {
@@ -755,7 +687,7 @@
    "fights": 100,
    "winRate": 1,
    "lossRate": 0,
-   "seconds": 15.2,
+   "seconds": 7.1,
    "threats": [
     {
      "source": "Death Incarnate: attack",
@@ -771,9 +703,9 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 162.47,
-     "dodged": 0.545,
-     "refDamage": 2,
+     "perMin": 26.19,
+     "dodged": 0.529,
+     "refDamage": 39,
      "deathShare": 0
     },
     {
@@ -799,9 +731,31 @@
        "resist": "none"
       }
      ],
-     "perMin": 7.9,
-     "dodged": 0.305,
-     "refDamage": 3,
+     "perMin": 8.39,
+     "dodged": 0.26,
+     "refDamage": 7,
+     "deathShare": 0
+    },
+    {
+     "source": "Crimson Fire Formation",
+     "kind": "skill",
+     "skill": "NJ_KAENSIN",
+     "level": 9,
+     "caster": "Death Incarnate",
+     "type": "magic",
+     "element": "Fire",
+     "targets": "aoe",
+     "castMs": 1500,
+     "ticks": 9,
+     "tickMs": 100,
+     "avoid": [
+      "hide",
+      "walk"
+     ],
+     "statuses": [],
+     "perMin": 72.77,
+     "dodged": 1,
+     "refDamage": 0,
      "deathShare": 0
     },
     {
@@ -827,36 +781,14 @@
        "resist": "none"
       }
      ],
-     "perMin": 3.95,
-     "dodged": 1,
-     "refDamage": 0,
-     "deathShare": 0
-    },
-    {
-     "source": "Crimson Fire Formation",
-     "kind": "skill",
-     "skill": "NJ_KAENSIN",
-     "level": 9,
-     "caster": "Death Incarnate",
-     "type": "magic",
-     "element": "Fire",
-     "targets": "aoe",
-     "castMs": 1500,
-     "ticks": 9,
-     "tickMs": 100,
-     "avoid": [
-      "hide",
-      "walk"
-     ],
-     "statuses": [],
-     "perMin": 35.56,
+     "perMin": 8.39,
      "dodged": 1,
      "refDamage": 0,
      "deathShare": 0
     }
    ],
    "defenses": {
-    "Walk out": 2
+    "Walk out": 1.97
    }
   },
   {
@@ -873,67 +805,31 @@
    "boss": true,
    "fights": 100,
    "winRate": 0,
-   "lossRate": 0,
-   "seconds": 120,
+   "lossRate": 1,
+   "seconds": 30.7,
    "threats": [
     {
-     "source": "Emperor Morroc: attack",
-     "kind": "attack",
-     "caster": "Emperor Morroc",
-     "type": "physical",
-     "element": "Neutral",
-     "targets": "single",
-     "castMs": 0,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [
-      "kawarimi"
-     ],
-     "statuses": [],
-     "perMin": 0.55,
-     "dodged": 0.527,
-     "refDamage": 1473,
-     "deathShare": 0
-    },
-    {
-     "source": "Death Incarnate: attack",
-     "kind": "attack",
-     "caster": "Death Incarnate",
-     "addId": 1921,
-     "type": "physical",
-     "element": "Neutral",
-     "targets": "single",
-     "castMs": 0,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [
-      "kawarimi"
-     ],
-     "statuses": [],
-     "perMin": 0.43,
-     "dodged": 0.576,
-     "refDamage": 0,
-     "deathShare": 0
-    },
-    {
-     "source": "Conquest Incarnate: attack",
-     "kind": "attack",
+     "source": "Conquest Incarnate: Hammer of God",
+     "kind": "skill",
+     "skill": "RL_HAMMER_OF_GOD",
+     "level": 6,
      "caster": "Conquest Incarnate",
      "addId": 1918,
      "type": "physical",
      "element": "Neutral",
-     "targets": "single",
-     "castMs": 0,
+     "targets": "aoe",
+     "castMs": 2000,
      "ticks": 1,
      "tickMs": 0,
      "avoid": [
+      "hide",
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 0.46,
-     "dodged": 0.609,
-     "refDamage": 0,
-     "deathShare": 0
+     "perMin": 1.72,
+     "dodged": 0.636,
+     "refDamage": 6953,
+     "deathShare": 0.23
     },
     {
      "source": "War Incarnate: attack",
@@ -950,10 +846,92 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 0.51,
-     "dodged": 0.495,
-     "refDamage": 0,
-     "deathShare": 0
+     "perMin": 13.6,
+     "dodged": 0.546,
+     "refDamage": 572,
+     "deathShare": 0.14
+    },
+    {
+     "source": "Conquest Incarnate: attack",
+     "kind": "attack",
+     "caster": "Conquest Incarnate",
+     "addId": 1918,
+     "type": "physical",
+     "element": "Neutral",
+     "targets": "single",
+     "castMs": 0,
+     "ticks": 1,
+     "tickMs": 0,
+     "avoid": [
+      "kawarimi"
+     ],
+     "statuses": [],
+     "perMin": 9.01,
+     "dodged": 0.555,
+     "refDamage": 691,
+     "deathShare": 0.13
+    },
+    {
+     "source": "Emperor Morroc: attack",
+     "kind": "attack",
+     "caster": "Emperor Morroc",
+     "type": "physical",
+     "element": "Neutral",
+     "targets": "single",
+     "castMs": 0,
+     "ticks": 1,
+     "tickMs": 0,
+     "avoid": [
+      "kawarimi"
+     ],
+     "statuses": [],
+     "perMin": 11.28,
+     "dodged": 0.565,
+     "refDamage": 1749,
+     "deathShare": 0.12
+    },
+    {
+     "source": "Death Incarnate: attack",
+     "kind": "attack",
+     "caster": "Death Incarnate",
+     "addId": 1921,
+     "type": "physical",
+     "element": "Neutral",
+     "targets": "single",
+     "castMs": 0,
+     "ticks": 1,
+     "tickMs": 0,
+     "avoid": [
+      "kawarimi"
+     ],
+     "statuses": [],
+     "perMin": 37.76,
+     "dodged": 0.546,
+     "refDamage": 255,
+     "deathShare": 0.12
+    },
+    {
+     "source": "Severe Rainstorm",
+     "kind": "skill",
+     "skill": "WM_SEVERE_RAINSTORM",
+     "level": 6,
+     "caster": "Emperor Morroc",
+     "type": "physical",
+     "element": "Neutral",
+     "targets": "aoe",
+     "castMs": 3000,
+     "ticks": 15,
+     "tickMs": 200,
+     "avoid": [
+      "hide",
+      "walk",
+      "kawarimi"
+     ],
+     "statuses": [],
+     "perMin": 28.93,
+     "dodged": 0.984,
+     "refDamage": 4836,
+     "deathShare": 0.11
     },
     {
      "source": "Famine Incarnate: attack",
@@ -970,34 +948,57 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 0.43,
-     "dodged": 0.565,
-     "refDamage": 0,
-     "deathShare": 0
+     "perMin": 7.66,
+     "dodged": 0.577,
+     "refDamage": 442,
+     "deathShare": 0.08
     },
     {
-     "source": "War Incarnate: Chain Lightning",
+     "source": "Famine Incarnate: Vampire Gift",
      "kind": "skill",
-     "skill": "WL_CHAINLIGHTNING",
-     "level": 1,
-     "caster": "War Incarnate",
-     "addId": 1920,
-     "type": "magic",
-     "element": "Wind",
-     "targets": "single",
-     "castMs": 250,
-     "ticks": 4,
-     "tickMs": 950,
+     "skill": "NPC_VAMPIRE_GIFT",
+     "level": 2,
+     "caster": "Famine Incarnate",
+     "addId": 1919,
+     "type": "physical",
+     "element": "Neutral",
+     "targets": "aoe",
+     "castMs": 1500,
+     "ticks": 1,
+     "tickMs": 0,
      "avoid": [
       "hide",
-      "los",
-      "rod"
+      "walk",
+      "kawarimi"
      ],
      "statuses": [],
-     "perMin": 0.31,
-     "dodged": 0.887,
-     "refDamage": 0,
-     "deathShare": 0
+     "perMin": 2.54,
+     "dodged": 0.908,
+     "refDamage": 3325,
+     "deathShare": 0.03
+    },
+    {
+     "source": "Famine Incarnate: Sucking Blood",
+     "kind": "skill",
+     "skill": "NPC_BLOODDRAIN",
+     "level": 1,
+     "caster": "Famine Incarnate",
+     "addId": 1919,
+     "type": "physical",
+     "element": "Dark",
+     "targets": "single",
+     "castMs": 250,
+     "ticks": 1,
+     "tickMs": 0,
+     "avoid": [
+      "hide",
+      "kawarimi"
+     ],
+     "statuses": [],
+     "perMin": 3.07,
+     "dodged": 0.35,
+     "refDamage": 576,
+     "deathShare": 0.03
     },
     {
      "source": "Death Incarnate: Critical Wounds",
@@ -1023,38 +1024,68 @@
        "resist": "none"
       }
      ],
-     "perMin": 0.03,
-     "dodged": 0.167,
-     "refDamage": 0,
+     "perMin": 2.31,
+     "dodged": 0.28,
+     "refDamage": 159,
+     "deathShare": 0.01
+    },
+    {
+     "source": "Death Incarnate: Comet",
+     "kind": "skill",
+     "skill": "WL_COMET",
+     "level": 5,
+     "caster": "Death Incarnate",
+     "addId": 1921,
+     "type": "magic",
+     "element": "Neutral",
+     "targets": "aoe",
+     "castMs": 3400,
+     "ticks": 1,
+     "tickMs": 0,
+     "avoid": [
+      "hide",
+      "walk"
+     ],
+     "statuses": [
+      {
+       "sc": "magicpoison",
+       "chance": 1,
+       "resist": "none"
+      }
+     ],
+     "perMin": 1.95,
+     "dodged": 0.25,
+     "refDamage": 621,
      "deathShare": 0
     },
     {
-     "source": "Severe Rainstorm",
+     "source": "War Incarnate: Chain Lightning",
      "kind": "skill",
-     "skill": "WM_SEVERE_RAINSTORM",
-     "level": 6,
-     "caster": "Emperor Morroc",
-     "type": "physical",
-     "element": "Neutral",
-     "targets": "aoe",
-     "castMs": 3000,
-     "ticks": 15,
-     "tickMs": 200,
+     "skill": "WL_CHAINLIGHTNING",
+     "level": 1,
+     "caster": "War Incarnate",
+     "addId": 1920,
+     "type": "magic",
+     "element": "Wind",
+     "targets": "single",
+     "castMs": 250,
+     "ticks": 4,
+     "tickMs": 950,
      "avoid": [
       "hide",
-      "walk",
-      "kawarimi"
+      "los",
+      "rod"
      ],
      "statuses": [],
-     "perMin": 0.3,
-     "dodged": 1,
+     "perMin": 7.74,
+     "dodged": 0.881,
      "refDamage": 0,
      "deathShare": 0
     }
    ],
    "defenses": {
-    "Walk out": 1.68,
-    "Hiding": 0.67
+    "Walk out": 2.02,
+    "Hiding": 1.24
    }
   },
   {
@@ -1070,9 +1101,9 @@
    "size": "Medium",
    "boss": false,
    "fights": 100,
-   "winRate": 0.66,
+   "winRate": 1,
    "lossRate": 0,
-   "seconds": 49.5,
+   "seconds": 5,
    "threats": [
     {
      "source": "Famine Incarnate: attack",
@@ -1088,54 +1119,9 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 22.06,
-     "dodged": 0.542,
-     "refDamage": 601,
-     "deathShare": 0
-    },
-    {
-     "source": "Sucking Blood",
-     "kind": "skill",
-     "skill": "NPC_BLOODDRAIN",
-     "level": 1,
-     "caster": "Famine Incarnate",
-     "type": "physical",
-     "element": "Dark",
-     "targets": "single",
-     "castMs": 250,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [
-      "hide",
-      "kawarimi"
-     ],
-     "statuses": [],
-     "perMin": 15.05,
-     "dodged": 0.306,
-     "refDamage": 270,
-     "deathShare": 0
-    },
-    {
-     "source": "Vampire Gift",
-     "kind": "skill",
-     "skill": "NPC_VAMPIRE_GIFT",
-     "level": 2,
-     "caster": "Famine Incarnate",
-     "type": "physical",
-     "element": "Neutral",
-     "targets": "aoe",
-     "castMs": 1500,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [
-      "hide",
-      "walk",
-      "kawarimi"
-     ],
-     "statuses": [],
-     "perMin": 7.11,
-     "dodged": 1,
-     "refDamage": 0,
+     "perMin": 12.17,
+     "dodged": 0.51,
+     "refDamage": 195,
      "deathShare": 0
     },
     {
@@ -1156,14 +1142,59 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 11.89,
+     "perMin": 21.23,
      "dodged": 1,
+     "refDamage": 0,
+     "deathShare": 0
+    },
+    {
+     "source": "Vampire Gift",
+     "kind": "skill",
+     "skill": "NPC_VAMPIRE_GIFT",
+     "level": 2,
+     "caster": "Famine Incarnate",
+     "type": "physical",
+     "element": "Neutral",
+     "targets": "aoe",
+     "castMs": 1500,
+     "ticks": 1,
+     "tickMs": 0,
+     "avoid": [
+      "hide",
+      "walk",
+      "kawarimi"
+     ],
+     "statuses": [],
+     "perMin": 1.79,
+     "dodged": 0.4,
+     "refDamage": 0,
+     "deathShare": 0
+    },
+    {
+     "source": "Sucking Blood",
+     "kind": "skill",
+     "skill": "NPC_BLOODDRAIN",
+     "level": 1,
+     "caster": "Famine Incarnate",
+     "type": "physical",
+     "element": "Dark",
+     "targets": "single",
+     "castMs": 250,
+     "ticks": 1,
+     "tickMs": 0,
+     "avoid": [
+      "hide",
+      "kawarimi"
+     ],
+     "statuses": [],
+     "perMin": 0.72,
+     "dodged": 0.333,
      "refDamage": 0,
      "deathShare": 0
     }
    ],
    "defenses": {
-    "Walk out": 10.99
+    "Walk out": 0.92
    }
   },
   {
@@ -1181,7 +1212,7 @@
    "fights": 100,
    "winRate": 1,
    "lossRate": 0,
-   "seconds": 7.7,
+   "seconds": 2.5,
    "threats": [
     {
      "source": "Vision of Surt: attack",
@@ -1197,89 +1228,13 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 15.1,
-     "dodged": 0.574,
-     "refDamage": 38,
-     "deathShare": 0
-    },
-    {
-     "source": "Soul Strike",
-     "kind": "skill",
-     "skill": "MG_SOULSTRIKE",
-     "level": 10,
-     "caster": "Vision of Surt",
-     "type": "magic",
-     "element": "Neutral",
-     "targets": "single",
-     "castMs": 2000,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [
-      "hide",
-      "los",
-      "rod"
-     ],
-     "statuses": [],
-     "perMin": 5.11,
-     "dodged": 1,
-     "refDamage": 0,
-     "deathShare": 0
-    },
-    {
-     "source": "Phantom Thrust",
-     "kind": "skill",
-     "skill": "NPC_PHANTOMTHRUST",
-     "level": 1,
-     "caster": "Vision of Surt",
-     "type": "physical",
-     "element": "Neutral",
-     "targets": "single",
-     "castMs": 1000,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [
-      "hide",
-      "kawarimi"
-     ],
-     "statuses": [
-      {
-       "sc": "other",
-       "chance": 1,
-       "resist": "none"
-      }
-     ],
-     "perMin": 3.95,
-     "dodged": 0.294,
-     "refDamage": 0,
-     "deathShare": 0
-    },
-    {
-     "source": "Earthquake",
-     "kind": "skill",
-     "skill": "NPC_EARTHQUAKE",
-     "level": 1,
-     "caster": "Vision of Surt",
-     "type": "magic",
-     "element": "Neutral",
-     "targets": "aoe",
-     "castMs": 1200,
-     "ticks": 4,
-     "tickMs": 300,
-     "avoid": [
-      "hide",
-      "walk"
-     ],
-     "statuses": [],
-     "perMin": 13.78,
-     "dodged": 1,
-     "refDamage": 0,
+     "perMin": 27.81,
+     "dodged": 0.518,
+     "refDamage": 135,
      "deathShare": 0
     }
    ],
-   "defenses": {
-    "Hiding": 0.67,
-    "Walk out": 0.5
-   }
+   "defenses": {}
   },
   {
    "id": 1920,
@@ -1296,7 +1251,7 @@
    "fights": 100,
    "winRate": 1,
    "lossRate": 0,
-   "seconds": 7.2,
+   "seconds": 2.9,
    "threats": [
     {
      "source": "War Incarnate: attack",
@@ -1312,9 +1267,9 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 39.95,
-     "dodged": 0.521,
-     "refDamage": 30,
+     "perMin": 43.59,
+     "dodged": 0.505,
+     "refDamage": 234,
      "deathShare": 0
     },
     {
@@ -1335,69 +1290,13 @@
       "rod"
      ],
      "statuses": [],
-     "perMin": 33.12,
+     "perMin": 37.78,
      "dodged": 0,
-     "refDamage": 0,
-     "deathShare": 0
-    },
-    {
-     "source": "Howling of Mandragora",
-     "kind": "skill",
-     "skill": "GN_MANDRAGORA",
-     "level": 3,
-     "caster": "War Incarnate",
-     "type": "status",
-     "element": "Neutral",
-     "targets": "aoe",
-     "castMs": 2500,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [
-      "hide"
-     ],
-     "statuses": [
-      {
-       "sc": "mandragora",
-       "chance": 0.4,
-       "resist": "none"
-      }
-     ],
-     "perMin": 8.32,
-     "dodged": 0,
-     "refDamage": 0,
-     "deathShare": 0
-    },
-    {
-     "source": "Wide Stone Curse",
-     "kind": "skill",
-     "skill": "NPC_WIDESTONE",
-     "level": 5,
-     "caster": "War Incarnate",
-     "type": "status",
-     "element": "Neutral",
-     "targets": "aoe",
-     "castMs": 1000,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [
-      "hide"
-     ],
-     "statuses": [
-      {
-       "sc": "stone",
-       "chance": 1,
-       "resist": "stone"
-      }
-     ],
-     "perMin": 0.17,
-     "dodged": 1,
-     "refDamage": 0,
+     "refDamage": 21,
      "deathShare": 0
     }
    ],
-   "defenses": {
-    "Hiding": 0.02
-   }
+   "defenses": {}
   },
   {
    "id": 2791,
@@ -1414,7 +1313,7 @@
    "fights": 100,
    "winRate": 1,
    "lossRate": 0,
-   "seconds": 1.7,
+   "seconds": 1.2,
    "threats": [
     {
      "source": "Detector: attack",
@@ -1430,42 +1329,13 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 37.13,
-     "dodged": 0.533,
-     "refDamage": 72,
-     "deathShare": 0
-    },
-    {
-     "source": "Stone Curse",
-     "kind": "skill",
-     "skill": "MG_STONECURSE",
-     "level": 10,
-     "caster": "Detector",
-     "type": "status",
-     "element": "Neutral",
-     "targets": "single",
-     "castMs": 500,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [
-      "hide"
-     ],
-     "statuses": [
-      {
-       "sc": "stone",
-       "chance": 0.6,
-       "resist": "stone"
-      }
-     ],
-     "perMin": 1.41,
-     "dodged": 1,
-     "refDamage": 0,
+     "perMin": 50.16,
+     "dodged": 0.48,
+     "refDamage": 163,
      "deathShare": 0
     }
    ],
-   "defenses": {
-    "Hiding": 0.04
-   }
+   "defenses": {}
   },
   {
    "id": 2788,
@@ -1482,7 +1352,7 @@
    "fights": 100,
    "winRate": 1,
    "lossRate": 0,
-   "seconds": 10.2,
+   "seconds": 7.6,
    "threats": [
     {
      "source": "Guild Chamberlain: attack",
@@ -1498,31 +1368,9 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 16.89,
-     "dodged": 0.469,
-     "refDamage": 159,
-     "deathShare": 0
-    },
-    {
-     "source": "Chain Crush Combo",
-     "kind": "skill",
-     "skill": "CH_CHAINCRUSH",
-     "level": 1,
-     "caster": "Guild Chamberlain",
-     "type": "physical",
-     "element": "Neutral",
-     "targets": "single",
-     "castMs": 2500,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [
-      "hide",
-      "kawarimi"
-     ],
-     "statuses": [],
-     "perMin": 5.22,
-     "dodged": 1,
-     "refDamage": 0,
+     "perMin": 10.36,
+     "dodged": 0.576,
+     "refDamage": 620,
      "deathShare": 0
     },
     {
@@ -1542,14 +1390,36 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 5.34,
-     "dodged": 0.505,
+     "perMin": 3.69,
+     "dodged": 0.638,
+     "refDamage": 255,
+     "deathShare": 0
+    },
+    {
+     "source": "Chain Crush Combo",
+     "kind": "skill",
+     "skill": "CH_CHAINCRUSH",
+     "level": 1,
+     "caster": "Guild Chamberlain",
+     "type": "physical",
+     "element": "Neutral",
+     "targets": "single",
+     "castMs": 2500,
+     "ticks": 1,
+     "tickMs": 0,
+     "avoid": [
+      "hide",
+      "kawarimi"
+     ],
+     "statuses": [],
+     "perMin": 5.96,
+     "dodged": 1,
      "refDamage": 0,
      "deathShare": 0
     }
    ],
    "defenses": {
-    "Hiding": 1.19
+    "Hiding": 0.99
    }
   },
   {
@@ -1567,7 +1437,7 @@
    "fights": 100,
    "winRate": 1,
    "lossRate": 0,
-   "seconds": 8.9,
+   "seconds": 4,
    "threats": [
     {
      "source": "Guild Defender: attack",
@@ -1583,9 +1453,9 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 11.71,
-     "dodged": 0.526,
-     "refDamage": 119,
+     "perMin": 16.86,
+     "dodged": 0.451,
+     "refDamage": 317,
      "deathShare": 0
     },
     {
@@ -1605,31 +1475,9 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 6.02,
-     "dodged": 0.303,
-     "refDamage": 0,
-     "deathShare": 0
-    },
-    {
-     "source": "Arrow Storm",
-     "kind": "skill",
-     "skill": "RA_ARROWSTORM",
-     "level": 4,
-     "caster": "Guild Defender",
-     "type": "physical",
-     "element": "Neutral",
-     "targets": "aoe",
-     "castMs": 3500,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [
-      "hide",
-      "kawarimi"
-     ],
-     "statuses": [],
-     "perMin": 6.43,
-     "dodged": 1,
-     "refDamage": 0,
+     "perMin": 9.1,
+     "dodged": 0.279,
+     "refDamage": 107,
      "deathShare": 0
     },
     {
@@ -1649,15 +1497,13 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 2.3,
-     "dodged": 0.382,
+     "perMin": 2.84,
+     "dodged": 0.211,
      "refDamage": 0,
      "deathShare": 0
     }
    ],
-   "defenses": {
-    "Hiding": 0.95
-   }
+   "defenses": {}
   },
   {
    "id": 2787,
@@ -1674,7 +1520,7 @@
    "fights": 100,
    "winRate": 1,
    "lossRate": 0,
-   "seconds": 11.5,
+   "seconds": 5.3,
    "threats": [
     {
      "source": "Guild Magician: attack",
@@ -1690,9 +1536,9 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 7.45,
-     "dodged": 0.455,
-     "refDamage": 15,
+     "perMin": 11.48,
+     "dodged": 0.618,
+     "refDamage": 32,
      "deathShare": 0
     },
     {
@@ -1718,7 +1564,7 @@
        "resist": "freeze"
       }
      ],
-     "perMin": 5.31,
+     "perMin": 11.26,
      "dodged": 1,
      "refDamage": 0,
      "deathShare": 0
@@ -1746,61 +1592,14 @@
        "resist": "freeze"
       }
      ],
-     "perMin": 36.93,
+     "perMin": 2.14,
      "dodged": 1,
-     "refDamage": 0,
-     "deathShare": 0
-    },
-    {
-     "source": "Tetra Vortex (Wind)",
-     "kind": "skill",
-     "skill": "WL_TETRAVORTEX_WIND",
-     "level": 10,
-     "caster": "Guild Magician",
-     "type": "magic",
-     "element": "Wind",
-     "targets": "single",
-     "castMs": 4000,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [
-      "hide",
-      "los",
-      "rod"
-     ],
-     "statuses": [],
-     "perMin": 1.61,
-     "dodged": 1,
-     "refDamage": 0,
-     "deathShare": 0
-    },
-    {
-     "source": "Vampire Gift",
-     "kind": "skill",
-     "skill": "NPC_VAMPIRE_GIFT",
-     "level": 5,
-     "caster": "Guild Magician",
-     "type": "physical",
-     "element": "Neutral",
-     "targets": "aoe",
-     "castMs": 3500,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [
-      "hide",
-      "walk",
-      "kawarimi"
-     ],
-     "statuses": [],
-     "perMin": 2.4,
-     "dodged": 0.283,
      "refDamage": 0,
      "deathShare": 0
     }
    ],
    "defenses": {
-    "Walk out": 2.02,
-    "Hiding": 0.31
+    "Walk out": 1.11
    }
   },
   {
@@ -1816,9 +1615,9 @@
    "size": "Medium",
    "boss": false,
    "fights": 100,
-   "winRate": 0.33,
-   "lossRate": 0.67,
-   "seconds": 24.7,
+   "winRate": 0.88,
+   "lossRate": 0.12,
+   "seconds": 16.9,
    "threats": [
     {
      "source": "Guild Warrior: Spear Stab",
@@ -1838,10 +1637,10 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 3.84,
-     "dodged": 0.722,
-     "refDamage": 10634,
-     "deathShare": 0.358
+     "perMin": 5.41,
+     "dodged": 0.895,
+     "refDamage": 7914,
+     "deathShare": 0.417
     },
     {
      "source": "Guild Defender: Arrow Storm",
@@ -1861,34 +1660,72 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 2.92,
-     "dodged": 0.492,
-     "refDamage": 4542,
-     "deathShare": 0.239
+     "perMin": 0.43,
+     "dodged": 0.083,
+     "refDamage": 9714,
+     "deathShare": 0.417
     },
     {
-     "source": "Guild Magician: Tetra Vortex (Wind)",
-     "kind": "skill",
-     "skill": "WL_TETRAVORTEX_WIND",
-     "level": 10,
-     "caster": "Guild Magician",
-     "addId": 2787,
-     "type": "magic",
-     "element": "Wind",
+     "source": "Guild Warrior: attack",
+     "kind": "attack",
+     "caster": "Guild Warrior",
+     "addId": 2784,
+     "type": "physical",
+     "element": "Neutral",
      "targets": "single",
-     "castMs": 4000,
+     "castMs": 0,
+     "ticks": 1,
+     "tickMs": 0,
+     "avoid": [
+      "kawarimi"
+     ],
+     "statuses": [],
+     "perMin": 7.29,
+     "dodged": 0.498,
+     "refDamage": 68,
+     "deathShare": 0.083
+    },
+    {
+     "source": "Guild Defender: Guided Attack",
+     "kind": "skill",
+     "skill": "NPC_GUIDEDATTACK",
+     "level": 1,
+     "caster": "Guild Defender",
+     "addId": 2786,
+     "type": "physical",
+     "element": "Neutral",
+     "targets": "single",
+     "castMs": 500,
      "ticks": 1,
      "tickMs": 0,
      "avoid": [
       "hide",
-      "los",
-      "rod"
+      "kawarimi"
      ],
      "statuses": [],
      "perMin": 1.46,
-     "dodged": 0.217,
-     "refDamage": 4256,
-     "deathShare": 0.179
+     "dodged": 0.878,
+     "refDamage": 258,
+     "deathShare": 0.083
+    },
+    {
+     "source": "Guild Master: attack",
+     "kind": "attack",
+     "caster": "Guild Master",
+     "type": "physical",
+     "element": "Neutral",
+     "targets": "single",
+     "castMs": 0,
+     "ticks": 1,
+     "tickMs": 0,
+     "avoid": [
+      "kawarimi"
+     ],
+     "statuses": [],
+     "perMin": 7.51,
+     "dodged": 0.763,
+     "refDamage": 18,
+     "deathShare": 0
     },
     {
      "source": "Guild Magician: Storm Gust",
@@ -1914,38 +1751,16 @@
        "resist": "freeze"
       }
      ],
-     "perMin": 24.48,
-     "dodged": 0.423,
-     "refDamage": 265,
-     "deathShare": 0.075
+     "perMin": 0.21,
+     "dodged": 0.5,
+     "refDamage": 515,
+     "deathShare": 0
     },
     {
-     "source": "Bash",
-     "kind": "skill",
-     "skill": "SM_BASH",
-     "level": 5,
-     "caster": "Guild Master",
-     "type": "physical",
-     "element": "Neutral",
-     "targets": "single",
-     "castMs": 1000,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [
-      "hide",
-      "kawarimi"
-     ],
-     "statuses": [],
-     "perMin": 3.02,
-     "dodged": 0.823,
-     "refDamage": 4201,
-     "deathShare": 0.06
-    },
-    {
-     "source": "Guild Warrior: attack",
+     "source": "Guild Defender: attack",
      "kind": "attack",
-     "caster": "Guild Warrior",
-     "addId": 2784,
+     "caster": "Guild Defender",
+     "addId": 2786,
      "type": "physical",
      "element": "Neutral",
      "targets": "single",
@@ -1956,10 +1771,30 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 22.89,
-     "dodged": 0.506,
-     "refDamage": 179,
-     "deathShare": 0.03
+     "perMin": 3.67,
+     "dodged": 0.495,
+     "refDamage": 25,
+     "deathShare": 0
+    },
+    {
+     "source": "Guild Magician: attack",
+     "kind": "attack",
+     "caster": "Guild Magician",
+     "addId": 2787,
+     "type": "physical",
+     "element": "Neutral",
+     "targets": "single",
+     "castMs": 0,
+     "ticks": 1,
+     "tickMs": 0,
+     "avoid": [
+      "kawarimi"
+     ],
+     "statuses": [],
+     "perMin": 3.74,
+     "dodged": 0.581,
+     "refDamage": 0,
+     "deathShare": 0
     },
     {
      "source": "Earthquake",
@@ -1978,49 +1813,32 @@
       "walk"
      ],
      "statuses": [],
-     "perMin": 12.82,
-     "dodged": 0.972,
-     "refDamage": 2901,
-     "deathShare": 0.015
+     "perMin": 11.88,
+     "dodged": 1,
+     "refDamage": 0,
+     "deathShare": 0
     },
     {
-     "source": "Guild Master: attack",
-     "kind": "attack",
+     "source": "Bash",
+     "kind": "skill",
+     "skill": "SM_BASH",
+     "level": 5,
      "caster": "Guild Master",
      "type": "physical",
      "element": "Neutral",
      "targets": "single",
-     "castMs": 0,
+     "castMs": 1000,
      "ticks": 1,
      "tickMs": 0,
      "avoid": [
+      "hide",
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 17.13,
-     "dodged": 0.52,
-     "refDamage": 165,
-     "deathShare": 0.015
-    },
-    {
-     "source": "Guild Defender: attack",
-     "kind": "attack",
-     "caster": "Guild Defender",
-     "addId": 2786,
-     "type": "physical",
-     "element": "Neutral",
-     "targets": "single",
-     "castMs": 0,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [
-      "kawarimi"
-     ],
-     "statuses": [],
-     "perMin": 6.2,
-     "dodged": 0.533,
-     "refDamage": 176,
-     "deathShare": 0.015
+     "perMin": 1.96,
+     "dodged": 0.982,
+     "refDamage": 0,
+     "deathShare": 0
     },
     {
      "source": "Guild Defender: Charge Arrow",
@@ -2040,59 +1858,16 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 2.9,
-     "dodged": 0.378,
-     "refDamage": 356,
-     "deathShare": 0.015
-    },
-    {
-     "source": "Guild Defender: Guided Attack",
-     "kind": "skill",
-     "skill": "NPC_GUIDEDATTACK",
-     "level": 1,
-     "caster": "Guild Defender",
-     "addId": 2786,
-     "type": "physical",
-     "element": "Neutral",
-     "targets": "single",
-     "castMs": 500,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [
-      "hide",
-      "kawarimi"
-     ],
-     "statuses": [],
-     "perMin": 2.94,
-     "dodged": 0.372,
-     "refDamage": 181,
-     "deathShare": 0
-    },
-    {
-     "source": "Guild Magician: attack",
-     "kind": "attack",
-     "caster": "Guild Magician",
-     "addId": 2787,
-     "type": "physical",
-     "element": "Neutral",
-     "targets": "single",
-     "castMs": 0,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [
-      "kawarimi"
-     ],
-     "statuses": [],
-     "perMin": 6.62,
-     "dodged": 0.559,
-     "refDamage": 16,
+     "perMin": 0.25,
+     "dodged": 1,
+     "refDamage": 0,
      "deathShare": 0
     }
    ],
    "defenses": {
-    "Back Slide": 1.49,
-    "Walk out": 1.11,
-    "Hiding": 1.4
+    "Back Slide": 0.87,
+    "Hiding": 0.87,
+    "Walk out": 0.6
    }
   },
   {
@@ -2110,7 +1885,7 @@
    "fights": 100,
    "winRate": 1,
    "lossRate": 0,
-   "seconds": 9.5,
+   "seconds": 6.1,
    "threats": [
     {
      "source": "Guild Support: attack",
@@ -2126,9 +1901,9 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 25.92,
-     "dodged": 0.481,
-     "refDamage": 20,
+     "perMin": 10.88,
+     "dodged": 0.455,
+     "refDamage": 113,
      "deathShare": 0
     },
     {
@@ -2153,14 +1928,14 @@
        "resist": "none"
       }
      ],
-     "perMin": 6.29,
+     "perMin": 9.79,
      "dodged": 1,
      "refDamage": 0,
      "deathShare": 0
     }
    ],
    "defenses": {
-    "Hiding": 1
+    "Hiding": 0.99
    }
   },
   {
@@ -2178,7 +1953,7 @@
    "fights": 100,
    "winRate": 1,
    "lossRate": 0,
-   "seconds": 15.3,
+   "seconds": 11.3,
    "threats": [
     {
      "source": "Guild Warrior: attack",
@@ -2194,32 +1969,9 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 26.82,
-     "dodged": 0.548,
-     "refDamage": 43,
-     "deathShare": 0
-    },
-    {
-     "source": "Counter Slash",
-     "kind": "skill",
-     "skill": "GC_COUNTERSLASH",
-     "level": 5,
-     "caster": "Guild Warrior",
-     "type": "physical",
-     "element": "Neutral",
-     "targets": "aoe",
-     "castMs": 2500,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [
-      "hide",
-      "walk",
-      "kawarimi"
-     ],
-     "statuses": [],
-     "perMin": 14.58,
-     "dodged": 1,
-     "refDamage": 0,
+     "perMin": 30.91,
+     "dodged": 0.536,
+     "refDamage": 185,
      "deathShare": 0
     },
     {
@@ -2245,14 +1997,37 @@
        "resist": "none"
       }
      ],
-     "perMin": 0.7,
-     "dodged": 0.333,
+     "perMin": 4.25,
+     "dodged": 0.3,
+     "refDamage": 56,
+     "deathShare": 0
+    },
+    {
+     "source": "Counter Slash",
+     "kind": "skill",
+     "skill": "GC_COUNTERSLASH",
+     "level": 5,
+     "caster": "Guild Warrior",
+     "type": "physical",
+     "element": "Neutral",
+     "targets": "aoe",
+     "castMs": 2500,
+     "ticks": 1,
+     "tickMs": 0,
+     "avoid": [
+      "hide",
+      "walk",
+      "kawarimi"
+     ],
+     "statuses": [],
+     "perMin": 14.98,
+     "dodged": 1,
      "refDamage": 0,
      "deathShare": 0
     }
    ],
    "defenses": {
-    "Walk out": 3.82
+    "Walk out": 2.82
    }
   },
   {
@@ -2269,8 +2044,8 @@
    "boss": true,
    "fights": 100,
    "winRate": 0,
-   "lossRate": 0.03,
-   "seconds": 116.9,
+   "lossRate": 0.1,
+   "seconds": 109.8,
    "threats": [
     {
      "source": "Dragon Breath",
@@ -2295,9 +2070,9 @@
        "resist": "burning"
       }
      ],
-     "perMin": 0.28,
-     "dodged": 0.945,
-     "refDamage": 18486,
+     "perMin": 0.36,
+     "dodged": 0.846,
+     "refDamage": 20730,
      "deathShare": 1
     },
     {
@@ -2318,9 +2093,9 @@
       "rod"
      ],
      "statuses": [],
-     "perMin": 2.65,
-     "dodged": 0.643,
-     "refDamage": 603,
+     "perMin": 2.76,
+     "dodged": 0.711,
+     "refDamage": 1621,
      "deathShare": 0
     },
     {
@@ -2337,9 +2112,37 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 0.66,
-     "dodged": 0.504,
-     "refDamage": 2139,
+     "perMin": 0.64,
+     "dodged": 0.496,
+     "refDamage": 1989,
+     "deathShare": 0
+    },
+    {
+     "source": "Phantom Thrust",
+     "kind": "skill",
+     "skill": "NPC_PHANTOMTHRUST",
+     "level": 1,
+     "caster": "Soul of Ymir",
+     "type": "physical",
+     "element": "Neutral",
+     "targets": "single",
+     "castMs": 500,
+     "ticks": 1,
+     "tickMs": 0,
+     "avoid": [
+      "hide",
+      "kawarimi"
+     ],
+     "statuses": [
+      {
+       "sc": "other",
+       "chance": 1,
+       "resist": "none"
+      }
+     ],
+     "perMin": 0.13,
+     "dodged": 0.333,
+     "refDamage": 1626,
      "deathShare": 0
     },
     {
@@ -2365,7 +2168,7 @@
        "resist": "none"
       }
      ],
-     "perMin": 0.5,
+     "perMin": 0.54,
      "dodged": 1,
      "refDamage": 0,
      "deathShare": 0
@@ -2388,7 +2191,7 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 1.25,
+     "perMin": 1.21,
      "dodged": 1,
      "refDamage": 0,
      "deathShare": 0
@@ -2415,43 +2218,15 @@
        "resist": "none"
       }
      ],
-     "perMin": 0.51,
+     "perMin": 0.63,
      "dodged": 0,
-     "refDamage": 0,
-     "deathShare": 0
-    },
-    {
-     "source": "Phantom Thrust",
-     "kind": "skill",
-     "skill": "NPC_PHANTOMTHRUST",
-     "level": 1,
-     "caster": "Soul of Ymir",
-     "type": "physical",
-     "element": "Neutral",
-     "targets": "single",
-     "castMs": 500,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [
-      "hide",
-      "kawarimi"
-     ],
-     "statuses": [
-      {
-       "sc": "other",
-       "chance": 1,
-       "resist": "none"
-      }
-     ],
-     "perMin": 0.07,
-     "dodged": 0.214,
      "refDamage": 0,
      "deathShare": 0
     }
    ],
    "defenses": {
-    "Hiding": 1.37,
-    "Walk out": 3.81
+    "Hiding": 1.49,
+    "Walk out": 3.59
    }
   },
   {
@@ -2469,7 +2244,7 @@
    "fights": 100,
    "winRate": 0,
    "lossRate": 0,
-   "seconds": 69.7,
+   "seconds": 31.9,
    "threats": [
     {
      "source": "Magnus Exorcismus",
@@ -2488,9 +2263,9 @@
       "walk"
      ],
      "statuses": [],
-     "perMin": 22.4,
-     "dodged": 0.781,
-     "refDamage": 101,
+     "perMin": 19.6,
+     "dodged": 0.747,
+     "refDamage": 56,
      "deathShare": 0
     },
     {
@@ -2507,8 +2282,8 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 29.76,
-     "dodged": 0.532,
+     "perMin": 28.63,
+     "dodged": 0.561,
      "refDamage": 1,
      "deathShare": 0
     }
@@ -2530,7 +2305,7 @@
    "fights": 100,
    "winRate": 1,
    "lossRate": 0,
-   "seconds": 23.6,
+   "seconds": 11.9,
    "threats": [
     {
      "source": "Angel of Genesis: attack",
@@ -2546,9 +2321,9 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 39.44,
-     "dodged": 0.53,
-     "refDamage": 34,
+     "perMin": 21.54,
+     "dodged": 0.555,
+     "refDamage": 119,
      "deathShare": 0
     },
     {
@@ -2580,7 +2355,7 @@
        "resist": "blind"
       }
      ],
-     "perMin": 5.03,
+     "perMin": 5.15,
      "dodged": 1,
      "refDamage": 0,
      "deathShare": 0
@@ -2603,7 +2378,7 @@
       "diag"
      ],
      "statuses": [],
-     "perMin": 70.32,
+     "perMin": 64.53,
      "dodged": 1,
      "refDamage": 0,
      "deathShare": 0
@@ -2631,15 +2406,15 @@
        "resist": "none"
       }
      ],
-     "perMin": 2.57,
+     "perMin": 5.05,
      "dodged": 1,
      "refDamage": 0,
      "deathShare": 0
     }
    ],
    "defenses": {
-    "Hiding": 1.98,
-    "Walk out": 1.01
+    "Hiding": 1.02,
+    "Walk out": 1
    }
   },
   {
@@ -2657,7 +2432,7 @@
    "fights": 100,
    "winRate": 1,
    "lossRate": 0,
-   "seconds": 19.9,
+   "seconds": 9.4,
    "threats": [
     {
      "source": "Demon of Apocalypse: attack",
@@ -2673,9 +2448,31 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 20.76,
+     "perMin": 19.38,
      "dodged": 0.521,
-     "refDamage": 25,
+     "refDamage": 147,
+     "deathShare": 0
+    },
+    {
+     "source": "Back Stab",
+     "kind": "skill",
+     "skill": "RG_BACKSTAP",
+     "level": 8,
+     "caster": "Demon of Apocalypse",
+     "type": "physical",
+     "element": "Neutral",
+     "targets": "single",
+     "castMs": 1000,
+     "ticks": 1,
+     "tickMs": 0,
+     "avoid": [
+      "hide",
+      "kawarimi"
+     ],
+     "statuses": [],
+     "perMin": 6.1,
+     "dodged": 0.302,
+     "refDamage": 21,
      "deathShare": 0
     },
     {
@@ -2702,59 +2499,14 @@
        "resist": "blind"
       }
      ],
-     "perMin": 53.11,
-     "dodged": 1,
-     "refDamage": 0,
-     "deathShare": 0
-    },
-    {
-     "source": "Back Stab",
-     "kind": "skill",
-     "skill": "RG_BACKSTAP",
-     "level": 8,
-     "caster": "Demon of Apocalypse",
-     "type": "physical",
-     "element": "Neutral",
-     "targets": "single",
-     "castMs": 1000,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [
-      "hide",
-      "kawarimi"
-     ],
-     "statuses": [],
-     "perMin": 4.55,
-     "dodged": 1,
-     "refDamage": 0,
-     "deathShare": 0
-    },
-    {
-     "source": "Earthquake",
-     "kind": "skill",
-     "skill": "NPC_EARTHQUAKE",
-     "level": 3,
-     "caster": "Demon of Apocalypse",
-     "type": "magic",
-     "element": "Neutral",
-     "targets": "aoe",
-     "castMs": 2000,
-     "ticks": 4,
-     "tickMs": 300,
-     "avoid": [
-      "hide",
-      "walk"
-     ],
-     "statuses": [],
-     "perMin": 3.71,
+     "perMin": 35.14,
      "dodged": 1,
      "refDamage": 0,
      "deathShare": 0
     }
    ],
    "defenses": {
-    "Hiding": 1.51,
-    "Walk out": 0.73
+    "Walk out": 0.35
    }
   },
   {
@@ -2772,7 +2524,7 @@
    "fights": 100,
    "winRate": 1,
    "lossRate": 0,
-   "seconds": 10.1,
+   "seconds": 4.5,
    "threats": [
     {
      "source": "Heart of the Serpent: attack",
@@ -2788,9 +2540,9 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 18,
-     "dodged": 0.563,
-     "refDamage": 8,
+     "perMin": 14.51,
+     "dodged": 0.536,
+     "refDamage": 38,
      "deathShare": 0
     },
     {
@@ -2808,57 +2560,8 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 16.94,
-     "dodged": 0.566,
-     "refDamage": 0,
-     "deathShare": 0
-    },
-    {
-     "source": "Demon of Apocalypse: attack",
-     "kind": "attack",
-     "caster": "Demon of Apocalypse",
-     "addId": 2651,
-     "type": "physical",
-     "element": "Neutral",
-     "targets": "single",
-     "castMs": 0,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [
-      "kawarimi"
-     ],
-     "statuses": [],
-     "perMin": 11.84,
-     "dodged": 0.485,
-     "refDamage": 0,
-     "deathShare": 0
-    },
-    {
-     "source": "Bomb",
-     "kind": "skill",
-     "skill": "AM_DEMONSTRATION",
-     "level": 1,
-     "caster": "Heart of the Serpent",
-     "type": "physical",
-     "element": "Fire",
-     "targets": "aoe",
-     "castMs": 1000,
-     "ticks": 8,
-     "tickMs": 1000,
-     "avoid": [
-      "hide",
-      "walk",
-      "kawarimi"
-     ],
-     "statuses": [
-      {
-       "sc": "other",
-       "chance": 0.03,
-       "resist": "none"
-      }
-     ],
-     "perMin": 20.55,
-     "dodged": 0.726,
+     "perMin": 13.06,
+     "dodged": 0.404,
      "refDamage": 0,
      "deathShare": 0
     },
@@ -2899,126 +2602,63 @@
        "resist": "bleeding"
       }
      ],
-     "perMin": 6.04,
-     "dodged": 0.971,
-     "refDamage": 0,
-     "deathShare": 0
-    },
-    {
-     "source": "Angel of Genesis: Adoramus",
-     "kind": "skill",
-     "skill": "AB_ADORAMUS",
-     "level": 1,
-     "caster": "Angel of Genesis",
-     "addId": 2650,
-     "type": "magic",
-     "element": "Holy",
-     "targets": "aoe",
-     "castMs": 2500,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [
-      "hide",
-      "los",
-      "rod"
-     ],
-     "statuses": [
-      {
-       "sc": "other",
-       "chance": 0.29,
-       "resist": "none"
-      },
-      {
-       "sc": "blind",
-       "chance": 1,
-       "resist": "blind"
-      }
-     ],
-     "perMin": 5.68,
-     "dodged": 0.542,
-     "refDamage": 0,
-     "deathShare": 0
-    },
-    {
-     "source": "Demon of Apocalypse: Grand Darkness",
-     "kind": "skill",
-     "skill": "NPC_GRANDDARKNESS",
-     "level": 5,
-     "caster": "Demon of Apocalypse",
-     "addId": 2651,
-     "type": "magic",
-     "element": "Dark",
-     "targets": "aoe",
-     "castMs": 1000,
-     "ticks": 20,
-     "tickMs": 1000,
-     "avoid": [
-      "hide",
-      "walk",
-      "diag"
-     ],
-     "statuses": [
-      {
-       "sc": "blind",
-       "chance": 1,
-       "resist": "blind"
-      }
-     ],
-     "perMin": 14.45,
+     "perMin": 0.66,
      "dodged": 1,
      "refDamage": 0,
      "deathShare": 0
     },
     {
-     "source": "Demon of Apocalypse: Back Stab",
-     "kind": "skill",
-     "skill": "RG_BACKSTAP",
-     "level": 8,
+     "source": "Demon of Apocalypse: attack",
+     "kind": "attack",
      "caster": "Demon of Apocalypse",
      "addId": 2651,
      "type": "physical",
      "element": "Neutral",
      "targets": "single",
-     "castMs": 1000,
+     "castMs": 0,
      "ticks": 1,
      "tickMs": 0,
      "avoid": [
-      "hide",
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 2.72,
-     "dodged": 0.413,
+     "perMin": 0.26,
+     "dodged": 1,
      "refDamage": 0,
      "deathShare": 0
     },
     {
-     "source": "Angel of Genesis: Grand Cross",
+     "source": "Bomb",
      "kind": "skill",
-     "skill": "CR_GRANDCROSS",
-     "level": 5,
-     "caster": "Angel of Genesis",
-     "addId": 2650,
-     "type": "magic",
-     "element": "Neutral",
+     "skill": "AM_DEMONSTRATION",
+     "level": 1,
+     "caster": "Heart of the Serpent",
+     "type": "physical",
+     "element": "Fire",
      "targets": "aoe",
-     "castMs": 1500,
-     "ticks": 10,
-     "tickMs": 100,
+     "castMs": 1000,
+     "ticks": 8,
+     "tickMs": 1000,
      "avoid": [
       "hide",
       "walk",
-      "diag"
+      "kawarimi"
      ],
-     "statuses": [],
-     "perMin": 46.49,
+     "statuses": [
+      {
+       "sc": "other",
+       "chance": 0.03,
+       "resist": "none"
+      }
+     ],
+     "perMin": 0.4,
      "dodged": 1,
      "refDamage": 0,
      "deathShare": 0
     }
    ],
    "defenses": {
-    "Hiding": 1.06
+    "Hiding": 0.05
    }
   },
   {
@@ -3034,10 +2674,32 @@
    "size": "Large",
    "boss": false,
    "fights": 100,
-   "winRate": 0.9,
-   "lossRate": 0.07,
-   "seconds": 55.3,
+   "winRate": 0.91,
+   "lossRate": 0.09,
+   "seconds": 30.3,
    "threats": [
+    {
+     "source": "Knuckle Arrow",
+     "kind": "skill",
+     "skill": "SR_KNUCKLEARROW",
+     "level": 1,
+     "caster": "Heartless",
+     "type": "physical",
+     "element": "Neutral",
+     "targets": "single",
+     "castMs": 1000,
+     "ticks": 1,
+     "tickMs": 0,
+     "avoid": [
+      "hide",
+      "kawarimi"
+     ],
+     "statuses": [],
+     "perMin": 8.25,
+     "dodged": 0.695,
+     "refDamage": 2797,
+     "deathShare": 0.444
+    },
     {
      "source": "Heartless: attack",
      "kind": "attack",
@@ -3052,10 +2714,10 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 13.25,
-     "dodged": 0.529,
-     "refDamage": 160,
-     "deathShare": 0.429
+     "perMin": 13.08,
+     "dodged": 0.55,
+     "refDamage": 915,
+     "deathShare": 0.333
     },
     {
      "source": "Magnus Exorcismus",
@@ -3074,32 +2736,10 @@
       "walk"
      ],
      "statuses": [],
-     "perMin": 70.24,
-     "dodged": 0.788,
-     "refDamage": 199,
-     "deathShare": 0.286
-    },
-    {
-     "source": "Knuckle Arrow",
-     "kind": "skill",
-     "skill": "SR_KNUCKLEARROW",
-     "level": 1,
-     "caster": "Heartless",
-     "type": "physical",
-     "element": "Neutral",
-     "targets": "single",
-     "castMs": 1000,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [
-      "hide",
-      "kawarimi"
-     ],
-     "statuses": [],
-     "perMin": 8.18,
-     "dodged": 0.627,
-     "refDamage": 229,
-     "deathShare": 0.286
+     "perMin": 63.66,
+     "dodged": 0.829,
+     "refDamage": 1594,
+     "deathShare": 0.222
     },
     {
      "source": "Critical Slash",
@@ -3118,31 +2758,14 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 6.36,
-     "dodged": 0.84,
-     "refDamage": 19,
-     "deathShare": 0
-    },
-    {
-     "source": "Heartless: reflected",
-     "kind": "reflect",
-     "caster": "Heartless",
-     "type": "none",
-     "element": "Neutral",
-     "targets": "single",
-     "castMs": 0,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [],
-     "statuses": [],
-     "perMin": 0.15,
-     "dodged": 0,
-     "refDamage": 4,
+     "perMin": 6.21,
+     "dodged": 0.796,
+     "refDamage": 1517,
      "deathShare": 0
     }
    ],
    "defenses": {
-    "Hiding": 8.04
+    "Hiding": 4.55
    }
   },
   {
@@ -3159,8 +2782,8 @@
    "boss": true,
    "fights": 100,
    "winRate": 0,
-   "lossRate": 0.43,
-   "seconds": 74.6,
+   "lossRate": 0.48,
+   "seconds": 69.3,
    "threats": [
     {
      "source": "Dragon Breath",
@@ -3186,9 +2809,9 @@
        "resist": "burning"
       }
      ],
-     "perMin": 0.62,
-     "dodged": 0.442,
-     "refDamage": 62901,
+     "perMin": 0.66,
+     "dodged": 0.368,
+     "refDamage": 52903,
      "deathShare": 1
     },
     {
@@ -3205,9 +2828,9 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 0.87,
-     "dodged": 0.519,
-     "refDamage": 3984,
+     "perMin": 0.99,
+     "dodged": 0.5,
+     "refDamage": 3441,
      "deathShare": 0
     },
     {
@@ -3233,9 +2856,9 @@
        "resist": "none"
       }
      ],
-     "perMin": 0.3,
-     "dodged": 0.757,
-     "refDamage": 3803,
+     "perMin": 0.19,
+     "dodged": 0.955,
+     "refDamage": 3589,
      "deathShare": 0
     },
     {
@@ -3261,7 +2884,7 @@
        "resist": "none"
       }
      ],
-     "perMin": 16,
+     "perMin": 16.77,
      "dodged": 1,
      "refDamage": 0,
      "deathShare": 0
@@ -3283,7 +2906,7 @@
       "los"
      ],
      "statuses": [],
-     "perMin": 0.96,
+     "perMin": 1.04,
      "dodged": 1,
      "refDamage": 0,
      "deathShare": 0
@@ -3311,7 +2934,29 @@
        "resist": "none"
       }
      ],
-     "perMin": 0.8,
+     "perMin": 0.87,
+     "dodged": 1,
+     "refDamage": 0,
+     "deathShare": 0
+    },
+    {
+     "source": "Chain Lightning",
+     "kind": "skill",
+     "skill": "WL_CHAINLIGHTNING",
+     "level": 5,
+     "caster": "Jormungandr",
+     "type": "magic",
+     "element": "Wind",
+     "targets": "single",
+     "castMs": 3000,
+     "ticks": 4,
+     "tickMs": 950,
+     "avoid": [
+      "hide",
+      "los"
+     ],
+     "statuses": [],
+     "perMin": 0.86,
      "dodged": 1,
      "refDamage": 0,
      "deathShare": 0
@@ -3338,38 +2983,16 @@
        "resist": "none"
       }
      ],
-     "perMin": 0.77,
-     "dodged": 0.781,
-     "refDamage": 0,
-     "deathShare": 0
-    },
-    {
-     "source": "Chain Lightning",
-     "kind": "skill",
-     "skill": "WL_CHAINLIGHTNING",
-     "level": 5,
-     "caster": "Jormungandr",
-     "type": "magic",
-     "element": "Wind",
-     "targets": "single",
-     "castMs": 3000,
-     "ticks": 4,
-     "tickMs": 950,
-     "avoid": [
-      "hide",
-      "los"
-     ],
-     "statuses": [],
-     "perMin": 0.77,
-     "dodged": 1,
+     "perMin": 0.8,
+     "dodged": 0.848,
      "refDamage": 0,
      "deathShare": 0
     }
    ],
    "defenses": {
-    "Walk out": 1.57,
-    "Hiding": 2.36,
-    "Break line of sight": 0.47
+    "Walk out": 1.51,
+    "Hiding": 2.38,
+    "Break line of sight": 0.44
    }
   },
   {
@@ -3387,7 +3010,7 @@
    "fights": 100,
    "winRate": 1,
    "lossRate": 0,
-   "seconds": 2.4,
+   "seconds": 1.5,
    "threats": [
     {
      "source": "Fallen Orc Hero: attack",
@@ -3403,8 +3026,8 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 25.4,
-     "dodged": 0.62,
+     "perMin": 39.06,
+     "dodged": 0.75,
      "refDamage": 0,
      "deathShare": 0
     }
@@ -3426,7 +3049,7 @@
    "fights": 100,
    "winRate": 1,
    "lossRate": 0,
-   "seconds": 0.4,
+   "seconds": 0,
    "threats": [],
    "defenses": {}
   },
@@ -3483,7 +3106,7 @@
    "fights": 100,
    "winRate": 1,
    "lossRate": 0,
-   "seconds": 2.4,
+   "seconds": 1.9,
    "threats": [
     {
      "source": "Orc Lord Zombie: attack",
@@ -3499,8 +3122,8 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 29.46,
-     "dodged": 0.526,
+     "perMin": 35.82,
+     "dodged": 0.723,
      "refDamage": 1,
      "deathShare": 0
     }
@@ -3579,7 +3202,7 @@
    "fights": 100,
    "winRate": 1,
    "lossRate": 0,
-   "seconds": 1.5,
+   "seconds": 0.9,
    "threats": [
     {
      "source": "Agav: attack",
@@ -3595,9 +3218,9 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 57.91,
-     "dodged": 0.531,
-     "refDamage": 6,
+     "perMin": 70.07,
+     "dodged": 0.54,
+     "refDamage": 5,
      "deathShare": 0
     }
    ],
@@ -3618,7 +3241,7 @@
    "fights": 100,
    "winRate": 1,
    "lossRate": 0,
-   "seconds": 1.5,
+   "seconds": 0.9,
    "threats": [
     {
      "source": "Echio: attack",
@@ -3634,9 +3257,9 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 64.3,
-     "dodged": 0.484,
-     "refDamage": 7,
+     "perMin": 70.07,
+     "dodged": 0.56,
+     "refDamage": 13,
      "deathShare": 0
     }
    ],
@@ -3657,7 +3280,7 @@
    "fights": 100,
    "winRate": 1,
    "lossRate": 0,
-   "seconds": 43.9,
+   "seconds": 16.2,
    "threats": [
     {
      "source": "Gloom Under Night: attack",
@@ -3673,9 +3296,9 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 5.36,
-     "dodged": 0.569,
-     "refDamage": 44,
+     "perMin": 6.91,
+     "dodged": 0.572,
+     "refDamage": 149,
      "deathShare": 0
     },
     {
@@ -3696,9 +3319,9 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 6.14,
-     "dodged": 0.316,
-     "refDamage": 4,
+     "perMin": 6.35,
+     "dodged": 0.233,
+     "refDamage": 101,
      "deathShare": 0
     }
    ],
@@ -3719,7 +3342,7 @@
    "fights": 100,
    "winRate": 1,
    "lossRate": 0,
-   "seconds": 1.5,
+   "seconds": 1,
    "threats": [
     {
      "source": "Hodremlin: attack",
@@ -3735,9 +3358,9 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 39.94,
-     "dodged": 0.55,
-     "refDamage": 29,
+     "perMin": 59.45,
+     "dodged": 0.5,
+     "refDamage": 42,
      "deathShare": 0
     }
    ],
@@ -3758,7 +3381,7 @@
    "fights": 100,
    "winRate": 1,
    "lossRate": 0,
-   "seconds": 1.1,
+   "seconds": 0.9,
    "threats": [
     {
      "source": "Isilla: attack",
@@ -3774,9 +3397,9 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 55.96,
-     "dodged": 0.61,
-     "refDamage": 4,
+     "perMin": 70.07,
+     "dodged": 0.62,
+     "refDamage": 5,
      "deathShare": 0
     }
    ],
@@ -3797,7 +3420,7 @@
    "fights": 100,
    "winRate": 1,
    "lossRate": 0,
-   "seconds": 1.1,
+   "seconds": 0.9,
    "threats": [
     {
      "source": "Seeker: attack",
@@ -3813,9 +3436,9 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 55.96,
-     "dodged": 0.49,
-     "refDamage": 0,
+     "perMin": 70.07,
+     "dodged": 0.57,
+     "refDamage": 10,
      "deathShare": 0
     }
    ],
@@ -3836,7 +3459,7 @@
    "fights": 100,
    "winRate": 1,
    "lossRate": 0,
-   "seconds": 1.1,
+   "seconds": 0.9,
    "threats": [
     {
      "source": "Tricked Follower: attack",
@@ -3852,9 +3475,9 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 55.96,
-     "dodged": 0.5,
-     "refDamage": 1,
+     "perMin": 70.07,
+     "dodged": 0.56,
+     "refDamage": 20,
      "deathShare": 0
     }
    ],
@@ -3875,7 +3498,7 @@
    "fights": 100,
    "winRate": 1,
    "lossRate": 0,
-   "seconds": 1.1,
+   "seconds": 0.9,
    "threats": [
     {
      "source": "Vanberk: attack",
@@ -3891,9 +3514,9 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 55.96,
-     "dodged": 0.45,
-     "refDamage": 11,
+     "perMin": 70.07,
+     "dodged": 0.56,
+     "refDamage": 14,
      "deathShare": 0
     }
    ],
@@ -3912,51 +3535,10 @@
    "size": "Large",
    "boss": false,
    "fights": 100,
-   "winRate": 1,
-   "lossRate": 0,
-   "seconds": 38.2,
+   "winRate": 0.8,
+   "lossRate": 0.2,
+   "seconds": 21.8,
    "threats": [
-    {
-     "source": "Critical Slash",
-     "kind": "skill",
-     "skill": "NPC_CRITICALSLASH",
-     "level": 1,
-     "caster": "Burning Fury",
-     "type": "physical",
-     "element": "Neutral",
-     "targets": "single",
-     "castMs": 0,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [
-      "hide",
-      "kawarimi"
-     ],
-     "statuses": [],
-     "perMin": 4.4,
-     "dodged": 0.418,
-     "refDamage": 489,
-     "deathShare": 0
-    },
-    {
-     "source": "Burning Fury: attack",
-     "kind": "attack",
-     "caster": "Burning Fury",
-     "type": "physical",
-     "element": "Neutral",
-     "targets": "single",
-     "castMs": 0,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [
-      "kawarimi"
-     ],
-     "statuses": [],
-     "perMin": 35.12,
-     "dodged": 0.547,
-     "refDamage": 33,
-     "deathShare": 0
-    },
     {
      "source": "Knuckle Arrow",
      "kind": "skill",
@@ -3974,10 +3556,51 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 15.81,
-     "dodged": 0.687,
-     "refDamage": 11,
-     "deathShare": 0
+     "perMin": 14.84,
+     "dodged": 0.724,
+     "refDamage": 3998,
+     "deathShare": 0.5
+    },
+    {
+     "source": "Burning Fury: attack",
+     "kind": "attack",
+     "caster": "Burning Fury",
+     "type": "physical",
+     "element": "Neutral",
+     "targets": "single",
+     "castMs": 0,
+     "ticks": 1,
+     "tickMs": 0,
+     "avoid": [
+      "kawarimi"
+     ],
+     "statuses": [],
+     "perMin": 33.55,
+     "dodged": 0.568,
+     "refDamage": 628,
+     "deathShare": 0.45
+    },
+    {
+     "source": "Critical Slash",
+     "kind": "skill",
+     "skill": "NPC_CRITICALSLASH",
+     "level": 1,
+     "caster": "Burning Fury",
+     "type": "physical",
+     "element": "Neutral",
+     "targets": "single",
+     "castMs": 0,
+     "ticks": 1,
+     "tickMs": 0,
+     "avoid": [
+      "hide",
+      "kawarimi"
+     ],
+     "statuses": [],
+     "perMin": 4.95,
+     "dodged": 0.411,
+     "refDamage": 1730,
+     "deathShare": 0.05
     },
     {
      "source": "Fire Wall",
@@ -3996,7 +3619,7 @@
       "walk"
      ],
      "statuses": [],
-     "perMin": 82.48,
+     "perMin": 84.41,
      "dodged": 1,
      "refDamage": 0,
      "deathShare": 0
@@ -4023,15 +3646,15 @@
        "resist": "none"
       }
      ],
-     "perMin": 1.57,
+     "perMin": 2.2,
      "dodged": 0,
      "refDamage": 0,
      "deathShare": 0
     }
    ],
    "defenses": {
-    "Walk out": 3.62,
-    "Hiding": 5.64
+    "Walk out": 2.07,
+    "Hiding": 3.34
    }
   },
   {
@@ -4047,10 +3670,32 @@
    "size": "Medium",
    "boss": false,
    "fights": 100,
-   "winRate": 0.63,
-   "lossRate": 0.37,
-   "seconds": 37.9,
+   "winRate": 0.32,
+   "lossRate": 0.68,
+   "seconds": 17.1,
    "threats": [
+    {
+     "source": "Huuma Shuriken - Grasp",
+     "kind": "skill",
+     "skill": "KO_HUUMARANKA",
+     "level": 1,
+     "caster": "Converted Zealot",
+     "type": "physical",
+     "element": "Neutral",
+     "targets": "aoe",
+     "castMs": 1500,
+     "ticks": 1,
+     "tickMs": 0,
+     "avoid": [
+      "hide",
+      "kawarimi"
+     ],
+     "statuses": [],
+     "perMin": 3.4,
+     "dodged": 0.536,
+     "refDamage": 11908,
+     "deathShare": 0.574
+    },
     {
      "source": "Cloud Kill",
      "kind": "skill",
@@ -4074,32 +3719,10 @@
        "resist": "none"
       }
      ],
-     "perMin": 149.43,
-     "dodged": 0.838,
-     "refDamage": 918,
-     "deathShare": 0.486
-    },
-    {
-     "source": "Huuma Shuriken - Grasp",
-     "kind": "skill",
-     "skill": "KO_HUUMARANKA",
-     "level": 1,
-     "caster": "Converted Zealot",
-     "type": "physical",
-     "element": "Neutral",
-     "targets": "aoe",
-     "castMs": 1500,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [
-      "hide",
-      "kawarimi"
-     ],
-     "statuses": [],
-     "perMin": 1.74,
-     "dodged": 0.909,
-     "refDamage": 19976,
-     "deathShare": 0.27
+     "perMin": 117.07,
+     "dodged": 0.901,
+     "refDamage": 2503,
+     "deathShare": 0.206
     },
     {
      "source": "Pulse Strike 2",
@@ -4118,10 +3741,10 @@
       "rod"
      ],
      "statuses": [],
-     "perMin": 6.8,
-     "dodged": 0.254,
-     "refDamage": 535,
-     "deathShare": 0.135
+     "perMin": 3.96,
+     "dodged": 0.319,
+     "refDamage": 1851,
+     "deathShare": 0.162
     },
     {
      "source": "Converted Zealot: attack",
@@ -4137,10 +3760,10 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 30.31,
-     "dodged": 0.529,
-     "refDamage": 488,
-     "deathShare": 0.108
+     "perMin": 28.48,
+     "dodged": 0.552,
+     "refDamage": 1058,
+     "deathShare": 0.059
     },
     {
      "source": "Back Stab",
@@ -4160,14 +3783,14 @@
       "walk"
      ],
      "statuses": [],
-     "perMin": 12.6,
-     "dodged": 0.709,
-     "refDamage": 667,
+     "perMin": 12.51,
+     "dodged": 0.669,
+     "refDamage": 1623,
      "deathShare": 0
     }
    ],
    "defenses": {
-    "Hiding": 6.34
+    "Hiding": 2.79
    }
   },
   {
@@ -4184,8 +3807,8 @@
    "boss": true,
    "fights": 100,
    "winRate": 0,
-   "lossRate": 0.86,
-   "seconds": 27.6,
+   "lossRate": 0.94,
+   "seconds": 19.3,
    "threats": [
     {
      "source": "Njord Zealot: Fire Storm",
@@ -4212,62 +3835,10 @@
        "resist": "none"
       }
      ],
-     "perMin": 2.7,
-     "dodged": 0.653,
-     "refDamage": 45592,
-     "deathShare": 0.5
-    },
-    {
-     "source": "Dragon Breath - Water",
-     "kind": "skill",
-     "skill": "RK_DRAGONBREATH_WATER",
-     "level": 8,
-     "caster": "Desperate Njord",
-     "type": "physical",
-     "element": "Water",
-     "targets": "aoe",
-     "castMs": 2000,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [
-      "hide",
-      "kawarimi"
-     ],
-     "statuses": [
-      {
-       "sc": "other",
-       "chance": 0.25,
-       "resist": "none"
-      }
-     ],
-     "perMin": 2.5,
-     "dodged": 0.896,
-     "refDamage": 63950,
-     "deathShare": 0.14
-    },
-    {
-     "source": "Njord Zealot: Flaming Petals",
-     "kind": "skill",
-     "skill": "NJ_KOUENKA",
-     "level": 15,
-     "caster": "Njord Zealot",
-     "addId": 2655,
-     "type": "magic",
-     "element": "Fire",
-     "targets": "single",
-     "castMs": 500,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [
-      "hide",
-      "los",
-      "rod"
-     ],
-     "statuses": [],
-     "perMin": 2.89,
-     "dodged": 0.932,
-     "refDamage": 14085,
-     "deathShare": 0.093
+     "perMin": 3.6,
+     "dodged": 0.647,
+     "refDamage": 44602,
+     "deathShare": 0.436
     },
     {
      "source": "Converted Zealot: Cloud Kill",
@@ -4293,10 +3864,10 @@
        "resist": "none"
       }
      ],
-     "perMin": 17.56,
-     "dodged": 0.85,
-     "refDamage": 1817,
-     "deathShare": 0.093
+     "perMin": 21.45,
+     "dodged": 0.868,
+     "refDamage": 2924,
+     "deathShare": 0.202
     },
     {
      "source": "Desperate Njord: attack",
@@ -4312,10 +3883,10 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 6.55,
-     "dodged": 0.522,
-     "refDamage": 2817,
-     "deathShare": 0.081
+     "perMin": 9.37,
+     "dodged": 0.523,
+     "refDamage": 3234,
+     "deathShare": 0.106
     },
     {
      "source": "Converted Zealot: Back Stab",
@@ -4336,10 +3907,34 @@
       "walk"
      ],
      "statuses": [],
-     "perMin": 2.61,
-     "dodged": 0.7,
-     "refDamage": 3916,
-     "deathShare": 0.047
+     "perMin": 3.6,
+     "dodged": 0.733,
+     "refDamage": 3883,
+     "deathShare": 0.064
+    },
+    {
+     "source": "Njord Zealot: Flaming Petals",
+     "kind": "skill",
+     "skill": "NJ_KOUENKA",
+     "level": 15,
+     "caster": "Njord Zealot",
+     "addId": 2655,
+     "type": "magic",
+     "element": "Fire",
+     "targets": "single",
+     "castMs": 500,
+     "ticks": 1,
+     "tickMs": 0,
+     "avoid": [
+      "hide",
+      "los",
+      "rod"
+     ],
+     "statuses": [],
+     "perMin": 3.57,
+     "dodged": 0.957,
+     "refDamage": 16920,
+     "deathShare": 0.053
     },
     {
      "source": "Njord Zealot: attack",
@@ -4356,10 +3951,10 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 5.16,
-     "dodged": 0.574,
-     "refDamage": 845,
-     "deathShare": 0.035
+     "perMin": 7.45,
+     "dodged": 0.542,
+     "refDamage": 1271,
+     "deathShare": 0.043
     },
     {
      "source": "Converted Zealot: attack",
@@ -4376,10 +3971,60 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 6.33,
-     "dodged": 0.533,
-     "refDamage": 447,
-     "deathShare": 0.012
+     "perMin": 8.23,
+     "dodged": 0.532,
+     "refDamage": 918,
+     "deathShare": 0.043
+    },
+    {
+     "source": "Dragon Breath - Water",
+     "kind": "skill",
+     "skill": "RK_DRAGONBREATH_WATER",
+     "level": 8,
+     "caster": "Desperate Njord",
+     "type": "physical",
+     "element": "Water",
+     "targets": "aoe",
+     "castMs": 2000,
+     "ticks": 1,
+     "tickMs": 0,
+     "avoid": [
+      "hide",
+      "kawarimi"
+     ],
+     "statuses": [
+      {
+       "sc": "other",
+       "chance": 0.25,
+       "resist": "none"
+      }
+     ],
+     "perMin": 3.32,
+     "dodged": 0.972,
+     "refDamage": 65881,
+     "deathShare": 0.032
+    },
+    {
+     "source": "Phantom Thrust",
+     "kind": "skill",
+     "skill": "RK_PHANTOMTHRUST",
+     "level": 1,
+     "caster": "Desperate Njord",
+     "type": "physical",
+     "element": "Neutral",
+     "targets": "single",
+     "castMs": 1000,
+     "ticks": 1,
+     "tickMs": 0,
+     "avoid": [
+      "hide",
+      "kawarimi"
+     ],
+     "statuses": [],
+     "perMin": 0.09,
+     "dodged": 0.333,
+     "refDamage": 24817,
+     "deathShare": 0.021
     },
     {
      "source": "Crimson Fire Formation",
@@ -4398,7 +4043,7 @@
       "walk"
      ],
      "statuses": [],
-     "perMin": 16.78,
+     "perMin": 22.53,
      "dodged": 1,
      "refDamage": 0,
      "deathShare": 0
@@ -4425,38 +4070,16 @@
        "resist": "none"
       }
      ],
-     "perMin": 1.54,
-     "dodged": 0.268,
-     "refDamage": 0,
-     "deathShare": 0
-    },
-    {
-     "source": "Phantom Thrust",
-     "kind": "skill",
-     "skill": "RK_PHANTOMTHRUST",
-     "level": 1,
-     "caster": "Desperate Njord",
-     "type": "physical",
-     "element": "Neutral",
-     "targets": "single",
-     "castMs": 1000,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [
-      "hide",
-      "kawarimi"
-     ],
-     "statuses": [],
-     "perMin": 0.02,
-     "dodged": 1,
+     "perMin": 2.27,
+     "dodged": 0.192,
      "refDamage": 0,
      "deathShare": 0
     }
    ],
    "defenses": {
-    "Hiding": 1.38,
-    "Walk out": 1.15,
-    "Back Slide": 0.55
+    "Walk out": 1.1,
+    "Hiding": 1.32,
+    "Back Slide": 0.41
    }
   },
   {
@@ -4474,7 +4097,7 @@
    "fights": 100,
    "winRate": 1,
    "lossRate": 0,
-   "seconds": 27.8,
+   "seconds": 16.2,
    "threats": [
     {
      "source": "Godly Seeker: attack",
@@ -4490,9 +4113,77 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 28.66,
-     "dodged": 0.501,
-     "refDamage": 23,
+     "perMin": 22.51,
+     "dodged": 0.529,
+     "refDamage": 67,
+     "deathShare": 0
+    },
+    {
+     "source": "Autumn Blood: Eruption",
+     "kind": "skill",
+     "skill": "KO_KAIHOU",
+     "level": 9,
+     "caster": "Autumn Blood",
+     "addId": 1555,
+     "type": "magic",
+     "element": "Earth",
+     "targets": "single",
+     "castMs": 500,
+     "ticks": 1,
+     "tickMs": 0,
+     "avoid": [
+      "hide",
+      "los",
+      "rod"
+     ],
+     "statuses": [],
+     "perMin": 4.04,
+     "dodged": 0.046,
+     "refDamage": 11,
+     "deathShare": 0
+    },
+    {
+     "source": "Autumn Blood: Freezing Spear",
+     "kind": "skill",
+     "skill": "NJ_HYOUSENSOU",
+     "level": 9,
+     "caster": "Autumn Blood",
+     "addId": 1555,
+     "type": "magic",
+     "element": "Water",
+     "targets": "single",
+     "castMs": 500,
+     "ticks": 1,
+     "tickMs": 0,
+     "avoid": [
+      "hide",
+      "los",
+      "rod"
+     ],
+     "statuses": [],
+     "perMin": 3.67,
+     "dodged": 0.061,
+     "refDamage": 9,
+     "deathShare": 0
+    },
+    {
+     "source": "Autumn Blood: attack",
+     "kind": "attack",
+     "caster": "Autumn Blood",
+     "addId": 1555,
+     "type": "physical",
+     "element": "Neutral",
+     "targets": "single",
+     "castMs": 0,
+     "ticks": 1,
+     "tickMs": 0,
+     "avoid": [
+      "kawarimi"
+     ],
+     "statuses": [],
+     "perMin": 17.95,
+     "dodged": 0.587,
+     "refDamage": 1,
      "deathShare": 0
     },
     {
@@ -4518,28 +4209,8 @@
        "resist": "freeze"
       }
      ],
-     "perMin": 65.66,
+     "perMin": 73.34,
      "dodged": 1,
-     "refDamage": 0,
-     "deathShare": 0
-    },
-    {
-     "source": "Autumn Blood: attack",
-     "kind": "attack",
-     "caster": "Autumn Blood",
-     "addId": 1555,
-     "type": "physical",
-     "element": "Neutral",
-     "targets": "single",
-     "castMs": 0,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [
-      "kawarimi"
-     ],
-     "statuses": [],
-     "perMin": 19.95,
-     "dodged": 0.517,
      "refDamage": 0,
      "deathShare": 0
     },
@@ -4562,8 +4233,32 @@
       "rod"
      ],
      "statuses": [],
-     "perMin": 4.55,
-     "dodged": 0.043,
+     "perMin": 4.97,
+     "dodged": 0.06,
+     "refDamage": 0,
+     "deathShare": 0
+    },
+    {
+     "source": "Autumn Blood: Wind Blade",
+     "kind": "skill",
+     "skill": "NJ_HUUJIN",
+     "level": 9,
+     "caster": "Autumn Blood",
+     "addId": 1555,
+     "type": "magic",
+     "element": "Wind",
+     "targets": "single",
+     "castMs": 500,
+     "ticks": 1,
+     "tickMs": 0,
+     "avoid": [
+      "hide",
+      "los",
+      "rod"
+     ],
+     "statuses": [],
+     "perMin": 4.26,
+     "dodged": 0.026,
      "refDamage": 0,
      "deathShare": 0
     },
@@ -4589,87 +4284,15 @@
        "resist": "none"
       }
      ],
-     "perMin": 2.05,
+     "perMin": 3.71,
      "dodged": 1,
-     "refDamage": 0,
-     "deathShare": 0
-    },
-    {
-     "source": "Autumn Blood: Wind Blade",
-     "kind": "skill",
-     "skill": "NJ_HUUJIN",
-     "level": 9,
-     "caster": "Autumn Blood",
-     "addId": 1555,
-     "type": "magic",
-     "element": "Wind",
-     "targets": "single",
-     "castMs": 500,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [
-      "hide",
-      "los",
-      "rod"
-     ],
-     "statuses": [],
-     "perMin": 4.33,
-     "dodged": 0.065,
-     "refDamage": 0,
-     "deathShare": 0
-    },
-    {
-     "source": "Autumn Blood: Eruption",
-     "kind": "skill",
-     "skill": "KO_KAIHOU",
-     "level": 9,
-     "caster": "Autumn Blood",
-     "addId": 1555,
-     "type": "magic",
-     "element": "Earth",
-     "targets": "single",
-     "castMs": 500,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [
-      "hide",
-      "los",
-      "rod"
-     ],
-     "statuses": [],
-     "perMin": 4.12,
-     "dodged": 0.016,
-     "refDamage": 0,
-     "deathShare": 0
-    },
-    {
-     "source": "Autumn Blood: Freezing Spear",
-     "kind": "skill",
-     "skill": "NJ_HYOUSENSOU",
-     "level": 9,
-     "caster": "Autumn Blood",
-     "addId": 1555,
-     "type": "magic",
-     "element": "Water",
-     "targets": "single",
-     "castMs": 500,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [
-      "hide",
-      "los",
-      "rod"
-     ],
-     "statuses": [],
-     "perMin": 3.73,
-     "dodged": 0.006,
      "refDamage": 0,
      "deathShare": 0
     }
    ],
    "defenses": {
-    "Back Slide": 3.34,
-    "Hiding": 0.95
+    "Back Slide": 2.15,
+    "Hiding": 1
    }
   },
   {
@@ -4685,33 +4308,10 @@
    "size": "Large",
    "boss": false,
    "fights": 100,
-   "winRate": 0.99,
-   "lossRate": 0.01,
-   "seconds": 32.4,
+   "winRate": 0.97,
+   "lossRate": 0.03,
+   "seconds": 21.3,
    "threats": [
-    {
-     "source": "Flaming Petals",
-     "kind": "skill",
-     "skill": "NJ_KOUENKA",
-     "level": 15,
-     "caster": "Njord Zealot",
-     "type": "magic",
-     "element": "Fire",
-     "targets": "single",
-     "castMs": 500,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [
-      "hide",
-      "los",
-      "rod"
-     ],
-     "statuses": [],
-     "perMin": 11.13,
-     "dodged": 0.995,
-     "refDamage": 5540,
-     "deathShare": 1
-    },
     {
      "source": "Meteor Storm",
      "kind": "skill",
@@ -4735,10 +4335,33 @@
        "resist": "stun"
       }
      ],
-     "perMin": 35.23,
-     "dodged": 0.998,
-     "refDamage": 844,
-     "deathShare": 0
+     "perMin": 31.22,
+     "dodged": 0.997,
+     "refDamage": 14898,
+     "deathShare": 0.667
+    },
+    {
+     "source": "Flaming Petals",
+     "kind": "skill",
+     "skill": "NJ_KOUENKA",
+     "level": 15,
+     "caster": "Njord Zealot",
+     "type": "magic",
+     "element": "Fire",
+     "targets": "single",
+     "castMs": 500,
+     "ticks": 1,
+     "tickMs": 0,
+     "avoid": [
+      "hide",
+      "los",
+      "rod"
+     ],
+     "statuses": [],
+     "perMin": 11.57,
+     "dodged": 0.988,
+     "refDamage": 6836,
+     "deathShare": 0.333
     },
     {
      "source": "Njord Zealot: attack",
@@ -4754,9 +4377,9 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 31.47,
-     "dodged": 0.522,
-     "refDamage": 28,
+     "perMin": 31,
+     "dodged": 0.567,
+     "refDamage": 248,
      "deathShare": 0
     },
     {
@@ -4782,9 +4405,9 @@
        "resist": "none"
       }
      ],
-     "perMin": 4.55,
-     "dodged": 0.398,
-     "refDamage": 9,
+     "perMin": 5.07,
+     "dodged": 0.367,
+     "refDamage": 91,
      "deathShare": 0
     },
     {
@@ -4811,33 +4434,16 @@
        "resist": "none"
       }
      ],
-     "perMin": 9.05,
+     "perMin": 8.92,
      "dodged": 1,
-     "refDamage": 0,
-     "deathShare": 0
-    },
-    {
-     "source": "Njord Zealot: reflected",
-     "kind": "reflect",
-     "caster": "Njord Zealot",
-     "type": "none",
-     "element": "Neutral",
-     "targets": "single",
-     "castMs": 0,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [],
-     "statuses": [],
-     "perMin": 0.02,
-     "dodged": 0,
      "refDamage": 0,
      "deathShare": 0
     }
    ],
    "defenses": {
-    "Hiding": 5.98,
-    "Walk out": 4.6,
-    "Back Slide": 3.42
+    "Walk out": 2.97,
+    "Hiding": 4.07,
+    "Back Slide": 2.22
    }
   },
   {
@@ -4853,10 +4459,29 @@
    "size": "Medium",
    "boss": false,
    "fights": 100,
-   "winRate": 0.97,
-   "lossRate": 0.03,
-   "seconds": 37.3,
+   "winRate": 0.99,
+   "lossRate": 0.01,
+   "seconds": 12.9,
    "threats": [
+    {
+     "source": "Tortured Maiden: attack",
+     "kind": "attack",
+     "caster": "Tortured Maiden",
+     "type": "physical",
+     "element": "Neutral",
+     "targets": "single",
+     "castMs": 0,
+     "ticks": 1,
+     "tickMs": 0,
+     "avoid": [
+      "kawarimi"
+     ],
+     "statuses": [],
+     "perMin": 47.97,
+     "dodged": 0.534,
+     "refDamage": 149,
+     "deathShare": 1
+    },
     {
      "source": "Vampire Gift",
      "kind": "skill",
@@ -4875,51 +4500,9 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 4.38,
-     "dodged": 0.868,
-     "refDamage": 1389,
-     "deathShare": 0.667
-    },
-    {
-     "source": "Jupitel Thunder",
-     "kind": "skill",
-     "skill": "WZ_JUPITEL",
-     "level": 11,
-     "caster": "Tortured Maiden",
-     "type": "magic",
-     "element": "Wind",
-     "targets": "single",
-     "castMs": 2500,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [
-      "hide",
-      "los",
-      "rod"
-     ],
-     "statuses": [],
-     "perMin": 1.59,
-     "dodged": 0.899,
-     "refDamage": 2858,
-     "deathShare": 0.333
-    },
-    {
-     "source": "Tortured Maiden: attack",
-     "kind": "attack",
-     "caster": "Tortured Maiden",
-     "type": "physical",
-     "element": "Neutral",
-     "targets": "single",
-     "castMs": 0,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [
-      "kawarimi"
-     ],
-     "statuses": [],
-     "perMin": 52.81,
-     "dodged": 0.521,
-     "refDamage": 35,
+     "perMin": 4.43,
+     "dodged": 0.905,
+     "refDamage": 5484,
      "deathShare": 0
     },
     {
@@ -4944,8 +4527,8 @@
        "resist": "none"
       }
      ],
-     "perMin": 5.15,
-     "dodged": 0.012,
+     "perMin": 4.8,
+     "dodged": 0.019,
      "refDamage": 0,
      "deathShare": 0
     },
@@ -4971,8 +4554,8 @@
        "resist": "stone"
       }
      ],
-     "perMin": 4.99,
-     "dodged": 0.939,
+     "perMin": 4.66,
+     "dodged": 1,
      "refDamage": 0,
      "deathShare": 0
     },
@@ -4998,8 +4581,8 @@
        "resist": "silence"
       }
      ],
-     "perMin": 4.91,
-     "dodged": 0.83,
+     "perMin": 4.66,
+     "dodged": 0.96,
      "refDamage": 0,
      "deathShare": 0
     },
@@ -5025,25 +4608,8 @@
        "resist": "bleeding"
       }
      ],
-     "perMin": 4.44,
-     "dodged": 0.841,
-     "refDamage": 0,
-     "deathShare": 0
-    },
-    {
-     "source": "Bleeding",
-     "kind": "dot",
-     "caster": "Tortured Maiden",
-     "type": "none",
-     "element": "Neutral",
-     "targets": "single",
-     "castMs": 0,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [],
-     "statuses": [],
-     "perMin": 0.6,
-     "dodged": 0,
+     "perMin": 4.43,
+     "dodged": 0.958,
      "refDamage": 0,
      "deathShare": 0
     },
@@ -5069,14 +4635,37 @@
        "resist": "freeze"
       }
      ],
-     "perMin": 0.4,
-     "dodged": 0.76,
+     "perMin": 0.23,
+     "dodged": 0.8,
+     "refDamage": 0,
+     "deathShare": 0
+    },
+    {
+     "source": "Jupitel Thunder",
+     "kind": "skill",
+     "skill": "WZ_JUPITEL",
+     "level": 11,
+     "caster": "Tortured Maiden",
+     "type": "magic",
+     "element": "Wind",
+     "targets": "single",
+     "castMs": 2500,
+     "ticks": 1,
+     "tickMs": 0,
+     "avoid": [
+      "hide",
+      "los",
+      "rod"
+     ],
+     "statuses": [],
+     "perMin": 0.47,
+     "dodged": 1,
      "refDamage": 0,
      "deathShare": 0
     }
    ],
    "defenses": {
-    "Hiding": 3.81
+    "Hiding": 1.1
    }
   },
   {
@@ -5094,8 +4683,27 @@
    "fights": 100,
    "winRate": 1,
    "lossRate": 0,
-   "seconds": 12.5,
+   "seconds": 7.1,
    "threats": [
+    {
+     "source": "Anger of Thanatos: attack",
+     "kind": "attack",
+     "caster": "Anger of Thanatos",
+     "type": "physical",
+     "element": "Neutral",
+     "targets": "single",
+     "castMs": 0,
+     "ticks": 1,
+     "tickMs": 0,
+     "avoid": [
+      "kawarimi"
+     ],
+     "statuses": [],
+     "perMin": 68.48,
+     "dodged": 0.535,
+     "refDamage": 15,
+     "deathShare": 0
+    },
     {
      "source": "Arrow Vulcan",
      "kind": "skill",
@@ -5113,28 +4721,9 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 14.12,
-     "dodged": 0.345,
-     "refDamage": 41,
-     "deathShare": 0
-    },
-    {
-     "source": "Anger of Thanatos: attack",
-     "kind": "attack",
-     "caster": "Anger of Thanatos",
-     "type": "physical",
-     "element": "Neutral",
-     "targets": "single",
-     "castMs": 0,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [
-      "kawarimi"
-     ],
-     "statuses": [],
-     "perMin": 70.21,
-     "dodged": 0.518,
-     "refDamage": 1,
+     "perMin": 15.8,
+     "dodged": 0.306,
+     "refDamage": 61,
      "deathShare": 0
     }
    ],
@@ -5155,7 +4744,7 @@
    "fights": 100,
    "winRate": 0,
    "lossRate": 0,
-   "seconds": 120,
+   "seconds": 43,
    "threats": [
     {
      "source": "Broken Thanatos: attack",
@@ -5171,9 +4760,9 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 6,
-     "dodged": 0.546,
-     "refDamage": 1753,
+     "perMin": 16.65,
+     "dodged": 0.541,
+     "refDamage": 1360,
      "deathShare": 0
     },
     {
@@ -5193,14 +4782,14 @@
       "walk"
      ],
      "statuses": [],
-     "perMin": 7.36,
+     "perMin": 21.65,
      "dodged": 1,
      "refDamage": 0,
      "deathShare": 0
     }
    ],
    "defenses": {
-    "Walk out": 4.19
+    "Walk out": 3.88
    }
   },
   {
@@ -5216,10 +4805,27 @@
    "size": "Medium",
    "boss": false,
    "fights": 100,
-   "winRate": 1,
-   "lossRate": 0,
-   "seconds": 18.6,
+   "winRate": 0.99,
+   "lossRate": 0.01,
+   "seconds": 2.8,
    "threats": [
+    {
+     "source": "Empathy: reflected",
+     "kind": "reflect",
+     "caster": "Empathy",
+     "type": "none",
+     "element": "Neutral",
+     "targets": "single",
+     "castMs": 0,
+     "ticks": 1,
+     "tickMs": 0,
+     "avoid": [],
+     "statuses": [],
+     "perMin": 15.42,
+     "dodged": 0,
+     "refDamage": 300,
+     "deathShare": 1
+    },
     {
      "source": "Empathy: attack",
      "kind": "attack",
@@ -5234,26 +4840,9 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 23.92,
-     "dodged": 0.486,
-     "refDamage": 28,
-     "deathShare": 0
-    },
-    {
-     "source": "Empathy: reflected",
-     "kind": "reflect",
-     "caster": "Empathy",
-     "type": "none",
-     "element": "Neutral",
-     "targets": "single",
-     "castMs": 0,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [],
-     "statuses": [],
-     "perMin": 88.14,
-     "dodged": 0,
-     "refDamage": 0,
+     "perMin": 23.89,
+     "dodged": 0.555,
+     "refDamage": 206,
      "deathShare": 0
     },
     {
@@ -5278,7 +4867,7 @@
        "resist": "none"
       }
      ],
-     "perMin": 6.24,
+     "perMin": 0.43,
      "dodged": 0,
      "refDamage": 0,
      "deathShare": 0
@@ -5305,7 +4894,7 @@
        "resist": "none"
       }
      ],
-     "perMin": 5.75,
+     "perMin": 1.09,
      "dodged": 0,
      "refDamage": 0,
      "deathShare": 0
@@ -5328,7 +4917,7 @@
    "fights": 100,
    "winRate": 1,
    "lossRate": 0,
-   "seconds": 7.6,
+   "seconds": 2.6,
    "threats": [
     {
      "source": "Happiness: attack",
@@ -5344,58 +4933,9 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 30.13,
-     "dodged": 0.518,
-     "refDamage": 56,
-     "deathShare": 0
-    },
-    {
-     "source": "Magnus Exorcismus",
-     "kind": "skill",
-     "skill": "PR_MAGNUS",
-     "level": 9,
-     "caster": "Happiness",
-     "type": "magic",
-     "element": "Holy",
-     "targets": "aoe",
-     "castMs": 1500,
-     "ticks": 4,
-     "tickMs": 3000,
-     "avoid": [
-      "hide",
-      "walk"
-     ],
-     "statuses": [],
-     "perMin": 11.54,
-     "dodged": 0,
-     "refDamage": 0,
-     "deathShare": 0
-    },
-    {
-     "source": "Wide Silence",
-     "kind": "skill",
-     "skill": "NPC_WIDESILENCE",
-     "level": 4,
-     "caster": "Happiness",
-     "type": "status",
-     "element": "Neutral",
-     "targets": "aoe",
-     "castMs": 2000,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [
-      "hide"
-     ],
-     "statuses": [
-      {
-       "sc": "silence",
-       "chance": 1,
-       "resist": "silence"
-      }
-     ],
-     "perMin": 7.85,
-     "dodged": 0,
-     "refDamage": 0,
+     "perMin": 30.95,
+     "dodged": 0.549,
+     "refDamage": 266,
      "deathShare": 0
     }
    ],
@@ -5416,7 +4956,7 @@
    "fights": 100,
    "winRate": 1,
    "lossRate": 0,
-   "seconds": 19.1,
+   "seconds": 10.8,
    "threats": [
     {
      "source": "Horror of Thanatos: attack",
@@ -5432,9 +4972,31 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 10.61,
-     "dodged": 0.562,
-     "refDamage": 35,
+     "perMin": 10.29,
+     "dodged": 0.53,
+     "refDamage": 132,
+     "deathShare": 0
+    },
+    {
+     "source": "Earthquake",
+     "kind": "skill",
+     "skill": "NPC_EARTHQUAKE",
+     "level": 3,
+     "caster": "Horror of Thanatos",
+     "type": "magic",
+     "element": "Neutral",
+     "targets": "aoe",
+     "castMs": 4000,
+     "ticks": 4,
+     "tickMs": 300,
+     "avoid": [
+      "hide",
+      "walk"
+     ],
+     "statuses": [],
+     "perMin": 23.24,
+     "dodged": 1,
+     "refDamage": 0,
      "deathShare": 0
     },
     {
@@ -5474,29 +5036,7 @@
        "resist": "bleeding"
       }
      ],
-     "perMin": 4.55,
-     "dodged": 1,
-     "refDamage": 0,
-     "deathShare": 0
-    },
-    {
-     "source": "Earthquake",
-     "kind": "skill",
-     "skill": "NPC_EARTHQUAKE",
-     "level": 3,
-     "caster": "Horror of Thanatos",
-     "type": "magic",
-     "element": "Neutral",
-     "targets": "aoe",
-     "castMs": 4000,
-     "ticks": 4,
-     "tickMs": 300,
-     "avoid": [
-      "hide",
-      "walk"
-     ],
-     "statuses": [],
-     "perMin": 24.02,
+     "perMin": 5.62,
      "dodged": 1,
      "refDamage": 0,
      "deathShare": 0
@@ -5523,15 +5063,15 @@
        "resist": "none"
       }
      ],
-     "perMin": 4.27,
-     "dodged": 0.581,
+     "perMin": 5.34,
+     "dodged": 0.604,
      "refDamage": 0,
      "deathShare": 0
     }
    ],
    "defenses": {
-    "Hiding": 1.45,
-    "Walk out": 2.1
+    "Walk out": 1.14,
+    "Hiding": 1.01
    }
   },
   {
@@ -5549,7 +5089,7 @@
    "fights": 100,
    "winRate": 1,
    "lossRate": 0,
-   "seconds": 8.4,
+   "seconds": 2.5,
    "threats": [
     {
      "source": "Prayer: attack",
@@ -5565,72 +5105,13 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 24.76,
-     "dodged": 0.554,
-     "refDamage": 31,
-     "deathShare": 0
-    },
-    {
-     "source": "Adoramus",
-     "kind": "skill",
-     "skill": "AB_ADORAMUS",
-     "level": 10,
-     "caster": "Prayer",
-     "type": "magic",
-     "element": "Holy",
-     "targets": "aoe",
-     "castMs": 4000,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [
-      "hide",
-      "los",
-      "rod"
-     ],
-     "statuses": [
-      {
-       "sc": "other",
-       "chance": 0.65,
-       "resist": "none"
-      },
-      {
-       "sc": "blind",
-       "chance": 1,
-       "resist": "blind"
-      }
-     ],
-     "perMin": 3.09,
-     "dodged": 1,
-     "refDamage": 0,
-     "deathShare": 0
-    },
-    {
-     "source": "Grand Cross",
-     "kind": "skill",
-     "skill": "CR_GRANDCROSS",
-     "level": 1,
-     "caster": "Prayer",
-     "type": "magic",
-     "element": "Neutral",
-     "targets": "aoe",
-     "castMs": 1000,
-     "ticks": 10,
-     "tickMs": 100,
-     "avoid": [
-      "hide",
-      "walk",
-      "diag"
-     ],
-     "statuses": [],
-     "perMin": 12.2,
-     "dodged": 1,
-     "refDamage": 0,
+     "perMin": 51.34,
+     "dodged": 0.528,
+     "refDamage": 59,
      "deathShare": 0
     }
    ],
-   "defenses": {
-    "Hiding": 0.43
-   }
+   "defenses": {}
   },
   {
    "id": 2648,
@@ -5647,7 +5128,7 @@
    "fights": 100,
    "winRate": 1,
    "lossRate": 0,
-   "seconds": 13,
+   "seconds": 8.5,
    "threats": [
     {
      "source": "Regret of Thanatos: attack",
@@ -5663,9 +5144,9 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 33.25,
-     "dodged": 0.518,
-     "refDamage": 17,
+     "perMin": 14.22,
+     "dodged": 0.473,
+     "refDamage": 80,
      "deathShare": 0
     },
     {
@@ -5685,9 +5166,9 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 8.04,
-     "dodged": 0.339,
-     "refDamage": 0,
+     "perMin": 8.91,
+     "dodged": 0.294,
+     "refDamage": 96,
      "deathShare": 0
     },
     {
@@ -5707,14 +5188,14 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 4.62,
+     "perMin": 7,
      "dodged": 1,
      "refDamage": 0,
      "deathShare": 0
     }
    ],
    "defenses": {
-    "Hiding": 1
+    "Hiding": 0.99
    }
   },
   {
@@ -5730,27 +5211,10 @@
    "size": "Medium",
    "boss": false,
    "fights": 100,
-   "winRate": 0.97,
-   "lossRate": 0.03,
-   "seconds": 14,
+   "winRate": 1,
+   "lossRate": 0,
+   "seconds": 9,
    "threats": [
-    {
-     "source": "Resentment of Thanatos: reflected",
-     "kind": "reflect",
-     "caster": "Resentment of Thanatos",
-     "type": "none",
-     "element": "Neutral",
-     "targets": "single",
-     "castMs": 0,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [],
-     "statuses": [],
-     "perMin": 11.44,
-     "dodged": 0,
-     "refDamage": 565,
-     "deathShare": 1
-    },
     {
      "source": "Resentment of Thanatos: attack",
      "kind": "attack",
@@ -5765,9 +5229,9 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 46.11,
-     "dodged": 0.534,
-     "refDamage": 110,
+     "perMin": 39.45,
+     "dodged": 0.535,
+     "refDamage": 57,
      "deathShare": 0
     },
     {
@@ -5792,7 +5256,7 @@
        "resist": "none"
       }
      ],
-     "perMin": 4.16,
+     "perMin": 6.64,
      "dodged": 1,
      "refDamage": 0,
      "deathShare": 0
@@ -5820,15 +5284,15 @@
        "resist": "stun"
       }
      ],
-     "perMin": 53.22,
+     "perMin": 40.84,
      "dodged": 1,
      "refDamage": 0,
      "deathShare": 0
     }
    ],
    "defenses": {
-    "Hiding": 0.97,
-    "Walk out": 3.7
+    "Hiding": 1,
+    "Walk out": 2.05
    }
   },
   {
@@ -5846,7 +5310,7 @@
    "fights": 100,
    "winRate": 1,
    "lossRate": 0,
-   "seconds": 11,
+   "seconds": 2.6,
    "threats": [
     {
      "source": "Smile: attack",
@@ -5862,65 +5326,13 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 19.12,
-     "dodged": 0.553,
-     "refDamage": 12,
-     "deathShare": 0
-    },
-    {
-     "source": "Great Echo",
-     "kind": "skill",
-     "skill": "WM_GREAT_ECHO",
-     "level": 1,
-     "caster": "Smile",
-     "type": "physical",
-     "element": "Neutral",
-     "targets": "aoe",
-     "castMs": 1700,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [
-      "hide",
-      "kawarimi"
-     ],
-     "statuses": [],
-     "perMin": 10.79,
-     "dodged": 1,
-     "refDamage": 0,
-     "deathShare": 0
-    },
-    {
-     "source": "Diamond Dust",
-     "kind": "skill",
-     "skill": "SO_DIAMONDDUST",
-     "level": 1,
-     "caster": "Smile",
-     "type": "magic",
-     "element": "Water",
-     "targets": "aoe",
-     "castMs": 500,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [
-      "hide",
-      "walk"
-     ],
-     "statuses": [
-      {
-       "sc": "other",
-       "chance": 0.1,
-       "resist": "none"
-      }
-     ],
-     "perMin": 9.81,
-     "dodged": 0.955,
-     "refDamage": 0,
+     "perMin": 26.81,
+     "dodged": 0.518,
+     "refDamage": 60,
      "deathShare": 0
     }
    ],
-   "defenses": {
-    "Hiding": 1.97
-   }
+   "defenses": {}
   },
   {
    "id": 2802,
@@ -5936,8 +5348,8 @@
    "boss": true,
    "fights": 100,
    "winRate": 0,
-   "lossRate": 0.13,
-   "seconds": 105.4,
+   "lossRate": 0.83,
+   "seconds": 26.2,
    "threats": [
     {
      "source": "Cannon Spear",
@@ -5956,10 +5368,10 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 1.07,
-     "dodged": 0.957,
-     "refDamage": 17517,
-     "deathShare": 0.615
+     "perMin": 7.61,
+     "dodged": 0.81,
+     "refDamage": 15455,
+     "deathShare": 0.759
     },
     {
      "source": "Pulse Strike",
@@ -5978,10 +5390,10 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 0.95,
-     "dodged": 0.683,
-     "refDamage": 3835,
-     "deathShare": 0.385
+     "perMin": 5.25,
+     "dodged": 0.891,
+     "refDamage": 9422,
+     "deathShare": 0.241
     },
     {
      "source": "King Schmidt: attack",
@@ -5997,14 +5409,14 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 3.7,
-     "dodged": 0.549,
-     "refDamage": 1010,
+     "perMin": 21.46,
+     "dodged": 0.538,
+     "refDamage": 857,
      "deathShare": 0
     }
    ],
    "defenses": {
-    "Hiding": 2.46
+    "Hiding": 3.3
    }
   },
   {
@@ -6022,7 +5434,7 @@
    "fights": 100,
    "winRate": 1,
    "lossRate": 0,
-   "seconds": 20,
+   "seconds": 13.8,
    "threats": [
     {
      "source": "Magma Knight: attack",
@@ -6038,9 +5450,9 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 21.03,
-     "dodged": 0.542,
-     "refDamage": 72,
+     "perMin": 34.97,
+     "dodged": 0.569,
+     "refDamage": 244,
      "deathShare": 0
     },
     {
@@ -6067,7 +5479,7 @@
        "resist": "none"
       }
      ],
-     "perMin": 5.85,
+     "perMin": 4.45,
      "dodged": 1,
      "refDamage": 0,
      "deathShare": 0
@@ -6090,15 +5502,15 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 4.92,
+     "perMin": 4.45,
      "dodged": 1,
      "refDamage": 0,
      "deathShare": 0
     }
    ],
    "defenses": {
-    "Hiding": 1.95,
-    "Walk out": 1.64
+    "Hiding": 1.02,
+    "Walk out": 1.02
    }
   },
   {
@@ -6116,7 +5528,7 @@
    "fights": 100,
    "winRate": 1,
    "lossRate": 0,
-   "seconds": 21.9,
+   "seconds": 12.8,
    "threats": [
     {
      "source": "Quake Knight: attack",
@@ -6132,9 +5544,32 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 6.87,
-     "dodged": 0.55,
-     "refDamage": 156,
+     "perMin": 8.28,
+     "dodged": 0.563,
+     "refDamage": 379,
+     "deathShare": 0
+    },
+    {
+     "source": "Vampire Gift",
+     "kind": "skill",
+     "skill": "NPC_VAMPIRE_GIFT",
+     "level": 5,
+     "caster": "Quake Knight",
+     "type": "physical",
+     "element": "Neutral",
+     "targets": "aoe",
+     "castMs": 2500,
+     "ticks": 1,
+     "tickMs": 0,
+     "avoid": [
+      "hide",
+      "walk",
+      "kawarimi"
+     ],
+     "statuses": [],
+     "perMin": 4.89,
+     "dodged": 1,
+     "refDamage": 0,
      "deathShare": 0
     },
     {
@@ -6154,7 +5589,7 @@
       "walk"
      ],
      "statuses": [],
-     "perMin": 5.45,
+     "perMin": 6.07,
      "dodged": 1,
      "refDamage": 0,
      "deathShare": 0
@@ -6177,38 +5612,15 @@
       "rod"
      ],
      "statuses": [],
-     "perMin": 7.37,
-     "dodged": 1,
-     "refDamage": 0,
-     "deathShare": 0
-    },
-    {
-     "source": "Vampire Gift",
-     "kind": "skill",
-     "skill": "NPC_VAMPIRE_GIFT",
-     "level": 5,
-     "caster": "Quake Knight",
-     "type": "physical",
-     "element": "Neutral",
-     "targets": "aoe",
-     "castMs": 2500,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [
-      "hide",
-      "walk",
-      "kawarimi"
-     ],
-     "statuses": [],
-     "perMin": 4.87,
+     "perMin": 6.82,
      "dodged": 1,
      "refDamage": 0,
      "deathShare": 0
     }
    ],
    "defenses": {
-    "Walk out": 3.77,
-    "Hiding": 2.69
+    "Walk out": 2.33,
+    "Hiding": 1.45
    }
   },
   {
@@ -6226,7 +5638,7 @@
    "fights": 100,
    "winRate": 1,
    "lossRate": 0,
-   "seconds": 21.6,
+   "seconds": 17.8,
    "threats": [
     {
      "source": "Tidal Knight: attack",
@@ -6242,9 +5654,9 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 6.91,
-     "dodged": 0.57,
-     "refDamage": 167,
+     "perMin": 6.55,
+     "dodged": 0.541,
+     "refDamage": 418,
      "deathShare": 0
     },
     {
@@ -6270,30 +5682,7 @@
        "resist": "none"
       }
      ],
-     "perMin": 5.33,
-     "dodged": 1,
-     "refDamage": 0,
-     "deathShare": 0
-    },
-    {
-     "source": "Freezing Spear",
-     "kind": "skill",
-     "skill": "NJ_HYOUSENSOU",
-     "level": 10,
-     "caster": "Tidal Knight",
-     "type": "magic",
-     "element": "Water",
-     "targets": "single",
-     "castMs": 1750,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [
-      "hide",
-      "los",
-      "rod"
-     ],
-     "statuses": [],
-     "perMin": 9,
+     "perMin": 4.19,
      "dodged": 1,
      "refDamage": 0,
      "deathShare": 0
@@ -6316,16 +5705,39 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 3.58,
+     "perMin": 4.59,
+     "dodged": 1,
+     "refDamage": 0,
+     "deathShare": 0
+    },
+    {
+     "source": "Freezing Spear",
+     "kind": "skill",
+     "skill": "NJ_HYOUSENSOU",
+     "level": 10,
+     "caster": "Tidal Knight",
+     "type": "magic",
+     "element": "Water",
+     "targets": "single",
+     "castMs": 1750,
+     "ticks": 1,
+     "tickMs": 0,
+     "avoid": [
+      "hide",
+      "los",
+      "rod"
+     ],
+     "statuses": [],
+     "perMin": 9.05,
      "dodged": 1,
      "refDamage": 0,
      "deathShare": 0
     }
    ],
    "defenses": {
-    "Hiding": 3.36,
-    "Walk out": 2.9,
-    "Break line of sight": 0.2
+    "Hiding": 2.93,
+    "Walk out": 2.32,
+    "Break line of sight": 0.03
    }
   },
   {
@@ -6343,7 +5755,7 @@
    "fights": 100,
    "winRate": 1,
    "lossRate": 0,
-   "seconds": 22.3,
+   "seconds": 17.4,
    "threats": [
     {
      "source": "Tornado Knight: attack",
@@ -6359,9 +5771,32 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 7.28,
-     "dodged": 0.535,
-     "refDamage": 167,
+     "perMin": 6.5,
+     "dodged": 0.559,
+     "refDamage": 436,
+     "deathShare": 0
+    },
+    {
+     "source": "Vampire Gift",
+     "kind": "skill",
+     "skill": "NPC_VAMPIRE_GIFT",
+     "level": 5,
+     "caster": "Tornado Knight",
+     "type": "physical",
+     "element": "Neutral",
+     "targets": "aoe",
+     "castMs": 2500,
+     "ticks": 1,
+     "tickMs": 0,
+     "avoid": [
+      "hide",
+      "walk",
+      "kawarimi"
+     ],
+     "statuses": [],
+     "perMin": 4.77,
+     "dodged": 1,
+     "refDamage": 0,
      "deathShare": 0
     },
     {
@@ -6382,7 +5817,7 @@
       "rod"
      ],
      "statuses": [],
-     "perMin": 9.51,
+     "perMin": 9.34,
      "dodged": 1,
      "refDamage": 0,
      "deathShare": 0
@@ -6410,39 +5845,16 @@
        "resist": "none"
       }
      ],
-     "perMin": 5.1,
-     "dodged": 1,
-     "refDamage": 0,
-     "deathShare": 0
-    },
-    {
-     "source": "Vampire Gift",
-     "kind": "skill",
-     "skill": "NPC_VAMPIRE_GIFT",
-     "level": 5,
-     "caster": "Tornado Knight",
-     "type": "physical",
-     "element": "Neutral",
-     "targets": "aoe",
-     "castMs": 2500,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [
-      "hide",
-      "walk",
-      "kawarimi"
-     ],
-     "statuses": [],
-     "perMin": 3.49,
+     "perMin": 4.11,
      "dodged": 1,
      "refDamage": 0,
      "deathShare": 0
     }
    ],
    "defenses": {
-    "Hiding": 3.63,
-    "Walk out": 2.89,
-    "Break line of sight": 0.24
+    "Walk out": 2.28,
+    "Hiding": 2.92,
+    "Break line of sight": 0.07
    }
   },
   {
@@ -6460,7 +5872,7 @@
    "fights": 100,
    "winRate": 1,
    "lossRate": 0,
-   "seconds": 20.2,
+   "seconds": 12.1,
    "threats": [
     {
      "source": "Umbral Knight: attack",
@@ -6476,9 +5888,9 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 3.78,
-     "dodged": 0.567,
-     "refDamage": 280,
+     "perMin": 6.11,
+     "dodged": 0.528,
+     "refDamage": 688,
      "deathShare": 0
     },
     {
@@ -6503,31 +5915,8 @@
        "resist": "curse"
       }
      ],
-     "perMin": 4.44,
+     "perMin": 4.72,
      "dodged": 0,
-     "refDamage": 0,
-     "deathShare": 0
-    },
-    {
-     "source": "Swhoo",
-     "kind": "skill",
-     "skill": "SP_SWHOO",
-     "level": 10,
-     "caster": "Umbral Knight",
-     "type": "magic",
-     "element": "Neutral",
-     "targets": "aoe",
-     "castMs": 5000,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [
-      "hide",
-      "los",
-      "rod"
-     ],
-     "statuses": [],
-     "perMin": 6.07,
-     "dodged": 1,
      "refDamage": 0,
      "deathShare": 0
     },
@@ -6549,16 +5938,38 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 0.83,
+     "perMin": 0.84,
+     "dodged": 1,
+     "refDamage": 0,
+     "deathShare": 0
+    },
+    {
+     "source": "Swhoo",
+     "kind": "skill",
+     "skill": "SP_SWHOO",
+     "level": 10,
+     "caster": "Umbral Knight",
+     "type": "magic",
+     "element": "Neutral",
+     "targets": "aoe",
+     "castMs": 5000,
+     "ticks": 1,
+     "tickMs": 0,
+     "avoid": [
+      "hide",
+      "los",
+      "rod"
+     ],
+     "statuses": [],
+     "perMin": 4.62,
      "dodged": 1,
      "refDamage": 0,
      "deathShare": 0
     }
    ],
    "defenses": {
-    "Hiding": 2.04,
-    "Walk out": 0.28,
-    "Break line of sight": 0.01
+    "Walk out": 0.17,
+    "Hiding": 0.93
    }
   },
   {
@@ -6576,7 +5987,7 @@
    "fights": 100,
    "winRate": 1,
    "lossRate": 0,
-   "seconds": 2.4,
+   "seconds": 1.4,
    "threats": [
     {
      "source": "Cavalier: attack",
@@ -6592,9 +6003,9 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 25.4,
-     "dodged": 0.53,
-     "refDamage": 101,
+     "perMin": 43.7,
+     "dodged": 0.54,
+     "refDamage": 69,
      "deathShare": 0
     }
    ],
@@ -6615,7 +6026,7 @@
    "fights": 100,
    "winRate": 1,
    "lossRate": 0,
-   "seconds": 2.3,
+   "seconds": 1.2,
    "threats": [
     {
      "source": "Gentleman: attack",
@@ -6631,9 +6042,9 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 26.83,
-     "dodged": 0.545,
-     "refDamage": 22,
+     "perMin": 50.16,
+     "dodged": 0.52,
+     "refDamage": 80,
      "deathShare": 0
     }
    ],
@@ -6654,7 +6065,7 @@
    "fights": 100,
    "winRate": 1,
    "lossRate": 0,
-   "seconds": 2.4,
+   "seconds": 1.2,
    "threats": [
     {
      "source": "Lost Codex: attack",
@@ -6670,9 +6081,9 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 25.4,
-     "dodged": 0.45,
-     "refDamage": 22,
+     "perMin": 50.16,
+     "dodged": 0.57,
+     "refDamage": 25,
      "deathShare": 0
     }
    ],
@@ -6693,7 +6104,7 @@
    "fights": 100,
    "winRate": 1,
    "lossRate": 0,
-   "seconds": 2.4,
+   "seconds": 1.9,
    "threats": [
     {
      "source": "Lost Traveler: attack",
@@ -6709,9 +6120,9 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 27.39,
-     "dodged": 0.491,
-     "refDamage": 28,
+     "perMin": 32.94,
+     "dodged": 0.573,
+     "refDamage": 157,
      "deathShare": 0
     }
    ],
@@ -6732,7 +6143,7 @@
    "fights": 100,
    "winRate": 1,
    "lossRate": 0,
-   "seconds": 3.1,
+   "seconds": 1.9,
    "threats": [
     {
      "source": "Maiden of Future: attack",
@@ -6748,43 +6159,13 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 19.11,
-     "dodged": 0.55,
-     "refDamage": 28,
-     "deathShare": 0
-    },
-    {
-     "source": "Storm Gust",
-     "kind": "skill",
-     "skill": "WZ_STORMGUST",
-     "level": 1,
-     "caster": "Maiden of Future",
-     "type": "magic",
-     "element": "Water",
-     "targets": "aoe",
-     "castMs": 1500,
-     "ticks": 10,
-     "tickMs": 450,
-     "avoid": [
-      "hide",
-      "walk"
-     ],
-     "statuses": [
-      {
-       "sc": "freeze",
-       "chance": 0.55,
-       "resist": "freeze"
-      }
-     ],
-     "perMin": 17.77,
-     "dodged": 1,
-     "refDamage": 0,
+     "perMin": 31.98,
+     "dodged": 0.56,
+     "refDamage": 46,
      "deathShare": 0
     }
    ],
-   "defenses": {
-    "Walk out": 0.93
-   }
+   "defenses": {}
   },
   {
    "id": 2951,
@@ -6801,7 +6182,7 @@
    "fights": 100,
    "winRate": 1,
    "lossRate": 0,
-   "seconds": 1.9,
+   "seconds": 1.2,
    "threats": [
     {
      "source": "Maiden of Past: attack",
@@ -6817,9 +6198,9 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 30.91,
-     "dodged": 0.55,
-     "refDamage": 17,
+     "perMin": 50.16,
+     "dodged": 0.56,
+     "refDamage": 31,
      "deathShare": 0
     }
    ],
@@ -6840,7 +6221,7 @@
    "fights": 100,
    "winRate": 1,
    "lossRate": 0,
-   "seconds": 2.4,
+   "seconds": 1.5,
    "threats": [
     {
      "source": "Maiden of Present: attack",
@@ -6856,9 +6237,9 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 26.16,
-     "dodged": 0.544,
-     "refDamage": 22,
+     "perMin": 39.06,
+     "dodged": 0.56,
+     "refDamage": 47,
      "deathShare": 0
     }
    ],
@@ -6879,7 +6260,7 @@
    "fights": 100,
    "winRate": 1,
    "lossRate": 0,
-   "seconds": 4.9,
+   "seconds": 1.9,
    "threats": [
     {
      "source": "Navigator: attack",
@@ -6895,9 +6276,9 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 17.39,
-     "dodged": 0.553,
-     "refDamage": 13,
+     "perMin": 34.86,
+     "dodged": 0.569,
+     "refDamage": 77,
      "deathShare": 0
     }
    ],
@@ -6916,9 +6297,9 @@
    "size": "Large",
    "boss": true,
    "fights": 100,
-   "winRate": 0.88,
+   "winRate": 0.99,
    "lossRate": 0,
-   "seconds": 73.9,
+   "seconds": 46.4,
    "threats": [
     {
      "source": "Paradox Amdarais: attack",
@@ -6934,9 +6315,9 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 12.78,
-     "dodged": 0.541,
-     "refDamage": 16,
+     "perMin": 11.61,
+     "dodged": 0.542,
+     "refDamage": 61,
      "deathShare": 0
     },
     {
@@ -6957,7 +6338,7 @@
       "kawarimi"
      ],
      "statuses": [],
-     "perMin": 6.79,
+     "perMin": 6.76,
      "dodged": 1,
      "refDamage": 0,
      "deathShare": 0
@@ -6999,32 +6380,15 @@
        "resist": "bleeding"
       }
      ],
-     "perMin": 2.62,
-     "dodged": 0.988,
-     "refDamage": 0,
-     "deathShare": 0
-    },
-    {
-     "source": "Bleeding",
-     "kind": "dot",
-     "caster": "Paradox Amdarais",
-     "type": "none",
-     "element": "Neutral",
-     "targets": "single",
-     "castMs": 0,
-     "ticks": 1,
-     "tickMs": 0,
-     "avoid": [],
-     "statuses": [],
-     "perMin": 0.01,
-     "dodged": 0,
+     "perMin": 2.59,
+     "dodged": 1,
      "refDamage": 0,
      "deathShare": 0
     }
    ],
    "defenses": {
-    "Walk out": 8.36,
-    "Hiding": 3.18
+    "Walk out": 5.24,
+    "Hiding": 2
    }
   }
  ]
