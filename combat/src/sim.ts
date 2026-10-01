@@ -235,7 +235,9 @@ export function simulate(f: Fighter, m: Monster, kit: Kit, o: SimOptions): Summa
     defenses: Object.fromEntries(Object.entries(total.defenses).map(([k, v]) => [k, v / n])),
     uptime: Object.fromEntries(Object.entries(total.uptime ?? {}).map(([k, v]) => [k, timeSum ? Math.min(1, v / timeSum) : 0])),
     log,
-    analysis: analyse({ ...kit, cycleAnchor: typeof o.options?.cycleAnchor === 'string' ? o.options.cycleAnchor : kit.cycleAnchor }, m, f, {
+    // A profile may cut its loops elsewhere (option cycleAnchor) and count other roles as the loop (option coreRoles).
+    analysis: analyse({ ...kit, cycleAnchor: typeof o.options?.cycleAnchor === 'string' ? o.options.cycleAnchor : kit.cycleAnchor,
+      coreRoles: Array.isArray(o.options?.coreRoles) ? o.options.coreRoles as string[] : kit.coreRoles }, m, f, {
       sequences, actions, dealt: dealtByActions / n, n, losses, lows, stalls, prep,
       taken: takenTotal, healed: total.healed, seconds: timeSum / 1000,
       hits: Object.values(total.taken).reduce((s, t) => s + t.hits, 0),
@@ -253,30 +255,40 @@ function analyse(kit: Kit, m: Monster, f: Fighter, d: {
 }): Analysis {
   const roles = kit.roles ?? {};
   // Rotation moves only: dodges and upkeep depend on what the monster did.
-  const moves = (seq: string[]) => fold(seq.filter((id) => id in roles));
+  // Idle: waiting of a second or more (engine IDLE_STEP_MS), a step of the rotation like any other.
+  const inRotation = (id: string) => id in roles || id === 'Idle';
+  const moves = (seq: string[]) => fold(seq.filter(inRotation));
 
   const anchor = kit.cycleAnchor;
-  const core = (id: string) => !kit.coreRoles || kit.coreRoles.includes(roles[id]);
+  const core = (id: string) => id === 'Idle' || !kit.coreRoles || kit.coreRoles.includes(roles[id]);
   const counts = new Map<string, number>();
   const fill = new Map<string, number>();
+  const variants = new Map<string, Map<string, number>>();
   let loops = 0;
   if (anchor) {
     for (const seq of d.sequences) {
       // Unfolded here: filler counts want every swing.
-      const s = seq.filter((id) => id in roles);
+      const s = seq.filter(inRotation);
       const starts = s.flatMap((id, i) => (id === anchor ? [i] : []));
       // A loop runs from one anchor to the next; the last one is cut short by the fight's end.
       for (let k = 0; k + 1 < starts.length; k++) {
         const loop = s.slice(starts[k], starts[k + 1]);
-        const key = loop.filter(core).join(' → ');
+        // Two waits with only a filler between them are one Idle.
+        const steps = loop.filter(core).filter((id, i, a) => !(id === 'Idle' && a[i - 1] === 'Idle'));
+        // Loops that differ only in how often a skill repeats are one loop (Counter Slash x13 / x14 / x15
+        // in a Counter state that blocks keep stretching): shown at their most common count.
+        const key = steps.filter((id, i) => id !== steps[i - 1]).join(' → ');
         counts.set(key, (counts.get(key) ?? 0) + 1);
+        const v = variants.get(key) ?? new Map<string, number>();
+        v.set(steps.join(' → '), (v.get(steps.join(' → ')) ?? 0) + 1);
+        variants.set(key, v);
         for (const id of loop) if (!core(id)) fill.set(id, (fill.get(id) ?? 0) + 1);
         loops++;
       }
     }
   }
   const cycles = [...counts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 3)
-    .map(([key, c]) => ({ steps: key.split(' → '), share: c / loops }));
+    .map(([key, c]) => ({ steps: [...variants.get(key)!.entries()].sort((a, b) => b[1] - a[1])[0][0].split(' → '), share: c / loops }));
   const fillers = [...fill.entries()].sort((a, b) => b[1] - a[1])
     .map(([id, c]) => ({ id, perLoop: c / loops }));
 

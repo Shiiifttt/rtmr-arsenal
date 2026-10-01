@@ -30,6 +30,13 @@ for (const k of Object.values(KITS)) {
   for (const n of Object.keys(k.maxLevels())) names.add(n);
   for (const a of k.kit.actions) names.add(a.id);
 }
+// And what data/rotations.json lists that no kit names (the Satsujin's Focus bolts before the pull).
+const rotPath = resolve(REPO, 'data/rotations.json');
+if (existsSync(rotPath)) {
+  for (const c of Object.values(readJSON<{ classes: Record<string, { buffs: { skill: string }[] }> }>(rotPath).classes)) {
+    for (const b of c.buffs) names.add(b.skill);
+  }
+}
 const icons = [...new Set([...names].map((n) => iconOf.get(n)).filter((x): x is string => !!x))];
 let got = 0; let had = 0; const missing: string[] = [];
 for (const icon of icons) {

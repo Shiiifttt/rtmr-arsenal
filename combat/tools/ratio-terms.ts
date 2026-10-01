@@ -152,8 +152,14 @@ const BUFF_TERMS: Record<string, { buff: string; skills: string[]; term: (lv: nu
   ],
 };
 
+/** Tooltip lines the game gets wrong, as the project owner reads them in game (2026-10-02). */
+const TOOLTIP_FIX: Record<string, [string, string][]> = {
+  'Phantom Slice': [['100+20% +2% per Vit', '100+20% per level +2% per Vit']],
+};
+
 /** The skill's groups with the buffs' terms added to its main formula. */
 export function skillRatio(className: string, skill: string, desc: string, levels: Record<string, number>): Group[] | null {
+  for (const [a, b] of TOOLTIP_FIX[skill] ?? []) desc = desc.replace(a, b);
   const groups = ratioGroups(desc, levels[skill] ?? 0, levels);
   const main = groups.find((g) => g.main);
   if (!main) return null;

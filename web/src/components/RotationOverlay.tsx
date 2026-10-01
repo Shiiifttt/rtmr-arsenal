@@ -28,6 +28,8 @@ interface Mark { states: StatusMark[]; procs: string[] }
 interface Rotation {
   opener: string[];
   openerMarks?: Mark[];
+  /** The opener ends where the core loop takes over (it is shown up to there). */
+  intoLoop?: boolean;
   cycles: { steps: string[]; share: number; marks?: Mark[] }[];
   /** Off-loop casts per loop; `auto` ones the game makes by itself (Haunting Slice's Scythe Reap). */
   fillers: { id: string; perLoop: number; auto?: boolean }[];
@@ -166,7 +168,7 @@ export function RotationOverlay({
               </Section>
 
               <Section title="Opener">
-                <Chain steps={rot.opener} marks={rot.openerMarks} skills={data.skills} stats={stats} />
+                <Chain steps={rot.opener} marks={rot.openerMarks} skills={data.skills} stats={stats} into={rot.intoLoop && rot.cycles.length > 0} />
               </Section>
 
               {rot.cycles.length > 0 && (
@@ -317,6 +319,7 @@ function SkillTip({ rect, id, dmg, skills, stats, damage }: { rect: DOMRect; id:
   return (
     <Tip rect={rect} min={340}>
       <strong>{label}</strong>{s?.level ? <em> Lv {s.level}</em> : null}
+      {id === 'Idle' && <span className="rot-sum">Nothing to cast for a second or more: wait for the next skill to come off cooldown.</span>}
       {d && d.share > 0 && (
         <span className="rot-dmg">{(100 * d.share).toFixed(1)}% of your damage{d.perCast ? ` · ~${d.perCast.toLocaleString('en-US')} a cast` : ''}</span>
       )}
@@ -355,7 +358,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
  * tile; hovering an arrow shows the buffs, combo states and target debuffs
  * after the step before it, from one of the sim's fights.
  */
-function Chain({ steps, marks, skills, stats, loop, share }: { steps: string[]; marks?: Mark[]; skills: Record<string, SkillInfo>; stats: Record<Stat, number>; loop?: boolean; share?: number }) {
+function Chain({ steps, marks, skills, stats, loop, share, into }: { steps: string[]; marks?: Mark[]; skills: Record<string, SkillInfo>; stats: Record<Stat, number>; loop?: boolean; share?: number; into?: boolean }) {
   const damage = useContext(DamageCtx);
   const setHover = useContext(HoverCtx);
   const perCast = (id: string, auto?: boolean) => damage.get(auto ? autoKey(damage, id) : id)?.perCast ?? 0;
@@ -392,10 +395,18 @@ function Chain({ steps, marks, skills, stats, loop, share }: { steps: string[]; 
       {runs.map((r, i) => (
         <span className="rot-step" key={`${r.id}-${i}`}>
           {i > 0 && arrow(runs[i - 1], r.auto ? '⇢' : '→')}
-          <SkillTile id={r.id} skills={skills} stats={stats} part={total > 0 ? r.dmg / total : null} count={r.n} auto={r.auto} />
+          <SkillTile id={r.id} skills={skills} stats={stats} part={total > 0 && runs.length > 1 ? r.dmg / total : null} count={r.n} auto={r.auto} />
         </span>
       ))}
       {loop && runs.length > 0 && arrow(runs[runs.length - 1], '↻', 'then again')}
+      {into && runs.length > 0 && <span className="rot-step">{arrow(runs[runs.length - 1], '→')}
+        {/* A tile like the skills' (the project owner, 2026-10-02): on into the core loop below. */}
+        <span className="rot-cell" title="From here the core loop below">
+          <span className="rot-tile rot-into">↻</span>
+          <span className="rot-cap">Core loop</span>
+          <span className="rot-part" />
+        </span>
+      </span>}
     </div>
     </div>
   );
@@ -413,9 +424,11 @@ function SkillTile({ id, skills, part, count, auto, badge }: { id: string; skill
     <span className="rot-cell">
       <span className={`rot-tile${auto ? ' auto' : ''}`} tabIndex={0} aria-label={label}
         onMouseEnter={show} onFocus={show} onMouseLeave={() => setHover(null)} onBlur={() => setHover(null)}>
-        {s?.icon && !broken
-          ? <img src={`./images/skills/${s.icon}.png`} alt="" onError={() => setBroken(true)} />
-          : <span className="rot-ph">{initials}</span>}
+        {id === 'Idle'
+          ? <span className="rot-ph idle" aria-hidden>❚❚</span>
+          : s?.icon && !broken
+            ? <img src={`./images/skills/${s.icon}.png`} alt="" onError={() => setBroken(true)} />
+            : <span className="rot-ph">{initials}</span>}
         {auto && <span className="rot-badge" title="Cast by itself: set off by the step before it">AUTO</span>}
         {badge && <span className="rot-badge">{badge}</span>}
         {count !== undefined && count > 1 && <span className="rot-count" title={`${count} times in a row`}>×{count}</span>}

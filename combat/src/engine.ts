@@ -131,7 +131,12 @@ export interface Meter {
   minHp: number;
   /** Milliseconds a named state was up (a kit's debuff on the target: Night Wound). */
   uptime?: Record<string, number>;
+  /** Waiting since the last action (Wait in a row): 1 s or more shows as an Idle step. */
+  idleMs?: number;
 }
+
+/** Waits in a row this long show in the rotation as an Idle step (the project owner, 2026-10-02). */
+export const IDLE_STEP_MS = 1000;
 
 /** What a player can do. Kits (kits/*.ts) supply these. */
 export interface Action {
@@ -422,6 +427,15 @@ function complete(fight: Fight, a: Action) {
   me.busyUntil = fight.t + (a.delayMs?.(fight) ?? skillDelayMs(0, fight.f));
   me.last = a.id;
   const meter = fight.meter;
+  if (a.id === 'Wait') { if (meter) meter.idleMs = (meter.idleMs ?? 0) + (me.busyUntil - fight.t); }
+  else if (meter && !a.idle) {
+    // A stretch of waiting long enough to see: an Idle step ahead of what ends it.
+    if ((meter.idleMs ?? 0) >= IDLE_STEP_MS) {
+      meter.sequence.push('Idle');
+      fight.trace?.push({ id: 'Idle', t: fight.t, states: fight.kit.statuses?.(fight) ?? [], procs: [] });
+    }
+    meter.idleMs = 0;
+  }
   if (a.idle) return;
   if (meter) {
     const row = (meter.actions[a.id] ??= { uses: 0, hits: 0, misses: 0, crits: 0, damage: 0 });

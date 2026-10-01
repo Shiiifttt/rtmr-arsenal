@@ -1052,6 +1052,8 @@ input:focus, select:focus, button:focus-visible {
   letter-spacing: .04em; border: 1px solid var(--border-strong); pointer-events: none;
 }
 /* Arrows with the states after the step before them: hoverable, the count of what's up as a small superscript. */
+/* The opener's end: a tile on into the core loop. */
+.rot-tile.rot-into { cursor: default; border-style: dashed; color: var(--accent); font-size: 18px; }
 .rot-arrow.live { cursor: help; border-radius: 4px; outline: none; }
 .rot-arrow.live:hover, .rot-arrow.live:focus { color: var(--accent); background: var(--bg-input); }
 .rot-arrow sup { font-size: 8.5px; font-family: var(--mono); margin-left: 1px; color: var(--text-dim); }
@@ -1063,6 +1065,7 @@ input:focus, select:focus, button:focus-visible {
 .rot-state i { font-style: normal; font-family: var(--mono); color: var(--text); }
 .rot-state em { margin-left: auto; font-family: var(--mono); font-size: 10.5px; }
 .rot-ph { font-family: var(--mono); font-size: 10px; color: var(--text-dim); }
+.rot-ph.idle { font-size: 13px; letter-spacing: -2px; opacity: 0.7; }
 .rot-cell { display: inline-flex; flex-direction: column; align-items: center; gap: 3px; width: 62px; }
 .rot-cap {
   font-size: 10px; line-height: 1.15; color: var(--text-dim); text-align: center; max-width: 62px;

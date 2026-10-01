@@ -1,5 +1,5 @@
 {
- "builtAt": "2026-10-01T21:50:42.073Z",
+ "builtAt": "2026-10-01T23:20:35.878Z",
  "allroundVs": "Heartless",
  "dummySeconds": 10,
  "classes": {
@@ -16,10 +16,6 @@
      "Hellraiser",
      "Sweeping Slash",
      "Haunting Slice",
-     "Reaping Slash",
-     "Roaring Overslash",
-     "Phantom Slice",
-     "Reaping Slash",
      "Reaping Slash"
     ],
     "cycles": [
@@ -34,7 +30,7 @@
        "Reaping Slash",
        "Reaping Slash"
       ],
-      "share": 0.23,
+      "share": 0.3728813559322034,
       "marks": [
        {
         "states": [
@@ -193,183 +189,17 @@
      {
       "steps": [
        "Roaring Overslash",
-       "Reaping Slash",
-       "Reaping Slash",
        "Scythe Reap",
        "Reaping Slash",
        "Reaping Slash",
-       "Scythe Reap",
-       "Reaping Slash"
-      ],
-      "share": 0.19,
-      "marks": [
-       {
-        "states": [
-         {
-          "label": "Combo Ready",
-          "leftMs": 3460
-         },
-         {
-          "label": "Overslash",
-          "leftMs": 5730,
-          "stacks": 5
-         },
-         {
-          "label": "Ominous shield",
-          "leftMs": 30000,
-          "value": 17471
-         }
-        ],
-        "procs": []
-       },
-       {
-        "states": [
-         {
-          "label": "Combo Ready",
-          "leftMs": 2676
-         },
-         {
-          "label": "Overslash",
-          "leftMs": 6000,
-          "stacks": 5
-         },
-         {
-          "label": "Ominous shield",
-          "leftMs": 30000,
-          "value": 17471
-         }
-        ],
-        "procs": []
-       },
-       {
-        "states": [
-         {
-          "label": "Combo Ready",
-          "leftMs": 670
-         },
-         {
-          "label": "Overslash",
-          "leftMs": 6000,
-          "stacks": 5
-         },
-         {
-          "label": "Ominous shield",
-          "leftMs": 30000,
-          "value": 17471
-         }
-        ],
-        "procs": []
-       },
-       {
-        "states": [
-         {
-          "label": "Combo Ready",
-          "leftMs": 4000
-         },
-         {
-          "label": "Overslash",
-          "leftMs": 5730,
-          "stacks": 5
-         },
-         {
-          "label": "Ominous shield",
-          "leftMs": 30000,
-          "value": 17471
-         }
-        ],
-        "procs": []
-       },
-       {
-        "states": [
-         {
-          "label": "Combo Ready",
-          "leftMs": 3190
-         },
-         {
-          "label": "Overslash",
-          "leftMs": 6000,
-          "stacks": 5
-         },
-         {
-          "label": "Ominous shield",
-          "leftMs": 30000,
-          "value": 17471
-         }
-        ],
-        "procs": []
-       },
-       {
-        "states": [
-         {
-          "label": "Combo Ready",
-          "leftMs": 2190
-         },
-         {
-          "label": "Overslash",
-          "leftMs": 6000,
-          "stacks": 5
-         },
-         {
-          "label": "Ominous shield",
-          "leftMs": 30000,
-          "value": 9503
-         }
-        ],
-        "procs": []
-       },
-       {
-        "states": [
-         {
-          "label": "Combo Ready",
-          "leftMs": 4000
-         },
-         {
-          "label": "Overslash",
-          "leftMs": 5730,
-          "stacks": 5
-         },
-         {
-          "label": "Ominous shield",
-          "leftMs": 30000,
-          "value": 10552
-         }
-        ],
-        "procs": []
-       },
-       {
-        "states": [
-         {
-          "label": "Combo Ready",
-          "leftMs": 3270
-         },
-         {
-          "label": "Overslash",
-          "leftMs": 6000,
-          "stacks": 5
-         },
-         {
-          "label": "Ominous shield",
-          "leftMs": 30000,
-          "value": 6878
-         }
-        ],
-        "procs": []
-       }
-      ]
-     },
-     {
-      "steps": [
-       "Roaring Overslash",
-       "Scythe Reap",
-       "Reaping Slash",
-       "Reaping Slash",
+       "Idle",
        "Reaping Slash",
        "Scythe Reap",
        "Reaping Slash",
        "Reaping Slash",
        "Scythe Reap"
       ],
-      "share": 0.15,
+      "share": 0.13559322033898305,
       "marks": [
        {
         "states": [
@@ -442,6 +272,27 @@
          {
           "label": "Ominous shield",
           "leftMs": 30000,
+          "value": 17471
+         }
+        ],
+        "procs": [
+         "Scythe Reap"
+        ]
+       },
+       {
+        "states": [
+         {
+          "label": "Combo Ready",
+          "leftMs": 1134
+         },
+         {
+          "label": "Overslash",
+          "leftMs": 3864,
+          "stacks": 5
+         },
+         {
+          "label": "Ominous shield",
+          "leftMs": 27864,
           "value": 17471
          }
         ],
@@ -538,6 +389,193 @@
           "label": "Ominous shield",
           "leftMs": 30000,
           "value": 12611
+         }
+        ],
+        "procs": []
+       }
+      ]
+     },
+     {
+      "steps": [
+       "Roaring Overslash",
+       "Reaping Slash",
+       "Reaping Slash",
+       "Scythe Reap",
+       "Reaping Slash",
+       "Reaping Slash",
+       "Scythe Reap",
+       "Reaping Slash",
+       "Idle"
+      ],
+      "share": 0.11864406779661017,
+      "marks": [
+       {
+        "states": [
+         {
+          "label": "Combo Ready",
+          "leftMs": 3460
+         },
+         {
+          "label": "Overslash",
+          "leftMs": 5730,
+          "stacks": 5
+         },
+         {
+          "label": "Ominous shield",
+          "leftMs": 30000,
+          "value": 16778
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Combo Ready",
+          "leftMs": 2676
+         },
+         {
+          "label": "Overslash",
+          "leftMs": 6000,
+          "stacks": 5
+         },
+         {
+          "label": "Ominous shield",
+          "leftMs": 30000,
+          "value": 17471
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Combo Ready",
+          "leftMs": 642
+         },
+         {
+          "label": "Overslash",
+          "leftMs": 6000,
+          "stacks": 5
+         },
+         {
+          "label": "Ominous shield",
+          "leftMs": 27966,
+          "value": 17471
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Combo Ready",
+          "leftMs": 4000
+         },
+         {
+          "label": "Overslash",
+          "leftMs": 5730,
+          "stacks": 5
+         },
+         {
+          "label": "Ominous shield",
+          "leftMs": 30000,
+          "value": 17471
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Combo Ready",
+          "leftMs": 3190
+         },
+         {
+          "label": "Overslash",
+          "leftMs": 6000,
+          "stacks": 5
+         },
+         {
+          "label": "Ominous shield",
+          "leftMs": 30000,
+          "value": 13887
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Combo Ready",
+          "leftMs": 2190
+         },
+         {
+          "label": "Overslash",
+          "leftMs": 6000,
+          "stacks": 5
+         },
+         {
+          "label": "Ominous shield",
+          "leftMs": 30000,
+          "value": 15358
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Combo Ready",
+          "leftMs": 4000
+         },
+         {
+          "label": "Overslash",
+          "leftMs": 5730,
+          "stacks": 5
+         },
+         {
+          "label": "Ominous shield",
+          "leftMs": 30000,
+          "value": 16686
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Combo Ready",
+          "leftMs": 3270
+         },
+         {
+          "label": "Overslash",
+          "leftMs": 6000,
+          "stacks": 5
+         },
+         {
+          "label": "Ominous shield",
+          "leftMs": 30000,
+          "value": 17471
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Combo Ready",
+          "leftMs": 608
+         },
+         {
+          "label": "Overslash",
+          "leftMs": 3338,
+          "stacks": 5
+         },
+         {
+          "label": "Ominous shield",
+          "leftMs": 27608,
+          "value": 17471
          }
         ],
         "procs": []
@@ -761,84 +799,9 @@
        }
       ],
       "procs": []
-     },
-     {
-      "states": [
-       {
-        "label": "Combo Ready",
-        "leftMs": 3460
-       },
-       {
-        "label": "Overslash",
-        "leftMs": 5730,
-        "stacks": 5
-       },
-       {
-        "label": "Ominous shield",
-        "leftMs": 30000,
-        "value": 17471
-       }
-      ],
-      "procs": []
-     },
-     {
-      "states": [
-       {
-        "label": "Combo Ready",
-        "leftMs": 2946
-       },
-       {
-        "label": "Overslash",
-        "leftMs": 5216,
-        "stacks": 5
-       },
-       {
-        "label": "Ominous shield",
-        "leftMs": 30000,
-        "value": 17471
-       }
-      ],
-      "procs": []
-     },
-     {
-      "states": [
-       {
-        "label": "Combo Ready",
-        "leftMs": 2676
-       },
-       {
-        "label": "Overslash",
-        "leftMs": 6000,
-        "stacks": 5
-       },
-       {
-        "label": "Ominous shield",
-        "leftMs": 30000,
-        "value": 17471
-       }
-      ],
-      "procs": []
-     },
-     {
-      "states": [
-       {
-        "label": "Combo Ready",
-        "leftMs": 670
-       },
-       {
-        "label": "Overslash",
-        "leftMs": 6000,
-        "stacks": 5
-       },
-       {
-        "label": "Ominous shield",
-        "leftMs": 30000,
-        "value": 17471
-       }
-      ],
-      "procs": []
      }
-    ]
+    ],
+    "intoLoop": true
    },
    "dummy": {
     "seconds": 10,
@@ -878,11 +841,7 @@
      "Hellraiser",
      "Sweeping Slash",
      "Haunting Slice",
-     "Reaping Slash",
-     "Roaring Overslash",
-     "Dark Message",
-     "Reaping Slash",
-     "Underworld Rainstorm"
+     "Reaping Slash"
     ],
     "cycles": [
      {
@@ -1361,101 +1320,9 @@
        }
       ],
       "procs": []
-     },
-     {
-      "states": [
-       {
-        "label": "Combo Ready",
-        "leftMs": 3460
-       },
-       {
-        "label": "Overslash",
-        "leftMs": 5730,
-        "stacks": 5
-       },
-       {
-        "label": "Ominous shield",
-        "leftMs": 30000,
-        "value": 17471
-       }
-      ],
-      "procs": []
-     },
-     {
-      "states": [
-       {
-        "label": "Combo Ready",
-        "leftMs": 5000
-       },
-       {
-        "label": "Overslash",
-        "leftMs": 5034,
-        "stacks": 5
-       },
-       {
-        "label": "Cast Ready",
-        "leftMs": 5000
-       },
-       {
-        "label": "Ominous shield",
-        "leftMs": 30000,
-        "value": 17471
-       }
-      ],
-      "procs": []
-     },
-     {
-      "states": [
-       {
-        "label": "Combo Ready",
-        "leftMs": 4730
-       },
-       {
-        "label": "Overslash",
-        "leftMs": 6000,
-        "stacks": 5
-       },
-       {
-        "label": "Cast Ready",
-        "leftMs": 4730
-       },
-       {
-        "label": "Ominous shield",
-        "leftMs": 30000,
-        "value": 17471
-       }
-      ],
-      "procs": []
-     },
-     {
-      "states": [
-       {
-        "label": "Combo Ready",
-        "leftMs": 4119
-       },
-       {
-        "label": "Overslash",
-        "leftMs": 5389,
-        "stacks": 5
-       },
-       {
-        "label": "Cast Ready",
-        "leftMs": 4119
-       },
-       {
-        "label": "Ominous shield",
-        "leftMs": 29389,
-        "value": 17471
-       },
-       {
-        "label": "Underworld Rainstorm",
-        "onTarget": true,
-        "leftMs": 3000
-       }
-      ],
-      "procs": []
      }
-    ]
+    ],
+    "intoLoop": true
    },
    "buffs": [
     {
@@ -1798,7 +1665,7 @@
      "name": "Phantom Slice",
      "icon": "RK_PHANTOMTHRUST",
      "level": 5,
-     "desc": "You throw your scythe at a distant enemy and pull it close to you. Can be used on a party member, but then deals no damage.\nDamage: 100% + 20% + 2% per VIT\nRange: 3 cells + 1 per level\nCooldown: 1 s",
+     "desc": "You throw your scythe at a distant enemy and pull it close to you. Can be used on a party member, but then deals no damage.\nDamage: 100% + 20% per level + 2% per VIT\nRange: 3 cells + 1 per level\nCooldown: 1 s",
      "summary": "Ranged scythe throw that pulls the target in. A cheap 1-second-cooldown filler between combos.",
      "scalings": [
       {
@@ -1820,8 +1687,8 @@
          "value": 100
         },
         {
-         "text": "+20%",
-         "value": 20
+         "text": "+20% per level (5)",
+         "value": 100
         },
         {
          "text": "+2% per VIT",
@@ -1927,7 +1794,7 @@
      "name": "Underworld Rainstorm",
      "icon": "WM_SEVERE_RAINSTORM",
      "level": 10,
-     "desc": "You summon a rain of rays from the underworld that keeps striking enemies in an 11x11 area for 3 s.\nDamage: 2% per level + 1% per 2 LUK and INT\n+4% damage per Overslash stack.\nEnemies are hit every 0.2 s for the 3 s duration.\nNever misses.\nThe cast can't be interrupted, but your defences are halved while casting.\nRequires a Shadow Orb.\nCast: 5 s variable + 0.5 s fixed\nCooldown: 12 s",
+     "desc": "You summon a rain of rays from the underworld that keeps striking enemies in an 11x11 area for 3 s.\nDamage: 2% per level + 1% per 2 points of LUK and INT combined\n+4% damage per Overslash stack.\nEnemies are hit every 0.2 s for the 3 s duration.\nNever misses.\nThe cast can't be interrupted, but your defences are halved while casting.\nRequires a Shadow Orb.\nCast: 5 s variable + 0.5 s fixed\nCooldown: 12 s",
      "summary": "Rain of hits on an 11x11 area for 3 s, +4% per Overslash stack. Its 5 s cast is cut by Dark Message's Cast Ready or removed by Royal Scythe.",
      "scalings": [
       {
@@ -2059,16 +1926,7 @@
    "allround": {
     "vs": "Heartless",
     "opener": [
-     "Shadow Slash",
-     "New Moon",
-     "Full Moon",
-     "Million Stab",
-     "Thousand Arms",
-     "Dragon Omamori",
-     "Omamori Jutsu",
-     "Full Moon",
-     "Attack",
-     "Thousand Arms"
+     "Shadow Slash"
     ],
     "cycles": [
      {
@@ -2081,7 +1939,7 @@
        "Full Moon",
        "Million Stab"
       ],
-      "share": 0.47,
+      "share": 0.4918032786885246,
       "marks": [
        {
         "states": [
@@ -2229,7 +2087,7 @@
        "Full Moon",
        "Million Stab"
       ],
-      "share": 0.35,
+      "share": 0.4262295081967213,
       "marks": [
        {
         "states": [
@@ -2363,7 +2221,7 @@
        "Dragon Omamori",
        "Million Stab"
       ],
-      "share": 0.1,
+      "share": 0.03278688524590164,
       "marks": [
        {
         "states": [
@@ -2598,179 +2456,9 @@
        }
       ],
       "procs": []
-     },
-     {
-      "states": [
-       {
-        "label": "Invisible (New Moon)",
-        "leftMs": 5000
-       },
-       {
-        "label": "Hallucination Walk",
-        "leftMs": 49498
-       },
-       {
-        "label": "Elemental Focus",
-        "stacks": 10,
-        "leftMs": 59498
-       }
-      ],
-      "procs": []
-     },
-     {
-      "states": [
-       {
-        "label": "Combo Ready",
-        "leftMs": 5000
-       },
-       {
-        "label": "Hallucination Walk",
-        "leftMs": 49318
-       },
-       {
-        "label": "Elemental Focus",
-        "stacks": 10,
-        "leftMs": 59318
-       }
-      ],
-      "procs": []
-     },
-     {
-      "states": [
-       {
-        "label": "Combo Ready",
-        "leftMs": 4788
-       },
-       {
-        "label": "Hallucination Walk",
-        "leftMs": 49106
-       },
-       {
-        "label": "Elemental Focus",
-        "stacks": 10,
-        "leftMs": 59106
-       }
-      ],
-      "procs": []
-     },
-     {
-      "states": [
-       {
-        "label": "Combo Ready",
-        "leftMs": 4608
-       },
-       {
-        "label": "Hallucination Walk",
-        "leftMs": 48926
-       },
-       {
-        "label": "Elemental Focus",
-        "stacks": 10,
-        "leftMs": 58926
-       }
-      ],
-      "procs": []
-     },
-     {
-      "states": [
-       {
-        "label": "Combo Ready",
-        "leftMs": 4267
-       },
-       {
-        "label": "Hallucination Walk",
-        "leftMs": 48585
-       },
-       {
-        "label": "Dragon Omamori talisman",
-        "leftMs": 50000,
-        "onTarget": true
-       },
-       {
-        "label": "Elemental Focus",
-        "stacks": 10,
-        "leftMs": 58585
-       }
-      ],
-      "procs": []
-     },
-     {
-      "states": [
-       {
-        "label": "Combo Ready",
-        "leftMs": 4087
-       },
-       {
-        "label": "Invisible (New Moon)",
-        "leftMs": 5000
-       },
-       {
-        "label": "Hallucination Walk",
-        "leftMs": 48405
-       },
-       {
-        "label": "Elemental Focus",
-        "stacks": 10,
-        "leftMs": 58405
-       }
-      ],
-      "procs": []
-     },
-     {
-      "states": [
-       {
-        "label": "Combo Ready",
-        "leftMs": 5000
-       },
-       {
-        "label": "Hallucination Walk",
-        "leftMs": 48225
-       },
-       {
-        "label": "Elemental Focus",
-        "stacks": 10,
-        "leftMs": 58225
-       }
-      ],
-      "procs": []
-     },
-     {
-      "states": [
-       {
-        "label": "Combo Ready",
-        "leftMs": 4820
-       },
-       {
-        "label": "Hallucination Walk",
-        "leftMs": 48045
-       },
-       {
-        "label": "Elemental Focus",
-        "stacks": 10,
-        "leftMs": 58045
-       }
-      ],
-      "procs": []
-     },
-     {
-      "states": [
-       {
-        "label": "Combo Ready",
-        "leftMs": 2495
-       },
-       {
-        "label": "Hallucination Walk",
-        "leftMs": 45720
-       },
-       {
-        "label": "Elemental Focus",
-        "stacks": 10,
-        "leftMs": 55720
-       }
-      ],
-      "procs": []
      }
-    ]
+    ],
+    "intoLoop": true
    },
    "dummy": {
     "seconds": 10,
@@ -2805,15 +2493,7 @@
     },
     "opener": [
      "Shadow Slash",
-     "Attack",
-     "New Moon",
-     "Full Moon",
-     "Attack",
-     "Thousand Arms",
-     "Million Stab",
-     "Attack",
-     "Dragon Omamori",
-     "Omamori Jutsu"
+     "Attack"
     ],
     "cycles": [
      {
@@ -3118,161 +2798,9 @@
        }
       ],
       "procs": []
-     },
-     {
-      "states": [
-       {
-        "label": "Invisible (New Moon)",
-        "leftMs": 5000
-       },
-       {
-        "label": "Hallucination Walk",
-        "leftMs": 49498
-       },
-       {
-        "label": "Elemental Focus",
-        "stacks": 10,
-        "leftMs": 59498
-       }
-      ],
-      "procs": []
-     },
-     {
-      "states": [
-       {
-        "label": "Combo Ready",
-        "leftMs": 5000
-       },
-       {
-        "label": "Hallucination Walk",
-        "leftMs": 49318
-       },
-       {
-        "label": "Elemental Focus",
-        "stacks": 10,
-        "leftMs": 59318
-       }
-      ],
-      "procs": []
-     },
-     {
-      "states": [
-       {
-        "label": "Combo Ready",
-        "leftMs": 4820
-       },
-       {
-        "label": "Hallucination Walk",
-        "leftMs": 49138
-       },
-       {
-        "label": "Elemental Focus",
-        "stacks": 10,
-        "leftMs": 59138
-       }
-      ],
-      "procs": []
-     },
-     {
-      "states": [
-       {
-        "label": "Combo Ready",
-        "leftMs": 4820
-       },
-       {
-        "label": "Hallucination Walk",
-        "leftMs": 49138
-       },
-       {
-        "label": "Elemental Focus",
-        "stacks": 10,
-        "leftMs": 59138
-       }
-      ],
-      "procs": []
-     },
-     {
-      "states": [
-       {
-        "label": "Combo Ready",
-        "leftMs": 4608
-       },
-       {
-        "label": "Hallucination Walk",
-        "leftMs": 48926
-       },
-       {
-        "label": "Elemental Focus",
-        "stacks": 10,
-        "leftMs": 58926
-       }
-      ],
-      "procs": []
-     },
-     {
-      "states": [
-       {
-        "label": "Combo Ready",
-        "leftMs": 4428
-       },
-       {
-        "label": "Hallucination Walk",
-        "leftMs": 48746
-       },
-       {
-        "label": "Elemental Focus",
-        "stacks": 10,
-        "leftMs": 58746
-       }
-      ],
-      "procs": []
-     },
-     {
-      "states": [
-       {
-        "label": "Combo Ready",
-        "leftMs": 4267
-       },
-       {
-        "label": "Hallucination Walk",
-        "leftMs": 48585
-       },
-       {
-        "label": "Dragon Omamori talisman",
-        "leftMs": 50000,
-        "onTarget": true
-       },
-       {
-        "label": "Elemental Focus",
-        "stacks": 10,
-        "leftMs": 58585
-       }
-      ],
-      "procs": []
-     },
-     {
-      "states": [
-       {
-        "label": "Combo Ready",
-        "leftMs": 4087
-       },
-       {
-        "label": "Invisible (New Moon)",
-        "leftMs": 5000
-       },
-       {
-        "label": "Hallucination Walk",
-        "leftMs": 48405
-       },
-       {
-        "label": "Elemental Focus",
-        "stacks": 10,
-        "leftMs": 58405
-       }
-      ],
-      "procs": []
      }
-    ]
+    ],
+    "intoLoop": true
    },
    "buffs": [
     {
@@ -3299,6 +2827,27 @@
      "dpsGain": 0,
      "required": false,
      "vsGain": 0.041
+    },
+    {
+     "skill": "Wind Blade",
+     "icon": "NJ_HUUJIN",
+     "dpsGain": 0.083,
+     "required": false,
+     "optional": true
+    },
+    {
+     "skill": "Flaming Petals",
+     "icon": "NJ_KOUENKA",
+     "dpsGain": 0.083,
+     "required": false,
+     "optional": true
+    },
+    {
+     "skill": "Freezing Spear",
+     "icon": "NJ_HYOUSENSOU",
+     "dpsGain": 0.083,
+     "required": false,
+     "optional": true
     }
    ],
    "skills": {
@@ -3518,47 +3067,6 @@
       }
      ]
     },
-    "Thousand Arms": {
-     "name": "Thousand Arms",
-     "icon": "SR_SKYNETBLOW",
-     "level": 5,
-     "desc": "You spin quickly, hitting all enemies in a 7x7 area around you several times.\nDamage: 200% + 20% per level + 5% per AGI\nCooldown: 3 s\nCost: also 5% of current HP",
-     "summary": "7x7 spin filler between Moon combos; costs 5% current HP.",
-     "scalings": [
-      {
-       "per": 5,
-       "every": 1,
-       "stats": [
-        "AGI"
-       ],
-       "text": "+5% per Agi"
-      }
-     ],
-     "ratio": [
-      {
-       "label": "Damage",
-       "main": true,
-       "terms": [
-        {
-         "text": "200%",
-         "value": 200
-        },
-        {
-         "text": "+20% per level (5)",
-         "value": 100
-        },
-        {
-         "text": "+5% per AGI",
-         "stats": [
-          "AGI"
-         ],
-         "per": 5,
-         "every": 1
-        }
-       ]
-      }
-     ]
-    },
     "Dragon Omamori": {
      "name": "Dragon Omamori",
      "icon": "RL_H_MINE",
@@ -3654,6 +3162,47 @@
      "scalings": [],
      "ratio": null
     },
+    "Thousand Arms": {
+     "name": "Thousand Arms",
+     "icon": "SR_SKYNETBLOW",
+     "level": 5,
+     "desc": "You spin quickly, hitting all enemies in a 7x7 area around you several times.\nDamage: 200% + 20% per level + 5% per AGI\nCooldown: 3 s\nCost: also 5% of current HP",
+     "summary": "7x7 spin filler between Moon combos; costs 5% current HP.",
+     "scalings": [
+      {
+       "per": 5,
+       "every": 1,
+       "stats": [
+        "AGI"
+       ],
+       "text": "+5% per Agi"
+      }
+     ],
+     "ratio": [
+      {
+       "label": "Damage",
+       "main": true,
+       "terms": [
+        {
+         "text": "200%",
+         "value": 200
+        },
+        {
+         "text": "+20% per level (5)",
+         "value": 100
+        },
+        {
+         "text": "+5% per AGI",
+         "stats": [
+          "AGI"
+         ],
+         "per": 5,
+         "every": 1
+        }
+       ]
+      }
+     ]
+    },
     "Kawarimi": {
      "name": "Kawarimi",
      "icon": "NJ_UTSUSEMI",
@@ -3743,6 +3292,33 @@
      "summary": null,
      "scalings": [],
      "ratio": null
+    },
+    "Wind Blade": {
+     "name": "Wind Blade",
+     "icon": "NJ_HUUJIN",
+     "level": 10,
+     "desc": "You strike with Wind magic: 50% MATK a hit, 1 hit per level (up to 10).\nElemental Focus gained: 1 at Lv 1-3, 3 at Lv 4-6, 5 at Lv 7-10; up to 10 stacks, 60 s each.\nEach Wind Focus stack: +7% magic damage of that element; half for stacks of another element.\nChanging element converts the existing stacks (they keep their time left); the new cast still adds its own.\nAt the cap, new stacks replace the oldest; only those get a fresh duration.\nAt max Wind Focus: your weapon takes the Wind element and deals +10% damage vs Water.\nThe cast can't be interrupted.\nCast: 0.25 s to 7 s variable + 0.075 s to 0.75 s fixed, rising with level (SP cost too)\nCooldown: 0.5 s + 0.25 s per level",
+     "summary": "Cast twice before the pull for 10 Wind Focus stacks when Seven Winds is on Wind: the Moon skills gain damage per Focus stack.",
+     "scalings": [],
+     "ratio": null
+    },
+    "Flaming Petals": {
+     "name": "Flaming Petals",
+     "icon": "NJ_KOUENKA",
+     "level": 10,
+     "desc": "You strike with Fire magic: 50% MATK a hit, 1 hit per level (up to 10).\nElemental Focus gained: 1 at Lv 1-3, 3 at Lv 4-6, 5 at Lv 7-10; up to 10 stacks, 60 s each.\nEach Fire Focus stack: +7% magic damage of that element; half for stacks of another element.\nChanging element converts the existing stacks (they keep their time left); the new cast still adds its own.\nAt the cap, new stacks replace the oldest; only those get a fresh duration.\nAt max Fire Focus: your weapon takes the Fire element and deals +10% damage vs Earth.\nThe cast can't be interrupted.\nCast: 0.25 s to 7 s variable + 0.075 s to 0.75 s fixed, rising with level (SP cost too)\nCooldown: 0.5 s + 0.25 s per level",
+     "summary": "Cast twice before the pull for 10 Fire Focus stacks when Seven Winds is on Fire: the Moon skills gain damage per Focus stack.",
+     "scalings": [],
+     "ratio": null
+    },
+    "Freezing Spear": {
+     "name": "Freezing Spear",
+     "icon": "NJ_HYOUSENSOU",
+     "level": 10,
+     "desc": "You strike with Water magic: 50% MATK a hit, 1 hit per level (up to 10).\nElemental Focus gained: 1 at Lv 1-3, 3 at Lv 4-6, 5 at Lv 7-10; up to 10 stacks, 60 s each.\nEach Water Focus stack: +7% magic damage of that element; half for stacks of another element.\nChanging element converts the existing stacks (they keep their time left); the new cast still adds its own.\nAt the cap, new stacks replace the oldest; only those get a fresh duration.\nAt max Water Focus: your weapon takes the Water element and deals +10% damage vs Fire.\nThe cast can't be interrupted.\nCast: 0.25 s to 7 s variable + 0.075 s to 0.75 s fixed, rising with level (SP cost too)\nCooldown: 0.5 s + 0.25 s per level",
+     "summary": "Cast twice before the pull for 10 Water Focus stacks when Seven Winds is on Water: the Moon skills gain damage per Focus stack.",
+     "scalings": [],
+     "ratio": null
     }
    }
   },
@@ -3754,24 +3330,34 @@
    "allround": {
     "vs": "Heartless",
     "opener": [
-     "Bishop's Tax",
-     "Shield Boomerang",
-     "King's Chains",
-     "Rook's Smash",
-     "Shield Boomerang",
-     "Shield Boomerang",
-     "Shield Boomerang",
-     "King's Chains",
-     "Rook's Smash",
-     "Decoy"
+     "Bishop's Tax"
     ],
     "cycles": [
      {
       "steps": [
-       "Shield Boomerang"
+       "Shield Boomerang",
+       "Idle"
       ],
-      "share": 0.52,
+      "share": 0.4095238095238095,
       "marks": [
+       {
+        "states": [
+         {
+          "label": "Duel Counters",
+          "stacks": 9
+         },
+         {
+          "label": "Boomerang → Chains combo",
+          "leftMs": 3000
+         },
+         {
+          "label": "Bishop's Tax",
+          "leftMs": 8380,
+          "onTarget": true
+         }
+        ],
+        "procs": []
+       },
        {
         "states": [
          {
@@ -3780,20 +3366,11 @@
          },
          {
           "label": "Boomerang → Chains combo",
-          "leftMs": 3000
-         },
-         {
-          "label": "King's Gambit",
-          "leftMs": 2360
-         },
-         {
-          "label": "Queen's Barrier",
-          "leftMs": 13360,
-          "value": 2579
+          "leftMs": 500
          },
          {
           "label": "Bishop's Tax",
-          "leftMs": 10880,
+          "leftMs": 5880,
           "onTarget": true
          }
         ],
@@ -3806,7 +3383,7 @@
        "Shield Boomerang",
        "King's Chains"
       ],
-      "share": 0.2,
+      "share": 0.14603174603174604,
       "marks": [
        {
         "states": [
@@ -3819,17 +3396,8 @@
           "leftMs": 3000
          },
          {
-          "label": "King's Gambit",
-          "leftMs": 2360
-         },
-         {
-          "label": "Queen's Barrier",
-          "leftMs": 13360,
-          "value": 2579
-         },
-         {
           "label": "Bishop's Tax",
-          "leftMs": 10880,
+          "leftMs": 1648,
           "onTarget": true
          }
         ],
@@ -3843,16 +3411,11 @@
          },
          {
           "label": "King's Gambit",
-          "leftMs": 1660
-         },
-         {
-          "label": "Queen's Barrier",
-          "leftMs": 12660,
-          "value": 2579
+          "leftMs": 3300
          },
          {
           "label": "Bishop's Tax",
-          "leftMs": 10180,
+          "leftMs": 9406,
           "onTarget": true
          }
         ],
@@ -3863,10 +3426,9 @@
      {
       "steps": [
        "Shield Boomerang",
-       "King's Chains",
        "Rook's Smash"
       ],
-      "share": 0.15,
+      "share": 0.13015873015873017,
       "marks": [
        {
         "states": [
@@ -3880,16 +3442,11 @@
          },
          {
           "label": "King's Gambit",
-          "leftMs": 2360
-         },
-         {
-          "label": "Queen's Barrier",
-          "leftMs": 13360,
-          "value": 2579
+          "leftMs": 2780
          },
          {
           "label": "Bishop's Tax",
-          "leftMs": 10880,
+          "leftMs": 8886,
           "onTarget": true
          }
         ],
@@ -3899,38 +3456,19 @@
         "states": [
          {
           "label": "Duel Counters",
-          "stacks": 9
+          "stacks": 10
+         },
+         {
+          "label": "Boomerang → Chains combo",
+          "leftMs": 2480
          },
          {
           "label": "King's Gambit",
-          "leftMs": 1660
-         },
-         {
-          "label": "Queen's Barrier",
-          "leftMs": 12660,
-          "value": 2579
+          "leftMs": 2260
          },
          {
           "label": "Bishop's Tax",
-          "leftMs": 10180,
-          "onTarget": true
-         }
-        ],
-        "procs": []
-       },
-       {
-        "states": [
-         {
-          "label": "Duel Counters",
-          "stacks": 9
-         },
-         {
-          "label": "King's Gambit",
-          "leftMs": 1140
-         },
-         {
-          "label": "Bishop's Tax",
-          "leftMs": 9660,
+          "leftMs": 8366,
           "onTarget": true
          }
         ],
@@ -3943,11 +3481,11 @@
     "roles": [
      {
       "role": "Shield",
-      "share": 0.78
+      "share": 0.75
      },
      {
       "role": "Counters",
-      "share": 0.2
+      "share": 0.23
      },
      {
       "role": "Openers",
@@ -3961,28 +3499,28 @@
     "damage": [
      {
       "id": "King's Chains",
-      "share": 0.48,
-      "perCast": 30669
+      "share": 0.463,
+      "perCast": 30524
      },
      {
       "id": "Shield Boomerang",
-      "share": 0.304,
-      "perCast": 6718
+      "share": 0.292,
+      "perCast": 6704
      },
      {
       "id": "Rook's Smash",
-      "share": 0.2,
-      "perCast": 15896
+      "share": 0.229,
+      "perCast": 18754
      },
      {
       "id": "Bishop's Tax",
-      "share": 0.014,
-      "perCast": 1574
+      "share": 0.013,
+      "perCast": 1572
      },
      {
       "id": "Decoy",
       "share": 0.003,
-      "perCast": 1606
+      "perCast": 1595
      }
     ],
     "prep": [
@@ -3995,7 +3533,7 @@
      "Queen's Barrier (5 hits)",
      "Bulwark Gem combo"
     ],
-    "dps": 7788,
+    "dps": 8063,
     "uptime": {},
     "openerMarks": [
      {
@@ -4020,175 +3558,9 @@
        }
       ],
       "procs": []
-     },
-     {
-      "states": [
-       {
-        "label": "Duel Counters",
-        "stacks": 10
-       },
-       {
-        "label": "Boomerang → Chains combo",
-        "leftMs": 3000
-       },
-       {
-        "label": "King's Gambit",
-        "leftMs": 2360
-       },
-       {
-        "label": "Queen's Barrier",
-        "leftMs": 13360,
-        "value": 2579
-       },
-       {
-        "label": "Bishop's Tax",
-        "leftMs": 10880,
-        "onTarget": true
-       }
-      ],
-      "procs": []
-     },
-     {
-      "states": [
-       {
-        "label": "Duel Counters",
-        "stacks": 9
-       },
-       {
-        "label": "King's Gambit",
-        "leftMs": 1660
-       },
-       {
-        "label": "Queen's Barrier",
-        "leftMs": 12660,
-        "value": 2579
-       },
-       {
-        "label": "Bishop's Tax",
-        "leftMs": 10180,
-        "onTarget": true
-       }
-      ],
-      "procs": []
-     },
-     {
-      "states": [
-       {
-        "label": "Duel Counters",
-        "stacks": 9
-       },
-       {
-        "label": "King's Gambit",
-        "leftMs": 1140
-       },
-       {
-        "label": "Bishop's Tax",
-        "leftMs": 9660,
-        "onTarget": true
-       }
-      ],
-      "procs": []
-     },
-     {
-      "states": [
-       {
-        "label": "Duel Counters",
-        "stacks": 9
-       },
-       {
-        "label": "Boomerang → Chains combo",
-        "leftMs": 3000
-       },
-       {
-        "label": "Bishop's Tax",
-        "leftMs": 8380,
-        "onTarget": true
-       }
-      ],
-      "procs": []
-     },
-     {
-      "states": [
-       {
-        "label": "Duel Counters",
-        "stacks": 10
-       },
-       {
-        "label": "Boomerang → Chains combo",
-        "leftMs": 3000
-       },
-       {
-        "label": "Bishop's Tax",
-        "leftMs": 5880,
-        "onTarget": true
-       }
-      ],
-      "procs": []
-     },
-     {
-      "states": [
-       {
-        "label": "Duel Counters",
-        "stacks": 9
-       },
-       {
-        "label": "Boomerang → Chains combo",
-        "leftMs": 3000
-       },
-       {
-        "label": "Bishop's Tax",
-        "leftMs": 3380,
-        "onTarget": true
-       }
-      ],
-      "procs": []
-     },
-     {
-      "states": [
-       {
-        "label": "Duel Counters",
-        "stacks": 9
-       },
-       {
-        "label": "Bishop's Tax",
-        "leftMs": 2000,
-        "onTarget": true
-       }
-      ],
-      "procs": []
-     },
-     {
-      "states": [
-       {
-        "label": "Duel Counters",
-        "stacks": 9
-       },
-       {
-        "label": "Bishop's Tax",
-        "leftMs": 1480,
-        "onTarget": true
-       }
-      ],
-      "procs": []
-     },
-     {
-      "states": [
-       {
-        "label": "Duel Counters",
-        "stacks": 10
-       },
-       {
-        "label": "King's Gambit",
-        "leftMs": 3098
-       },
-       {
-        "label": "Hiding",
-        "leftMs": 1000
-       }
-      ],
-      "procs": []
      }
-    ]
+    ],
+    "intoLoop": true
    },
    "dummy": {
     "seconds": 10,
@@ -4227,28 +3599,21 @@
      "tankShare": 0.4
     },
     "opener": [
-     "Bishop's Tax",
-     "Shield Boomerang",
-     "King's Chains",
-     "Rook's Smash",
-     "Shield Boomerang",
-     "Shield Boomerang",
-     "Shield Boomerang",
-     "King's Chains",
-     "Rook's Smash"
+     "Bishop's Tax"
     ],
     "cycles": [
      {
       "steps": [
-       "Shield Boomerang"
+       "Shield Boomerang",
+       "Idle"
       ],
-      "share": 0.67,
+      "share": 0.6666666666666666,
       "marks": [
        {
         "states": [
          {
           "label": "Duel Counters",
-          "stacks": 10
+          "stacks": 9
          },
          {
           "label": "Boomerang → Chains combo",
@@ -4256,12 +3621,35 @@
          },
          {
           "label": "Queen's Barrier",
-          "leftMs": 14480,
+          "leftMs": 11980,
           "value": 3487
          },
          {
           "label": "Bishop's Tax",
-          "leftMs": 11480,
+          "leftMs": 8980,
+          "onTarget": true
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Duel Counters",
+          "stacks": 9
+         },
+         {
+          "label": "Boomerang → Chains combo",
+          "leftMs": 500
+         },
+         {
+          "label": "Queen's Barrier",
+          "leftMs": 9480,
+          "value": 3487
+         },
+         {
+          "label": "Bishop's Tax",
+          "leftMs": 6480,
           "onTarget": true
          }
         ],
@@ -4275,7 +3663,7 @@
        "King's Chains",
        "Rook's Smash"
       ],
-      "share": 0.33,
+      "share": 0.3333333333333333,
       "marks": [
        {
         "states": [
@@ -4408,176 +3796,9 @@
        }
       ],
       "procs": []
-     },
-     {
-      "states": [
-       {
-        "label": "Duel Counters",
-        "stacks": 10
-       },
-       {
-        "label": "Boomerang → Chains combo",
-        "leftMs": 3000
-       },
-       {
-        "label": "Queen's Barrier",
-        "leftMs": 14480,
-        "value": 3487
-       },
-       {
-        "label": "Bishop's Tax",
-        "leftMs": 11480,
-        "onTarget": true
-       }
-      ],
-      "procs": []
-     },
-     {
-      "states": [
-       {
-        "label": "Duel Counters",
-        "stacks": 9
-       },
-       {
-        "label": "Queen's Barrier",
-        "leftMs": 13780,
-        "value": 3487
-       },
-       {
-        "label": "Bishop's Tax",
-        "leftMs": 10780,
-        "onTarget": true
-       }
-      ],
-      "procs": []
-     },
-     {
-      "states": [
-       {
-        "label": "Duel Counters",
-        "stacks": 9
-       },
-       {
-        "label": "Queen's Barrier",
-        "leftMs": 13260,
-        "value": 3487
-       },
-       {
-        "label": "Bishop's Tax",
-        "leftMs": 10260,
-        "onTarget": true
-       }
-      ],
-      "procs": []
-     },
-     {
-      "states": [
-       {
-        "label": "Duel Counters",
-        "stacks": 9
-       },
-       {
-        "label": "Boomerang → Chains combo",
-        "leftMs": 3000
-       },
-       {
-        "label": "Queen's Barrier",
-        "leftMs": 11980,
-        "value": 3487
-       },
-       {
-        "label": "Bishop's Tax",
-        "leftMs": 8980,
-        "onTarget": true
-       }
-      ],
-      "procs": []
-     },
-     {
-      "states": [
-       {
-        "label": "Duel Counters",
-        "stacks": 9
-       },
-       {
-        "label": "Boomerang → Chains combo",
-        "leftMs": 3000
-       },
-       {
-        "label": "Queen's Barrier",
-        "leftMs": 9480,
-        "value": 3487
-       },
-       {
-        "label": "Bishop's Tax",
-        "leftMs": 6480,
-        "onTarget": true
-       }
-      ],
-      "procs": []
-     },
-     {
-      "states": [
-       {
-        "label": "Duel Counters",
-        "stacks": 9
-       },
-       {
-        "label": "Boomerang → Chains combo",
-        "leftMs": 3000
-       },
-       {
-        "label": "Queen's Barrier",
-        "leftMs": 6980,
-        "value": 3487
-       },
-       {
-        "label": "Bishop's Tax",
-        "leftMs": 3980,
-        "onTarget": true
-       }
-      ],
-      "procs": []
-     },
-     {
-      "states": [
-       {
-        "label": "Duel Counters",
-        "stacks": 8
-       },
-       {
-        "label": "Queen's Barrier",
-        "leftMs": 5600,
-        "value": 3487
-       },
-       {
-        "label": "Bishop's Tax",
-        "leftMs": 2600,
-        "onTarget": true
-       }
-      ],
-      "procs": []
-     },
-     {
-      "states": [
-       {
-        "label": "Duel Counters",
-        "stacks": 8
-       },
-       {
-        "label": "Queen's Barrier",
-        "leftMs": 5080,
-        "value": 3487
-       },
-       {
-        "label": "Bishop's Tax",
-        "leftMs": 2080,
-        "onTarget": true
-       }
-      ],
-      "procs": []
      }
-    ]
+    ],
+    "intoLoop": true
    },
    "buffs": [
     {
@@ -4597,7 +3818,7 @@
      "icon": "AB_RENOVATIO",
      "dpsGain": 0,
      "required": false,
-     "vsGain": 0.055
+     "vsGain": 0.072
     },
     {
      "skill": "Bishop's Guard",
@@ -4616,7 +3837,7 @@
      "icon": "AB_EXPIATIO",
      "dpsGain": 0,
      "required": false,
-     "vsGain": 0.048
+     "vsGain": 0.047
     },
     {
      "skill": "Rook's Wall",
@@ -4736,7 +3957,7 @@
      "name": "King's Chains",
      "icon": "PA_SHIELDCHAIN",
      "level": 1,
-     "desc": "You throw a rebounding shield at an enemy 4 times.\nDamage: 200% + 10% per level + 1% per VIT/STR\nDamage is based on shield refine and weight. Weapon ATK does not apply; only your base ATK and the shield count.\n+1% per VIT per Duel Counter.\n+1% per point of soft DEF and hard DEF.\nFinisher Ready: +30% per % of missing HP.\nIgnores FLEE.\nRequires a Shield and 1 Duel Counter.\nCast: 0.4 s variable + 0.1 s fixed\nCooldown: 8 s\nCost: also 15% of current SP",
+     "desc": "You throw a rebounding shield at an enemy 4 times.\nDamage: 200% + 10% per level + 1% per VIT + 1% per STR\nDamage is based on shield refine and weight. Weapon ATK does not apply; only your base ATK and the shield count.\n+1% per VIT per Duel Counter.\n+1% per point of soft DEF and hard DEF.\nFinisher Ready: +30% per % of missing HP.\nIgnores FLEE.\nRequires a Shield and 1 Duel Counter.\nCast: 0.4 s variable + 0.1 s fixed\nCooldown: 8 s\nCost: also 15% of current SP",
      "summary": "The main hit: four shield throws, scaling with VIT, STR and your Duel Counters; spends one counter.",
      "scalings": [
       {
@@ -4838,7 +4059,7 @@
      "name": "Rook's Smash",
      "icon": "KN_SPEARSTAB",
      "level": 1,
-     "desc": "You slide onto the target, smash a small area and push enemies away from where you land. Usable with any weapon.\nDamage: 150% + 5% per level + 1% per STR\nAdditional damage equal to 1/5 of HP.\n+25% damage per Duel Counter.\nDeals 2 hits, each at full damage.\nUnder Duel Stance, generates up to 3 Duel Counters.\nRequires a Shield.\nCooldown: 8 s",
+     "desc": "You slide onto the target, smash a small area and push enemies away from where you land. Usable with any weapon.\nDamage: 150% + 5% per level + 1% per STR\nAdditional damage equal to 1/5 of your Max HP.\n+25% damage per Duel Counter.\nDeals 2 hits, each at full damage; 3 on a target that cannot be knocked back.\nUnder Duel Stance, generates up to 3 Duel Counters.\nRequires a Shield.\nCooldown: 8 s",
      "summary": "Slide onto the target for 2-3 hits plus a fifth of your current HP as damage; fills Duel Counters to 3.",
      "scalings": [
       {
@@ -4880,49 +4101,6 @@
         {
          "text": "+25%",
          "value": 25
-        }
-       ]
-      }
-     ]
-    },
-    "Decoy": {
-     "name": "Decoy",
-     "icon": "SC_FEINTBOMB",
-     "level": 5,
-     "desc": "You dash back and hide, leaving a clone that explodes and damages enemies in an area.\nDamage: 200% + 25% per level + 1% per INT and LUK\nCast: 1.5 s variable\nCooldown: 8 s",
-     "summary": null,
-     "scalings": [
-      {
-       "per": 1,
-       "every": 1,
-       "stats": [
-        "INT",
-        "LUK"
-       ],
-       "text": "+1% per INT and LUK"
-      }
-     ],
-     "ratio": [
-      {
-       "label": "Damage",
-       "main": true,
-       "terms": [
-        {
-         "text": "200%",
-         "value": 200
-        },
-        {
-         "text": "+25% per level (5)",
-         "value": 125
-        },
-        {
-         "text": "+1% per INT/LUK",
-         "stats": [
-          "INT",
-          "LUK"
-         ],
-         "per": 1,
-         "every": 1
         }
        ]
       }
@@ -5012,22 +4190,13 @@
   },
   "Night Raven: Counter Slash": {
    "className": "Night Raven",
-   "build": "https://rtmr-arsenal.pages.dev/#b=cxVHLjtswDPyVQuc5iKQe1k_00KthGIKjTQw4G8NSFt2_L2gX2RZocu2FgGZGwyHZM8z3-Xxp337kj_JuQGLRp4SU4AUcQfA0oO-dUp5BFj2J9wwnieGcjUqb7bYsZGCu-ed4WQ16HgYcMBuYuo7TrbZxK6f7VE4GvX_wot_KUsp4ytd8Ln-RzsBM29zmKS9fPNlhUInXVM4ioHcc5D8msRBiJiT0joShRXGCt6HDvrXISSGGTxx2pZMIktAdyWvLTRO2TY0PXwFL9IctB5BE6v4p1pSl3u7bVP4cXnbmOrf5nNt8ezcw6-Wz7kN8rYCPZgHknezdSHxI2OuzduUj18PxbSm6i7jD9V5bnhW-rONSynTRHx6_B4rag-LRI3J85l7XotFMruvp4T3l2ub3s8JvrWyjvsdTWfLnIVFRBwpCoit3TiweRcn0iiRCsmJ9B52ZGOw8W0369Dwk4I5T91rkwM5xei3y4M4ep34uCmDHEjT_c1EEO4oWaRiGXw",
-   "note": "Counter Slash endgame farm build (the owner's rotation)",
-   "profileName": "Night Raven Counter Slash, owner's rotation incl. Midnight Eye, endgame farm 2026-10-02",
+   "build": "https://rtmr-arsenal.pages.dev/#b=cxVHLjtswDPyVQuc5iNTL-okeejUMQ7C1sQEnMSxlsfv3Be1FtgXqXHshoJnRcEi2DPVzvkz1x6_0nm8KZDTaGBEjnAEzPBx1aFsrlGOQRkvGOYY1kWGtDkKr7b4spKCu6aOfVoWWuw4HzAqqrP1wL7Xf8vgY8qjQuidv5Ftecu7HdE2X_BdpFdSwzXUe0vLNk-46kThJZTU8Wsve_MckGoaYCRGtJcOQIjjBad9g31rgKBDDRfa70poAMr45kpeaqiSsmxgfvgZsgjts2cMyNf_USshc7o9tyH_ObnbmOtf5kup8vymodfos-wzfG-Cjlwc5a76a-QgpZ83yeyqH39uSZRFhh8uj1DQLPK39kvMwyQ-Hr2mCdKBwdAjuzLysWXKpVNbxaT2kUufbReC3mrde3v2Yl_R5SETUgLwhI-u21mg8i5DxFUmEqI12DWRkYrB1rCXo6WnIgBuOzWuRBVvL8bXIgRt9nPlc5MGWjZf856IAthQ0Ytd1vwE",
+   "note": "Counter Slash endgame farm build (the owner's commit rotation: Shadow Slash, Midnight Eye, Counter Slash until Counter state ends, Typhoon Edge)",
+   "profileName": "Night Raven Counter Slash, owner commit+bait rotation, endgame farm search 2026-10-02 (518 kills/h)",
    "allround": {
     "vs": "Heartless",
     "opener": [
-     "Shadow Slash",
-     "Attack",
-     "Dark Claw",
-     "Northern Cross",
-     "Attack",
-     "Midnight Eye",
-     "Attack",
-     "Counter Slash",
-     "Attack",
-     "Counter Slash"
+     "Shadow Slash"
     ],
     "cycles": [
      {
@@ -5037,29 +4206,239 @@
        "Counter Slash",
        "Counter Slash",
        "Counter Slash",
-       "Typhoon Edge",
-       "Northern Cross",
-       "Definitive Dagger",
-       "Southern Cross",
-       "Northern Cross",
-       "Northern Cross",
-       "Definitive Dagger",
-       "Southern Cross",
-       "Northern Cross",
-       "Definitive Dagger",
-       "Northern Cross",
-       "Southern Cross",
-       "Northern Cross",
-       "Definitive Dagger",
-       "Northern Cross",
+       "Counter Slash",
+       "Counter Slash",
+       "Counter Slash",
        "Counter Slash",
        "Counter Slash",
        "Counter Slash",
        "Counter Slash",
        "Typhoon Edge",
-       "Northern Cross"
+       "Idle"
       ],
-      "share": 0.03
+      "share": 0.3333333333333333,
+      "marks": [
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 5000
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 4660
+         },
+         {
+          "label": "Rolling Counter",
+          "leftMs": 3000,
+          "stacks": 1
+         },
+         {
+          "label": "Dark Claw",
+          "leftMs": 4830,
+          "onTarget": true
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 3190
+         },
+         {
+          "label": "Rolling Counter",
+          "leftMs": 3000,
+          "stacks": 2
+         },
+         {
+          "label": "Dark Claw",
+          "leftMs": 3360,
+          "onTarget": true
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 2590
+         },
+         {
+          "label": "Rolling Counter",
+          "leftMs": 3000,
+          "stacks": 3
+         },
+         {
+          "label": "Dark Claw",
+          "leftMs": 2760,
+          "onTarget": true
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 4446
+         },
+         {
+          "label": "Rolling Counter",
+          "leftMs": 3000,
+          "stacks": 4
+         },
+         {
+          "label": "Dark Claw",
+          "leftMs": 2160,
+          "onTarget": true
+         }
+        ],
+        "procs": [
+         "Weapon Blocking"
+        ]
+       },
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 3846
+         },
+         {
+          "label": "Rolling Counter",
+          "leftMs": 3000,
+          "stacks": 5
+         },
+         {
+          "label": "Dark Claw",
+          "leftMs": 1560,
+          "onTarget": true
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 3246
+         },
+         {
+          "label": "Rolling Counter",
+          "leftMs": 3000,
+          "stacks": 5
+         },
+         {
+          "label": "Dark Claw",
+          "leftMs": 960,
+          "onTarget": true
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 2646
+         },
+         {
+          "label": "Rolling Counter",
+          "leftMs": 3000,
+          "stacks": 5
+         },
+         {
+          "label": "Dark Claw",
+          "leftMs": 360,
+          "onTarget": true
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 2046
+         },
+         {
+          "label": "Rolling Counter",
+          "leftMs": 3000,
+          "stacks": 5
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 1446
+         },
+         {
+          "label": "Rolling Counter",
+          "leftMs": 3000,
+          "stacks": 5
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 846
+         },
+         {
+          "label": "Rolling Counter",
+          "leftMs": 3000,
+          "stacks": 5
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 246
+         },
+         {
+          "label": "Rolling Counter",
+          "leftMs": 3000,
+          "stacks": 5
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Rolling Counter",
+          "leftMs": 1830,
+          "stacks": 5
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Night Wound",
+          "leftMs": 2830,
+          "onTarget": true
+         }
+        ],
+        "procs": []
+       }
+      ]
      },
      {
       "steps": [
@@ -5069,26 +4448,374 @@
        "Counter Slash",
        "Counter Slash",
        "Counter Slash",
-       "Typhoon Edge",
-       "Northern Cross",
-       "Northern Cross",
-       "Definitive Dagger",
-       "Southern Cross",
-       "Northern Cross",
-       "Definitive Dagger",
-       "Northern Cross",
-       "Definitive Dagger",
-       "Southern Cross",
-       "Northern Cross",
-       "Definitive Dagger",
-       "Northern Cross",
-       "Southern Cross",
-       "Northern Cross",
-       "Definitive Dagger",
-       "Northern Cross",
-       "Northern Cross"
+       "Counter Slash",
+       "Counter Slash",
+       "Counter Slash",
+       "Counter Slash",
+       "Counter Slash",
+       "Counter Slash",
+       "Counter Slash",
+       "Counter Slash",
+       "Counter Slash",
+       "Counter Slash",
+       "Counter Slash",
+       "Counter Slash",
+       "Counter Slash",
+       "Idle",
+       "Counter Slash",
+       "Counter Slash"
       ],
-      "share": 0.01
+      "share": 0.2,
+      "marks": [
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 5000
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 4660
+         },
+         {
+          "label": "Rolling Counter",
+          "leftMs": 3000,
+          "stacks": 1
+         },
+         {
+          "label": "Dark Claw",
+          "leftMs": 4830,
+          "onTarget": true
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 4060
+         },
+         {
+          "label": "Rolling Counter",
+          "leftMs": 3000,
+          "stacks": 2
+         },
+         {
+          "label": "Dark Claw",
+          "leftMs": 4230,
+          "onTarget": true
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 3460
+         },
+         {
+          "label": "Rolling Counter",
+          "leftMs": 3000,
+          "stacks": 3
+         },
+         {
+          "label": "Dark Claw",
+          "leftMs": 3630,
+          "onTarget": true
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 4950
+         },
+         {
+          "label": "Rolling Counter",
+          "leftMs": 3000,
+          "stacks": 4
+         },
+         {
+          "label": "Dark Claw",
+          "leftMs": 3030,
+          "onTarget": true
+         }
+        ],
+        "procs": [
+         "Weapon Blocking"
+        ]
+       },
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 3540
+         },
+         {
+          "label": "Rolling Counter",
+          "leftMs": 3000,
+          "stacks": 5
+         },
+         {
+          "label": "Dark Claw",
+          "leftMs": 1620,
+          "onTarget": true
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 2940
+         },
+         {
+          "label": "Rolling Counter",
+          "leftMs": 3000,
+          "stacks": 5
+         },
+         {
+          "label": "Dark Claw",
+          "leftMs": 1020,
+          "onTarget": true
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 2340
+         },
+         {
+          "label": "Rolling Counter",
+          "leftMs": 3000,
+          "stacks": 5
+         },
+         {
+          "label": "Dark Claw",
+          "leftMs": 420,
+          "onTarget": true
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 1740
+         },
+         {
+          "label": "Rolling Counter",
+          "leftMs": 3000,
+          "stacks": 5
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 1140
+         },
+         {
+          "label": "Rolling Counter",
+          "leftMs": 3000,
+          "stacks": 5
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 4451
+         },
+         {
+          "label": "Rolling Counter",
+          "leftMs": 3000,
+          "stacks": 5
+         }
+        ],
+        "procs": [
+         "Weapon Blocking"
+        ]
+       },
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 3851
+         },
+         {
+          "label": "Rolling Counter",
+          "leftMs": 3000,
+          "stacks": 5
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 3251
+         },
+         {
+          "label": "Rolling Counter",
+          "leftMs": 3000,
+          "stacks": 5
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 2651
+         },
+         {
+          "label": "Rolling Counter",
+          "leftMs": 3000,
+          "stacks": 5
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 2051
+         },
+         {
+          "label": "Rolling Counter",
+          "leftMs": 3000,
+          "stacks": 5
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 1451
+         },
+         {
+          "label": "Rolling Counter",
+          "leftMs": 3000,
+          "stacks": 5
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 4477
+         },
+         {
+          "label": "Rolling Counter",
+          "leftMs": 3000,
+          "stacks": 5
+         }
+        ],
+        "procs": [
+         "Weapon Blocking"
+        ]
+       },
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 3877
+         },
+         {
+          "label": "Rolling Counter",
+          "leftMs": 3000,
+          "stacks": 5
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 3277
+         },
+         {
+          "label": "Rolling Counter",
+          "leftMs": 3000,
+          "stacks": 5
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 1677
+         },
+         {
+          "label": "Rolling Counter",
+          "leftMs": 1400,
+          "stacks": 5
+         },
+         {
+          "label": "Hiding",
+          "leftMs": 463
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 1015
+         },
+         {
+          "label": "Rolling Counter",
+          "leftMs": 3000,
+          "stacks": 5
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 415
+         },
+         {
+          "label": "Rolling Counter",
+          "leftMs": 3000,
+          "stacks": 5
+         }
+        ],
+        "procs": []
+       }
+      ]
      },
      {
       "steps": [
@@ -5097,58 +4824,385 @@
        "Counter Slash",
        "Counter Slash",
        "Counter Slash",
-       "Typhoon Edge",
-       "Northern Cross",
-       "Definitive Dagger",
-       "Southern Cross",
-       "Northern Cross",
-       "Definitive Dagger",
-       "Northern Cross",
        "Counter Slash",
        "Counter Slash",
        "Counter Slash",
        "Counter Slash",
        "Counter Slash",
        "Counter Slash",
-       "Typhoon Edge",
-       "Northern Cross",
-       "Definitive Dagger",
-       "Southern Cross",
-       "Northern Cross",
-       "Northern Cross",
-       "Northern Cross"
+       "Counter Slash",
+       "Counter Slash",
+       "Counter Slash",
+       "Counter Slash",
+       "Counter Slash",
+       "Counter Slash",
+       "Counter Slash",
+       "Counter Slash",
+       "Typhoon Edge"
       ],
-      "share": 0.01
+      "share": 0.13333333333333333,
+      "marks": [
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 5000
+         }
+        ],
+        "procs": [
+         "Weapon Blocking"
+        ]
+       },
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 4660
+         },
+         {
+          "label": "Rolling Counter",
+          "leftMs": 3000,
+          "stacks": 1
+         },
+         {
+          "label": "Dark Claw",
+          "leftMs": 4830,
+          "onTarget": true
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 3190
+         },
+         {
+          "label": "Rolling Counter",
+          "leftMs": 3000,
+          "stacks": 2
+         },
+         {
+          "label": "Dark Claw",
+          "leftMs": 3360,
+          "onTarget": true
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 2590
+         },
+         {
+          "label": "Rolling Counter",
+          "leftMs": 3000,
+          "stacks": 3
+         },
+         {
+          "label": "Dark Claw",
+          "leftMs": 2760,
+          "onTarget": true
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 1990
+         },
+         {
+          "label": "Rolling Counter",
+          "leftMs": 3000,
+          "stacks": 4
+         },
+         {
+          "label": "Dark Claw",
+          "leftMs": 2160,
+          "onTarget": true
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 1390
+         },
+         {
+          "label": "Rolling Counter",
+          "leftMs": 3000,
+          "stacks": 5
+         },
+         {
+          "label": "Dark Claw",
+          "leftMs": 1560,
+          "onTarget": true
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 4713
+         },
+         {
+          "label": "Rolling Counter",
+          "leftMs": 3000,
+          "stacks": 5
+         },
+         {
+          "label": "Dark Claw",
+          "leftMs": 960,
+          "onTarget": true
+         }
+        ],
+        "procs": [
+         "Weapon Blocking"
+        ]
+       },
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 4113
+         },
+         {
+          "label": "Rolling Counter",
+          "leftMs": 3000,
+          "stacks": 5
+         },
+         {
+          "label": "Dark Claw",
+          "leftMs": 360,
+          "onTarget": true
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 3513
+         },
+         {
+          "label": "Rolling Counter",
+          "leftMs": 3000,
+          "stacks": 5
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 4701
+         },
+         {
+          "label": "Rolling Counter",
+          "leftMs": 3000,
+          "stacks": 5
+         }
+        ],
+        "procs": [
+         "Weapon Blocking"
+        ]
+       },
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 4101
+         },
+         {
+          "label": "Rolling Counter",
+          "leftMs": 3000,
+          "stacks": 5
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 3501
+         },
+         {
+          "label": "Rolling Counter",
+          "leftMs": 3000,
+          "stacks": 5
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 2901
+         },
+         {
+          "label": "Rolling Counter",
+          "leftMs": 3000,
+          "stacks": 5
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 4524
+         },
+         {
+          "label": "Rolling Counter",
+          "leftMs": 3000,
+          "stacks": 5
+         }
+        ],
+        "procs": [
+         "Weapon Blocking"
+        ]
+       },
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 3924
+         },
+         {
+          "label": "Rolling Counter",
+          "leftMs": 3000,
+          "stacks": 5
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 3324
+         },
+         {
+          "label": "Rolling Counter",
+          "leftMs": 3000,
+          "stacks": 5
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 2724
+         },
+         {
+          "label": "Rolling Counter",
+          "leftMs": 3000,
+          "stacks": 5
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 1905
+         },
+         {
+          "label": "Rolling Counter",
+          "leftMs": 3000,
+          "stacks": 5
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 1305
+         },
+         {
+          "label": "Rolling Counter",
+          "leftMs": 3000,
+          "stacks": 5
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Rolling Counter",
+          "leftMs": 127,
+          "stacks": 5
+         }
+        ],
+        "procs": []
+       }
+      ]
      }
     ],
     "fillers": [
      {
-      "id": "Attack",
-      "perLoop": 25.3,
+      "id": "Northern Cross",
+      "perLoop": 4.2,
+      "auto": false
+     },
+     {
+      "id": "Definitive Dagger",
+      "perLoop": 3.2,
+      "auto": false
+     },
+     {
+      "id": "Weapon Blocking",
+      "perLoop": 2.1,
+      "auto": true
+     },
+     {
+      "id": "Southern Cross",
+      "perLoop": 2,
       "auto": false
      },
      {
       "id": "Back Stab",
-      "perLoop": 1.8,
+      "perLoop": 1.2,
       "auto": false
      },
      {
       "id": "Shadow Slash",
-      "perLoop": 1.6,
+      "perLoop": 1,
+      "auto": false
+     },
+     {
+      "id": "Dark Claw",
+      "perLoop": 1,
       "auto": false
      }
     ],
     "roles": [
      {
       "role": "Counter",
-      "share": 0.6
+      "share": 0.84
      },
      {
       "role": "Daggers",
-      "share": 0.23
-     },
-     {
-      "role": "Auto-attacks",
       "share": 0.13
      },
      {
@@ -5159,53 +5213,48 @@
     "damage": [
      {
       "id": "Counter Slash",
-      "share": 0.551,
-      "perCast": 18273
-     },
-     {
-      "id": "Attack",
-      "share": 0.135,
-      "perCast": 1773
+      "share": 0.804,
+      "perCast": 19530
      },
      {
       "id": "Northern Cross",
-      "share": 0.131,
-      "perCast": 7850
+      "share": 0.066,
+      "perCast": 9082
      },
      {
       "id": "Definitive Dagger",
-      "share": 0.06,
-      "perCast": 6428
-     },
-     {
-      "id": "Typhoon Edge",
-      "share": 0.044,
-      "perCast": 9580
+      "share": 0.042,
+      "perCast": 7743
      },
      {
       "id": "Southern Cross",
-      "share": 0.035,
-      "perCast": 5907
+      "share": 0.024,
+      "perCast": 6924
+     },
+     {
+      "id": "Typhoon Edge",
+      "share": 0.024,
+      "perCast": 11716
      },
      {
       "id": "Shadow Slash",
-      "share": 0.02,
-      "perCast": 3592
-     },
-     {
-      "id": "Back Stab",
-      "share": 0.01,
-      "perCast": 2420
+      "share": 0.018,
+      "perCast": 4381
      },
      {
       "id": "Midnight Eye",
       "share": 0.01,
-      "perCast": 2626
+      "perCast": 2984
      },
      {
       "id": "Dark Claw",
-      "share": 0.005,
-      "perCast": 2462
+      "share": 0.006,
+      "perCast": 2987
+     },
+     {
+      "id": "Back Stab",
+      "share": 0.006,
+      "perCast": 2932
      }
     ],
     "prep": [
@@ -5217,52 +5266,17 @@
      "Hallucination Walk",
      "ASPD 183"
     ],
-    "dps": 20045,
+    "dps": 22760,
     "uptime": {
-     "Night Wound": 0.428
+     "Night Wound": 0.292
     },
     "openerMarks": [
      {
       "states": [],
       "procs": []
-     },
-     {
-      "states": [],
-      "procs": []
-     },
-     {
-      "states": [],
-      "procs": []
-     },
-     {
-      "states": [],
-      "procs": []
-     },
-     {
-      "states": [],
-      "procs": []
-     },
-     {
-      "states": [],
-      "procs": []
-     },
-     {
-      "states": [],
-      "procs": []
-     },
-     {
-      "states": [],
-      "procs": []
-     },
-     {
-      "states": [],
-      "procs": []
-     },
-     {
-      "states": [],
-      "procs": []
      }
-    ]
+    ],
+    "intoLoop": true
    },
    "dummy": {
     "seconds": 10,
@@ -5278,14 +5292,14 @@
       "Fury",
       "Hallucination Walk",
       "Attack",
-      "Dark Claw",
       "Counter Slash",
-      "Northern Cross",
-      "Definitive Dagger",
-      "Southern Cross",
+      "Dark Claw",
       "Typhoon Edge",
+      "Northern Cross",
+      "Southern Cross",
       "Midnight Eye",
       "Back Stab",
+      "Definitive Dagger",
       "Shadow Slash"
      ],
      "weaveMs": 0,
@@ -5298,92 +5312,89 @@
      "eyeForCounter": true,
      "tankShare": 0.6,
      "cycleAnchor": "Midnight Eye",
+     "coreRoles": [
+      "Counter"
+     ],
+     "counterCommit": true,
+     "counterBait": true,
+     "weaponBlock": true,
      "mobility": "server",
      "defense": "auto",
      "enchantPoison": true
     },
     "opener": [
      "Shadow Slash",
-     "Attack",
-     "Dark Claw",
-     "Northern Cross",
-     "Attack",
-     "Definitive Dagger",
-     "Southern Cross",
-     "Attack",
      "Midnight Eye",
-     "Attack"
+     "Counter Slash",
+     "Dark Claw",
+     "Counter Slash",
+     "Counter Slash",
+     "Counter Slash",
+     "Counter Slash",
+     "Counter Slash",
+     "Counter Slash"
     ],
     "cycles": [],
     "fillers": [],
     "roles": [
      {
       "role": "Counter",
-      "share": 0.55
+      "share": 0.61
      },
      {
       "role": "Daggers",
-      "share": 0.26
-     },
-     {
-      "role": "Auto-attacks",
-      "share": 0.16
+      "share": 0.33
      },
      {
       "role": "Fillers",
-      "share": 0.03
+      "share": 0.06
      }
     ],
     "damage": [
      {
       "id": "Counter Slash",
-      "share": 0.516,
-      "perCast": 38642
-     },
-     {
-      "id": "Attack",
-      "share": 0.155,
-      "perCast": 3875
+      "share": 0.565,
+      "perCast": 30722
      },
      {
       "id": "Northern Cross",
-      "share": 0.124,
-      "perCast": 13946
+      "share": 0.178,
+      "perCast": 14526
      },
      {
       "id": "Definitive Dagger",
-      "share": 0.081,
-      "perCast": 10914
+      "share": 0.091,
+      "perCast": 11119
      },
      {
       "id": "Southern Cross",
-      "share": 0.059,
-      "perCast": 9918
+      "share": 0.063,
+      "perCast": 10348
      },
      {
       "id": "Typhoon Edge",
-      "share": 0.025,
-      "perCast": 16606
+      "share": 0.038,
+      "perCast": 18440
      },
      {
       "id": "Shadow Slash",
-      "share": 0.021,
-      "perCast": 6984
-     },
-     {
-      "id": "Midnight Eye",
-      "share": 0.007,
-      "perCast": 4572
-     },
-     {
-      "id": "Dark Claw",
-      "share": 0.006,
-      "perCast": 4328
+      "share": 0.029,
+      "perCast": 7050
      },
      {
       "id": "Back Stab",
-      "share": 0.006,
-      "perCast": 4231
+      "share": 0.017,
+      "perCast": 4270
+     },
+     {
+      "id": "Dark Claw",
+      "share": 0.009,
+      "perCast": 4368
+     },
+     {
+      "id": "Midnight Eye",
+      "share": 0.009,
+      "perCast": 4340
      }
     ],
     "prep": [
@@ -5395,9 +5406,9 @@
      "Hallucination Walk",
      "ASPD 183"
     ],
-    "dps": 67403,
+    "dps": 48896,
     "uptime": {
-     "Night Wound": 1
+     "Night Wound": 0.828
     },
     "openerMarks": [
      {
@@ -5405,72 +5416,194 @@
       "procs": []
      },
      {
-      "states": [],
+      "states": [
+       {
+        "label": "Counter state",
+        "leftMs": 5000
+       }
+      ],
       "procs": []
      },
      {
-      "states": [],
+      "states": [
+       {
+        "label": "Counter state",
+        "leftMs": 4830
+       },
+       {
+        "label": "Rolling Counter",
+        "leftMs": 3000,
+        "stacks": 1
+       }
+      ],
       "procs": []
      },
      {
-      "states": [],
+      "states": [
+       {
+        "label": "Counter state",
+        "leftMs": 4660
+       },
+       {
+        "label": "Rolling Counter",
+        "leftMs": 2830,
+        "stacks": 1
+       },
+       {
+        "label": "Dark Claw",
+        "leftMs": 5000,
+        "onTarget": true
+       }
+      ],
       "procs": []
      },
      {
-      "states": [],
+      "states": [
+       {
+        "label": "Counter state",
+        "leftMs": 4230
+       },
+       {
+        "label": "Rolling Counter",
+        "leftMs": 3000,
+        "stacks": 2
+       },
+       {
+        "label": "Dark Claw",
+        "leftMs": 4570,
+        "onTarget": true
+       }
+      ],
       "procs": []
      },
      {
-      "states": [],
+      "states": [
+       {
+        "label": "Counter state",
+        "leftMs": 3630
+       },
+       {
+        "label": "Rolling Counter",
+        "leftMs": 3000,
+        "stacks": 3
+       },
+       {
+        "label": "Dark Claw",
+        "leftMs": 3970,
+        "onTarget": true
+       }
+      ],
       "procs": []
      },
      {
-      "states": [],
+      "states": [
+       {
+        "label": "Counter state",
+        "leftMs": 3030
+       },
+       {
+        "label": "Rolling Counter",
+        "leftMs": 3000,
+        "stacks": 4
+       },
+       {
+        "label": "Dark Claw",
+        "leftMs": 3370,
+        "onTarget": true
+       }
+      ],
       "procs": []
      },
      {
-      "states": [],
+      "states": [
+       {
+        "label": "Counter state",
+        "leftMs": 2430
+       },
+       {
+        "label": "Rolling Counter",
+        "leftMs": 3000,
+        "stacks": 5
+       },
+       {
+        "label": "Dark Claw",
+        "leftMs": 2770,
+        "onTarget": true
+       }
+      ],
       "procs": []
      },
      {
-      "states": [],
+      "states": [
+       {
+        "label": "Counter state",
+        "leftMs": 1830
+       },
+       {
+        "label": "Rolling Counter",
+        "leftMs": 3000,
+        "stacks": 5
+       },
+       {
+        "label": "Dark Claw",
+        "leftMs": 2170,
+        "onTarget": true
+       }
+      ],
       "procs": []
      },
      {
-      "states": [],
+      "states": [
+       {
+        "label": "Counter state",
+        "leftMs": 1230
+       },
+       {
+        "label": "Rolling Counter",
+        "leftMs": 3000,
+        "stacks": 5
+       },
+       {
+        "label": "Dark Claw",
+        "leftMs": 1570,
+        "onTarget": true
+       }
+      ],
       "procs": []
      }
-    ]
+    ],
+    "intoLoop": false
    },
    "buffs": [
     {
      "skill": "Weapon Blocking",
      "icon": "GC_WEAPONBLOCKING",
-     "dpsGain": 0.355,
+     "dpsGain": 0.313,
      "required": false
     },
     {
      "skill": "Rising Wings",
      "icon": "WS_OVERTHRUSTMAX",
-     "dpsGain": 0.015,
+     "dpsGain": 0.009,
      "required": false
     },
     {
      "skill": "Fury",
      "icon": "MO_EXPLOSIONSPIRITS",
-     "dpsGain": 0.003,
+     "dpsGain": 0,
      "required": false
     },
     {
      "skill": "Hallucination Walk",
      "icon": "GC_HALLUCINATIONWALK",
      "dpsGain": 0,
-     "required": false
+     "required": false,
+     "vsGain": 0.009
     },
     {
      "skill": "Enchant Poison",
      "icon": "AS_ENCHANTPOISON",
-     "dpsGain": 0.125,
+     "dpsGain": 0.126,
      "required": false
     },
     {
@@ -5478,7 +5611,7 @@
      "icon": "AB_EXPIATIO",
      "dpsGain": 0,
      "required": false,
-     "vsGain": 0.036
+     "vsGain": 0.054
     }
    ],
    "skills": {
@@ -5533,106 +5666,11 @@
       }
      ]
     },
-    "Attack": {
-     "name": "Attack",
-     "icon": "",
-     "level": 0,
-     "desc": "",
-     "summary": null,
-     "scalings": [],
-     "ratio": null
-    },
-    "Dark Claw": {
-     "name": "Dark Claw",
-     "icon": "GC_DARKCROW",
-     "level": 5,
-     "desc": "You leave a painful wound that removes the enemy's melee physical damage reflect for 5 s. During that time its melee reflect effects don't work and it takes 2% more melee physical damage per level.\nCooldown: 90 s",
-     "summary": null,
-     "scalings": [],
-     "ratio": null
-    },
-    "Northern Cross": {
-     "name": "Northern Cross",
-     "icon": "CR_HOLYCROSS",
-     "level": 10,
-     "desc": "You strike an enemy with a perfect cross of slashes.\nDamage: 200% + 30% per level + 2% per AGI\nWith dual swords: +15% per level.\nNight Wound: +50% and +1% per DEX.\nCooldown: 1 s\nCost: also 3% of current HP",
-     "summary": null,
-     "scalings": [
-      {
-       "per": 2,
-       "every": 1,
-       "stats": [
-        "AGI"
-       ],
-       "text": "+2% per Agi"
-      },
-      {
-       "per": 1,
-       "every": 1,
-       "stats": [
-        "DEX"
-       ],
-       "text": "+1% per Dex"
-      }
-     ],
-     "ratio": [
-      {
-       "label": "With dual swords",
-       "main": false,
-       "terms": [
-        {
-         "text": "+15% per level (10)",
-         "value": 150
-        }
-       ]
-      },
-      {
-       "label": "Damage",
-       "main": true,
-       "terms": [
-        {
-         "text": "200%",
-         "value": 200
-        },
-        {
-         "text": "+30% per level (10)",
-         "value": 300
-        },
-        {
-         "text": "+2% per AGI",
-         "stats": [
-          "AGI"
-         ],
-         "per": 2,
-         "every": 1
-        }
-       ]
-      },
-      {
-       "label": "Night Wound",
-       "main": false,
-       "terms": [
-        {
-         "text": "+50%",
-         "value": 50
-        },
-        {
-         "text": "+1% per DEX",
-         "stats": [
-          "DEX"
-         ],
-         "per": 1,
-         "every": 1
-        }
-       ]
-      }
-     ]
-    },
     "Midnight Eye": {
      "name": "Midnight Eye",
      "icon": "RL_BANISHING_BUSTER",
      "level": 5,
-     "desc": "You strike the target directly and remove random buffs from it, while preparing Counter Slash.\nDamage: 200% + 20% per level + 5% per INT\nChance: 50% + 5% per level\nIf Weapon Blocking is active, you enter the Counter state for 1 s per level.\nCast: 0.25 s variable + 0.25 s fixed\nCooldown: 15 s",
+     "desc": "You strike the target directly and remove random buffs from it, while preparing Counter Slash.\nDamage: 200% + 20% per level + 5% per INT\nChance: 50% + 5% per level (what for is unclear; not counted)\nIf Weapon Blocking is active, you enter the Counter state for 1 s per level.\nCast: 0.25 s variable + 0.25 s fixed\nCooldown: 15 s",
      "summary": null,
      "scalings": [
       {
@@ -5761,6 +5799,83 @@
       }
      ]
     },
+    "Northern Cross": {
+     "name": "Northern Cross",
+     "icon": "CR_HOLYCROSS",
+     "level": 10,
+     "desc": "You strike an enemy with a perfect cross of slashes.\nDamage: 200% + 30% per level + 2% per AGI\nWith dual swords: +15% per level.\nNight Wound: +50% and +1% per DEX.\nCooldown: 1 s\nCost: also 3% of current HP",
+     "summary": null,
+     "scalings": [
+      {
+       "per": 2,
+       "every": 1,
+       "stats": [
+        "AGI"
+       ],
+       "text": "+2% per Agi"
+      },
+      {
+       "per": 1,
+       "every": 1,
+       "stats": [
+        "DEX"
+       ],
+       "text": "+1% per Dex"
+      }
+     ],
+     "ratio": [
+      {
+       "label": "With dual swords",
+       "main": false,
+       "terms": [
+        {
+         "text": "+15% per level (10)",
+         "value": 150
+        }
+       ]
+      },
+      {
+       "label": "Damage",
+       "main": true,
+       "terms": [
+        {
+         "text": "200%",
+         "value": 200
+        },
+        {
+         "text": "+30% per level (10)",
+         "value": 300
+        },
+        {
+         "text": "+2% per AGI",
+         "stats": [
+          "AGI"
+         ],
+         "per": 2,
+         "every": 1
+        }
+       ]
+      },
+      {
+       "label": "Night Wound",
+       "main": false,
+       "terms": [
+        {
+         "text": "+50%",
+         "value": 50
+        },
+        {
+         "text": "+1% per DEX",
+         "stats": [
+          "DEX"
+         ],
+         "per": 1,
+         "every": 1
+        }
+       ]
+      }
+     ]
+    },
     "Definitive Dagger": {
      "name": "Definitive Dagger",
      "icon": "LG_BANISHINGPOINT",
@@ -5828,11 +5943,20 @@
       }
      ]
     },
+    "Weapon Blocking": {
+     "name": "Weapon Blocking",
+     "icon": "GC_WEAPONBLOCKING",
+     "level": 10,
+     "desc": "While active, you have a chance to cancel an enemy's short-range damage. Each cancelled attack puts you in the Counter state for 5 s, during which Counter skills can be used.\nBlock chance: 15% + 2% per level\nRequires dual-wielding any pair of weapons.\nCannot be cancelled manually.\nDuration: 120 s",
+     "summary": null,
+     "scalings": [],
+     "ratio": null
+    },
     "Southern Cross": {
      "name": "Southern Cross",
      "icon": "KO_JYUMONJIKIRI",
      "level": 10,
-     "desc": "You strike the enemy and give it a Night Wound for 5 s. Specific skills deal extra damage to a target with a Night Wound.\nDamage: 200% + 30% per level + 1% per AGI\nNight Wound: +25% damage per level.\nDamage is greatly boosted on marked targets; the mark lasts 5 s.\nRequires both hands equipped.\nCooldown: 2.5 s - 0.1 s per level",
+     "desc": "You strike the enemy and give it a Night Wound for 5 s. Specific skills deal extra damage to a target with a Night Wound.\nDamage: 200% + 30% per level + 1% per AGI\nNight Wound: +25% damage per level against a wounded target.\nRequires both hands equipped.\nCooldown: 2.5 s - 0.1 s per level",
      "summary": null,
      "scalings": [
       {
@@ -5924,11 +6048,11 @@
       }
      ]
     },
-    "Weapon Blocking": {
-     "name": "Weapon Blocking",
-     "icon": "GC_WEAPONBLOCKING",
-     "level": 10,
-     "desc": "While active, you have a chance to cancel an enemy's short-range damage. Each cancelled attack puts you in the Counter state for 5 s, during which Counter skills can be used.\nBlock chance: 15% + 2% per level\nRequires dual-wielding any pair of weapons.\nCannot be cancelled manually.\nDuration: 120 s",
+    "Dark Claw": {
+     "name": "Dark Claw",
+     "icon": "GC_DARKCROW",
+     "level": 5,
+     "desc": "You leave a painful wound that removes the enemy's melee physical damage reflect for 5 s. During that time its melee reflect effects don't work and it takes 2% more melee physical damage per level.\nCooldown: 90 s",
      "summary": null,
      "scalings": [],
      "ratio": null
@@ -5988,16 +6112,7 @@
    "allround": {
     "vs": "Heartless",
     "opener": [
-     "Shadow Slash",
-     "Attack",
-     "Southern Cross",
-     "Definitive Dagger",
-     "Attack",
-     "Dark Claw",
-     "Definitive Dagger",
-     "Attack",
-     "Definitive Dagger",
-     "Attack"
+     "Shadow Slash"
     ],
     "cycles": [
      {
@@ -6009,30 +6124,71 @@
        "Definitive Dagger",
        "Definitive Dagger"
       ],
-      "share": 0.4,
+      "share": 0.6897590361445783,
       "marks": [
        {
-        "states": [],
+        "states": [
+         {
+          "label": "Night Wound",
+          "leftMs": 5000,
+          "onTarget": true
+         },
+         {
+          "label": "Dark Claw",
+          "leftMs": 57,
+          "onTarget": true
+         }
+        ],
         "procs": []
        },
        {
-        "states": [],
+        "states": [
+         {
+          "label": "Night Wound",
+          "leftMs": 4840,
+          "onTarget": true
+         }
+        ],
         "procs": []
        },
        {
-        "states": [],
+        "states": [
+         {
+          "label": "Night Wound",
+          "leftMs": 4520,
+          "onTarget": true
+         }
+        ],
         "procs": []
        },
        {
-        "states": [],
+        "states": [
+         {
+          "label": "Night Wound",
+          "leftMs": 4220,
+          "onTarget": true
+         }
+        ],
         "procs": []
        },
        {
-        "states": [],
+        "states": [
+         {
+          "label": "Night Wound",
+          "leftMs": 3920,
+          "onTarget": true
+         }
+        ],
         "procs": []
        },
        {
-        "states": [],
+        "states": [
+         {
+          "label": "Night Wound",
+          "leftMs": 3620,
+          "onTarget": true
+         }
+        ],
         "procs": []
        }
       ]
@@ -6041,20 +6197,73 @@
       "steps": [
        "Southern Cross",
        "Definitive Dagger",
-       "Definitive Dagger"
+       "Definitive Dagger",
+       "Idle"
       ],
-      "share": 0.18,
+      "share": 0.2680722891566265,
       "marks": [
        {
-        "states": [],
+        "states": [
+         {
+          "label": "Night Wound",
+          "leftMs": 5000,
+          "onTarget": true
+         },
+         {
+          "label": "Dark Claw",
+          "leftMs": 3057,
+          "onTarget": true
+         }
+        ],
         "procs": []
        },
        {
-        "states": [],
+        "states": [
+         {
+          "label": "Night Wound",
+          "leftMs": 4840,
+          "onTarget": true
+         },
+         {
+          "label": "Dark Claw",
+          "leftMs": 2897,
+          "onTarget": true
+         }
+        ],
         "procs": []
        },
        {
-        "states": [],
+        "states": [
+         {
+          "label": "Night Wound",
+          "leftMs": 4540,
+          "onTarget": true
+         },
+         {
+          "label": "Dark Claw",
+          "leftMs": 2597,
+          "onTarget": true
+         }
+        ],
+        "procs": []
+       },
+       {
+        "states": [
+         {
+          "label": "Hiding",
+          "leftMs": 607
+         },
+         {
+          "label": "Night Wound",
+          "leftMs": 2900,
+          "onTarget": true
+         },
+         {
+          "label": "Dark Claw",
+          "leftMs": 957,
+          "onTarget": true
+         }
+        ],
         "procs": []
        }
       ]
@@ -6062,31 +6271,36 @@
      {
       "steps": [
        "Southern Cross",
-       "Definitive Dagger",
-       "Definitive Dagger",
-       "Definitive Dagger",
-       "Definitive Dagger"
+       "Idle"
       ],
-      "share": 0.16,
+      "share": 0.03614457831325301,
       "marks": [
        {
-        "states": [],
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 3501
+         },
+         {
+          "label": "Night Wound",
+          "leftMs": 5000,
+          "onTarget": true
+         }
+        ],
         "procs": []
        },
        {
-        "states": [],
-        "procs": []
-       },
-       {
-        "states": [],
-        "procs": []
-       },
-       {
-        "states": [],
-        "procs": []
-       },
-       {
-        "states": [],
+        "states": [
+         {
+          "label": "Counter state",
+          "leftMs": 1001
+         },
+         {
+          "label": "Night Wound",
+          "leftMs": 2500,
+          "onTarget": true
+         }
+        ],
         "procs": []
        }
       ]
@@ -6094,24 +6308,20 @@
     ],
     "fillers": [
      {
-      "id": "Attack",
-      "perLoop": 3.3,
-      "auto": false
-     },
-     {
       "id": "Shadow Slash",
       "perLoop": 0.4,
       "auto": false
+     },
+     {
+      "id": "Weapon Blocking",
+      "perLoop": 0.2,
+      "auto": true
      }
     ],
     "roles": [
      {
       "role": "Daggers",
-      "share": 0.91
-     },
-     {
-      "role": "Auto-attacks",
-      "share": 0.06
+      "share": 0.97
      },
      {
       "role": "Fillers",
@@ -6121,28 +6331,23 @@
     "damage": [
      {
       "id": "Definitive Dagger",
-      "share": 0.807,
-      "perCast": 9557
+      "share": 0.856,
+      "perCast": 9552
      },
      {
       "id": "Southern Cross",
-      "share": 0.108,
+      "share": 0.115,
       "perCast": 4384
      },
      {
-      "id": "Attack",
-      "share": 0.058,
-      "perCast": 724
-     },
-     {
       "id": "Shadow Slash",
-      "share": 0.023,
-      "perCast": 2078
+      "share": 0.026,
+      "perCast": 2082
      },
      {
       "id": "Dark Claw",
       "share": 0.003,
-      "perCast": 1548
+      "perCast": 1549
      }
     ],
     "prep": [
@@ -6153,7 +6358,7 @@
      "Hallucination Walk",
      "ASPD 184"
     ],
-    "dps": 20286,
+    "dps": 18396,
     "uptime": {
      "Night Wound": 1
     },
@@ -6161,44 +6366,9 @@
      {
       "states": [],
       "procs": []
-     },
-     {
-      "states": [],
-      "procs": []
-     },
-     {
-      "states": [],
-      "procs": []
-     },
-     {
-      "states": [],
-      "procs": []
-     },
-     {
-      "states": [],
-      "procs": []
-     },
-     {
-      "states": [],
-      "procs": []
-     },
-     {
-      "states": [],
-      "procs": []
-     },
-     {
-      "states": [],
-      "procs": []
-     },
-     {
-      "states": [],
-      "procs": []
-     },
-     {
-      "states": [],
-      "procs": []
      }
-    ]
+    ],
+    "intoLoop": true
    },
    "dummy": {
     "seconds": 10,
@@ -6215,8 +6385,8 @@
       "Hallucination Walk",
       "Attack",
       "Definitive Dagger",
-      "Dark Claw",
       "Southern Cross",
+      "Dark Claw",
       "Northern Cross",
       "Typhoon Edge",
       "Shadow Slash"
@@ -6233,14 +6403,6 @@
     },
     "opener": [
      "Shadow Slash",
-     "Attack",
-     "Definitive Dagger",
-     "Dark Claw",
-     "Attack",
-     "Definitive Dagger",
-     "Southern Cross",
-     "Attack",
-     "Definitive Dagger",
      "Definitive Dagger"
     ],
     "cycles": [
@@ -6256,38 +6418,89 @@
       "share": 1,
       "marks": [
        {
-        "states": [],
+        "states": [
+         {
+          "label": "Night Wound",
+          "leftMs": 5000,
+          "onTarget": true
+         }
+        ],
         "procs": []
        },
        {
-        "states": [],
+        "states": [
+         {
+          "label": "Night Wound",
+          "leftMs": 4840,
+          "onTarget": true
+         }
+        ],
         "procs": []
        },
        {
-        "states": [],
+        "states": [
+         {
+          "label": "Night Wound",
+          "leftMs": 4520,
+          "onTarget": true
+         },
+         {
+          "label": "Dark Claw",
+          "leftMs": 4840,
+          "onTarget": true
+         }
+        ],
         "procs": []
        },
        {
-        "states": [],
+        "states": [
+         {
+          "label": "Night Wound",
+          "leftMs": 4220,
+          "onTarget": true
+         },
+         {
+          "label": "Dark Claw",
+          "leftMs": 4540,
+          "onTarget": true
+         }
+        ],
         "procs": []
        },
        {
-        "states": [],
+        "states": [
+         {
+          "label": "Night Wound",
+          "leftMs": 3920,
+          "onTarget": true
+         },
+         {
+          "label": "Dark Claw",
+          "leftMs": 4240,
+          "onTarget": true
+         }
+        ],
         "procs": []
        },
        {
-        "states": [],
+        "states": [
+         {
+          "label": "Night Wound",
+          "leftMs": 3620,
+          "onTarget": true
+         },
+         {
+          "label": "Dark Claw",
+          "leftMs": 3940,
+          "onTarget": true
+         }
+        ],
         "procs": []
        }
       ]
      }
     ],
     "fillers": [
-     {
-      "id": "Attack",
-      "perLoop": 4.2,
-      "auto": false
-     },
      {
       "id": "Shadow Slash",
       "perLoop": 0.3,
@@ -6297,42 +6510,33 @@
     "roles": [
      {
       "role": "Daggers",
-      "share": 0.91
-     },
-     {
-      "role": "Auto-attacks",
-      "share": 0.07
+      "share": 0.97
      },
      {
       "role": "Fillers",
-      "share": 0.02
+      "share": 0.03
      }
     ],
     "damage": [
      {
       "id": "Definitive Dagger",
-      "share": 0.826,
-      "perCast": 20737
+      "share": 0.889,
+      "perCast": 20827
      },
      {
       "id": "Southern Cross",
-      "share": 0.08,
-      "perCast": 9525
-     },
-     {
-      "id": "Attack",
-      "share": 0.07,
-      "perCast": 2059
+      "share": 0.085,
+      "perCast": 9426
      },
      {
       "id": "Shadow Slash",
-      "share": 0.02,
-      "perCast": 5416
+      "share": 0.021,
+      "perCast": 5442
      },
      {
       "id": "Dark Claw",
-      "share": 0.004,
-      "perCast": 3578
+      "share": 0.005,
+      "perCast": 3577
      }
     ],
     "prep": [
@@ -6344,7 +6548,7 @@
      "Hallucination Walk",
      "ASPD 184"
     ],
-    "dps": 82849,
+    "dps": 77318,
     "uptime": {
      "Night Wound": 1
     },
@@ -6356,40 +6560,9 @@
      {
       "states": [],
       "procs": []
-     },
-     {
-      "states": [],
-      "procs": []
-     },
-     {
-      "states": [],
-      "procs": []
-     },
-     {
-      "states": [],
-      "procs": []
-     },
-     {
-      "states": [],
-      "procs": []
-     },
-     {
-      "states": [],
-      "procs": []
-     },
-     {
-      "states": [],
-      "procs": []
-     },
-     {
-      "states": [],
-      "procs": []
-     },
-     {
-      "states": [],
-      "procs": []
      }
-    ]
+    ],
+    "intoLoop": true
    },
    "buffs": [
     {
@@ -6397,18 +6570,18 @@
      "icon": "GC_WEAPONBLOCKING",
      "dpsGain": 0,
      "required": false,
-     "vsGain": 0.016
+     "vsGain": 0.009
     },
     {
      "skill": "Rising Wings",
      "icon": "WS_OVERTHRUSTMAX",
-     "dpsGain": 0.009,
+     "dpsGain": 0.006,
      "required": false
     },
     {
      "skill": "Fury",
      "icon": "MO_EXPLOSIONSPIRITS",
-     "dpsGain": 0.001,
+     "dpsGain": 0,
      "required": false
     },
     {
@@ -6416,7 +6589,7 @@
      "icon": "GC_HALLUCINATIONWALK",
      "dpsGain": 0,
      "required": false,
-     "vsGain": 0.036
+     "vsGain": 0.026
     },
     {
      "skill": "Enchant Poison",
@@ -6429,7 +6602,7 @@
      "icon": "AB_EXPIATIO",
      "dpsGain": 0,
      "required": false,
-     "vsGain": 0.043
+     "vsGain": 0.048
     }
    ],
    "skills": {
@@ -6484,20 +6657,11 @@
       }
      ]
     },
-    "Attack": {
-     "name": "Attack",
-     "icon": "",
-     "level": 0,
-     "desc": "",
-     "summary": null,
-     "scalings": [],
-     "ratio": null
-    },
     "Southern Cross": {
      "name": "Southern Cross",
      "icon": "KO_JYUMONJIKIRI",
      "level": 10,
-     "desc": "You strike the enemy and give it a Night Wound for 5 s. Specific skills deal extra damage to a target with a Night Wound.\nDamage: 200% + 30% per level + 1% per AGI\nNight Wound: +25% damage per level.\nDamage is greatly boosted on marked targets; the mark lasts 5 s.\nRequires both hands equipped.\nCooldown: 2.5 s - 0.1 s per level",
+     "desc": "You strike the enemy and give it a Night Wound for 5 s. Specific skills deal extra damage to a target with a Night Wound.\nDamage: 200% + 30% per level + 1% per AGI\nNight Wound: +25% damage per level against a wounded target.\nRequires both hands equipped.\nCooldown: 2.5 s - 0.1 s per level",
      "summary": null,
      "scalings": [
       {
@@ -6610,15 +6774,6 @@
        ]
       }
      ]
-    },
-    "Dark Claw": {
-     "name": "Dark Claw",
-     "icon": "GC_DARKCROW",
-     "level": 5,
-     "desc": "You leave a painful wound that removes the enemy's melee physical damage reflect for 5 s. During that time its melee reflect effects don't work and it takes 2% more melee physical damage per level.\nCooldown: 90 s",
-     "summary": null,
-     "scalings": [],
-     "ratio": null
     },
     "Weapon Blocking": {
      "name": "Weapon Blocking",

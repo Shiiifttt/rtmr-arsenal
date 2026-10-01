@@ -316,12 +316,13 @@ const rooksSmash: Action = {
     // "Generates up to 3 Duel Counters under Duel Stance", before it lands.
     if (has(fight, 'duelStance')) setCounters(fight, Math.max(counters(fight), 3));
     // "150+5% per level + 1% per Str", "Extra 25% Damage per Duel Counter",
-    // "Additional Damage equal 1/5 HP", "Dealing 2 hits, with full damage on each".
+    // "Additional Damage equal 1/5 HP" -- Max HP (the project owner, 2026-10-02),
+    // "Dealing 2 hits, with full damage on each", 3 when it cannot be knocked back (the owner).
     const ratio = 150 + 5 * l + f.stats.str + 25 * counters(fight);
     // HP / 5 is added after the ratio and the element (battle.cpp
     // battle_calc_skill_constant_addition): no element, no cards, but the
     // monster's DEF still cuts it with the rest of the hit.
-    const hpPart = (fight.me.hp / 5) * defMultiplier(fight.m.def, effectivePierce(fight.f.defPen));
+    const hpPart = (fight.f.maxHp / 5) * defMultiplier(fight.m.def, effectivePierce(fight.f.defPen));
     // The weapon's part is small: at full HP the owner's hit is 5,876 against
     // HP / 5 = 5,606. It fits the weapon's own ATK + refine + equip ATK
     // (x ATK%, the ratio at 10 counters and long-range damage): ~277 to ~272.

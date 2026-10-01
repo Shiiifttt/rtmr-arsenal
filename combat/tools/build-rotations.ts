@@ -40,15 +40,23 @@ const one = (k: string) => { const i = argv.indexOf(`--${k}`); return i >= 0 ? a
  * skill that grants them). `optional`: listed with an OPTIONAL label, up or
  * not by choice (Rook's Wall: the project owner, 2026-10-02).
  */
-const CLASSES: { className: string; build?: string; profile: string; buffs: string[]; optional?: string[]; note: string; vs?: string }[] = [
+const CLASSES: {
+  className: string; build?: string; profile: string; buffs: string[]; optional?: string[]; note: string; vs?: string;
+  /** A buff the sim grants by an option, not by its skill's level: these options turn it off to measure it. */
+  measure?: Record<string, Record<string, unknown>>;
+}[] = [
   { className: 'Revenant', profile: 'profiles/revenant-maxed-final.json', note: 'maxed-out farm tier',
     buffs: ['Darkside Shadow', 'True Sight', 'Vampire Mark', 'Shadow Parry', 'Burning Scythe', 'Ominous Presence'] },
   { className: 'Satsujin', profile: 'profiles/satsujin-farm-maxed-a.json', note: 'maxed-out farm tier',
-    buffs: ['Moonlight Stance', 'Seven Winds', 'Hallucination Walk', 'Magic Pierce'] },
+    buffs: ['Moonlight Stance', 'Seven Winds', 'Hallucination Walk', 'Magic Pierce', 'Wind Blade', 'Flaming Petals', 'Freezing Spear'],
+    // Elemental Focus: two casts of the bolt for the Seven Winds element, 10 stacks at the pull (satsujin.ts prep,
+    // option prepFocus); optional, one of the three (the project owner, 2026-10-02).
+    optional: ['Wind Blade', 'Flaming Petals', 'Freezing Spear'],
+    measure: { 'Wind Blade': { prepFocus: false }, 'Flaming Petals': { prepFocus: false }, 'Freezing Spear': { prepFocus: false } } },
   { className: 'Kingslayer', profile: 'profiles/kingslayer-endgame-farm.json', note: 'endgame farm build',
     buffs: ['Duel Stance', "King's Fortress", "Knight's Regen", "Bishop's Guard", 'Reflect Shield', 'Magic Pierce', "Rook's Wall"], optional: ["Rook's Wall"] },
   // Night Raven (2026-10-01): the endgame farm builds (10 areas, rhythm search).
-  { className: 'Night Raven', build: 'Counter Slash', profile: 'profiles/nightraven-counter-final.json', note: "Counter Slash endgame farm build (the owner's rotation)",
+  { className: 'Night Raven', build: 'Counter Slash', profile: 'profiles/nightraven-counter-commit.json', note: "Counter Slash endgame farm build (the owner's commit rotation: Shadow Slash, Midnight Eye, Counter Slash until Counter state ends, Typhoon Edge)",
     buffs: ['Weapon Blocking', 'Rising Wings', 'Fury', 'Hallucination Walk', 'Enchant Poison', 'Magic Pierce'] },
   { className: 'Night Raven', build: 'Definitive Dagger', profile: 'profiles/nightraven-dd-final.json', note: "Definitive Dagger endgame farm build (the owner's rotation)",
     buffs: ['Weapon Blocking', 'Rising Wings', 'Fury', 'Hallucination Walk', 'Enchant Poison', 'Magic Pierce'] },
@@ -84,7 +92,7 @@ function scalings(desc: string): Scaling[] {
 }
 
 /** Actions that are moves, not skills worth a tile. */
-const NOT_SKILLS = new Set(['Wait', 'Wait for swing', 'Stay ready', 'Stay hidden', 'Walk out', 'Break line of sight', 'Pull it off the ward', 'Step back']);
+const NOT_SKILLS = new Set(['Wait', 'Idle', 'Wait for swing', 'Stay ready', 'Stay hidden', 'Walk out', 'Break line of sight', 'Pull it off the ward', 'Step back']);
 
 function rotationOf(s: Summary) {
   const a = s.analysis;
@@ -112,31 +120,91 @@ function rotationOf(s: Summary) {
 type Mark = { states: TraceStep['states']; procs: string[] };
 function traced(kit: Kit, traces: TraceStep[][], rot: ReturnType<typeof rotationOf>) {
   const roles = kit.roles ?? {};
-  const core = (id: string) => !kit.coreRoles || kit.coreRoles.includes(roles[id]);
+  // Idle (engine IDLE_STEP_MS) is a step like the kit's own, as in sim.ts analyse().
+  const inRotation = (id: string) => id in roles || id === 'Idle';
+  const core = (id: string) => id === 'Idle' || !kit.coreRoles || kit.coreRoles.includes(roles[id]);
   const mark = (x: TraceStep): Mark => ({ states: x.states.map((m) => ({ ...m, ...(m.leftMs !== undefined ? { leftMs: Math.round(m.leftMs) } : {}) })), procs: x.procs });
+  // The steps a view keeps; what went off during the ones it drops (a Weapon Blocking block during a Wait)
+  // moves on to the next step kept.
+  const keep = (t: TraceStep[], ok: (id: string) => boolean): TraceStep[] => {
+    const out: TraceStep[] = []; let carry: string[] = [];
+    for (const x of t) {
+      if (!ok(x.id)) { carry.push(...x.procs); continue; }
+      out.push(carry.length ? { ...x, procs: [...carry, ...x.procs] } : x);
+      carry = [];
+    }
+    return out;
+  };
+  // Two waits with only a filler between are one Idle in the loop (sim.ts analyse()); its procs move on.
+  const idleOnce = (s: TraceStep[]) => s.filter((x, i) => !(x.id === 'Idle' && s[i - 1]?.id === 'Idle'));
+  // Loops that differ only in how often a skill repeats are one loop (sim.ts analyse()).
+  const shape = (ids: string[]) => ids.filter((id, i) => id !== ids[i - 1]).join(' → ');
   // The opener: the first moves the kit names, swings folded together (sim.ts fold).
-  const moves = (traces[0] ?? []).filter((x) => x.id in roles);
+  const moves = keep(traces[0] ?? [], inRotation);
   const opener: { id: string; mark: Mark }[] = [];
   for (const x of moves) {
     if (x.id === 'Attack' && opener[opener.length - 1]?.id === 'Attack') { opener[opener.length - 1].mark = mark(x); continue; }
-    if (opener.length >= 10) break;
+    if (opener.length >= 20) break;
     opener.push({ id: x.id, mark: mark(x) });
   }
-  const cycles = rot.cycles.map((c) => {
+  // The core loops read off these traced fights themselves, so every loop shown has its states and
+  // procs (2026-10-02: loops counted in other fights had none to show): grouped by shape, each at its
+  // most common count, as one traced instance of it.
+  if (kit.cycleAnchor) {
+    const groups = new Map<string, { n: number; variants: Map<string, { n: number; at: TraceStep[] }> }>();
+    let total = 0;
     for (const t of traces) {
-      const s = t.filter((x) => x.id in roles && core(x.id));
+      const s = idleOnce(keep(t, (id) => inRotation(id) && core(id)));
+      const starts = s.flatMap((x, i) => (x.id === kit.cycleAnchor ? [i] : []));
+      for (let k = 0; k + 1 < starts.length; k++) {
+        const loop = s.slice(starts[k], starts[k + 1]);
+        const ids = loop.map((x) => x.id);
+        const g = groups.get(shape(ids)) ?? { n: 0, variants: new Map() };
+        g.n++;
+        const v = g.variants.get(ids.join(' → ')) ?? { n: 0, at: loop };
+        v.n++;
+        g.variants.set(ids.join(' → '), v);
+        groups.set(shape(ids), g);
+        total++;
+      }
+    }
+    if (total) {
+      const read = [...groups.values()].sort((a, b) => b.n - a.n).slice(0, 3).map((g) => {
+        const v = [...g.variants.values()].sort((a, b) => b.n - a.n)[0];
+        return { steps: v.at.map((x) => x.id), share: g.n / total, marks: v.at.map(mark) };
+      });
+      rot = { ...rot, cycles: read };
+    }
+  }
+  const cycles = rot.cycles.map((c) => {
+    if ('marks' in c) return c;
+    for (const t of traces) {
+      const s = idleOnce(keep(t, (id) => inRotation(id) && core(id)));
       for (let i = 0; i + c.steps.length <= s.length; i++) {
         if (c.steps.every((id, j) => s[i + j].id === id)) return { ...c, marks: c.steps.map((_, j) => mark(s[i + j])) };
       }
     }
-    return c;
+    // Not in these few fights at its most common count: the same loop at another count, as it was traced
+    // (2026-10-02: the Counter Slash loop at x14 had no marks, its states never showed).
+    // Blocks are random, so the loops vary: the one nearest in length.
+    let best: TraceStep[] | null = null;
+    for (const t of traces) {
+      const s = idleOnce(keep(t, (id) => inRotation(id) && core(id)));
+      const starts = s.flatMap((x, i) => (x.id === kit.cycleAnchor ? [i] : []));
+      for (let k = 0; k + 1 < starts.length; k++) {
+        const loop = s.slice(starts[k], starts[k + 1]);
+        if (shape(loop.map((x) => x.id)) !== shape(c.steps)) continue;
+        if (!best || Math.abs(loop.length - c.steps.length) < Math.abs(best.length - c.steps.length)) best = loop;
+      }
+    }
+    return best ? { ...c, steps: best.map((x) => x.id), marks: best.map(mark) } : c;
   });
   // Autocasts per loop, cut at the anchor as sim.ts analyse() cuts loops: fillers of their own (AUTO tiles).
   const autos = new Map<string, number>();
   let loops = 0;
   if (kit.cycleAnchor) {
     for (const t of traces) {
-      const s = t.filter((x) => x.id in roles);
+      const s = keep(t, inRotation);
       const starts = s.flatMap((x, i) => (x.id === kit.cycleAnchor ? [i] : []));
       for (let j = 0; j + 1 < starts.length; j++) {
         for (const x of s.slice(starts[j], starts[j + 1])) for (const p of x.procs) autos.set(p, (autos.get(p) ?? 0) + 1);
@@ -146,7 +214,24 @@ function traced(kit: Kit, traces: TraceStep[][], rot: ReturnType<typeof rotation
   }
   const fillers = [...rot.fillers.map((x) => ({ ...x, auto: false })), ...[...autos].map(([id, c]) => ({ id, perLoop: Math.round((c / loops) * 10) / 10, auto: true }))]
     .filter((x) => x.perLoop >= 0.2).sort((a, b) => b.perLoop - a.perLoop);
-  return { ...rot, opener: opener.map((x) => x.id), openerMarks: opener.map((x) => x.mark), cycles, fillers };
+  // The opener ends where the core loop takes over (the project owner, 2026-10-02: past that it is the
+  // loop again, autocasts and all): at the first anchor whose core steps after it play out one of the
+  // loops shown (or its start, where the opener read runs out). No such point: its first 10 moves.
+  // Waits are timing, not the loop: left out of the match.
+  const folded = (ids: string[]) => { const x = ids.filter((id) => id !== 'Idle'); return x.filter((id, i) => id !== x[i - 1]); };
+  const shapes = cycles.map((c) => folded(c.steps));
+  let cut = -1;
+  for (let i = 0; i < opener.length && cut < 0; i++) {
+    if (opener[i].id !== kit.cycleAnchor) continue;
+    const after = folded(opener.slice(i).map((x) => x.id).filter((id) => core(id)));
+    // A whole loop after it, or the opener read running out partway into one.
+    if (shapes.some((sh) => sh.length > 0 && (sh.every((id, j) => after[j] === id)
+      || (after.length >= 2 && after.every((id, j) => sh[j] === id))))) cut = i;
+  }
+  const open = cut >= 0 ? opener.slice(0, cut) : opener.slice(0, 10);
+  // Never ending on a wait (the project owner, 2026-10-02).
+  while (open.length && open[open.length - 1].id === 'Idle') open.pop();
+  return { ...rot, opener: open.map((x) => x.id), openerMarks: open.map((x) => x.mark), intoLoop: cut >= 0, cycles, fillers };
 }
 
 /** The best dummy rotation: tools/rotation-search.ts on this build, parsed. --keep-dummy: the one data/rotations.json already has. */
@@ -174,7 +259,8 @@ for (const c of CLASSES.filter((x) => !one('only') || x.className === one('only'
   });
   const dummy = dummyMonster();
   const farmOpts = profile.options ?? {};
-  const anchored = { ...k.kit, cycleAnchor: typeof farmOpts.cycleAnchor === 'string' ? farmOpts.cycleAnchor : k.kit.cycleAnchor };
+  const anchored = { ...k.kit, cycleAnchor: typeof farmOpts.cycleAnchor === 'string' ? farmOpts.cycleAnchor : k.kit.cycleAnchor,
+    coreRoles: Array.isArray(farmOpts.coreRoles) ? farmOpts.coreRoles as string[] : k.kit.coreRoles };
   // A dummy-searched build cannot live through Heartless (no HP gear): its loop is read off a fight it survives.
   const vs = c.vs ?? ALLROUND_VS;
   const allround = fight(f, buildMonster(findMobs(vs)[0]), farmOpts, 300, 100);
@@ -192,14 +278,15 @@ for (const c of CLASSES.filter((x) => !one('only') || x.className === one('only'
   // What each pre-fight buff is worth on the dummy: its skill at 0, the same fights.
   const buffs = [];
   for (const b of c.buffs) {
-    if (!(b in opts.maxLevels)) continue;
-    const off = await buildFighter({ ...profile, skills: { ...(profile.skills ?? {}), [b]: 0 } }, opts);
-    const without = fight(off, dummy, dummyOpts, DUMMY_S, 200).dps;
+    const offOpts = c.measure?.[b];
+    if (!offOpts && !(b in opts.maxLevels)) continue;
+    const off = offOpts ? f : await buildFighter({ ...profile, skills: { ...(profile.skills ?? {}), [b]: 0 } }, opts);
+    const without = fight(off, dummy, { ...dummyOpts, ...offOpts }, DUMMY_S, 200).dps;
     const gain = without > 0 ? dummyRun.dps / without - 1 : Infinity;
     // Nothing on the dummy (Magic Pierce: the dummy has no DEF): what it is worth in the all-round fight instead.
     let vsGain: number | undefined;
     if (Math.abs(gain) < 0.005) {
-      const off2 = fight(off, buildMonster(findMobs(vs)[0]), farmOpts, 300, 100).dps;
+      const off2 = fight(off, buildMonster(findMobs(vs)[0]), { ...farmOpts, ...offOpts }, 300, 100).dps;
       const g = off2 > 0 ? allround.dps / off2 - 1 : 0;
       if (g >= 0.005) vsGain = Math.round(1000 * g) / 1000;
     }

@@ -41,7 +41,7 @@ import { defMultiplier, effectivePierce } from '../../../sim/src/derived.ts';
 import { attrFix, countsAsBoss, escapeCells, magicDamage, physicalDamage, skillDelayMs, attackIntervalMs, TUNE } from '../formulas.ts';
 import type { Fighter, MobSkill, Monster } from '../model.ts';
 import {
-  canUse, dot, grant, has, heal_, mobHas, readyAt, say, stacks, strike, targetNow,
+  canUse, dot, grant, has, heal_, mobHas, noteProc, readMarks, readyAt, say, stacks, strike, targetNow,
   type Action, type Fight, type Kit,
 } from '../engine.ts';
 import {
@@ -396,6 +396,23 @@ function nightHuntSwing(fight: Fight) {
   strike(fight, 'Night Hunt', { hits: 1, canMiss: true, critBonus: null, damage: () => dmg });
   if (fight.me.hp <= 0 && !fight.result) { fight.result = 'loss'; fight.cause = 'Night Hunt (its HP cost)'; }
 }
+/**
+ * No swing woven in between skill casts (the project owner, 2026-10-02: "aa
+ * windows have to be 1 second+"): the swing only while no skill the order
+ * plays comes up within option swingGapMs (1000; 0 weaves again).
+ */
+function swingGap(fight: Fight): boolean {
+  const gap = typeof fight.options.swingGapMs === 'number' ? fight.options.swingGapMs : 1000;
+  if (gap <= 0) return true;
+  for (const id of orderOf(fight)) {
+    const a = BY_ID.get(id);
+    if (!a || !a.isSkill || !a.offensive || a.reactive) continue;
+    if (readyAt(fight, a.id) - fight.t >= gap || a.spCost(fight) > fight.me.sp) continue;
+    if (a.ready?.(fight) ?? true) return false;
+  }
+  return true;
+}
+
 /** Night Hunt's HP cost would leave too little: hold the swing (Bloody Fangs ends it). */
 const nightHuntHolds = (fight: Fight) => has(fight, 'nightHunt') && fight.me.hp <= 0.2 * fight.f.maxHp;
 
@@ -408,7 +425,7 @@ const attack: Action = {
   id: 'Attack',
   isSkill: false,
   offensive: true,
-  ready: (fight) => optionOn(fight, 'autoAttack') && !nightHuntHolds(fight),
+  ready: (fight) => optionOn(fight, 'autoAttack') && !nightHuntHolds(fight) && swingGap(fight),
   castMs: () => 0,
   delayMs: (fight) => weaveMs(fight) ?? attackIntervalMs(fight.f.aspd),
   cooldownMs: (fight) => (weaveMs(fight) === null ? 0 : attackIntervalMs(fight.f.aspd)),
@@ -604,17 +621,23 @@ const backStab: Action = {
  * hears of blocks by their chance: they add up, a whole one is a window.
  */
 function onBlock(fight: Fight, share: number) {
-  if (share >= 1) { grantCounter(fight, 5000); return; }
+  if (share >= 1) { blocked(fight); return; }
   const meter = (fight.me.buffs.blockMeter ??= { until: 1e12, stacks: 1, value: 0 });
   meter.value = (meter.value ?? 0) + share;
-  if (meter.value >= 1) { meter.value -= 1; grantCounter(fight, 5000); }
+  if (meter.value >= 1) { meter.value -= 1; blocked(fight); }
+}
+/** A block: 5 s of Counter state, shown in the rotation as Weapon Blocking going off (the project owner, 2026-10-02). */
+function blocked(fight: Fight) {
+  grantCounter(fight, 5000);
+  noteProc(fight, 'Weapon Blocking');
 }
 
 /**
  * Midnight Eye: "200+20% per level +5% per INT", "Enters Counter State for
  * 1s per level if Weapon Blocking is active" (on a hit the target survives:
  * code), 0.25 s + 0.25 s cast, 15 s cooldown (the Quarry Gem -5 s); its
- * buff removal is left out. Option eyeForCounter (default on): only when
+ * buff removal is left out, and so is its "Chance is 50+5% per level": what
+ * it is for is unclear, so not counted (the project owner, 2026-10-02). Option eyeForCounter (default on): only when
  * Counter state is down or about to be.
  */
 const midnightEye: Action = {
@@ -844,7 +867,8 @@ function withRules(a: Action): Action {
       // again and again until it ends -- nothing else but the swing woven between.
       // In Counter state nothing but Counter Slash -- not even a swing (the project owner, 2026-10-02: "you
       // can't swing between, or there's not much point"; option counterSwing true allows it back).
-      if (a.offensive && counter(fight) && fight.options.counterHold === true && a.id !== 'Counter Slash'
+      // Dark Claw may go in after Midnight Eye ("Midnight Eye -> (optional Dark Claw) -> Counter Slash", 2026-10-01).
+      if (a.offensive && counter(fight) && fight.options.counterHold === true && a.id !== 'Counter Slash' && a.id !== 'Dark Claw'
         && !(a.id === 'Attack' && fight.options.counterSwing === true)) return false;
       // Option counterOnly: between Counter windows play defensive -- no damage fillers, only what opens the
       // next window (Midnight Eye), the gap closer (Shadow Slash) and Dark Claw (the owner's hit and run).
@@ -1016,6 +1040,25 @@ export const NIGHTRAVEN_SEARCH = {
     'Rising Wings', 'Weapon Blocking', 'Attack'],
 };
 
+/** What deals damage in the order: under counterHold, Midnight Eye goes ahead of all of it. */
+const DAMAGE_STEPS = new Set(['Attack', 'Dark Claw', 'Counter Slash', 'Typhoon Edge', 'Northern Cross', 'Definitive Dagger',
+  'Southern Cross', 'Soul Destroyer', 'Back Stab', 'Shadow Slash', 'Blitz Beat', 'Sky Assault', 'Night Hunt']);
+
+/**
+ * The build's order (option order). The owner's Counter Slash rotation
+ * (counterHold) opens Counter state with Midnight Eye first -- "Shadow Slash
+ * -> Midnight Eye -> (optional Dark Claw) -> Counter Slash" (2026-10-01) --
+ * whatever an order search did with it (2026-10-02: one dropped it, one put
+ * it behind the dagger fillers).
+ */
+function orderOf(fight: Fight): string[] {
+  const order = Array.isArray(fight.options.order) ? fight.options.order as string[] : ORDER;
+  if (fight.options.counterHold !== true) return order;
+  const rest = order.filter((id) => id !== 'Midnight Eye');
+  const i = rest.findIndex((id) => DAMAGE_STEPS.has(id));
+  return i < 0 ? [...rest, 'Midnight Eye'] : [...rest.slice(0, i), 'Midnight Eye', ...rest.slice(i)];
+}
+
 /**
  * Option slashOpener (the project owner, 2026-10-01): the fight opens with
  * Shadow Slash, the gap closer, once the pre-pull buffs are up.
@@ -1027,14 +1070,7 @@ function priority(fight: Fight): Action {
     const slash = rule('Shadow Slash');
     if (canUse(fight, slash)) { fight.me.spent.slashOpener = true; return slash; }
   }
-  let order = Array.isArray(fight.options.order) ? fight.options.order as string[] : ORDER;
-  // The owner's Counter Slash rotation (counterHold) opens Counter state with Midnight Eye: it stays in,
-  // right after the swing, whatever an order search left out (2026-10-02: a search dropped it).
-  if (fight.options.counterHold === true && !order.includes('Midnight Eye')) {
-    const i = order.indexOf('Attack');
-    order = [...order.slice(0, i + 1), 'Midnight Eye', ...order.slice(i + 1)];
-  }
-  for (const id of order) {
+  for (const id of orderOf(fight)) {
     const a = BY_ID.get(id);
     if (a && canUse(fight, a)) return a;
   }
@@ -1068,6 +1104,9 @@ function prep(fight: Fight) {
   fight.options.mobility ??= 'server';
   fight.options.defense ??= 'auto';
   fight.options.tankShare ??= 0.4;
+  // The Counter Slash rotation lives on Weapon Blocking (Midnight Eye's Counter state needs it): a search
+  // switching it off left a "Counter Slash" build that never cast one (2026-10-02).
+  if (fight.options.counterHold === true) fight.options.weaponBlock = true;
   const sw = steelWingsAspd(fight.f);
   if (sw) fight.f = { ...fight.f, aspd: Math.min(fight.f.aspdLimit ?? 190, fight.f.aspd + sw) };
   if (wantsPoison(fight)) grant(fight, 'poisonEndow', (30 + 15 * L(fight, 'Enchant Poison')) * 1000);
@@ -1078,6 +1117,30 @@ function prep(fight: Fight) {
     a.resolve(fight);
     fight.me.cds[a.id] = a.cooldownMs(fight);
   }
+}
+
+/**
+ * Out of combat (the farm tool, between fights): the buffs prep puts up are
+ * paid for by the second -- each one's SP (at full SP) and HP cost over its
+ * duration, and Weapon Blocking's 3 SP every 5 s. They were free before
+ * 2026-10-02 (the project owner: "Rising Wings also cuts our SP a lot" --
+ * +50% of current SP every 180 s).
+ */
+function idleRegen(f: Fighter, options: Record<string, unknown>): { hpPerSec: number; spPerSec: number } {
+  const order = Array.isArray(options.order) ? options.order as string[] : ORDER;
+  const full = { f, me: { sp: f.maxSp, hp: f.maxHp } } as unknown as Fight;
+  const kept: [Action, string, number][] = [
+    [weaponBlocking, 'weaponBlock', 120], [risingWings, 'risingWings', 180],
+    [fury, 'fury', 20 + 10 * lv(f, 'Fury')], [hallucinationWalk, 'hallucination', 25 + 5 * lv(f, 'Hallucination Walk')],
+  ];
+  let sp = 0; let hp = 0;
+  for (const [a, key, s] of kept) {
+    const on = options[key] !== false || (key === 'weaponBlock' && options.counterHold === true);
+    if (!order.includes(a.id) || lv(f, a.id) <= 0 || !on || (key === 'weaponBlock' && !dual(f))) continue;
+    sp -= a.spCost(full) / s + (key === 'weaponBlock' ? 3 / 5 : 0);
+    hp -= (a.hpCost?.(full) ?? 0) / s;
+  }
+  return { hpPerSec: hp, spPerSec: sp };
 }
 
 function prepNotes(fight: Fight): string[] {
@@ -1130,9 +1193,18 @@ export const nightraven: Kit = {
   },
   prep,
   prepNotes,
+  idleRegen,
   onBlock,
   // Shadow Slash dashes in, Back Stab teleports behind: no walk back after a dodge.
   gapClosers: ['Shadow Slash', 'Back Stab'],
+  // What the rotations run on, for the Rotation overlay's arrows.
+  statuses: (fight) => readMarks(fight, {
+    me: [
+      { key: 'counter', label: 'Counter state' }, { key: 'rolling', label: 'Rolling Counter', stacks: true },
+      { key: 'nightHunt', label: 'Night Hunt', stacks: true }, { key: 'hidden', label: 'Hiding' },
+    ],
+    target: [{ key: 'nightWound', label: 'Night Wound' }, { key: 'darkClaw', label: 'Dark Claw' }],
+  }),
 };
 
 /** Read by tests: the auto Blitz Beat chance a swing. */

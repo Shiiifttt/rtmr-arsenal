@@ -52,7 +52,7 @@ test('the auto Blitz Beat: 1% per 5 LUK with Dagger + Sword only, x4 under Risin
 test('Counter state: Counter Slash climbs a hit a cast to 6 and the stacks stop at 5', async () => {
   const f = await fighter(profile('Knife'));
   const fight = newFight(f, dummyMonster(), nightraven, priorityPolicy, {
-    seed: 1, limitMs: 8_000, log: true,
+    seed: 1, limitMs: 6_000, log: true,
     options: { order: ['Counter Slash', 'Attack'], weaponBlock: false, risingWings: false, hallucination: false },
   });
   fight.me.buffs.counter = { until: 1e9, stacks: 1 };
@@ -61,7 +61,7 @@ test('Counter state: Counter Slash climbs a hit a cast to 6 and the stacks stop 
   assert.ok(casts.length >= 6, `${casts.length} casts`);
   const shown = casts.map((l) => Number(/\((\d+) hits/.exec(l)?.[1] ?? 1));
   assert.deepEqual(shown.slice(0, 6), [1, 2, 3, 4, 5, 6]);
-  assert.equal(stacks(fight, 'rolling'), 5);
+  assert.equal(stacks(fight, 'rolling'), 5, fight.log!.slice(-12).join(' | '));
 });
 
 test('Weapon Blocking cancels normal attacks and puts you in Counter state', async () => {
