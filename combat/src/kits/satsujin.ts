@@ -744,10 +744,15 @@ export const SATSUJIN_SEARCH = {
   order: ORDER,
   switches: {
     backStab: [true, false], seedTalisman: [true, false], slashOpener: [false, true],
-    hallucinationWalk: [true, false], refocus: [true, false], strictCombo: [true, false],
+    // strictCombo is not here: Million Stab and Dragon Omamori only under Combo Ready is the
+    // project owner's hard rule (2026-09-26), not a setting to search.
+    hallucinationWalk: [true, false], refocus: [true, false],
   } as Record<string, unknown[]>,
   pinned: ['Stay hidden', 'Pull it off the ward', "Morroc's Mark", 'Lotus Pact', 'Wait for swing'],
   droppable: ['Thousand Arms', 'Shadow Slash', 'Back Stab', 'Hallucination Walk', 'Dragon Omamori', 'Million Stab'],
+  // A new piece's random options: the Moon combo's skills (with --skill-rolls), then melee crit and flee.
+  rolls: ['full_moon_damage', 'new_moon_damage', 'million_stab_damage', 'melee_damage', 'critical_damage', 'atk_pct',
+    'max_hp', 'sp_cost_reduced', 'defense_penetration', 'hp_leech', 'flee', 'perfect_dodge', 'aspd', 'after_cast_delay', 'crit'],
 };
 function priority(fight: Fight): Action {
   // Option slashOpener: Shadow Slash before anything else.

@@ -151,6 +151,8 @@ export function simulate(f: Fighter, m: Monster, kit: Kit, o: SimOptions): Summa
   let wins = 0; let losses = 0; let stalemates = 0;
   const stalls: Record<string, number> = {};
   let timeSum = 0;
+  // DPS over the time actually fought: an early stall stops at stoppedAt, its clock booked to the limit.
+  let foughtSum = 0;
   let spUsed = 0; let hpUsed = 0;
   const deaths: Record<string, number> = {};
   const total: Meter = {
@@ -177,6 +179,7 @@ export function simulate(f: Fighter, m: Monster, kit: Kit, o: SimOptions): Summa
     else if (fight.result === 'loss') { losses++; deaths[fight.cause ?? '?'] = (deaths[fight.cause ?? '?'] ?? 0) + 1; }
     else { stalemates++; stalls[fight.cause ?? '?'] = (stalls[fight.cause ?? '?'] ?? 0) + 1; }
     timeSum += fight.t;
+    foughtSum += fight.stoppedAt ?? fight.t;
     merge(total, fight.meter!);
     lows.push(fight.result === 'loss' ? 0 : Math.max(0, fight.meter!.minHp) / f.maxHp);
     sequences.push(fight.meter!.sequence);
@@ -215,9 +218,9 @@ export function simulate(f: Fighter, m: Monster, kit: Kit, o: SimOptions): Summa
     ttk: ttks.length
       ? { mean: ttks.reduce((a, b) => a + b, 0) / ttks.length, p10: q(0.1), p50: q(0.5), p90: q(0.9) }
       : null,
-    dps: timeSum ? dealtByActions / (timeSum / 1000) : 0,
+    dps: foughtSum ? dealtByActions / (foughtSum / 1000) : 0,
     taken: takenTotal / n,
-    dtps: timeSum ? takenTotal / (timeSum / 1000) : 0,
+    dtps: foughtSum ? takenTotal / (foughtSum / 1000) : 0,
     seconds: timeSum / n / 1000,
     healed: total.healed / n,
     spUsed: wins ? spUsed / wins : 0,

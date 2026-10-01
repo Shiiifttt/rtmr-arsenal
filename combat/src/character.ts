@@ -366,8 +366,9 @@ export async function buildFighter(profile: Profile, opts: FighterOptions): Prom
       hpPerHit: flat('hp_per_hit'), spPerHit: flat('sp_per_hit'),
     },
     regen: {
-      hp: Math.floor(hpRegenTick(maxHp, stats.vit) * (1 + either('hp_regen') / 100)),
-      sp: Math.floor(spRegenTick(maxSp, stats.int) * (1 + either('sp_regen') / 100)),
+      // Never below nothing: Eastern Sky Armor's HP Regen -95% with Dry Goblin's -50% stops regen, it does not drain.
+      hp: Math.max(0, Math.floor(hpRegenTick(maxHp, stats.vit) * (1 + either('hp_regen') / 100))),
+      sp: Math.max(0, Math.floor(spRegenTick(maxSp, stats.int) * (1 + either('sp_regen') / 100))),
       // Increase SP Recovery is the server's skill regen (MG_SRECOVERY:
       // 2/lv + Max SP/1000 per lv), its own 4 s tick, no gear % (status.cpp:5456).
       spSkill: Math.floor(passives.spRegen.flat + passives.spRegen.maxShare * maxSp),

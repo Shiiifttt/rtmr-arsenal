@@ -1,0 +1,838 @@
+{
+ "name": "Satsujin baselines (2026-09-28)",
+ "iter": 300,
+ "results": [
+  {
+   "scenario": "lair4",
+   "profile": "owner",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Angel of Genesis",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 15.09494435977692,
+     "dps": 17515.29330875357,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Demon of Apocalypse",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 13.992,
+     "dps": 19609.124457318318,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Heartless",
+     "dummy": false,
+     "winRate": 0.056666666666666664,
+     "lossRate": 0.9433333333333334,
+     "ttk": 22.842817399840655,
+     "dps": 20556.464384013303,
+     "deaths": "Critical Slash x132, Magnus Exorcismus x113"
+    },
+    {
+     "variant": "as is",
+     "target": "Heart of the Serpent",
+     "dummy": false,
+     "winRate": 0.93,
+     "lossRate": 0.07,
+     "ttk": 8.070878266560436,
+     "dps": 23627.016442636588,
+     "deaths": "Angel of Genesis: Adoramus x21"
+    }
+   ]
+  },
+  {
+   "scenario": "lair4",
+   "profile": "minimum",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Angel of Genesis",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 9.478202415579812,
+     "dps": 26512.174234096965,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Demon of Apocalypse",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 7.428601207789906,
+     "dps": 32657.598322815025,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Heartless",
+     "dummy": false,
+     "winRate": 0.64,
+     "lossRate": 0.3433333333333333,
+     "ttk": 18.058163330355562,
+     "dps": 26458.145312726563,
+     "deaths": "Critical Slash x84, Knuckle Arrow x11"
+    },
+    {
+     "variant": "as is",
+     "target": "Heart of the Serpent",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 4.588601207789906,
+     "dps": 39986.12066054363,
+     "deaths": ""
+    }
+   ]
+  },
+  {
+   "scenario": "lair4",
+   "profile": "minimum-loki",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Angel of Genesis",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 9.516,
+     "dps": 25750.757766373146,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Demon of Apocalypse",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 9.892875754868692,
+     "dps": 25620.69371475483,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Heartless",
+     "dummy": false,
+     "winRate": 0.62,
+     "lossRate": 0.36333333333333334,
+     "ttk": 19.672313632303037,
+     "dps": 23992.605370340898,
+     "deaths": "Critical Slash x93, Knuckle Arrow x10"
+    },
+    {
+     "variant": "as is",
+     "target": "Heart of the Serpent",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 4.588601207789906,
+     "dps": 39973.05617122026,
+     "deaths": ""
+    }
+   ]
+  },
+  {
+   "scenario": "lair4",
+   "profile": "budget",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Angel of Genesis",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 9.478202415579812,
+     "dps": 26400.17072998699,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Demon of Apocalypse",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 9.44,
+     "dps": 26184.09476947188,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Heartless",
+     "dummy": false,
+     "winRate": 0.41,
+     "lossRate": 0.44333333333333336,
+     "ttk": 23.778751509737383,
+     "dps": 20337.075751501798,
+     "deaths": "Critical Slash x110, Knuckle Arrow x15"
+    },
+    {
+     "variant": "as is",
+     "target": "Heart of the Serpent",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 4.428601207789906,
+     "dps": 41419.487501473755,
+     "deaths": ""
+    }
+   ]
+  },
+  {
+   "scenario": "lair4",
+   "profile": "allround",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Angel of Genesis",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 9.667093103549512,
+     "dps": 24679.812815853835,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Demon of Apocalypse",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 10.64829793135844,
+     "dps": 22847.483319658742,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Heartless",
+     "dummy": false,
+     "winRate": 0.32666666666666666,
+     "lossRate": 0.32,
+     "ttk": 24.75729793135844,
+     "dps": 19148.10298615976,
+     "deaths": "Critical Slash x85, Knuckle Arrow x8"
+    },
+    {
+     "variant": "as is",
+     "target": "Heart of the Serpent",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 4.6482979313584405,
+     "dps": 40049.87514142403,
+     "deaths": ""
+    }
+   ]
+  },
+  {
+   "scenario": "lair4",
+   "profile": "standard",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Angel of Genesis",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 6.119,
+     "dps": 44105.06126516366,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Demon of Apocalypse",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 5.049,
+     "dps": 51556.06084899337,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Heartless",
+     "dummy": false,
+     "winRate": 0.9766666666666667,
+     "lossRate": 0.006666666666666667,
+     "ttk": 13.366190631963795,
+     "dps": 35222.47311400814,
+     "deaths": "Knuckle Arrow x1, Heartless: attack x1"
+    },
+    {
+     "variant": "as is",
+     "target": "Heart of the Serpent",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 1.8518020044568286,
+     "dps": 103596.47702788508,
+     "deaths": ""
+    }
+   ]
+  },
+  {
+   "scenario": "lair4",
+   "profile": "standard-rings",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Angel of Genesis",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 4,
+     "dps": 57779.39516771802,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Demon of Apocalypse",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 4.47436387806407,
+     "dps": 54424.32521361039,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Heartless",
+     "dummy": false,
+     "winRate": 0.8166666666666667,
+     "lossRate": 0.056666666666666664,
+     "ttk": 15.299876252785518,
+     "dps": 31881.944753636726,
+     "deaths": "Knuckle Arrow x15, Heartless: attack x1"
+    },
+    {
+     "variant": "as is",
+     "target": "Heart of the Serpent",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 1.4743638780640698,
+     "dps": 129020.05998858315,
+     "deaths": ""
+    }
+   ]
+  },
+  {
+   "scenario": "lair4",
+   "profile": "endgame",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Angel of Genesis",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 7.742,
+     "dps": 32723.626062064694,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Demon of Apocalypse",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 8.182338949326786,
+     "dps": 35233.304924261545,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Heartless",
+     "dummy": false,
+     "winRate": 0.9966666666666667,
+     "lossRate": 0.0033333333333333335,
+     "ttk": 12.303350742913034,
+     "dps": 38534.72097149927,
+     "deaths": "Knuckle Arrow x1"
+    },
+    {
+     "variant": "as is",
+     "target": "Heart of the Serpent",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 1.7733423189228563,
+     "dps": 113803.40298529381,
+     "deaths": ""
+    }
+   ]
+  },
+  {
+   "scenario": "tomb_knights",
+   "profile": "owner",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Magma Knight",
+     "dummy": false,
+     "winRate": 0.9933333333333333,
+     "lossRate": 0.006666666666666667,
+     "ttk": 9.890883493057137,
+     "dps": 18253.536072007362,
+     "deaths": "Magma Knight: attack x2"
+    },
+    {
+     "variant": "as is",
+     "target": "Tornado Knight",
+     "dummy": false,
+     "winRate": 0.7933333333333333,
+     "lossRate": 0.17666666666666667,
+     "ttk": 45.478142639426366,
+     "dps": 3777.5157364954457,
+     "deaths": "Tornado Knight: attack x36, Wind Blade x15"
+    },
+    {
+     "variant": "as is",
+     "target": "Quake Knight",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 12.0340052264967,
+     "dps": 16131.759078539402,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Tidal Knight",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 9.890883493057137,
+     "dps": 18244.121235010807,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Umbral Knight",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 18.2850052264967,
+     "dps": 12720.425882832873,
+     "deaths": ""
+    }
+   ]
+  },
+  {
+   "scenario": "tomb_knights",
+   "profile": "minimum",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Magma Knight",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 8.929751509737384,
+     "dps": 21693.023578399578,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Tornado Knight",
+     "dummy": false,
+     "winRate": 0.3333333333333333,
+     "lossRate": 0.13666666666666666,
+     "ttk": 40.1080781704485,
+     "dps": 4432.870343446177,
+     "deaths": "Wind Blade x28, Lord of Vermilion x13"
+    },
+    {
+     "variant": "as is",
+     "target": "Quake Knight",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 11.096039085224252,
+     "dps": 19254.13963043272,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Tidal Knight",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 8.526039085224252,
+     "dps": 23059.546604220446,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Umbral Knight",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 12.694352717527288,
+     "dps": 17878.6813784406,
+     "deaths": ""
+    }
+   ]
+  },
+  {
+   "scenario": "tomb_knights",
+   "profile": "minimum-loki",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Magma Knight",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 9.084039085224253,
+     "dps": 22121.479245662493,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Tornado Knight",
+     "dummy": false,
+     "winRate": 0.3,
+     "lossRate": 0.12666666666666668,
+     "ttk": 36.96048999106668,
+     "dps": 4570.188562721945,
+     "deaths": "Wind Blade x31, Lord of Vermilion x7"
+    },
+    {
+     "variant": "as is",
+     "target": "Quake Knight",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 11.058039085224253,
+     "dps": 18883.631548724577,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Tidal Knight",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 6.712875754868691,
+     "dps": 25411.397044307083,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Umbral Knight",
+     "dummy": false,
+     "winRate": 0.9933333333333333,
+     "lossRate": 0.0033333333333333335,
+     "ttk": 13.174352717527288,
+     "dps": 17101.34292086803,
+     "deaths": "Swhoo x1"
+    }
+   ]
+  },
+  {
+   "scenario": "tomb_knights",
+   "profile": "budget",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Magma Knight",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 9.090039085224253,
+     "dps": 20787.758512942903,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Tornado Knight",
+     "dummy": false,
+     "winRate": 0.25,
+     "lossRate": 0.07333333333333333,
+     "ttk": 39.961476962658594,
+     "dps": 4258.505753355592,
+     "deaths": "Wind Blade x17, Lord of Vermilion x5"
+    },
+    {
+     "variant": "as is",
+     "target": "Quake Knight",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 11.098039085224253,
+     "dps": 17381.129786159818,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Tidal Knight",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 7.057476962658597,
+     "dps": 24101.065952794692,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Umbral Knight",
+     "dummy": false,
+     "winRate": 0.9966666666666667,
+     "lossRate": 0,
+     "ttk": 12.694352717527288,
+     "dps": 17926.119224441987,
+     "deaths": ""
+    }
+   ]
+  },
+  {
+   "scenario": "tomb_knights",
+   "profile": "allround",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Magma Knight",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 9.665484138457465,
+     "dps": 19434.064999793485,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Tornado Knight",
+     "dummy": false,
+     "winRate": 0.09333333333333334,
+     "lossRate": 0.15666666666666668,
+     "ttk": 38.62859586271688,
+     "dps": 4194.51493743215,
+     "deaths": "Lord of Vermilion x25, Wind Blade x22"
+    },
+    {
+     "variant": "as is",
+     "target": "Quake Knight",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 11.738484138457464,
+     "dps": 16805.102361190682,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Tidal Knight",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 7.314484138457465,
+     "dps": 22960.377318060826,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Umbral Knight",
+     "dummy": false,
+     "winRate": 0.9933333333333333,
+     "lossRate": 0.0033333333333333335,
+     "ttk": 13.628670345556491,
+     "dps": 16342.594248158844,
+     "deaths": "Swhoo x1"
+    }
+   ]
+  },
+  {
+   "scenario": "tomb_knights",
+   "profile": "standard",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Magma Knight",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 4,
+     "dps": 44035.75763775513,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Tornado Knight",
+     "dummy": false,
+     "winRate": 0.7466666666666667,
+     "lossRate": 0.06,
+     "ttk": 16.381480261699174,
+     "dps": 10304.075849417086,
+     "deaths": "Lord of Vermilion x12, Wind Blade x6"
+    },
+    {
+     "variant": "as is",
+     "target": "Quake Knight",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 10.823752505571036,
+     "dps": 21400.048548485178,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Tidal Knight",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 2.515802004456829,
+     "dps": 63778.53842772709,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Umbral Knight",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 5.817851503342621,
+     "dps": 39965.95763801945,
+     "deaths": ""
+    }
+   ]
+  },
+  {
+   "scenario": "tomb_knights",
+   "profile": "standard-rings",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Magma Knight",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 3.055802004456829,
+     "dps": 55485.51313949746,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Tornado Knight",
+     "dummy": false,
+     "winRate": 0.5266666666666666,
+     "lossRate": 0.03,
+     "ttk": 16.47631437917828,
+     "dps": 10007.855602623209,
+     "deaths": "Wind Blade x9"
+    },
+    {
+     "variant": "as is",
+     "target": "Quake Knight",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 5.557802004456828,
+     "dps": 31170.964574441085,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Tidal Knight",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 2.515802004456829,
+     "dps": 67639.67897028955,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Umbral Knight",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 5.637851503342621,
+     "dps": 42303.451641085034,
+     "deaths": ""
+    }
+   ]
+  },
+  {
+   "scenario": "tomb_knights",
+   "profile": "endgame",
+   "candidate": false,
+   "rows": [
+    {
+     "variant": "as is",
+     "target": "Magma Knight",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 4,
+     "dps": 40059.46177738585,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Tornado Knight",
+     "dummy": false,
+     "winRate": 0.5466666666666666,
+     "lossRate": 0.023333333333333334,
+     "ttk": 26.60835748210518,
+     "dps": 6639.5260256817955,
+     "deaths": "Wind Blade x4, Lord of Vermilion x3"
+    },
+    {
+     "variant": "as is",
+     "target": "Quake Knight",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 6.05267789865357,
+     "dps": 26512.846935004804,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Tidal Knight",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 2.257342318922856,
+     "dps": 60405.99129699878,
+     "deaths": ""
+    },
+    {
+     "variant": "as is",
+     "target": "Umbral Knight",
+     "dummy": false,
+     "winRate": 1,
+     "lossRate": 0,
+     "ttk": 11.240016847980357,
+     "dps": 23342.48047212321,
+     "deaths": ""
+    }
+   ]
+  }
+ ]
+}

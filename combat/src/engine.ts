@@ -229,6 +229,8 @@ export interface Fight {
   cause?: string;
   /** Dodges planned against a cast bar and not taken (option fumble). */
   fumbles?: number;
+  /** An early stall: when the fight was stopped (t is then the limit, as the clock would have run). */
+  stoppedAt?: number;
 }
 
 export const newMobState = (m: Monster): MobState => ({
@@ -1371,13 +1373,16 @@ export function run(fight: Fight): Fight {
       const rate = (hp0 - fight.mob.hp) / (fight.t - t0);
       if (rate * EARLY_STALL_MARGIN * (fight.limitMs - fight.t) < fight.mob.hp) {
         fight.log && say(fight, `cannot kill it by the time limit at ${EARLY_STALL_MARGIN}x its pace so far: a stalemate at the limit`);
+        fight.stoppedAt = fight.t;
         fight.t = fight.limitMs;
         fight.result = 'stalemate';
         fight.cause = 'time limit';
         break;
       }
     }
-    if (++guard > 2_000_000) throw new Error('fight did not progress');
+    // A fight that stops moving forward is a bug in a kit or the engine: booked as a stalemate
+    // (cause 'engine loop', so it shows) rather than killing an hours-long search.
+    if (++guard > 2_000_000) { fight.result = 'stalemate'; fight.cause = 'engine loop'; break; }
     const all = actors(fight);
     const tMe = me.cast ? me.cast.endsAt : me.busyUntil;
     const tDef = me.defense?.at ?? Infinity;

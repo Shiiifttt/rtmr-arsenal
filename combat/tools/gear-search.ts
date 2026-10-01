@@ -174,6 +174,15 @@ const rhythmScore = one('score') === 'rhythm';
 const deathWeight = Number(one('death-weight') ?? 0.1);
 /** --stall-weight: a fight given up (the monster outlived --time) an hour costs this, like --death-weight (default the same). */
 const stallWeight = Number(one('stall-weight') ?? deathWeight);
+/**
+ * Deaths and stalls are charged per kill, scaled to an hour at PER_KILL_REF
+ * kills -- the same as the per-hour charge at that pace. Charged per hour,
+ * a build that barely fights scored as safe: Eastern Sky Armor took a budget
+ * Satsujin to 3 kills an hour sitting 17 minutes a kill, its deaths an hour
+ * fell to almost none, and the search took it (2026-10-01). --per-hour: the old charge.
+ */
+const PER_KILL_REF = 200;
+const perHourCharge = flag('per-hour');
 /** --map (with --score rhythm): weigh each target by how many spawn there. */
 // Several maps or groups ("tomb,jorm,gorge"): each weighs the same in all, its
 // monsters by their share of its spawns -- a big map does not drown a small one.
@@ -741,7 +750,18 @@ function spreadOf(f: Awaited<ReturnType<typeof buildFighter>>, options: Record<s
     const mean = (rows: FightRow[], fn: (r: FightRow) => number) => rows.reduce((a, r) => a + fn(r), 0) / Math.max(1, rows.length);
     const G = fought.reduce((a, x) => a + (x.w / W) * mean(x.s.perFight!, g), 0);
     const C = fought.reduce((a, x) => a + (x.w / W) * mean(x.s.perFight!, c), 0) || 1;
-    for (const x of fought) zs[x.i] = x.s.perFight!.map((r) => ((x.w / W) * (g(r) - (G / C) * c(r))) / C);
+    if (perHourCharge) {
+      for (const x of fought) zs[x.i] = x.s.perFight!.map((r) => ((x.w / W) * (g(r) - (G / C) * c(r))) / C);
+    } else {
+      // Charged per kill: value = 36 K / C - PER_KILL_REF P / K (K kills, C the cycle, P the
+      // weighted deaths and stalls, a cycle each), linearised in each fight's k, c and p.
+      const k = (r: FightRow) => (r.result === 'win' ? 1 : 0);
+      const pen = (r: FightRow) => (r.result === 'loss' ? deathWeight : r.result === 'stalemate' ? stallWeight : 0);
+      const K = Math.max(1e-6, fought.reduce((a, x) => a + (x.w / W) * mean(x.s.perFight!, k), 0));
+      const P = fought.reduce((a, x) => a + (x.w / W) * mean(x.s.perFight!, pen), 0);
+      const dK = 36 / C + (PER_KILL_REF * P) / (K * K); const dC = -(36 * K) / (C * C); const dP = -PER_KILL_REF / K;
+      for (const x of fought) zs[x.i] = x.s.perFight!.map((r) => (x.w / W) * (dK * k(r) + dC * c(r) + dP * pen(r)));
+    }
   } else {
     // value = mean over targets of win + a (1 - loss) + speed(dps); dps linearised around the batch's.
     const a = safeScore ? 0.5 : 0.3;
@@ -832,7 +852,8 @@ async function fight(s: State, n: number, seed: number, per: number[] | null = n
   // an hour costing --death-weight x 100 kills (0.1: 10 kills). --map weighs the targets by spawns.
   if (rhythmScore) {
     const r = rhythm(f, kit.kit, s.options, sums);
-    return { win, loss, dps, ttk: ttkN ? ttk / ttkN : null, value: r.killsPerHour / 100 - deathWeight * r.deathsPerHour - stallWeight * r.stallsPerHour, deaths: top, rhythm: r, spread };
+    const scale = perHourCharge ? 1 : PER_KILL_REF / Math.max(1, r.killsPerHour);
+    return { win, loss, dps, ttk: ttkN ? ttk / ttkN : null, value: r.killsPerHour / 100 - scale * (deathWeight * r.deathsPerHour + stallWeight * r.stallsPerHour), deaths: top, rhythm: r, spread };
   }
   // --min-hp N: a build under N Max HP is out, whatever it deals.
   if (minHp && f.maxHp < minHp) return { win, loss, dps, ttk: ttkN ? ttk / ttkN : null, value: -1, deaths: top, spread };
