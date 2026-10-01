@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import { createContext, useContext, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 /**
  * The recommended rotation for the build's class, from the combat sim
@@ -16,7 +16,11 @@ import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 
 type Stat = 'STR' | 'AGI' | 'VIT' | 'INT' | 'DEX' | 'LUK';
 interface Scaling { stats: Stat[]; per: number; every: number; text: string }
-interface SkillInfo { name: string; icon: string; level: number; desc: string; summary: string | null; scalings: Scaling[] }
+/** One term of a skill's ratio (combat/tools/ratio-terms.ts): worked out (`value`), per stat (on your stats), or only said. */
+interface Term { text: string; value?: number; stats?: Stat[]; per?: number; every?: number; from?: string; said?: boolean }
+/** The main formula (its terms add up to the total) or a condition on top: "Combo Ready", "Per Overslash stack". */
+interface RatioGroup { label: string; main: boolean; terms: Term[] }
+interface SkillInfo { name: string; icon: string; level: number; desc: string; summary: string | null; scalings: Scaling[]; ratio?: RatioGroup[] | null }
 /** A buff, combo state or debuff the kit tracks, as it stands after a step. */
 interface StatusMark { label: string; stacks?: number; leftMs?: number; value?: number; onTarget?: boolean }
 /** After each step: what's up, and what the step set off by itself (autocasts). */
@@ -32,6 +36,8 @@ interface Rotation {
   damage: { id: string; share: number; perCast: number | null }[];
   prep: string[];
   dps: number;
+  /** Share of the fight a tracked state was up: { "Night Wound": 0.87 }. */
+  uptime?: Record<string, number>;
 }
 interface ClassRotations {
   /** Set when a class has several builds: the entry is keyed "<class>: <build>" (Night Raven). */
@@ -146,15 +152,17 @@ export function RotationOverlay({
                   {data.buffs.map((b) => (
                     <div className="rot-buff" key={b.skill}>
                       <SkillTile id={b.skill} skills={data.skills} stats={stats} badge={b.optional ? 'OPTIONAL' : undefined} />
-                      <span className={`rot-gain ${b.required ? 'req' : b.dpsGain || b.vsGain ? '' : 'def'}`}
-                        title={b.vsGain ? `Nothing on the dummy; in the fight against ${data.allround.vs}` : undefined}>
-                        {b.required ? 'required' : b.dpsGain ? `+${(100 * b.dpsGain).toFixed(1)}% DPS`
-                          : b.vsGain ? `+${(100 * b.vsGain).toFixed(1)}% vs ${data.allround.vs}` : 'defensive'}
+                      {/* The gain alone, whichever fight it was measured in (the project owner, 2026-10-02: no monster names here). */}
+                      <span className={`rot-gain ${b.required ? 'req' : b.dpsGain || b.vsGain ? '' : 'def'}`}>
+                        {b.required ? 'required' : b.dpsGain || b.vsGain ? `+${(100 * (b.dpsGain || b.vsGain!)).toFixed(1)}% DPS` : 'defensive'}
                       </span>
                     </div>
                   ))}
                 </div>
                 {rot.prep.length > 0 && <p className="rot-sub">Up at the pull here: {rot.prep.join(' · ')}</p>}
+                {rot.uptime && Object.keys(rot.uptime).length > 0 && (
+                  <p className="rot-sub">Kept up on the target: {Object.entries(rot.uptime).map(([k, v]) => `${k} ${Math.round(v * 100)}% of the fight`).join(' · ')}</p>
+                )}
               </Section>
 
               <Section title="Opener">
@@ -202,21 +210,82 @@ export function RotationOverlay({
         </div>
       </div>
       {hover && data && (hover.states
-        ? <StateTip rect={hover.rect} states={hover.states} after={hover.after} />
-        : <SkillTip rect={hover.rect} id={hover.id} dmg={hover.dmg} skills={data.skills} stats={stats} damage={damage} />)}
+        ? <StateTip key={`${hover.rect.left},${hover.rect.top}`} rect={hover.rect} states={hover.states} after={hover.after} />
+        : <SkillTip key={`${hover.rect.left},${hover.rect.top}`} rect={hover.rect} id={hover.id} dmg={hover.dmg} skills={data.skills} stats={stats} damage={damage} />)}
     </div>
     </DamageCtx.Provider>
     </HoverCtx.Provider>
   );
 }
 
-/** Where a floating tooltip goes: below the hovered thing, or above it near the bottom, kept inside the window. */
-function tipStyle(rect: DOMRect, W: number) {
-  const left = Math.max(8, Math.min(window.innerWidth - W - 8, rect.left + rect.width / 2 - W / 2));
+/**
+ * A floating tooltip: below the hovered thing, or above it near the bottom.
+ * `min` is its narrowest; it grows with its text (no scroll bar: the project
+ * owner, 2026-10-02) and is moved back inside the window once measured.
+ */
+function Tip({ rect, min, children }: { rect: DOMRect; min: number; children: React.ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [shift, setShift] = useState({ x: 0, y: 0 });
+  const left = rect.left + rect.width / 2 - min / 2;
   const below = rect.bottom + 8;
-  return below > window.innerHeight * 0.55
-    ? { left, bottom: window.innerHeight - rect.top + 8, width: W }
-    : { left, top: below, width: W };
+  const up = below > window.innerHeight * 0.55;
+  useLayoutEffect(() => {
+    const r = ref.current?.getBoundingClientRect();
+    if (!r) return;
+    const x = r.right > window.innerWidth - 8 ? window.innerWidth - 8 - r.right : r.left < 8 ? 8 - r.left : 0;
+    const y = r.top < 8 ? 8 - r.top : r.bottom > window.innerHeight - 8 && !up ? window.innerHeight - 8 - r.bottom : 0;
+    if (x || y) setShift((s) => ({ x: s.x + x, y: s.y + y }));
+  }, [rect, up]);
+  const style = {
+    left: left + shift.x, minWidth: min, maxWidth: Math.min(560, window.innerWidth - 16),
+    ...(up ? { bottom: window.innerHeight - rect.top + 8 - shift.y } : { top: below + shift.y }),
+  };
+  return <div ref={ref} className="rot-tip" role="tooltip" style={style}>{children}</div>;
+}
+
+const pct = (v: number) => `${v >= 0 ? '+' : ''}${Math.round(v)}%`;
+
+/**
+ * The skill's ratio term by term on this build: the main formula adding up
+ * to its total, then what comes on top when it applies. Stat terms use your
+ * stats; levels are the build's.
+ */
+function RatioBlock({ groups, stats }: { groups: RatioGroup[]; stats: Record<Stat, number> }) {
+  const valueOf = (t: Term) => (t.stats ? ((t.per ?? 0) * t.stats.reduce((a, k) => a + (stats[k] ?? 0), 0)) / (t.every ?? 1) : t.value);
+  const mains = groups.filter((g) => g.main);
+  const row = (t: Term, i: number, first: boolean) => {
+    const v = valueOf(t);
+    const color = t.stats ? STAT_COLOR[t.stats[0]] : undefined;
+    return (
+      <span className={`rot-term${t.said ? ' said' : ''}`} key={i}>
+        <span style={color ? { color } : undefined}>
+          {/^\d/.test(t.text) ? 'Base' : t.text}{t.stats ? ` (${t.stats.map((k) => `${k} ${stats[k] ?? 0}`).join(' + ')})` : ''}
+          {t.from && <em> · {t.from}</em>}
+        </span>
+        <b>{v === undefined ? 'situational' : first && !t.stats && i === 0 ? `${Math.round(v)}%` : pct(v)}</b>
+      </span>
+    );
+  };
+  return (
+    <span className="rot-ratio">
+      {mains.map((g) => {
+        const total = g.terms.reduce((a, t) => a + (valueOf(t) ?? 0), 0);
+        return (
+          <span className="rot-group" key={g.label}>
+            <span className="rot-sub">{mains.length > 1 ? `${g.label} ratio` : 'Skill ratio'}</span>
+            {g.terms.map((t, i) => row(t, i, true))}
+            <span className="rot-term total"><span>Total on your stats</span><b>{Math.round(total)}%</b></span>
+          </span>
+        );
+      })}
+      {groups.filter((g) => !g.main).map((g) => (
+        <span className="rot-group cond" key={g.label}>
+          <span className="rot-sub">{g.label}</span>
+          {g.terms.map((t, i) => row(t, i, false))}
+        </span>
+      ))}
+    </span>
+  );
 }
 
 /** An arrow's tooltip: your buffs and combo states, then the target's debuffs, as they stand after the step before it. */
@@ -232,12 +301,12 @@ function StateTip({ rect, states, after }: { rect: DOMRect; states: StatusMark[]
     </span>
   );
   return (
-    <div className="rot-tip" role="tooltip" style={tipStyle(rect, 280)}>
+    <Tip rect={rect} min={280}>
       <strong>After {MOVE_LABEL[after] ?? after}</strong>
       {states.length === 0 && <span className="rot-sum">Nothing tracked is up.</span>}
       {mine.length > 0 && <span className="rot-states"><span className="rot-sub">You</span>{mine.map(row)}</span>}
       {theirs.length > 0 && <span className="rot-states"><span className="rot-sub">Target</span>{theirs.map(row)}</span>}
-    </div>
+    </Tip>
   );
 }
 
@@ -245,15 +314,16 @@ function SkillTip({ rect, id, dmg, skills, stats, damage }: { rect: DOMRect; id:
   const s = skills[id];
   const d = damage.get(dmg ?? id);
   const label = MOVE_LABEL[id] ?? id;
-  const style = tipStyle(rect, 340);
   return (
-    <div className="rot-tip" role="tooltip" style={style}>
+    <Tip rect={rect} min={340}>
       <strong>{label}</strong>{s?.level ? <em> Lv {s.level}</em> : null}
       {d && d.share > 0 && (
         <span className="rot-dmg">{(100 * d.share).toFixed(1)}% of your damage{d.perCast ? ` · ~${d.perCast.toLocaleString('en-US')} a cast` : ''}</span>
       )}
       {s?.summary && <span className="rot-sum">{s.summary}</span>}
-      {s && s.scalings.length > 0 && (
+      {s?.ratio && s.ratio.length > 0 && <RatioBlock groups={s.ratio} stats={stats} />}
+      {/* No damage formula (a buff): its stat lines as chips. */}
+      {s && !s.ratio?.length && s.scalings.length > 0 && (
         <span className="rot-scales">
           {s.scalings.map((sc, i) => {
             const total = sc.stats.reduce((a, k) => a + (stats[k] ?? 0), 0);
@@ -268,7 +338,7 @@ function SkillTip({ rect, id, dmg, skills, stats, damage }: { rect: DOMRect; id:
       )}
       {s?.desc && <span className="rot-desc">{s.desc}</span>}
       {!s && id === 'Attack' && <span className="rot-sum">Normal attacks between skills.</span>}
-    </div>
+    </Tip>
   );
 }
 

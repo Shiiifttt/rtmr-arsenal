@@ -1,5 +1,5 @@
 {
- "builtAt": "2026-10-01T21:09:21.512Z",
+ "builtAt": "2026-10-01T21:50:42.073Z",
  "allroundVs": "Heartless",
  "dummySeconds": 10,
  "classes": {
@@ -642,6 +642,7 @@
      "Ominous Presence shield up to 17,471"
     ],
     "dps": 31433,
+    "uptime": {},
     "openerMarks": [
      {
       "states": [
@@ -1236,6 +1237,7 @@
      "Ominous Presence shield up to 17,471"
     ],
     "dps": 45327,
+    "uptime": {},
     "openerMarks": [
      {
       "states": [
@@ -1502,7 +1504,7 @@
      "name": "Scythe Reap",
      "icon": "LK_SPIRALPIERCE",
      "level": 10,
-     "desc": "A multi-strike attack that slices the skin, which can immobilize the enemy for 4 seconds.\nRequires a Scythe to use.\nDamage is 150+25% per level +2% per Luk.\nSkill can be a critical hit.\nGrants or refreshes Combo Ready for 4 seconds.\nThis also applies to autocasts.\nDamage is slightly boosted by weapon weight.\nSkill has decreasing delay per level.\nBase Starting Cooldown is 1 second.",
+     "desc": "A multi-strike slash that cuts the skin and can immobilize the enemy for 4 s.\nDamage: 150% + 25% per level + 2% per LUK\nDamage is slightly boosted by weapon weight.\nCan crit.\nGrants or refreshes Combo Ready for 4 s, also when autocast.\nRequires a Scythe.\nDelay decreases with skill level.\nCooldown: 1 s",
      "summary": "Your combo opener: a three-slash hit that turns on Combo Ready for 4 s. Recast it whenever Combo Ready is about to drop.",
      "scalings": [
       {
@@ -1513,13 +1515,51 @@
        ],
        "text": "+2% per Luk"
       }
+     ],
+     "ratio": [
+      {
+       "label": "Damage",
+       "main": true,
+       "terms": [
+        {
+         "text": "150%",
+         "value": 150
+        },
+        {
+         "text": "+25% per level (10)",
+         "value": 250
+        },
+        {
+         "text": "+2% per LUK",
+         "stats": [
+          "LUK"
+         ],
+         "per": 2,
+         "every": 1
+        },
+        {
+         "text": "+2% per DEX",
+         "stats": [
+          "DEX"
+         ],
+         "per": 2,
+         "every": 1,
+         "from": "Darkside Shadow"
+        },
+        {
+         "text": "+2% per True Sight level (10)",
+         "value": 20,
+         "from": "True Sight"
+        }
+       ]
+      }
      ]
     },
     "Reaping Slash": {
      "name": "Reaping Slash",
      "icon": "LG_MOONSLASHER",
      "level": 10,
-     "desc": "Deals damage to all targets in a 5x5 cell radius around the caster.\nDamage is 110+10% per level +2% per LUK\nExtra 5% per Overslash Stack\nSkill can be critical.\nGrants an Overslash Stack per cast, but\nOnly goes past 1 if Combo Ready\nFinisher Ready instantly maximizes stacks if Combo Ready and already has 1 stack or higher\nOverslash stack increases Roaring Overslash and Underworld Rainstorm power\nMaximum amount of stacks is 5\nStacks duration is 6 seconds\nBase Starting Cooldown is 1.5 seconds\nSP Cost: 5 per level.\nRequires an extra 5% Current HP per cast",
+     "desc": "You slash all targets in a 5x5 area around you and gain an Overslash stack.\nDamage: 110% + 10% per level + 2% per LUK\n+5% damage per Overslash stack.\nCan crit.\nGrants 1 Overslash stack per cast, but only goes past 1 stack under Combo Ready.\nUnder Finisher Ready, it instantly maximizes your stacks if you have Combo Ready and already 1 or more stacks.\nOverslash stacks increase the power of Roaring Overslash and Underworld Rainstorm.\nOverslash stacks: max 5, last 6 s.\nCooldown: 1.5 s\nCost: 5 SP per level, plus 5% of current HP per cast",
      "summary": "Spin attack around you that builds Overslash stacks (max 5, last 6 s). Needs Combo Ready to go past 1 stack; with Finisher Ready up it jumps straight to 5 — and it always ends Finisher Ready. Costs 5% of your current HP.",
      "scalings": [
       {
@@ -1530,13 +1570,61 @@
        ],
        "text": "+2% per LUK"
       }
+     ],
+     "ratio": [
+      {
+       "label": "Damage",
+       "main": true,
+       "terms": [
+        {
+         "text": "110%",
+         "value": 110
+        },
+        {
+         "text": "+10% per level (10)",
+         "value": 100
+        },
+        {
+         "text": "+2% per LUK",
+         "stats": [
+          "LUK"
+         ],
+         "per": 2,
+         "every": 1
+        },
+        {
+         "text": "+2% per DEX",
+         "stats": [
+          "DEX"
+         ],
+         "per": 2,
+         "every": 1,
+         "from": "Darkside Shadow"
+        },
+        {
+         "text": "+2% per True Sight level (10)",
+         "value": 20,
+         "from": "True Sight"
+        }
+       ]
+      },
+      {
+       "label": "Per Overslash stack",
+       "main": false,
+       "terms": [
+        {
+         "text": "+5%",
+         "value": 5
+        }
+       ]
+      }
      ]
     },
     "Hellraiser": {
      "name": "Hellraiser",
      "icon": "RK_IGNITIONBREAK",
      "level": 10,
-     "desc": "Strucks weapon to the ground causing strong explosion that damage all enemies around the caster.\nSkill can be critical.\nSkill activates Finisher Ready for 5s\nDamage is 250+15% per level +3% per LUK\nDamage is always Fire Element.\nVariable cast time is 0.5s\nBase starting cooldown is 12 seconds.",
+     "desc": "You strike your weapon into the ground, causing a strong explosion that damages all enemies around you.\nDamage: 250% + 15% per level + 3% per LUK\nDamage is always Fire element.\nCan crit.\nGrants Finisher Ready for 5 s.\nCast: 0.5 s variable\nCooldown: 12 s",
      "summary": "Fire explosion around you that grants Finisher Ready for 5 s. Cast it with 1 Overslash stack, so the next Reaping Slash takes you to 5.",
      "scalings": [
       {
@@ -1547,13 +1635,51 @@
        ],
        "text": "+3% per LUK"
       }
+     ],
+     "ratio": [
+      {
+       "label": "Damage",
+       "main": true,
+       "terms": [
+        {
+         "text": "250%",
+         "value": 250
+        },
+        {
+         "text": "+15% per level (10)",
+         "value": 150
+        },
+        {
+         "text": "+3% per LUK",
+         "stats": [
+          "LUK"
+         ],
+         "per": 3,
+         "every": 1
+        },
+        {
+         "text": "+2% per DEX",
+         "stats": [
+          "DEX"
+         ],
+         "per": 2,
+         "every": 1,
+         "from": "Darkside Shadow"
+        },
+        {
+         "text": "+2% per True Sight level (10)",
+         "value": 20,
+         "from": "True Sight"
+        }
+       ]
+      }
      ]
     },
     "Sweeping Slash": {
      "name": "Sweeping Slash",
      "icon": "KN_PIERCE",
      "level": 5,
-     "desc": "Sweeps the legs with the scythe,\nDamage is 200+25% per level +2% per LUK per hit\nSkill deals 2 individual hits\nIncreased to 3 hits if Finisher Ready\nDamage greatly reduced outside combos\nSkill can be critical\nBase Starting Cooldown is 2.5 seconds.",
+     "desc": "You sweep the target's legs with your scythe.\nDamage: 200% + 25% per level + 2% per LUK, per hit\nDamage is greatly reduced outside combos.\nDeals 2 separate hits, or 3 under Finisher Ready.\nCan crit.\nCooldown: 2.5 s",
      "summary": "Two-hit filler (three under Finisher Ready) that also refreshes Combo Ready for 3 s. Weak outside a combo.",
      "scalings": [
       {
@@ -1564,21 +1690,60 @@
        ],
        "text": "+2% per LUK"
       }
+     ],
+     "ratio": [
+      {
+       "label": "Damage",
+       "main": true,
+       "terms": [
+        {
+         "text": "200%",
+         "value": 200
+        },
+        {
+         "text": "+25% per level (5)",
+         "value": 125
+        },
+        {
+         "text": "+2% per LUK",
+         "stats": [
+          "LUK"
+         ],
+         "per": 2,
+         "every": 1
+        },
+        {
+         "text": "+2% per DEX",
+         "stats": [
+          "DEX"
+         ],
+         "per": 2,
+         "every": 1,
+         "from": "Darkside Shadow"
+        },
+        {
+         "text": "+2% per True Sight level (10)",
+         "value": 20,
+         "from": "True Sight"
+        }
+       ]
+      }
      ]
     },
     "Haunting Slice": {
      "name": "Haunting Slice",
      "icon": "GC_DARKILLUSION",
      "level": 5,
-     "desc": "Quickly reaches and attacks\nDamage is fixed based on ATK and Str.\nRange is 3+1 cells per level.\n20% chance per level to autocast Scythe Reap.\nAutocast uses Haunting Slice's skill level.\nStarting cooldown is 7 seconds.",
+     "desc": "You quickly reach the target and attack.\nDamage is fixed, based on ATK and STR.\nRange: 3 cells + 1 per level\n20% chance per level to autocast Scythe Reap, at Haunting Slice's skill level.\nCooldown: 7 s",
      "summary": "Dash to the target; at Lv5 it always autocasts Scythe Reap for free — a gap closer that also restarts Combo Ready.",
-     "scalings": []
+     "scalings": [],
+     "ratio": null
     },
     "Roaring Overslash": {
      "name": "Roaring Overslash",
      "icon": "LG_OVERBRAND",
      "level": 10,
-     "desc": "Draws crosses on the skies to cause damage at a range of 7x7.\nDamage is 150+15% per level +2% per LUK\nDamage reduced if not combo ready\nDeals one extra hit per Roaring Stack\nSkill can be critical\nBase cooldown is 7 seconds.\nRequires extra 10% Current SP per cast.",
+     "desc": "You draw crosses in the sky, damaging a 7x7 area.\nDamage: 150% + 15% per level + 2% per LUK\nDamage is reduced without Combo Ready.\nDeals one extra hit per Overslash stack.\nCan crit.\nCooldown: 7 s\nCost: also 10% of current SP per cast",
      "summary": "Your finisher: one hit, plus one extra full hit per Overslash stack (6 hits at 5 stacks). Does not use up the stacks. Weaker without Combo Ready. Costs 10% of current SP.",
      "scalings": [
       {
@@ -1589,13 +1754,51 @@
        ],
        "text": "+2% per LUK"
       }
+     ],
+     "ratio": [
+      {
+       "label": "Damage",
+       "main": true,
+       "terms": [
+        {
+         "text": "150%",
+         "value": 150
+        },
+        {
+         "text": "+15% per level (10)",
+         "value": 150
+        },
+        {
+         "text": "+2% per LUK",
+         "stats": [
+          "LUK"
+         ],
+         "per": 2,
+         "every": 1
+        },
+        {
+         "text": "+2% per DEX",
+         "stats": [
+          "DEX"
+         ],
+         "per": 2,
+         "every": 1,
+         "from": "Darkside Shadow"
+        },
+        {
+         "text": "+2% per True Sight level (10)",
+         "value": 20,
+         "from": "True Sight"
+        }
+       ]
+      }
      ]
     },
     "Phantom Slice": {
      "name": "Phantom Slice",
      "icon": "RK_PHANTOMTHRUST",
      "level": 5,
-     "desc": "Throws Scythe and Attacks a distant enemy to pull them close to yourself. Can be used on a party member, but won't deal damage.\n\nDamage is 100+20% +2% per Vit.\nRange is 3+1 cells per level.\nStarting cooldown is 1 second.",
+     "desc": "You throw your scythe at a distant enemy and pull it close to you. Can be used on a party member, but then deals no damage.\nDamage: 100% + 20% + 2% per VIT\nRange: 3 cells + 1 per level\nCooldown: 1 s",
      "summary": "Ranged scythe throw that pulls the target in. A cheap 1-second-cooldown filler between combos.",
      "scalings": [
       {
@@ -1606,13 +1809,51 @@
        ],
        "text": "+2% per Vit"
       }
+     ],
+     "ratio": [
+      {
+       "label": "Damage",
+       "main": true,
+       "terms": [
+        {
+         "text": "100%",
+         "value": 100
+        },
+        {
+         "text": "+20%",
+         "value": 20
+        },
+        {
+         "text": "+2% per VIT",
+         "stats": [
+          "VIT"
+         ],
+         "per": 2,
+         "every": 1
+        },
+        {
+         "text": "+2% per DEX",
+         "stats": [
+          "DEX"
+         ],
+         "per": 2,
+         "every": 1,
+         "from": "Darkside Shadow"
+        },
+        {
+         "text": "+2% per True Sight level (10)",
+         "value": 20,
+         "from": "True Sight"
+        }
+       ]
+      }
      ]
     },
     "Flaming Wave": {
      "name": "Flaming Wave",
      "icon": "NC_FLAMELAUNCHER",
      "level": 10,
-     "desc": "Sets flames on the ground and inflicts Burning status to enemies around the targeted enemy.\nDamage is 30% per level +3% per INT.\nBurning chance is 5% per level\nBurning duration is 2.5+0.5s per level\nBase Starting Cooldown is 5 seconds",
+     "desc": "You set the ground on fire around the targeted enemy, which can inflict Burning on enemies there.\nDamage: 30% per level + 3% per INT\nBurning chance: 5% per level\nBurning duration: 2.5 s + 0.5 s per level\nCooldown: 5 s",
      "summary": "Fire line that can set targets Burning. Scales on INT, so weak on a STR/LUK build — only a filler.",
      "scalings": [
       {
@@ -1623,13 +1864,33 @@
        ],
        "text": "+3% per INT"
       }
+     ],
+     "ratio": [
+      {
+       "label": "Damage",
+       "main": true,
+       "terms": [
+        {
+         "text": "+30% per level (10)",
+         "value": 300
+        },
+        {
+         "text": "+3% per INT",
+         "stats": [
+          "INT"
+         ],
+         "per": 3,
+         "every": 1
+        }
+       ]
+      }
      ]
     },
     "Dark Message": {
      "name": "Dark Message",
      "icon": "SL_STIN",
      "level": 5,
-     "desc": "Pushes back a targeted enemy 3 cells away. Only Small sized targets are fully damaged by this skill.\nDamage is very small and focused on control.\nDamage is 10% per level +1% per STR.\nDamage is calculated based on MATK insteat of ATK\nEnables Combo Ready for 1s per level\nEnables Cast Ready for 1s per level\nVariable cast time is 0.5s\nFixed cast time is 0.1s\nBase Starting Cooldown is 7 seconds",
+     "desc": "You push the targeted enemy back 3 cells. The damage is very small; the skill is mainly for control.\nDamage: 10% per level + 1% per STR\nDamage is based on MATK instead of ATK.\nOnly Small targets take full damage.\nGrants Combo Ready for 1 s per level.\nGrants Cast Ready for 1 s per level.\nCast: 0.5 s variable + 0.1 s fixed\nCooldown: 7 s",
      "summary": "Small push that grants Combo Ready and Cast Ready (variable cast −95%) — used to make Underworld Rainstorm instant.",
      "scalings": [
       {
@@ -1640,13 +1901,33 @@
        ],
        "text": "+1% per STR"
       }
+     ],
+     "ratio": [
+      {
+       "label": "Damage",
+       "main": true,
+       "terms": [
+        {
+         "text": "+10% per level (5)",
+         "value": 50
+        },
+        {
+         "text": "+1% per STR",
+         "stats": [
+          "STR"
+         ],
+         "per": 1,
+         "every": 1
+        }
+       ]
+      }
      ]
     },
     "Underworld Rainstorm": {
      "name": "Underworld Rainstorm",
      "icon": "WM_SEVERE_RAINSTORM",
      "level": 10,
-     "desc": "Summons a rain of rays from the underworld to continuously strike enemies in an 11x11 AoE for a duration.\nDamage is 2% per Level +1% per 2 LUK and INT\nExtra 4% per Overslash Stack\nSkill duration is 3 seconds.\nEnemies are hit every 0.2 seconds.\nVariable cast time is 5s\nFixed cast time is 0.5s\nCooldown is 12 seconds.\nCast can't be interrupted and skill never misses.\nDefenses halved during casting\nRequires a Shadow Orb to cast.",
+     "desc": "You summon a rain of rays from the underworld that keeps striking enemies in an 11x11 area for 3 s.\nDamage: 2% per level + 1% per 2 LUK and INT\n+4% damage per Overslash stack.\nEnemies are hit every 0.2 s for the 3 s duration.\nNever misses.\nThe cast can't be interrupted, but your defences are halved while casting.\nRequires a Shadow Orb.\nCast: 5 s variable + 0.5 s fixed\nCooldown: 12 s",
      "summary": "Rain of hits on an 11x11 area for 3 s, +4% per Overslash stack. Its 5 s cast is cut by Dark Message's Cast Ready or removed by Royal Scythe.",
      "scalings": [
       {
@@ -1658,13 +1939,58 @@
        ],
        "text": "+1% per 2 LUK and INT"
       }
+     ],
+     "ratio": [
+      {
+       "label": "Damage",
+       "main": true,
+       "terms": [
+        {
+         "text": "+2% per level (10)",
+         "value": 20
+        },
+        {
+         "text": "+1% per 2 LUK + INT",
+         "stats": [
+          "LUK",
+          "INT"
+         ],
+         "per": 1,
+         "every": 2
+        },
+        {
+         "text": "+1% per DEX (halved)",
+         "stats": [
+          "DEX"
+         ],
+         "per": 1,
+         "every": 1,
+         "from": "Darkside Shadow"
+        },
+        {
+         "text": "+2% per True Sight level (10)",
+         "value": 20,
+         "from": "True Sight"
+        }
+       ]
+      },
+      {
+       "label": "Per Overslash stack",
+       "main": false,
+       "terms": [
+        {
+         "text": "+4%",
+         "value": 4
+        }
+       ]
+      }
      ]
     },
     "Darkside Shadow": {
      "name": "Darkside Shadow",
      "icon": "KG_KAGEMUSYA",
      "level": 10,
-     "desc": "Summons your shadow to repeat your normal attacks, allowing use of the\nDouble Attack skill with a Scythe.\nAdds 2% per DEX Scaling to all Physical skills\nUnderworld Rainstorm bonus is halved\nDuration is 15 seconds per level.\nCooldown is 60 seconds.\nDouble Attack chance is 10% per level.",
+     "desc": "You summon your shadow to repeat your normal attacks, letting you use Double Attack with a Scythe.\nAll physical skills gain +2% damage scaling per DEX; this bonus is halved for Underworld Rainstorm.\nDouble Attack chance: 10% per level\nDuration: 15 s per level\nCooldown: 60 s",
      "summary": "Pre-fight buff, 150 s: your shadow gives normal attacks a 100% Double Attack chance, and every physical skill gains +2% damage per DEX.",
      "scalings": [
       {
@@ -1675,47 +2001,53 @@
        ],
        "text": "2% per DEX"
       }
-     ]
+     ],
+     "ratio": null
     },
     "True Sight": {
      "name": "True Sight",
      "icon": "SN_SIGHT",
      "level": 10,
-     "desc": "Focus to improve\nCurrent combat capabilities for a short time.\nDuration is 60 seconds.\nStarting Cooldown is 80 seconds.\nIncreases all stats by 3 for duration.\nIncreases hit by 3 and crit by 3 per level.",
+     "desc": "You focus to improve your combat ability for a short time.\n+3 to all stats.\n+3 HIT and +3 crit per level.\nDuration: 60 s\nCooldown: 80 s",
      "summary": "Pre-fight buff, 60 s: +3 to all stats, +30 HIT and +30 crit; also +20% to every weapon attack's ratio (server code).",
-     "scalings": []
+     "scalings": [],
+     "ratio": null
     },
     "Vampire Mark": {
      "name": "Vampire Mark",
      "icon": "GN_BLOOD_SUCKER",
      "level": 5,
-     "desc": "Imbodies blood into an ally or self to allow leeching physical damage.\nDuration is 60s at Lv1 -5s per level\nDuration is 40s at Lv5.\nBase Starting Cooldown is 60 seconds\nLeeching chance is 10% per level\nLeeching power is 3% per level\nDoesn't work with magic damage",
+     "desc": "You infuse blood into yourself or an ally, letting physical damage leech HP.\nLeech chance: 10% per level\nLeech power: 3% per level\nDoes not work with magic damage.\nDuration: 60 s at Lv1, 5 s less per level (40 s at Lv5)\nCooldown: 60 s",
      "summary": "Pre-fight buff, 40 s: physical hits have a 50% chance to heal you for 15% of the damage. Feeds the Ominous Presence shield.",
-     "scalings": []
+     "scalings": [],
+     "ratio": null
     },
     "Shadow Parry": {
      "name": "Shadow Parry",
      "icon": "LK_PARRYING",
      "level": 10,
-     "desc": "Blocks damage from physical attack using a Scythe. When successfully blocking an attack, caster will be forced to pause momentarily.\nRequires a Scythe.\nBlock chance is 10 + 2% per level.\nRequires 5% extra Max SP per cast.\nDuration is 20+10s per level",
+     "desc": "You block physical attacks with your scythe. After a successful block you pause for a moment.\nBlock chance: 10% + 2% per level\nRequires a Scythe.\nDuration: 20 s + 10 s per level\nCost: also 5% of Max SP per cast",
      "summary": "Pre-fight buff, 120 s: blocks 30% of physical hits (normal attacks and weapon skills) outright.",
-     "scalings": []
+     "scalings": [],
+     "ratio": null
     },
     "Burning Scythe": {
      "name": "Burning Scythe",
      "icon": "SA_FLAMELAUNCHER",
      "level": 10,
-     "desc": "Endows your own weapon with Fire element for the skill's duration.\nDuration is 30 seconds per level.\nVariable cast time is 1s\nFixed cast time is 1s",
+     "desc": "Your weapon gains the Fire element for the skill's duration.\nDuration: 30 s per level\nCast: 1 s variable + 1 s fixed",
      "summary": "Fire endow, cast before the pull only when Fire beats your weapon's element on the target (Holy monsters, for a Neutral or Holy scythe).",
-     "scalings": []
+     "scalings": [],
+     "ratio": null
     },
     "Ominous Presence": {
      "name": "Ominous Presence",
      "icon": "GS_SINGLEACTION",
      "level": 10,
-     "desc": "Increases Lecching effects and Overheals of Scythes.\nOverHeal (Scythe HP Leech):\nLeeching HP with full health converts into a Shield\nDuration: 30s (refreshes on new Overheal).\nShield Max: MaxHP + (10% x Lv) x (STR + 2xLUK + BaseLv) x Leech Power.\nLeech Power uses percentage points (5% = 5).\nRequires positive Leech Power.\nConversion: 8% per Skill Lv against a single target,\n4% per Skill Lv when the hit strikes several targets.",
+     "desc": "Passive: improves the leech effects and overheal of Scythes.\nOverheal (scythe HP leech): leeching HP while at full health turns into a shield.\nShield duration: 30 s, refreshed by each new overheal.\nShield max: Max HP + (10% x level) x (STR + 2 x LUK + base level) x Leech Power\nLeech Power counts in percentage points (5% = 5) and must be above 0.\nConversion: 8% per skill level against a single target, 4% per skill level when the hit strikes several targets.",
      "summary": "Passive: leech that would overheal you becomes a shield (80% of the overheal), up to Max HP + your STR/LUK/level times Leech Power. This is what keeps a low-HP Revenant alive.",
-     "scalings": []
+     "scalings": [],
+     "ratio": null
     }
    }
   },
@@ -2251,6 +2583,7 @@
      "10 Focus (Wind Blade ×2)"
     ],
     "dps": 38951,
+    "uptime": {},
     "openerMarks": [
      {
       "states": [
@@ -2756,6 +3089,7 @@
      "10 Focus (Wind Blade ×2)"
     ],
     "dps": 72475,
+    "uptime": {},
     "openerMarks": [
      {
       "states": [
@@ -2972,7 +3306,7 @@
      "name": "Shadow Slash",
      "icon": "NJ_KIRIKAGE",
      "level": 10,
-     "desc": "Shadow Slash dashes to a target and attempts a critical hit 3 times.\nDamage is 200+15% per level +1% per LUK\nBonus Crit Rate is 5+ 5 per level\nOnly Right Hand Weapon ATK is used\nRequires a Dagger or Sword equipped\nDamage increases by 5% per Improve Dodge level while under Hallucination Walk\nBase Starting Cooldown is 4 seconds.",
+     "desc": "You dash to the target and make 3 critical hit attempts.\nDamage: 200% + 15% per level + 1% per LUK\nOnly the right-hand weapon's ATK is used.\n+5% damage per Improve Dodge level while under Hallucination Walk.\nBonus crit rate: 5 + 5 per level\nRequires a Dagger or Sword.\nCooldown: 4 s",
      "summary": "Dash-in opener: three crit attempts on the target. Puts you in melee instantly.",
      "scalings": [
       {
@@ -2983,13 +3317,47 @@
        ],
        "text": "+1% per LUK"
       }
+     ],
+     "ratio": [
+      {
+       "label": "Damage",
+       "main": true,
+       "terms": [
+        {
+         "text": "200%",
+         "value": 200
+        },
+        {
+         "text": "+15% per level (10)",
+         "value": 150
+        },
+        {
+         "text": "+1% per LUK",
+         "stats": [
+          "LUK"
+         ],
+         "per": 1,
+         "every": 1
+        }
+       ]
+      },
+      {
+       "label": "Under Hallucination Walk",
+       "main": false,
+       "terms": [
+        {
+         "text": "+5% per Improve Dodge level (10)",
+         "value": 50
+        }
+       ]
+      }
      ]
     },
     "New Moon": {
      "name": "New Moon",
      "icon": "SJ_NEWMOONKICK",
      "level": 5,
-     "desc": "Moon-only skill:\nAttacks nearby enemies and enters\nNew Moon, hiding the caster for 5 seconds.\nThe state can be maintained until attacking.\nCosts 1 SP per second while hiding.\nHalves damage taken while invisible.\nDamage: 150 +30% per level +5% per AGI.\nFocus: +5% per level per Focus.\nVariable cast time is 1s\nBase Starting Cooldown is 5 seconds.\nLoses Focus stacks if autocasting.",
+     "desc": "Moon skill: you attack nearby enemies and enter New Moon, hiding for 5 s. You stay hidden until you attack.\nDamage: 150% + 30% per level + 5% per AGI\nFocus: +5% per level per Focus stack.\nAutocasting it loses your Focus stacks.\nWhile hidden, you take half damage.\nCast: 1 s variable\nCooldown: 5 s\nCost: 1 SP per second while hidden",
      "summary": "Starts the Moon combo: hits around you and turns you invisible (halves damage taken) until you attack. Scales with AGI and Elemental Focus.",
      "scalings": [
       {
@@ -3000,13 +3368,47 @@
        ],
        "text": "+5% per AGI"
       }
+     ],
+     "ratio": [
+      {
+       "label": "Damage",
+       "main": true,
+       "terms": [
+        {
+         "text": "150%",
+         "value": 150
+        },
+        {
+         "text": "+30% per level (5)",
+         "value": 150
+        },
+        {
+         "text": "+5% per AGI",
+         "stats": [
+          "AGI"
+         ],
+         "per": 5,
+         "every": 1
+        }
+       ]
+      },
+      {
+       "label": "Per Focus stack",
+       "main": false,
+       "terms": [
+        {
+         "text": "+5% per level (5)",
+         "value": 25
+        }
+       ]
+      }
      ]
     },
     "Full Moon": {
      "name": "Full Moon",
      "icon": "SJ_FULLMOONKICK",
      "level": 5,
-     "desc": "Moon-only skill:\nCan only be used while in New Moon.\nEnds New Moon and damages nearby enemies.\nHas a high chance to inflict Blind.\nDamage: 250 +50% per level +8% per AGI.\nFocus: +10% per level per Focus.\nGrants Combo Ready for 5 seconds.\nRequires extra 10% Current SP per cast.",
+     "desc": "Moon skill, usable only in New Moon: ends New Moon and damages nearby enemies.\nDamage: 250% + 50% per level + 8% per AGI\nFocus: +10% per level per Focus stack.\nHigh chance to inflict Blind.\nGrants Combo Ready for 5 s.\nCost: also 10% of current SP per cast",
      "summary": "Only from New Moon: the big hit of the combo (AGI and Focus scaling), and it grants Combo Ready.",
      "scalings": [
       {
@@ -3017,13 +3419,47 @@
        ],
        "text": "+8% per AGI"
       }
+     ],
+     "ratio": [
+      {
+       "label": "Damage",
+       "main": true,
+       "terms": [
+        {
+         "text": "250%",
+         "value": 250
+        },
+        {
+         "text": "+50% per level (5)",
+         "value": 250
+        },
+        {
+         "text": "+8% per AGI",
+         "stats": [
+          "AGI"
+         ],
+         "per": 8,
+         "every": 1
+        }
+       ]
+      },
+      {
+       "label": "Per Focus stack",
+       "main": false,
+       "terms": [
+        {
+         "text": "+10% per level (5)",
+         "value": 50
+        }
+       ]
+      }
      ]
     },
     "Million Stab": {
      "name": "Million Stab",
      "icon": "RK_HUNDREDSPEAR",
      "level": 10,
-     "desc": "Rapidly stabs the target and nearby enemies for physical damage.\nDamage: 20 +5% per level +1% per AGI.\nCombo Ready adds +1% per DEX.\nDoes not consume Combo Ready.\nVariable cast time decreases with level: 1s to 0.1s\nStarting cooldown is 5 seconds.",
+     "desc": "You rapidly stab the target and nearby enemies for physical damage.\nDamage: 20% + 5% per level + 1% per AGI\nUnder Combo Ready: +1% per DEX. Does not consume Combo Ready.\nCast: variable, from 1 s down to 0.1 s with level\nCooldown: 5 s",
      "summary": "Rapid stabs; only cast under Combo Ready, where DEX adds to it.",
      "scalings": [
       {
@@ -3042,13 +3478,51 @@
        ],
        "text": "+1% per DEX"
       }
+     ],
+     "ratio": [
+      {
+       "label": "Damage",
+       "main": true,
+       "terms": [
+        {
+         "text": "20%",
+         "value": 20
+        },
+        {
+         "text": "+5% per level (10)",
+         "value": 50
+        },
+        {
+         "text": "+1% per AGI",
+         "stats": [
+          "AGI"
+         ],
+         "per": 1,
+         "every": 1
+        }
+       ]
+      },
+      {
+       "label": "Combo Ready",
+       "main": false,
+       "terms": [
+        {
+         "text": "+1% per DEX",
+         "stats": [
+          "DEX"
+         ],
+         "per": 1,
+         "every": 1
+        }
+       ]
+      }
      ]
     },
     "Thousand Arms": {
      "name": "Thousand Arms",
      "icon": "SR_SKYNETBLOW",
      "level": 5,
-     "desc": "Spins quickly hitting all enemies around multiple times.\nHits a 7x7 area around the caster.\nDamage is 200+20% per level +5% per Agi.\nBase cooldown is 3 seconds.\nRequires extra 5% Current HP to cast",
+     "desc": "You spin quickly, hitting all enemies in a 7x7 area around you several times.\nDamage: 200% + 20% per level + 5% per AGI\nCooldown: 3 s\nCost: also 5% of current HP",
      "summary": "7x7 spin filler between Moon combos; costs 5% current HP.",
      "scalings": [
       {
@@ -3059,13 +3533,37 @@
        ],
        "text": "+5% per Agi"
       }
+     ],
+     "ratio": [
+      {
+       "label": "Damage",
+       "main": true,
+       "terms": [
+        {
+         "text": "200%",
+         "value": 200
+        },
+        {
+         "text": "+20% per level (5)",
+         "value": 100
+        },
+        {
+         "text": "+5% per AGI",
+         "stats": [
+          "AGI"
+         ],
+         "per": 5,
+         "every": 1
+        }
+       ]
+      }
      ]
     },
     "Dragon Omamori": {
      "name": "Dragon Omamori",
      "icon": "RL_H_MINE",
      "level": 10,
-     "desc": "Applies a talisman to the target and deals physical damage.\nThe talisman can be detonated by\nOmamori Jutsu for stronger damage.\nTalismans last 50 seconds.\nOnly one talisman per target.\nApply Damage: 50 +10% per level.\nExplosion: 200 +50% per level +2% per DEX.\nCombo Ready adds +5% per STR.\nRequires an extra 5% Max SP per talisman.\nVariable cast time is 0.5s",
+     "desc": "You attach a talisman to the target and deal physical damage. Omamori Jutsu detonates the talisman for stronger damage.\nApply damage: 50% + 10% per level\nExplosion damage: 200% + 50% per level + 2% per DEX\nUnder Combo Ready: +5% per STR.\nTalismans last 50 s; one talisman per target.\nCast: 0.5 s variable\nCost: also 5% of Max SP per talisman",
      "summary": "Puts a talisman on the target (cast under Combo Ready); Omamori Jutsu detonates it.",
      "scalings": [
       {
@@ -3084,15 +3582,68 @@
        ],
        "text": "+5% per STR"
       }
+     ],
+     "ratio": [
+      {
+       "label": "Apply damage",
+       "main": true,
+       "terms": [
+        {
+         "text": "50%",
+         "value": 50
+        },
+        {
+         "text": "+10% per level (10)",
+         "value": 100
+        }
+       ]
+      },
+      {
+       "label": "Explosion",
+       "main": true,
+       "terms": [
+        {
+         "text": "200%",
+         "value": 200
+        },
+        {
+         "text": "+50% per level (10)",
+         "value": 500
+        },
+        {
+         "text": "+2% per DEX",
+         "stats": [
+          "DEX"
+         ],
+         "per": 2,
+         "every": 1
+        }
+       ]
+      },
+      {
+       "label": "Combo Ready",
+       "main": false,
+       "terms": [
+        {
+         "text": "+5% per STR",
+         "stats": [
+          "STR"
+         ],
+         "per": 5,
+         "every": 1
+        }
+       ]
+      }
      ]
     },
     "Omamori Jutsu": {
      "name": "Omamori Jutsu",
      "icon": "RL_FLICKER",
      "level": 1,
-     "desc": "Activates and detonates caster's Dragon Omamori and\nBinding Omamori on screen.\nBase Starting Cooldown is 5 seconds\nActivates Invisibility when activated",
+     "desc": "You detonate all your Dragon Omamori and Binding Omamori talismans on screen.\nMakes you invisible when used.\nCooldown: 5 s",
      "summary": "Detonates your Dragon Omamori talisman for big damage, and makes you invisible — which lets Full Moon follow.",
-     "scalings": []
+     "scalings": [],
+     "ratio": null
     },
     "Attack": {
      "name": "Attack",
@@ -3100,21 +3651,23 @@
      "level": 0,
      "desc": "",
      "summary": null,
-     "scalings": []
+     "scalings": [],
+     "ratio": null
     },
     "Kawarimi": {
      "name": "Kawarimi",
      "icon": "NJ_UTSUSEMI",
      "level": 5,
-     "desc": "Enables Kawarimi status ensuring the caster to automatically dodges a set number of attacks. Each special dodge is followed by a backward movement of\n1 cell. Has a 20s cooldown.\n[Lv 1]: Lasts 2 seconds, 1 Dodge\n[Lv 2]: Lasts 2,5 seconds, 1 Dodge\n[Lv 3]: Lasts 3 seconds, 2 Dodges\n[Lv 4]: Lasts 3,5 seconds, 2 Dodges\n[Lv 5]: Lasts 4 seconds, 3 Dodges",
+     "desc": "You enter Kawarimi, automatically dodging a set number of attacks. After each dodge you move back 1 cell.\nLv1: 2 s, 1 dodge\nLv2: 2.5 s, 1 dodge\nLv3: 3 s, 2 dodges\nLv4: 3.5 s, 2 dodges\nLv5: 4 s, 3 dodges\nCooldown: 20 s",
      "summary": "Dodge: the next physical hit misses and you step back a cell.",
-     "scalings": []
+     "scalings": [],
+     "ratio": null
     },
     "Back Stab": {
      "name": "Back Stab",
      "icon": "RG_BACKSTAP",
      "level": 10,
-     "desc": "teleports the caster behind the enemy to deal damage.\nDamage is 150+5% per level +1% per AGI.\nRequires a Sword or Dagger equipped\nRequires 5% extra Current SP to cast.\nStarting Cooldown is 3 seconds.\nEnemy's back must be unobstructed to use\nSingle-Wielding a Dagger:\nAGI bonus is tripled\nBonus per skill level tripled\nExtra 5% scaling per level of Improve Dodge",
+     "desc": "You teleport behind the enemy and strike.\nDamage: 150% + 5% per level + 1% per AGI\nSingle-wielding a Dagger: the AGI bonus and the per-level bonus are tripled, plus 5% scaling per Improve Dodge level.\nThe enemy's back must be unobstructed.\nRequires a Sword or Dagger.\nCooldown: 3 s\nCost: also 5% of current SP",
      "summary": null,
      "scalings": [
       {
@@ -3125,39 +3678,71 @@
        ],
        "text": "+1% per AGI"
       }
+     ],
+     "ratio": [
+      {
+       "label": "Damage",
+       "main": true,
+       "terms": [
+        {
+         "text": "150%",
+         "value": 150
+        },
+        {
+         "text": "+5% per level (10)",
+         "value": 50
+        },
+        {
+         "text": "+5% per Improve Dodge level (10)",
+         "value": 50
+        },
+        {
+         "text": "+1% per AGI",
+         "stats": [
+          "AGI"
+         ],
+         "per": 1,
+         "every": 1
+        }
+       ]
+      }
      ]
     },
     "Moonlight Stance": {
      "name": "Moonlight Stance",
      "icon": "SJ_LUNARSTANCE",
      "level": 5,
-     "desc": "Prepares your stance to operate with the moonlight. You can use the\nMoon skills while this skill is activated.\nIncreases also your MaxHP.\nHP Bonus is 2% per level.\nRequires extra 50% Current SP to cast.",
+     "desc": "You take a stance that works with the moonlight. Moon skills can only be used while it is active.\n+2% Max HP per level.\nCost: also 50% of current SP",
      "summary": "Pre-fight stance: required for every Moon skill, and +2% Max HP per level.",
-     "scalings": []
+     "scalings": [],
+     "ratio": null
     },
     "Seven Winds": {
      "name": "Seven Winds",
      "icon": "TK_SEVENWIND",
      "level": 7,
-     "desc": "Summons a wind that will enchant the caster's attacks for 5 minutes with an elemental property based on the level of the casted skill.\n[Lv 1]: Earth (50 SP)\n[Lv 2]: Wind (50 SP)\n[Lv 3]: Water (50 SP)\n[Lv 4]: Fire (50 SP)\n[Lv 5]: Ghost (50 SP)\n[Lv 6]: Dark (50 SP)\n[Lv 7]: Holy (50 SP)",
+     "desc": "A wind enchants your attacks with an element for 5 minutes; the element depends on the skill level.\nLv1: Earth\nLv2: Wind\nLv3: Water\nLv4: Fire\nLv5: Ghost\nLv6: Dark\nLv7: Holy\nCost: 50 SP (every level)",
      "summary": "Pre-fight endow: picks the element that hits the target hardest for 5 minutes.",
-     "scalings": []
+     "scalings": [],
+     "ratio": null
     },
     "Hallucination Walk": {
      "name": "Hallucination Walk",
      "icon": "GC_HALLUCINATIONWALK",
      "level": 5,
-     "desc": "Increases caster's speed to the maximum, increases FLEE and certain chance to avoid magic attacks.\nHas a duration of 25+5s per level\nHas a cooldown of 120 seconds\nFlee bonus is 10 per lv and 5% per level to avoid magic damage.\nRequires a Shadow Orb to cast",
+     "desc": "Raises your movement speed to the maximum, increases FLEE and gives a chance to avoid magic attacks.\nFLEE: +10 per level\nMagic damage avoid chance: 5% per level\nRequires a Shadow Orb.\nDuration: 25 s + 5 s per level\nCooldown: 120 s",
      "summary": null,
-     "scalings": []
+     "scalings": [],
+     "ratio": null
     },
     "Magic Pierce": {
      "name": "Magic Pierce",
      "icon": "AB_EXPIATIO",
      "level": 5,
-     "desc": "Ignores part of the enemy's MDEF against spells\nCan be used on others.\nMagic Defense Penetration is 3 per level\nDefense Penetration is 1 per level and works on autocasts.\nVariable cast time is 3s\nFixed cast time is 1s",
+     "desc": "Your spells ignore part of the enemy's MDEF. Can be cast on others.\nMDEF penetration: 3 per level\nDEF penetration: 1 per level; works on autocasts.\nCast: 3 s variable + 1 s fixed",
      "summary": null,
-     "scalings": []
+     "scalings": [],
+     "ratio": null
     }
    }
   },
@@ -3411,6 +3996,7 @@
      "Bulwark Gem combo"
     ],
     "dps": 7788,
+    "uptime": {},
     "openerMarks": [
      {
       "states": [
@@ -3802,6 +4388,7 @@
      "Bulwark Gem combo"
     ],
     "dps": 17970,
+    "uptime": {},
     "openerMarks": [
      {
       "states": [
@@ -4044,7 +4631,7 @@
      "name": "Bishop's Tax",
      "icon": "MC_MAMMONITE",
      "level": 5,
-     "desc": "Attacks and taxes the enemy defenses, increasing damage taken.\nDamage is 200+30% per level + 2% per Dex\nCooldown is 10 seconds\nEnemies hit receive 15% extra damage\nDamage bonus duration is 3s to 12s by level\nRequires 25% extra Max HP to cast",
+     "desc": "You strike and tax the enemy's defences, making it take more damage.\nDamage: 200% + 30% per level + 2% per DEX\nEnemies hit take 15% more damage for 3 s to 12 s, by level.\nCooldown: 10 s\nCost: also 25% of Max HP",
      "summary": "Hit that makes the target take 15% more damage for up to 12 s; cast right before Shield Boomerang into King's Chains. Costs 25% Max HP.",
      "scalings": [
       {
@@ -4055,13 +4642,37 @@
        ],
        "text": "2% per Dex"
       }
+     ],
+     "ratio": [
+      {
+       "label": "Damage",
+       "main": true,
+       "terms": [
+        {
+         "text": "200%",
+         "value": 200
+        },
+        {
+         "text": "+30% per level (5)",
+         "value": 150
+        },
+        {
+         "text": "+2% per DEX",
+         "stats": [
+          "DEX"
+         ],
+         "per": 2,
+         "every": 1
+        }
+       ]
+      }
      ]
     },
     "Shield Boomerang": {
      "name": "Shield Boomerang",
      "icon": "CR_SHIELDBOOMERANG",
      "level": 10,
-     "desc": "Throws shield quickly at an enemy\nDamage is 200+20% per level +1% per vit\nDamage is improved by shield refine/weight\nBase Starting Cooldown is 3 seconds",
+     "desc": "You quickly throw your shield at an enemy.\nDamage: 200% + 20% per level + 1% per VIT\nDamage is improved by shield refine and weight.\nCooldown: 3 s",
      "summary": "Shield throw that opens the King's Chains combo (x1.5 with the Bulwark Gem).",
      "scalings": [
       {
@@ -4072,13 +4683,60 @@
        ],
        "text": "+1% per vit"
       }
+     ],
+     "ratio": [
+      {
+       "label": "Damage",
+       "main": true,
+       "terms": [
+        {
+         "text": "200%",
+         "value": 200
+        },
+        {
+         "text": "+20% per level (10)",
+         "value": 200
+        },
+        {
+         "text": "+1% per VIT",
+         "stats": [
+          "VIT"
+         ],
+         "per": 1,
+         "every": 1
+        },
+        {
+         "text": "+20% per Shield Mastery level (10)",
+         "value": 200,
+         "from": "Shield Mastery"
+        },
+        {
+         "text": "+1% per STR",
+         "stats": [
+          "STR"
+         ],
+         "per": 1,
+         "every": 1,
+         "from": "King's Fortress"
+        },
+        {
+         "text": "+2% per VIT",
+         "stats": [
+          "VIT"
+         ],
+         "per": 2,
+         "every": 1,
+         "from": "King's Fortress"
+        }
+       ]
+      }
      ]
     },
     "King's Chains": {
      "name": "King's Chains",
      "icon": "PA_SHIELDCHAIN",
      "level": 1,
-     "desc": "Throws a rebounding shield 4 times at an enemy to deal damage.\nDamage is 200+10% per level +1% per VIT/STR\nDamage is based on shield refine/weight.\nWeapon ATK does not apply; only your base ATK and the shield count.\nExtra 1% per VIT per Duel Counter\nExtra 1% per Soft DEF and Hard DEF\nSkill ignores flee\nRequires a Shield.\nVariable cast time is 0.4s\nFixed cast time is 0.1s\nBase Starting Cooldown is 8 seconds\nRequires extra 15% Current SP\nRequires 1 Duel Counter to cast\nFinisher Ready: extra 30% per missing HP %",
+     "desc": "You throw a rebounding shield at an enemy 4 times.\nDamage: 200% + 10% per level + 1% per VIT/STR\nDamage is based on shield refine and weight. Weapon ATK does not apply; only your base ATK and the shield count.\n+1% per VIT per Duel Counter.\n+1% per point of soft DEF and hard DEF.\nFinisher Ready: +30% per % of missing HP.\nIgnores FLEE.\nRequires a Shield and 1 Duel Counter.\nCast: 0.4 s variable + 0.1 s fixed\nCooldown: 8 s\nCost: also 15% of current SP",
      "summary": "The main hit: four shield throws, scaling with VIT, STR and your Duel Counters; spends one counter.",
      "scalings": [
       {
@@ -4098,13 +4756,89 @@
        ],
        "text": "1% per VIT"
       }
+     ],
+     "ratio": [
+      {
+       "label": "Damage",
+       "main": true,
+       "terms": [
+        {
+         "text": "200%",
+         "value": 200
+        },
+        {
+         "text": "+10% per level (1)",
+         "value": 10
+        },
+        {
+         "text": "+1% per VIT/STR",
+         "stats": [
+          "VIT",
+          "STR"
+         ],
+         "per": 1,
+         "every": 1
+        },
+        {
+         "text": "+1% per Soft DEF and Hard DEF",
+         "said": true
+        },
+        {
+         "text": "+20% per Shield Mastery level (10)",
+         "value": 200,
+         "from": "Shield Mastery"
+        },
+        {
+         "text": "+1% per STR",
+         "stats": [
+          "STR"
+         ],
+         "per": 1,
+         "every": 1,
+         "from": "King's Fortress"
+        },
+        {
+         "text": "+2% per VIT",
+         "stats": [
+          "VIT"
+         ],
+         "per": 2,
+         "every": 1,
+         "from": "King's Fortress"
+        }
+       ]
+      },
+      {
+       "label": "Per Duel Counter",
+       "main": false,
+       "terms": [
+        {
+         "text": "+1% per VIT",
+         "stats": [
+          "VIT"
+         ],
+         "per": 1,
+         "every": 1
+        }
+       ]
+      },
+      {
+       "label": "Finisher Ready, per 1% HP missing",
+       "main": false,
+       "terms": [
+        {
+         "text": "+30%",
+         "value": 30
+        }
+       ]
+      }
      ]
     },
     "Rook's Smash": {
      "name": "Rook's Smash",
      "icon": "KN_SPEARSTAB",
      "level": 1,
-     "desc": "Smashes a small area of enemies and knock them back.\nDealing 2 hits, with full damage on each.\nUsable with any weapon.\nRequires a Shield equipped.\nSlides you onto the target, then pushes enemies away from where you land.\nAdditional Damage equal 1/5 HP\nDamage is 150+5% per level + 1% per Str.\nExtra 25% Damage per Duel Counter\nGenerates up to 3 Duel Counters under Duel Stance.\nBase Starting Cooldown is 8 seconds",
+     "desc": "You slide onto the target, smash a small area and push enemies away from where you land. Usable with any weapon.\nDamage: 150% + 5% per level + 1% per STR\nAdditional damage equal to 1/5 of HP.\n+25% damage per Duel Counter.\nDeals 2 hits, each at full damage.\nUnder Duel Stance, generates up to 3 Duel Counters.\nRequires a Shield.\nCooldown: 8 s",
      "summary": "Slide onto the target for 2-3 hits plus a fifth of your current HP as damage; fills Duel Counters to 3.",
      "scalings": [
       {
@@ -4115,13 +4849,47 @@
        ],
        "text": "1% per Str"
       }
+     ],
+     "ratio": [
+      {
+       "label": "Damage",
+       "main": true,
+       "terms": [
+        {
+         "text": "150%",
+         "value": 150
+        },
+        {
+         "text": "+5% per level (1)",
+         "value": 5
+        },
+        {
+         "text": "+1% per STR",
+         "stats": [
+          "STR"
+         ],
+         "per": 1,
+         "every": 1
+        }
+       ]
+      },
+      {
+       "label": "Per Duel Counter",
+       "main": false,
+       "terms": [
+        {
+         "text": "+25%",
+         "value": 25
+        }
+       ]
+      }
      ]
     },
     "Decoy": {
      "name": "Decoy",
      "icon": "SC_FEINTBOMB",
      "level": 5,
-     "desc": "Dashes back and hides while creating a clone that explodes in an area dealing damage to enemies\nDamage is 200+25% per level +1% per INT and LUK.\nVariable cast time is 1.5s\nBase Starting Cooldown is 8 seconds.",
+     "desc": "You dash back and hide, leaving a clone that explodes and damages enemies in an area.\nDamage: 200% + 25% per level + 1% per INT and LUK\nCast: 1.5 s variable\nCooldown: 8 s",
      "summary": null,
      "scalings": [
       {
@@ -4133,21 +4901,47 @@
        ],
        "text": "+1% per INT and LUK"
       }
+     ],
+     "ratio": [
+      {
+       "label": "Damage",
+       "main": true,
+       "terms": [
+        {
+         "text": "200%",
+         "value": 200
+        },
+        {
+         "text": "+25% per level (5)",
+         "value": 125
+        },
+        {
+         "text": "+1% per INT/LUK",
+         "stats": [
+          "INT",
+          "LUK"
+         ],
+         "per": 1,
+         "every": 1
+        }
+       ]
+      }
      ]
     },
     "Duel Stance": {
      "name": "Duel Stance",
      "icon": "LG_FORCEOFVANGUARD",
      "level": 5,
-     "desc": "Increases your Duel Counter when you receive physical attacks. The\nDuel Counters can be used for boost\nStrenght of other Duelist skills according to VIT. consumes some SP at regular time interval to stay active.\nIncrease Max HP by 2% per level\nCounter chance is 25+15% per level\nMaximum Amount of Counters is 10.\nLearning this skill disabled Flip Coin\nFixed cast time is 0.5s",
+     "desc": "Physical attacks you receive can give you Duel Counters, which boost other Duelist skills based on VIT. Drains some SP at regular intervals while active.\nCounter chance: 25% + 15% per level\nMax 10 Duel Counters.\n+2% Max HP per level.\nLearning this skill disables Flip Coin.\nCast: 0.5 s fixed",
      "summary": "Pre-fight stance: physical hits you take build Duel Counters; +Max HP.",
-     "scalings": []
+     "scalings": [],
+     "ratio": null
     },
     "King's Fortress": {
      "name": "King's Fortress",
      "icon": "LG_SHIELDSPELL",
      "level": 3,
-     "desc": "Enchants the shield with a unique aura that improves the flow of energy of the caster depending on the skill level used.\nRequires a Shield.\n[Lv 1]: Regen 1% HP every 2 seconds.\n[Lv 2]: Regen 1% SP every 2 seconds.\n[Lv 3]: King's Chains and Shield Boomerang\nExtra +1% per STR and 2% per VIT scaling damage.\nFortress Bonus Effects:\n[Lv 1]: Cover Ally reduces damage taken by 75%\n[Lv 2]: Cover Ally receives Hallucination Walk\n[Lv 3]: Cover Ally receives Endure effect\nDuration is 5 minutes\nVariable cast time is 10s\nCooldown is 60 seconds",
+     "desc": "Your shield gains an aura that improves your flow of energy, depending on the level used.\nLv1: regenerate 1% HP every 2 s.\nLv2: regenerate 1% SP every 2 s.\nLv3: King's Chains and Shield Boomerang gain +1% per STR and +2% per VIT damage scaling.\nFortress bonus for Cover Ally: Lv1 takes 75% less damage; Lv2 gets Hallucination Walk; Lv3 gets the Endure effect.\nRequires a Shield.\nDuration: 5 minutes\nCast: 10 s variable\nCooldown: 60 s",
      "summary": "Pre-fight shield aura; at Lv3 it adds STR and VIT scaling to King's Chains and Shield Boomerang.",
      "scalings": [
       {
@@ -4166,55 +4960,61 @@
        ],
        "text": "2% per VIT"
       }
-     ]
+     ],
+     "ratio": null
     },
     "Knight's Regen": {
      "name": "Knight's Regen",
      "icon": "AB_RENOVATIO",
      "level": 5,
-     "desc": "Recovers a percentage of HP to self and all party members on screen every 5 seconds. Has no effect on\nUndead elemental players.\nRecovery amount is 1+1% Max HP per level.\nRequires 50% Max SP as extra cost.\nDuration is 60+60s per level.\nVariable cast time is 4s\nFixed cast time is 2s\nCooldown is 60 seconds",
+     "desc": "You and all party members on screen recover a share of HP every 5 s. No effect on Undead-element players.\nRecovery: 1% + 1% of Max HP per level\nDuration: 60 s + 60 s per level\nCast: 4 s variable + 2 s fixed\nCooldown: 60 s\nCost: also 50% of Max SP",
      "summary": "Pre-fight regen: heals a share of Max HP every 5 s for minutes.",
-     "scalings": []
+     "scalings": [],
+     "ratio": null
     },
     "Bishop's Guard": {
      "name": "Bishop's Guard",
      "icon": "AL_ANGELUS",
      "level": 5,
-     "desc": "Increases MaxHP and physical defense from VIT of all party members including caster.\nDuration is 5 minutes\nBonus HP is 500 per level.\nBonus Vit Defense is 10% per level.\nVariable cast time is 3.5s\nFixed cast time is 1.5s\nRequires 10% Max HP to cast",
+     "desc": "Increases Max HP and VIT-based physical defence for you and all party members.\nMax HP: +500 per level\nVIT defence: +10% per level\nDuration: 5 minutes\nCast: 3.5 s variable + 1.5 s fixed\nCost: also 10% of Max HP",
      "summary": "Pre-fight buff: +500 Max HP per level and more VIT defence.",
-     "scalings": []
+     "scalings": [],
+     "ratio": null
     },
     "Reflect Shield": {
      "name": "Reflect Shield",
      "icon": "CR_REFLECTSHIELD",
      "level": 10,
-     "desc": "Reflect a certain amount of damage back to the enemy after they inflict damage with short Physical Ranged attacks.\nRequires Shield.\nDamage reflected is 10+4% per level",
+     "desc": "Reflects part of the damage from short-range physical attacks back at the attacker.\nReflected damage: 10% + 4% per level\nRequires a Shield.",
      "summary": "Pre-fight buff: sends a share of melee damage you take back at the attacker.",
-     "scalings": []
+     "scalings": [],
+     "ratio": null
     },
     "Magic Pierce": {
      "name": "Magic Pierce",
      "icon": "AB_EXPIATIO",
      "level": 5,
-     "desc": "Ignores part of the enemy's MDEF against spells\nCan be used on others.\nMagic Defense Penetration is 3 per level\nDefense Penetration is 1 per level and works on autocasts.\nVariable cast time is 3s\nFixed cast time is 1s",
+     "desc": "Your spells ignore part of the enemy's MDEF. Can be cast on others.\nMDEF penetration: 3 per level\nDEF penetration: 1 per level; works on autocasts.\nCast: 3 s variable + 1 s fixed",
      "summary": null,
-     "scalings": []
+     "scalings": [],
+     "ratio": null
     },
     "Rook's Wall": {
      "name": "Rook's Wall",
      "icon": "CR_DEFENDER",
      "level": 5,
-     "desc": "Reduces damage taken from long Physical Ranged attacks at the cost of decreasing ASPD and Movement Speed for the skill's duration, but decreases the\nASPD penalty according to the skill's level. Casting this skill again cancels the Defender status.\nRequires Shield.\n10% Ranged Reduction per Level.",
+     "desc": "Reduces damage from long-range physical attacks, at the cost of lower ASPD and movement speed for the duration; the ASPD penalty shrinks with skill level. Casting it again cancels the Defender status.\nRanged damage reduction: 10% per level\nRequires a Shield.",
      "summary": null,
-     "scalings": []
+     "scalings": [],
+     "ratio": null
     }
    }
   },
   "Night Raven: Counter Slash": {
    "className": "Night Raven",
-   "build": "https://rtmr-arsenal.pages.dev/#b=cxVFBjtswDPxKofMcRFKyrE_00KthGIKtTQw4iWEpi93fF7QX2RZocu2FgGZGwyHZMczP-XSuP36l93w1ILHoYkSM8AIOIHjq0XVOKc8gi47Ee4aTyHDOBqXNdlsWMjCX9DGcV4OO-x4HzAamrMN4K3XY8nQf82TQ-Qcv-i0vOQ9TuqRT_ot0Bmbc5jqPafnmyfa9SrymchYNOudb_o9JLISYCRGdI2FoUZzgbdNi31rgqBDDR252pZMAkqaVPXmpqWrCuqnx4StgCf6w5QYkgdp_ijVlLrf7NuY_h5educx1PqU6364GZj1_ln2I7xXw0awBeSdf3ZoILc-a5fdUDr-3Jesmwg6Xe6lpVvi8DkvO41l_eHyNE7QDhaND8M_My5o1l0llnR7WYyp1vp4Ufqt5G_Q9THlJn4dERS2oERLdt3Ni8ShKxlckEaIV61voyMRg59lq0Ke3IQG3HNvXIgd2juNrkQe39rjzc1EDdiyN5n8uCmBHwSL2ff8b",
+   "build": "https://rtmr-arsenal.pages.dev/#b=cxVHLjtswDPyVQuc5iKQe1k_00KthGIKjTQw4G8NSFt2_L2gX2RZocu2FgGZGwyHZM8z3-Xxp337kj_JuQGLRp4SU4AUcQfA0oO-dUp5BFj2J9wwnieGcjUqb7bYsZGCu-ed4WQ16HgYcMBuYuo7TrbZxK6f7VE4GvX_wot_KUsp4ytd8Ln-RzsBM29zmKS9fPNlhUInXVM4ioHcc5D8msRBiJiT0joShRXGCt6HDvrXISSGGTxx2pZMIktAdyWvLTRO2TY0PXwFL9IctB5BE6v4p1pSl3u7bVP4cXnbmOrf5nNt8ezcw6-Wz7kN8rYCPZgHknezdSHxI2OuzduUj18PxbSm6i7jD9V5bnhW-rONSynTRHx6_B4rag-LRI3J85l7XotFMruvp4T3l2ub3s8JvrWyjvsdTWfLnIVFRBwpCoit3TiweRcn0iiRCsmJ9B52ZGOw8W0369Dwk4I5T91rkwM5xei3y4M4ep34uCmDHEjT_c1EEO4oWaRiGXw",
    "note": "Counter Slash endgame farm build (the owner's rotation)",
-   "profileName": "Night Raven Counter Slash, owner's rotation, Guiding Dagger (DEX 1) start, endgame farm 2026-10-02",
+   "profileName": "Night Raven Counter Slash, owner's rotation incl. Midnight Eye, endgame farm 2026-10-02",
    "allround": {
     "vs": "Heartless",
     "opener": [
@@ -4223,175 +5023,189 @@
      "Dark Claw",
      "Northern Cross",
      "Attack",
-     "Definitive Dagger",
-     "Southern Cross",
+     "Midnight Eye",
      "Attack",
-     "Back Stab",
-     "Attack"
+     "Counter Slash",
+     "Attack",
+     "Counter Slash"
     ],
     "cycles": [
      {
       "steps": [
+       "Midnight Eye",
+       "Counter Slash",
+       "Counter Slash",
+       "Counter Slash",
+       "Counter Slash",
+       "Typhoon Edge",
+       "Northern Cross",
+       "Definitive Dagger",
+       "Southern Cross",
+       "Northern Cross",
+       "Northern Cross",
+       "Definitive Dagger",
        "Southern Cross",
        "Northern Cross",
        "Definitive Dagger",
+       "Northern Cross",
+       "Southern Cross",
+       "Northern Cross",
+       "Definitive Dagger",
+       "Northern Cross",
+       "Counter Slash",
+       "Counter Slash",
+       "Counter Slash",
+       "Counter Slash",
+       "Typhoon Edge",
        "Northern Cross"
       ],
-      "share": 0.31,
-      "marks": [
-       {
-        "states": [],
-        "procs": []
-       },
-       {
-        "states": [],
-        "procs": []
-       },
-       {
-        "states": [],
-        "procs": []
-       },
-       {
-        "states": [],
-        "procs": []
-       }
-      ]
+      "share": 0.03
      },
      {
       "steps": [
+       "Midnight Eye",
+       "Counter Slash",
+       "Counter Slash",
+       "Counter Slash",
+       "Counter Slash",
+       "Counter Slash",
+       "Typhoon Edge",
+       "Northern Cross",
+       "Northern Cross",
+       "Definitive Dagger",
        "Southern Cross",
        "Northern Cross",
-       "Definitive Dagger"
-      ],
-      "share": 0.23,
-      "marks": [
-       {
-        "states": [],
-        "procs": []
-       },
-       {
-        "states": [],
-        "procs": []
-       },
-       {
-        "states": [],
-        "procs": []
-       }
-      ]
-     },
-     {
-      "steps": [
-       "Southern Cross",
        "Definitive Dagger",
        "Northern Cross",
+       "Definitive Dagger",
+       "Southern Cross",
        "Northern Cross",
-       "Definitive Dagger"
+       "Definitive Dagger",
+       "Northern Cross",
+       "Southern Cross",
+       "Northern Cross",
+       "Definitive Dagger",
+       "Northern Cross",
+       "Northern Cross"
       ],
-      "share": 0.09,
-      "marks": [
-       {
-        "states": [],
-        "procs": []
-       },
-       {
-        "states": [],
-        "procs": []
-       },
-       {
-        "states": [],
-        "procs": []
-       },
-       {
-        "states": [],
-        "procs": []
-       },
-       {
-        "states": [],
-        "procs": []
-       }
-      ]
+      "share": 0.01
+     },
+     {
+      "steps": [
+       "Midnight Eye",
+       "Counter Slash",
+       "Counter Slash",
+       "Counter Slash",
+       "Counter Slash",
+       "Typhoon Edge",
+       "Northern Cross",
+       "Definitive Dagger",
+       "Southern Cross",
+       "Northern Cross",
+       "Definitive Dagger",
+       "Northern Cross",
+       "Counter Slash",
+       "Counter Slash",
+       "Counter Slash",
+       "Counter Slash",
+       "Counter Slash",
+       "Counter Slash",
+       "Typhoon Edge",
+       "Northern Cross",
+       "Definitive Dagger",
+       "Southern Cross",
+       "Northern Cross",
+       "Northern Cross",
+       "Northern Cross"
+      ],
+      "share": 0.01
      }
     ],
     "fillers": [
      {
       "id": "Attack",
-      "perLoop": 4.4,
+      "perLoop": 25.3,
       "auto": false
      },
      {
       "id": "Back Stab",
-      "perLoop": 0.6,
+      "perLoop": 1.8,
       "auto": false
      },
      {
       "id": "Shadow Slash",
-      "perLoop": 0.4,
+      "perLoop": 1.6,
       "auto": false
      }
     ],
     "roles": [
      {
-      "role": "Daggers",
-      "share": 0.52
+      "role": "Counter",
+      "share": 0.6
      },
      {
-      "role": "Counter",
-      "share": 0.26
+      "role": "Daggers",
+      "share": 0.23
      },
      {
       "role": "Auto-attacks",
-      "share": 0.15
+      "share": 0.13
      },
      {
       "role": "Fillers",
-      "share": 0.06
+      "share": 0.03
      }
     ],
     "damage": [
      {
-      "id": "Northern Cross",
-      "share": 0.255,
-      "perCast": 10392
-     },
-     {
       "id": "Counter Slash",
-      "share": 0.231,
-      "perCast": 16237
-     },
-     {
-      "id": "Definitive Dagger",
-      "share": 0.164,
-      "perCast": 9106
+      "share": 0.551,
+      "perCast": 18273
      },
      {
       "id": "Attack",
-      "share": 0.153,
-      "perCast": 2426
+      "share": 0.135,
+      "perCast": 1773
      },
      {
-      "id": "Southern Cross",
-      "share": 0.105,
-      "perCast": 8702
+      "id": "Northern Cross",
+      "share": 0.131,
+      "perCast": 7850
      },
      {
-      "id": "Shadow Slash",
-      "share": 0.033,
-      "perCast": 4918
+      "id": "Definitive Dagger",
+      "share": 0.06,
+      "perCast": 6428
      },
      {
       "id": "Typhoon Edge",
-      "share": 0.028,
-      "perCast": 13297
+      "share": 0.044,
+      "perCast": 9580
+     },
+     {
+      "id": "Southern Cross",
+      "share": 0.035,
+      "perCast": 5907
+     },
+     {
+      "id": "Shadow Slash",
+      "share": 0.02,
+      "perCast": 3592
      },
      {
       "id": "Back Stab",
-      "share": 0.024,
-      "perCast": 3456
+      "share": 0.01,
+      "perCast": 2420
+     },
+     {
+      "id": "Midnight Eye",
+      "share": 0.01,
+      "perCast": 2626
      },
      {
       "id": "Dark Claw",
-      "share": 0.007,
-      "perCast": 3440
+      "share": 0.005,
+      "perCast": 2462
      }
     ],
     "prep": [
@@ -4401,9 +5215,12 @@
      "Rising Wings",
      "Fury",
      "Hallucination Walk",
-     "ASPD 180"
+     "ASPD 183"
     ],
-    "dps": 22386,
+    "dps": 20045,
+    "uptime": {
+     "Night Wound": 0.428
+    },
     "openerMarks": [
      {
       "states": [],
@@ -4464,8 +5281,8 @@
       "Dark Claw",
       "Counter Slash",
       "Northern Cross",
-      "Southern Cross",
       "Definitive Dagger",
+      "Southern Cross",
       "Typhoon Edge",
       "Midnight Eye",
       "Back Stab",
@@ -4479,9 +5296,11 @@
      "counterHold": true,
      "typhoonAfterCounter": true,
      "eyeForCounter": true,
+     "tankShare": 0.6,
+     "cycleAnchor": "Midnight Eye",
      "mobility": "server",
      "defense": "auto",
-     "tankShare": 0.4
+     "enchantPoison": true
     },
     "opener": [
      "Shadow Slash",
@@ -4489,229 +5308,81 @@
      "Dark Claw",
      "Northern Cross",
      "Attack",
-     "Southern Cross",
      "Definitive Dagger",
+     "Southern Cross",
      "Attack",
      "Midnight Eye",
      "Attack"
     ],
-    "cycles": [
-     {
-      "steps": [
-       "Southern Cross",
-       "Definitive Dagger",
-       "Midnight Eye",
-       "Counter Slash",
-       "Counter Slash",
-       "Counter Slash",
-       "Counter Slash",
-       "Counter Slash",
-       "Counter Slash",
-       "Counter Slash",
-       "Counter Slash",
-       "Northern Cross"
-      ],
-      "share": 0.33,
-      "marks": [
-       {
-        "states": [],
-        "procs": []
-       },
-       {
-        "states": [],
-        "procs": []
-       },
-       {
-        "states": [],
-        "procs": []
-       },
-       {
-        "states": [],
-        "procs": []
-       },
-       {
-        "states": [],
-        "procs": []
-       },
-       {
-        "states": [],
-        "procs": []
-       },
-       {
-        "states": [],
-        "procs": []
-       },
-       {
-        "states": [],
-        "procs": []
-       },
-       {
-        "states": [],
-        "procs": []
-       },
-       {
-        "states": [],
-        "procs": []
-       },
-       {
-        "states": [],
-        "procs": []
-       },
-       {
-        "states": [],
-        "procs": []
-       }
-      ]
-     },
-     {
-      "steps": [
-       "Southern Cross",
-       "Definitive Dagger",
-       "Typhoon Edge",
-       "Northern Cross",
-       "Definitive Dagger",
-       "Northern Cross"
-      ],
-      "share": 0.33,
-      "marks": [
-       {
-        "states": [],
-        "procs": []
-       },
-       {
-        "states": [],
-        "procs": []
-       },
-       {
-        "states": [],
-        "procs": []
-       },
-       {
-        "states": [],
-        "procs": []
-       },
-       {
-        "states": [],
-        "procs": []
-       },
-       {
-        "states": [],
-        "procs": []
-       }
-      ]
-     },
-     {
-      "steps": [
-       "Southern Cross",
-       "Northern Cross",
-       "Definitive Dagger",
-       "Northern Cross"
-      ],
-      "share": 0.33,
-      "marks": [
-       {
-        "states": [],
-        "procs": []
-       },
-       {
-        "states": [],
-        "procs": []
-       },
-       {
-        "states": [],
-        "procs": []
-       },
-       {
-        "states": [],
-        "procs": []
-       }
-      ]
-     }
-    ],
-    "fillers": [
-     {
-      "id": "Attack",
-      "perLoop": 7.3,
-      "auto": false
-     },
-     {
-      "id": "Back Stab",
-      "perLoop": 0.3,
-      "auto": false
-     },
-     {
-      "id": "Shadow Slash",
-      "perLoop": 0.3,
-      "auto": false
-     }
-    ],
+    "cycles": [],
+    "fillers": [],
     "roles": [
      {
       "role": "Counter",
-      "share": 0.46
+      "share": 0.55
      },
      {
       "role": "Daggers",
-      "share": 0.33
+      "share": 0.26
      },
      {
       "role": "Auto-attacks",
-      "share": 0.17
+      "share": 0.16
      },
      {
       "role": "Fillers",
-      "share": 0.04
+      "share": 0.03
      }
     ],
     "damage": [
      {
       "id": "Counter Slash",
-      "share": 0.42,
-      "perCast": 28624
+      "share": 0.516,
+      "perCast": 38642
      },
      {
       "id": "Attack",
-      "share": 0.172,
-      "perCast": 3763
+      "share": 0.155,
+      "perCast": 3875
      },
      {
       "id": "Northern Cross",
-      "share": 0.153,
-      "perCast": 13947
+      "share": 0.124,
+      "perCast": 13946
      },
      {
       "id": "Definitive Dagger",
-      "share": 0.102,
-      "perCast": 11172
+      "share": 0.081,
+      "perCast": 10914
      },
      {
       "id": "Southern Cross",
-      "share": 0.073,
-      "perCast": 9919
+      "share": 0.059,
+      "perCast": 9918
      },
      {
       "id": "Typhoon Edge",
-      "share": 0.03,
-      "perCast": 16609
+      "share": 0.025,
+      "perCast": 16606
      },
      {
       "id": "Shadow Slash",
-      "share": 0.025,
-      "perCast": 6812
+      "share": 0.021,
+      "perCast": 6984
      },
      {
       "id": "Midnight Eye",
-      "share": 0.008,
+      "share": 0.007,
       "perCast": 4572
      },
      {
       "id": "Dark Claw",
-      "share": 0.008,
+      "share": 0.006,
       "perCast": 4328
      },
      {
       "id": "Back Stab",
-      "share": 0.008,
+      "share": 0.006,
       "perCast": 4231
      }
     ],
@@ -4722,9 +5393,12 @@
      "Rising Wings",
      "Fury",
      "Hallucination Walk",
-     "ASPD 180"
+     "ASPD 183"
     ],
-    "dps": 54565,
+    "dps": 67403,
+    "uptime": {
+     "Night Wound": 1
+    },
     "openerMarks": [
      {
       "states": [],
@@ -4772,7 +5446,7 @@
     {
      "skill": "Weapon Blocking",
      "icon": "GC_WEAPONBLOCKING",
-     "dpsGain": 0.101,
+     "dpsGain": 0.355,
      "required": false
     },
     {
@@ -4784,15 +5458,14 @@
     {
      "skill": "Fury",
      "icon": "MO_EXPLOSIONSPIRITS",
-     "dpsGain": 0.004,
+     "dpsGain": 0.003,
      "required": false
     },
     {
      "skill": "Hallucination Walk",
      "icon": "GC_HALLUCINATIONWALK",
      "dpsGain": 0,
-     "required": false,
-     "vsGain": 0.019
+     "required": false
     },
     {
      "skill": "Enchant Poison",
@@ -4805,7 +5478,7 @@
      "icon": "AB_EXPIATIO",
      "dpsGain": 0,
      "required": false,
-     "vsGain": 0.034
+     "vsGain": 0.036
     }
    ],
    "skills": {
@@ -4813,7 +5486,7 @@
      "name": "Shadow Slash",
      "icon": "NJ_KIRIKAGE",
      "level": 10,
-     "desc": "Shadow Slash dashes to a target and attempts a critical hit 3 times.\nDamage is 200+15% per level +1% per LUK\nBonus Crit Rate is 5+ 5 per level\nOnly Right Hand Weapon ATK is used\nRequires a Dagger or Sword equipped\nDamage increases by 5% per Improve Dodge level while under Hallucination Walk\nBase Starting Cooldown is 4 seconds.",
+     "desc": "You dash to the target and make 3 critical hit attempts.\nDamage: 200% + 15% per level + 1% per LUK\nOnly the right-hand weapon's ATK is used.\n+5% damage per Improve Dodge level while under Hallucination Walk.\nBonus crit rate: 5 + 5 per level\nRequires a Dagger or Sword.\nCooldown: 4 s",
      "summary": "Dash-in opener: three crit attempts on the target. Puts you in melee instantly.",
      "scalings": [
       {
@@ -4824,6 +5497,40 @@
        ],
        "text": "+1% per LUK"
       }
+     ],
+     "ratio": [
+      {
+       "label": "Damage",
+       "main": true,
+       "terms": [
+        {
+         "text": "200%",
+         "value": 200
+        },
+        {
+         "text": "+15% per level (10)",
+         "value": 150
+        },
+        {
+         "text": "+1% per LUK",
+         "stats": [
+          "LUK"
+         ],
+         "per": 1,
+         "every": 1
+        }
+       ]
+      },
+      {
+       "label": "Under Hallucination Walk",
+       "main": false,
+       "terms": [
+        {
+         "text": "+5% per Improve Dodge level (10)",
+         "value": 50
+        }
+       ]
+      }
      ]
     },
     "Attack": {
@@ -4832,21 +5539,23 @@
      "level": 0,
      "desc": "",
      "summary": null,
-     "scalings": []
+     "scalings": [],
+     "ratio": null
     },
     "Dark Claw": {
      "name": "Dark Claw",
      "icon": "GC_DARKCROW",
      "level": 5,
-     "desc": "Leaves a painful wound on the enemy and removes melee physical damage reflect effects for 5 seconds. during this time melee physical damage reflect effects are not available and the enemy will receive 2% per level more damage from melee physical attacks.\nCooldown is 90 seconds.",
+     "desc": "You leave a painful wound that removes the enemy's melee physical damage reflect for 5 s. During that time its melee reflect effects don't work and it takes 2% more melee physical damage per level.\nCooldown: 90 s",
      "summary": null,
-     "scalings": []
+     "scalings": [],
+     "ratio": null
     },
     "Northern Cross": {
      "name": "Northern Cross",
      "icon": "CR_HOLYCROSS",
      "level": 10,
-     "desc": "Attacks an enemy with a perfect cross of slashes.\nDamage is boosted with dual swords: +15% per level.\nDamage is 200+30% per level +2% per Agi.\nNight Wound: +50% and +1% per Dex\nCosts an extra 3% Current HP to use.\nBase Starting cooldown is 1 second",
+     "desc": "You strike an enemy with a perfect cross of slashes.\nDamage: 200% + 30% per level + 2% per AGI\nWith dual swords: +15% per level.\nNight Wound: +50% and +1% per DEX.\nCooldown: 1 s\nCost: also 3% of current HP",
      "summary": null,
      "scalings": [
       {
@@ -4865,64 +5574,57 @@
        ],
        "text": "+1% per Dex"
       }
-     ]
-    },
-    "Definitive Dagger": {
-     "name": "Definitive Dagger",
-     "icon": "LG_BANISHINGPOINT",
-     "level": 10,
-     "desc": "Attacks an enemy with quick hits and perfect preparation.\nDamage is boosted with dual daggers.\nDamage is 100+30% per level +2% per Agi.\nNight Wound: +50%+1% per Dex\nHit bonus is 5 per level. Range is 3.\nCosts an extra 3% Current SP to use.\nBase starting cooldown is 1 second.",
-     "summary": null,
-     "scalings": [
+     ],
+     "ratio": [
       {
-       "per": 2,
-       "every": 1,
-       "stats": [
-        "AGI"
-       ],
-       "text": "+2% per Agi"
+       "label": "With dual swords",
+       "main": false,
+       "terms": [
+        {
+         "text": "+15% per level (10)",
+         "value": 150
+        }
+       ]
       },
       {
-       "per": 1,
-       "every": 1,
-       "stats": [
-        "DEX"
-       ],
-       "text": "+1% per Dex"
-      }
-     ]
-    },
-    "Southern Cross": {
-     "name": "Southern Cross",
-     "icon": "KO_JYUMONJIKIRI",
-     "level": 10,
-     "desc": "Enemy receives a Night\nWound state for 5 seconds.\nAttacking an enemy with a Night Wound using specific skills deals extra damage.\nDamage is 200+30% per level +1% per Agi.\nNight Wound: Damage +25% per level.\nMark duration is 5 seconds.\nDamage is Greatly boosted on marked targets.\nCooldown is 2.5s-0.1s per level.\nRequires both hands equipped to use",
-     "summary": null,
-     "scalings": [
+       "label": "Damage",
+       "main": true,
+       "terms": [
+        {
+         "text": "200%",
+         "value": 200
+        },
+        {
+         "text": "+30% per level (10)",
+         "value": 300
+        },
+        {
+         "text": "+2% per AGI",
+         "stats": [
+          "AGI"
+         ],
+         "per": 2,
+         "every": 1
+        }
+       ]
+      },
       {
-       "per": 1,
-       "every": 1,
-       "stats": [
-        "AGI"
-       ],
-       "text": "+1% per Agi"
-      }
-     ]
-    },
-    "Back Stab": {
-     "name": "Back Stab",
-     "icon": "RG_BACKSTAP",
-     "level": 10,
-     "desc": "teleports the caster behind the enemy to deal damage.\nDamage is 150+5% per level +1% per AGI.\nRequires a Sword or Dagger equipped\nRequires 5% extra Current SP to cast.\nStarting Cooldown is 3 seconds.\nEnemy's back must be unobstructed to use\nSingle-Wielding a Dagger:\nAGI bonus is tripled\nBonus per skill level tripled\nExtra 5% scaling per level of Improve Dodge",
-     "summary": null,
-     "scalings": [
-      {
-       "per": 1,
-       "every": 1,
-       "stats": [
-        "AGI"
-       ],
-       "text": "+1% per AGI"
+       "label": "Night Wound",
+       "main": false,
+       "terms": [
+        {
+         "text": "+50%",
+         "value": 50
+        },
+        {
+         "text": "+1% per DEX",
+         "stats": [
+          "DEX"
+         ],
+         "per": 1,
+         "every": 1
+        }
+       ]
       }
      ]
     },
@@ -4930,7 +5632,7 @@
      "name": "Midnight Eye",
      "icon": "RL_BANISHING_BUSTER",
      "level": 5,
-     "desc": "Inflicts damage on directly and removes random buffs from the target, while\nPreparing Counter Slash\nChance is 50+5% per level.\nDamage is 200+20% per level +5% per INT\nEnters Counter State for 1s per level if Weapon\nBlocking is active\nVariable cast time is 0.25s\nFixed cast time is 0.25s\nBase Starting Cooldown is 15 seconds.",
+     "desc": "You strike the target directly and remove random buffs from it, while preparing Counter Slash.\nDamage: 200% + 20% per level + 5% per INT\nChance: 50% + 5% per level\nIf Weapon Blocking is active, you enter the Counter state for 1 s per level.\nCast: 0.25 s variable + 0.25 s fixed\nCooldown: 15 s",
      "summary": null,
      "scalings": [
       {
@@ -4941,13 +5643,37 @@
        ],
        "text": "+5% per INT"
       }
+     ],
+     "ratio": [
+      {
+       "label": "Damage",
+       "main": true,
+       "terms": [
+        {
+         "text": "200%",
+         "value": 200
+        },
+        {
+         "text": "+20% per level (5)",
+         "value": 100
+        },
+        {
+         "text": "+5% per INT",
+         "stats": [
+          "INT"
+         ],
+         "per": 5,
+         "every": 1
+        }
+       ]
+      }
      ]
     },
     "Counter Slash": {
      "name": "Counter Slash",
      "icon": "GC_COUNTERSLASH",
      "level": 5,
-     "desc": "Can only be used in Counter state.\nInflicts damage to enemies around the caster.\nRepeating skill grants Rolling Counters\nDeals an extra hit per stack, up to 6 hits\nMaximum of 5 stacks that last 3 seconds\nDamage is 200+10% per level +1% per AGI\nRequires extra 10% Current SP per cast\nBase Starting Cooldown is 0.6 Seconds",
+     "desc": "Usable only in the Counter state: damages enemies around you. Repeated casts grant Rolling Counters.\nDamage: 200% + 10% per level + 1% per AGI\nOne extra hit per Rolling Counter, up to 6 hits.\nRolling Counters: max 5, last 3 s.\nCooldown: 0.6 s\nCost: also 10% of current SP per cast",
      "summary": null,
      "scalings": [
       {
@@ -4958,13 +5684,37 @@
        ],
        "text": "+1% per AGI"
       }
+     ],
+     "ratio": [
+      {
+       "label": "Damage",
+       "main": true,
+       "terms": [
+        {
+         "text": "200%",
+         "value": 200
+        },
+        {
+         "text": "+10% per level (5)",
+         "value": 50
+        },
+        {
+         "text": "+1% per AGI",
+         "stats": [
+          "AGI"
+         ],
+         "per": 1,
+         "every": 1
+        }
+       ]
+      }
      ]
     },
     "Typhoon Edge": {
      "name": "Typhoon Edge",
      "icon": "RL_R_TRIP",
      "level": 10,
-     "desc": "Unleashes a wave of slashes at all targets in range, dealing damage and at high level, knocking the targets back\nDamage is 110+15% per level +1% per STR\nTriple damage if knocked into a wall\nExtra 10% per Rolling Counter\nBase starting cooldown is 5 seconds.\nKnockback range is 5 cells\nKnockback only available Lv6 or higher",
+     "desc": "You unleash a wave of slashes at all targets in range; at high levels it also knocks them back.\nDamage: 110% + 15% per level + 1% per STR\n+10% per Rolling Counter.\nTriple damage if a target is knocked into a wall.\nKnockback: 5 cells, only at Lv6 or higher.\nCooldown: 5 s",
      "summary": null,
      "scalings": [
       {
@@ -4975,55 +5725,258 @@
        ],
        "text": "+1% per STR"
       }
+     ],
+     "ratio": [
+      {
+       "label": "Damage",
+       "main": true,
+       "terms": [
+        {
+         "text": "110%",
+         "value": 110
+        },
+        {
+         "text": "+15% per level (10)",
+         "value": 150
+        },
+        {
+         "text": "+1% per STR",
+         "stats": [
+          "STR"
+         ],
+         "per": 1,
+         "every": 1
+        }
+       ]
+      },
+      {
+       "label": "Per Rolling Counter",
+       "main": false,
+       "terms": [
+        {
+         "text": "+10%",
+         "value": 10
+        }
+       ]
+      }
+     ]
+    },
+    "Definitive Dagger": {
+     "name": "Definitive Dagger",
+     "icon": "LG_BANISHINGPOINT",
+     "level": 10,
+     "desc": "You strike an enemy with quick hits and perfect preparation.\nDamage: 100% + 30% per level + 2% per AGI\nDamage is boosted with dual daggers.\nNight Wound: +50% + 1% per DEX.\nHIT: +5 per level\nRange: 3\nCooldown: 1 s\nCost: also 3% of current SP",
+     "summary": null,
+     "scalings": [
+      {
+       "per": 2,
+       "every": 1,
+       "stats": [
+        "AGI"
+       ],
+       "text": "+2% per Agi"
+      },
+      {
+       "per": 1,
+       "every": 1,
+       "stats": [
+        "DEX"
+       ],
+       "text": "+1% per Dex"
+      }
+     ],
+     "ratio": [
+      {
+       "label": "Damage",
+       "main": true,
+       "terms": [
+        {
+         "text": "100%",
+         "value": 100
+        },
+        {
+         "text": "+30% per level (10)",
+         "value": 300
+        },
+        {
+         "text": "+2% per AGI",
+         "stats": [
+          "AGI"
+         ],
+         "per": 2,
+         "every": 1
+        }
+       ]
+      },
+      {
+       "label": "Night Wound",
+       "main": false,
+       "terms": [
+        {
+         "text": "+50%",
+         "value": 50
+        },
+        {
+         "text": "+1% per DEX",
+         "stats": [
+          "DEX"
+         ],
+         "per": 1,
+         "every": 1
+        }
+       ]
+      }
+     ]
+    },
+    "Southern Cross": {
+     "name": "Southern Cross",
+     "icon": "KO_JYUMONJIKIRI",
+     "level": 10,
+     "desc": "You strike the enemy and give it a Night Wound for 5 s. Specific skills deal extra damage to a target with a Night Wound.\nDamage: 200% + 30% per level + 1% per AGI\nNight Wound: +25% damage per level.\nDamage is greatly boosted on marked targets; the mark lasts 5 s.\nRequires both hands equipped.\nCooldown: 2.5 s - 0.1 s per level",
+     "summary": null,
+     "scalings": [
+      {
+       "per": 1,
+       "every": 1,
+       "stats": [
+        "AGI"
+       ],
+       "text": "+1% per Agi"
+      }
+     ],
+     "ratio": [
+      {
+       "label": "Damage",
+       "main": true,
+       "terms": [
+        {
+         "text": "200%",
+         "value": 200
+        },
+        {
+         "text": "+30% per level (10)",
+         "value": 300
+        },
+        {
+         "text": "+1% per AGI",
+         "stats": [
+          "AGI"
+         ],
+         "per": 1,
+         "every": 1
+        }
+       ]
+      },
+      {
+       "label": "Night Wound",
+       "main": false,
+       "terms": [
+        {
+         "text": "+25% per level (10)",
+         "value": 250
+        }
+       ]
+      }
+     ]
+    },
+    "Back Stab": {
+     "name": "Back Stab",
+     "icon": "RG_BACKSTAP",
+     "level": 10,
+     "desc": "You teleport behind the enemy and strike.\nDamage: 150% + 5% per level + 1% per AGI\nSingle-wielding a Dagger: the AGI bonus and the per-level bonus are tripled, plus 5% scaling per Improve Dodge level.\nThe enemy's back must be unobstructed.\nRequires a Sword or Dagger.\nCooldown: 3 s\nCost: also 5% of current SP",
+     "summary": null,
+     "scalings": [
+      {
+       "per": 1,
+       "every": 1,
+       "stats": [
+        "AGI"
+       ],
+       "text": "+1% per AGI"
+      }
+     ],
+     "ratio": [
+      {
+       "label": "Damage",
+       "main": true,
+       "terms": [
+        {
+         "text": "150%",
+         "value": 150
+        },
+        {
+         "text": "+5% per level (10)",
+         "value": 50
+        },
+        {
+         "text": "+5% per Improve Dodge level (10)",
+         "value": 50
+        },
+        {
+         "text": "+1% per AGI",
+         "stats": [
+          "AGI"
+         ],
+         "per": 1,
+         "every": 1
+        }
+       ]
+      }
      ]
     },
     "Weapon Blocking": {
      "name": "Weapon Blocking",
      "icon": "GC_WEAPONBLOCKING",
      "level": 10,
-     "desc": "Has a chance to cancel enemy's short range damage when skill is active. If an enemy's attack has been canceled, you'll gain the Counter state for 5 seconds and Counter Skills can be used until this state ends.\nRequires Dual-Wielding any pair of weapons\nStatus Cannot be canceled manually.\nBlocking Chance is 15%+2% per level.\nDuration is 120 seconds",
+     "desc": "While active, you have a chance to cancel an enemy's short-range damage. Each cancelled attack puts you in the Counter state for 5 s, during which Counter skills can be used.\nBlock chance: 15% + 2% per level\nRequires dual-wielding any pair of weapons.\nCannot be cancelled manually.\nDuration: 120 s",
      "summary": null,
-     "scalings": []
+     "scalings": [],
+     "ratio": null
     },
     "Rising Wings": {
      "name": "Rising Wings",
      "icon": "WS_OVERTHRUSTMAX",
      "level": 5,
-     "desc": "Increases Weapon Damage by\nBonding with the Raven.\nQuadruples Sword+Dagger Auto-Raven chance\nOverall Attack Bonus is 1% per level\nCosts an extra 50% Current SP to cast.\nRequires a Raven.",
+     "desc": "You bond with your Raven, increasing weapon damage.\nOverall attack bonus: 1% per level\nQuadruples the Auto-Raven chance with Sword + Dagger.\nRequires a Raven.\nCost: also 50% of current SP",
      "summary": null,
-     "scalings": []
+     "scalings": [],
+     "ratio": null
     },
     "Fury": {
      "name": "Fury",
      "icon": "MO_EXPLOSIONSPIRITS",
      "level": 5,
-     "desc": "Increases caster's power to the maximum, increasing CRIT for the duration and slowing SP regeneration.\nEnables Executioner Class Skills.\nHas a duration of 20+10s per level\nHas a cooldown of 60 seconds\nIncreases Sonic Blow Base Damage by 50%\nIncreases Impact Tooth Base Damage by 50%\nCRIT bonus is 1 per level\nBonus is doubled with Katars.\nRequires a Shadow Orb to Cast",
+     "desc": "Raises your power to the maximum: more CRIT for the duration, but slower SP regeneration. Enables Executioner class skills.\nSonic Blow base damage +50%.\nImpact Tooth base damage +50%.\nCRIT: +1 per level, doubled with Katars.\nRequires a Shadow Orb.\nDuration: 20 s + 10 s per level\nCooldown: 60 s",
      "summary": null,
-     "scalings": []
+     "scalings": [],
+     "ratio": null
     },
     "Hallucination Walk": {
      "name": "Hallucination Walk",
      "icon": "GC_HALLUCINATIONWALK",
      "level": 5,
-     "desc": "Increases caster's speed to the maximum, increases FLEE and certain chance to avoid magic attacks.\nHas a duration of 25+5s per level\nHas a cooldown of 120 seconds\nFlee bonus is 10 per lv and 5% per level to avoid magic damage.\nRequires a Shadow Orb to cast",
+     "desc": "Raises your movement speed to the maximum, increases FLEE and gives a chance to avoid magic attacks.\nFLEE: +10 per level\nMagic damage avoid chance: 5% per level\nRequires a Shadow Orb.\nDuration: 25 s + 5 s per level\nCooldown: 120 s",
      "summary": null,
-     "scalings": []
+     "scalings": [],
+     "ratio": null
     },
     "Enchant Poison": {
      "name": "Enchant Poison",
      "icon": "AS_ENCHANTPOISON",
      "level": 10,
-     "desc": "Temporarily coats your equipped weapon with the Poison element. Poison coated weapons have a chance of inflicting the target with the Poison status.\nChance is 3 + 1% per level on normal attacks, 0% vs bosses\nSkills do not roll the Poison chance\nAll physical attacks become poison element\nDuration is 30 seconds +15s per level\nRequires extra 50% Max SP to cast",
+     "desc": "Coats your weapon with the Poison element for a time; poisoned weapons can inflict Poison.\nAll physical attacks become Poison element.\nPoison chance: 3% + 1% per level on normal attacks, 0% against bosses. Skills do not roll the Poison chance.\nDuration: 30 s + 15 s per level\nCost: also 50% of Max SP",
      "summary": null,
-     "scalings": []
+     "scalings": [],
+     "ratio": null
     },
     "Magic Pierce": {
      "name": "Magic Pierce",
      "icon": "AB_EXPIATIO",
      "level": 5,
-     "desc": "Ignores part of the enemy's MDEF against spells\nCan be used on others.\nMagic Defense Penetration is 3 per level\nDefense Penetration is 1 per level and works on autocasts.\nVariable cast time is 3s\nFixed cast time is 1s",
+     "desc": "Your spells ignore part of the enemy's MDEF. Can be cast on others.\nMDEF penetration: 3 per level\nDEF penetration: 1 per level; works on autocasts.\nCast: 3 s variable + 1 s fixed",
      "summary": null,
-     "scalings": []
+     "scalings": [],
+     "ratio": null
     }
    }
   },
@@ -5201,6 +6154,9 @@
      "ASPD 184"
     ],
     "dps": 20286,
+    "uptime": {
+     "Night Wound": 1
+    },
     "openerMarks": [
      {
       "states": [],
@@ -5389,6 +6345,9 @@
      "ASPD 184"
     ],
     "dps": 82849,
+    "uptime": {
+     "Night Wound": 1
+    },
     "openerMarks": [
      {
       "states": [],
@@ -5478,7 +6437,7 @@
      "name": "Shadow Slash",
      "icon": "NJ_KIRIKAGE",
      "level": 10,
-     "desc": "Shadow Slash dashes to a target and attempts a critical hit 3 times.\nDamage is 200+15% per level +1% per LUK\nBonus Crit Rate is 5+ 5 per level\nOnly Right Hand Weapon ATK is used\nRequires a Dagger or Sword equipped\nDamage increases by 5% per Improve Dodge level while under Hallucination Walk\nBase Starting Cooldown is 4 seconds.",
+     "desc": "You dash to the target and make 3 critical hit attempts.\nDamage: 200% + 15% per level + 1% per LUK\nOnly the right-hand weapon's ATK is used.\n+5% damage per Improve Dodge level while under Hallucination Walk.\nBonus crit rate: 5 + 5 per level\nRequires a Dagger or Sword.\nCooldown: 4 s",
      "summary": "Dash-in opener: three crit attempts on the target. Puts you in melee instantly.",
      "scalings": [
       {
@@ -5489,6 +6448,40 @@
        ],
        "text": "+1% per LUK"
       }
+     ],
+     "ratio": [
+      {
+       "label": "Damage",
+       "main": true,
+       "terms": [
+        {
+         "text": "200%",
+         "value": 200
+        },
+        {
+         "text": "+15% per level (10)",
+         "value": 150
+        },
+        {
+         "text": "+1% per LUK",
+         "stats": [
+          "LUK"
+         ],
+         "per": 1,
+         "every": 1
+        }
+       ]
+      },
+      {
+       "label": "Under Hallucination Walk",
+       "main": false,
+       "terms": [
+        {
+         "text": "+5% per Improve Dodge level (10)",
+         "value": 50
+        }
+       ]
+      }
      ]
     },
     "Attack": {
@@ -5497,13 +6490,14 @@
      "level": 0,
      "desc": "",
      "summary": null,
-     "scalings": []
+     "scalings": [],
+     "ratio": null
     },
     "Southern Cross": {
      "name": "Southern Cross",
      "icon": "KO_JYUMONJIKIRI",
      "level": 10,
-     "desc": "Enemy receives a Night\nWound state for 5 seconds.\nAttacking an enemy with a Night Wound using specific skills deals extra damage.\nDamage is 200+30% per level +1% per Agi.\nNight Wound: Damage +25% per level.\nMark duration is 5 seconds.\nDamage is Greatly boosted on marked targets.\nCooldown is 2.5s-0.1s per level.\nRequires both hands equipped to use",
+     "desc": "You strike the enemy and give it a Night Wound for 5 s. Specific skills deal extra damage to a target with a Night Wound.\nDamage: 200% + 30% per level + 1% per AGI\nNight Wound: +25% damage per level.\nDamage is greatly boosted on marked targets; the mark lasts 5 s.\nRequires both hands equipped.\nCooldown: 2.5 s - 0.1 s per level",
      "summary": null,
      "scalings": [
       {
@@ -5514,13 +6508,47 @@
        ],
        "text": "+1% per Agi"
       }
+     ],
+     "ratio": [
+      {
+       "label": "Damage",
+       "main": true,
+       "terms": [
+        {
+         "text": "200%",
+         "value": 200
+        },
+        {
+         "text": "+30% per level (10)",
+         "value": 300
+        },
+        {
+         "text": "+1% per AGI",
+         "stats": [
+          "AGI"
+         ],
+         "per": 1,
+         "every": 1
+        }
+       ]
+      },
+      {
+       "label": "Night Wound",
+       "main": false,
+       "terms": [
+        {
+         "text": "+25% per level (10)",
+         "value": 250
+        }
+       ]
+      }
      ]
     },
     "Definitive Dagger": {
      "name": "Definitive Dagger",
      "icon": "LG_BANISHINGPOINT",
      "level": 10,
-     "desc": "Attacks an enemy with quick hits and perfect preparation.\nDamage is boosted with dual daggers.\nDamage is 100+30% per level +2% per Agi.\nNight Wound: +50%+1% per Dex\nHit bonus is 5 per level. Range is 3.\nCosts an extra 3% Current SP to use.\nBase starting cooldown is 1 second.",
+     "desc": "You strike an enemy with quick hits and perfect preparation.\nDamage: 100% + 30% per level + 2% per AGI\nDamage is boosted with dual daggers.\nNight Wound: +50% + 1% per DEX.\nHIT: +5 per level\nRange: 3\nCooldown: 1 s\nCost: also 3% of current SP",
      "summary": null,
      "scalings": [
       {
@@ -5539,63 +6567,112 @@
        ],
        "text": "+1% per Dex"
       }
+     ],
+     "ratio": [
+      {
+       "label": "Damage",
+       "main": true,
+       "terms": [
+        {
+         "text": "100%",
+         "value": 100
+        },
+        {
+         "text": "+30% per level (10)",
+         "value": 300
+        },
+        {
+         "text": "+2% per AGI",
+         "stats": [
+          "AGI"
+         ],
+         "per": 2,
+         "every": 1
+        }
+       ]
+      },
+      {
+       "label": "Night Wound",
+       "main": false,
+       "terms": [
+        {
+         "text": "+50%",
+         "value": 50
+        },
+        {
+         "text": "+1% per DEX",
+         "stats": [
+          "DEX"
+         ],
+         "per": 1,
+         "every": 1
+        }
+       ]
+      }
      ]
     },
     "Dark Claw": {
      "name": "Dark Claw",
      "icon": "GC_DARKCROW",
      "level": 5,
-     "desc": "Leaves a painful wound on the enemy and removes melee physical damage reflect effects for 5 seconds. during this time melee physical damage reflect effects are not available and the enemy will receive 2% per level more damage from melee physical attacks.\nCooldown is 90 seconds.",
+     "desc": "You leave a painful wound that removes the enemy's melee physical damage reflect for 5 s. During that time its melee reflect effects don't work and it takes 2% more melee physical damage per level.\nCooldown: 90 s",
      "summary": null,
-     "scalings": []
+     "scalings": [],
+     "ratio": null
     },
     "Weapon Blocking": {
      "name": "Weapon Blocking",
      "icon": "GC_WEAPONBLOCKING",
      "level": 10,
-     "desc": "Has a chance to cancel enemy's short range damage when skill is active. If an enemy's attack has been canceled, you'll gain the Counter state for 5 seconds and Counter Skills can be used until this state ends.\nRequires Dual-Wielding any pair of weapons\nStatus Cannot be canceled manually.\nBlocking Chance is 15%+2% per level.\nDuration is 120 seconds",
+     "desc": "While active, you have a chance to cancel an enemy's short-range damage. Each cancelled attack puts you in the Counter state for 5 s, during which Counter skills can be used.\nBlock chance: 15% + 2% per level\nRequires dual-wielding any pair of weapons.\nCannot be cancelled manually.\nDuration: 120 s",
      "summary": null,
-     "scalings": []
+     "scalings": [],
+     "ratio": null
     },
     "Rising Wings": {
      "name": "Rising Wings",
      "icon": "WS_OVERTHRUSTMAX",
      "level": 5,
-     "desc": "Increases Weapon Damage by\nBonding with the Raven.\nQuadruples Sword+Dagger Auto-Raven chance\nOverall Attack Bonus is 1% per level\nCosts an extra 50% Current SP to cast.\nRequires a Raven.",
+     "desc": "You bond with your Raven, increasing weapon damage.\nOverall attack bonus: 1% per level\nQuadruples the Auto-Raven chance with Sword + Dagger.\nRequires a Raven.\nCost: also 50% of current SP",
      "summary": null,
-     "scalings": []
+     "scalings": [],
+     "ratio": null
     },
     "Fury": {
      "name": "Fury",
      "icon": "MO_EXPLOSIONSPIRITS",
      "level": 5,
-     "desc": "Increases caster's power to the maximum, increasing CRIT for the duration and slowing SP regeneration.\nEnables Executioner Class Skills.\nHas a duration of 20+10s per level\nHas a cooldown of 60 seconds\nIncreases Sonic Blow Base Damage by 50%\nIncreases Impact Tooth Base Damage by 50%\nCRIT bonus is 1 per level\nBonus is doubled with Katars.\nRequires a Shadow Orb to Cast",
+     "desc": "Raises your power to the maximum: more CRIT for the duration, but slower SP regeneration. Enables Executioner class skills.\nSonic Blow base damage +50%.\nImpact Tooth base damage +50%.\nCRIT: +1 per level, doubled with Katars.\nRequires a Shadow Orb.\nDuration: 20 s + 10 s per level\nCooldown: 60 s",
      "summary": null,
-     "scalings": []
+     "scalings": [],
+     "ratio": null
     },
     "Hallucination Walk": {
      "name": "Hallucination Walk",
      "icon": "GC_HALLUCINATIONWALK",
      "level": 5,
-     "desc": "Increases caster's speed to the maximum, increases FLEE and certain chance to avoid magic attacks.\nHas a duration of 25+5s per level\nHas a cooldown of 120 seconds\nFlee bonus is 10 per lv and 5% per level to avoid magic damage.\nRequires a Shadow Orb to cast",
+     "desc": "Raises your movement speed to the maximum, increases FLEE and gives a chance to avoid magic attacks.\nFLEE: +10 per level\nMagic damage avoid chance: 5% per level\nRequires a Shadow Orb.\nDuration: 25 s + 5 s per level\nCooldown: 120 s",
      "summary": null,
-     "scalings": []
+     "scalings": [],
+     "ratio": null
     },
     "Enchant Poison": {
      "name": "Enchant Poison",
      "icon": "AS_ENCHANTPOISON",
      "level": 10,
-     "desc": "Temporarily coats your equipped weapon with the Poison element. Poison coated weapons have a chance of inflicting the target with the Poison status.\nChance is 3 + 1% per level on normal attacks, 0% vs bosses\nSkills do not roll the Poison chance\nAll physical attacks become poison element\nDuration is 30 seconds +15s per level\nRequires extra 50% Max SP to cast",
+     "desc": "Coats your weapon with the Poison element for a time; poisoned weapons can inflict Poison.\nAll physical attacks become Poison element.\nPoison chance: 3% + 1% per level on normal attacks, 0% against bosses. Skills do not roll the Poison chance.\nDuration: 30 s + 15 s per level\nCost: also 50% of Max SP",
      "summary": null,
-     "scalings": []
+     "scalings": [],
+     "ratio": null
     },
     "Magic Pierce": {
      "name": "Magic Pierce",
      "icon": "AB_EXPIATIO",
      "level": 5,
-     "desc": "Ignores part of the enemy's MDEF against spells\nCan be used on others.\nMagic Defense Penetration is 3 per level\nDefense Penetration is 1 per level and works on autocasts.\nVariable cast time is 3s\nFixed cast time is 1s",
+     "desc": "Your spells ignore part of the enemy's MDEF. Can be cast on others.\nMDEF penetration: 3 per level\nDEF penetration: 1 per level; works on autocasts.\nCast: 3 s variable + 1 s fixed",
      "summary": null,
-     "scalings": []
+     "scalings": [],
+     "ratio": null
     }
    }
   }

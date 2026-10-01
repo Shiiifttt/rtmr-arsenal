@@ -28,6 +28,7 @@ import { DEFAULT_CONSUMABLES, loadout } from '../src/items.ts';
 import { buildMonster, DUMMY_SECONDS, dummyMonster } from '../src/monster.ts';
 import type { Monster } from '../src/model.ts';
 import { simulate, type Summary } from '../src/sim.ts';
+import { skillRatio } from './ratio-terms.ts';
 import { priorityPolicy } from '../src/tas.ts';
 import { kitFor } from '../src/kits/index.ts';
 
@@ -65,6 +66,9 @@ for (const r of raw.rows) {
 }
 const summariesPath = resolve(REPO, 'combat/data/skill-summaries.json');
 const summaries = existsSync(summariesPath) ? JSON.parse(readFileSync(summariesPath, 'utf8')) as Record<string, string> : {};
+/** The tooltips reworded to read clearly, every number kept (2026-10-02); the ratio terms still read the game's own text. */
+const descriptionsPath = resolve(REPO, 'combat/data/skill-descriptions.json');
+const descriptions = existsSync(descriptionsPath) ? JSON.parse(readFileSync(descriptionsPath, 'utf8')) as Record<string, string> : {};
 
 const STATS = ['STR', 'AGI', 'VIT', 'INT', 'DEX', 'LUK'];
 interface Scaling { stats: string[]; per: number; every: number; text: string }
@@ -94,6 +98,8 @@ function rotationOf(s: Summary) {
       perCast: x.uses > 0 ? Math.round(x.damage / x.uses) : null })),
     prep: a.prep,
     dps: Math.round(s.dps),
+    // Share of the fight a kit-tracked state was up (Night Wound on the target).
+    uptime: Object.fromEntries(Object.entries(s.uptime ?? {}).map(([k, v]) => [k, Math.round(v * 1000) / 1000])),
   };
 }
 
@@ -168,6 +174,7 @@ for (const c of CLASSES.filter((x) => !one('only') || x.className === one('only'
   });
   const dummy = dummyMonster();
   const farmOpts = profile.options ?? {};
+  const anchored = { ...k.kit, cycleAnchor: typeof farmOpts.cycleAnchor === 'string' ? farmOpts.cycleAnchor : k.kit.cycleAnchor };
   // A dummy-searched build cannot live through Heartless (no HP gear): its loop is read off a fight it survives.
   const vs = c.vs ?? ALLROUND_VS;
   const allround = fight(f, buildMonster(findMobs(vs)[0]), farmOpts, 300, 100);
@@ -203,8 +210,9 @@ for (const c of CLASSES.filter((x) => !one('only') || x.className === one('only'
 
   const ids = new Set<string>();
   const rots = [
-    traced(k.kit, traces(buildMonster(findMobs(vs)[0]), farmOpts, 300), rotationOf(allround)),
-    traced(k.kit, traces(dummy, dummyOpts, DUMMY_S), rotationOf(dummyRun)),
+    // A profile may cut its loops elsewhere than the kit (option cycleAnchor: the Counter Slash build at Midnight Eye).
+    traced(anchored, traces(buildMonster(findMobs(vs)[0]), farmOpts, 300), rotationOf(allround)),
+    traced(anchored, traces(dummy, dummyOpts, DUMMY_S), rotationOf(dummyRun)),
   ];
   for (const r of rots) {
     for (const id of [...r.opener, ...r.cycles.flatMap((x) => x.steps), ...r.fillers.map((x) => x.id)]) if (!NOT_SKILLS.has(id)) ids.add(id);
@@ -217,8 +225,10 @@ for (const c of CLASSES.filter((x) => !one('only') || x.className === one('only'
     const base = id.replace(/ \(autocast\)$/, '');
     const s = skillInfo.get(base);
     skills[id] = {
-      name: id, icon: s?.icon ?? '', level: f.skillLevels[base] ?? s?.max ?? 0, desc: s?.desc ?? '',
+      name: id, icon: s?.icon ?? '', level: f.skillLevels[base] ?? s?.max ?? 0, desc: descriptions[base] || s?.desc || '',
       summary: summaries[base] ?? null, scalings: s ? scalings(s.desc) : [],
+      // The ratio term by term (base, per level, stats, buffs, conditions); null for skills without a damage formula.
+      ratio: s ? skillRatio(c.className, base, s.desc, f.skillLevels) : null,
     };
   }
   result[key] = {

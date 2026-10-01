@@ -129,6 +129,8 @@ export interface Meter {
   sequence: string[];
   /** The lowest HP reached. */
   minHp: number;
+  /** Milliseconds a named state was up (a kit's debuff on the target: Night Wound). */
+  uptime?: Record<string, number>;
 }
 
 /** What a player can do. Kits (kits/*.ts) supply these. */

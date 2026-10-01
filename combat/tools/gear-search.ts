@@ -10,7 +10,7 @@
  *     [--set "shoes=Temporal STR Boots+6; stat.str=99"] [--only garment,upper,stats]
  *     [--only rotation,order  (the rotation optimizer)] [--fix "rogueFillers=false,autoAttack=false"]
  *     [--exclude "Dark Illusion Card"] [--keep-stats str] [--slot-items "lower=Flaming Weaver|Wind Weaver[str:1]"] [--lock-cards weapon] [--fix-refine gem] [--refine-cap gem=6] [--penalty 0.03] [--mvp-penalty 0] [--max-refine 6]
- *     [--per-target [--swap-cost 0.1]] [--proxy-test] [--no-pairs] [--healing] [--allow-ss] [--no-race] [--no-stats] [--workers N] [--out data/gear-search/kingslayer-heartless.json]
+ *     [--per-target [--swap-cost 0.1]] [--proxy-test] [--no-pairs] [--healing] [--no-ss] [--no-race] [--no-stats] [--workers N] [--out data/gear-search/kingslayer-heartless.json]
  *     [--no-census] [--shadow-top 3] [--rolls] [--max-rolls] [--min-hp 28000]
  *     [--flat] [--accept-z 2] [--confirm-more 3] [--cheapen] [--mid-rolls] [--no-live]
  *
@@ -37,9 +37,9 @@
  *     three highest base stats; body armour rolls Max HP; a garment HP leech
  *     or SP recovery (both tried); the rest by ROLL_PREFERENCE. Rolls on
  *     pieces already worn stay as they are.
- *   - Nothing that only drops in the SS-rank dungeons (Rachel SS,
- *     Jormungandr's Lair, Valhalla): no supply. The Weavers excepted, at
- *     PENALTY for their price. --allow-ss lets them all in.
+ *   - What only drops in the SS-rank dungeons (Rachel SS, Jormungandr's
+ *     Lair, Valhalla) costs PENALTY, like an MVP-only piece (the project
+ *     owner, 2026-10-02; it was left out before). --no-ss leaves it out.
  *   - A skill-damage roll is never assumed: the pool is hundreds of skills.
  *   - Locked slots (--lock, comma separated) keep their piece; their cards
  *     can still change. The shield by default: the owner keeps it.
@@ -229,9 +229,11 @@ function madeFromNine(item: Item): boolean {
 }
 /**
  * Dropped only in the SS-rank dungeons (Rachel SS, Jormungandr's Lair,
- * Valhalla, ama_ss): nobody clears them fast enough to supply the market,
- * least of all with good rolls (the project owner, 2026-09-27). Left out --
- * except the Weavers, which do trade, at a price (penalised as expensive).
+ * Valhalla, ama_ss). Since 2026-10-02 allowed by default at PENALTY, like an
+ * MVP-only piece -- the project owner: leaving them out while MVP cards and
+ * Sun helmets were in "made no sense" (it hid the Holy armors from a Night
+ * Raven). --no-ss restores the old exclusion (2026-09-27: "nobody clears them
+ * fast enough to supply the market"), the Weavers excepted.
  */
 const SS_MAPS = new Set([...MOB_GROUPS.rachel_ss, ...MOB_GROUPS.jorm, ...MOB_GROUPS.valhalla, ...MOB_GROUPS.ama_ss]);
 const mobMaps = new Map(mobRows().map((m) => [m.id, m.maps]));
@@ -242,7 +244,8 @@ function ssOnly(item: Item): boolean {
   return drops.every((d) => (mobMaps.get(d.mob_id) ?? []).length > 0 && mobMaps.get(d.mob_id)!.every((m) => SS_MAPS.has(m)));
 }
 const isWeaver = (item: Item) => / Weaver$/.test(item.name);
-const allowSs = flag('allow-ss');
+/** --allow-ss is the default now; --no-ss leaves SS-only drops out. */
+const allowSs = !flag('no-ss');
 /**
  * --mvp-max-level N: an MVP-only piece or card only when an MVP of level N or
  * below drops it (the project owner, 2026-09-29: "MVP drops from MVPs below

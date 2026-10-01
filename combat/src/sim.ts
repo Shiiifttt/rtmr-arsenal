@@ -71,6 +71,8 @@ export interface Summary {
   actions: ActionRow[];
   sources: { id: string; hits: number; avoided: number; damage: number }[];
   defenses: Record<string, number>;
+  /** Share of fight time a kit's tracked state was up (Meter.uptime): Night Wound 0.87. */
+  uptime: Record<string, number>;
   log: string[] | null;
   analysis: Analysis;
   msPerFight: number;
@@ -231,8 +233,9 @@ export function simulate(f: Fighter, m: Monster, kit: Kit, o: SimOptions): Summa
       id, hits: t.hits / n, avoided: t.avoided / n, damage: t.damage / n,
     })).sort((a, b) => b.damage - a.damage),
     defenses: Object.fromEntries(Object.entries(total.defenses).map(([k, v]) => [k, v / n])),
+    uptime: Object.fromEntries(Object.entries(total.uptime ?? {}).map(([k, v]) => [k, timeSum ? Math.min(1, v / timeSum) : 0])),
     log,
-    analysis: analyse(kit, m, f, {
+    analysis: analyse({ ...kit, cycleAnchor: typeof o.options?.cycleAnchor === 'string' ? o.options.cycleAnchor : kit.cycleAnchor }, m, f, {
       sequences, actions, dealt: dealtByActions / n, n, losses, lows, stalls, prep,
       taken: takenTotal, healed: total.healed, seconds: timeSum / 1000,
       hits: Object.values(total.taken).reduce((s, t) => s + t.hits, 0),
@@ -389,6 +392,7 @@ function merge(into: Meter, m: Meter) {
     r.hits += t.hits; r.avoided += t.avoided; r.damage += t.damage;
   }
   for (const [k, v] of Object.entries(m.defenses)) into.defenses[k] = (into.defenses[k] ?? 0) + v;
+  for (const [k, v] of Object.entries(m.uptime ?? {})) (into.uptime ??= {})[k] = (into.uptime[k] ?? 0) + v;
   into.healed += m.healed;
   into.minHp = Math.min(into.minHp, m.minHp);
 }

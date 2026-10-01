@@ -220,6 +220,9 @@ const nightWoundLeft = (fight: Fight) => (mobHas(fight, 'nightWound') ? fight.mo
 /** A lower level does nothing while a higher one lasts (RTM status.cpp:10709). */
 function woundTarget(fight: Fight, ms: number, level: number) {
   if (nightWound(fight) > level) return;
+  // Uptime for the report: the time this adds past what was already covered.
+  const was = Math.max(fight.t, fight.mob.debuffs.nightWound?.until ?? -1);
+  if (fight.meter && fight.t + ms > was) (fight.meter.uptime ??= {})['Night Wound'] = (fight.meter.uptime['Night Wound'] ?? 0) + fight.t + ms - was;
   fight.mob.debuffs.nightWound = { until: fight.t + ms, stacks: 1, value: level };
 }
 const landedAlive = (fight: Fight, dealt: number) => dealt > 0 && !fight.result;
@@ -619,7 +622,10 @@ const midnightEye: Action = {
   isSkill: true,
   offensive: true,
   ready: (fight) => learned('Midnight Eye')(fight)
-    && (!optionOn(fight, 'eyeForCounter') || counterLeft(fight) < 500),
+    && (!optionOn(fight, 'eyeForCounter') || counterLeft(fight) < 500)
+    // Option counterBait: never open the window while the monster is casting -- bait the dangerous
+    // skill, dodge it, then commit (the project owner, 2026-10-02).
+    && !(fight.options.counterBait === true && !!fight.mob.cast),
   castMs: cast('Midnight Eye'),
   delayMs: delay('Midnight Eye'),
   cooldownMs: cooldown('Midnight Eye'),
@@ -836,7 +842,13 @@ function withRules(a: Action): Action {
       if (a.offensive && a.id !== 'Attack' && fight.options.autoOnly === true) return false;
       // Option counterHold (the project owner's rotation, 2026-10-01): in Counter state, Counter Slash
       // again and again until it ends -- nothing else but the swing woven between.
-      if (a.offensive && counter(fight) && fight.options.counterHold === true && a.id !== 'Counter Slash' && a.id !== 'Attack') return false;
+      // In Counter state nothing but Counter Slash -- not even a swing (the project owner, 2026-10-02: "you
+      // can't swing between, or there's not much point"; option counterSwing true allows it back).
+      if (a.offensive && counter(fight) && fight.options.counterHold === true && a.id !== 'Counter Slash'
+        && !(a.id === 'Attack' && fight.options.counterSwing === true)) return false;
+      // Option counterOnly: between Counter windows play defensive -- no damage fillers, only what opens the
+      // next window (Midnight Eye), the gap closer (Shadow Slash) and Dark Claw (the owner's hit and run).
+      if (a.offensive && !counter(fight) && fight.options.counterOnly === true && !COUNTER_ONLY.has(a.id)) return false;
       // Option ddHold (the project owner, 2026-10-01: "spam Definitive Dagger, keep Night Wound applied";
       // a filler between them would delay the next): only Definitive Dagger, the swing, Southern Cross
       // for the Night Wound, Dark Claw and the Shadow Slash opener.
@@ -845,6 +857,7 @@ function withRules(a: Action): Action {
     },
   };
 }
+const COUNTER_ONLY = new Set(['Midnight Eye', 'Shadow Slash', 'Dark Claw', 'Typhoon Edge', 'Counter Slash']);
 const DD_HOLD = new Set(['Definitive Dagger', 'Attack', 'Southern Cross', 'Dark Claw', 'Shadow Slash']);
 const MELEE = new Set(['Attack', 'Definitive Dagger', 'Northern Cross', 'Southern Cross', 'Counter Slash', 'Typhoon Edge',
   'Shadow Slash', 'Back Stab', 'Dark Claw']);
@@ -993,8 +1006,10 @@ export const NIGHTRAVEN_SEARCH = {
   } as Record<string, unknown[]>,
   pinned: ['Stay hidden', "Morroc's Mark", 'Pull it off the ward'],
   // Dual-wield melee: what a new piece's random options go to first.
+  // Move speed before ASPD (the project owner, 2026-10-02: shoes should roll move speed -- the build lives on
+  // getting in and out).
   rolls: ['definitive_dagger_damage', 'counter_slash_damage', 'blitz_beat_damage', 'melee_damage', 'ranged_damage', 'critical_damage',
-    'atk_pct', 'max_hp', 'defense_penetration', 'sp_cost_reduced', 'hp_leech', 'physical_reduced', 'physical_damage_reduced',
+    'atk_pct', 'max_hp', 'defense_penetration', 'sp_cost_reduced', 'hp_leech', 'move_speed', 'physical_reduced', 'physical_damage_reduced',
     'after_cast_delay', 'after_cast_delay_reduced', 'aspd', 'crit', 'sp_regen', 'flee'],
   droppable: ['Definitive Dagger', 'Northern Cross', 'Southern Cross', 'Soul Destroyer', 'Shadow Slash', 'Back Stab', 'Midnight Eye',
     'Typhoon Edge', 'Blitz Beat', 'Sky Assault', 'Dark Claw', 'Night Hunt', 'Bloody Fangs', 'Heal', 'Fury', 'Hallucination Walk',
@@ -1012,7 +1027,13 @@ function priority(fight: Fight): Action {
     const slash = rule('Shadow Slash');
     if (canUse(fight, slash)) { fight.me.spent.slashOpener = true; return slash; }
   }
-  const order = Array.isArray(fight.options.order) ? fight.options.order as string[] : ORDER;
+  let order = Array.isArray(fight.options.order) ? fight.options.order as string[] : ORDER;
+  // The owner's Counter Slash rotation (counterHold) opens Counter state with Midnight Eye: it stays in,
+  // right after the swing, whatever an order search left out (2026-10-02: a search dropped it).
+  if (fight.options.counterHold === true && !order.includes('Midnight Eye')) {
+    const i = order.indexOf('Attack');
+    order = [...order.slice(0, i + 1), 'Midnight Eye', ...order.slice(i + 1)];
+  }
   for (const id of order) {
     const a = BY_ID.get(id);
     if (a && canUse(fight, a)) return a;
@@ -1027,15 +1048,20 @@ function priority(fight: Fight): Action {
 /**
  * Enchant Poison (Poison endow, "30 seconds +15s per level"): option
  * enchantPoison 'auto' (the default) puts it on when Poison does more to the
- * target than the weapon's own element -- between monsters, as Burning
- * Scythe is; true always, false never.
+ * target than the weapon's own element -- but a weapon with an element of its
+ * own (a Sarah Irine Card's Holy) keeps it unless the target resists it --
+ * between monsters, as Burning Scythe is; true always, false never.
  */
 function wantsPoison(fight: Fight): boolean {
   const o = fight.options.enchantPoison ?? 'auto';
   if (o === false || !learned('Enchant Poison')(fight)) return false;
   if (o === true) return true;
   const m = fight.m; const own = fight.f.weapon?.element ?? 'Neutral';
-  return attrFix('Poison', m.element, m.elementLevel) > attrFix(own, m.element, m.elementLevel);
+  const ownFix = attrFix(own, m.element, m.elementLevel);
+  // A weapon that has an element of its own (Sarah Irine Card: Holy) keeps it unless the target resists it
+  // (the project owner, 2026-10-02); then Poison only where it does better.
+  if (own !== 'Neutral' && ownFix >= 1) return false;
+  return attrFix('Poison', m.element, m.elementLevel) > ownFix;
 }
 
 function prep(fight: Fight) {
@@ -1087,11 +1113,21 @@ export const nightraven: Kit = {
   coreRoles: ['Daggers', 'Counter', 'Raven'],
   magicActions: ['Bloody Fangs'],
   priority: priorityWith(() => PREEMPTS, priority, rule('Stay ready')),
-  holding: (fight) => !!snapThreatDue(fight, TOOLS),
+  // Holding on purpose: a snap cast due, or (option counterOnly) waiting out Midnight Eye's cooldown -- not dry.
+  holding: (fight) => !!snapThreatDue(fight, TOOLS)
+    || (fight.options.counterOnly === true && learned('Midnight Eye')(fight) && !counter(fight)),
   // The tell first (heavyFollowUp), then the automatic defence or the kit's own reactions.
-  react: (fight, s, from) => (heavyFollowUp(fight, s, from) && !has(fight, 'rooted')
-    ? { action: 'Walk out on the tell', at: fight.t + reactionMs(fight) }
-    : reactWith(TOOLS, react)(fight, s, from)),
+  react: (fight, s, from) => {
+    // Option counterCommit: in Counter state, tank whatever will not kill -- leech carries the build
+    // (the project owner, 2026-10-02: "if it's not lethal we can take it").
+    if (fight.options.counterCommit === true && counter(fight)) {
+      const t = assessThreat(fight, s, from);
+      if (!t.badStatus && t.dmg < 0.9 * fight.me.hp) return null;
+    }
+    return heavyFollowUp(fight, s, from) && !has(fight, 'rooted')
+      ? { action: 'Walk out on the tell', at: fight.t + reactionMs(fight) }
+      : reactWith(TOOLS, react)(fight, s, from);
+  },
   prep,
   prepNotes,
   onBlock,
