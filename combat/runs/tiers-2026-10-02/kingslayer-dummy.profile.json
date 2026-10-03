@@ -1,0 +1,60 @@
+{
+  "name": "Tiers 2026-10-02: kingslayer-dummy",
+  "build": "https://rtmr-arsenal.pages.dev/#b=cfZRNb5xADIb_SjSXXKxqPJ-QY3KseugZITQCs6BlWcTMRona_vfKsKRs2-xlJDyPP16PTaFAfO3HQxzCO80CUEsovAUHeQ4mgxwBSygKCRqVQsihMKgVGO1NWUKBYKXLQEKB2iOySYHNlWMStdc5aClV7jmIiCkkAeK1TwIKLEvGNaA1Rl55zP4FFWNipni-zDUJEKfwVnWTgMIuN6c-9YeQ-vMoQEzde-zrMFQzNZeaGgGFXhMZQGRFUBjN4rZjSTifhwEFiJCOqwesNiVAxKmqzzHtIqL8ALQAMYfxQE3VhFM40O21ESAaammMVE00UpqvhS4QYxZUlhsFDgojbXZTTUNvf_Rfq2mo_VC-FdBRGPrxUFHbUs2F1tS_flTKqOMua7e-n5PAx2edptcQ12a2A7GefDHHS0yhZ3M3VQNR3bGHBLVm8KAMXhN4-1nsOBHXJUKcdo2sQ0z9eGB7m2iu-LtqaAjvOwkZKO8cj5ry6G7mJKRjNdW7ocpBOe-ZNUbLuygi5FJLkwEXjQpUhnYZx71bTPPORYPKpDd_QzdzjQaUMSq_H8kukez9SA6UUXqR_jm09N_rO5EW87Y7CDoHuSz3yqid4TrQ8dgPQ3W6DIl59PJL5jekoZYHWoAEZdkIXi4PzD5P3y9E42N8eJ7D2PzcFgNBbu4rxn-ex_jw0oV-jDvMqlvupaP6-PAtJPpfrGUj5OZUsv4fm84ntFauf4w4iafM_Sp_Aw",
+  "skills": {
+    "Rook's Smash": 1,
+    "King's Chains": 1,
+    "King's Gambit": 10,
+    "Delta Skyfall": 1,
+    "Retribution": 10,
+    "Reflect Shield": 10,
+    "Bishop's Tax": 5,
+    "Queen's Gambit": 8,
+    "Blade Mastery": 1
+  },
+  "consumables": [
+    "Green Potion",
+    "Kafra Elixir",
+    "Yggdrasil Berry"
+  ],
+  "options": {
+    "fortress": 3,
+    "rooksWall": true,
+    "keepRange": true,
+    "heal": true,
+    "startCounters": 10,
+    "queensBrand": false,
+    "queensGambit": false,
+    "sneakAttack": false,
+    "bishopsTax": true,
+    "rogueFillers": false,
+    "windSlash": false,
+    "deltaFiller": false,
+    "autoAttack": false,
+    "order": [
+      "Stay hidden",
+      "Morroc's Mark",
+      "Pre-cast King's Gambit",
+      "Step back",
+      "Heal",
+      "Pawn's Cure",
+      "Pull it off the ward",
+      "Bishop's Tax",
+      "King's Chains",
+      "Shield Boomerang",
+      "Rook's Smash"
+    ],
+    "defense": "auto",
+    "healBelow": 0.75,
+    "spendCounters": false,
+    "retributionAt": 10
+  },
+  "measured": {
+    "aspd": 142
+  },
+  "aspdModel": {
+    "base": 64,
+    "mastery": 1,
+    "offset": 2
+  }
+}

@@ -1,0 +1,92 @@
+{
+ "profile": "Tiers 2026-10-02: kingslayer-dummy (top-up)",
+ "targets": [
+  "Training Dummy"
+ ],
+ "rules": {
+  "screenN": 30,
+  "confirmN": 150,
+  "timeS": 300,
+  "locked": [
+   "none"
+  ],
+  "penalty": 0,
+  "topStats": [
+   "vit",
+   "dex",
+   "str"
+  ],
+  "topRefine": true
+ },
+ "start": "http://localhost:5173/#b=cfZRPj9owEMW_ysqXvTytPP6XmGP3WPXQcxRFFjEQEQKKw2pR2-9e2SYUysJlpDz_xm_GHqcSYN-7YR16d_IjA0mOqtAwsBaqhCVQjarikCRIw6JSslBQWpd1jYqgrRRRJqmLhLIwuYmBfXQTQ0V1HTkBbYXJnDElJOfCFg9xCVHKks9295yIFBt92B_HpWdgO_fZbA4MlU4ru27q1m7q9gMDO2xOoVu6vhl9e1z6lqGS2UeByJpsozhuQ3Id931PDMxN25yGrImLpi-aZGCjG9a-bVq3c2sfG-KXZcXAWr_yQ_DNwQ9-Gs8FJihiGoIonaYiJW_8b9o--7d-ded_6TVXcN-yARnJy2xiOC7h0SH7DxfyOa56f9VSOIbJdUnvPn3bLF2ISfxNZKMiGhHPd16QwVV85BUOPtbKXDi0_5zizt2wjvpq8mNyalrfu9PV2ZUgrbgEnyf0JjycNJuq_CItTTfBcslVCR2_BERpbbqfh_tRHF1eqOeQglBK2P-hMI1XkIYohSWYZzsZCCWkifU_hgoIRYV5UlOS5zdEkBY8PfzMiCvhPOBh2_V9szv2U-Sp4G9lMSOtX8UBZ-AQOoooeLrdmLP4efR-eA0v30Y3tL_nh0Lgc3rG4l_pNby8b1w3hCtMi1vufeOX25cfbvJf7ZWeCJ-T6tj_r7nPBWnN858jHNiiNH_qvw",
+ "steps": [
+  {
+   "move": "top-refine: gem +5->+9, sh_acc +6->+9",
+   "before": {
+    "win": 0,
+    "loss": 0,
+    "dps": 71284.616,
+    "ttk": null,
+    "value": 1.36926924,
+    "deaths": ""
+   },
+   "after": {
+    "win": 0,
+    "loss": 0,
+    "dps": 71491.016,
+    "ttk": null,
+    "value": 1.3723652400000002,
+    "deaths": ""
+   },
+   "tried": 1
+  }
+ ],
+ "final": {
+  "win": 0,
+  "loss": 0,
+  "dps": 71490.982,
+  "ttk": null,
+  "value": 1.37236473,
+  "deaths": ""
+ },
+ "options": {
+  "fortress": 3,
+  "rooksWall": false,
+  "keepRange": true,
+  "heal": true,
+  "startCounters": 10,
+  "queensBrand": false,
+  "queensGambit": false,
+  "sneakAttack": false,
+  "bishopsTax": true,
+  "rogueFillers": false,
+  "windSlash": false,
+  "deltaFiller": false,
+  "autoAttack": false,
+  "order": [
+   "Stay hidden",
+   "Morroc's Mark",
+   "Pre-cast King's Gambit",
+   "Step back",
+   "Heal",
+   "Pawn's Cure",
+   "Pull it off the ward",
+   "Bishop's Tax",
+   "King's Chains",
+   "Shield Boomerang",
+   "Rook's Smash"
+  ],
+  "defense": "auto",
+  "healBelow": 0.75,
+  "spendCounters": false,
+  "retributionAt": 10
+ },
+ "link": "http://localhost:5173/#b=cfZRNb9swDIb_SqFLL0Qh6stWjutx2GFnwzCEmEmMOI5hKUWDbf99kBRnztLkQsDUQ76kRLoSwL53w9b37kwTA5QcqkKDAWtBlWARsIaq4iBRoAYLlZKFAqV1WddQIWgrRXSj1EVCmQ8uMGAfXWBQYV1HToC2wmTOmBIk58IWD3EJopQln-XuOREpNpE_nqY1MWAH99nsRgaVTieHLnRbF7rjwICNu7Pv1q5vJmpPa2oZVDLrKEC0JssoDrcmqU7HvkcGzIV9DoPsE1efvvokAza5YUtt07qD21JsiF-PFQPW0oYGT81IA4XpUmCCIqZBIKbbVKjkjf5N2xf9ljZ3-tdecwX3LRtAI3mZRQyHq3l0yfThfL7HTU-LlvzJB9clf_dJbbN2PgbxN5GFiiiEPL95gQYW9pGWHynWypwf239KMXM3bKN_E2hKSk1LvTsv7q4E1IpL4POE3piHk2ZTlV-EpelGsFzyuAfxS4AorU3v8zAfxtHlhXoOKRBKCfs_5MO0gDSIUlh8nsmAUEKaWP9jqAChsDBPMiX3vEMI0gJPi58ZsXBcBtzvu75vDqc-RB4L_lYWM9LSJg44Aw5CRycUPL1ujFn9PBENr_7l2-SG9ve8KAh8Ds9Y_Cu9-pf3nesGv8C0uOXed7Tev_xwgb7KlVaEz0F17P_X3OcKteb5z-FHtirNn_ov",
+ "perTarget": [],
+ "census": {
+  "shadow": {},
+  "sets": [],
+  "deadShadow": 0,
+  "deadCards": []
+ }
+}

@@ -6,10 +6,12 @@ import {
   goalHint,
   goalLabel,
   goalMetrics, goalsFromBuild, goalsFromPlaystyle, goalStatus, guardsOf, rankPlaystyles, statsThatMatter,
-  isOffhandWeapon, SLOT_BY_KEY, SP_SUSTAIN,
-  type Build, type Dataset, type Goal, type GoalMetric, type Item, type Move, type Suggester,
-  type Totals, type TotalsChange,
+  isOffhandWeapon, SLOT_BY_KEY, SP_SUSTAIN, TIER_NAMES, TIER_REACHED, tierStanding,
+  type Build, type Dataset, type Goal, type GoalMetric, type Item, type Move, type Playstyle, type Suggester,
+  type TierBuild, type TierName, type Totals, type TotalsChange,
 } from '@sim';
+import { reconcile } from '../build';
+import { decodeBuild } from '../share';
 import { GoalFocus } from './GoalFocus';
 import { PlanOverlay } from './PlanOverlay';
 import { planKey } from '../planjobs';
@@ -134,13 +136,15 @@ export function GoalsPanel({
     <div className="panel goals">
       <h2>Goals</h2>
 
+      {/* With goals set it still shows where the build stands on its tiers, to step up to the next. */}
+      {goals.length > 0 && <ClassStart build={build} totals={totals} dataset={dataset} onGoals={onGoals} hasGoals />}
       {goals.length === 0 && (
         <>
           <p className="empty-note" style={{ margin: '0 0 10px', fontSize: 12 }}>
             Add the numbers you are building towards. The item picker then ranks
             by them, and can recommend pieces, cards and set swaps to reach them.
           </p>
-          <ClassStart build={build} totals={totals} dataset={dataset} onGoals={onGoals} />
+          <ClassStart build={build} totals={totals} dataset={dataset} onGoals={onGoals} hasGoals={false} />
           <button
             className="goal-from-build"
             onClick={() => onGoals(goalsFromBuild(build, totals, dataset))}
@@ -341,20 +345,24 @@ export function GoalsPanel({
  * away, because stats early on are thin evidence and a player may be
  * respeccing towards something else.
  */
-function ClassStart({ build, totals, dataset, onGoals }: {
+function ClassStart({ build, totals, dataset, onGoals, hasGoals }: {
   build: Build;
   totals: Totals;
   dataset: Dataset;
   onGoals: (goals: Goal[]) => void;
+  /** Goals are set: only the tier path shows (to step up), not the start buttons. */
+  hasGoals: boolean;
 }) {
   const styles = dataset.classGoals?.[build.className ?? ''];
   const ranked = useMemo(() => rankPlaystyles(styles ?? [], build.baseStats),
     [styles, build.baseStats]);
   // By name, so the choice survives the ranking reordering under it.
   const [picked, setPicked] = useState<string | null>(null);
-  if (!build.className || ranked.length === 0) return null;
-
+  const tierSets = dataset.classTiers?.[build.className ?? ''] ?? {};
   const chosen = ranked.find((r) => r.style.name === picked) ?? ranked[0];
+  const tiers = chosen ? tierSets[chosen.style.name] : undefined;
+  if (!build.className || ranked.length === 0 || (hasGoals && !tiers)) return null;
+
   const fits = (r: typeof chosen) => r === ranked[0] && r.fit > 0 && ranked.length > 1;
   const style = chosen.style;
   const title = `${style.basis}\n\nGoals, most important first:\n`
@@ -364,9 +372,11 @@ function ClassStart({ build, totals, dataset, onGoals }: {
 
   return (
     <div className="class-start">
-      <button onClick={() => onGoals(goalsFromPlaystyle(style, build, totals, dataset))} title={title}>
-        Use {build.className} goals
-      </button>
+      {!tiers && (
+        <button onClick={() => onGoals(goalsFromPlaystyle(style, build, totals, dataset))} title={title}>
+          Use {build.className} goals
+        </button>
+      )}
       {ranked.length > 1 ? (
         <select
           value={style.name}
@@ -380,6 +390,91 @@ function ClassStart({ build, totals, dataset, onGoals }: {
           ))}
         </select>
       ) : <span className="class-start-name" title={title}>{style.name}</span>}
+      {tiers && <TierPath style={style} tiers={tiers} build={build} totals={totals} dataset={dataset} onGoals={onGoals} />}
+    </div>
+  );
+}
+
+const TIER_LABEL: Record<TierName, string> = { budget: 'Budget', baseline: 'Baseline', maxed: 'Maxed' };
+const TIER_HINT: Record<TierName, string> = {
+  budget: 'What a Lv130 can put together from nothing: weapon +9, armour +6, minimum rolls, MVP drops only where they are worth a lot.',
+  baseline: 'Entry to the endgame maps: weapons +9, armour up to +8, average rolls, MVP drops more freely, a weapon or two for particular monsters.',
+  maxed: 'No limits: +10, any drop, the best rolls, weapon swaps per monster.',
+};
+
+/**
+ * The way up a playstyle's tiers (the project owner, 2026-10-02): the combat
+ * sim's budget, baseline and maxed builds for it over the endgame areas,
+ * how far this build is along to each, and the next one's numbers as goals
+ * -- a fresh character starts at the budget build's, and steps up as it gets
+ * there.
+ */
+function TierPath({ style, tiers, build, totals, dataset, onGoals }: {
+  style: Playstyle;
+  tiers: Partial<Record<TierName, TierBuild>>;
+  build: Build;
+  totals: Totals;
+  dataset: Dataset;
+  onGoals: (goals: Goal[]) => void;
+}) {
+  // The tier builds, decoded once per playstyle (their payloads only change with a new data file).
+  const [decoded, setDecoded] = useState<{ for: typeof tiers; builds: Partial<Record<TierName, Build>> } | null>(null);
+  useEffect(() => {
+    let live = true;
+    Promise.all(TIER_NAMES.map(async (t) => {
+      const raw = tiers[t] ? await decodeBuild(tiers[t]!.payload) : null;
+      return [t, raw ? reconcile(raw, dataset) : null] as const;
+    })).then((rows) => {
+      if (live) setDecoded({ for: tiers, builds: Object.fromEntries(rows.filter(([, b]) => b)) as Partial<Record<TierName, Build>> });
+    });
+    return () => { live = false; };
+  }, [tiers, dataset]);
+  const builds = decoded?.for === tiers ? decoded.builds : null;
+  const standing = useMemo(() => (builds ? tierStanding(style, builds, build, totals, dataset) : null),
+    [builds, style, build, totals, dataset]);
+  if (!standing || !standing.tiers.length) return <div className="tier-path"><span className="tier-note">Reading the sim's tier builds…</span></div>;
+
+  const next = standing.next;
+  const pick = (t: TierName) => onGoals(standing.tiers.find((x) => x.tier === t)!.goals);
+  return (
+    <div className="tier-path">
+      <div className="tier-chips">
+        {standing.tiers.map((t) => {
+          const sim = tiers[t.tier]!;
+          const reached = t.progress >= TIER_REACHED;
+          return (
+            <button key={t.tier} className={`tier-chip${reached ? ' reached' : ''}${t.tier === next ? ' next' : ''}`}
+              onClick={() => pick(t.tier)}
+              title={`${TIER_HINT[t.tier]}\n\nThe sim's ${TIER_LABEL[t.tier].toLowerCase()} build: ${sim.killsPerHour} kills/h, `
+                + `${sim.deathsPerHour} deaths/h over the 10 endgame areas.\n\nClick to aim the goals at its numbers.`}>
+              <span className="tier-name">{TIER_LABEL[t.tier]}{reached ? ' ✓' : ''}</span>
+              <span className="tier-bar" aria-hidden="true"><span style={{ width: `${Math.round(100 * t.progress)}%` }} /></span>
+              <span className="tier-pct">{Math.round(100 * t.progress)}%</span>
+            </button>
+          );
+        })}
+      </div>
+      {next && (
+        <div className="tier-next">
+          <button onClick={() => pick(next)}>
+            Aim for {TIER_LABEL[next]}
+          </button>
+          <a href={`#b=${tiers[next]!.payload}`} target="_blank" rel="noreferrer"
+            title="Opens the sim's build for this tier in a new tab">the sim's {TIER_LABEL[next].toLowerCase()} build ↗</a>
+        </div>
+      )}
+      {next && (tiers[next]!.swaps?.length ?? 0) > 0 && (
+        <details className="tier-swaps">
+          <summary>Weapons worth carrying ({tiers[next]!.swaps.length} setups, {tiers[next]!.swaps.reduce((n, s) => n + s.monsters.length, 0)} monsters)</summary>
+          <ul>
+            {tiers[next]!.swaps.map((s) => (
+              <li key={s.swaps.join(';')}>
+                {s.swaps.join('; ')} <span className="muted">-- up to +{Math.round(s.gain * 100)}% kills/h on</span> <b>{s.monsters.join(', ')}</b>
+              </li>
+            ))}
+          </ul>
+        </details>
+      )}
     </div>
   );
 }

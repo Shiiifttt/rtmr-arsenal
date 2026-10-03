@@ -1,0 +1,88 @@
+{
+ "profile": "Tiers 2026-10-02: satsujin-dummy-b (top-up)",
+ "targets": [
+  "Training Dummy"
+ ],
+ "rules": {
+  "screenN": 30,
+  "confirmN": 150,
+  "timeS": 300,
+  "locked": [
+   "none"
+  ],
+  "penalty": 0,
+  "topStats": [
+   "str",
+   "agi",
+   "dex"
+  ],
+  "topRefine": true
+ },
+ "start": "http://localhost:5173/#b=cnVLBrtsgEPwXznPwsmsw_Y0ekWUhhybucxLLkKdXVf33Cpw6edLLpZeVBoYZdne8hvoecrr9nC4KxAbeOTgBQ2AF4np434BJE8PBE5umQ619D0-grm0bNPDCVgpZpRyygkp5VfDU94Wn0TptNgHLFrU-sw_x48FmUCtiYDZVCNsOX-vrwldrTNfbOkYFdQ4fw2lR8G29OU95OoY8XS8Kajn9StMY5mGNh9sYDwqeN0cBceOkfFDYaeylOq7XedYKKuS3XbiccfGLc4zDIZzDMZYOmv2W9hd3k7aYmDpGIeZd-hMR_2snCmpcp1wb_EQoFFNGyluDZYOlfLkteBXfQ9oG9mOORcTW43RLOZSYqNMyzDGOp_KixX1ptjiQve-YzKtdpSWWyauQlsOjgzGkPF2O9_Nhns5TfgSiA7XcSY2ZcINSnvVDfhuW8emBAxkm-pdL7KWGluAabroOJd2koTvn9Aa4AtmAVMAbaCtoN2CgRYsp-i8zTxZayNbUvyD19abH723S32zzp_8L",
+ "steps": [
+  {
+   "move": "top-refine: armor +6->+9",
+   "before": {
+    "win": 0,
+    "loss": 0,
+    "dps": 145062.89,
+    "ttk": null,
+    "value": 2.4759433499999997,
+    "deaths": ""
+   },
+   "after": {
+    "win": 0,
+    "loss": 0,
+    "dps": 145062.89,
+    "ttk": null,
+    "value": 2.4759433499999997,
+    "deaths": ""
+   },
+   "tried": 1
+  }
+ ],
+ "final": {
+  "win": 0,
+  "loss": 0,
+  "dps": 145032.98566666667,
+  "ttk": null,
+  "value": 2.475494785,
+  "deaths": ""
+ },
+ "options": {
+  "slashOpener": true,
+  "backStab": true,
+  "seedTalisman": true,
+  "weaveMs": 0,
+  "mobility": "server",
+  "kite": true,
+  "tankShare": 0.6,
+  "order": [
+   "Stay hidden",
+   "Predict Kawarimi",
+   "Moon guard",
+   "Pull it off the ward",
+   "Morroc's Mark",
+   "Hallucination Walk",
+   "Full Moon",
+   "Omamori Jutsu",
+   "Million Stab",
+   "Thousand Arms",
+   "New Moon",
+   "Dragon Omamori",
+   "Shadow Slash",
+   "Lotus Pact",
+   "Attack",
+   "Back Stab",
+   "Wait for swing"
+  ]
+ },
+ "link": "http://localhost:5173/#b=cnVLBrtsgEPwXznNgWTCmv9Ejsizk0MR9TmIZ8vSqqv9eAamTJ71cellp2GFGuzteQXwPOd1-zhcB4g7eOTgNhobV0G6A9xJMihgOnriTPWodBngC9cZISHjNVheySDlkAZHyJuBpGApPwTjVNQHLFrU-sw_x48FmkNG60osqNNseX-urwhdbTNfbNkUBcQ4f42kV8KZ2znOejyHP14uAWE-_0jyFZdzi4TbFg4Dn5qhBLJ1ujk5hL9Vxuy6LEhAhv-3C5Y2LX1xiHA_hHI6xTCD3Lu0_7iammHR1jZqYd-lPRPyvnRYQ0zbnOuAnQqF0ZaXcBiwXLOXLa8GL-B5SW9iPJRYRW5_TLeVQYiJO67jEOJ3KD4P70WxxIHu_MXWvbpXWWDYvQloPjwmmkPJ8Od7fx2U-z_kRiB5kuNc1ZpolSnnWD_ltXKenDw7UMdG_XGIvNbQEJ1n2PUq6SUH1zqkGuALdgK6AGzAVmAY6KK10V_RfZp4slCZbY_yCNNTOgN9t09-s_DP8BQ",
+ "perTarget": [],
+ "census": {
+  "shadow": {},
+  "sets": [],
+  "deadShadow": 0,
+  "deadCards": []
+ }
+}

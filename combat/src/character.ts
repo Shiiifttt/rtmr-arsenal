@@ -9,7 +9,8 @@
 import { aggregate, combine, derivedStats, jobPool, LIVE_HP_FIX } from '../../sim/src/index.ts';
 import type { Build, Dataset, SlotState, Totals } from '../../sim/src/types.ts';
 import { SLOTS } from '../../sim/src/slots.ts';
-import { plannerDataset } from './data.ts';
+import { describeAutocast, genericGap, readAutocasts, type Autocast, type WornPiece } from './autocast.ts';
+import { plannerDataset, skillRows } from './data.ts';
 import {
   baseHit, basePerfectDodge, hpRegenTick, playerSoftDef, playerSoftMdef, refineAtk, spRegenTick, statusAtk,
 } from './formulas.ts';
@@ -41,6 +42,8 @@ export interface Profile {
    */
   aspdModel?: {
     base: number; mastery?: number; offset?: number;
+    /** The part of `mastery` that is Blade Mastery: left out with a katar or any weapon but a dagger or one-handed sword. */
+    bladeMastery?: number;
     /**
      * The job's weapon delays by weapon type (server job_stats.yml BaseASPD:
      * Guillotine_Cross Dagger 64, 1hSword 69...): `base` then follows the
@@ -267,11 +270,17 @@ export async function buildFighter(profile: Profile, opts: FighterOptions): Prom
     const right = (weapon && am.byType?.[weapon.type]) ?? am.base;
     const left = leftWeapon ? am.byType?.[leftWeapon.type] : undefined;
     const weaponDelay = right - Math.floor(agi / 10) + (left !== undefined ? Math.floor(left / 4) - Math.floor(agi / 20) : 0);
-    const raw = 196 + Math.sqrt((dex * dex) / 9 + 0.7 * agi * agi) * 0.25 + ((am.mastery ?? 0) * agi) / 190
-      - Math.min(weaponDelay, 200);
-    // ASPD +x% shortens the delay (amotion = 2000 - 10 ASPD); flat ASPD adds.
-    const delay = (2000 - 10 * raw) * (1 - pct('aspd') / 100) - 10 * flat('aspd');
-    return Math.min(aspdLimit, Math.floor((2000 - delay) / 10 + (am.offset ?? 0)));
+    // Blade Mastery's share of the skill bonus counts with a dagger, a one-handed sword or two weapons only
+    // (RTM status.cpp:3062-3063): not with a katar (2026-10-02; the Raven katar build read 190 on it).
+    const bladeOk = !!leftWeapon || ['Dagger', 'Sword', 'One-Handed Sword'].includes(weapon?.type ?? '');
+    const mastery = (am.mastery ?? 0) - (bladeOk ? 0 : am.bladeMastery ?? 0);
+    const raw = Math.floor(196 + Math.sqrt((dex * dex) / 9 + 0.7 * agi * agi) * 0.25 + (mastery * agi) / 190
+      - Math.min(weaponDelay, 200));
+    // Gear ASPD +x% (RTM status.cpp:6175, RENEWAL_ASPD): closes x% of the gap to 195, and on this server x is
+    // scaled by AGI/100 -- not the whole attack delay shortened, as here before 2026-10-02 (the owner doubted
+    // the 190s it gave). Flat ASPD adds whole points (pc.cpp:3377, aspd_add 10 a point).
+    const withPct = raw + Math.floor((Math.max(195 - raw, 2) * ((pct('aspd') * agi) / 100)) / 100);
+    return Math.min(aspdLimit, Math.floor(withPct + flat('aspd') + (am.offset ?? 0)));
   })() : null;
   const aspd = modelAspd ?? profile.measured?.aspd ?? aspdLimit;
   if (modelAspd !== null) notes.push(`ASPD ${aspd} from stats and gear (aspdModel)`);
@@ -396,8 +405,9 @@ export async function buildFighter(profile: Profile, opts: FighterOptions): Prom
       return n + Number(/kafra elixir refill limit by \+(\d+)/i.exec(d)?.[1] ?? 0);
     }, 0),
     doubleAttack: flat('double_attack'),
+    doubleRate: doubleRateOf(build, data),
     statusRes,
-    autocastWhenHit: autocastsWhenHit(build, data),
+    autocasts: gearAutocasts(build, data, { stats, baseStats: { ...points }, levels }, notes),
     healReceived: either('healing_received'),
     healPower: either('healing_power'),
     reflectReduce: either('ignores_reflect') > 0 ? 100 : reflectReduceFromText(build, data),
@@ -523,29 +533,30 @@ function gearExtras(build: Build, data: Dataset, totals: Totals): {
 }
 
 /**
- * Autocasts on being hit, from each worn item's text: "1% chance to
- * Autocast Shield Boomerang and King's Chains when hit". Under a "Per
- * Refine:" heading (up to the next blank line) the chance is per refine of
- * that piece (the project owner, 2026-09-27: Bulwark Gem of the Weak).
+ * Every worn piece's autocasts (autocast.ts): the item in each slot and the
+ * cards in it, a card reading its host's refine (getrefine() in a card
+ * script). Under a "Per Refine:" heading a chance is per refine of the piece
+ * (the project owner, 2026-09-27: Bulwark Gem of the Weak).
  */
-function autocastsWhenHit(build: Build, data: Dataset): { skills: string[]; chance: number }[] {
-  const out: { skills: string[]; chance: number }[] = [];
+function gearAutocasts(
+  build: Build, data: Dataset, ctx: { stats: Stats; baseStats: Stats; levels: Record<string, number> }, notes: string[],
+): Autocast[] {
+  const pieces: WornPiece[] = [];
   for (const st of Object.values(build.slots)) {
-    for (const id of [st?.itemId, ...(st?.cards ?? [])]) {
-      const d = id ? data.items.get(id)?.description ?? '' : '';
-      if (!/autocast/i.test(d)) continue;
-      for (const block of d.split(/\n\s*\n/)) {
-        const perRefine = /^\s*Per Refine/i.test(block);
-        const re = /(\d+(?:\.\d+)?)%\s+chance\s+to\s+Autocast\s+(.+?)\s+when\s+hit/gis;
-        for (const m of block.matchAll(re)) {
-          const skills = m[2].replace(/\s+/g, ' ').split(/\s+and\s+|,\s*/).map((x) => x.trim()).filter(Boolean);
-          const chance = (Number(m[1]) / 100) * (perRefine && id === st?.itemId ? st!.refine ?? 0 : 1);
-          if (chance > 0) out.push({ skills, chance });
-        }
-      }
+    if (!st?.itemId) continue;
+    pieces.push({ itemId: st.itemId, refine: st.refine ?? 0, card: false });
+    for (const c of st.cards ?? []) if (c) pieces.push({ itemId: c, refine: st.refine ?? 0, card: true });
+  }
+  const maxLevel = (skill: string) => skillRows().find((r) => r.name === skill)?.max ?? 1;
+  const list = readAutocasts(pieces, data, { ...ctx, maxLevel }, notes);
+  for (const a of list) {
+    notes.push(`autocast ${describeAutocast(a)}`);
+    for (const s of a.skills) {
+      const gap = genericGap(s);
+      if (gap && !(ctx.levels[s] > 0)) notes.push(`  ${s}: ${gap} -- unless the class kit casts it, it goes off with no effect`);
     }
   }
-  return out;
+  return list;
 }
 
 /**
@@ -682,4 +693,24 @@ function withEmptySlots(build: Build): Build {
   const slots = { ...build.slots };
   for (const s of SLOTS) slots[s.key] ??= { itemId: null, refine: 0, cards: [] };
   return { ...build, slots };
+}
+
+/**
+ * bDoubleRate on the gear worn: "Double Attack chance +30%" (Hydrolancer Card), "+20%" (Returned Samurai
+ * Card) -- the highest, as the server keeps it (pc.cpp:3409, a max not a sum); the off hand's piece and
+ * cards do not count (lr_flag 1 there). Before 2026-10-03 the sim read none of it (the project owner).
+ */
+function doubleRateOf(build: Build, data: Dataset): number {
+  let best = 0;
+  const read = (effects: unknown) => {
+    for (const e of (effects ?? []) as { stat_keys?: string[]; value?: number }[]) {
+      if (e.stat_keys?.includes('double_attack_rate') && (e.value ?? 0) > best) best = e.value!;
+    }
+  };
+  for (const [k, s] of Object.entries(build.slots)) {
+    if (!s?.itemId || k === 'offhand') continue;
+    read(data.items.get(s.itemId)?.effects);
+    for (const c of s.cards ?? []) if (c) read(data.items.get(c)?.effects);
+  }
+  return best;
 }

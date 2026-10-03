@@ -31,3 +31,9 @@ data/gear-search/overnight/*/_discarded/
 data/gear-search/overnight/kingslayer/check-old/
 data/gear-search/overnight/satsujin-rachel-nonboss/
 data/gear-search/satsujin-rachel-v*.json
+
+# Gear-search checkpoints (resume files) and queue console dumps
+**/*.partial.json
+combat/runs/*-stdout.txt
+combat/runs/*-stderr.txt
+combat/runs/*/*.log

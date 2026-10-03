@@ -6,6 +6,7 @@
  * a fight; everything that changes -- HP, buffs, cooldowns -- lives in the
  * engine's state. That split is what lets the planner copy a fight cheaply.
  */
+import type { Autocast } from './autocast.ts';
 import type { StatKey } from './skilltext.ts';
 
 export type Stats = Record<StatKey, number>;
@@ -48,11 +49,11 @@ export interface Fighter {
    */
   healReceived?: number;
   /**
-   * "N% chance to Autocast A and B when hit", from worn gear: the chance a
-   * hit taken casts them (0..1), a "Per Refine:" line already times the
-   * piece's refine (Bulwark Gem of the Weak +3: 3%).
+   * Gear autocasts -- when attacking, when hit, on a skill -- read for this
+   * build (autocast.ts readAutocasts): chances with refine and stats folded
+   * in (Bulwark Gem of the Weak +3: 3% when hit).
    */
-  autocastWhenHit?: { skills: string[]; chance: number }[];
+  autocasts?: Autocast[];
   /** Healing power, percent: what your own Heal casts get (Lone Singer set +10). */
   healPower?: number;
   /** Flat ATK from gear other than the weapons' own ATK columns. */
@@ -128,6 +129,11 @@ export interface Fighter {
   kafraElixirs: number;
   /** Double Attack level from gear: +10% per level for a second hit, daggers only. */
   doubleAttack: number;
+  /**
+   * Gear's "Double Attack chance +x%" (bDoubleRate): the highest one worn, not a sum, and not from the off
+   * hand's cards (pc.cpp:3409-3411, lr_flag 0). Any weapon but bare hands (battle.cpp battle_calc_multi_attack).
+   */
+  doubleRate?: number;
   /** Status resistances, percent, keyed as res_status_<name>. */
   statusRes: PercentBag;
   /** Percent cut to damage a monster reflects back (Reflect Shield, Max Pain); 100 = immune. */

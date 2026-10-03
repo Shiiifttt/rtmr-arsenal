@@ -504,11 +504,37 @@ export interface Dataset {
    */
   classGoals?: ClassGoals | null;
   /**
+   * The combat sim's budget / baseline / maxed builds per class and
+   * playstyle, from data/class-tiers.json: what the goals are aimed at as a
+   * character progresses (presets.ts tierGoals). Absent: goals start where
+   * the build is, as before.
+   */
+  classTiers?: ClassTiers | null;
+  /**
    * Each class's server job and that job's base HP / SP by level, from
    * data/jobs.json (combat/tools/import-server.ts). Absent: no Max HP / SP.
    */
   jobs?: JobTables | null;
 }
+
+/** The three tiers every build has (the project owner, 2026-10-02), in the order a character goes through them. */
+export const TIER_NAMES = ['budget', 'baseline', 'maxed'] as const;
+export type TierName = typeof TIER_NAMES[number];
+/** One tier's build as the combat sim found it over the 10 endgame areas. */
+export interface TierBuild {
+  /** The build's share payload (share.ts). */
+  payload: string;
+  killsPerHour: number;
+  deathsPerHour: number;
+  win: number;
+  /**
+   * Weapons worth carrying: one setup per entry, the monsters it is for, and its best gain there
+   * (0.2 = 20% more kills an hour on that monster). Most monsters first.
+   */
+  swaps: { swaps: string[]; monsters: string[]; gain: number }[];
+}
+/** data/class-tiers.json's `classes`: class -> playstyle name (class-goals.json) -> tier -> build. */
+export type ClassTiers = Record<string, Record<string, Partial<Record<TierName, TierBuild>>>>;
 
 export interface JobTables {
   /** RTM class -> server job ("Kingslayer" -> "Shadow_Chaser"). */

@@ -1,0 +1,62 @@
+{
+  "name": "Tiers 2026-10-02: kingslayer-baseline-swaps",
+  "build": "http://localhost:5173/#b=cfVRNb5wwEP0rkS-5PFUe29g4x-RY9dAzQsgC7y5alkXYGyVq-98rw7KFNJuLJWbefLw3MxQC7Hvb70Pn3v3IQJKj0BxKw1poCUOgEkXBQXkuDPISBSGzUiBHQTIzk5uF6CIDe20jQ0FlWZYoBDIr9IwzIgdJI81dtARlSvErnPJPgSjY6MP5MtaegZ3cW3UYGAo5eU5tbPcutueegQ2H99DWrqtG31xq3zAUYi6kQGQ1LAolrcD2maqO564jBubicQ7DbBMMLAxVfQ5xlTa7-SUDG12_903VuJPb-41XMbDG73wffDX43sfx2mtBfO4sgyCahFVS8E0rGwWurTR-d-O-lL_Rnhv4n71OMstpKorSpEnze1L7VxdmNXedT2TMZA6XEF3bz2J03teHFJHhOkgD0pKmQSrNLaaHOFdW63uVwuBTk8yFobnVqV2Ibb9P5l30Y5W-q8Z37n2GJFCe6HAJnjQzCttnXc7FYzXUq4WzEJrsFKkkTxYiWC65yuc1FxA5ZRORdaLGv_1LQhIi50Z9BG1WmxSEUsJ-BIU4rkAZRC4sfZ1JQyghder6PshAKMrFF-Um83I-BJlkSIc8JxIrw3Wfw7Htuup06WLCk-HfcrNAGr9LC83AIbJkhOHTUFPM08-L9_1jeHgeXd_8Xu6CwJfwGZb-Qo_h4eXg2j6sYJnY4l4Ovj4-_HDRf5ZrOgm-BJWJ_6-F5xNlGZ9_GmFgT7n-U_4F",
+  "skills": {
+    "Rook's Smash": 1,
+    "King's Chains": 1,
+    "King's Gambit": 10,
+    "Delta Skyfall": 1,
+    "Retribution": 10,
+    "Reflect Shield": 10,
+    "Bishop's Tax": 5,
+    "Queen's Gambit": 8,
+    "Blade Mastery": 1
+  },
+  "consumables": [
+    "Green Potion",
+    "Kafra Elixir",
+    "Yggdrasil Berry"
+  ],
+  "options": {
+    "fortress": 3,
+    "rooksWall": true,
+    "keepRange": true,
+    "heal": true,
+    "startCounters": 10,
+    "queensBrand": false,
+    "queensGambit": false,
+    "sneakAttack": false,
+    "bishopsTax": false,
+    "rogueFillers": false,
+    "windSlash": false,
+    "deltaFiller": false,
+    "autoAttack": false,
+    "order": [
+      "Queen's Gambit",
+      "Stay hidden",
+      "Morroc's Mark",
+      "Pre-cast King's Gambit",
+      "Step back",
+      "Heal",
+      "Pawn's Cure",
+      "Pull it off the ward",
+      "Bishop's Tax",
+      "King's Chains",
+      "Shield Boomerang",
+      "Rook's Smash"
+    ],
+    "defense": "auto",
+    "healBelow": 0.75,
+    "spendCounters": false,
+    "retributionAt": 10,
+    "openerGambit": false
+  },
+  "measured": {
+    "aspd": 142
+  },
+  "aspdModel": {
+    "base": 64,
+    "mastery": 1,
+    "offset": 2
+  }
+}

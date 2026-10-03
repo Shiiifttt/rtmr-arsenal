@@ -13,6 +13,7 @@
  *     [--per-target [--swap-cost 0.1]] [--proxy-test] [--no-pairs] [--healing] [--no-ss] [--no-race] [--no-stats] [--workers N] [--out data/gear-search/kingslayer-heartless.json]
  *     [--no-census] [--shadow-top 3] [--rolls] [--max-rolls] [--min-hp 28000]
  *     [--flat] [--accept-z 2] [--confirm-more 3] [--cheapen] [--mid-rolls] [--no-live]
+ *     [--min-rolls] [--nine-penalty 0] [--charge-worn] [--no-sun] [--min-move-speed -15] [--hp-floor 0.5] [--death-discount 0.5]
  *
  * While it runs, the arsenal's dev server shows it live (the Live button):
  * what each worker is trying, on which monster, and how fast (src/live.ts).
@@ -39,7 +40,13 @@
  *     pieces already worn stay as they are.
  *   - What only drops in the SS-rank dungeons (Rachel SS, Jormungandr's
  *     Lair, Valhalla) costs PENALTY, like an MVP-only piece (the project
- *     owner, 2026-10-02; it was left out before). --no-ss leaves it out.
+ *     owner, 2026-10-02; it was left out before) -- unless the build farms a
+ *     monster that drops it reliably (farmable). --no-ss leaves it out.
+ *   - The owner's limits on every build (2026-10-02): move speed no worse
+ *     than -15%, Max HP at least half what the stats give bare; deaths to
+ *     the two monster types it dies to most count half (fight approach,
+ *     not gear); HP comes back between fights by healing (rhythm.ts
+ *     HEAL_HP_SHARE), so HP regen gear is worth next to nothing.
  *   - A skill-damage roll is never assumed: the pool is hundreds of skills.
  *   - Locked slots (--lock, comma separated) keep their piece; their cards
  *     can still change. The shield by default: the owner keeps it.
@@ -88,7 +95,26 @@ const flag = (k: string) => argv.includes(`--${k}`);
 
 const data = plannerDataset();
 /** A card that fits the slot, and the side of an accessory (accessoryCardFits). */
-const cardFits = (c: Item, slot: SlotDef, host?: Item | null) => fitsCard(c, slot, host) && (!host || accessoryCardFits(c.id, host.id));
+/**
+ * A card whose damage names only one or two elements (Venatu: vs Neutral) -- worth its all against a single
+ * target such as the dummy, where an all-round card (Vesper: vs all elements) is what a real build wears.
+ * Race and size cards are not held back: stacking racials is how an auto-attack build scales (the project
+ * owner, 2026-10-02: "the pure AA doesn't stack racials on accessories"), and Chocolate Bear was his own pick.
+ */
+const TARGETED = new Set(['element_damage']);
+const statCategory = new Map(data.stats.map((s) => [s.key, s.category]));
+const isTargeted = (c: Item) => (c.effects ?? []).some((e) => {
+  const keys = (e as { stat_keys?: string[] }).stat_keys ?? [];
+  return keys.length > 0 && keys.length <= 2 && keys.every((k) => TARGETED.has(statCategory.get(k) ?? ''));
+});
+/**
+ * --targeted-in-weapons: such cards only in the weapon and off hand -- a weapon is swapped per monster, the
+ * rest is not (the project owner, 2026-10-02: "venatu gets a lot of value because you're only fighting
+ * single enemy type; vesper should be the baseline"). Worn ones elsewhere come off (cheapen).
+ */
+const targetedInWeapons = flag('targeted-in-weapons');
+const cardFits = (c: Item, slot: SlotDef, host?: Item | null) => fitsCard(c, slot, host) && (!host || accessoryCardFits(c.id, host.id))
+  && !(targetedInWeapons && slot.key !== 'weapon' && slot.key !== 'offhand' && isTargeted(c));
 /**
  * --build <share payload>: search from this build (the arsenal's Live panel
  * sends the one being edited). --profile then only lends its readings and
@@ -140,6 +166,32 @@ const searching = (group: string) => !only || only.has(group);
 const excluded = new Set((one('exclude') ?? '').split(',').map((x) => x.trim().toLowerCase()).filter(Boolean));
 /** --keep-stats: stats the stat moves leave alone ("str" to hold a maxed STR). */
 const keepStats = new Set((one('keep-stats') ?? '').split(',').map((x) => x.trim().toLowerCase()).filter(Boolean));
+/**
+ * --level N: the build at base level N (the budget tier: "expected to be
+ * able to get at level 130", 2026-10-02). Going down, the points the lost
+ * levels gave come off the highest stat, whose points cost most; the stat
+ * moves rebalance from there. GUESS: 3 points a level -- the server's table
+ * is not in our data (Lv136 gives 439).
+ */
+const POINTS_PER_LEVEL = 3;
+// A profile's own baseLevel wins over the build's (character.ts): both go down. The points come off by the
+// build's own level -- a build already searched at Lv130 (a resumed run) has given them up once.
+const linkLevel = start.baseLevel;
+if (profile.baseLevel) start.baseLevel = profile.baseLevel;
+if (one('level') && Number(one('level')) < start.baseLevel) {
+  profile.baseLevel = Number(one('level'));
+  let drop = Math.max(0, linkLevel - Number(one('level'))) * POINTS_PER_LEVEL;
+  const cost = (v: number) => 1 + Math.floor((v - 1) / 49);
+  while (drop > 0) {
+    const top = (['str', 'agi', 'vit', 'int', 'dex', 'luk'] as const).reduce((a, b) => ((start.baseStats[b] ?? 1) > (start.baseStats[a] ?? 1) ? b : a));
+    const v = start.baseStats[top] ?? 1;
+    if (v <= 1) break;
+    drop -= cost(v);
+    start.baseStats = { ...start.baseStats, [top]: v - 1 };
+  }
+  console.log(`level ${start.baseLevel} -> ${one('level')}: stats ${JSON.stringify(start.baseStats)}`);
+  start.baseLevel = Number(one('level'));
+}
 const className = start.className ?? null;
 const level = start.baseLevel;
 const kit = kitFor(className ?? '');
@@ -156,7 +208,19 @@ const farmMode = one('objective') === 'farm';
 const vsList = (one('vs') ?? 'Heartless').split(',').map((q) => q.trim());
 // --no-mvp-targets: MVPs off the list (a farming build), and each monster once however many --vs groups name it.
 // 'dummy': the training dummy (never dies, never hits back): the score is then its DPS over --time.
-const targets: Monster[] = vsList.flatMap((q) => (q.toLowerCase() === 'dummy' ? [dummyMonster()] : findMobs(q).map(buildMonster)))
+/**
+ * --dummy-def "125,180": the dummy wears this hard and soft DEF -- the median endgame farm monster's
+ * (62 of them, 2026-10-02) -- so penetration counts on it as it does in the real fights (the project
+ * owner: the dummy builds took no penetration at all). Pen 0 lets ~80% of a hit through those
+ * monsters, 45 ~95.5%, 70 ~99%.
+ */
+const dummyDef = one('dummy-def')?.split(',').map(Number) ?? null;
+const dummyTarget = (): Monster => {
+  const d = dummyMonster();
+  if (!dummyDef) return d;
+  return { ...d, def: dummyDef[0], softDef: dummyDef[1] ?? 0, notes: [...d.notes, `DEF ${dummyDef[0]}+${dummyDef[1] ?? 0} (median endgame monster)`] };
+};
+const targets: Monster[] = vsList.flatMap((q) => (q.toLowerCase() === 'dummy' ? [dummyTarget()] : findMobs(q).map(buildMonster)))
   .filter((m) => !(farmMode || flag('no-mvp-targets')) || !m.boss)
   .filter((m, i, all) => !flag('no-mvp-targets') || all.findIndex((x) => x.name === m.name) === i);
 const farmWeights: number[] = (() => {
@@ -168,6 +232,8 @@ const farmWeights: number[] = (() => {
 const screenN = Number(one('screen') ?? 60);
 const confirmN = Number(one('confirm') ?? 400);
 const passes = Number(one('passes') ?? 3);
+/** --swap-passes: passes of each target's own climb in the --per-target phase (default --passes; 1 keeps it cheap). */
+const swapPasses = Number(one('swap-passes') ?? passes);
 const timeS = Number(one('time') ?? 300);
 /** The fight's clock: --time, but the dummy is always DUMMY_SECONDS (the project owner: a 10 s fight). */
 const limitFor = (m: Monster) => (m.dummy ? DUMMY_SECONDS : timeS) * 1000;
@@ -179,10 +245,49 @@ const policy = one('policy') === 'tas' ? tasPolicy({ horizonMs: 6000 }) : priori
 const PENALTY = Number(one('penalty') ?? 0.03);
 /** --mvp-penalty: what an MVP-only piece or card costs, apart from PENALTY (0: MVP drops are fine -- the Satsujin owner, 2026-09-28). */
 const MVP_PENALTY = Number(one('mvp-penalty') ?? PENALTY);
+/** --nine-penalty: what a new +9 costs, apart from PENALTY (0 for a tier that allows +9 weapons). */
+const NINE_PENALTY = Number(one('nine-penalty') ?? PENALTY);
+/**
+ * --charge-worn: every MVP-only / SS-only / +9 piece worn is charged, not
+ * only the new ones -- a tier searched down from a richer build (budget from
+ * baseline) pays for what it inherited.
+ */
+const chargeWorn = flag('charge-worn');
+/**
+ * --no-sun: the Sun helmets ("... of the Sun": Volan, Fornax...) are out --
+ * the budget and baseline tiers (the project owner, 2026-10-02).
+ */
+const noSun = flag('no-sun');
+const isSunHelm = (item: Item) => / of the Sun$/.test(item.name) && item.kind !== 'Costume';
+/**
+ * The project owner's limits on every build (2026-10-02): move speed no
+ * worse than --min-move-speed (-15%: "a little bit is ok but -20% is too
+ * much"), Max HP at least --hp-floor (0.5) of what the stats give with no
+ * gear ("avoid builds that are 1 health due to massive -hp"). Past either,
+ * a charge that grows with how far (soft, since 2026-10-03).
+ */
+const MIN_MOVE_SPEED = Number(one('min-move-speed') ?? -15);
+const HP_FLOOR = Number(one('hp-floor') ?? 0.5);
+/**
+ * Deaths to the two monster types a build dies to most count half (the
+ * project owner, 2026-10-02: "dying to only 1-2 of the end game monsters
+ * doesn't necessarily rebuild the entire build ... usually means fight
+ * approach is wrong"). --death-discount 1: counted whole.
+ */
+const DEATH_DISCOUNT = Number(one('death-discount') ?? 0.5);
+/** An SS-only drop is free when the build wins this often (and dies no more than FARM_LOSS) against a monster that drops it. */
+const FARM_WIN = 0.95;
+const FARM_LOSS = 0.02;
 /** --no-mvp: MVP-only pieces and cards are left out, not merely penalised. --max-refine N: new pieces at +N at most. */
 const noMvp = flag('no-mvp');
 const maxNewRefine = Number(one('max-refine') ?? 9);
 const hpWeight = Number(one('hp-weight') ?? 0);
+/**
+ * --dps-ref: the DPS that counts as 0.3 of score (20,000). A change must gain 0.01 to be kept -- ~670 DPS at
+ * 20k -- so a build starting near nothing (an auto-attack Kingslayer at ~500 DPS, 2026-10-03) could not
+ * climb at all; a smaller reference counts smaller gains.
+ */
+const DPS_REF = Number(one('dps-ref') ?? 20_000);
 const safeScore = one('score') === 'safe';
 /** --min-hp N: builds under N Max HP score nothing (a safety floor). */
 const minHp = one('min-hp') ? Number(one('min-hp')) : 0;
@@ -256,6 +361,7 @@ const mvpTooHigh = (item: Item) => mvpMaxLevel !== null && mvpOnly(item)
   && Math.min(...(item.drops ?? []).map((d) => d.mob_level ?? Infinity)) > mvpMaxLevel;
 // Under --max-refine 8 or less, a piece made from a +9 (Volan of the Sun) is out as well.
 const allowed = (item: Item, slot: string) => !excluded.has(item.name.toLowerCase()) && !(noMvp && mvpOnly(item)) && !mvpTooHigh(item)
+  && !(noSun && isSunHelm(item))
   && !(maxNewRefine < 9 && madeFromNine(item)) && canEquip(item, className, data.classRules, slot)
   && (item.required_level ?? 0) <= level && (allowSs || !ssOnly(item) || isWeaver(item));
 // A card locked to another class by a hand rule (Revenant Ebel Card) stays out (canEquip).
@@ -286,6 +392,9 @@ let rollStats: string[] = [...topStats];
 
 /** --max-rolls: new pieces and re-rolls (--rolls) at the top of each range, not the middle -- bought rolls. */
 const maxRolls = flag('max-rolls');
+/** --min-rolls: at the bottom of each range -- the budget tier's "minimum random rolls" (2026-10-02). */
+const minRolls = flag('min-rolls');
+const rollValue = (g: { min: number; max?: number }) => (maxRolls ? (g.max ?? g.min) : minRolls ? g.min : (g.min + (g.max ?? g.min)) / 2);
 
 /**
  * --rolls (or rolls in --only): re-roll the pieces worn, locked slots too (a
@@ -302,7 +411,7 @@ function rollMoves(build: Build, slot: SlotDef): Move[] {
   for (const roll of table.rolls) {
     for (const opt of roll.options) {
       if (!rollOptionOk(opt)) continue;
-      const values = opt.grants.map((g) => clampRoll(g, maxRolls ? (g.max ?? g.min) : (g.min + (g.max ?? g.min)) / 2));
+      const values = opt.grants.map((g) => clampRoll(g, rollValue(g)));
       const now = cur!.rolls?.[roll.key];
       if (now && now.option === opt.key && JSON.stringify(now.values) === JSON.stringify(values)) continue;
       out.push({ label: `${slot.label} ${roll.key}: ${opt.key} ${values.join('/')}`,
@@ -343,7 +452,7 @@ function rollVariants(item: Item, slotKey: string): { label: string; rolls: Reco
     for (const v of variants) {
       for (const key of picks) {
         const opt = roll.options.find((o) => o.key === key)!;
-        const values = opt.grants.map((g) => clampRoll(g, maxRolls ? (g.max ?? g.min) : (g.min + (g.max ?? g.min)) / 2));
+        const values = opt.grants.map((g) => clampRoll(g, rollValue(g)));
         next.push({ label: picks.length > 1 ? `${v.label} ${key}`.trim() : v.label, rolls: { ...v.rolls, [roll.key]: { option: key, values } } });
       }
     }
@@ -360,12 +469,20 @@ type SlotState = NonNullable<Build['slots'][string]>;
 interface State { build: Build; options: Record<string, unknown>; only?: number[] }
 interface Move { label: string; slots?: Record<string, SlotState>; options?: Record<string, unknown>; stats?: Build['baseStats'] }
 
-const refines = (item: Item) => (isRefineable(item)
-  ? [...new Set([Math.min(6, maxNewRefine, maxRefine(item)), Math.min(9, maxNewRefine, maxRefine(item))])] : [0]);
-/** The refines a piece is ever tried at: +0, +3, +6, +9, never +10 (the project owner, 2026-09-29) -- weapons +10 too (2026-09-30). */
-const TIERS = [0, 3, 6, 9];
+/**
+ * A new piece's refines: +6 and +9 within --max-refine -- and +10 under
+ * --max-refine 10 (the maxed tier, 2026-10-02: "no limitations at all").
+ * A weapon is held only by --refine-cap (budget: weapon +9, armour +6).
+ */
+const refines = (item: Item, slotKey = '') => {
+  if (!isRefineable(item)) return [0];
+  const cap = slotKey === 'weapon' ? (refineCap.get('weapon') ?? 99) : maxNewRefine;
+  return [...new Set([6, 9, ...(cap >= 10 ? [10] : [])].map((r) => Math.min(r, cap, maxRefine(item))))];
+};
+/** The refines a piece is ever tried at: +0, +3, +6, +9, never +10 (the project owner, 2026-09-29) -- weapons +10 too (2026-09-30); all +10 under --max-refine 10. */
+const TIERS = [0, 3, 6, 9, ...(maxNewRefine >= 10 ? [10] : [])];
 const tiersFor = (item: Item, slotKey: string) => (isRefineable(item)
-  ? [...new Set((slotKey === 'weapon' ? [...TIERS, 10] : TIERS).map((r) => Math.min(r, maxRefine(item), slotKey === 'weapon' ? 99 : maxNewRefine, refineCap.get(slotKey) ?? 99)))] : [0]);
+  ? [...new Set((slotKey === 'weapon' ? [...new Set([...TIERS, 10])] : TIERS).map((r) => Math.min(r, maxRefine(item), slotKey === 'weapon' ? 99 : maxNewRefine, refineCap.get(slotKey) ?? 99)))] : [0]);
 /** The cards worn in a slot that still fit a new piece there, in the sockets it has. */
 const keepCards = (cur: SlotState | undefined, slot: SlotDef, item: Item) => (cur?.cards ?? []).filter((id): id is number => !!id)
   .filter((id) => { const c = data.items.get(id); return c && cardFits(c, slot, item); }).slice(0, item.card_slots);
@@ -435,7 +552,7 @@ function itemMoves(build: Build, slot: SlotDef): Move[] {
     const emptied = freesOffhand ? { offhand: { itemId: null, refine: 0, cards: [] } as SlotState } : {};
     const keep = keepCards(cur, slot, item);
     // --refine-cap holds for a piece swapped in too (a new class gem at +9 is still past gem=6).
-    for (const refine of [...new Set(refines(item).map((r) => Math.min(r, refineCap.get(slot.key) ?? r)))]) {
+    for (const refine of [...new Set(refines(item, slot.key).map((r) => Math.min(r, refineCap.get(slot.key) ?? r)))]) {
       const best = keep.length < item.card_slots ? bestCards(slot, item, 2) : [];
       const fills: { label: string; cards: number[] }[] = [{ label: '', cards: keep }];
       if (best.length) fills.push({ label: ` [${data.items.get(best[0])!.name} in the empty sockets]`, cards: fillSockets(keep, item, [best[0]]) });
@@ -732,23 +849,42 @@ const apply = (s: State, m: Move): State => {
   return { build, options: { ...s.options, ...(m.options ?? {}) }, ...(s.only ? { only: s.only } : {}) };
 };
 
-/** The score's handicap: new MVP-only pieces and cards, new +9s, pieces made from a +9. */
-function penalty(build: Build): number {
+/** The monster names that drop an item. */
+const mobName = new Map(mobRows().map((m) => [m.id, m.name]));
+/**
+ * An SS-only drop the build can farm itself is free (the project owner,
+ * 2026-10-02: "if you are able to farm one reliably then its free to
+ * suggest. if you are too weak to farm it yourself it should be
+ * penalized"): it wins FARM_WIN of its fights against a monster that drops
+ * it, losing no more than FARM_LOSS.
+ */
+function farmable(item: Item, sc: Score | undefined): boolean {
+  if (!sc?.perMob) return false;
+  return (item.drops ?? []).some((d) => {
+    const r = sc.perMob![mobName.get(d.mob_id) ?? ''];
+    return !!r && r.win >= FARM_WIN && r.loss <= FARM_LOSS;
+  });
+}
+
+/** The score's handicap: new MVP-only pieces and cards, new +9s, pieces made from a +9, SS-only drops it cannot farm. */
+function penalty(build: Build, sc?: Score): number {
   let p = 0;
   for (const [k, st] of Object.entries(build.slots)) {
     if (!st?.itemId) continue;
-    const was = start.slots[k];
+    const was = chargeWorn ? undefined : start.slots[k];
     const item = data.items.get(st.itemId);
     if (item && was?.itemId !== st.itemId) {
       if (mvpOnly(item)) p += MVP_PENALTY;
-      if (ssOnly(item)) p += PENALTY;
+      if (ssOnly(item) && !farmable(item, sc)) p += PENALTY;
       if (madeFromNine(item)) p += PENALTY;
     }
-    if (st.refine >= 9 && !(was?.itemId === st.itemId && (was.refine ?? 0) >= 9)) p += PENALTY;
+    if (st.refine >= 9 && !(was?.itemId === st.itemId && (was.refine ?? 0) >= 9)) p += NINE_PENALTY;
     const before = new Set((was?.cards ?? []).filter(Boolean));
     for (const id of new Set((st.cards ?? []).filter(Boolean) as number[])) {
       const c = data.items.get(id);
-      if (c && !before.has(id) && mvpOnly(c)) p += MVP_PENALTY;
+      if (!c || before.has(id)) continue;
+      if (mvpOnly(c)) p += MVP_PENALTY;
+      if (ssOnly(c) && !farmable(c, sc)) p += PENALTY;
     }
   }
   return p;
@@ -758,6 +894,8 @@ function penalty(build: Build): number {
 
 interface Score {
   win: number; loss: number; dps: number; ttk: number | null; value: number; deaths: string; farm?: { sb: number; sbkc: number; qg: number }; rhythm?: Rhythm; axes?: number[];
+  /** Win and loss rates by monster name (the SS-drop farm rule). */
+  perMob?: Record<string, { win: number; loss: number }>;
   /** Per target (by index into targets): the spread of one fight's share of the score, and ms a fight -- what the fight counts are sized from. */
   spread?: { sd: (number | null)[]; ms: (number | null)[]; z: (number[] | null)[] };
 }
@@ -801,7 +939,8 @@ function learnSpread(sc: Score) {
  * by, around the batch's own means. Its spread per target sizes the fight
  * counts (fightsFor).
  */
-function spreadOf(f: Awaited<ReturnType<typeof buildFighter>>, options: Record<string, unknown>, fought: { i: number; w: number; s: Summary }[]): Score['spread'] {
+function spreadOf(f: Awaited<ReturnType<typeof buildFighter>>, options: Record<string, unknown>, fought: { i: number; w: number; s: Summary }[],
+  lossScale: Map<string, number> = new Map()): Score['spread'] {
   const sd: (number | null)[] = targets.map(() => null);
   const ms: (number | null)[] = targets.map(() => null);
   // Each fight's own share, kept for the paired test of a confirm (pairedSe).
@@ -826,11 +965,13 @@ function spreadOf(f: Awaited<ReturnType<typeof buildFighter>>, options: Record<s
       // Charged per kill: value = 36 K / C - PER_KILL_REF P / K (K kills, C the cycle, P the
       // weighted deaths and stalls, a cycle each), linearised in each fight's k, c and p.
       const k = (r: FightRow) => (r.result === 'win' ? 1 : 0);
-      const pen = (r: FightRow) => (r.result === 'loss' ? deathWeight : r.result === 'stalemate' ? stallWeight : 0);
+      // A death to one of the two worst monster types counts DEATH_DISCOUNT (worstTwo), as in the score.
+      const pen = (r: FightRow, ls = 1) => (r.result === 'loss' ? ls * deathWeight : r.result === 'stalemate' ? stallWeight : 0);
+      const ls = (x: { s: Summary }) => lossScale.get(x.s.monster) ?? 1;
       const K = Math.max(1e-6, fought.reduce((a, x) => a + (x.w / W) * mean(x.s.perFight!, k), 0));
-      const P = fought.reduce((a, x) => a + (x.w / W) * mean(x.s.perFight!, pen), 0);
+      const P = fought.reduce((a, x) => a + (x.w / W) * mean(x.s.perFight!, (r) => pen(r, ls(x))), 0);
       const dK = 36 / C + (PER_KILL_REF * P) / (K * K); const dC = -(36 * K) / (C * C); const dP = -PER_KILL_REF / K;
-      for (const x of fought) zs[x.i] = x.s.perFight!.map((r) => (x.w / W) * (dK * k(r) + dC * c(r) + dP * pen(r)));
+      for (const x of fought) zs[x.i] = x.s.perFight!.map((r) => (x.w / W) * (dK * k(r) + dC * c(r) + dP * pen(r, ls(x))));
     }
   } else {
     // value = mean over targets of win + a (1 - loss) + speed(dps); dps linearised around the batch's.
@@ -839,7 +980,7 @@ function spreadOf(f: Awaited<ReturnType<typeof buildFighter>>, options: Record<s
       const rows = x.s.perFight!;
       const T = rows.reduce((acc, r) => acc + r.t, 0) / Math.max(1, rows.length) || 1;
       const dps = x.s.dps;
-      const slope = safeScore ? 0.1 / (Math.LN2 * (20_000 + dps)) : 0.3 / 20_000;
+      const slope = safeScore ? 0.1 / (Math.LN2 * (DPS_REF + dps)) : 0.3 / DPS_REF;
       zs[x.i] = rows.map((r) => ((r.result === 'win' ? 1 : 0) + a * (r.result === 'loss' ? 0 : 1) + (slope * (r.dealt - dps * r.t)) / T) / fought.length);
     }
   }
@@ -885,6 +1026,49 @@ const confirmMore = Number(one('confirm-more') ?? 3);
 /** This worker's marks for the live view (src/live.ts): no-ops on the main thread or under --no-live. */
 const marks = new LiveMarks(isMainThread ? undefined : workerData?.live, isMainThread ? 0 : workerData?.slot ?? 0);
 
+/**
+ * --sp-share X: a fight may spend X of Max SP; past it the score drops 2 for each whole Max SP over. The
+ * dummy builds spent everything in one 10 s fight (the project owner, 2026-10-02: "1 hp and gassed after
+ * 1 rotation"): 0.5 keeps a second go in the tank. --aspd-target N: 0.05 a point of ASPD under N (the
+ * auto-attack builds at their 190 limit: "make sure the auto attack builds hit 190 aspd"). Soft, so a
+ * start short of either still has a slope to climb.
+ */
+const SP_SHARE = one('sp-share') ? Number(one('sp-share')) : null;
+const ASPD_TARGET = one('aspd-target') ? Number(one('aspd-target')) : null;
+function limitsCharge(f: { maxSp: number; aspd: number }, sums: { s: Summary }[]): number {
+  let c = 0;
+  if (SP_SHARE !== null && f.maxSp > 0) {
+    const used = Math.max(0, ...sums.map((x) => x.s.spUsed)) / f.maxSp;
+    if (used > SP_SHARE) c += 2 * (used - SP_SHARE);
+  }
+  if (ASPD_TARGET !== null && f.aspd < ASPD_TARGET) c += 0.05 * (ASPD_TARGET - f.aspd);
+  return c;
+}
+
+/** Max HP from the stats alone, no gear (HP_FLOOR's yardstick), by stats and level. */
+const bareCache = new Map<string, Promise<number>>();
+function bareHp(build: Build): Promise<number> {
+  const key = JSON.stringify([build.baseStats, build.baseLevel, build.className]);
+  let p = bareCache.get(key);
+  if (!p) {
+    p = buildFighter({ ...profile, build: { ...build, slots: {} } }, { passives: kit.passives, aliases: kit.aliases, maxLevels: kit.maxLevels() }).then((f) => f.maxHp);
+    bareCache.set(key, p);
+  }
+  return p;
+}
+
+/**
+ * The two monster types this batch loses most to (spawn-weighted), their
+ * deaths scaled by DEATH_DISCOUNT -- by monster name, for rhythm() and the
+ * fight-by-fight spread.
+ */
+function worstTwo(sums: { s: Summary; weight: number }[]): Map<string, number> {
+  if (DEATH_DISCOUNT >= 1) return new Map();
+  const ranked = sums.filter((x) => x.s.losses > 0)
+    .sort((a, b) => (b.weight * b.s.losses) / Math.max(1, b.s.iterations) - (a.weight * a.s.losses) / Math.max(1, a.s.iterations));
+  return new Map(ranked.slice(0, 2).map((x) => [x.s.monster, DEATH_DISCOUNT]));
+}
+
 async function fight(s: State, n: number, seed: number, per: number[] | null = null, wantSpread = false): Promise<Score> {
   const f = await buildFighter({ ...profile, build: s.build }, { passives: kit.passives, aliases: kit.aliases, maxLevels: kit.maxLevels() });
   if (farmMode) {
@@ -915,7 +1099,16 @@ async function fight(s: State, n: number, seed: number, per: number[] | null = n
   const k = fought.length;
   win /= k; loss /= k; dps /= k;
   const top = Object.entries(deaths).sort((a, b) => b[1] - a[1]).slice(0, 2).map(([c, v]) => `${c} x${v}`).join(', ');
-  const spread = wantSpread ? spreadOf(f, s.options, sums.map((x, j) => ({ i: idx[j], w: x.weight, s: x.s }))) : undefined;
+  const perMob = Object.fromEntries(sums.map((x) => [x.s.monster, { win: x.s.winRate, loss: x.s.losses / Math.max(1, x.s.iterations) }]));
+  const lossScale = worstTwo(sums);
+  const spread = wantSpread ? spreadOf(f, s.options, sums.map((x, j) => ({ i: idx[j], w: x.weight, s: x.s })), lossScale) : undefined;
+  // The owner's limits (MIN_MOVE_SPEED, HP_FLOOR), soft: past either, a charge that grows with how far
+  // (2026-10-03). A flat -1 stalled every search that started past one (the pure auto-attack Night Raven at
+  // -25% move speed: every move scored -1, nothing to climb), and beat a legal build scoring under -1 (the
+  // Raven build at 15 deaths an hour took a set past the limits).
+  const floorHp = HP_FLOOR * (await bareHp(s.build));
+  const overLimits = 0.2 * Math.max(0, MIN_MOVE_SPEED - (f.moveSpeed ?? 0))
+    + (floorHp > 0 ? 5 * Math.max(0, 1 - f.maxHp / floorHp) : 0);
   // Once every fight is a win, speed is what is left to gain: 0.01 of score
   // (the bar a change must clear) is ~670 DPS.
   // The penalty is the main thread's (fightAll), so equal fighters share a score.
@@ -926,14 +1119,14 @@ async function fight(s: State, n: number, seed: number, per: number[] | null = n
   // again (src/rhythm.ts; the project owner's Tomb plan, 2026-09-29), a death
   // an hour costing --death-weight x 100 kills (0.1: 10 kills). --map weighs the targets by spawns.
   if (rhythmScore) {
-    const r = rhythm(f, kit.kit, s.options, sums);
+    const r = rhythm(f, kit.kit, s.options, sums, lossScale);
     const scale = perHourCharge ? 1 : PER_KILL_REF / Math.max(1, r.killsPerHour);
-    return { win, loss, dps, ttk: ttkN ? ttk / ttkN : null, value: r.killsPerHour / 100 - scale * (deathWeight * r.deathsPerHour + stallWeight * r.stallsPerHour), deaths: top, rhythm: r, spread };
+    return { win, loss, dps, ttk: ttkN ? ttk / ttkN : null, value: r.killsPerHour / 100 - scale * (deathWeight * r.scoredDeathsPerHour + stallWeight * r.stallsPerHour) - limitsCharge(f, sums) - overLimits, deaths: top, rhythm: r, perMob, spread };
   }
   // --min-hp N: a build under N Max HP is out, whatever it deals.
   if (minHp && f.maxHp < minHp) return { win, loss, dps, ttk: ttkN ? ttk / ttkN : null, value: -1, deaths: top, spread };
-  const speed = safeScore ? 0.1 * Math.log2(1 + dps / 20_000) : 0.3 * (dps / 20_000);
-  const value = win + (safeScore ? 0.5 : 0.3) * (1 - loss) + speed + hpWeight * Math.min(1, f.maxHp / 50_000);
+  const speed = safeScore ? 0.1 * Math.log2(1 + dps / DPS_REF) : 0.3 * (dps / DPS_REF);
+  const value = win + (safeScore ? 0.5 : 0.3) * (1 - loss) + speed + hpWeight * Math.min(1, f.maxHp / 50_000) - limitsCharge(f, sums) - overLimits;
   return { win, loss, dps, ttk: ttkN ? ttk / ttkN : null, value, deaths: top, spread };
 }
 
@@ -960,9 +1153,9 @@ async function estimate(s: State): Promise<Score> {
     const d = (m.hp - Math.max(0, fi.mob.hp)) / Math.max(1, fi.t / 1000);
     dps += d;
     const low = Math.max(0, fi.meter!.minHp);
-    value += (fi.result === 'win' ? 1 : 0) + 0.3 * (fi.result === 'loss' ? 0 : 1) + 0.3 * (d / 20_000)
+    value += (fi.result === 'win' ? 1 : 0) + 0.3 * (fi.result === 'loss' ? 0 : 1) + 0.3 * (d / DPS_REF)
       + 0.2 * low / f.maxHp;
-    axes.push(d / 20_000, low / 10_000, low / f.maxHp, fi.result === 'win' ? 1 : 0, fi.result === 'loss' ? 0 : 1);
+    axes.push(d / DPS_REF, low / 10_000, low / f.maxHp, fi.result === 'win' ? 1 : 0, fi.result === 'loss' ? 0 : 1);
   }
   const k = targets.length;
   return { win: 0, loss: 0, dps: dps / k, ttk: null, value: value / k, deaths: '', axes };
@@ -1125,7 +1318,7 @@ async function fightAll(states: State[], n: number, seed: number, spread = false
     fightsRun += n ? idx.reduce((a, i) => a + (per && !st.only ? per[i] : n), 0) : 0;
   }
   await Promise.all([...todo].map(([k, st]) => pool.run(st, n, seed, n === 0, per, spread).then((sc) => { cache.set(k, sc); })));
-  return states.map((st, i) => { const sc = cache.get(keys[i])!; return { ...sc, value: sc.value - penalty(st.build) - swapCharge(st.build) }; });
+  return states.map((st, i) => { const sc = cache.get(keys[i])!; return { ...sc, value: sc.value - penalty(st.build, sc) - swapCharge(st.build) }; });
 }
 /**
  * Screening in two rounds: every candidate on a third of the fights, then
@@ -1162,9 +1355,11 @@ const t0 = performance.now();
 const midRolls = flag('mid-rolls');
 function cheapen(b: Build): Build {
   const strict = flag('cheapen');
-  if (!noMvp && !one('max-refine') && !strict && !midRolls) return b;
+  if (!noMvp && !one('max-refine') && !strict && !midRolls && !minRolls && !noSun && !excluded.size && !targetedInWeapons) return b;
   const out: Build = structuredClone(b);
-  const banned = (item: Item | undefined | null) => !!item && ((noMvp && mvpOnly(item))
+  // --exclude holds for what is worn too (the pure auto-attack build off its Crow of Destiny, 2026-10-02).
+  const banned = (item: Item | undefined | null, slotKey = '') => !!item && ((noMvp && mvpOnly(item)) || (noSun && isSunHelm(item)) || excluded.has(item.name.toLowerCase())
+    || (targetedInWeapons && item.kind === 'Card' && slotKey !== 'weapon' && slotKey !== 'offhand' && isTargeted(item))
     || (strict && ((!allowSs && ssOnly(item) && !isWeaver(item)) || mvpTooHigh(item) || (maxNewRefine < 9 && madeFromNine(item)))));
   for (const [k, st] of Object.entries(out.slots)) {
     if (!st?.itemId) continue;
@@ -1176,15 +1371,24 @@ function cheapen(b: Build): Build {
     if (strict && cap !== undefined && st.refine > cap) { console.log(`cheap: ${k} ${item?.name} +${st.refine} -> +${cap}`); st.refine = cap; }
     st.cards = st.cards.map((c) => {
       const card = c ? data.items.get(c) : null;
-      if (banned(card)) { console.log(`cheap: ${k} ${card!.name} out`); return null; }
+      if (banned(card, k)) { console.log(`cheap: ${k} ${card!.name} out`); return null; }
       return c;
     }) as typeof st.cards;
-    if (midRolls && st.rolls && item) {
+    // Without --skill-rolls a worn skill-damage roll comes off too (the project owner, 2026-10-02: no skill
+    // damage on the shadow sets -- it was all Counter Slash); the roll moves fill the line again.
+    if (strict && !skillRolls && st.rolls && item) {
+      const table = rollTableFor(data.rolls, k, item);
+      for (const [rk, pick] of Object.entries(st.rolls)) {
+        const opt = table?.rolls.find((r) => r.key === rk)?.options.find((o) => o.key === pick.option);
+        if (opt?.grants.some((g) => g.skill)) { console.log(`cheap: ${k} ${pick.option} roll off`); delete st.rolls[rk]; }
+      }
+    }
+    if ((midRolls || minRolls) && st.rolls && item) {
       const table = rollTableFor(data.rolls, k, item);
       for (const [rk, pick] of Object.entries(st.rolls)) {
         const opt = table?.rolls.find((r) => r.key === rk)?.options.find((o) => o.key === pick.option);
         if (!opt) continue;
-        const values = opt.grants.map((g) => clampRoll(g, (g.min + (g.max ?? g.min)) / 2));
+        const values = opt.grants.map((g) => clampRoll(g, minRolls ? g.min : (g.min + (g.max ?? g.min)) / 2));
         if (JSON.stringify(values) !== JSON.stringify(pick.values)) console.log(`cheap: ${k} ${pick.option} ${pick.values.join('/')} -> ${values.join('/')}`);
         st.rolls[rk] = { option: pick.option, values };
       }
@@ -1232,6 +1436,23 @@ function twoHands(b: Build): Build {
 let state: State = { build: oneBound(twoHands(cheapen(start))), options: { ...(profile.options ?? {}), ...fixedOptions } };
 let seedBase = 1;
 const steps: { move: string; before: Score; after: Score; tried: number }[] = [];
+/**
+ * The build so far, after every change kept: <out>.partial.json, so a run cut
+ * short (the PC restarting overnight, 2026-10-02: 11 hours of a search lost)
+ * can start again from it. climbDone: the main search is over, only the
+ * per-target phase and the final check are left.
+ */
+const partialPath = one('out') ? resolve(process.cwd(), `${one('out')}.partial.json`) : null;
+let climbDone = false;
+async function checkpoint(pass: number, sc: Score | null) {
+  if (!partialPath) return;
+  mkdirSync(dirname(partialPath), { recursive: true });
+  writeFileSync(partialPath, `${JSON.stringify({
+    link: `http://localhost:5173/#b=${await encodeBuild(state.build)}`, options: state.options, pass, climbDone,
+    score: sc ? lean(sc) : null, steps: steps.map((s) => s.move),
+  }, null, 1)}\n`);
+}
+const done = () => { climbDone = true; void checkpoint(passes, null); };
 feed?.start();
 const [first] = await fightAll([state], confirmN, 10_000, true);
 learnSpread(first);
@@ -1507,8 +1728,8 @@ function pairMoves(): Move[] {
 }
 
 /** Hill-climb from `state` until nothing (single or paired) helps. */
-async function climb(tag = ''): Promise<void> {
-for (let pass = 1; pass <= passes; pass++) {
+async function climb(tag = '', maxPasses = passes): Promise<void> {
+for (let pass = 1; pass <= maxPasses; pass++) {
   let improved = false;
   runnersUp = [];
   await probeRollStat();
@@ -1582,6 +1803,7 @@ for (let pass = 1; pass <= passes; pass++) {
     state = apply(state, chosen.m);
     learnSpread(chosen.s);
     steps.push({ move: chosen.m.label, before: lean(now!), after: lean(chosen.s), tried: moves.length });
+    if (!tag) await checkpoint(pass, chosen.s);
     shown.score = liveScore(chosen.s);
     improved = true;
     console.log(`${tag}pass ${pass}  ${chosen.m.label.padEnd(64)} ${show(now!)}  ->  ${show(chosen.s)}   [${moves.length} tried; gain ${chosen.gain.toFixed(3)} ± ${chosen.se.toFixed(3)}]`);
@@ -1590,6 +1812,29 @@ for (let pass = 1; pass <= passes; pass++) {
 }
 }
 await climb();
+/**
+ * --top-refine: every refineable piece up to the most its tier allows, kept unless it scores worse --
+ * a refine that changes nothing the score sees (shadow gear's ATK on a Raven build, whose bird damage
+ * takes none of it) was left at +0; the project owner (2026-10-02): "it didn't +9 the shadow sets".
+ */
+if (flag('top-refine') && passes > 0) {
+  const topped: Build = structuredClone(state.build);
+  const raised: string[] = [];
+  for (const [k, st] of Object.entries(topped.slots)) {
+    const item = st?.itemId ? data.items.get(st.itemId) : null;
+    if (!item || fixedRefine.has(k) || k.startsWith('cos_')) continue;
+    const cap = Math.max(...tiersFor(item, k));
+    if (cap > st!.refine) { raised.push(`${k} +${st!.refine}->+${cap}`); st!.refine = cap; }
+  }
+  if (raised.length) {
+    const top = { ...state, build: topped };
+    const [now, up] = await fightAll([state, top], confirmN, 40_000, true);
+    const keep = up.value >= now.value - 0.005;
+    console.log(`top-refine: ${raised.join(', ')}  ${show(now)}  ->  ${show(up)}  ${keep ? 'kept' : 'dropped (worse)'}`);
+    if (keep) { state = top; steps.push({ move: `top-refine: ${raised.join(', ')}`, before: lean(now), after: lean(up), tried: 1 }); }
+  }
+}
+done(); // the main climb is over: a resumed run starts from here (checkpoint)
 
 // --per-target: the shared build is the generalist; now each target gets
 // the swaps worth their cost, from it.
@@ -1603,10 +1848,10 @@ if (flag('per-target') && targets.length > 1) {
   for (let t = 0; t < targets.length; t++) {
     state = { ...shared, only: [t] };
     const [g0] = await fightAll([state], confirmN, 31_000 + t);
-    swapBase = shared.build; swapPenalty = cost * 0.3 * (g0.dps / 20_000);
+    swapBase = shared.build; swapPenalty = cost * 0.3 * (g0.dps / DPS_REF);
     shown.score = liveScore(g0);
     console.log(`\n-- ${targets[t].name}: shared build ${show(g0)}; a swap must be worth ${(cost * 100).toFixed(0)}% faster kills`);
-    await climb(`${targets[t].name}: `);
+    await climb(`${targets[t].name}: `, swapPasses);
     const [own] = await fightAll([state], confirmN, 31_000 + t);
     const optDiff = Object.fromEntries(Object.entries(state.options).filter(([k, v]) => shared.options[k] !== v));
     perTarget.push({ cost, target: targets[t].name, shared: g0, own, swaps: swappedSlots(state.build).map((k) => {
@@ -1641,7 +1886,7 @@ if (out) {
   mkdirSync(dirname(path), { recursive: true });
   writeFileSync(path, `${JSON.stringify({
     profile: profile.name, targets: targets.map((m) => m.name),
-    rules: { screenN, confirmN, timeS, locked: [...locked], penalty: PENALTY, topStats },
+    rules: { screenN, confirmN, timeS, locked: [...locked], penalty: PENALTY, topStats, topRefine: flag('top-refine') },
     start: profile.build, steps, final: lean(final), options: state.options, link, perTarget, census: censusOut,
   }, null, 1)}\n`);
 }

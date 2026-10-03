@@ -2380,10 +2380,47 @@ def build(items: list[dict], overrides: dict | None = None) -> tuple[list[dict],
     return sets, bonuses, report
 
 
+SHADOW_SLOT_BY_SUFFIX = {
+    "Armor": "Shadow armor",
+    "Gloves": "Shadow gloves",
+    "Shoes": "Shadow shoes",
+    "Boots": "Shadow shoes",
+    "Pendant": "Shadow accessory",
+    "Earring": "Shadow accessory",
+}
+
+
+def fill_shadow_slots(items: list[dict]) -> list[str]:
+    """Shadow pieces the site lists with no equip location and not refineable.
+
+    53 of them (School of Cats, Calamity of Skies, Dragon Soul, ... -- whole
+    sets) came out of the crawl that way, so no slot took them and the
+    planner and the combat sim never offered them (the project owner,
+    2026-10-02: "shadow armors is missing school of cats"). Every other
+    shadow piece is refineable and named for its slot, so the slot is read
+    off the name and the piece made refineable; marked, so it is a reading.
+    The rest (Necromancer's Hand Mirror: a shadow shield, a slot the planner
+    does not have) are left as they are and returned.
+    """
+    left: list[str] = []
+    for it in items:
+        if it.get("kind") != "Shadow gear" or it.get("equip_slots"):
+            continue
+        slot = SHADOW_SLOT_BY_SUFFIX.get((it.get("name") or "").split(" ")[-1])
+        if not slot:
+            left.append(it.get("name") or str(it.get("id")))
+            continue
+        it["equip_slots"] = [slot]
+        it["refineable"] = True
+        it["slot_inferred"] = True
+    return left
+
+
 def main() -> int:
     root = Path(__file__).resolve().parent.parent
     data = root / "data"
     items = json.loads((data / "items" / "all.json").read_text("utf-8"))
+    unslotted = fill_shadow_slots(items)
     overrides = load_overrides(root / "crawler" / "overrides.json")
 
     sets, bonuses, report = build(items, overrides)
@@ -2398,6 +2435,7 @@ def main() -> int:
         load_overrides(root / "crawler" / "class-rules.json"), items, classes, skills)
     _write(data / "class-rules.json", class_rules)
     report.update(class_report)
+    report["shadow_pieces_without_slot"] = unslotted
 
     _write(data / "stats.json", stat_registry.registry())
     (data / "sets").mkdir(parents=True, exist_ok=True)

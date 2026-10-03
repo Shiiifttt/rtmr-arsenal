@@ -462,7 +462,43 @@
      { "key": "melee_skill_mult", "column": "percent" },
      { "key": "skill:Counter Slash|damage", "column": "percent" },
      { "key": "agi", "column": "total" },
+     { "key": "leech_hp_rate", "column": "percent" },
+     { "key": "sp_cost", "column": "percent", "atMost": true },
+     { "key": "move_speed", "column": "percent" },
      { "key": "aspd", "column": "percent" }
+    ]
+   },
+   {
+    "name": "Definitive Dagger (AGI/STR)",
+    "confidence": "stated",
+    "basis": "From the project owner: spam Definitive Dagger as fast as possible and keep Night Wound up with Southern Cross; SP is its problem. Definitive Dagger 100+45% per level with two daggers +2% per AGI (2023 code), +50%+DEX under Night Wound.",
+    "leans": { "agi": 1, "dex": 0.75, "str": 0.5 },
+    "scaling": { "kind": "physical", "skills": [
+     { "skill": "Definitive Dagger", "base": 400, "per": { "agi": 2 } }
+    ] },
+    "goals": [
+     { "key": "agi", "column": "total" },
+     { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
+     { "key": "melee_skill_mult", "column": "percent" },
+     { "key": "skill:Definitive Dagger|damage", "column": "percent" },
+     { "key": "sp_cost", "column": "percent", "atMost": true },
+     { "key": "dex", "column": "total" },
+     { "key": "leech_hp_rate", "column": "percent" }
+    ]
+   },
+   {
+    "name": "Pure auto-attack (crit)",
+    "confidence": "stated",
+    "basis": "From the project owner: simply attacks; critical damage and racial modifiers, element from cards; ASPD and the ASPD limit up to 190 both matter.",
+    "leans": { "luk": 1, "agi": 0.75, "str": 0.5, "dex": -0.5 },
+    "goals": [
+     { "key": "luk", "column": "total" },
+     { "key": "def_pen", "column": "flat", "target": 25, "cap": 70 },
+     { "key": "melee_dmg_mult", "column": "percent" },
+     { "key": "crit_damage", "column": "percent" },
+     { "key": "aspd", "column": "percent" },
+     { "key": "crit_rate", "column": "total" },
+     { "key": "leech_hp_rate", "column": "percent" }
     ]
    },
    {

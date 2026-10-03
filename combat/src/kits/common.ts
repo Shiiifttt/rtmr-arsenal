@@ -10,7 +10,7 @@
  */
 import { skillRow, type SkillRow } from '../data.ts';
 import {
-  attackIntervalMs, castTimeMs, escapeCells, escapeMsFor, mobDamage, physicalDamage, statusMatk, statusResist, TUNE, walkCellMs,
+  attackIntervalMs, castTimeMs, escapeCells, escapeMsFor, mobDamage, healAmount, physicalDamage, statusResist, TUNE, walkCellMs,
 } from '../formulas.ts';
 import type { Fighter, MobSkill, Monster } from '../model.ts';
 import { playEntry } from '../playbook.ts';
@@ -121,7 +121,9 @@ export function attackAction(kit: Pick<Toolkit, 'element'>, statusElement?: (fig
     spCost: () => 0,
     resolve(fight) {
       const dagger = fight.f.weapon?.type === 'Dagger';
-      const pDouble = dagger ? Math.min(1, fight.f.doubleAttack * TUNE.doubleAttackPerLevel / 100) : 0;
+      // The higher of Double Attack (a dagger in the main hand, 10% a level) and gear's Double Attack chance
+      // (any weapon), not both (RTM battle.cpp battle_calc_multi_attack).
+      const pDouble = Math.min(1, Math.max(dagger ? fight.f.doubleAttack * TUNE.doubleAttackPerLevel : 0, fight.f.weapon ? fight.f.doubleRate ?? 0 : 0) / 100);
       const expect = fight.rng.expect;
       const double = !expect && fight.rng.chance(pDouble);
       const ele = kit.element(fight);
@@ -197,15 +199,8 @@ export const waitAction: Action = {
  * not overheal (the project owner, 2026-09-27: off cooldown in combat).
  */
 export function orphanHeal(kit: Toolkit): Action {
-  // RTM's Heal is Lv1 max, "formula updated to scale better with base level"
-  // (tooltip, no numbers). The owner's Kingslayer reads 3,136 (Lv130, INT 27,
-  // 2026-09-29): the renewal formula at Lv10 gives ~2,950 -- the 2023 code's
-  // Lv1 (~430) is far off, so Lv1 is read as Lv10.
-  const amount = (fight: Fight) => {
-    const f = fight.f;
-    return Math.floor((35 + 2 * f.level + f.stats.int) / 4) * 35 * Math.max(10, lv(f, 'Heal')) / 10
-      + statusMatk(f.stats) + f.matk.weapon;
-  };
+  // formulas.healAmount: RTM's Lv1 Heal read as Lv10 (the owner's reading).
+  const amount = (fight: Fight) => healAmount(fight.f, lv(fight.f, 'Heal'));
   return {
     id: 'Heal',
     isSkill: true,

@@ -29,6 +29,7 @@ import {
   statusResist, TUNE, walkCellMs, type DotName,
 } from './formulas.ts';
 import type { Fighter, MobSkill, Monster, SelfBuff, StatusEffect } from './model.ts';
+import { attackMask, BF, procOnAttack, procOnSkill, procWhenHit, type Autocast } from './autocast.ts';
 import { mobRows } from './data.ts';
 import { buildAdd } from './monster.ts';
 import { Rng } from './rng.ts';
@@ -49,6 +50,8 @@ export interface PlayerState {
   sp: number;
   /** Free to start something at this time. */
   busyUntil: number;
+  /** An autocast's after-cast delay (autocast.ts): nothing starts before it, even past a cast it landed in. */
+  canActAt?: number;
   cast: { action: string; endsAt: number; interruptible: boolean } | null;
   /** Skill -> the time it is ready again. */
   cds: Record<string, number>;
@@ -210,6 +213,16 @@ export interface Kit {
    * Rotation overlay.
    */
   statuses?(fight: Fight): StatusMark[];
+  /**
+   * Cast one of its own skills as a gear autocast (autocast.ts), `share` of
+   * it (1 rolled; the chance in a rollout -- scale the damage by it): true if
+   * it did. Unset, or false: its action of that name, else the generic cast.
+   */
+  castAutocast?(fight: Fight, skill: string, level: number, share: number): boolean;
+  /** Autocasts it models itself (class rules, patch numbers newer than the crawl): autocast.ts leaves them alone. */
+  ownsAutocast?(a: Autocast): boolean;
+  /** The weapon's element now, endows included: what a generic autocast of a weapon-element skill takes. */
+  weaponElement?(fight: Fight): string;
 }
 
 /** One state as a traced fight shows it: "Combo Ready" 2.4 s, "Overslash" x5, a shield's amount, or on the target. */
@@ -293,6 +306,11 @@ export interface Fight {
   trace?: TraceStep[];
   /** Autocasts noted since the last traced step (noteProc). */
   procs?: string[];
+  /** Inside an autocast weighed in a rollout: the share of its damage and healing that counts (autocast.ts). */
+  procShare?: number;
+  /** Autocasts running inside autocasts, and the ones running now (no autocast sets itself off again). */
+  procDepth?: number;
+  procLock?: Set<Autocast>;
 }
 
 export const newMobState = (m: Monster): MobState => ({
@@ -424,7 +442,7 @@ function complete(fight: Fight, a: Action) {
   if (a.offensive) drop(fight, 'away');
   me.cds[a.id] = fight.t + a.cooldownMs(fight);
   if (a.charges !== undefined) me.left[a.id] = (me.left[a.id] ?? 0) - 1;
-  me.busyUntil = fight.t + (a.delayMs?.(fight) ?? skillDelayMs(0, fight.f));
+  me.busyUntil = Math.max(fight.t + (a.delayMs?.(fight) ?? skillDelayMs(0, fight.f)), me.canActAt ?? 0);
   me.last = a.id;
   const meter = fight.meter;
   if (a.id === 'Wait') { if (meter) meter.idleMs = (meter.idleMs ?? 0) + (me.busyUntil - fight.t); }
@@ -445,17 +463,28 @@ function complete(fight: Fight, a: Action) {
   }
   // Attacks log their damage; a buff or a move says it happened.
   if (!a.offensive && !a.reactive) fight.log && say(fight, `uses ${a.id}`);
-  if (!fight.f.trueGoddess || !a.isSkill) { a.resolve(fight); traceStep(fight, a); return; }
+  if (!fight.f.trueGoddess || !a.isSkill) { resolveSkill(fight, a); traceStep(fight, a); return; }
   // True Goddess: whatever this cast put on cooldown (itself, or the skill it
   // stands for: Predict Kawarimi -> Kawarimi) waits 10 s at least, and Kaupe
   // Lv3 blocks the next hit that lands for 2 s.
   const before = { ...me.cds };
-  a.resolve(fight);
+  resolveSkill(fight, a);
   for (const id of new Set([a.id, ...Object.keys(me.cds).filter((k) => me.cds[k] !== before[k])])) {
     me.cds[id] = Math.max(me.cds[id] ?? 0, fight.t + TUNE.trueGoddessCdMs);
   }
   grant(fight, 'kaupe', TUNE.kaupeMs, 1);
   traceStep(fight, a);
+}
+
+/**
+ * An action going off, and the gear autocasts that follow a skill
+ * (skill_onskillusage): a damage skill only when it dealt damage
+ * (skill.cpp:4153), any other skill always (12397, 13838).
+ */
+function resolveSkill(fight: Fight, a: Action) {
+  const before = fight.mob.hp;
+  a.resolve(fight);
+  if (a.isSkill && fight.f.autocasts?.length && (!a.offensive || fight.mob.hp < before)) procOnSkill(fight, a.id);
 }
 
 /**
@@ -521,6 +550,8 @@ export interface Strike {
   aoe?: boolean;
   /** HIT added for this skill only (Definitive Dagger "Hit bonus is 5 per level"). */
   hitBonus?: number;
+  /** Server BF_MISC damage (Blitz Beat, traps): what gear autocasts match it against (autocast.ts). */
+  misc?: boolean;
 }
 
 /**
@@ -605,7 +636,8 @@ export function strike(fight: Fight, id: string, s: Strike): number {
   // Chains read +15% with both up, not +30% (2026-09-26).
   const exposed = Math.max(selfHas(fight, fight.mob, 'tax') ? fight.mob.buffs.tax.value ?? 0 : 0,
     selfHas(fight, fight.mob, 'raid') ? fight.mob.buffs.raid.value ?? 0 : 0);
-  const taken = m.damageTaken * guard.mult * (1 + exposed / 100);
+  // An autocast weighed into a rollout counts at its chance (autocast.ts).
+  const taken = m.damageTaken * guard.mult * (1 + exposed / 100) * (fight.procShare ?? 1);
   for (let i = 0; i < rolls; i++) {
     let dmg: number;
     if (rng.expect) {
@@ -649,6 +681,12 @@ export function strike(fight: Fight, id: string, s: Strike): number {
     const me = { m, st: fight.mob, add: false };
     mobEvent(fight, me, kind === 'melee' ? 'closedattacked' : kind === 'ranged' ? 'longrangeattacked' : null);
     if (s.skill ?? id !== 'Attack') mobEvent(fight, me, 'skillused');
+  }
+  // Gear autocasts when attacking: a hit that landed -- blocked counts, a
+  // miss does not -- on a target still standing (skill.cpp:2451-2528).
+  if (!fight.result && fight.f.autocasts?.length) {
+    const landed = rng.expect ? (s.canMiss ? pLand : 1) : misses < rolls ? 1 : 0;
+    if (landed > 0) procOnAttack(fight, attackMask(kind, s.skill ?? id !== 'Attack', s.misc), landed);
   }
   return total;
 }
@@ -732,6 +770,7 @@ export function strikeAdds(fight: Fight, id: string, damage: (m: Monster) => num
 export function heal_(fight: Fight, amount: number) {
   // Critical Wound: healing received cut (potions included, RTM).
   if (has(fight, 'criticalwound')) amount *= Math.max(0, 1 - (fight.me.buffs.criticalwound.value ?? 60) / 100);
+  amount *= fight.procShare ?? 1;
   const before = fight.me.hp;
   fight.me.hp = Math.min(fight.f.maxHp, fight.me.hp + amount);
   if (fight.meter) fight.meter.healed += fight.me.hp - before;
@@ -1264,6 +1303,11 @@ function afterHit(fight: Fight, a: Actor, s: MobSkill, normal: boolean, took: nu
   if (took <= 0 || fight.result) return;
   const physical = s.type === 'physical';
   const ranged = a.m.reach > 3;
+  // Gear autocasts when hit (skill_counter_additional_effect): matched on the hit's mask.
+  if (fight.f.autocasts?.length && (physical || s.type === 'magic')) {
+    procWhenHit(fight, (physical ? BF.WEAPON : BF.MAGIC) | (ranged || s.type === 'magic' ? BF.LONG : BF.SHORT) | (normal ? BF.NORMAL : BF.SKILL));
+    if (fight.result) return;
+  }
   fight.kit.onHurt?.(fight, { physical, normal, ranged, dmg: took });
   const rs = fight.me.buffs.reflectshield;
   if (physical && !ranged && rs && rs.until > fight.t && !a.add) {
@@ -1648,7 +1692,9 @@ export function say(fight: Fight, text: string) {
   if (!fight.log) return;
   const hp = `${fmt(Math.max(0, fight.me.hp))}/${fmt(fight.f.maxHp)}`;
   const mhp = `${(Math.max(0, fight.mob.hp) / fight.m.hp * 100).toFixed(1)}%`;
-  fight.log.push(`[${(fight.t / 1000).toFixed(2).padStart(7)}s] HP ${hp.padStart(13)} | mob ${mhp.padStart(6)} | ${text}`);
+  // SP too (the project owner, 2026-10-02: SP is what runs out on the skill builds).
+  const sp = `${fmt(Math.max(0, fight.me.sp))}/${fmt(fight.f.maxSp)}`;
+  fight.log.push(`[${(fight.t / 1000).toFixed(2).padStart(7)}s] HP ${hp.padStart(13)} | SP ${sp.padStart(11)} | mob ${mhp.padStart(6)} | ${text}`);
 }
 
 // ---- copying for the planner -----------------------------------------------

@@ -1,0 +1,8893 @@
+{
+ "profile": "Tiers 2026-10-02: nr-aa-baseline-swaps",
+ "targets": [
+  "Njord Zealot",
+  "Converted Zealot",
+  "Godly Seeker",
+  "Burning Fury",
+  "Tortured Maiden",
+  "Angel of Genesis",
+  "Demon of Apocalypse",
+  "Heartless",
+  "Heart of the Serpent",
+  "Conquest Incarnate",
+  "Famine Incarnate",
+  "War Incarnate",
+  "Death Incarnate",
+  "Vision of Surt",
+  "Empathy",
+  "Smile",
+  "Happiness",
+  "Prayer",
+  "Anger of Thanatos",
+  "Horror of Thanatos",
+  "Resentment of Thanatos",
+  "Regret of Thanatos",
+  "Aunoe",
+  "Fanat",
+  "Ascended Follower",
+  "Dominated Follower",
+  "Doomed Follower",
+  "Ritual Priest",
+  "Magma Knight",
+  "Tornado Knight",
+  "Quake Knight",
+  "Tidal Knight",
+  "Umbral Knight",
+  "Guild Warrior",
+  "Guild Support",
+  "Guild Defender",
+  "Guild Magician",
+  "Guild Chamberlain",
+  "Guild Master",
+  "Ymir Emperium",
+  "Detector",
+  "Agav",
+  "Echio",
+  "Vanberk",
+  "Isilla",
+  "Hodremlin",
+  "Seeker",
+  "Tricked Follower",
+  "Gentleman",
+  "Maiden of Past",
+  "Lost Codex",
+  "Maiden of Present",
+  "Maiden of Future",
+  "Cavalier",
+  "Lost Traveler",
+  "Navigator",
+  "Orc Skeleton",
+  "Orc Zombie",
+  "Zenorc",
+  "Orc Archer",
+  "High Orc",
+  "Grafted Zenorc"
+ ],
+ "rules": {
+  "screenN": 20,
+  "confirmN": 100,
+  "timeS": 120,
+  "locked": [
+   "none"
+  ],
+  "penalty": 0.1,
+  "topStats": [
+   "luk",
+   "str",
+   "agi"
+  ],
+  "topRefine": true
+ },
+ "start": "http://localhost:5173/#b=cfZHPbsMgDIdfZeL8O2BjQniJHXZFqEIpa6KlfxSSanv7iaTSumntBcn2B5-xA0O9Dod-fnlL13xSIKMRWotWYCwIZOF9RAgE66mNCAzyRjfQCDWvypxmBTUuHwqBYowRwYAsWUGLIGwZ9biH02HYYAQ15XJepi4rqGP63PUXhWDWynGYh0Oah_NJQV36rzJ0adxNeb90ea8QeJM1YO1as8qo0RBL7pEsX1PZ3nsfc1YIbk2XpcxpqOn-shtz7vp6w-L2HQdm7Vw1kNbimwZCzv4rqXy78r6OSEQLxD6BPbhx7sb-wso8_WDEYBHLtYmHcycD9t5o1EWR1ED7LbAwmvSt0oCFzfMdkgOLJv9XeNdVjN8",
+ "steps": [
+  {
+   "move": "Weapon: Masamune +9",
+   "before": {
+    "win": 0,
+    "loss": 1,
+    "dps": 511.8093164744826,
+    "ttk": null,
+    "value": -1,
+    "deaths": "Fanat: attack x100",
+    "perMob": {
+     "Fanat": {
+      "win": 0,
+      "loss": 1
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1150.5597525000676,
+    "ttk": 65.071,
+    "value": 0.4912380729270074,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 49.2020032289261,
+     "cycleS": 73.16775260653498,
+     "sitS": 7.509982606534974,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Fanat",
+       "weight": 25.53191489361702,
+       "fightS": 64.04527,
+       "sitS": 7.509982606534974,
+       "spUsed": 17.81,
+       "hpUsed": 2417.914,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Fanat": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 1876
+  },
+  {
+   "move": "Weapon: Hydrolancer Card x1",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1135.7110220979714,
+    "ttk": 64.366,
+    "value": 0.49625679996907524,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 49.703875933132885,
+     "cycleS": 72.42895915890172,
+     "sitS": 5.879729158901727,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Fanat",
+       "weight": 25.53191489361702,
+       "fightS": 64.93673,
+       "sitS": 5.879729158901727,
+       "spUsed": 21.52,
+       "hpUsed": 1893.0375999999999,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Fanat": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1567.9549135865675,
+    "ttk": 46.6,
+    "value": 0.7039511064473104,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 70.4733065809564,
+     "cycleS": 51.083171411355444,
+     "sitS": 2.359361411355448,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Fanat",
+       "weight": 25.53191489361702,
+       "fightS": 47.111309999999996,
+       "sitS": 2.359361411355448,
+       "spUsed": 5.3,
+       "hpUsed": 759.62,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Fanat": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 167
+  },
+  {
+   "move": "Off-hand: Keris +8",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1533.3407205710914,
+    "ttk": 48.135,
+    "value": 0.6872851246171202,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 68.80670839793738,
+     "cycleS": 52.32047984594359,
+     "sitS": 2.5167598459435956,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Fanat",
+       "weight": 25.53191489361702,
+       "fightS": 48.19122,
+       "sitS": 2.5167598459435956,
+       "spUsed": 7.46,
+       "hpUsed": 810.2959999999999,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Fanat": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 6395.463076493091,
+    "ttk": 11.578,
+    "value": 2.611648145057478,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 261.32120637819855,
+     "cycleS": 13.776149474795703,
+     "sitS": 0.6069194747957035,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Fanat",
+       "weight": 25.53191489361702,
+       "fightS": 11.55673,
+       "sitS": 0.6069194747957035,
+       "spUsed": 1.24,
+       "hpUsed": 198.2988000000002,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Fanat": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 705
+  },
+  {
+   "move": "Off-hand: Detector Card x3",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 6332.832392646418,
+    "ttk": 11.564,
+    "value": 2.591155229911051,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 259.2719148635558,
+     "cycleS": 13.885036494965265,
+     "sitS": 0.5612364949652623,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Fanat",
+       "weight": 25.53191489361702,
+       "fightS": 11.7113,
+       "sitS": 0.5612364949652623,
+       "spUsed": 0.84,
+       "hpUsed": 183.37280000000013,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Fanat": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 9832.937411679866,
+    "ttk": 7.498,
+    "value": 3.7991797226186623,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 380.07436413431697,
+     "cycleS": 9.471830619777798,
+     "sitS": 0.3157506197777984,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Fanat",
+       "weight": 25.53191489361702,
+       "fightS": 7.5435799999999995,
+       "sitS": 0.3157506197777984,
+       "spUsed": 0,
+       "hpUsed": 103.16520000000006,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Fanat": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 628
+  },
+  {
+   "move": "Weapon: Masamune +9",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 430.31829844013106,
+    "ttk": 69.946,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Detector": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 945.2789689587894,
+    "ttk": 32.6,
+    "value": 0.9945111372931877,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 99.51470625118907,
+     "cycleS": 36.17555772021369,
+     "sitS": 2.3191477202136905,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Detector",
+       "weight": 12.987012987012987,
+       "fightS": 32.24391,
+       "sitS": 2.3191477202136905,
+       "spUsed": 17.11,
+       "hpUsed": 746.6727999999997,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Detector": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 1876
+  },
+  {
+   "move": "Weapon: Hydrolancer Card x1",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 940.2361804992735,
+    "ttk": 32.48,
+    "value": 0.9862031896577254,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 98.68391148764283,
+     "cycleS": 36.480110544166976,
+     "sitS": 2.5033805441669745,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Detector",
+       "weight": 12.987012987012987,
+       "fightS": 32.36423,
+       "sitS": 2.5033805441669745,
+       "spUsed": 23.67,
+       "hpUsed": 805.988399999999,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Detector": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1229.4824951570404,
+    "ttk": 24.4,
+    "value": 1.244309537513619,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 124.4945462732322,
+     "cycleS": 28.916929357684182,
+     "sitS": 2.371329357684183,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Detector",
+       "weight": 12.987012987012987,
+       "fightS": 24.9331,
+       "sitS": 2.371329357684183,
+       "spUsed": 23.27,
+       "hpUsed": 763.4731999999995,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Detector": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 167
+  },
+  {
+   "move": "Off-hand: Master Dagger +8",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1209.0487867040047,
+    "ttk": 24.663,
+    "value": 1.2371384548589186,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 123.77743800776214,
+     "cycleS": 29.08446044726053,
+     "sitS": 2.203600447260529,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Detector",
+       "weight": 12.987012987012987,
+       "fightS": 25.26836,
+       "sitS": 2.203600447260529,
+       "spUsed": 17.46,
+       "hpUsed": 709.4711999999998,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Detector": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 4924.462243876308,
+    "ttk": 6.17,
+    "value": 4.257386101328112,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 425.8657951765518,
+     "cycleS": 8.453367330211488,
+     "sitS": 0.5685073302114894,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Detector",
+       "weight": 12.987012987012987,
+       "fightS": 6.27236,
+       "sitS": 0.5685073302114894,
+       "spUsed": 29.7,
+       "hpUsed": 185.7483999999999,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Detector": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 705
+  },
+  {
+   "move": "Off-hand: Mummy Card x1",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 4951.165259348612,
+    "ttk": 6.17,
+    "value": 4.338393702405095,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 433.9665552842501,
+     "cycleS": 8.29557014512785,
+     "sitS": 0.46557014512785067,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Detector",
+       "weight": 12.987012987012987,
+       "fightS": 6.2175,
+       "sitS": 0.46557014512785067,
+       "spUsed": 28.07,
+       "hpUsed": 87.64679999999993,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Detector": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 5900.268803822988,
+    "ttk": 5.49,
+    "value": 4.771553028262825,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 477.28248787002303,
+     "cycleS": 7.542702888735314,
+     "sitS": 0.7070628887353143,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Detector",
+       "weight": 12.987012987012987,
+       "fightS": 5.22314,
+       "sitS": 0.7070628887353143,
+       "spUsed": 42.63,
+       "hpUsed": 133.67759999999987,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Detector": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 157
+  },
+  {
+   "move": "Weapon: Lost Dagger +9 [Gioia Card + Venatu Card]",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1063.3838802873472,
+    "ttk": 18.52,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Agav": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1878.0895097758778,
+    "ttk": 10.252,
+    "value": 2.941345338112415,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 294.28574870160963,
+     "cycleS": 12.233008278121588,
+     "sitS": 0.27258827812158715,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Agav",
+       "weight": 17.318435754189945,
+       "fightS": 10.34792,
+       "sitS": 0.27258827812158715,
+       "spUsed": 16.64,
+       "hpUsed": 3.3839999999999963,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Agav": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 1876
+  },
+  {
+   "move": "Weapon: Bloody Murderer Card x2",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1973.6458149779735,
+    "ttk": 9.668,
+    "value": 3.0534179058033746,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 305.4930054707056,
+     "cycleS": 11.784230524208228,
+     "sitS": 0.2404805242082271,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Agav",
+       "weight": 17.318435754189945,
+       "fightS": 9.93125,
+       "sitS": 0.24048052420822713,
+       "spUsed": 14.68,
+       "hpUsed": 4.446800000000003,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Agav": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 2718.1227522189106,
+    "ttk": 7.372,
+    "value": 3.9019895903307047,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 390.3501739234386,
+     "cycleS": 9.22248852566436,
+     "sitS": 0.3361485256643611,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Agav",
+       "weight": 17.318435754189945,
+       "fightS": 7.27384,
+       "sitS": 0.3361485256643611,
+       "spUsed": 20.52,
+       "hpUsed": 3.836800000000003,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Agav": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 499
+  },
+  {
+   "move": "Off-hand: Sigrsverd +8",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 2462.544214884338,
+    "ttk": 8.052,
+    "value": 3.657639815565658,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 365.915196446934,
+     "cycleS": 9.838345154714235,
+     "sitS": 0.2647251547142337,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Agav",
+       "weight": 17.318435754189945,
+       "fightS": 7.96112,
+       "sitS": 0.2647251547142337,
+       "spUsed": 16.16,
+       "hpUsed": 2.321999999999989,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Agav": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 10624.527958749211,
+    "ttk": 1.36,
+    "value": 9.485345294811065,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 958.8369592618427,
+     "cycleS": 3.754548638562543,
+     "sitS": 0.27250863856254315,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Agav",
+       "weight": 17.318435754189945,
+       "fightS": 1.86954,
+       "sitS": 0.27250863856254315,
+       "spUsed": 16.43,
+       "hpUsed": 0,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Agav": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 705
+  },
+  {
+   "move": "Off-hand: Bloody Murderer Card x4",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 11421.565000231234,
+    "ttk": 1.36,
+    "value": 10.024107285798753,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1012.7131583606115,
+     "cycleS": 3.5548071734623354,
+     "sitS": 0.21246717346233585,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Agav",
+       "weight": 17.318435754189945,
+       "fightS": 1.7298399999999998,
+       "sitS": 0.21246717346233585,
+       "spUsed": 12.81,
+       "hpUsed": 1.085599999999995,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Agav": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 15239.922917555297,
+    "ttk": 1.36,
+    "value": 12.126795856832015,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1222.9820154639376,
+     "cycleS": 2.9436246440912233,
+     "sitS": 0.018244644091223217,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Agav",
+       "weight": 17.318435754189945,
+       "fightS": 1.31288,
+       "sitS": 0.018244644091223217,
+       "spUsed": 1.1,
+       "hpUsed": 0.8160000000000036,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Agav": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 785
+  },
+  {
+   "move": "Weapon: Lost Dagger +9 [Gioia Card + Venatu Card]",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1516.601623530882,
+    "ttk": 12.938,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Echio": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 2809.3613127117264,
+    "ttk": 7.14,
+    "value": 3.8229213346453785,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 382.5113429416547,
+     "cycleS": 9.411485610634863,
+     "sitS": 0.5431656106348618,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Echio",
+       "weight": 14.664804469273744,
+       "fightS": 7.25582,
+       "sitS": 0.5431656106348618,
+       "spUsed": 6.32,
+       "hpUsed": 174.8776000000001,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Echio": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 1876
+  },
+  {
+   "move": "Weapon: Bloody Murderer Card x2",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 2716.977941577869,
+    "ttk": 7.14,
+    "value": 3.6685420496723338,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 367.0734144443502,
+     "cycleS": 9.80730245869052,
+     "sitS": 0.6842924586905206,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Echio",
+       "weight": 14.664804469273744,
+       "fightS": 7.51051,
+       "sitS": 0.6842924586905206,
+       "spUsed": 7.85,
+       "hpUsed": 220.3148,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Echio": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 3834.726199629312,
+    "ttk": 5.44,
+    "value": 4.811309157685033,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 481.3501252456201,
+     "cycleS": 7.478963463784321,
+     "sitS": 0.48188346378432123,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Echio",
+       "weight": 14.664804469273744,
+       "fightS": 5.38458,
+       "sitS": 0.48188346378432123,
+       "spUsed": 5.17,
+       "hpUsed": 155.14720000000005,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Echio": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 499
+  },
+  {
+   "move": "Off-hand: Sigrsverd +8",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 3854.832271350335,
+    "ttk": 5.44,
+    "value": 4.735115942894526,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 473.73080376656947,
+     "cycleS": 7.599252510870915,
+     "sitS": 0.6257125108709156,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Echio",
+       "weight": 14.664804469273744,
+       "fightS": 5.36104,
+       "sitS": 0.6257125108709157,
+       "spUsed": 3.3,
+       "hpUsed": 201.45440000000002,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Echio": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 13682.444648237915,
+    "ttk": 1.7,
+    "value": 11.305559676237941,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1140.9943865780278,
+     "cycleS": 3.1551426039849417,
+     "sitS": 0.016042603984941638,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Echio",
+       "weight": 14.664804469273744,
+       "fightS": 1.5266,
+       "sitS": 0.016042603984941638,
+       "spUsed": 0,
+       "hpUsed": 5.2415999999999805,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Echio": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 705
+  },
+  {
+   "move": "Off-hand: Bloody Murderer Card x4",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 14049.435938759067,
+    "ttk": 1.36,
+    "value": 11.447820799531941,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1155.2204989074278,
+     "cycleS": 3.1162881920852077,
+     "sitS": 0.014588192085208009,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Echio",
+       "weight": 14.664804469273744,
+       "fightS": 1.4892,
+       "sitS": 0.014588192085208009,
+       "spUsed": 0,
+       "hpUsed": 4.766400000000012,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Echio": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 16600.89342188488,
+    "ttk": 1.36,
+    "value": 12.340294423433043,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1244.467861297538,
+     "cycleS": 2.8928027086585253,
+     "sitS": 0.015502708658525403,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Echio",
+       "weight": 14.664804469273744,
+       "fightS": 1.2648,
+       "sitS": 0.015502708658525403,
+       "spUsed": 0,
+       "hpUsed": 5.065200000000004,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Echio": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 785
+  },
+  {
+   "move": "Weapon: Lost Dagger +9 [Gioia Card + Venatu Card]",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1345.5164008523277,
+    "ttk": 12.24,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Vanberk": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 2558.0201525054463,
+    "ttk": 6.8,
+    "value": 4.3499259649466415,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 435.19410804814294,
+     "cycleS": 8.272170816250465,
+     "sitS": 0.05007081625046595,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Vanberk",
+       "weight": 16.75977653631285,
+       "fightS": 6.6096,
+       "sitS": 0.05007081625046595,
+       "spUsed": 0,
+       "hpUsed": 16.120800000000017,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Vanberk": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 1876
+  },
+  {
+   "move": "Weapon: Bloody Murderer Card x2",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 2622.0866873065015,
+    "ttk": 6.46,
+    "value": 4.420910467548641,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 442.29255830834285,
+     "cycleS": 8.139408932786681,
+     "sitS": 0.06690893278668161,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Vanberk",
+       "weight": 16.75977653631285,
+       "fightS": 6.46,
+       "sitS": 0.06690893278668161,
+       "spUsed": 0,
+       "hpUsed": 21.54200000000001,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Vanberk": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 3632.6311318751327,
+    "ttk": 4.76,
+    "value": 5.658814132731591,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 566.0829248266378,
+     "cycleS": 6.359492297179774,
+     "sitS": 0.03799229717977385,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Vanberk",
+       "weight": 16.75977653631285,
+       "fightS": 4.709,
+       "sitS": 0.03799229717977385,
+       "spUsed": 0,
+       "hpUsed": 12.231999999999989,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Vanberk": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 499
+  },
+  {
+   "move": "Off-hand: Sigrsverd +8",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 3606.313279223496,
+    "ttk": 5.1,
+    "value": 5.56987530531502,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 557.1890420849808,
+     "cycleS": 6.461002869921729,
+     "sitS": 0.06810286992172951,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Vanberk",
+       "weight": 16.75977653631285,
+       "fightS": 4.780399999999999,
+       "sitS": 0.06810286992172951,
+       "spUsed": 0,
+       "hpUsed": 21.92640000000003,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Vanberk": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 14159.033037872685,
+    "ttk": 1.36,
+    "value": 12.408473797274134,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1251.250402834371,
+     "cycleS": 2.8771219508462647,
+     "sitS": 0.02362195084626448,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Vanberk",
+       "weight": 16.75977653631285,
+       "fightS": 1.241,
+       "sitS": 0.02362195084626448,
+       "spUsed": 0,
+       "hpUsed": 7.717999999999993,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Vanberk": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 705
+  },
+  {
+   "move": "Off-hand: Bloody Murderer Card x4",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 13718.442814791699,
+    "ttk": 1.36,
+    "value": 12.271842585334117,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1237.5872816403692,
+     "cycleS": 2.9088857435803264,
+     "sitS": 0.014585743580326249,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Vanberk",
+       "weight": 16.75977653631285,
+       "fightS": 1.2818,
+       "sitS": 0.014585743580326249,
+       "spUsed": 0,
+       "hpUsed": 4.765599999999995,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Vanberk": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 16394.202217628266,
+    "ttk": 1.02,
+    "value": 13.284851775530155,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1338.888200659973,
+     "cycleS": 2.6887980626205126,
+     "sitS": 0.012098062620512315,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Vanberk",
+       "weight": 16.75977653631285,
+       "fightS": 1.0642,
+       "sitS": 0.012098062620512315,
+       "spUsed": 0,
+       "hpUsed": 3.9527999999999883,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Vanberk": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 785
+  },
+  {
+   "move": "Weapon: Lost Dagger +9 [Gioia Card + Venatu Card]",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1413.2002352338013,
+    "ttk": 13.26,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Isilla": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 2662.2076089241214,
+    "ttk": 6.8,
+    "value": 4.344715526824942,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 434.687761105241,
+     "cycleS": 8.281806671636229,
+     "sitS": 0.008706671636228095,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Isilla",
+       "weight": 21.787709497206706,
+       "fightS": 6.6606000000000005,
+       "sitS": 0.008706671636228095,
+       "spUsed": 0,
+       "hpUsed": 2.8031999999999972,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Isilla": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 1876
+  },
+  {
+   "move": "Weapon: Bloody Murderer Card x2",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 2623.3080171250954,
+    "ttk": 6.8,
+    "value": 4.261081818446495,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 426.3243902673963,
+     "cycleS": 8.44427408373711,
+     "sitS": 0.011374083737110224,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Isilla",
+       "weight": 21.787709497206706,
+       "fightS": 6.820399999999999,
+       "sitS": 0.011374083737110224,
+       "spUsed": 0,
+       "hpUsed": 3.6620000000000075,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Isilla": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 3528.482025032991,
+    "ttk": 5.1,
+    "value": 5.425332321925732,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 542.74944061532,
+     "cycleS": 6.632894906199528,
+     "sitS": 0.01899490619952788,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Isilla",
+       "weight": 21.787709497206706,
+       "fightS": 5.001399999999999,
+       "sitS": 0.01899490619952788,
+       "spUsed": 0,
+       "hpUsed": 6.115599999999995,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Isilla": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 499
+  },
+  {
+   "move": "Off-hand: Sigrsverd +8",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 3707.4862493177143,
+    "ttk": 4.76,
+    "value": 5.628992388860685,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 563.1154473088153,
+     "cycleS": 6.3930052304634115,
+     "sitS": 0.017105230463411586,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Isilla",
+       "weight": 21.787709497206706,
+       "fightS": 4.7634,
+       "sitS": 0.017105230463411586,
+       "spUsed": 0,
+       "hpUsed": 5.507199999999994,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Isilla": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 13542.088156017124,
+    "ttk": 1.36,
+    "value": 12.405240350203057,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1250.9564518657992,
+     "cycleS": 2.877798019771677,
+     "sitS": 0.003898019771676938,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Isilla",
+       "weight": 21.787709497206706,
+       "fightS": 1.2614,
+       "sitS": 0.003898019771676938,
+       "spUsed": 0,
+       "hpUsed": 1.2736000000000058,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Isilla": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 705
+  },
+  {
+   "move": "Off-hand: Bloody Murderer Card x4",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 14014.6977350497,
+    "ttk": 1.36,
+    "value": 12.535398734321861,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1263.9722902776796,
+     "cycleS": 2.84816370397576,
+     "sitS": 0.008263703975759804,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Isilla",
+       "weight": 21.787709497206706,
+       "fightS": 1.2274,
+       "sitS": 0.008263703975759804,
+       "spUsed": 0,
+       "hpUsed": 2.7,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Isilla": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 16767.184733425143,
+    "ttk": 1.02,
+    "value": 13.557440562245716,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1366.1764730700652,
+     "cycleS": 2.635091491445536,
+     "sitS": 0.0059914914455360775,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Isilla",
+       "weight": 21.787709497206706,
+       "fightS": 1.0166,
+       "sitS": 0.0059914914455360775,
+       "spUsed": 0,
+       "hpUsed": 1.9576000000000022,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Isilla": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 785
+  },
+  {
+   "move": "Weapon: Lost Dagger +9 [Gioia Card + Venatu Card]",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1417.7672394192355,
+    "ttk": 18.36,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Hodremlin": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 2527.0197864441807,
+    "ttk": 10.88,
+    "value": 2.8085098042016527,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 281.0613269667795,
+     "cycleS": 12.808592483538327,
+     "sitS": 0.7444924835383282,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Hodremlin",
+       "weight": 6.983240223463687,
+       "fightS": 10.451600000000001,
+       "sitS": 0.7444924835383281,
+       "spUsed": 0,
+       "hpUsed": 239.6968000000001,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Hodremlin": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 1876
+  },
+  {
+   "move": "Weapon: Observation Card x2",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 2607.1876844383237,
+    "ttk": 10.2,
+    "value": 2.8799037635915328,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 288.2007229057675,
+     "cycleS": 12.491294135917506,
+     "sitS": 0.7127941359175055,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Hodremlin",
+       "weight": 6.983240223463687,
+       "fightS": 10.166,
+       "sitS": 0.7127941359175055,
+       "spUsed": 0,
+       "hpUsed": 229.49120000000005,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Hodremlin": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 3515.6489555069675,
+    "ttk": 7.82,
+    "value": 3.6514806049446324,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 365.3584070410775,
+     "cycleS": 9.85333834016648,
+     "sitS": 0.6486383401664809,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Hodremlin",
+       "weight": 6.983240223463687,
+       "fightS": 7.5922,
+       "sitS": 0.6486383401664809,
+       "spUsed": 0,
+       "hpUsed": 208.83560000000017,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Hodremlin": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 499
+  },
+  {
+   "move": "Off-hand: Sigrsverd +6",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 3316.2089835934376,
+    "ttk": 8.16,
+    "value": 3.494727394898158,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 349.68308603643004,
+     "cycleS": 10.295036116287738,
+     "sitS": 0.685736116287738,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Hodremlin",
+       "weight": 6.983240223463687,
+       "fightS": 7.9968,
+       "sitS": 0.685736116287738,
+       "spUsed": 0,
+       "hpUsed": 220.77960000000013,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Hodremlin": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 12314.513168762045,
+    "ttk": 2.38,
+    "value": 9.38971432226532,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 949.3921253197606,
+     "cycleS": 3.7919,
+     "sitS": 0,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Hodremlin",
+       "weight": 6.983240223463687,
+       "fightS": 2.1794000000000002,
+       "sitS": 0,
+       "spUsed": 0,
+       "hpUsed": 0,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Hodremlin": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 705
+  },
+  {
+   "move": "Off-hand: Raydric Card x4",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 12537.708585811504,
+    "ttk": 2.38,
+    "value": 9.475611584728055,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 957.981851566034,
+     "cycleS": 3.7579000000000007,
+     "sitS": 0,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Hodremlin",
+       "weight": 6.983240223463687,
+       "fightS": 2.1454,
+       "sitS": 0,
+       "spUsed": 0,
+       "hpUsed": 0,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Hodremlin": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 13782.306825169093,
+    "ttk": 2.04,
+    "value": 9.996519760237996,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1010.0726691170282,
+     "cycleS": 3.5641,
+     "sitS": 0,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Hodremlin",
+       "weight": 6.983240223463687,
+       "fightS": 1.9516,
+       "sitS": 0,
+       "spUsed": 0,
+       "hpUsed": 0,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Hodremlin": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 785
+  },
+  {
+   "move": "Weapon: Lost Dagger +9",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1115.2232398096087,
+    "ttk": 14.58,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Seeker": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1936.4283444169268,
+    "ttk": 8.588,
+    "value": 3.5000786330918885,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 350.1694354329258,
+     "cycleS": 10.280737368037856,
+     "sitS": 0.3300873680378595,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Seeker",
+       "weight": 14.804469273743017,
+       "fightS": 8.338149999999999,
+       "sitS": 0.33008736803785943,
+       "spUsed": 20.15,
+       "hpUsed": 1.83,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Seeker": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 1876
+  },
+  {
+   "move": "Weapon: Chocolate Bear Card x2",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1936.1109150781015,
+    "ttk": 8.466,
+    "value": 3.477624230921301,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 347.923995215867,
+     "cycleS": 10.347087437204223,
+     "sitS": 0.3743174372042228,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Seeker",
+       "weight": 14.804469273743017,
+       "fightS": 8.36027,
+       "sitS": 0.3743174372042228,
+       "spUsed": 22.85,
+       "hpUsed": 2.9239999999999964,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Seeker": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 3025.4771852215945,
+    "ttk": 5.1,
+    "value": 5.048611224753156,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 505.02269459905256,
+     "cycleS": 7.128392522752093,
+     "sitS": 0.14481252275209316,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Seeker",
+       "weight": 14.804469273743017,
+       "fightS": 5.37108,
+       "sitS": 0.14481252275209316,
+       "spUsed": 8.84,
+       "hpUsed": 1.15,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Seeker": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 501
+  },
+  {
+   "move": "Off-hand: Sigrsverd +8",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 3069.4753408695387,
+    "ttk": 5.44,
+    "value": 5.117720519577872,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 511.93362408152416,
+     "cycleS": 7.032161652712049,
+     "sitS": 0.13318165271204951,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Seeker",
+       "weight": 14.804469273743017,
+       "fightS": 5.286479999999999,
+       "sitS": 0.13318165271204951,
+       "spUsed": 8.13,
+       "hpUsed": 1.7763999999999942,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Seeker": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 12969.190983480006,
+    "ttk": 1.36,
+    "value": 12.245585671001871,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1234.881711347661,
+     "cycleS": 2.915258981421969,
+     "sitS": 0.007358981421969227,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Seeker",
+       "weight": 14.804469273743017,
+       "fightS": 1.2954,
+       "sitS": 0.007358981421969227,
+       "spUsed": 0,
+       "hpUsed": 2.404400000000005,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Seeker": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 705
+  },
+  {
+   "move": "Off-hand: Chocolate Bear Card x4",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 12566.123949579833,
+    "ttk": 1.36,
+    "value": 12.107714501800494,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1221.0945944275234,
+     "cycleS": 2.9481745447311236,
+     "sitS": 0.0028745447311235603,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Seeker",
+       "weight": 14.804469273743017,
+       "fightS": 1.3328,
+       "sitS": 0.0028745447311235603,
+       "spUsed": 0,
+       "hpUsed": 0.9392000000000007,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Seeker": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 15017.719014211189,
+    "ttk": 1.02,
+    "value": 13.098417192508915,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1320.1648634983653,
+     "cycleS": 2.7269321427478346,
+     "sitS": 0.0026321427478346038,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Seeker",
+       "weight": 14.804469273743017,
+       "fightS": 1.1118,
+       "sitS": 0.0026321427478346038,
+       "spUsed": 0,
+       "hpUsed": 0.86,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Seeker": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 785
+  },
+  {
+   "move": "Weapon: Lost Dagger +9 [Gioia Card + Venatu Card]",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1249.348605131102,
+    "ttk": 14.933,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Tricked Follower": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 2311.174529541681,
+    "ttk": 8.161,
+    "value": 3.515672461441598,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 351.7497009746068,
+     "cycleS": 10.23455027829544,
+     "sitS": 0.5942402782954406,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Tricked Follower",
+       "weight": 7.681564245810056,
+       "fightS": 8.02781,
+       "sitS": 0.5942402782954406,
+       "spUsed": 0,
+       "hpUsed": 191.32160000000005,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Tricked Follower": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 1876
+  },
+  {
+   "move": "Weapon: Bloody Murderer Card x2",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 2378.854184451425,
+    "ttk": 7.97,
+    "value": 3.5451359394826967,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 354.69604877871666,
+     "cycleS": 10.149535108709156,
+     "sitS": 0.7471251087091568,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Tricked Follower",
+       "weight": 7.681564245810056,
+       "fightS": 7.78991,
+       "sitS": 0.7471251087091568,
+       "spUsed": 0,
+       "hpUsed": 240.5444000000001,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Tricked Follower": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 3246.053308260131,
+    "ttk": 5.93,
+    "value": 4.328188422871593,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 433.0012971176062,
+     "cycleS": 8.314062853770654,
+     "sitS": 0.9264728537706544,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Tricked Follower",
+       "weight": 7.681564245810056,
+       "fightS": 5.7750900000000005,
+       "sitS": 0.9264728537706544,
+       "spUsed": 0,
+       "hpUsed": 298.28719999999987,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Tricked Follower": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 499
+  },
+  {
+   "move": "Off-hand: Sigrsverd +8",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 3233.4584563767694,
+    "ttk": 5.78,
+    "value": 4.301698033327976,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 430.3522581632445,
+     "cycleS": 8.36524017641943,
+     "sitS": 0.982420176419431,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Tricked Follower",
+       "weight": 7.681564245810056,
+       "fightS": 5.77032,
+       "sitS": 0.9824201764194309,
+       "spUsed": 0,
+       "hpUsed": 316.29999999999995,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Tricked Follower": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 13769.026870007263,
+    "ttk": 1.36,
+    "value": 11.904042482853757,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1200.7691579462696,
+     "cycleS": 2.998078336853059,
+     "sitS": 0.008578336853059067,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Tricked Follower",
+       "weight": 7.681564245810056,
+       "fightS": 1.377,
+       "sitS": 0.008578336853059067,
+       "spUsed": 0,
+       "hpUsed": 2.8027999999999884,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Tricked Follower": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 705
+  },
+  {
+   "move": "Off-hand: Bloody Murderer Card x4",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 13251.802431186252,
+    "ttk": 1.36,
+    "value": 11.643530526585966,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1174.7179623194904,
+     "cycleS": 3.0645653812016036,
+     "sitS": 0.020665381201603793,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Tricked Follower",
+       "weight": 7.681564245810056,
+       "fightS": 1.4314,
+       "sitS": 0.020665381201603793,
+       "spUsed": 0,
+       "hpUsed": 6.752000000000007,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Tricked Follower": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 15286.023465990169,
+    "ttk": 1.36,
+    "value": 12.338713693643587,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1244.2362790252525,
+     "cycleS": 2.8933411287607504,
+     "sitS": 0.019441128760750433,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Tricked Follower",
+       "weight": 7.681564245810056,
+       "fightS": 1.2614,
+       "sitS": 0.019441128760750433,
+       "spUsed": 0,
+       "hpUsed": 6.351999999999989,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Tricked Follower": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 785
+  },
+  {
+   "move": "Weapon: Lost Dagger +9 [Gioia Card in the empty sockets]",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 674.6767710967508,
+    "ttk": 61.88,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Gentleman": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1701.1474782353755,
+    "ttk": 24.65,
+    "value": 1.2795645526965547,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 128.05936368306988,
+     "cycleS": 28.1119622686048,
+     "sitS": 1.9412622686047978,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Gentleman",
+       "weight": 25.089605734767026,
+       "fightS": 24.5582,
+       "sitS": 1.9412622686047978,
+       "spUsed": 3.36,
+       "hpUsed": 625.0088000000006,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Gentleman": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 1876
+  },
+  {
+   "move": "Weapon: Observation Card x2",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1721.5372669531564,
+    "ttk": 24.31,
+    "value": 1.3132315147936928,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 131.42605989278368,
+     "cycleS": 27.39182779227233,
+     "sitS": 1.4387277922723327,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Gentleman",
+       "weight": 25.089605734767026,
+       "fightS": 24.3406,
+       "sitS": 1.438727792272333,
+       "spUsed": 1.92,
+       "hpUsed": 463.2128000000003,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Gentleman": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 2255.4083861457516,
+    "ttk": 19.04,
+    "value": 1.6319621612854096,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 163.29912454195536,
+     "cycleS": 22.045433556963594,
+     "sitS": 1.8451335569635972,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Gentleman",
+       "weight": 25.089605734767026,
+       "fightS": 18.587799999999998,
+       "sitS": 1.8451335569635972,
+       "spUsed": 6,
+       "hpUsed": 594.0591999999997,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Gentleman": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 498
+  },
+  {
+   "move": "Off-hand: Sigrsverd +8",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 2200.884429931801,
+    "ttk": 19.04,
+    "value": 1.6046978147410411,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 160.57268988751852,
+     "cycleS": 22.419752714622934,
+     "sitS": 1.7893527146229333,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Gentleman",
+       "weight": 25.089605734767026,
+       "fightS": 19.0179,
+       "sitS": 1.7893527146229333,
+       "spUsed": 4.18,
+       "hpUsed": 576.0999999999996,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Gentleman": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 10628.77630984076,
+    "ttk": 4.08,
+    "value": 6.321277710475652,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 642.333587874394,
+     "cycleS": 5.604564463012274,
+     "sitS": 0.01066446301227304,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Gentleman",
+       "weight": 25.089605734767026,
+       "fightS": 3.9814000000000003,
+       "sitS": 0.010664463012273038,
+       "spUsed": 0.03,
+       "hpUsed": 3.484399999999969,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Gentleman": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 705
+  },
+  {
+   "move": "Off-hand: Aspect of Torment Card x4",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 10655.063259236857,
+    "ttk": 4.08,
+    "value": 6.24566411539447,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 634.7722283662757,
+     "cycleS": 5.671325617482325,
+     "sitS": 0.09102561748232481,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Gentleman",
+       "weight": 25.089605734767026,
+       "fightS": 3.9678,
+       "sitS": 0.09102561748232481,
+       "spUsed": 0,
+       "hpUsed": 29.740799999999982,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Gentleman": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 12642.27680961161,
+    "ttk": 3.4,
+    "value": 7.044697927914607,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 714.6756096182894,
+     "cycleS": 5.037250399412359,
+     "sitS": 0.062150399412358816,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Gentleman",
+       "weight": 25.089605734767026,
+       "fightS": 3.3626,
+       "sitS": 0.062150399412358816,
+       "spUsed": 0,
+       "hpUsed": 20.306399999999993,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Gentleman": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 785
+  },
+  {
+   "move": "Weapon: Lost Dagger +9",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 570.3622935162698,
+    "ttk": 68.386,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Maiden of Past": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1268.7894744061816,
+    "ttk": 29.874,
+    "value": 1.1043824404121485,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 110.52217228267831,
+     "cycleS": 32.57264968329086,
+     "sitS": 0.3422096832908627,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Maiden of Past",
+       "weight": 8.243727598566307,
+       "fightS": 30.617939999999997,
+       "sitS": 0.3422096832908627,
+       "spUsed": 20.89,
+       "hpUsed": 2.348799999999992,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Maiden of Past": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 1876
+  },
+  {
+   "move": "Weapon: Bloody Murderer Card x2",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1241.6848477173107,
+    "ttk": 30.53,
+    "value": 1.0796295312336366,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 108.04688136482713,
+     "cycleS": 33.31887005460502,
+     "sitS": 0.4375500546050236,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Maiden of Past",
+       "weight": 8.243727598566307,
+       "fightS": 31.268819999999998,
+       "sitS": 0.4375500546050236,
+       "spUsed": 26.71,
+       "hpUsed": 0,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Maiden of Past": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1909.3922083016648,
+    "ttk": 20.16,
+    "value": 1.6118958127180143,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 161.27350951326488,
+     "cycleS": 22.32232690207499,
+     "sitS": 0.31632690207499087,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Maiden of Past",
+       "weight": 8.243727598566307,
+       "fightS": 20.3935,
+       "sitS": 0.31632690207499087,
+       "spUsed": 19.31,
+       "hpUsed": 0,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Maiden of Past": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 501
+  },
+  {
+   "move": "Off-hand: Sigrsverd +6",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1936.787323657971,
+    "ttk": 19.821,
+    "value": 1.6353856092042207,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 163.62248916188554,
+     "cycleS": 22.001865504186384,
+     "sitS": 0.2750455041863851,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Maiden of Past",
+       "weight": 8.243727598566307,
+       "fightS": 20.11432,
+       "sitS": 0.2750455041863851,
+       "spUsed": 16.79,
+       "hpUsed": 0,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Maiden of Past": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 10910.750186047027,
+    "ttk": 3.4,
+    "value": 6.753865382825244,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 685.5543947654513,
+     "cycleS": 5.251224450587422,
+     "sitS": 0.037484450587422245,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Maiden of Past",
+       "weight": 8.243727598566307,
+       "fightS": 3.6012399999999998,
+       "sitS": 0.037484450587422245,
+       "spUsed": 2.26,
+       "hpUsed": 0.9771999999999934,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Maiden of Past": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 705
+  },
+  {
+   "move": "Off-hand: Bloody Murderer Card x4",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 10792.42740630603,
+    "ttk": 3.74,
+    "value": 6.703663036263392,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 680.5341601092662,
+     "cycleS": 5.289962225293711,
+     "sitS": 0.018742225293711123,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Maiden of Past",
+       "weight": 8.243727598566307,
+       "fightS": 3.6587199999999998,
+       "sitS": 0.018742225293711123,
+       "spUsed": 1.13,
+       "hpUsed": 0,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Maiden of Past": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 12268.288883349951,
+    "ttk": 3.06,
+    "value": 7.363948444150221,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 746.5627008979491,
+     "cycleS": 4.8221,
+     "sitS": 0,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Maiden of Past",
+       "weight": 8.243727598566307,
+       "fightS": 3.2096,
+       "sitS": 0,
+       "spUsed": 0,
+       "hpUsed": 0,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Maiden of Past": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 785
+  },
+  {
+   "move": "Weapon: Lost Dagger +9",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 509.02909861521806,
+    "ttk": 82.462,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Lost Codex": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1234.3398164786713,
+    "ttk": 34.479,
+    "value": 0.9206244573823159,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 92.13888527914288,
+     "cycleS": 39.0714516362281,
+     "sitS": 3.1566716362281033,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Lost Codex",
+       "weight": 25.089605734767026,
+       "fightS": 34.302279999999996,
+       "sitS": 3.156671636228103,
+       "spUsed": 3.12,
+       "hpUsed": 1016.322,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Lost Codex": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 1876
+  },
+  {
+   "move": "Weapon: Skeleton General Card x2",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1241.4683463177544,
+    "ttk": 34.048,
+    "value": 0.9358851017639964,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 93.66494971731093,
+     "cycleS": 38.43486822835134,
+     "sitS": 2.6827382283513463,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Lost Codex",
+       "weight": 25.089605734767026,
+       "fightS": 34.13963,
+       "sitS": 2.682738228351347,
+       "spUsed": 7.95,
+       "hpUsed": 863.7343999999996,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Lost Codex": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 2277.3518824632324,
+    "ttk": 18.613,
+    "value": 1.605199920934476,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 160.5964316343589,
+     "cycleS": 22.416438294198038,
+     "sitS": 2.104768294198039,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Lost Codex",
+       "weight": 25.089605734767026,
+       "fightS": 18.69917,
+       "sitS": 2.104768294198039,
+       "spUsed": 7.12,
+       "hpUsed": 677.6512000000006,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Lost Codex": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 501
+  },
+  {
+   "move": "Off-hand: Sigrsverd +8",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 2279.5310349834153,
+    "ttk": 18.917,
+    "value": 1.5661024139627295,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 156.68668093718426,
+     "cycleS": 22.97578823207852,
+     "sitS": 2.629268232078522,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Lost Codex",
+       "weight": 25.089605734767026,
+       "fightS": 18.73402,
+       "sitS": 2.629268232078522,
+       "spUsed": 3.8,
+       "hpUsed": 846.5192000000009,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Lost Codex": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 8302.484238443463,
+    "ttk": 5.384,
+    "value": 3.5035835851348796,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 360.51123759531055,
+     "cycleS": 9.985819094053195,
+     "sitS": 3.2151990940531934,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Lost Codex",
+       "weight": 25.089605734767026,
+       "fightS": 5.15812,
+       "sitS": 3.2151990940531934,
+       "spUsed": 1.65,
+       "hpUsed": 1050.5019999999997,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Lost Codex": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 705
+  },
+  {
+   "move": "Off-hand: Chocolate Bear Card x4",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 8405.348034214863,
+    "ttk": 5.064,
+    "value": 3.570717245485153,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 367.22460363033787,
+     "cycleS": 9.803264717044655,
+     "sitS": 3.093564717044654,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Lost Codex",
+       "weight": 25.089605734767026,
+       "fightS": 5.0972,
+       "sitS": 3.093564717044654,
+       "spUsed": 1.68,
+       "hpUsed": 1010.7603999999998,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Lost Codex": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 10078.490942267537,
+    "ttk": 4.08,
+    "value": 4.200802488470377,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 430.23312792886026,
+     "cycleS": 8.367556485783368,
+     "sitS": 2.502336485783368,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Lost Codex",
+       "weight": 25.089605734767026,
+       "fightS": 4.25272,
+       "sitS": 2.502336485783368,
+       "spUsed": 0.57,
+       "hpUsed": 817.5883999999996,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Lost Codex": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 785
+  },
+  {
+   "move": "Weapon: Lost Dagger +9",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 572.5404526320339,
+    "ttk": 79.961,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Maiden of Present": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1480.1603212935058,
+    "ttk": 31.28,
+    "value": 1.0092362660119358,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 101.00888738807797,
+     "cycleS": 35.64042821468506,
+     "sitS": 3.3021282146850557,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Maiden of Present",
+       "weight": 21.50537634408602,
+       "fightS": 30.7258,
+       "sitS": 3.302128214685056,
+       "spUsed": 18.07,
+       "hpUsed": 1063.1532000000007,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Maiden of Present": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 1876
+  },
+  {
+   "move": "Weapon: Bloody Murderer Card x2",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1518.3005794616377,
+    "ttk": 30.09,
+    "value": 1.0387108853313263,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 103.956349320017,
+     "cycleS": 34.629919418561315,
+     "sitS": 3.0413194185613155,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Maiden of Present",
+       "weight": 21.50537634408602,
+       "fightS": 29.9761,
+       "sitS": 3.0413194185613155,
+       "spUsed": 17.63,
+       "hpUsed": 979.1832000000011,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Maiden of Present": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 2310.420225832213,
+    "ttk": 20.06,
+    "value": 1.467311348571351,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 146.81639564401948,
+     "cycleS": 24.520422151820103,
+     "sitS": 3.123322151820104,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Maiden of Present",
+       "weight": 21.50537634408602,
+       "fightS": 19.784599999999998,
+       "sitS": 3.123322151820104,
+       "spUsed": 12.34,
+       "hpUsed": 1005.5848000000005,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Maiden of Present": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 501
+  },
+  {
+   "move": "Off-hand: Sigrsverd +8",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 2266.01213622291,
+    "ttk": 19.89,
+    "value": 1.416240519236336,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 141.709312710518,
+     "cycleS": 25.4041172816499,
+     "sitS": 3.6041172816498985,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Maiden of Present",
+       "weight": 21.50537634408602,
+       "fightS": 20.1875,
+       "sitS": 3.604117281649898,
+       "spUsed": 16.12,
+       "hpUsed": 1160.381600000001,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Maiden of Present": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 10756.390819610953,
+    "ttk": 4.42,
+    "value": 5.997521160646143,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 609.9226376383831,
+     "cycleS": 5.902387906012439,
+     "sitS": 0.0024879060124395297,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Maiden of Present",
+       "weight": 21.50537634408602,
+       "fightS": 4.2874,
+       "sitS": 0.0024879060124395297,
+       "spUsed": 0.15,
+       "hpUsed": 0,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Maiden of Present": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 705
+  },
+  {
+   "move": "Off-hand: Bloody Murderer Card x4",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 10578.783641281922,
+    "ttk": 4.42,
+    "value": 5.92069259642503,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 602.2397812162717,
+     "cycleS": 5.977685487214927,
+     "sitS": 0.0029854872149274354,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Maiden of Present",
+       "weight": 21.50537634408602,
+       "fightS": 4.3622,
+       "sitS": 0.0029854872149274354,
+       "spUsed": 0.18,
+       "hpUsed": 0,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Maiden of Present": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 12105.696235713536,
+    "ttk": 3.74,
+    "value": 6.527014767724788,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 662.8719983462476,
+     "cycleS": 5.430912768952958,
+     "sitS": 0.0036127689529580715,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Maiden of Present",
+       "weight": 21.50537634408602,
+       "fightS": 3.8148,
+       "sitS": 0.0036127689529580715,
+       "spUsed": 0,
+       "hpUsed": 1.1803999999999906,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Maiden of Present": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 785
+  },
+  {
+   "move": "Weapon: Lost Dagger +9",
+   "before": {
+    "win": 0,
+    "loss": 0,
+    "dps": 363.59759921018053,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Maiden of Future": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 894.4712264983737,
+    "ttk": 67.139,
+    "value": 0.5189538970622496,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 51.94917543912237,
+     "cycleS": 69.29850126723818,
+     "sitS": 0.8502012672381674,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Maiden of Future",
+       "weight": 10.75268817204301,
+       "fightS": 66.8358,
+       "sitS": 0.8502012672381674,
+       "spUsed": 31.64,
+       "hpUsed": 273.73080000000033,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Maiden of Future": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 1876
+  },
+  {
+   "move": "Weapon: Bloody Murderer Card x2",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 878.6177165501284,
+    "ttk": 68.601,
+    "value": 0.511744741926183,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 51.22825992551572,
+     "cycleS": 70.2737123071189,
+     "sitS": 0.6120723071188975,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Maiden of Future",
+       "weight": 10.75268817204301,
+       "fightS": 68.04914,
+       "sitS": 0.6120723071188975,
+       "spUsed": 31.09,
+       "hpUsed": 197.0628000000002,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Maiden of Future": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1375.2038519623782,
+    "ttk": 44.471,
+    "value": 0.7885517721048003,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 78.90896294337745,
+     "cycleS": 45.62219380050965,
+     "sitS": 0.3934838005096468,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Maiden of Future",
+       "weight": 10.75268817204301,
+       "fightS": 43.61621,
+       "sitS": 0.3934838005096468,
+       "spUsed": 24.02,
+       "hpUsed": 44.11359999999999,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Maiden of Future": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 501
+  },
+  {
+   "move": "Off-hand: Sigrsverd +8",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1410.0878680481367,
+    "ttk": 42.598,
+    "value": 0.8086565117176701,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 80.91943690466442,
+     "cycleS": 44.488693170731715,
+     "sitS": 0.4170731707317073,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Maiden of Future",
+       "weight": 10.75268817204301,
+       "fightS": 42.459120000000006,
+       "sitS": 0.4170731707317073,
+       "spUsed": 25.46,
+       "hpUsed": 27.952399999999944,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Maiden of Future": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 6716.313847543429,
+    "ttk": 8.96,
+    "value": 3.0866142964454775,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 318.7690011103426,
+     "cycleS": 11.293444429854873,
+     "sitS": 0.690974429854872,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Maiden of Future",
+       "weight": 10.75268817204301,
+       "fightS": 8.98997,
+       "sitS": 0.690974429854872,
+       "spUsed": 41.66,
+       "hpUsed": 3.2360000000000038,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Maiden of Future": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 705
+  },
+  {
+   "move": "Off-hand: Bloody Murderer Card x4",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 6749.154837364052,
+    "ttk": 8.945,
+    "value": 3.108872574432004,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 320.9948289089952,
+     "cycleS": 11.215133939184518,
+     "sitS": 0.6369039391845196,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Maiden of Future",
+       "weight": 10.75268817204301,
+       "fightS": 8.965729999999999,
+       "sitS": 0.6369039391845196,
+       "spUsed": 38.4,
+       "hpUsed": 17.78039999999999,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Maiden of Future": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 7537.467832221838,
+    "ttk": 8.265,
+    "value": 3.3099702900511545,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 341.10460047091027,
+     "cycleS": 10.553947366966138,
+     "sitS": 0.9132273669661368,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Maiden of Future",
+       "weight": 10.75268817204301,
+       "fightS": 8.028220000000001,
+       "sitS": 0.9132273669661367,
+       "spUsed": 55.06,
+       "hpUsed": 11.937999999999994,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Maiden of Future": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 785
+  },
+  {
+   "move": "Weapon: Lost Dagger +9 [Gioia Card in the empty sockets]",
+   "before": {
+    "win": 0.98,
+    "loss": 0,
+    "dps": 503.1534212778709,
+    "ttk": 96.22,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Cavalier": {
+      "win": 0.98,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1479.2818742708696,
+    "ttk": 33.15,
+    "value": 0.9614260670198338,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 96.21828326712999,
+     "cycleS": 37.41492653745807,
+     "sitS": 2.54362653745807,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Cavalier",
+       "weight": 6.810035842293907,
+       "fightS": 33.2588,
+       "sitS": 2.54362653745807,
+       "spUsed": 15.69,
+       "hpUsed": 818.9460000000003,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Cavalier": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 1876
+  },
+  {
+   "move": "Weapon: Observation Card x2",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1475.28430175489,
+    "ttk": 33.49,
+    "value": 0.9527776736226552,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 95.35344392741213,
+     "cycleS": 37.75427348738974,
+     "sitS": 2.726573487389738,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Cavalier",
+       "weight": 6.810035842293907,
+       "fightS": 33.4152,
+       "sitS": 2.726573487389738,
+       "spUsed": 7.18,
+       "hpUsed": 877.8476,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Cavalier": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1985.0308276263731,
+    "ttk": 24.82,
+    "value": 1.2382702453759746,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 123.90270110274406,
+     "cycleS": 29.05505665300037,
+     "sitS": 2.546056653000371,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Cavalier",
+       "weight": 6.810035842293907,
+       "fightS": 24.8965,
+       "sitS": 2.5460566530003717,
+       "spUsed": 7.84,
+       "hpUsed": 819.7283999999996,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Cavalier": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 498
+  },
+  {
+   "move": "Off-hand: Sigrsverd +8",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1963.4511502374517,
+    "ttk": 24.99,
+    "value": 1.225320924306663,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 122.60776899581289,
+     "cycleS": 29.36192404025345,
+     "sitS": 2.628524040253448,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Cavalier",
+       "weight": 6.810035842293907,
+       "fightS": 25.120900000000002,
+       "sitS": 2.628524040253448,
+       "spUsed": 13.18,
+       "hpUsed": 846.2796000000001,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Cavalier": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 10141.83187461836,
+    "ttk": 4.76,
+    "value": 5.329201309828789,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 543.0714841131721,
+     "cycleS": 6.628961573776513,
+     "sitS": 0.10346157377651267,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Cavalier",
+       "weight": 6.810035842293907,
+       "fightS": 4.913,
+       "sitS": 0.10346157377651267,
+       "spUsed": 1.32,
+       "hpUsed": 33.80399999999998,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Cavalier": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 705
+  },
+  {
+   "move": "Off-hand: Aspect of Torment Card x4",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 10390.82787124786,
+    "ttk": 4.76,
+    "value": 5.37719948469604,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 547.8713015998972,
+     "cycleS": 6.570886245523827,
+     "sitS": 0.1677862455238267,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Cavalier",
+       "weight": 6.810035842293907,
+       "fightS": 4.7906,
+       "sitS": 0.16778624552382673,
+       "spUsed": 1.14,
+       "hpUsed": 54.820799999999906,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Cavalier": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 12305.584294019116,
+    "ttk": 4.08,
+    "value": 6.078613496161257,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 618.0127027464189,
+     "cycleS": 5.8251229853395765,
+     "sitS": 0.1530229853395769,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Cavalier",
+       "weight": 6.810035842293907,
+       "fightS": 4.0596,
+       "sitS": 0.1530229853395769,
+       "spUsed": 0,
+       "hpUsed": 49.99719999999996,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Cavalier": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 785
+  },
+  {
+   "move": "Weapon: Lost Dagger +9",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1440.5006487889273,
+    "ttk": 4.08,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Orc Skeleton": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 2526.5449307685158,
+    "ttk": 2.38,
+    "value": 9.55506775727596,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 955.720364395814,
+     "cycleS": 3.7667921853646416,
+     "sitS": 0.0020921853646415885,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Orc Skeleton",
+       "weight": 14.285714285714286,
+       "fightS": 2.1521999999999997,
+       "sitS": 0.0020921853646415885,
+       "spUsed": 0,
+       "hpUsed": 0.6736000000000059,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Orc Skeleton": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 1876
+  },
+  {
+   "move": "Weapon: Megalodon Card x2",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 2507.531055900621,
+    "ttk": 2.38,
+    "value": 9.46130311818197,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 946.3439004864149,
+     "cycleS": 3.8041139147720213,
+     "sitS": 0.002013914772021374,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Orc Skeleton",
+       "weight": 14.285714285714286,
+       "fightS": 2.1896,
+       "sitS": 0.002013914772021374,
+       "spUsed": 0,
+       "hpUsed": 0.6484000000000014,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Orc Skeleton": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 3691.8855042016808,
+    "ttk": 1.7,
+    "value": 11.468878114986422,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1147.1014001668602,
+     "cycleS": 3.1383450490744194,
+     "sitS": 0.0026450490744191783,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Orc Skeleton",
+       "weight": 14.285714285714286,
+       "fightS": 1.5232,
+       "sitS": 0.0026450490744191783,
+       "spUsed": 0,
+       "hpUsed": 0.8515999999999986,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Orc Skeleton": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 501
+  },
+  {
+   "move": "Off-hand: Sigrsverd +6",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 3788.094600026799,
+    "ttk": 1.7,
+    "value": 11.578469471274541,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1158.060535795672,
+     "cycleS": 3.1086457820847313,
+     "sitS": 0.0035457820847310186,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Orc Skeleton",
+       "weight": 14.285714285714286,
+       "fightS": 1.4926,
+       "sitS": 0.0035457820847310186,
+       "spUsed": 0,
+       "hpUsed": 1.1415999999999986,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Orc Skeleton": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 18618.132201334145,
+    "ttk": 0.34,
+    "value": 18.430455096841065,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1853.4726870205425,
+     "cycleS": 1.9423000000000001,
+     "sitS": 0,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Orc Skeleton",
+       "weight": 14.285714285714286,
+       "fightS": 0.32980000000000004,
+       "sitS": 0,
+       "spUsed": 0,
+       "hpUsed": 0,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Orc Skeleton": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 705
+  },
+  {
+   "move": "Off-hand: The Paper Card x4",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 18835.60371517028,
+    "ttk": 0.34,
+    "value": 18.477942650790716,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1858.2214424155077,
+     "cycleS": 1.93733637866128,
+     "sitS": 0.001836378661279956,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Orc Skeleton",
+       "weight": 14.285714285714286,
+       "fightS": 0.323,
+       "sitS": 0.001836378661279956,
+       "spUsed": 0,
+       "hpUsed": 0.6,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Orc Skeleton": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 21626.506024096387,
+    "ttk": 0.34,
+    "value": 18.877699996358054,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1898.1971769722413,
+     "cycleS": 1.8965363786612803,
+     "sitS": 0.001836378661279956,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Orc Skeleton",
+       "weight": 14.285714285714286,
+       "fightS": 0.2822,
+       "sitS": 0.001836378661279956,
+       "spUsed": 0,
+       "hpUsed": 0.6,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Orc Skeleton": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 785
+  },
+  {
+   "move": "Weapon: Lost Dagger +9",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1520.7910750507099,
+    "ttk": 3.4,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Orc Zombie": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 2550.826859045505,
+    "ttk": 1.7,
+    "value": 10.536229050036754,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1053.8382398453043,
+     "cycleS": 3.41608404770779,
+     "sitS": 0.0015840477077897876,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Orc Zombie",
+       "weight": 16.666666666666668,
+       "fightS": 1.802,
+       "sitS": 0.0015840477077897876,
+       "spUsed": 0,
+       "hpUsed": 0.51,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Orc Zombie": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 1876
+  },
+  {
+   "move": "Weapon: Megalodon Card x2",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 2514.987541978117,
+    "ttk": 2.04,
+    "value": 10.3946176720667,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1039.6771020482988,
+     "cycleS": 3.4626135296310103,
+     "sitS": 0.0039135296310100634,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Orc Zombie",
+       "weight": 16.666666666666668,
+       "fightS": 1.8462,
+       "sitS": 0.0039135296310100634,
+       "spUsed": 0,
+       "hpUsed": 1.26,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Orc Zombie": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 3760.4636492666773,
+    "ttk": 1.36,
+    "value": 12.46602459035359,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1246.817793876988,
+     "cycleS": 2.887350515591999,
+     "sitS": 0.0066505155919990315,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Orc Zombie",
+       "weight": 16.666666666666668,
+       "fightS": 1.2682,
+       "sitS": 0.0066505155919990315,
+       "spUsed": 0,
+       "hpUsed": 2.141200000000008,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Orc Zombie": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 501
+  },
+  {
+   "move": "Off-hand: Masamune +6",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 3997.5435425566875,
+    "ttk": 1.36,
+    "value": 12.70994121123989,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1271.209455965618,
+     "cycleS": 2.831948726549882,
+     "sitS": 0.0022487265498820183,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Orc Zombie",
+       "weight": 16.666666666666668,
+       "fightS": 1.2172,
+       "sitS": 0.0022487265498820183,
+       "spUsed": 0,
+       "hpUsed": 0.7240000000000145,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Orc Zombie": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 13245.941558441558,
+    "ttk": 0.44,
+    "value": 18.872521995947032,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1887.6828692779611,
+     "cycleS": 1.9071000000000002,
+     "sitS": 0,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Orc Zombie",
+       "weight": 16.666666666666668,
+       "fightS": 0.36960000000000004,
+       "sitS": 0,
+       "spUsed": 0,
+       "hpUsed": 0,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Orc Zombie": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 705
+  },
+  {
+   "move": "Off-hand: Incantation Samurai Card x1",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 13130.24064171123,
+    "ttk": 0.44,
+    "value": 18.82907023228068,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1883.337692911326,
+     "cycleS": 1.9115000000000002,
+     "sitS": 0,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Orc Zombie",
+       "weight": 16.666666666666668,
+       "fightS": 0.374,
+       "sitS": 0,
+       "spUsed": 0,
+       "hpUsed": 0,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Orc Zombie": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 15997.565789473685,
+    "ttk": 0.38,
+    "value": 19.44497378103872,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1954.9280477871298,
+     "cycleS": 1.8415000000000001,
+     "sitS": 0,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Orc Zombie",
+       "weight": 16.666666666666668,
+       "fightS": 0.304,
+       "sitS": 0,
+       "spUsed": 0,
+       "hpUsed": 0,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Orc Zombie": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 157
+  },
+  {
+   "move": "Weapon: Lost Dagger +9 [Gioia Card in the empty sockets]",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1407.8729105525072,
+    "ttk": 3.74,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Zenorc": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 2941.352438411262,
+    "ttk": 1.7,
+    "value": 11.23291872245228,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1123.5046589535586,
+     "cycleS": 3.2042590756615725,
+     "sitS": 0.0005590756615728662,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Zenorc",
+       "weight": 16.666666666666668,
+       "fightS": 1.5912,
+       "sitS": 0.0005590756615728662,
+       "spUsed": 0,
+       "hpUsed": 0.18,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Zenorc": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 1876
+  },
+  {
+   "move": "Weapon: Bloody Murderer Card x2",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 2783.437163052594,
+    "ttk": 1.7,
+    "value": 10.967127747042657,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1096.9255614125964,
+     "cycleS": 3.2819000000000003,
+     "sitS": 0,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Zenorc",
+       "weight": 16.666666666666668,
+       "fightS": 1.6694,
+       "sitS": 0,
+       "spUsed": 0,
+       "hpUsed": 0,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Zenorc": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 3687.2031662269123,
+    "ttk": 1.36,
+    "value": 12.403505094478483,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1240.563296156179,
+     "cycleS": 2.901907553733383,
+     "sitS": 0.000807553733383029,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Zenorc",
+       "weight": 16.666666666666668,
+       "fightS": 1.2886,
+       "sitS": 0.000807553733383029,
+       "spUsed": 0,
+       "hpUsed": 0.26,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Zenorc": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 498
+  },
+  {
+   "move": "Off-hand: Sigrsverd +6",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 3569.041450777202,
+    "ttk": 1.36,
+    "value": 12.303894371846173,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1230.602223892948,
+     "cycleS": 2.9253969561436204,
+     "sitS": 0.0004969561436203256,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Zenorc",
+       "weight": 16.666666666666668,
+       "fightS": 1.3124,
+       "sitS": 0.0004969561436203256,
+       "spUsed": 0,
+       "hpUsed": 0.16,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Zenorc": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 16715.79643093192,
+    "ttk": 0.34,
+    "value": 18.69371826196936,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1879.7973996135972,
+     "cycleS": 1.9151,
+     "sitS": 0,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Zenorc",
+       "weight": 16.666666666666668,
+       "fightS": 0.30260000000000004,
+       "sitS": 0,
+       "spUsed": 0,
+       "hpUsed": 0,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Zenorc": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 705
+  },
+  {
+   "move": "Off-hand: Aspect of Torment Card x4",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 18207.720588235294,
+    "ttk": 0.34,
+    "value": 18.99895466647016,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1910.3210400636774,
+     "cycleS": 1.8845,
+     "sitS": 0,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Zenorc",
+       "weight": 16.666666666666668,
+       "fightS": 0.272,
+       "sitS": 0,
+       "spUsed": 0,
+       "hpUsed": 0,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Zenorc": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 48882.74509803922,
+    "ttk": 0,
+    "value": 20.893119593917376,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 2099.737532808399,
+     "cycleS": 1.7145000000000001,
+     "sitS": 0,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Zenorc",
+       "weight": 16.666666666666668,
+       "fightS": 0.102,
+       "sitS": 0,
+       "spUsed": 0,
+       "hpUsed": 0,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Zenorc": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 785
+  },
+  {
+   "move": "Weapon: Lost Dagger +9",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1462.6435152374204,
+    "ttk": 3.4,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Orc Archer": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 2652.506127450981,
+    "ttk": 1.7,
+    "value": 11.09332084021661,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1109.5487980778298,
+     "cycleS": 3.244562119517952,
+     "sitS": 0.0000621195179525407,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Orc Archer",
+       "weight": 21.428571428571427,
+       "fightS": 1.632,
+       "sitS": 0.0000621195179525407,
+       "spUsed": 0,
+       "hpUsed": 0.02,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Orc Archer": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 1876
+  },
+  {
+   "move": "Weapon: Bloody Murderer Card x2",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 2629.346272922124,
+    "ttk": 1.7,
+    "value": 10.932998971153085,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1093.5166111714773,
+     "cycleS": 3.2921310597589764,
+     "sitS": 0.00003105975897627035,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Orc Archer",
+       "weight": 21.428571428571427,
+       "fightS": 1.6796,
+       "sitS": 0.00003105975897627035,
+       "spUsed": 0,
+       "hpUsed": 0.01,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Orc Archer": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 3902.278981768146,
+    "ttk": 1.02,
+    "value": 12.968822841317717,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1297.0989981879407,
+     "cycleS": 2.775424239035905,
+     "sitS": 0.0001242390359050814,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Orc Archer",
+       "weight": 21.428571428571427,
+       "fightS": 1.1628,
+       "sitS": 0.0001242390359050814,
+       "spUsed": 0,
+       "hpUsed": 0.04,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Orc Archer": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 501
+  },
+  {
+   "move": "Off-hand: Digging Sword +8",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 4010.1130542307014,
+    "ttk": 1.02,
+    "value": 13.11402042092044,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1311.618756148213,
+     "cycleS": 2.7447,
+     "sitS": 0,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Orc Archer",
+       "weight": 21.428571428571427,
+       "fightS": 1.1322,
+       "sitS": 0,
+       "spUsed": 0,
+       "hpUsed": 0,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Orc Archer": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 20560.9375,
+    "ttk": 0,
+    "value": 19.666404572935743,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1967.073885405912,
+     "cycleS": 1.8301295272684321,
+     "sitS": 0.000029527268432397323,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Orc Archer",
+       "weight": 21.428571428571427,
+       "fightS": 0.2176,
+       "sitS": 0.000029527268432397323,
+       "spUsed": 0,
+       "hpUsed": 0.01,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Orc Archer": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 705
+  },
+  {
+   "move": "Off-hand: Eclipse Card x1",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 22863.760080645163,
+    "ttk": 0,
+    "value": 19.874635323303515,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1987.8969604426893,
+     "cycleS": 1.8109590545368648,
+     "sitS": 0.000059054536864794646,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Orc Archer",
+       "weight": 21.428571428571427,
+       "fightS": 0.1984,
+       "sitS": 0.000059054536864794646,
+       "spUsed": 0,
+       "hpUsed": 0.02,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Orc Archer": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 27174.33894230769,
+    "ttk": 0,
+    "value": 20.232555066190137,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 2023.6889347313513,
+     "cycleS": 1.7789295272684322,
+     "sitS": 0.000029527268432397323,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Orc Archer",
+       "weight": 21.428571428571427,
+       "fightS": 0.1664,
+       "sitS": 0.000029527268432397323,
+       "spUsed": 0,
+       "hpUsed": 0.01,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Orc Archer": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 157
+  },
+  {
+   "move": "Weapon: Lost Dagger +9",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1429.084280771132,
+    "ttk": 3.74,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "High Orc": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 2413.9294529000413,
+    "ttk": 2.04,
+    "value": 10.115018883188373,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1011.7035014914896,
+     "cycleS": 3.558354789414834,
+     "sitS": 0.0010547894148341137,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "High Orc",
+       "weight": 23.80952380952381,
+       "fightS": 1.9447999999999999,
+       "sitS": 0.0010547894148341137,
+       "spUsed": 0,
+       "hpUsed": 0.33959999999999124,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "High Orc": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 1876
+  },
+  {
+   "move": "Weapon: Bloody Murderer Card x2",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 2463.3671043109684,
+    "ttk": 2.04,
+    "value": 10.138162519055452,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1014.0178650781977,
+     "cycleS": 3.5502333084855264,
+     "sitS": 0.003133308485526128,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "High Orc",
+       "weight": 23.80952380952381,
+       "fightS": 1.9345999999999999,
+       "sitS": 0.0031333084855261276,
+       "spUsed": 0,
+       "hpUsed": 1.008799999999992,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "High Orc": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 3720.55743763474,
+    "ttk": 1.36,
+    "value": 12.352685262916925,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1235.4701394643448,
+     "cycleS": 2.913870505652876,
+     "sitS": 0.0025705056528761406,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "High Orc",
+       "weight": 23.80952380952381,
+       "fightS": 1.2988,
+       "sitS": 0.0025705056528761406,
+       "spUsed": 0,
+       "hpUsed": 0.8276000000000022,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "High Orc": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 501
+  },
+  {
+   "move": "Off-hand: Masamune +6",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 3375.642751379728,
+    "ttk": 1.36,
+    "value": 11.60476239132064,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1160.6778523047165,
+     "cycleS": 3.101635818114052,
+     "sitS": 0.0033358181140514236,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "High Orc",
+       "weight": 23.80952380952381,
+       "fightS": 1.4858,
+       "sitS": 0.0033358181140514236,
+       "spUsed": 0,
+       "hpUsed": 1.0739999999999963,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "High Orc": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 13486.335920177384,
+    "ttk": 0.44,
+    "value": 18.960304248162608,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1896.4336511615654,
+     "cycleS": 1.8983,
+     "sitS": 0,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "High Orc",
+       "weight": 23.80952380952381,
+       "fightS": 0.3608,
+       "sitS": 0,
+       "spUsed": 0,
+       "hpUsed": 0,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "High Orc": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 705
+  },
+  {
+   "move": "Off-hand: Incantation Samurai Card x1",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 13094.85213581599,
+    "ttk": 0.44,
+    "value": 18.91644915768533,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1892.0481421138381,
+     "cycleS": 1.9027,
+     "sitS": 0,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "High Orc",
+       "weight": 23.80952380952381,
+       "fightS": 0.36519999999999997,
+       "sitS": 0,
+       "spUsed": 0,
+       "hpUsed": 0,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "High Orc": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 15233.893468611288,
+    "ttk": 0.38,
+    "value": 19.324970920744697,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1942.9003184197745,
+     "cycleS": 1.8529,
+     "sitS": 0,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "High Orc",
+       "weight": 23.80952380952381,
+       "fightS": 0.31539999999999996,
+       "sitS": 0,
+       "spUsed": 0,
+       "hpUsed": 0,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "High Orc": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 157
+  },
+  {
+   "move": "Weapon: Lost Dagger +9 [Gioia Card in the empty sockets]",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 822.6114115624869,
+    "ttk": 10.15,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Grafted Zenorc": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1447.4471432963774,
+    "ttk": 6.41,
+    "value": 5.039484008863998,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 504.0713568147182,
+     "cycleS": 7.141845993291093,
+     "sitS": 0.00024599329109211993,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Grafted Zenorc",
+       "weight": 7.142857142857143,
+       "fightS": 5.529100000000001,
+       "sitS": 0.00024599329109211993,
+       "spUsed": 0,
+       "hpUsed": 0.07920000000001892,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Grafted Zenorc": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 1876
+  },
+  {
+   "move": "Weapon: Bloody Murderer Card x2",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1485.485682717982,
+    "ttk": 6.41,
+    "value": 5.108179963106297,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 510.940952238948,
+     "cycleS": 7.0458239532861215,
+     "sitS": 0.002823953286122502,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Grafted Zenorc",
+       "weight": 7.142857142857143,
+       "fightS": 5.4305,
+       "sitS": 0.002823953286122502,
+       "spUsed": 0,
+       "hpUsed": 0.9092000000000007,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Grafted Zenorc": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1928.8573423318594,
+    "ttk": 3.4,
+    "value": 6.087968031578884,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 608.9197590862068,
+     "cycleS": 5.9121090197540065,
+     "sitS": 0.002609019754006709,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Grafted Zenorc",
+       "weight": 7.142857142857143,
+       "fightS": 4.297,
+       "sitS": 0.002609019754006709,
+       "spUsed": 0,
+       "hpUsed": 0.84,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Grafted Zenorc": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 498
+  },
+  {
+   "move": "Off-hand: Sigrsverd +6",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1988.2282108710833,
+    "ttk": 2.72,
+    "value": 6.24356375237689,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 624.4793311660073,
+     "cycleS": 5.764802484780718,
+     "sitS": 0.000002484780718099368,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Grafted Zenorc",
+       "weight": 7.142857142857143,
+       "fightS": 4.1523,
+       "sitS": 0.000002484780718099368,
+       "spUsed": 0,
+       "hpUsed": 0.0007999999999992724,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Grafted Zenorc": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 14549.61712495649,
+    "ttk": 0.68,
+    "value": 16.34894518929089,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1645.1404307857258,
+     "cycleS": 2.1882630398188105,
+     "sitS": 0.001163039818810639,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Grafted Zenorc",
+       "weight": 7.142857142857143,
+       "fightS": 0.5746,
+       "sitS": 0.001163039818810639,
+       "spUsed": 0,
+       "hpUsed": 0.38,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Grafted Zenorc": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 705
+  },
+  {
+   "move": "Off-hand: Aspect of Torment Card x4",
+   "before": {
+    "win": 1,
+    "loss": 0,
+    "dps": 14237.17510259918,
+    "ttk": 0.68,
+    "value": 16.27512521180526,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1637.7584330371628,
+     "cycleS": 2.198126370397576,
+     "sitS": 0.0008263703975759803,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Grafted Zenorc",
+       "weight": 7.142857142857143,
+       "fightS": 0.5848,
+       "sitS": 0.0008263703975759803,
+       "spUsed": 0,
+       "hpUsed": 0.27,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Grafted Zenorc": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 1,
+    "loss": 0,
+    "dps": 23538.812534359535,
+    "ttk": 0.34,
+    "value": 18.10578519955521,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1820.8244318121579,
+     "cycleS": 1.9771263703975759,
+     "sitS": 0.0008263703975759803,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Grafted Zenorc",
+       "weight": 7.142857142857143,
+       "fightS": 0.3638,
+       "sitS": 0.0008263703975759803,
+       "spUsed": 0,
+       "hpUsed": 0.27,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Grafted Zenorc": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 785
+  }
+ ],
+ "final": {
+  "win": 0.31659581562057176,
+  "loss": 0.13422939068100356,
+  "dps": 483.9427990569588,
+  "ttk": 35.71405,
+  "value": -1,
+  "deaths": "Fanat: attack x46, Knuckle Arrow x25",
+  "perMob": {
+   "Njord Zealot": {
+    "win": 0,
+    "loss": 0
+   },
+   "Converted Zealot": {
+    "win": 0,
+    "loss": 0.05
+   },
+   "Godly Seeker": {
+    "win": 0,
+    "loss": 0
+   },
+   "Burning Fury": {
+    "win": 0,
+    "loss": 1
+   },
+   "Tortured Maiden": {
+    "win": 0,
+    "loss": 0.25
+   },
+   "Angel of Genesis": {
+    "win": 0,
+    "loss": 0
+   },
+   "Demon of Apocalypse": {
+    "win": 0,
+    "loss": 0
+   },
+   "Heartless": {
+    "win": 0,
+    "loss": 0.75
+   },
+   "Heart of the Serpent": {
+    "win": 0,
+    "loss": 0.75
+   },
+   "Conquest Incarnate": {
+    "win": 0,
+    "loss": 0
+   },
+   "Famine Incarnate": {
+    "win": 0,
+    "loss": 0
+   },
+   "War Incarnate": {
+    "win": 0,
+    "loss": 0.3
+   },
+   "Death Incarnate": {
+    "win": 0,
+    "loss": 1
+   },
+   "Vision of Surt": {
+    "win": 0,
+    "loss": 0
+   },
+   "Empathy": {
+    "win": 0,
+    "loss": 0
+   },
+   "Smile": {
+    "win": 0,
+    "loss": 0
+   },
+   "Happiness": {
+    "win": 0,
+    "loss": 0
+   },
+   "Prayer": {
+    "win": 0,
+    "loss": 0
+   },
+   "Anger of Thanatos": {
+    "win": 0,
+    "loss": 0
+   },
+   "Horror of Thanatos": {
+    "win": 0,
+    "loss": 0
+   },
+   "Resentment of Thanatos": {
+    "win": 0,
+    "loss": 0
+   },
+   "Regret of Thanatos": {
+    "win": 0,
+    "loss": 0
+   },
+   "Aunoe": {
+    "win": 0,
+    "loss": 1
+   },
+   "Fanat": {
+    "win": 0,
+    "loss": 1
+   },
+   "Ascended Follower": {
+    "win": 0,
+    "loss": 0.95
+   },
+   "Dominated Follower": {
+    "win": 0,
+    "loss": 0
+   },
+   "Doomed Follower": {
+    "win": 0,
+    "loss": 0.35
+   },
+   "Ritual Priest": {
+    "win": 0,
+    "loss": 0
+   },
+   "Magma Knight": {
+    "win": 0,
+    "loss": 0
+   },
+   "Tornado Knight": {
+    "win": 0,
+    "loss": 0
+   },
+   "Quake Knight": {
+    "win": 0,
+    "loss": 0
+   },
+   "Tidal Knight": {
+    "win": 0,
+    "loss": 0
+   },
+   "Umbral Knight": {
+    "win": 0,
+    "loss": 0
+   },
+   "Guild Warrior": {
+    "win": 0,
+    "loss": 0
+   },
+   "Guild Support": {
+    "win": 0,
+    "loss": 0
+   },
+   "Guild Defender": {
+    "win": 0,
+    "loss": 0.1
+   },
+   "Guild Magician": {
+    "win": 0,
+    "loss": 0
+   },
+   "Guild Chamberlain": {
+    "win": 0,
+    "loss": 0.15
+   },
+   "Guild Master": {
+    "win": 0,
+    "loss": 0.65
+   },
+   "Ymir Emperium": {
+    "win": 0,
+    "loss": 0
+   },
+   "Detector": {
+    "win": 0.9777777777777777,
+    "loss": 0.022222222222222223
+   },
+   "Agav": {
+    "win": 1,
+    "loss": 0
+   },
+   "Echio": {
+    "win": 1,
+    "loss": 0
+   },
+   "Vanberk": {
+    "win": 1,
+    "loss": 0
+   },
+   "Isilla": {
+    "win": 1,
+    "loss": 0
+   },
+   "Hodremlin": {
+    "win": 1,
+    "loss": 0
+   },
+   "Seeker": {
+    "win": 1,
+    "loss": 0
+   },
+   "Tricked Follower": {
+    "win": 1,
+    "loss": 0
+   },
+   "Gentleman": {
+    "win": 1,
+    "loss": 0
+   },
+   "Maiden of Past": {
+    "win": 1,
+    "loss": 0
+   },
+   "Lost Codex": {
+    "win": 1,
+    "loss": 0
+   },
+   "Maiden of Present": {
+    "win": 1,
+    "loss": 0
+   },
+   "Maiden of Future": {
+    "win": 0,
+    "loss": 0
+   },
+   "Cavalier": {
+    "win": 0.9844961240310077,
+    "loss": 0
+   },
+   "Lost Traveler": {
+    "win": 0.6666666666666666,
+    "loss": 0
+   },
+   "Navigator": {
+    "win": 0,
+    "loss": 0
+   },
+   "Orc Skeleton": {
+    "win": 1,
+    "loss": 0
+   },
+   "Orc Zombie": {
+    "win": 1,
+    "loss": 0
+   },
+   "Zenorc": {
+    "win": 1,
+    "loss": 0
+   },
+   "Orc Archer": {
+    "win": 1,
+    "loss": 0
+   },
+   "High Orc": {
+    "win": 1,
+    "loss": 0
+   },
+   "Grafted Zenorc": {
+    "win": 1,
+    "loss": 0
+   }
+  }
+ },
+ "options": {
+  "order": [
+   "Stay hidden",
+   "Morroc's Mark",
+   "Pull it off the ward",
+   "Heal",
+   "Bloody Fangs",
+   "Weapon Blocking",
+   "Rising Wings",
+   "Fury",
+   "Hallucination Walk",
+   "Attack"
+  ],
+  "weaveMs": 0,
+  "autoOnly": true,
+  "enchantPoison": "auto",
+  "tankShare": 0.25,
+  "fury": false
+ },
+ "link": "http://localhost:5173/#b=cfZHPbsMgDIdfZeL8O2BjQniJHXZFqEIpa6KlfxSSanv7iaTSumntBcn2B5-xA0O9Dod-fnlL13xSIKMRWotWYCwIZOF9RAgE66mNCAzyRjfQCDWvypxmBTUuHwqBYowRwYAsWUGLIGwZ9biH02HYYAQ15XJepi4rqGP63PUXhWDWynGYh0Oah_NJQV36rzJ0adxNeb90ea8QeJM1YO1as8qo0RBL7pEsX1PZ3nsfc1YIbk2XpcxpqOn-shtz7vp6w-L2HQdm7Vw1kNbimwZCzv4rqXy78r6OSEQLxD6BPbhx7sb-wso8_WDEYBHLtYmHcycD9t5o1EWR1ED7LbAwmvSt0oCFzfMdkgOLJv9XeNdVjN8",
+ "perTarget": [
+  {
+   "cost": 0.1,
+   "target": "Njord Zealot",
+   "shared": {
+    "win": 0,
+    "loss": 0.01,
+    "dps": 144.3250228511993,
+    "ttk": null,
+    "value": -1,
+    "deaths": "Njord Zealot: attack x1",
+    "perMob": {
+     "Njord Zealot": {
+      "win": 0,
+      "loss": 0.01
+     }
+    }
+   },
+   "own": {
+    "win": 0,
+    "loss": 0.01,
+    "dps": 144.3250228511993,
+    "ttk": null,
+    "value": -1,
+    "deaths": "Njord Zealot: attack x1",
+    "perMob": {
+     "Njord Zealot": {
+      "win": 0,
+      "loss": 0.01
+     }
+    }
+   },
+   "swaps": [],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Converted Zealot",
+   "shared": {
+    "win": 0,
+    "loss": 0.15,
+    "dps": 15.236767993496501,
+    "ttk": null,
+    "value": -1,
+    "deaths": "Cloud Kill x13, Converted Zealot: attack x2",
+    "perMob": {
+     "Converted Zealot": {
+      "win": 0,
+      "loss": 0.15
+     }
+    }
+   },
+   "own": {
+    "win": 0,
+    "loss": 0.15,
+    "dps": 15.236767993496501,
+    "ttk": null,
+    "value": -1,
+    "deaths": "Cloud Kill x13, Converted Zealot: attack x2",
+    "perMob": {
+     "Converted Zealot": {
+      "win": 0,
+      "loss": 0.15
+     }
+    }
+   },
+   "swaps": [],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Godly Seeker",
+   "shared": {
+    "win": 0,
+    "loss": 0,
+    "dps": 227.8435,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Godly Seeker": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "own": {
+    "win": 0,
+    "loss": 0,
+    "dps": 227.8435,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Godly Seeker": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "swaps": [],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Burning Fury",
+   "shared": {
+    "win": 0,
+    "loss": 1,
+    "dps": 91.31015402230787,
+    "ttk": null,
+    "value": -1,
+    "deaths": "Knuckle Arrow x80, Burning Fury: attack x20",
+    "perMob": {
+     "Burning Fury": {
+      "win": 0,
+      "loss": 1
+     }
+    }
+   },
+   "own": {
+    "win": 0,
+    "loss": 1,
+    "dps": 91.31015402230787,
+    "ttk": null,
+    "value": -1,
+    "deaths": "Knuckle Arrow x80, Burning Fury: attack x20",
+    "perMob": {
+     "Burning Fury": {
+      "win": 0,
+      "loss": 1
+     }
+    }
+   },
+   "swaps": [],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Tortured Maiden",
+   "shared": {
+    "win": 0,
+    "loss": 0.35,
+    "dps": 37.13027572657679,
+    "ttk": null,
+    "value": -1,
+    "deaths": "Tortured Maiden: attack x21, Vampire Gift x14",
+    "perMob": {
+     "Tortured Maiden": {
+      "win": 0,
+      "loss": 0.35
+     }
+    }
+   },
+   "own": {
+    "win": 0,
+    "loss": 0.35,
+    "dps": 37.13027572657679,
+    "ttk": null,
+    "value": -1,
+    "deaths": "Tortured Maiden: attack x21, Vampire Gift x14",
+    "perMob": {
+     "Tortured Maiden": {
+      "win": 0,
+      "loss": 0.35
+     }
+    }
+   },
+   "swaps": [],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Angel of Genesis",
+   "shared": {
+    "win": 0,
+    "loss": 0,
+    "dps": 54.27,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Angel of Genesis": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "own": {
+    "win": 0,
+    "loss": 0,
+    "dps": 54.27,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Angel of Genesis": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "swaps": [],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Demon of Apocalypse",
+   "shared": {
+    "win": 0,
+    "loss": 0,
+    "dps": 104.764,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Demon of Apocalypse": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "own": {
+    "win": 0,
+    "loss": 0,
+    "dps": 104.764,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Demon of Apocalypse": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "swaps": [],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Heartless",
+   "shared": {
+    "win": 0,
+    "loss": 0.64,
+    "dps": 29.008134525546176,
+    "ttk": null,
+    "value": -1,
+    "deaths": "Knuckle Arrow x26, Magnus Exorcismus x23",
+    "perMob": {
+     "Heartless": {
+      "win": 0,
+      "loss": 0.64
+     }
+    }
+   },
+   "own": {
+    "win": 0,
+    "loss": 0.64,
+    "dps": 29.008134525546176,
+    "ttk": null,
+    "value": -1,
+    "deaths": "Knuckle Arrow x26, Magnus Exorcismus x23",
+    "perMob": {
+     "Heartless": {
+      "win": 0,
+      "loss": 0.64
+     }
+    }
+   },
+   "swaps": [],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Heart of the Serpent",
+   "shared": {
+    "win": 0,
+    "loss": 0.74,
+    "dps": 300.7758646919023,
+    "ttk": null,
+    "value": -1,
+    "deaths": "Angel of Genesis: Adoramus x40, Demon of Apocalypse: attack x13",
+    "perMob": {
+     "Heart of the Serpent": {
+      "win": 0,
+      "loss": 0.74
+     }
+    }
+   },
+   "own": {
+    "win": 0,
+    "loss": 0.74,
+    "dps": 300.7758646919023,
+    "ttk": null,
+    "value": -1,
+    "deaths": "Angel of Genesis: Adoramus x40, Demon of Apocalypse: attack x13",
+    "perMob": {
+     "Heart of the Serpent": {
+      "win": 0,
+      "loss": 0.74
+     }
+    }
+   },
+   "swaps": [],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Conquest Incarnate",
+   "shared": {
+    "win": 0,
+    "loss": 0,
+    "dps": 91.0555,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Conquest Incarnate": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "own": {
+    "win": 0,
+    "loss": 0,
+    "dps": 91.0555,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Conquest Incarnate": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "swaps": [],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Famine Incarnate",
+   "shared": {
+    "win": 0,
+    "loss": 0,
+    "dps": 205.4965,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Famine Incarnate": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "own": {
+    "win": 0,
+    "loss": 0,
+    "dps": 205.4965,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Famine Incarnate": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "swaps": [],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "War Incarnate",
+   "shared": {
+    "win": 0,
+    "loss": 0.24,
+    "dps": 396.68555838547286,
+    "ttk": null,
+    "value": -1,
+    "deaths": "War Incarnate: attack x23, Chain Lightning x1",
+    "perMob": {
+     "War Incarnate": {
+      "win": 0,
+      "loss": 0.24
+     }
+    }
+   },
+   "own": {
+    "win": 0,
+    "loss": 0.24,
+    "dps": 396.68555838547286,
+    "ttk": null,
+    "value": -1,
+    "deaths": "War Incarnate: attack x23, Chain Lightning x1",
+    "perMob": {
+     "War Incarnate": {
+      "win": 0,
+      "loss": 0.24
+     }
+    }
+   },
+   "swaps": [],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Death Incarnate",
+   "shared": {
+    "win": 0,
+    "loss": 0.99,
+    "dps": 31.05763045092325,
+    "ttk": null,
+    "value": -1,
+    "deaths": "Death Incarnate: attack x99",
+    "perMob": {
+     "Death Incarnate": {
+      "win": 0,
+      "loss": 0.99
+     }
+    }
+   },
+   "own": {
+    "win": 0,
+    "loss": 0.99,
+    "dps": 31.05763045092325,
+    "ttk": null,
+    "value": -1,
+    "deaths": "Death Incarnate: attack x99",
+    "perMob": {
+     "Death Incarnate": {
+      "win": 0,
+      "loss": 0.99
+     }
+    }
+   },
+   "swaps": [],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Vision of Surt",
+   "shared": {
+    "win": 0,
+    "loss": 0,
+    "dps": 468.7931869642952,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Vision of Surt": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "own": {
+    "win": 0,
+    "loss": 0,
+    "dps": 468.7931869642952,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Vision of Surt": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "swaps": [],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Empathy",
+   "shared": {
+    "win": 0,
+    "loss": 0,
+    "dps": 179.2395,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Empathy": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "own": {
+    "win": 0,
+    "loss": 0,
+    "dps": 179.2395,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Empathy": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "swaps": [],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Smile",
+   "shared": {
+    "win": 0,
+    "loss": 0,
+    "dps": 102.4585,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Smile": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "own": {
+    "win": 0,
+    "loss": 0,
+    "dps": 102.4585,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Smile": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "swaps": [],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Happiness",
+   "shared": {
+    "win": 0,
+    "loss": 0.01,
+    "dps": 149.61383870667265,
+    "ttk": null,
+    "value": -1,
+    "deaths": "Happiness: attack x1",
+    "perMob": {
+     "Happiness": {
+      "win": 0,
+      "loss": 0.01
+     }
+    }
+   },
+   "own": {
+    "win": 0,
+    "loss": 0.01,
+    "dps": 149.61383870667265,
+    "ttk": null,
+    "value": -1,
+    "deaths": "Happiness: attack x1",
+    "perMob": {
+     "Happiness": {
+      "win": 0,
+      "loss": 0.01
+     }
+    }
+   },
+   "swaps": [],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Prayer",
+   "shared": {
+    "win": 0,
+    "loss": 0,
+    "dps": 170.6695,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Prayer": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "own": {
+    "win": 0,
+    "loss": 0,
+    "dps": 170.6695,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Prayer": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "swaps": [],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Anger of Thanatos",
+   "shared": {
+    "win": 0,
+    "loss": 0,
+    "dps": 228.78,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Anger of Thanatos": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "own": {
+    "win": 0,
+    "loss": 0,
+    "dps": 228.78,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Anger of Thanatos": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "swaps": [],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Horror of Thanatos",
+   "shared": {
+    "win": 0,
+    "loss": 0,
+    "dps": 165.315,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Horror of Thanatos": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "own": {
+    "win": 0,
+    "loss": 0,
+    "dps": 165.315,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Horror of Thanatos": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "swaps": [],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Resentment of Thanatos",
+   "shared": {
+    "win": 0,
+    "loss": 0,
+    "dps": 166.1685,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Resentment of Thanatos": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "own": {
+    "win": 0,
+    "loss": 0,
+    "dps": 166.1685,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Resentment of Thanatos": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "swaps": [],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Regret of Thanatos",
+   "shared": {
+    "win": 0,
+    "loss": 0,
+    "dps": 219.801,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Regret of Thanatos": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "own": {
+    "win": 0,
+    "loss": 0,
+    "dps": 219.801,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Regret of Thanatos": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "swaps": [],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Aunoe",
+   "shared": {
+    "win": 0,
+    "loss": 1,
+    "dps": 835.6632550383808,
+    "ttk": null,
+    "value": -1,
+    "deaths": "Crimson Rock x100",
+    "perMob": {
+     "Aunoe": {
+      "win": 0,
+      "loss": 1
+     }
+    }
+   },
+   "own": {
+    "win": 0,
+    "loss": 1,
+    "dps": 835.6632550383808,
+    "ttk": null,
+    "value": -1,
+    "deaths": "Crimson Rock x100",
+    "perMob": {
+     "Aunoe": {
+      "win": 0,
+      "loss": 1
+     }
+    }
+   },
+   "swaps": [],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Fanat",
+   "shared": {
+    "win": 0,
+    "loss": 1,
+    "dps": 521.3062415024253,
+    "ttk": null,
+    "value": -1,
+    "deaths": "Fanat: attack x100",
+    "perMob": {
+     "Fanat": {
+      "win": 0,
+      "loss": 1
+     }
+    }
+   },
+   "own": {
+    "win": 1,
+    "loss": 0,
+    "dps": 9874.091502919455,
+    "ttk": 7.498,
+    "value": 3.761009773731161,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 376.2573692455668,
+     "cycleS": 9.567918914700211,
+     "sitS": 0.45401891470021194,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Fanat",
+       "weight": 25.53191489361702,
+       "fightS": 7.501399999999999,
+       "sitS": 0.45401891470021194,
+       "spUsed": 0.47,
+       "hpUsed": 148.34160000000023,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Fanat": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "swaps": [
+    "weapon: Masamune +9 [Hydrolancer Card]",
+    "offhand: Keris +8 [Detector Card, Detector Card, Detector Card]"
+   ],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Ascended Follower",
+   "shared": {
+    "win": 0,
+    "loss": 0.97,
+    "dps": 342.4591575739655,
+    "ttk": null,
+    "value": -1,
+    "deaths": "Frost Misty x97",
+    "perMob": {
+     "Ascended Follower": {
+      "win": 0,
+      "loss": 0.97
+     }
+    }
+   },
+   "own": {
+    "win": 0,
+    "loss": 0.97,
+    "dps": 342.4591575739655,
+    "ttk": null,
+    "value": -1,
+    "deaths": "Frost Misty x97",
+    "perMob": {
+     "Ascended Follower": {
+      "win": 0,
+      "loss": 0.97
+     }
+    }
+   },
+   "swaps": [],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Dominated Follower",
+   "shared": {
+    "win": 0,
+    "loss": 0,
+    "dps": 217.93802242831765,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Dominated Follower": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "own": {
+    "win": 0,
+    "loss": 0,
+    "dps": 217.93802242831765,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Dominated Follower": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "swaps": [],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Doomed Follower",
+   "shared": {
+    "win": 0,
+    "loss": 0.35,
+    "dps": 293.28397859714676,
+    "ttk": null,
+    "value": -1,
+    "deaths": "Bowling Bash x23, Doomed Follower: attack x12",
+    "perMob": {
+     "Doomed Follower": {
+      "win": 0,
+      "loss": 0.35
+     }
+    }
+   },
+   "own": {
+    "win": 0,
+    "loss": 0.35,
+    "dps": 293.28397859714676,
+    "ttk": null,
+    "value": -1,
+    "deaths": "Bowling Bash x23, Doomed Follower: attack x12",
+    "perMob": {
+     "Doomed Follower": {
+      "win": 0,
+      "loss": 0.35
+     }
+    }
+   },
+   "swaps": [],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Ritual Priest",
+   "shared": {
+    "win": 0,
+    "loss": 0,
+    "dps": 265.4696264803176,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Ritual Priest": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "own": {
+    "win": 0,
+    "loss": 0,
+    "dps": 265.4696264803176,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Ritual Priest": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "swaps": [],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Magma Knight",
+   "shared": {
+    "win": 0,
+    "loss": 0,
+    "dps": 191.8445,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Magma Knight": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "own": {
+    "win": 0,
+    "loss": 0,
+    "dps": 191.8445,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Magma Knight": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "swaps": [],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Tornado Knight",
+   "shared": {
+    "win": 0,
+    "loss": 0,
+    "dps": 155.5575,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Tornado Knight": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "own": {
+    "win": 0,
+    "loss": 0,
+    "dps": 155.5575,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Tornado Knight": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "swaps": [],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Quake Knight",
+   "shared": {
+    "win": 0,
+    "loss": 0,
+    "dps": 118.8115,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Quake Knight": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "own": {
+    "win": 0,
+    "loss": 0,
+    "dps": 118.8115,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Quake Knight": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "swaps": [],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Tidal Knight",
+   "shared": {
+    "win": 0,
+    "loss": 0,
+    "dps": 186.746,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Tidal Knight": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "own": {
+    "win": 0,
+    "loss": 0,
+    "dps": 186.746,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Tidal Knight": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "swaps": [],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Umbral Knight",
+   "shared": {
+    "win": 0,
+    "loss": 0,
+    "dps": 147.1705,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Umbral Knight": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "own": {
+    "win": 0,
+    "loss": 0,
+    "dps": 147.1705,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Umbral Knight": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "swaps": [],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Guild Warrior",
+   "shared": {
+    "win": 0,
+    "loss": 0,
+    "dps": 261.8786818626997,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Guild Warrior": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "own": {
+    "win": 0,
+    "loss": 0,
+    "dps": 261.8786818626997,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Guild Warrior": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "swaps": [],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Guild Support",
+   "shared": {
+    "win": 0,
+    "loss": 0,
+    "dps": 289.4126038452989,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Guild Support": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "own": {
+    "win": 0,
+    "loss": 0,
+    "dps": 289.4126038452989,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Guild Support": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "swaps": [],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Guild Defender",
+   "shared": {
+    "win": 0,
+    "loss": 0.09,
+    "dps": 541.7153253913586,
+    "ttk": null,
+    "value": -1,
+    "deaths": "Arrow Storm x9",
+    "perMob": {
+     "Guild Defender": {
+      "win": 0,
+      "loss": 0.09
+     }
+    }
+   },
+   "own": {
+    "win": 0,
+    "loss": 0.09,
+    "dps": 541.7153253913586,
+    "ttk": null,
+    "value": -1,
+    "deaths": "Arrow Storm x9",
+    "perMob": {
+     "Guild Defender": {
+      "win": 0,
+      "loss": 0.09
+     }
+    }
+   },
+   "swaps": [],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Guild Magician",
+   "shared": {
+    "win": 0,
+    "loss": 0,
+    "dps": 204.22817325736648,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Guild Magician": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "own": {
+    "win": 0,
+    "loss": 0,
+    "dps": 204.22817325736648,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Guild Magician": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "swaps": [],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Guild Chamberlain",
+   "shared": {
+    "win": 0,
+    "loss": 0.24,
+    "dps": 461.61985349395417,
+    "ttk": null,
+    "value": -1,
+    "deaths": "Guild Chamberlain: attack x19, Dragon Tail x5",
+    "perMob": {
+     "Guild Chamberlain": {
+      "win": 0,
+      "loss": 0.24
+     }
+    }
+   },
+   "own": {
+    "win": 0,
+    "loss": 0.24,
+    "dps": 461.61985349395417,
+    "ttk": null,
+    "value": -1,
+    "deaths": "Guild Chamberlain: attack x19, Dragon Tail x5",
+    "perMob": {
+     "Guild Chamberlain": {
+      "win": 0,
+      "loss": 0.24
+     }
+    }
+   },
+   "swaps": [],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Guild Master",
+   "shared": {
+    "win": 0,
+    "loss": 0.76,
+    "dps": 318.74343441230934,
+    "ttk": null,
+    "value": -1,
+    "deaths": "Guild Defender: Arrow Storm x60, Guild Magician: Storm Gust x9",
+    "perMob": {
+     "Guild Master": {
+      "win": 0,
+      "loss": 0.76
+     }
+    }
+   },
+   "own": {
+    "win": 0,
+    "loss": 0.76,
+    "dps": 318.74343441230934,
+    "ttk": null,
+    "value": -1,
+    "deaths": "Guild Defender: Arrow Storm x60, Guild Magician: Storm Gust x9",
+    "perMob": {
+     "Guild Master": {
+      "win": 0,
+      "loss": 0.76
+     }
+    }
+   },
+   "swaps": [],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Ymir Emperium",
+   "shared": {
+    "win": 0,
+    "loss": 0,
+    "dps": 3.220220448574562,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Ymir Emperium": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "own": {
+    "win": 0,
+    "loss": 0,
+    "dps": 3.220220448574562,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Ymir Emperium": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "swaps": [],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Detector",
+   "shared": {
+    "win": 0.98,
+    "loss": 0.02,
+    "dps": 423.9501458019726,
+    "ttk": 71.043,
+    "value": -1,
+    "deaths": "Detector: attack x2",
+    "perMob": {
+     "Detector": {
+      "win": 0.98,
+      "loss": 0.02
+     }
+    }
+   },
+   "own": {
+    "win": 1,
+    "loss": 0,
+    "dps": 5703.741865309127,
+    "ttk": 5.49,
+    "value": 4.640827510856703,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 464.2099361294109,
+     "cycleS": 7.755111900483759,
+     "sitS": 0.7367519004837594,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Detector",
+       "weight": 12.987012987012987,
+       "fightS": 5.40586,
+       "sitS": 0.7367519004837594,
+       "spUsed": 44.42,
+       "hpUsed": 135.58519999999982,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Detector": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "swaps": [
+    "weapon: Masamune +9 [Hydrolancer Card]",
+    "offhand: Master Dagger +8 [Mummy Card]"
+   ],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Agav",
+   "shared": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1008.099269121032,
+    "ttk": 18.93,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Agav": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "own": {
+    "win": 1,
+    "loss": 0,
+    "dps": 14240.856075189673,
+    "ttk": 1.36,
+    "value": 11.540038137665693,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1164.3062435473055,
+     "cycleS": 3.0919700207325502,
+     "sitS": 0.06651002073255009,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Agav",
+       "weight": 17.318435754189945,
+       "fightS": 1.41296,
+       "sitS": 0.06651002073255009,
+       "spUsed": 4.01,
+       "hpUsed": 1.59,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Agav": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "swaps": [
+    "weapon: Lost Dagger +9 [Bloody Murderer Card, Bloody Murderer Card]",
+    "offhand: Sigrsverd +8 [Bloody Murderer Card, Bloody Murderer Card, Bloody Murderer Card, Bloody Murderer Card]"
+   ],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Echio",
+   "shared": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1461.3965141122883,
+    "ttk": 14.28,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Echio": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "own": {
+    "win": 1,
+    "loss": 0,
+    "dps": 15590.672692250704,
+    "ttk": 1.36,
+    "value": 12.018674659470877,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1212.3058849013214,
+     "cycleS": 2.9695475744498516,
+     "sitS": 0.0072475744498515385,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Echio",
+       "weight": 14.664804469273744,
+       "fightS": 1.3497999999999999,
+       "sitS": 0.0072475744498515385,
+       "spUsed": 0,
+       "hpUsed": 2.3679999999999928,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Echio": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "swaps": [
+    "weapon: Lost Dagger +9 [Bloody Murderer Card, Bloody Murderer Card]",
+    "offhand: Sigrsverd +8 [Bloody Murderer Card, Bloody Murderer Card, Bloody Murderer Card, Bloody Murderer Card]"
+   ],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Vanberk",
+   "shared": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1343.4103565256353,
+    "ttk": 12.24,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Vanberk": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "own": {
+    "win": 1,
+    "loss": 0,
+    "dps": 15973.77603215199,
+    "ttk": 1.02,
+    "value": 13.08217345965694,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1318.6203690726516,
+     "cycleS": 2.73012618675971,
+     "sitS": 0.022826186759709835,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Vanberk",
+       "weight": 16.75977653631285,
+       "fightS": 1.0948,
+       "sitS": 0.022826186759709835,
+       "spUsed": 0,
+       "hpUsed": 7.457999999999993,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Vanberk": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "swaps": [
+    "weapon: Lost Dagger +9 [Bloody Murderer Card, Bloody Murderer Card]",
+    "offhand: Sigrsverd +8 [Bloody Murderer Card, Bloody Murderer Card, Bloody Murderer Card, Bloody Murderer Card]"
+   ],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Isilla",
+   "shared": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1441.3894849785408,
+    "ttk": 12.58,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Isilla": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "own": {
+    "win": 1,
+    "loss": 0,
+    "dps": 16659.87463837994,
+    "ttk": 1.02,
+    "value": 13.479046638456902,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1358.3370806911837,
+     "cycleS": 2.650299436843877,
+     "sitS": 0.0007994368438772321,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Isilla",
+       "weight": 21.787709497206706,
+       "fightS": 1.037,
+       "sitS": 0.000799436843877232,
+       "spUsed": 0,
+       "hpUsed": 0.261200000000008,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Isilla": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "swaps": [
+    "weapon: Lost Dagger +9 [Bloody Murderer Card, Bloody Murderer Card]",
+    "offhand: Sigrsverd +8 [Bloody Murderer Card, Bloody Murderer Card, Bloody Murderer Card, Bloody Murderer Card]"
+   ],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Hodremlin",
+   "shared": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1402.3103107617637,
+    "ttk": 18.36,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Hodremlin": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "own": {
+    "win": 1,
+    "loss": 0,
+    "dps": 13890.206398348811,
+    "ttk": 2.04,
+    "value": 10.023870634483586,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1012.8077565415871,
+     "cycleS": 3.554475147675451,
+     "sitS": 0.003975147675450654,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Hodremlin",
+       "weight": 6.983240223463687,
+       "fightS": 1.938,
+       "sitS": 0.003975147675450654,
+       "spUsed": 0,
+       "hpUsed": 1.298799999999992,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Hodremlin": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "swaps": [
+    "weapon: Lost Dagger +9 [Observation Card, Observation Card]",
+    "offhand: Sigrsverd +6 [Raydric Card, Raydric Card, Raydric Card, Raydric Card]"
+   ],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Seeker",
+   "shared": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1077.1474915796273,
+    "ttk": 14.96,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Seeker": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "own": {
+    "win": 1,
+    "loss": 0,
+    "dps": 15322.619485294119,
+    "ttk": 1.02,
+    "value": 13.213024084589316,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1331.6255527064054,
+     "cycleS": 2.703462690906865,
+     "sitS": 0.0029626909068649738,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Seeker",
+       "weight": 14.804469273743017,
+       "fightS": 1.088,
+       "sitS": 0.0029626909068649738,
+       "spUsed": 0,
+       "hpUsed": 0.9679999999999928,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Seeker": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "swaps": [
+    "weapon: Lost Dagger +9 [Chocolate Bear Card, Chocolate Bear Card]",
+    "offhand: Sigrsverd +8 [Chocolate Bear Card, Chocolate Bear Card, Chocolate Bear Card, Chocolate Bear Card]"
+   ],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Tricked Follower",
+   "shared": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1216.3655363131156,
+    "ttk": 15.207,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Tricked Follower": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "own": {
+    "win": 1,
+    "loss": 0,
+    "dps": 15477.711522965352,
+    "ttk": 1.36,
+    "value": 12.418995155519465,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1252.2644252128403,
+     "cycleS": 2.8747921984513205,
+     "sitS": 0.021292198451320674,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Tricked Follower",
+       "weight": 7.681564245810056,
+       "fightS": 1.241,
+       "sitS": 0.021292198451320674,
+       "spUsed": 0,
+       "hpUsed": 6.956800000000003,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Tricked Follower": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "swaps": [
+    "weapon: Lost Dagger +9 [Bloody Murderer Card, Bloody Murderer Card]",
+    "offhand: Sigrsverd +8 [Bloody Murderer Card, Bloody Murderer Card, Bloody Murderer Card, Bloody Murderer Card]"
+   ],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Gentleman",
+   "shared": {
+    "win": 1,
+    "loss": 0,
+    "dps": 686.0560894292998,
+    "ttk": 60.52,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Gentleman": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "own": {
+    "win": 1,
+    "loss": 0,
+    "dps": 12467.87285203214,
+    "ttk": 3.4,
+    "value": 7.04580475992057,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 714.7862928188858,
+     "cycleS": 5.036470391454717,
+     "sitS": 0.013770391454717855,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Gentleman",
+       "weight": 25.089605734767026,
+       "fightS": 3.4101999999999997,
+       "sitS": 0.013770391454717855,
+       "spUsed": 0,
+       "hpUsed": 4.499199999999965,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Gentleman": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "swaps": [
+    "weapon: Lost Dagger +9 [Observation Card, Observation Card]",
+    "offhand: Sigrsverd +8 [Aspect of Torment Card, Aspect of Torment Card, Aspect of Torment Card, Aspect of Torment Card]"
+   ],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Maiden of Past",
+   "shared": {
+    "win": 1,
+    "loss": 0,
+    "dps": 559.5216097564083,
+    "ttk": 69.24,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Maiden of Past": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "own": {
+    "win": 1,
+    "loss": 0,
+    "dps": 12163.792148658626,
+    "ttk": 3.4,
+    "value": 7.301311420570389,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 740.2989985399659,
+     "cycleS": 4.8629,
+     "sitS": 0,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Maiden of Past",
+       "weight": 8.243727598566307,
+       "fightS": 3.2504,
+       "sitS": 0,
+       "spUsed": 0,
+       "hpUsed": 0,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Maiden of Past": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "swaps": [
+    "weapon: Lost Dagger +9 [Bloody Murderer Card, Bloody Murderer Card]",
+    "offhand: Sigrsverd +6 [Bloody Murderer Card, Bloody Murderer Card, Bloody Murderer Card, Bloody Murderer Card]"
+   ],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Lost Codex",
+   "shared": {
+    "win": 1,
+    "loss": 0,
+    "dps": 509.5969394086146,
+    "ttk": 82.512,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Lost Codex": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "own": {
+    "win": 1,
+    "loss": 0,
+    "dps": 9821.149834391641,
+    "ttk": 4.384,
+    "value": 3.8449839547302287,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 394.6512745548455,
+     "cycleS": 9.12197738132403,
+     "sitS": 3.1377173813240304,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Lost Codex",
+       "weight": 25.089605734767026,
+       "fightS": 4.37176,
+       "sitS": 3.1377173813240304,
+       "spUsed": 0.81,
+       "hpUsed": 1025.1864000000003,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Lost Codex": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "swaps": [
+    "weapon: Lost Dagger +9 [Skeleton General Card, Skeleton General Card]",
+    "offhand: Sigrsverd +8 [Chocolate Bear Card, Chocolate Bear Card, Chocolate Bear Card, Chocolate Bear Card]"
+   ],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Maiden of Present",
+   "shared": {
+    "win": 1,
+    "loss": 0,
+    "dps": 568.4052458958834,
+    "ttk": 79.255,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Maiden of Present": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "own": {
+    "win": 1,
+    "loss": 0,
+    "dps": 12010.111105342401,
+    "ttk": 3.74,
+    "value": 6.486030616055458,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 658.7735831793145,
+     "cycleS": 5.4647,
+     "sitS": 0,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Maiden of Present",
+       "weight": 21.50537634408602,
+       "fightS": 3.8522,
+       "sitS": 0,
+       "spUsed": 0,
+       "hpUsed": 0,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Maiden of Present": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "swaps": [
+    "weapon: Lost Dagger +9 [Bloody Murderer Card, Bloody Murderer Card]",
+    "offhand: Sigrsverd +8 [Bloody Murderer Card, Bloody Murderer Card, Bloody Murderer Card, Bloody Murderer Card]"
+   ],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Maiden of Future",
+   "shared": {
+    "win": 0,
+    "loss": 0,
+    "dps": 358.57155264943725,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Maiden of Future": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "own": {
+    "win": 1,
+    "loss": 0,
+    "dps": 7585.255365577438,
+    "ttk": 8.266,
+    "value": 3.3237064376527727,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 342.4782152310721,
+     "cycleS": 10.511617498272287,
+     "sitS": 0.9344574982722875,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Maiden of Future",
+       "weight": 10.75268817204301,
+       "fightS": 7.96466,
+       "sitS": 0.9344574982722874,
+       "spUsed": 56.34,
+       "hpUsed": 2.0139999999999962,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Maiden of Future": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "swaps": [
+    "weapon: Lost Dagger +9 [Bloody Murderer Card, Bloody Murderer Card]",
+    "offhand: Sigrsverd +8 [Bloody Murderer Card, Bloody Murderer Card, Bloody Murderer Card, Bloody Murderer Card]"
+   ],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Cavalier",
+   "shared": {
+    "win": 1,
+    "loss": 0,
+    "dps": 504.51043431071054,
+    "ttk": 97.07,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Cavalier": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "own": {
+    "win": 1,
+    "loss": 0,
+    "dps": 12001.530759603349,
+    "ttk": 4.08,
+    "value": 6.136973463725586,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 623.8486995028518,
+     "cycleS": 5.77062996663912,
+     "sitS": 0.003329966639120965,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Cavalier",
+       "weight": 6.810035842293907,
+       "fightS": 4.1548,
+       "sitS": 0.003329966639120965,
+       "spUsed": 0.03,
+       "hpUsed": 1.0879999999999928,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Cavalier": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "swaps": [
+    "weapon: Lost Dagger +9 [Observation Card, Observation Card]",
+    "offhand: Sigrsverd +8 [Aspect of Torment Card, Aspect of Torment Card, Aspect of Torment Card, Aspect of Torment Card]"
+   ],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Lost Traveler",
+   "shared": {
+    "win": 0.64,
+    "loss": 0,
+    "dps": 593.1271012531109,
+    "ttk": 112.54,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Lost Traveler": {
+      "win": 0.64,
+      "loss": 0
+     }
+    }
+   },
+   "own": {
+    "win": 0.64,
+    "loss": 0,
+    "dps": 593.1271012531109,
+    "ttk": 112.54,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Lost Traveler": {
+      "win": 0.64,
+      "loss": 0
+     }
+    }
+   },
+   "swaps": [],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Navigator",
+   "shared": {
+    "win": 0,
+    "loss": 0,
+    "dps": 302.0098890278423,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Navigator": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "own": {
+    "win": 0,
+    "loss": 0,
+    "dps": 302.0098890278423,
+    "ttk": null,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Navigator": {
+      "win": 0,
+      "loss": 0
+     }
+    }
+   },
+   "swaps": [],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Orc Skeleton",
+   "shared": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1423.9244547865144,
+    "ttk": 4.08,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Orc Skeleton": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "own": {
+    "win": 1,
+    "loss": 0,
+    "dps": 20760.380622837372,
+    "ttk": 0.34,
+    "value": 18.82814999892068,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1893.2421772285038,
+     "cycleS": 1.9015,
+     "sitS": 0,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Orc Skeleton",
+       "weight": 14.285714285714286,
+       "fightS": 0.289,
+       "sitS": 0,
+       "spUsed": 0,
+       "hpUsed": 0,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Orc Skeleton": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "swaps": [
+    "weapon: Lost Dagger +9 [Megalodon Card, Megalodon Card]",
+    "offhand: Sigrsverd +6 [The Paper Card, The Paper Card, The Paper Card, The Paper Card]"
+   ],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Orc Zombie",
+   "shared": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1435.5656108597286,
+    "ttk": 3.4,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Orc Zombie": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "own": {
+    "win": 1,
+    "loss": 0,
+    "dps": 15055.106516290725,
+    "ttk": 0.38,
+    "value": 19.284932275537752,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1938.9238972370333,
+     "cycleS": 1.8567,
+     "sitS": 0,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Orc Zombie",
+       "weight": 16.666666666666668,
+       "fightS": 0.3192,
+       "sitS": 0,
+       "spUsed": 0,
+       "hpUsed": 0,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Orc Zombie": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "swaps": [
+    "weapon: Lost Dagger +9 [Megalodon Card, Megalodon Card]",
+    "offhand: Masamune +6 [Incantation Samurai Card]"
+   ],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Zenorc",
+   "shared": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1418.5780555376587,
+    "ttk": 3.4,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Zenorc": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "own": {
+    "win": 1,
+    "loss": 0,
+    "dps": 38021.13003095975,
+    "ttk": 0,
+    "value": 20.56520513739565,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 2066.9460871562264,
+     "cycleS": 1.7417,
+     "sitS": 0,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Zenorc",
+       "weight": 16.666666666666668,
+       "fightS": 0.12919999999999998,
+       "sitS": 0,
+       "spUsed": 0,
+       "hpUsed": 0,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Zenorc": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "swaps": [
+    "weapon: Lost Dagger +9 [Bloody Murderer Card, Bloody Murderer Card]",
+    "offhand: Sigrsverd +6 [Aspect of Torment Card, Aspect of Torment Card, Aspect of Torment Card, Aspect of Torment Card]"
+   ],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Orc Archer",
+   "shared": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1444.7603744585722,
+    "ttk": 3.4,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Orc Archer": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "own": {
+    "win": 1,
+    "loss": 0,
+    "dps": 25703.73883928571,
+    "ttk": 0,
+    "value": 20.088315157956828,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 2009.2649439080203,
+     "cycleS": 1.7917,
+     "sitS": 0,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Orc Archer",
+       "weight": 21.428571428571427,
+       "fightS": 0.1792,
+       "sitS": 0,
+       "spUsed": 0,
+       "hpUsed": 0,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Orc Archer": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "swaps": [
+    "weapon: Lost Dagger +9 [Bloody Murderer Card, Bloody Murderer Card]",
+    "offhand: Digging Sword +8 [Eclipse Card]"
+   ],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "High Orc",
+   "shared": {
+    "win": 1,
+    "loss": 0,
+    "dps": 1344.087817682854,
+    "ttk": 3.74,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "High Orc": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "own": {
+    "win": 1,
+    "loss": 0,
+    "dps": 16418.049932523616,
+    "ttk": 0.38,
+    "value": 19.52626382684631,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1963.0296090299362,
+     "cycleS": 1.8339,
+     "sitS": 0,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "High Orc",
+       "weight": 23.80952380952381,
+       "fightS": 0.2964,
+       "sitS": 0,
+       "spUsed": 0,
+       "hpUsed": 0,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "High Orc": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "swaps": [
+    "weapon: Lost Dagger +9 [Bloody Murderer Card, Bloody Murderer Card]",
+    "offhand: Masamune +6 [Incantation Samurai Card]"
+   ],
+   "options": {}
+  },
+  {
+   "cost": 0.1,
+   "target": "Grafted Zenorc",
+   "shared": {
+    "win": 1,
+    "loss": 0,
+    "dps": 819.7061887893311,
+    "ttk": 10.15,
+    "value": -1,
+    "deaths": "",
+    "perMob": {
+     "Grafted Zenorc": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "own": {
+    "win": 1,
+    "loss": 0,
+    "dps": 23610.637713029137,
+    "ttk": 0.34,
+    "value": 18.113398797741883,
+    "deaths": "",
+    "rhythm": {
+     "killsPerHour": 1821.585791630825,
+     "cycleS": 1.9763000000000002,
+     "sitS": 0,
+     "deathsPerHour": 0,
+     "scoredDeathsPerHour": 0,
+     "stallsPerHour": 0,
+     "per": [
+      {
+       "name": "Grafted Zenorc",
+       "weight": 7.142857142857143,
+       "fightS": 0.3638,
+       "sitS": 0,
+       "spUsed": 0,
+       "hpUsed": 0,
+       "loss": 0
+      }
+     ]
+    },
+    "perMob": {
+     "Grafted Zenorc": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "swaps": [
+    "weapon: Lost Dagger +9 [Bloody Murderer Card, Bloody Murderer Card]",
+    "offhand: Sigrsverd +6 [Aspect of Torment Card, Aspect of Torment Card, Aspect of Torment Card, Aspect of Torment Card]"
+   ],
+   "options": {}
+  }
+ ],
+ "census": {
+  "shadow": {
+   "sh_armor": [
+    {
+     "name": "Hand of the Father Armor",
+     "refine": 8,
+     "gain": 21.826
+    },
+    {
+     "name": "Aggressive Orphan Armor",
+     "refine": 0,
+     "gain": 19.4883
+    },
+    {
+     "name": "Crystal Clear Armor",
+     "refine": 0,
+     "gain": 16.5603
+    },
+    {
+     "name": "False God Armor",
+     "refine": 8,
+     "gain": 15.6328
+    },
+    {
+     "name": "Morroc Guardian Armor",
+     "refine": 8,
+     "gain": 6.9566
+    },
+    {
+     "name": "Fallen Gods Armor",
+     "refine": 3,
+     "gain": 4.2511
+    },
+    {
+     "name": "Dragon Soul Armor",
+     "refine": 8,
+     "gain": 0.0006
+    },
+    {
+     "name": "Heir to the King Armor",
+     "refine": 8,
+     "gain": 0.0006
+    }
+   ],
+   "sh_shoes": [
+    {
+     "name": "Land of Shadows Shoes",
+     "refine": 6,
+     "gain": 180.2498
+    },
+    {
+     "name": "False God Shoes",
+     "refine": 8,
+     "gain": 15.6328
+    },
+    {
+     "name": "Heir to the King Boots",
+     "refine": 8,
+     "gain": 15.6313
+    },
+    {
+     "name": "Tower Shoes",
+     "refine": 8,
+     "gain": 15.6313
+    },
+    {
+     "name": "Order Soul Shoes",
+     "refine": 8,
+     "gain": 15.6303
+    },
+    {
+     "name": "Unseen World Shoes",
+     "refine": 8,
+     "gain": 15.6303
+    },
+    {
+     "name": "Aggressive Orphan Boots",
+     "refine": 0,
+     "gain": 14.8792
+    },
+    {
+     "name": "Hand of the Father Shoes",
+     "refine": 0,
+     "gain": 8.0778
+    }
+   ],
+   "sh_gloves": [
+    {
+     "name": "Aggressive Orphan Gloves",
+     "refine": 0,
+     "gain": 32.9981
+    },
+    {
+     "name": "School of Cats Gloves",
+     "refine": 8,
+     "gain": 18.6141
+    },
+    {
+     "name": "Lord of Flames Gloves",
+     "refine": 3,
+     "gain": 16.5613
+    },
+    {
+     "name": "False God Gloves",
+     "refine": 8,
+     "gain": 15.6328
+    },
+    {
+     "name": "King's Noble Gloves",
+     "refine": 8,
+     "gain": 15.6313
+    },
+    {
+     "name": "Cacophony Gloves",
+     "refine": 8,
+     "gain": 15.6308
+    },
+    {
+     "name": "First Einherjar Gloves",
+     "refine": 8,
+     "gain": 15.6308
+    },
+    {
+     "name": "First Orphan Gloves",
+     "refine": 8,
+     "gain": 15.6307
+    }
+   ],
+   "sh_acc": [
+    {
+     "name": "True Goddess Pendant",
+     "refine": 0,
+     "gain": 180.2498
+    },
+    {
+     "name": "Lord of Flames Pendant",
+     "refine": 3,
+     "gain": 16.5613
+    },
+    {
+     "name": "False God Pendant",
+     "refine": 8,
+     "gain": 15.6328
+    },
+    {
+     "name": "Heir to the King Pendant",
+     "refine": 8,
+     "gain": 15.6313
+    },
+    {
+     "name": "Nightmare Hunter Pendant",
+     "refine": 8,
+     "gain": 15.6313
+    },
+    {
+     "name": "Cacophony Pendant",
+     "refine": 8,
+     "gain": 15.6308
+    },
+    {
+     "name": "Aria of Harmony Pendant",
+     "refine": 0,
+     "gain": 15.6307
+    },
+    {
+     "name": "Corrupted Time Pendant",
+     "refine": 8,
+     "gain": 15.6303
+    }
+   ],
+   "sh_manual": [
+    {
+     "name": "Celestial Tome",
+     "refine": 0,
+     "gain": 33.3886
+    },
+    {
+     "name": "Unleashed Manual",
+     "refine": 0,
+     "gain": 21.7234
+    },
+    {
+     "name": "Equilibrium Tome",
+     "refine": 0,
+     "gain": 20.9953
+    },
+    {
+     "name": "Pickpocket Manual",
+     "refine": 0,
+     "gain": 16.5599
+    },
+    {
+     "name": "Pickpocket Manual X",
+     "refine": 0,
+     "gain": 15.6319
+    },
+    {
+     "name": "Agility Manual X",
+     "refine": 0,
+     "gain": 15.6302
+    },
+    {
+     "name": "Agility Manual",
+     "refine": 0,
+     "gain": 14.8786
+    },
+    {
+     "name": "Vanish Manual X",
+     "refine": 0,
+     "gain": 8.0748
+    }
+   ],
+   "runeorb": [
+    {
+     "name": "Isaz Rune of Deception",
+     "refine": 8,
+     "gain": 21.775
+    },
+    {
+     "name": "Ehwaz Rune of Horse",
+     "refine": 8,
+     "gain": 15.6311
+    },
+    {
+     "name": "Soul Rune of Destiny",
+     "refine": 0,
+     "gain": 14.879
+    },
+    {
+     "name": "Uruz Rune of Strength",
+     "refine": 8,
+     "gain": 9.041
+    },
+    {
+     "name": "Uruz Rune of Freedom",
+     "refine": 6,
+     "gain": 8.3492
+    },
+    {
+     "name": "Sowilo Rune of Success",
+     "refine": 0,
+     "gain": 7.2997
+    },
+    {
+     "name": "Perthro Rune of Occult",
+     "refine": 6,
+     "gain": 4.2481
+    },
+    {
+     "name": "Sowilo Rune of Sun",
+     "refine": 8,
+     "gain": 0.3301
+    }
+   ]
+  },
+  "sets": [
+   {
+    "name": "Warring Ragnarok",
+    "refine": 6,
+    "gain": 48.1629
+   },
+   {
+    "name": "Aggressive Orphan",
+    "refine": 9,
+    "gain": 48.0387
+   },
+   {
+    "name": "Warring Ragnarok",
+    "refine": 9,
+    "gain": 47.9591
+   },
+   {
+    "name": "Godslayer",
+    "refine": 9,
+    "gain": 47.5319
+   },
+   {
+    "name": "Godslayer",
+    "refine": 6,
+    "gain": 47.5311
+   },
+   {
+    "name": "Godslayer",
+    "refine": 3,
+    "gain": 47.5297
+   },
+   {
+    "name": "Godslayer",
+    "refine": 0,
+    "gain": 47.529
+   },
+   {
+    "name": "False God",
+    "refine": 9,
+    "gain": 47.5151
+   }
+  ],
+  "deadShadow": 286,
+  "deadCards": [
+   "Alice Card",
+   "Amistr Card",
+   "Aspect of Lies Card",
+   "Automata Card",
+   "Beetle King Card",
+   "Carat Card",
+   "Chepet Card",
+   "Comodo Card",
+   "Enchanted Cornus Card",
+   "Enchanted Dragon Card",
+   "Enchanted Serpent Card",
+   "Eggyra Card",
+   "Filir Card",
+   "Giearth Card",
+   "Goat Card",
+   "Golden Thief Bug Card",
+   "Ice Titan Card",
+   "Lif Card",
+   "Enchanted Fatum Card",
+   "Marc Card",
+   "Enchanted Mavka Card",
+   "Ms. Strangelove Card",
+   "Muka Card",
+   "Myst Case Card",
+   "Nepenthes Card",
+   "Obsidian Card",
+   "Rocker Card",
+   "Ruby Golem Card",
+   "Rudo Card",
+   "Sasquatch Card",
+   "Soul Cage Azrael Card",
+   "Sropho Card",
+   "Thorn of Death Card",
+   "Tower Manager Card",
+   "Tricked Follower Card",
+   "Vanilmirth Card",
+   "Zombie Guard Card",
+   "Aliza Card",
+   "Angry Pyuriel Card",
+   "Antonio Card",
+   "Aqua Elemental Card",
+   "Aspect of Horror Card",
+   "Assassin Card",
+   "Bartender Card",
+   "Bloody Butterfly Card",
+   "Bone Acidus Card",
+   "Broken Homunculus Card",
+   "Bubble Spirit Card",
+   "Carbon Chonchon Card",
+   "Choco Card",
+   "Drowned Spirit Card",
+   "Depths Mermaid Card",
+   "Deviruchi Card",
+   "Disguise Card",
+   "Dullahan Card",
+   "Dumpling Child Card",
+   "Explosion Card",
+   "Failed Abomination Card",
+   "Fallen Lord Knight Card",
+   "Fallen White Knight Card",
+   "Galion Card",
+   "Gan Ceann Card",
+   "Gargoyle Card",
+   "Gemini-S58 Card",
+   "Gloom Under Night Card",
+   "Grafted Zenorc Card",
+   "Gryphon Card",
+   "Guillotine Card",
+   "Guillotine Cross Card",
+   "Harpy Card",
+   "Hermit Spirit Card",
+   "Hinoenma Card",
+   "Holy Frus Card",
+   "Horror of Thanatos Card",
+   "Rachel Kidnapper Card",
+   "Luciola Vespa Card",
+   "Marse Card",
+   "Merman Card",
+   "Missing Body Card",
+   "Model MCH Card",
+   "Moldy Man Card",
+   "Moon Guardian Card",
+   "Mutant Dragonoid Card",
+   "Naga Card",
+   "Orphan Hunter Card",
+   "Red Novus Card",
+   "Red Terminus Card",
+   "Shadow Chaser Card",
+   "Sif Avatar Card",
+   "Skeggiold Card",
+   "Smile Card",
+   "Storage Assistant Card",
+   "Tengu Card",
+   "Violy Card",
+   "Weird Alchemist Card",
+   "Whisper Card",
+   "Wild Rider Card",
+   "Guild Chamberlain Card",
+   "Ash Toad Card",
+   "Aster Card",
+   "Baby Molinet Card",
+   "Bone Ferus Card",
+   "Calmaring Card",
+   "Cat O' Nine Tails Card",
+   "Coyote Card",
+   "Desert Nomad Card",
+   "Desperate Maid Card",
+   "Fairy Les Card",
+   "Fallen Rune Knight Card",
+   "Hornet Card",
+   "Injustice Card",
+   "Isis Card",
+   "Kraben Card",
+   "Magma Terror Card",
+   "Menblatt Card",
+   "Miming Card",
+   "Mobster Card",
+   "Moonlight Flower Card",
+   "Myst Card",
+   "Nightmare Card",
+   "Nymph Spirit Card",
+   "Phendark Card",
+   "Red Hover Card",
+   "Magma Kaho Card",
+   "Roween Card",
+   "Rybio Card",
+   "Skeleton Prisoner Card",
+   "Sleipnir Avatar Card",
+   "Stormy Knight Card",
+   "Strange Thief Card",
+   "Vine Willow Card",
+   "Warp Assistant Card",
+   "Wild Rose Card",
+   "Zealotus Card",
+   "Zombie Prisoner Card",
+   "Frigg Avatar Card",
+   "Agav Card",
+   "Argiope Card",
+   "Ashring Card",
+   "Aunoe Card",
+   "Bar Maids Card",
+   "Bone Detardeurus Card",
+   "Buzzer Card",
+   "Clock Card",
+   "Corruption Root Card",
+   "Desert Kaho Card",
+   "Frost Fairy Card",
+   "Ghost Tree Card",
+   "Gibbet Card",
+   "Great Shadow Card",
+   "Holden Card",
+   "King Poring Card",
+   "Kobold Archer Card",
+   "Lavaring Card",
+   "Leaf Cat Card",
+   "Mime Monkey Card",
+   "Navigator Card",
+   "Old Blue Bag Card",
+   "Pirate Skeleton Card",
+   "RSX-0806 Card",
+   "Rafflesia Card",
+   "Recon Robot Card",
+   "Remover Card",
+   "Retribution Card",
+   "Roadie Card",
+   "Scream Card",
+   "Sleeper Card",
+   "Smokie Card",
+   "Spring Rabbit Card",
+   "Stone Shooter Card",
+   "Strange Wizard Card",
+   "Tao Gunka Card",
+   "Wootan Shooter Card",
+   "Zenorc Card",
+   "Phen Card",
+   "Surtr Avatar Card"
+  ]
+ }
+}

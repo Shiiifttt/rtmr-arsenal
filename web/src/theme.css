@@ -761,6 +761,22 @@ input:focus, select:focus, button:focus-visible {
 .class-start { display: flex; align-items: center; gap: 8px; margin: 0 0 8px; flex-wrap: wrap; }
 .class-start select { min-width: 0; flex: 1; font-size: 12px; padding: 4px 6px; }
 .class-start-name { font-size: 12px; color: var(--text-dim); }
+/* The playstyle's tiers (the sim's budget / baseline / maxed builds) and how far the build is along each. */
+.tier-path { flex-basis: 100%; display: grid; gap: 6px; }
+.tier-note { font-size: 12px; color: var(--text-faint); }
+.tier-chips { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.tier-chip { display: grid; gap: 3px; padding: 5px 7px; text-align: left; font-size: 11.5px; }
+.tier-chip.next { border-color: var(--accent); }
+.tier-name { font-weight: 600; }
+.tier-chip.reached .tier-name { color: var(--good); }
+.tier-bar { height: 3px; border-radius: 2px; background: var(--bg-input); }
+.tier-bar span { display: block; height: 100%; border-radius: 2px; background: var(--warn); }
+.tier-chip.reached .tier-bar span { background: var(--good); }
+.tier-pct { font-family: var(--mono); font-size: 10.5px; color: var(--text-dim); }
+.tier-next { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 12px; }
+.tier-next a { color: var(--text-dim); }
+.tier-swaps { font-size: 11.5px; color: var(--text-dim); }
+.tier-swaps ul { margin: 4px 0 0; padding-left: 16px; display: grid; gap: 2px; }
 
 .plan { margin: 10px 0 0; padding-left: 18px; display: grid; gap: 6px; }
 .plan li::marker { color: var(--text-faint); font-family: var(--mono); font-size: 11px; }
@@ -1105,3 +1121,37 @@ input:focus, select:focus, button:focus-visible {
 .rot-part { font-family: var(--mono); font-size: 10px; line-height: 12px; min-height: 12px; color: var(--text-faint); }
 .rot-part.big { color: #7ee787; }
 .rot-dmg { display: block; margin-top: 4px; font-family: var(--mono); font-size: 11px; color: #7ee787; }
+
+/* The build at a glance (EquipWindow): four tiles -- gear and shadow gear laid out like the game's
+   equipment window, the stat allocation, the training dummy -- small enough for one screenshot. */
+.panel-head .glance { display: grid; place-items: center; padding: 4px 6px; }
+.picker.equip-window { width: min(900px, 100%); max-height: 92vh; overflow: auto; }
+.eq-level { font-weight: 400; color: var(--text-dim); font-size: 12px; margin-left: 6px; }
+.eq-body { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 12px; }
+@media (max-width: 760px) { .eq-body { grid-template-columns: 1fr; } }
+.eq-tile { border: 1px solid var(--border); border-radius: 5px; padding: 8px 10px; background: var(--bg-input); min-width: 0; }
+.eq-tile h4 { margin: 0 0 6px; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--text-dim); }
+.eq-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 8px; }
+.eq-cols + .eq-cols { margin-top: 4px; padding-top: 4px; border-top: 1px dashed var(--border); }
+.eq-cols > div { display: grid; gap: 4px; align-content: start; }
+.eq-cell { display: flex; gap: 6px; align-items: flex-start; min-width: 0; }
+.eq-cell.empty { opacity: .45; }
+.eq-text { display: grid; gap: 1px; min-width: 0; flex: 1; }
+.eq-name { font-size: 11.5px; line-height: 15px; height: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.eq-cards { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden;
+  font-size: 10.5px; line-height: 13px; height: 26px; color: var(--accent); }
+.eq-card { white-space: nowrap; }
+.eq-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px 14px; font-size: 12px; }
+.eq-stat { display: grid; grid-template-columns: 34px 30px 30px 1fr; align-items: baseline; font-family: var(--mono); }
+.eq-stat-name { color: var(--text-dim); }
+.eq-stat-bonus { color: var(--good); font-size: 11px; }
+.eq-stat-bonus.bad { color: var(--bad); }
+.eq-stat b { text-align: right; }
+.eq-derived { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px 14px; margin-top: 8px; padding-top: 6px; border-top: 1px dashed var(--border); font-size: 12px; }
+.eq-derived > div { display: flex; justify-content: space-between; gap: 8px; min-width: 0; }
+.eq-derived span { color: var(--text-dim); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.eq-dps { font-size: 13px; color: var(--text-dim); }
+.eq-dps b { font-size: 22px; color: var(--text); font-family: var(--mono); }
+.eq-note { margin: 4px 0 0; font-size: 11px; color: var(--text-faint); }
+.eq-dummy-head { display: flex; align-items: center; gap: 8px; }
+.eq-dummy-head select { margin-left: auto; font-size: 11px; padding: 1px 4px; text-transform: none; letter-spacing: 0; width: auto; }

@@ -138,8 +138,12 @@ export function fitsCard(card: Item, slot: SlotDef, into?: Item | null): boolean
 function cardTargets(item: Item, slot: SlotDef): string[] {
   // A card calls the shield slot "Shield" where the shield itself says
   // "Off-hand", so the item's own wording needs translating first.
+  // A weapon card goes into any weapon, one- or two-handed: the server has one
+  // card location for both (EQP_WEAPON). The crawl lists "Weapon (two-handed)"
+  // on only 17 of 174 weapon cards, so a bow, katar or scythe took almost none
+  // (2026-10-03: Chocolate Bear never reached an Alto Flagelo).
   return item.equip_slots
-    .map((s) => (s === 'Off-hand' ? 'Shield' : s))
+    .flatMap((s) => (s === 'Off-hand' ? ['Shield'] : s === 'Weapon' || s === 'Weapon (two-handed)' ? ['Weapon', 'Weapon (two-handed)'] : [s]))
     .filter((s) => slot.cardTargets.includes(s));
 }
 

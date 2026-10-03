@@ -1,0 +1,2468 @@
+{
+ "profile": "Tiers 2026-10-02: nr-aa-baseline",
+ "targets": [
+  "Njord Zealot",
+  "Converted Zealot",
+  "Godly Seeker",
+  "Burning Fury",
+  "Tortured Maiden",
+  "Angel of Genesis",
+  "Demon of Apocalypse",
+  "Heartless",
+  "Heart of the Serpent",
+  "Conquest Incarnate",
+  "Famine Incarnate",
+  "War Incarnate",
+  "Death Incarnate",
+  "Vision of Surt",
+  "Empathy",
+  "Smile",
+  "Happiness",
+  "Prayer",
+  "Anger of Thanatos",
+  "Horror of Thanatos",
+  "Resentment of Thanatos",
+  "Regret of Thanatos",
+  "Aunoe",
+  "Fanat",
+  "Ascended Follower",
+  "Dominated Follower",
+  "Doomed Follower",
+  "Ritual Priest",
+  "Magma Knight",
+  "Tornado Knight",
+  "Quake Knight",
+  "Tidal Knight",
+  "Umbral Knight",
+  "Guild Warrior",
+  "Guild Support",
+  "Guild Defender",
+  "Guild Magician",
+  "Guild Chamberlain",
+  "Guild Master",
+  "Ymir Emperium",
+  "Detector",
+  "Agav",
+  "Echio",
+  "Vanberk",
+  "Isilla",
+  "Hodremlin",
+  "Seeker",
+  "Tricked Follower",
+  "Gentleman",
+  "Maiden of Past",
+  "Lost Codex",
+  "Maiden of Present",
+  "Maiden of Future",
+  "Cavalier",
+  "Lost Traveler",
+  "Navigator",
+  "Orc Skeleton",
+  "Orc Zombie",
+  "Zenorc",
+  "Orc Archer",
+  "High Orc",
+  "Grafted Zenorc"
+ ],
+ "rules": {
+  "screenN": 20,
+  "confirmN": 100,
+  "timeS": 120,
+  "locked": [
+   "none"
+  ],
+  "penalty": 0.1,
+  "topStats": [
+   "luk",
+   "str",
+   "agi"
+  ],
+  "topRefine": true
+ },
+ "start": "http://localhost:5173/#b=cfZHdTsMwDIVfBeX6XNiOkzQvwQW3UTVVXVgrtjH1Z4K3R2krMUDlxpLtE38ndhKY5_7UTU8vzT1fDdgSUuVQKawDgx1irJESwbIIIyKx9VJhiXWNxHAxMKg0nJciNuPUTAbmPL8ZJK7rohO4KK4MULURJTxqx2n41lqwY6cbzRZa0B-jm1NvkKSIzZDH93los4G5NB-H7maQ3NK59FN_aqb-_Wpgbt3n2LfN-TDk49zmo0GyK85DKFR28caeoI7DHizfm3Gd93rOuVimpT7O49T0pd7dDuec2648IciKCBChEJYfEWn0HsrB_aVsG6gWfSxrVSWFun_EEeJD2LRud6ssEFUnxcTumdhCYrSEch3WklBcEwdLTFvHQ1SsL9D9WQGixPE38MFVXX8B",
+ "steps": [
+  {
+   "move": "Middle Headgear: Blush +0",
+   "before": {
+    "win": 0.3202832270984969,
+    "loss": 0.1163365492824696,
+    "dps": 527.1315186120913,
+    "ttk": 36.78580952380952,
+    "value": -1.3,
+    "deaths": "Crimson Rock x25, Knuckle Arrow x21",
+    "perMob": {
+     "Njord Zealot": {
+      "win": 0,
+      "loss": 0
+     },
+     "Converted Zealot": {
+      "win": 0,
+      "loss": 0
+     },
+     "Godly Seeker": {
+      "win": 0,
+      "loss": 0
+     },
+     "Burning Fury": {
+      "win": 0,
+      "loss": 0.9642857142857143
+     },
+     "Tortured Maiden": {
+      "win": 0,
+      "loss": 0.13636363636363635
+     },
+     "Angel of Genesis": {
+      "win": 0,
+      "loss": 0
+     },
+     "Demon of Apocalypse": {
+      "win": 0,
+      "loss": 0
+     },
+     "Heartless": {
+      "win": 0,
+      "loss": 0.38095238095238093
+     },
+     "Heart of the Serpent": {
+      "win": 0,
+      "loss": 0.5882352941176471
+     },
+     "Conquest Incarnate": {
+      "win": 0,
+      "loss": 0
+     },
+     "Famine Incarnate": {
+      "win": 0,
+      "loss": 0
+     },
+     "War Incarnate": {
+      "win": 0,
+      "loss": 0.125
+     },
+     "Death Incarnate": {
+      "win": 0,
+      "loss": 0.7272727272727273
+     },
+     "Vision of Surt": {
+      "win": 0,
+      "loss": 0
+     },
+     "Empathy": {
+      "win": 0,
+      "loss": 0
+     },
+     "Smile": {
+      "win": 0,
+      "loss": 0
+     },
+     "Happiness": {
+      "win": 0,
+      "loss": 0
+     },
+     "Prayer": {
+      "win": 0,
+      "loss": 0
+     },
+     "Anger of Thanatos": {
+      "win": 0,
+      "loss": 0
+     },
+     "Horror of Thanatos": {
+      "win": 0,
+      "loss": 0
+     },
+     "Resentment of Thanatos": {
+      "win": 0,
+      "loss": 0
+     },
+     "Regret of Thanatos": {
+      "win": 0,
+      "loss": 0
+     },
+     "Aunoe": {
+      "win": 0,
+      "loss": 1
+     },
+     "Fanat": {
+      "win": 0,
+      "loss": 1
+     },
+     "Ascended Follower": {
+      "win": 0,
+      "loss": 1
+     },
+     "Dominated Follower": {
+      "win": 0,
+      "loss": 0
+     },
+     "Doomed Follower": {
+      "win": 0,
+      "loss": 0.4
+     },
+     "Ritual Priest": {
+      "win": 0,
+      "loss": 0
+     },
+     "Magma Knight": {
+      "win": 0,
+      "loss": 0
+     },
+     "Tornado Knight": {
+      "win": 0,
+      "loss": 0
+     },
+     "Quake Knight": {
+      "win": 0,
+      "loss": 0
+     },
+     "Tidal Knight": {
+      "win": 0,
+      "loss": 0
+     },
+     "Umbral Knight": {
+      "win": 0,
+      "loss": 0
+     },
+     "Guild Warrior": {
+      "win": 0,
+      "loss": 0
+     },
+     "Guild Support": {
+      "win": 0,
+      "loss": 0
+     },
+     "Guild Defender": {
+      "win": 0,
+      "loss": 0
+     },
+     "Guild Magician": {
+      "win": 0,
+      "loss": 0
+     },
+     "Guild Chamberlain": {
+      "win": 0,
+      "loss": 0.17647058823529413
+     },
+     "Guild Master": {
+      "win": 0,
+      "loss": 0.7142857142857143
+     },
+     "Ymir Emperium": {
+      "win": 0,
+      "loss": 0
+     },
+     "Detector": {
+      "win": 1,
+      "loss": 0
+     },
+     "Agav": {
+      "win": 1,
+      "loss": 0
+     },
+     "Echio": {
+      "win": 1,
+      "loss": 0
+     },
+     "Vanberk": {
+      "win": 1,
+      "loss": 0
+     },
+     "Isilla": {
+      "win": 1,
+      "loss": 0
+     },
+     "Hodremlin": {
+      "win": 1,
+      "loss": 0
+     },
+     "Seeker": {
+      "win": 1,
+      "loss": 0
+     },
+     "Tricked Follower": {
+      "win": 1,
+      "loss": 0
+     },
+     "Gentleman": {
+      "win": 1,
+      "loss": 0
+     },
+     "Maiden of Past": {
+      "win": 1,
+      "loss": 0
+     },
+     "Lost Codex": {
+      "win": 1,
+      "loss": 0
+     },
+     "Maiden of Present": {
+      "win": 1,
+      "loss": 0
+     },
+     "Maiden of Future": {
+      "win": 0.009345794392523364,
+      "loss": 0
+     },
+     "Cavalier": {
+      "win": 1,
+      "loss": 0
+     },
+     "Lost Traveler": {
+      "win": 0.8482142857142857,
+      "loss": 0
+     },
+     "Navigator": {
+      "win": 0,
+      "loss": 0
+     },
+     "Orc Skeleton": {
+      "win": 1,
+      "loss": 0
+     },
+     "Orc Zombie": {
+      "win": 1,
+      "loss": 0
+     },
+     "Zenorc": {
+      "win": 1,
+      "loss": 0
+     },
+     "Orc Archer": {
+      "win": 1,
+      "loss": 0
+     },
+     "High Orc": {
+      "win": 1,
+      "loss": 0
+     },
+     "Grafted Zenorc": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 0.31948781170593044,
+    "loss": 0.11661563452360416,
+    "dps": 508.8668052257298,
+    "ttk": 38.161142857142856,
+    "value": -1.2,
+    "deaths": "Crimson Rock x25, Knuckle Arrow x24",
+    "perMob": {
+     "Njord Zealot": {
+      "win": 0,
+      "loss": 0
+     },
+     "Converted Zealot": {
+      "win": 0,
+      "loss": 0.045454545454545456
+     },
+     "Godly Seeker": {
+      "win": 0,
+      "loss": 0
+     },
+     "Burning Fury": {
+      "win": 0,
+      "loss": 1
+     },
+     "Tortured Maiden": {
+      "win": 0,
+      "loss": 0.13636363636363635
+     },
+     "Angel of Genesis": {
+      "win": 0,
+      "loss": 0
+     },
+     "Demon of Apocalypse": {
+      "win": 0,
+      "loss": 0
+     },
+     "Heartless": {
+      "win": 0,
+      "loss": 0.47619047619047616
+     },
+     "Heart of the Serpent": {
+      "win": 0,
+      "loss": 0.35294117647058826
+     },
+     "Conquest Incarnate": {
+      "win": 0,
+      "loss": 0
+     },
+     "Famine Incarnate": {
+      "win": 0,
+      "loss": 0
+     },
+     "War Incarnate": {
+      "win": 0,
+      "loss": 0.125
+     },
+     "Death Incarnate": {
+      "win": 0,
+      "loss": 0.7272727272727273
+     },
+     "Vision of Surt": {
+      "win": 0,
+      "loss": 0
+     },
+     "Empathy": {
+      "win": 0,
+      "loss": 0
+     },
+     "Smile": {
+      "win": 0,
+      "loss": 0
+     },
+     "Happiness": {
+      "win": 0,
+      "loss": 0
+     },
+     "Prayer": {
+      "win": 0,
+      "loss": 0
+     },
+     "Anger of Thanatos": {
+      "win": 0,
+      "loss": 0
+     },
+     "Horror of Thanatos": {
+      "win": 0,
+      "loss": 0
+     },
+     "Resentment of Thanatos": {
+      "win": 0,
+      "loss": 0
+     },
+     "Regret of Thanatos": {
+      "win": 0,
+      "loss": 0
+     },
+     "Aunoe": {
+      "win": 0,
+      "loss": 1
+     },
+     "Fanat": {
+      "win": 0,
+      "loss": 1
+     },
+     "Ascended Follower": {
+      "win": 0,
+      "loss": 1
+     },
+     "Dominated Follower": {
+      "win": 0,
+      "loss": 0
+     },
+     "Doomed Follower": {
+      "win": 0,
+      "loss": 0.3333333333333333
+     },
+     "Ritual Priest": {
+      "win": 0,
+      "loss": 0
+     },
+     "Magma Knight": {
+      "win": 0,
+      "loss": 0
+     },
+     "Tornado Knight": {
+      "win": 0,
+      "loss": 0
+     },
+     "Quake Knight": {
+      "win": 0,
+      "loss": 0
+     },
+     "Tidal Knight": {
+      "win": 0,
+      "loss": 0
+     },
+     "Umbral Knight": {
+      "win": 0,
+      "loss": 0
+     },
+     "Guild Warrior": {
+      "win": 0,
+      "loss": 0
+     },
+     "Guild Support": {
+      "win": 0,
+      "loss": 0
+     },
+     "Guild Defender": {
+      "win": 0,
+      "loss": 0
+     },
+     "Guild Magician": {
+      "win": 0,
+      "loss": 0
+     },
+     "Guild Chamberlain": {
+      "win": 0,
+      "loss": 0.17647058823529413
+     },
+     "Guild Master": {
+      "win": 0,
+      "loss": 0.8571428571428571
+     },
+     "Ymir Emperium": {
+      "win": 0,
+      "loss": 0
+     },
+     "Detector": {
+      "win": 1,
+      "loss": 0
+     },
+     "Agav": {
+      "win": 1,
+      "loss": 0
+     },
+     "Echio": {
+      "win": 1,
+      "loss": 0
+     },
+     "Vanberk": {
+      "win": 1,
+      "loss": 0
+     },
+     "Isilla": {
+      "win": 1,
+      "loss": 0
+     },
+     "Hodremlin": {
+      "win": 1,
+      "loss": 0
+     },
+     "Seeker": {
+      "win": 1,
+      "loss": 0
+     },
+     "Tricked Follower": {
+      "win": 1,
+      "loss": 0
+     },
+     "Gentleman": {
+      "win": 1,
+      "loss": 0
+     },
+     "Maiden of Past": {
+      "win": 1,
+      "loss": 0
+     },
+     "Lost Codex": {
+      "win": 1,
+      "loss": 0
+     },
+     "Maiden of Present": {
+      "win": 1,
+      "loss": 0
+     },
+     "Maiden of Future": {
+      "win": 0.004672897196261682,
+      "loss": 0
+     },
+     "Cavalier": {
+      "win": 1,
+      "loss": 0
+     },
+     "Lost Traveler": {
+      "win": 0.8035714285714286,
+      "loss": 0
+     },
+     "Navigator": {
+      "win": 0,
+      "loss": 0
+     },
+     "Orc Skeleton": {
+      "win": 1,
+      "loss": 0
+     },
+     "Orc Zombie": {
+      "win": 1,
+      "loss": 0
+     },
+     "Zenorc": {
+      "win": 1,
+      "loss": 0
+     },
+     "Orc Archer": {
+      "win": 1,
+      "loss": 0
+     },
+     "High Orc": {
+      "win": 1,
+      "loss": 0
+     },
+     "Grafted Zenorc": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 34
+  },
+  {
+   "move": "Armor: Alligator Card x2",
+   "before": {
+    "win": 0.3196278028218488,
+    "loss": 0.11735673188347212,
+    "dps": 508.23633445783906,
+    "ttk": 38.86157142857142,
+    "value": -1.2,
+    "deaths": "Knuckle Arrow x26, Crimson Rock x21",
+    "perMob": {
+     "Njord Zealot": {
+      "win": 0,
+      "loss": 0
+     },
+     "Converted Zealot": {
+      "win": 0,
+      "loss": 0
+     },
+     "Godly Seeker": {
+      "win": 0,
+      "loss": 0
+     },
+     "Burning Fury": {
+      "win": 0,
+      "loss": 1
+     },
+     "Tortured Maiden": {
+      "win": 0,
+      "loss": 0.15789473684210525
+     },
+     "Angel of Genesis": {
+      "win": 0,
+      "loss": 0
+     },
+     "Demon of Apocalypse": {
+      "win": 0,
+      "loss": 0
+     },
+     "Heartless": {
+      "win": 0,
+      "loss": 0.6
+     },
+     "Heart of the Serpent": {
+      "win": 0,
+      "loss": 0.6842105263157895
+     },
+     "Conquest Incarnate": {
+      "win": 0,
+      "loss": 0
+     },
+     "Famine Incarnate": {
+      "win": 0,
+      "loss": 0
+     },
+     "War Incarnate": {
+      "win": 0,
+      "loss": 0.14285714285714285
+     },
+     "Death Incarnate": {
+      "win": 0,
+      "loss": 0.6842105263157895
+     },
+     "Vision of Surt": {
+      "win": 0,
+      "loss": 0
+     },
+     "Empathy": {
+      "win": 0,
+      "loss": 0
+     },
+     "Smile": {
+      "win": 0,
+      "loss": 0
+     },
+     "Happiness": {
+      "win": 0,
+      "loss": 0
+     },
+     "Prayer": {
+      "win": 0,
+      "loss": 0
+     },
+     "Anger of Thanatos": {
+      "win": 0,
+      "loss": 0
+     },
+     "Horror of Thanatos": {
+      "win": 0,
+      "loss": 0
+     },
+     "Resentment of Thanatos": {
+      "win": 0,
+      "loss": 0
+     },
+     "Regret of Thanatos": {
+      "win": 0,
+      "loss": 0
+     },
+     "Aunoe": {
+      "win": 0,
+      "loss": 1
+     },
+     "Fanat": {
+      "win": 0,
+      "loss": 1
+     },
+     "Ascended Follower": {
+      "win": 0,
+      "loss": 1
+     },
+     "Dominated Follower": {
+      "win": 0,
+      "loss": 0
+     },
+     "Doomed Follower": {
+      "win": 0,
+      "loss": 0.16666666666666666
+     },
+     "Ritual Priest": {
+      "win": 0,
+      "loss": 0
+     },
+     "Magma Knight": {
+      "win": 0,
+      "loss": 0
+     },
+     "Tornado Knight": {
+      "win": 0,
+      "loss": 0
+     },
+     "Quake Knight": {
+      "win": 0,
+      "loss": 0
+     },
+     "Tidal Knight": {
+      "win": 0,
+      "loss": 0
+     },
+     "Umbral Knight": {
+      "win": 0,
+      "loss": 0
+     },
+     "Guild Warrior": {
+      "win": 0,
+      "loss": 0
+     },
+     "Guild Support": {
+      "win": 0,
+      "loss": 0
+     },
+     "Guild Defender": {
+      "win": 0,
+      "loss": 0
+     },
+     "Guild Magician": {
+      "win": 0,
+      "loss": 0
+     },
+     "Guild Chamberlain": {
+      "win": 0,
+      "loss": 0.0625
+     },
+     "Guild Master": {
+      "win": 0,
+      "loss": 0.7777777777777778
+     },
+     "Ymir Emperium": {
+      "win": 0,
+      "loss": 0
+     },
+     "Detector": {
+      "win": 1,
+      "loss": 0
+     },
+     "Agav": {
+      "win": 1,
+      "loss": 0
+     },
+     "Echio": {
+      "win": 1,
+      "loss": 0
+     },
+     "Vanberk": {
+      "win": 1,
+      "loss": 0
+     },
+     "Isilla": {
+      "win": 1,
+      "loss": 0
+     },
+     "Hodremlin": {
+      "win": 1,
+      "loss": 0
+     },
+     "Seeker": {
+      "win": 1,
+      "loss": 0
+     },
+     "Tricked Follower": {
+      "win": 1,
+      "loss": 0
+     },
+     "Gentleman": {
+      "win": 1,
+      "loss": 0
+     },
+     "Maiden of Past": {
+      "win": 1,
+      "loss": 0
+     },
+     "Lost Codex": {
+      "win": 1,
+      "loss": 0
+     },
+     "Maiden of Present": {
+      "win": 1,
+      "loss": 0
+     },
+     "Maiden of Future": {
+      "win": 0.006578947368421052,
+      "loss": 0
+     },
+     "Cavalier": {
+      "win": 1,
+      "loss": 0
+     },
+     "Lost Traveler": {
+      "win": 0.8103448275862069,
+      "loss": 0
+     },
+     "Navigator": {
+      "win": 0,
+      "loss": 0
+     },
+     "Orc Skeleton": {
+      "win": 1,
+      "loss": 0
+     },
+     "Orc Zombie": {
+      "win": 1,
+      "loss": 0
+     },
+     "Zenorc": {
+      "win": 1,
+      "loss": 0
+     },
+     "Orc Archer": {
+      "win": 1,
+      "loss": 0
+     },
+     "High Orc": {
+      "win": 1,
+      "loss": 0
+     },
+     "Grafted Zenorc": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 0.3186874304783093,
+    "loss": 0.13688710718634317,
+    "dps": 518.3080639030109,
+    "ttk": 33.77029999999999,
+    "value": -1.1,
+    "deaths": "Knuckle Arrow x25, Crimson Rock x21",
+    "perMob": {
+     "Njord Zealot": {
+      "win": 0,
+      "loss": 0
+     },
+     "Converted Zealot": {
+      "win": 0,
+      "loss": 0.13636363636363635
+     },
+     "Godly Seeker": {
+      "win": 0,
+      "loss": 0
+     },
+     "Burning Fury": {
+      "win": 0,
+      "loss": 1
+     },
+     "Tortured Maiden": {
+      "win": 0,
+      "loss": 0.2631578947368421
+     },
+     "Angel of Genesis": {
+      "win": 0,
+      "loss": 0
+     },
+     "Demon of Apocalypse": {
+      "win": 0,
+      "loss": 0
+     },
+     "Heartless": {
+      "win": 0,
+      "loss": 0.7
+     },
+     "Heart of the Serpent": {
+      "win": 0,
+      "loss": 0.5789473684210527
+     },
+     "Conquest Incarnate": {
+      "win": 0,
+      "loss": 0
+     },
+     "Famine Incarnate": {
+      "win": 0,
+      "loss": 0
+     },
+     "War Incarnate": {
+      "win": 0,
+      "loss": 0.35714285714285715
+     },
+     "Death Incarnate": {
+      "win": 0,
+      "loss": 1
+     },
+     "Vision of Surt": {
+      "win": 0,
+      "loss": 0
+     },
+     "Empathy": {
+      "win": 0,
+      "loss": 0
+     },
+     "Smile": {
+      "win": 0,
+      "loss": 0
+     },
+     "Happiness": {
+      "win": 0,
+      "loss": 0
+     },
+     "Prayer": {
+      "win": 0,
+      "loss": 0
+     },
+     "Anger of Thanatos": {
+      "win": 0,
+      "loss": 0
+     },
+     "Horror of Thanatos": {
+      "win": 0,
+      "loss": 0
+     },
+     "Resentment of Thanatos": {
+      "win": 0,
+      "loss": 0
+     },
+     "Regret of Thanatos": {
+      "win": 0,
+      "loss": 0
+     },
+     "Aunoe": {
+      "win": 0,
+      "loss": 1
+     },
+     "Fanat": {
+      "win": 0,
+      "loss": 1
+     },
+     "Ascended Follower": {
+      "win": 0,
+      "loss": 1
+     },
+     "Dominated Follower": {
+      "win": 0,
+      "loss": 0
+     },
+     "Doomed Follower": {
+      "win": 0,
+      "loss": 0.4166666666666667
+     },
+     "Ritual Priest": {
+      "win": 0,
+      "loss": 0
+     },
+     "Magma Knight": {
+      "win": 0,
+      "loss": 0
+     },
+     "Tornado Knight": {
+      "win": 0,
+      "loss": 0
+     },
+     "Quake Knight": {
+      "win": 0,
+      "loss": 0
+     },
+     "Tidal Knight": {
+      "win": 0,
+      "loss": 0
+     },
+     "Umbral Knight": {
+      "win": 0,
+      "loss": 0
+     },
+     "Guild Warrior": {
+      "win": 0,
+      "loss": 0
+     },
+     "Guild Support": {
+      "win": 0,
+      "loss": 0
+     },
+     "Guild Defender": {
+      "win": 0,
+      "loss": 0
+     },
+     "Guild Magician": {
+      "win": 0,
+      "loss": 0
+     },
+     "Guild Chamberlain": {
+      "win": 0,
+      "loss": 0.3125
+     },
+     "Guild Master": {
+      "win": 0,
+      "loss": 0.7222222222222222
+     },
+     "Ymir Emperium": {
+      "win": 0,
+      "loss": 0
+     },
+     "Detector": {
+      "win": 1,
+      "loss": 0
+     },
+     "Agav": {
+      "win": 1,
+      "loss": 0
+     },
+     "Echio": {
+      "win": 1,
+      "loss": 0
+     },
+     "Vanberk": {
+      "win": 1,
+      "loss": 0
+     },
+     "Isilla": {
+      "win": 1,
+      "loss": 0
+     },
+     "Hodremlin": {
+      "win": 1,
+      "loss": 0
+     },
+     "Seeker": {
+      "win": 1,
+      "loss": 0
+     },
+     "Tricked Follower": {
+      "win": 1,
+      "loss": 0
+     },
+     "Gentleman": {
+      "win": 1,
+      "loss": 0
+     },
+     "Maiden of Past": {
+      "win": 1,
+      "loss": 0
+     },
+     "Lost Codex": {
+      "win": 1,
+      "loss": 0
+     },
+     "Maiden of Present": {
+      "win": 1,
+      "loss": 0
+     },
+     "Maiden of Future": {
+      "win": 0,
+      "loss": 0
+     },
+     "Cavalier": {
+      "win": 1,
+      "loss": 0
+     },
+     "Lost Traveler": {
+      "win": 0.7586206896551724,
+      "loss": 0
+     },
+     "Navigator": {
+      "win": 0,
+      "loss": 0
+     },
+     "Orc Skeleton": {
+      "win": 1,
+      "loss": 0
+     },
+     "Orc Zombie": {
+      "win": 1,
+      "loss": 0
+     },
+     "Zenorc": {
+      "win": 1,
+      "loss": 0
+     },
+     "Orc Archer": {
+      "win": 1,
+      "loss": 0
+     },
+     "High Orc": {
+      "win": 1,
+      "loss": 0
+     },
+     "Grafted Zenorc": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 184
+  },
+  {
+   "move": "Lucky Dice set +6",
+   "before": {
+    "win": 0.31943351691581434,
+    "loss": 0.13078027679586957,
+    "dps": 508.0355863354462,
+    "ttk": 33.8074,
+    "value": -1.1,
+    "deaths": "Crimson Rock x28, Knuckle Arrow x27",
+    "perMob": {
+     "Njord Zealot": {
+      "win": 0,
+      "loss": 0
+     },
+     "Converted Zealot": {
+      "win": 0,
+      "loss": 0.25
+     },
+     "Godly Seeker": {
+      "win": 0,
+      "loss": 0
+     },
+     "Burning Fury": {
+      "win": 0,
+      "loss": 1
+     },
+     "Tortured Maiden": {
+      "win": 0,
+      "loss": 0.3076923076923077
+     },
+     "Angel of Genesis": {
+      "win": 0,
+      "loss": 0
+     },
+     "Demon of Apocalypse": {
+      "win": 0,
+      "loss": 0
+     },
+     "Heartless": {
+      "win": 0,
+      "loss": 0.44
+     },
+     "Heart of the Serpent": {
+      "win": 0,
+      "loss": 0.782608695652174
+     },
+     "Conquest Incarnate": {
+      "win": 0,
+      "loss": 0
+     },
+     "Famine Incarnate": {
+      "win": 0,
+      "loss": 0
+     },
+     "War Incarnate": {
+      "win": 0,
+      "loss": 0.1111111111111111
+     },
+     "Death Incarnate": {
+      "win": 0,
+      "loss": 0.9130434782608695
+     },
+     "Vision of Surt": {
+      "win": 0,
+      "loss": 0
+     },
+     "Empathy": {
+      "win": 0,
+      "loss": 0
+     },
+     "Smile": {
+      "win": 0,
+      "loss": 0
+     },
+     "Happiness": {
+      "win": 0,
+      "loss": 0
+     },
+     "Prayer": {
+      "win": 0,
+      "loss": 0
+     },
+     "Anger of Thanatos": {
+      "win": 0,
+      "loss": 0
+     },
+     "Horror of Thanatos": {
+      "win": 0,
+      "loss": 0
+     },
+     "Resentment of Thanatos": {
+      "win": 0,
+      "loss": 0
+     },
+     "Regret of Thanatos": {
+      "win": 0,
+      "loss": 0
+     },
+     "Aunoe": {
+      "win": 0,
+      "loss": 1
+     },
+     "Fanat": {
+      "win": 0,
+      "loss": 1
+     },
+     "Ascended Follower": {
+      "win": 0,
+      "loss": 1
+     },
+     "Dominated Follower": {
+      "win": 0,
+      "loss": 0
+     },
+     "Doomed Follower": {
+      "win": 0,
+      "loss": 0.47058823529411764
+     },
+     "Ritual Priest": {
+      "win": 0,
+      "loss": 0
+     },
+     "Magma Knight": {
+      "win": 0,
+      "loss": 0
+     },
+     "Tornado Knight": {
+      "win": 0,
+      "loss": 0
+     },
+     "Quake Knight": {
+      "win": 0,
+      "loss": 0
+     },
+     "Tidal Knight": {
+      "win": 0,
+      "loss": 0
+     },
+     "Umbral Knight": {
+      "win": 0,
+      "loss": 0
+     },
+     "Guild Warrior": {
+      "win": 0,
+      "loss": 0
+     },
+     "Guild Support": {
+      "win": 0,
+      "loss": 0
+     },
+     "Guild Defender": {
+      "win": 0,
+      "loss": 0
+     },
+     "Guild Magician": {
+      "win": 0,
+      "loss": 0
+     },
+     "Guild Chamberlain": {
+      "win": 0,
+      "loss": 0.19047619047619047
+     },
+     "Guild Master": {
+      "win": 0,
+      "loss": 0.6428571428571429
+     },
+     "Ymir Emperium": {
+      "win": 0,
+      "loss": 0
+     },
+     "Detector": {
+      "win": 1,
+      "loss": 0
+     },
+     "Agav": {
+      "win": 1,
+      "loss": 0
+     },
+     "Echio": {
+      "win": 1,
+      "loss": 0
+     },
+     "Vanberk": {
+      "win": 1,
+      "loss": 0
+     },
+     "Isilla": {
+      "win": 1,
+      "loss": 0
+     },
+     "Hodremlin": {
+      "win": 1,
+      "loss": 0
+     },
+     "Seeker": {
+      "win": 1,
+      "loss": 0
+     },
+     "Tricked Follower": {
+      "win": 1,
+      "loss": 0
+     },
+     "Gentleman": {
+      "win": 1,
+      "loss": 0
+     },
+     "Maiden of Past": {
+      "win": 1,
+      "loss": 0
+     },
+     "Lost Codex": {
+      "win": 1,
+      "loss": 0
+     },
+     "Maiden of Present": {
+      "win": 1,
+      "loss": 0
+     },
+     "Maiden of Future": {
+      "win": 0,
+      "loss": 0
+     },
+     "Cavalier": {
+      "win": 1,
+      "loss": 0
+     },
+     "Lost Traveler": {
+      "win": 0.8048780487804879,
+      "loss": 0
+     },
+     "Navigator": {
+      "win": 0,
+      "loss": 0
+     },
+     "Orc Skeleton": {
+      "win": 1,
+      "loss": 0
+     },
+     "Orc Zombie": {
+      "win": 1,
+      "loss": 0
+     },
+     "Zenorc": {
+      "win": 1,
+      "loss": 0
+     },
+     "Orc Archer": {
+      "win": 1,
+      "loss": 0
+     },
+     "High Orc": {
+      "win": 1,
+      "loss": 0
+     },
+     "Grafted Zenorc": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "after": {
+    "win": 0.3171518489378442,
+    "loss": 0.1464668108026959,
+    "dps": 499.4069319691777,
+    "ttk": 34.4569,
+    "value": -1,
+    "deaths": "Knuckle Arrow x38, Crimson Rock x28",
+    "perMob": {
+     "Njord Zealot": {
+      "win": 0,
+      "loss": 0
+     },
+     "Converted Zealot": {
+      "win": 0,
+      "loss": 0.08333333333333333
+     },
+     "Godly Seeker": {
+      "win": 0,
+      "loss": 0
+     },
+     "Burning Fury": {
+      "win": 0,
+      "loss": 1
+     },
+     "Tortured Maiden": {
+      "win": 0,
+      "loss": 0.3076923076923077
+     },
+     "Angel of Genesis": {
+      "win": 0,
+      "loss": 0
+     },
+     "Demon of Apocalypse": {
+      "win": 0,
+      "loss": 0
+     },
+     "Heartless": {
+      "win": 0,
+      "loss": 0.68
+     },
+     "Heart of the Serpent": {
+      "win": 0,
+      "loss": 0.8260869565217391
+     },
+     "Conquest Incarnate": {
+      "win": 0,
+      "loss": 0
+     },
+     "Famine Incarnate": {
+      "win": 0,
+      "loss": 0
+     },
+     "War Incarnate": {
+      "win": 0,
+      "loss": 0.2777777777777778
+     },
+     "Death Incarnate": {
+      "win": 0,
+      "loss": 1
+     },
+     "Vision of Surt": {
+      "win": 0,
+      "loss": 0
+     },
+     "Empathy": {
+      "win": 0,
+      "loss": 0
+     },
+     "Smile": {
+      "win": 0,
+      "loss": 0
+     },
+     "Happiness": {
+      "win": 0,
+      "loss": 0
+     },
+     "Prayer": {
+      "win": 0,
+      "loss": 0
+     },
+     "Anger of Thanatos": {
+      "win": 0,
+      "loss": 0
+     },
+     "Horror of Thanatos": {
+      "win": 0,
+      "loss": 0
+     },
+     "Resentment of Thanatos": {
+      "win": 0,
+      "loss": 0
+     },
+     "Regret of Thanatos": {
+      "win": 0,
+      "loss": 0
+     },
+     "Aunoe": {
+      "win": 0,
+      "loss": 1
+     },
+     "Fanat": {
+      "win": 0,
+      "loss": 1
+     },
+     "Ascended Follower": {
+      "win": 0,
+      "loss": 0.9473684210526315
+     },
+     "Dominated Follower": {
+      "win": 0,
+      "loss": 0
+     },
+     "Doomed Follower": {
+      "win": 0,
+      "loss": 0.47058823529411764
+     },
+     "Ritual Priest": {
+      "win": 0,
+      "loss": 0
+     },
+     "Magma Knight": {
+      "win": 0,
+      "loss": 0
+     },
+     "Tornado Knight": {
+      "win": 0,
+      "loss": 0
+     },
+     "Quake Knight": {
+      "win": 0,
+      "loss": 0
+     },
+     "Tidal Knight": {
+      "win": 0,
+      "loss": 0
+     },
+     "Umbral Knight": {
+      "win": 0,
+      "loss": 0
+     },
+     "Guild Warrior": {
+      "win": 0,
+      "loss": 0
+     },
+     "Guild Support": {
+      "win": 0,
+      "loss": 0
+     },
+     "Guild Defender": {
+      "win": 0,
+      "loss": 0.25
+     },
+     "Guild Magician": {
+      "win": 0,
+      "loss": 0
+     },
+     "Guild Chamberlain": {
+      "win": 0,
+      "loss": 0.38095238095238093
+     },
+     "Guild Master": {
+      "win": 0,
+      "loss": 0.8571428571428571
+     },
+     "Ymir Emperium": {
+      "win": 0,
+      "loss": 0
+     },
+     "Detector": {
+      "win": 1,
+      "loss": 0
+     },
+     "Agav": {
+      "win": 1,
+      "loss": 0
+     },
+     "Echio": {
+      "win": 1,
+      "loss": 0
+     },
+     "Vanberk": {
+      "win": 1,
+      "loss": 0
+     },
+     "Isilla": {
+      "win": 1,
+      "loss": 0
+     },
+     "Hodremlin": {
+      "win": 1,
+      "loss": 0
+     },
+     "Seeker": {
+      "win": 1,
+      "loss": 0
+     },
+     "Tricked Follower": {
+      "win": 1,
+      "loss": 0
+     },
+     "Gentleman": {
+      "win": 1,
+      "loss": 0
+     },
+     "Maiden of Past": {
+      "win": 1,
+      "loss": 0
+     },
+     "Lost Codex": {
+      "win": 1,
+      "loss": 0
+     },
+     "Maiden of Present": {
+      "win": 1,
+      "loss": 0
+     },
+     "Maiden of Future": {
+      "win": 0,
+      "loss": 0
+     },
+     "Cavalier": {
+      "win": 1,
+      "loss": 0
+     },
+     "Lost Traveler": {
+      "win": 0.6634146341463415,
+      "loss": 0
+     },
+     "Navigator": {
+      "win": 0,
+      "loss": 0
+     },
+     "Orc Skeleton": {
+      "win": 1,
+      "loss": 0
+     },
+     "Orc Zombie": {
+      "win": 1,
+      "loss": 0
+     },
+     "Zenorc": {
+      "win": 1,
+      "loss": 0
+     },
+     "Orc Archer": {
+      "win": 1,
+      "loss": 0
+     },
+     "High Orc": {
+      "win": 1,
+      "loss": 0
+     },
+     "Grafted Zenorc": {
+      "win": 1,
+      "loss": 0
+     }
+    }
+   },
+   "tried": 141
+  }
+ ],
+ "final": {
+  "win": 0.3172529557728798,
+  "loss": 0.13316963764963813,
+  "dps": 489.28545893045094,
+  "ttk": 35.85025,
+  "value": -1,
+  "deaths": "Knuckle Arrow x68, Crimson Rock x54",
+  "perMob": {
+   "Njord Zealot": {
+    "win": 0,
+    "loss": 0.023809523809523808
+   },
+   "Converted Zealot": {
+    "win": 0,
+    "loss": 0.07692307692307693
+   },
+   "Godly Seeker": {
+    "win": 0,
+    "loss": 0
+   },
+   "Burning Fury": {
+    "win": 0,
+    "loss": 1
+   },
+   "Tortured Maiden": {
+    "win": 0,
+    "loss": 0.2765957446808511
+   },
+   "Angel of Genesis": {
+    "win": 0,
+    "loss": 0
+   },
+   "Demon of Apocalypse": {
+    "win": 0,
+    "loss": 0
+   },
+   "Heartless": {
+    "win": 0,
+    "loss": 0.6078431372549019
+   },
+   "Heart of the Serpent": {
+    "win": 0,
+    "loss": 0.7307692307692307
+   },
+   "Conquest Incarnate": {
+    "win": 0,
+    "loss": 0
+   },
+   "Famine Incarnate": {
+    "win": 0,
+    "loss": 0
+   },
+   "War Incarnate": {
+    "win": 0,
+    "loss": 0.275
+   },
+   "Death Incarnate": {
+    "win": 0,
+    "loss": 0.9772727272727273
+   },
+   "Vision of Surt": {
+    "win": 0,
+    "loss": 0
+   },
+   "Empathy": {
+    "win": 0,
+    "loss": 0
+   },
+   "Smile": {
+    "win": 0,
+    "loss": 0
+   },
+   "Happiness": {
+    "win": 0,
+    "loss": 0
+   },
+   "Prayer": {
+    "win": 0,
+    "loss": 0
+   },
+   "Anger of Thanatos": {
+    "win": 0,
+    "loss": 0
+   },
+   "Horror of Thanatos": {
+    "win": 0,
+    "loss": 0
+   },
+   "Resentment of Thanatos": {
+    "win": 0,
+    "loss": 0
+   },
+   "Regret of Thanatos": {
+    "win": 0,
+    "loss": 0
+   },
+   "Aunoe": {
+    "win": 0,
+    "loss": 1
+   },
+   "Fanat": {
+    "win": 0,
+    "loss": 1
+   },
+   "Ascended Follower": {
+    "win": 0,
+    "loss": 0.9714285714285714
+   },
+   "Dominated Follower": {
+    "win": 0,
+    "loss": 0
+   },
+   "Doomed Follower": {
+    "win": 0,
+    "loss": 0.3
+   },
+   "Ritual Priest": {
+    "win": 0,
+    "loss": 0
+   },
+   "Magma Knight": {
+    "win": 0,
+    "loss": 0
+   },
+   "Tornado Knight": {
+    "win": 0,
+    "loss": 0
+   },
+   "Quake Knight": {
+    "win": 0,
+    "loss": 0
+   },
+   "Tidal Knight": {
+    "win": 0,
+    "loss": 0
+   },
+   "Umbral Knight": {
+    "win": 0,
+    "loss": 0
+   },
+   "Guild Warrior": {
+    "win": 0,
+    "loss": 0
+   },
+   "Guild Support": {
+    "win": 0,
+    "loss": 0
+   },
+   "Guild Defender": {
+    "win": 0,
+    "loss": 0.09523809523809523
+   },
+   "Guild Magician": {
+    "win": 0,
+    "loss": 0
+   },
+   "Guild Chamberlain": {
+    "win": 0,
+    "loss": 0.21052631578947367
+   },
+   "Guild Master": {
+    "win": 0,
+    "loss": 0.7111111111111111
+   },
+   "Ymir Emperium": {
+    "win": 0,
+    "loss": 0
+   },
+   "Detector": {
+    "win": 1,
+    "loss": 0
+   },
+   "Agav": {
+    "win": 1,
+    "loss": 0
+   },
+   "Echio": {
+    "win": 1,
+    "loss": 0
+   },
+   "Vanberk": {
+    "win": 1,
+    "loss": 0
+   },
+   "Isilla": {
+    "win": 1,
+    "loss": 0
+   },
+   "Hodremlin": {
+    "win": 1,
+    "loss": 0
+   },
+   "Seeker": {
+    "win": 1,
+    "loss": 0
+   },
+   "Tricked Follower": {
+    "win": 1,
+    "loss": 0
+   },
+   "Gentleman": {
+    "win": 1,
+    "loss": 0
+   },
+   "Maiden of Past": {
+    "win": 1,
+    "loss": 0
+   },
+   "Lost Codex": {
+    "win": 1,
+    "loss": 0
+   },
+   "Maiden of Present": {
+    "win": 1,
+    "loss": 0
+   },
+   "Maiden of Future": {
+    "win": 0,
+    "loss": 0
+   },
+   "Cavalier": {
+    "win": 1,
+    "loss": 0
+   },
+   "Lost Traveler": {
+    "win": 0.669683257918552,
+    "loss": 0
+   },
+   "Navigator": {
+    "win": 0,
+    "loss": 0
+   },
+   "Orc Skeleton": {
+    "win": 1,
+    "loss": 0
+   },
+   "Orc Zombie": {
+    "win": 1,
+    "loss": 0
+   },
+   "Zenorc": {
+    "win": 1,
+    "loss": 0
+   },
+   "Orc Archer": {
+    "win": 1,
+    "loss": 0
+   },
+   "High Orc": {
+    "win": 1,
+    "loss": 0
+   },
+   "Grafted Zenorc": {
+    "win": 1,
+    "loss": 0
+   }
+  }
+ },
+ "options": {
+  "order": [
+   "Stay hidden",
+   "Morroc's Mark",
+   "Pull it off the ward",
+   "Heal",
+   "Bloody Fangs",
+   "Weapon Blocking",
+   "Rising Wings",
+   "Fury",
+   "Hallucination Walk",
+   "Attack"
+  ],
+  "weaveMs": 0,
+  "autoOnly": true,
+  "enchantPoison": "auto",
+  "tankShare": 0.25,
+  "fury": false
+ },
+ "link": "http://localhost:5173/#b=cfZHPbsMgDIdfZeL8O2BjQniJHXZFqEIpa6KlfxSSanv7iaTSumntBcn2B5-xA0O9Dod-fnlL13xSIKMRWotWYCwIZOF9RAgE66mNCAzyRjfQCDWvypxmBTUuHwqBYowRwYAsWUGLIGwZ9biH02HYYAQ15XJepi4rqGP63PUXhWDWynGYh0Oah_NJQV36rzJ0adxNeb90ea8QeJM1YO1as8qo0RBL7pEsX1PZ3nsfc1YIbk2XpcxpqOn-shtz7vp6w-L2HQdm7Vw1kNbimwZCzv4rqXy78r6OSEQLxD6BPbhx7sb-wso8_WDEYBHLtYmHcycD9t5o1EWR1ED7LbAwmvSt0oCFzfMdkgOLJv9XeNdVjN8",
+ "perTarget": [],
+ "census": {
+  "shadow": {
+   "sh_armor": [
+    {
+     "name": "Hand of the Father Armor",
+     "refine": 8,
+     "gain": 17.7924
+    },
+    {
+     "name": "First Einherjar Armor",
+     "refine": 8,
+     "gain": 11.7959
+    },
+    {
+     "name": "Crystal Clear Armor",
+     "refine": 0,
+     "gain": 8.5451
+    },
+    {
+     "name": "Morroc Guardian Armor",
+     "refine": 8,
+     "gain": 8.5439
+    },
+    {
+     "name": "Lone Singer Armor",
+     "refine": 6,
+     "gain": 3.5204
+    },
+    {
+     "name": "King's Noble Armor",
+     "refine": 6,
+     "gain": 3.519
+    },
+    {
+     "name": "Ornstein's Gift Armor",
+     "refine": 8,
+     "gain": 2.7791
+    },
+    {
+     "name": "Fallen Gods Armor",
+     "refine": 6,
+     "gain": 0.7652
+    }
+   ],
+   "sh_shoes": [
+    {
+     "name": "Land of Shadows Shoes",
+     "refine": 6,
+     "gain": 158.7897
+    },
+    {
+     "name": "Heir to the King Boots",
+     "refine": 8,
+     "gain": 6.2141
+    },
+    {
+     "name": "Tower Shoes",
+     "refine": 8,
+     "gain": 6.2141
+    },
+    {
+     "name": "Riding Valkyries Shoes",
+     "refine": 6,
+     "gain": 2.7795
+    },
+    {
+     "name": "Order Soul Shoes",
+     "refine": 3,
+     "gain": 2.7791
+    },
+    {
+     "name": "Unseen World Shoes",
+     "refine": 3,
+     "gain": 2.7791
+    },
+    {
+     "name": "Aggressive Orphan Boots",
+     "refine": 0,
+     "gain": 0.8434
+    },
+    {
+     "name": "Fallen Gods Shoes",
+     "refine": 6,
+     "gain": 0.7652
+    }
+   ],
+   "sh_gloves": [
+    {
+     "name": "Aggressive Orphan Gloves",
+     "refine": 0,
+     "gain": 18.4034
+    },
+    {
+     "name": "Hand of the Father Gloves",
+     "refine": 3,
+     "gain": 6.215
+    },
+    {
+     "name": "King's Noble Gloves",
+     "refine": 8,
+     "gain": 6.2141
+    },
+    {
+     "name": "School of Cats Gloves",
+     "refine": 8,
+     "gain": 3.5218
+    },
+    {
+     "name": "First Einherjar Gloves",
+     "refine": 8,
+     "gain": 2.7801
+    },
+    {
+     "name": "First Orphan Gloves",
+     "refine": 8,
+     "gain": 2.7799
+    },
+    {
+     "name": "King's Knight Gloves",
+     "refine": 0,
+     "gain": 2.7798
+    },
+    {
+     "name": "Angelic Curse Gloves",
+     "refine": 3,
+     "gain": 2.7791
+    }
+   ],
+   "sh_acc": [
+    {
+     "name": "True Goddess Pendant",
+     "refine": 0,
+     "gain": 158.7897
+    },
+    {
+     "name": "Wayward Vow Pendant",
+     "refine": 8,
+     "gain": 8.2896
+    },
+    {
+     "name": "Aggressive Orphan Pendant",
+     "refine": 8,
+     "gain": 6.2166
+    },
+    {
+     "name": "Heir to the King Pendant",
+     "refine": 8,
+     "gain": 6.2141
+    },
+    {
+     "name": "Nightmare Hunter Pendant",
+     "refine": 8,
+     "gain": 6.2141
+    },
+    {
+     "name": "Aria of Harmony Pendant",
+     "refine": 0,
+     "gain": 2.78
+    },
+    {
+     "name": "Corrupted Time Pendant",
+     "refine": 3,
+     "gain": 2.7791
+    },
+    {
+     "name": "First Orphan Pendant",
+     "refine": 0,
+     "gain": 0
+    }
+   ],
+   "sh_manual": [
+    {
+     "name": "Celestial Tome",
+     "refine": 0,
+     "gain": 12.6919
+    },
+    {
+     "name": "Equilibrium Tome",
+     "refine": 0,
+     "gain": 9.323
+    },
+    {
+     "name": "Vision Manual",
+     "refine": 0,
+     "gain": 4.0184
+    },
+    {
+     "name": "Medic Manual X",
+     "refine": 0,
+     "gain": 3.5202
+    },
+    {
+     "name": "Paradiso Tome",
+     "refine": 0,
+     "gain": 3.5198
+    },
+    {
+     "name": "Agility Manual X",
+     "refine": 0,
+     "gain": 2.7791
+    },
+    {
+     "name": "Pickpocket Manual X",
+     "refine": 0,
+     "gain": 0.0014
+    },
+    {
+     "name": "Hammer Manual X",
+     "refine": 0,
+     "gain": 0.0004
+    }
+   ],
+   "runeorb": [
+    {
+     "name": "Isaz Rune of Deception",
+     "refine": 8,
+     "gain": 19.5081
+    },
+    {
+     "name": "Wunjo Rune of Comfort",
+     "refine": 8,
+     "gain": 14.9521
+    },
+    {
+     "name": "Jera Rune of Land",
+     "refine": 8,
+     "gain": 8.5438
+    },
+    {
+     "name": "Perthro Rune of Occult",
+     "refine": 8,
+     "gain": 6.9312
+    },
+    {
+     "name": "Gebo Rune of Generosity",
+     "refine": 8,
+     "gain": 6.9292
+    },
+    {
+     "name": "Uruz Rune of Freedom",
+     "refine": 8,
+     "gain": 6.929
+    },
+    {
+     "name": "Ansuz Rune of True Vision",
+     "refine": 8,
+     "gain": 3.523
+    },
+    {
+     "name": "Ehwaz Rune of Horse",
+     "refine": 6,
+     "gain": 2.7797
+    }
+   ]
+  },
+  "sets": [
+   {
+    "name": "Fallen Gods",
+    "refine": 9,
+    "gain": 158.7897
+   },
+   {
+    "name": "Warring Ragnarok",
+    "refine": 9,
+    "gain": 33.231
+   },
+   {
+    "name": "Godslayer",
+    "refine": 9,
+    "gain": 32.8659
+   },
+   {
+    "name": "Aggressive Orphan",
+    "refine": 9,
+    "gain": 32.1147
+   },
+   {
+    "name": "Aggressive Orphan",
+    "refine": 6,
+    "gain": 32.1138
+   },
+   {
+    "name": "Warring Ragnarok",
+    "refine": 6,
+    "gain": 31.0968
+   },
+   {
+    "name": "Godslayer",
+    "refine": 6,
+    "gain": 30.2321
+   },
+   {
+    "name": "Godslayer",
+    "refine": 3,
+    "gain": 30.2305
+   }
+  ],
+  "deadShadow": 269,
+  "deadCards": [
+   "Angry Wanderer Card",
+   "Himelmez Card",
+   "Celine Kimi Card",
+   "Charleston Card",
+   "Enchanted Cornus Card",
+   "Corrupted Shinobi Card",
+   "Creamy Card",
+   "Cruiser Card",
+   "Depths Dollocaris Card",
+   "Emperor Morroc Card",
+   "Detardeurus Card",
+   "Devoted Knight Card",
+   "Dollocaris Card",
+   "Dustiness Card",
+   "Enchanted Dragon Card",
+   "Enchanted Serpent Card",
+   "Fabre Card",
+   "Fanat Card",
+   "Free Samurai Card",
+   "Galapago Card",
+   "Gazeti Card",
+   "Goddess Freya Card",
+   "Golden Thief Bug Card",
+   "Hallucigenia Card",
+   "Horong Card",
+   "Isilla Card",
+   "Kasa Card",
+   "Kobold Leader Card",
+   "Lake Dragon Card",
+   "Enchanted Fatum Card",
+   "Living Crystal Card",
+   "Mad Drinker Card",
+   "Martin Card",
+   "Master Loki Card",
+   "Enchanted Mavka Card",
+   "Queen Maya Card",
+   "MukaMuka Card",
+   "Oracle Spirit Card",
+   "Osiris Card",
+   "Paradox Amdarais Card",
+   "Queen Scaraba Card",
+   "Rockullanux Card",
+   "Savage Bebe Card",
+   "Heart of the Serpent Card",
+   "Soldier Andre Card",
+   "Star Scourge Card",
+   "Black Swordfish Card",
+   "Baroness of Blood Card",
+   "Mega Peco Card",
+   "Soul of Ymir Card",
+   "Trainer Fenrir Card",
+   "Star Scourge Echo Card",
+   "Abyss Lord Card",
+   "Banshee Card",
+   "Baroness of Despair Card",
+   "Bijou Card",
+   "Burning Fury Card",
+   "Demon of Apocalypse Card",
+   "General Daehyon Card",
+   "Godly Seeker Card",
+   "Hell Poodle Card",
+   "Juliette D Rachel Card",
+   "Mind Vessel Card",
+   "Opera Jitterbug Card",
+   "Pitman Card",
+   "Ragged Zombie Card",
+   "Thor Avatar Card",
+   "Tomb Skeleton Leader Card",
+   "Zombie Slaughter Card",
+   "Jormungandr Avatar Card",
+   "Alice Card",
+   "Amistr Card",
+   "Aspect of Lies Card",
+   "Automata Card",
+   "Beetle King Card",
+   "Carat Card",
+   "Chepet Card",
+   "Comodo Card",
+   "Eggyra Card",
+   "Filir Card",
+   "Giearth Card",
+   "Goat Card",
+   "Ice Titan Card",
+   "Lif Card",
+   "Marc Card",
+   "Ms. Strangelove Card",
+   "Muka Card",
+   "Myst Case Card",
+   "Nepenthes Card",
+   "Obsidian Card",
+   "Poring Card",
+   "Rocker Card",
+   "Ruby Golem Card",
+   "Rudo Card",
+   "Sasquatch Card",
+   "Soul Cage Azrael Card",
+   "Sropho Card",
+   "Thorn of Death Card",
+   "Tower Manager Card",
+   "Tricked Follower Card",
+   "Vanilmirth Card",
+   "Zombie Guard Card",
+   "Aliza Card",
+   "Angry Pyuriel Card",
+   "Antonio Card",
+   "Aqua Elemental Card",
+   "Armeyer Dinze Card",
+   "Aspect of Horror Card",
+   "Assassin Card",
+   "Bartender Card",
+   "Bloody Butterfly Card",
+   "Bone Acidus Card",
+   "Broken Homunculus Card",
+   "Bubble Spirit Card",
+   "Carbon Chonchon Card",
+   "Choco Card",
+   "Drowned Spirit Card",
+   "Depths Mermaid Card",
+   "Deviruchi Card",
+   "Disguise Card",
+   "Dullahan Card",
+   "Dumpling Child Card",
+   "Explosion Card",
+   "Failed Abomination Card",
+   "Fallen Lord Knight Card",
+   "Fallen White Knight Card",
+   "Galion Card",
+   "Gan Ceann Card",
+   "Gargoyle Card",
+   "Gemini-S58 Card",
+   "Gloom Under Night Card",
+   "Grafted Zenorc Card",
+   "Gryphon Card",
+   "Guillotine Card",
+   "Guillotine Cross Card",
+   "Harpy Card",
+   "Hermit Spirit Card",
+   "Hinoenma Card",
+   "Holy Frus Card",
+   "Horror of Thanatos Card",
+   "Rachel Kidnapper Card",
+   "Luciola Vespa Card",
+   "Marse Card",
+   "Merman Card",
+   "Missing Body Card",
+   "Model MCH Card",
+   "Moldy Man Card",
+   "Moon Guardian Card",
+   "Mutant Dragonoid Card",
+   "Naga Card",
+   "Orphan Hunter Card",
+   "Red Novus Card",
+   "Red Terminus Card",
+   "Shadow Chaser Card",
+   "Sif Avatar Card",
+   "Skeggiold Card",
+   "Smile Card",
+   "Storage Assistant Card",
+   "Tengu Card",
+   "Violy Card",
+   "Weird Alchemist Card",
+   "Whisper Card",
+   "Wild Rider Card",
+   "Guild Chamberlain Card",
+   "Ash Toad Card",
+   "Aster Card",
+   "Baby Molinet Card",
+   "Bone Ferus Card",
+   "Calmaring Card",
+   "Cat O' Nine Tails Card",
+   "Coyote Card",
+   "Desert Nomad Card",
+   "Desperate Maid Card",
+   "Fairy Les Card",
+   "Fallen Rune Knight Card",
+   "Hornet Card",
+   "Injustice Card",
+   "Isis Card",
+   "Kraben Card",
+   "Magma Terror Card",
+   "Menblatt Card",
+   "Miming Card",
+   "Mobster Card",
+   "Moonlight Flower Card",
+   "Myst Card",
+   "Nightmare Card",
+   "Nymph Spirit Card",
+   "Phendark Card",
+   "Red Hover Card",
+   "Magma Kaho Card",
+   "Roween Card",
+   "Rybio Card",
+   "Skeleton Prisoner Card",
+   "Sleipnir Avatar Card",
+   "Stormy Knight Card",
+   "Strange Thief Card",
+   "Vine Willow Card",
+   "Warp Assistant Card",
+   "Wild Rose Card",
+   "Zealotus Card",
+   "Zombie Prisoner Card",
+   "Frigg Avatar Card",
+   "Agav Card",
+   "Argiope Card",
+   "Ashring Card",
+   "Aunoe Card",
+   "Bar Maids Card",
+   "Bone Detardeurus Card",
+   "Buzzer Card",
+   "Clock Card",
+   "Corruption Root Card",
+   "Desert Kaho Card",
+   "Frost Fairy Card",
+   "Ghost Tree Card",
+   "Gibbet Card",
+   "Great Shadow Card",
+   "Holden Card",
+   "King Poring Card",
+   "Kobold Archer Card",
+   "Lavaring Card",
+   "Leaf Cat Card",
+   "Lost Gift Card",
+   "Mime Monkey Card",
+   "Navigator Card",
+   "Old Blue Bag Card",
+   "Pirate Skeleton Card",
+   "RSX-0806 Card",
+   "Rafflesia Card",
+   "Recon Robot Card",
+   "Remover Card",
+   "Retribution Card",
+   "Roadie Card",
+   "Scream Card",
+   "Sleeper Card",
+   "Smokie Card",
+   "Spring Rabbit Card",
+   "Stone Shooter Card",
+   "Strange Wizard Card",
+   "Tao Gunka Card",
+   "Wootan Shooter Card",
+   "Zenorc Card",
+   "Phen Card",
+   "Surtr Avatar Card"
+  ]
+ }
+}

@@ -36,6 +36,7 @@
  * Class Gems (Patch 19) are gear in the gem slot; the kit reads the lines
  * the parser leaves as prose (gemOf).
  */
+import type { Autocast } from '../autocast.ts';
 import type { Passives } from '../character.ts';
 import { defMultiplier, effectivePierce } from '../../../sim/src/derived.ts';
 import { attrFix, countsAsBoss, escapeCells, magicDamage, physicalDamage, skillDelayMs, attackIntervalMs, TUNE } from '../formulas.ts';
@@ -132,15 +133,6 @@ function hrafnsmal(f: Fighter): { on: boolean; skyChance: number } {
   return { on: true, skyChance: r >= 18 ? 0.15 : r >= 12 ? 0.1 : 0.05 };
 }
 
-/** A line on the gear worn the parser leaves as prose, cached per fighter. */
-const saidCache = new WeakMap<Fighter, Map<string, boolean>>();
-function gearSays(f: Fighter, rx: RegExp): boolean {
-  let m = saidCache.get(f);
-  if (!m) saidCache.set(f, m = new Map());
-  let v = m.get(rx.source);
-  if (v === undefined) m.set(rx.source, v = rx.test(f.gearText ?? ''));
-  return v;
-}
 const crow = (f: Fighter) => f.weapon?.name === 'Crow of Destiny';
 
 /**
@@ -299,7 +291,7 @@ function blitzDamage(fight: Fight, level: number, hits: number): number {
 
 /** One Blitz Beat landing: 3x3, Night Wound 3 s, and the item procs of Sky Assault. */
 function blitz(fight: Fight, id: string, level: number, hits: number, share = 1) {
-  const dealt = strike(fight, id, { hits, split: true, canMiss: false, critBonus: null, kind: 'ranged', aoe: true, skill: true,
+  const dealt = strike(fight, id, { hits, split: true, canMiss: false, critBonus: null, kind: 'ranged', aoe: true, skill: true, misc: true,
     damage: () => blitzDamage(fight, level, hits) * share });
   if (landedAlive(fight, dealt) && share >= 0.5) woundTarget(fight, 3000, level);
   if (fight.result) return;
@@ -361,9 +353,16 @@ function skyAssault(fight: Fight, level: number, id = 'Sky Assault', share = 1) 
   const f = fight.f; const m = targetNow(fight);
   const ele = hrafnsmal(f).on ? element(fight) : 'Neutral';
   const skillDamage = f.skillMods('Sky Assault', 'damage').percent;
-  const dmg = (50 * level + (2 * f.stats.luk + f.stats.dex) * 2 * L(fight, 'Steel Wings'))
-    * (1 + (f.dmg.ranged_damage ?? 0) / 100) * (1 + skillDamage / 100) * attrFix(ele, m.element, m.elementLevel) * share;
-  strike(fight, id, { hits: 1, canMiss: false, critBonus: null, kind: 'ranged', skill: true, damage: () => dmg });
+  const sw = L(fight, 'Steel Wings');
+  // The 2023 code (battle.cpp:7432-7451, SN_FALCONASSAULT): Blitz Beat's damage at this level, + 100 a level
+  // + (DEX + LUK) x 2 x 2 x Steel Wings -- half as much again as the tooltip's "50 per level plus 2xLuk+Dex"
+  // x 2 x Steel Wings; the owner: "sky assault is also supposedly a big hit" (2026-10-02). Option
+  // skyFormula 'tooltip' keeps the tooltip's.
+  const base = fight.options.skyFormula === 'tooltip'
+    ? 50 * level + (2 * f.stats.luk + f.stats.dex) * 2 * sw
+    : 50 * level + f.stats.luk * sw + 100 * level + (f.stats.dex + f.stats.luk) * 2 * 2 * sw;
+  const dmg = base * (1 + (f.dmg.ranged_damage ?? 0) / 100) * (1 + skillDamage / 100) * attrFix(ele, m.element, m.elementLevel) * share;
+  strike(fight, id, { hits: 1, canMiss: false, critBonus: null, kind: 'ranged', skill: true, misc: true, damage: () => dmg });
 }
 const skyAssaultAction: Action = {
   id: 'Sky Assault',
@@ -434,7 +433,8 @@ const attack: Action = {
     if (has(fight, 'nightHunt')) { nightHuntSwing(fight); return; }
     const f = fight.f;
     const dagger = f.weapon?.type === 'Dagger';
-    const pDouble = dagger ? Math.min(1, f.doubleAttack * TUNE.doubleAttackPerLevel / 100) : 0;
+    // The higher of Double Attack (main-hand dagger) and gear's Double Attack chance (any weapon) -- not both.
+    const pDouble = Math.min(1, Math.max(dagger ? f.doubleAttack * TUNE.doubleAttackPerLevel : 0, f.weapon ? f.doubleRate ?? 0 : 0) / 100);
     const expect = fight.rng.expect;
     const double = !expect && fight.rng.chance(pDouble);
     const ele = element(fight); const claw = clawMult(fight);
@@ -446,30 +446,31 @@ const attack: Action = {
         statusElement: 'Neutral', ranged: false, crit, skillDamage: 0, normal: true,
       }, fight.rng),
     });
-    if (landedAlive(fight, dealt)) { autoBlitz(fight); attackProcs(fight); }
+    // Gear autocasts on the swing (Crow of Destiny's Blitz Beat, Returned
+    // Samurai's Soul Destroyer) roll in strike(): autocast.ts, cast by castAutocast below.
+    if (landedAlive(fight, dealt)) autoBlitz(fight);
   },
 };
 
 /**
- * Autocasts on a normal attack read from the gear's prose:
- *   - Crow of Destiny: "Autocast Blitz Beat Lv1 at 1% chance per base LUK";
- *   - Returned Samurai Card: "On attack, 5% chance to autocast Soul Destroyer Lv5".
- * A rollout weighs them in at their chance.
+ * Gear autocasts of the kit's own skills (autocast.ts): Crow of Destiny's
+ * "Autocast Blitz Beat Lv1 at 1% chance per base LUK", Returned Samurai
+ * Card's "On attack, 5% chance to autocast Soul Destroyer" -- the kit's
+ * damage for them, `share` of it in a rollout.
  */
-function attackProcs(fight: Fight) {
-  const f = fight.f;
-  const proc = (p: number, go: (share: number) => void) => {
-    if (p <= 0 || fight.result) return;
-    if (fight.rng.expect) go(p);
-    else if (fight.rng.chance(p)) go(1);
-  };
-  if (crow(f) && L(fight, 'Blitz Beat') > 0) {
-    proc(Math.min(1, 0.01 * (f.baseStats?.luk ?? f.stats.luk)), (share) => blitz(fight, 'Blitz Beat (Crow of Destiny)', 1, 3, share));
-  }
-  if (gearSays(f, /On attack, 5% chance to autocast Soul Destroyer/i)) {
-    proc(0.05, (share) => soulDestroyerHit(fight, 5, 'Soul Destroyer (autocast)', share));
-  }
+function castAutocast(fight: Fight, skill: string, level: number, share: number): boolean {
+  if (skill === 'Blitz Beat') { blitz(fight, 'Blitz Beat (autocast)', level, 3, share); return true; }
+  if (skill === 'Soul Destroyer') { soulDestroyerHit(fight, level, 'Soul Destroyer (autocast)', share); return true; }
+  if (skill === 'Sky Assault') { skyAssault(fight, level, 'Sky Assault (autocast)', share); return true; }
+  return false;
 }
+
+/**
+ * Sky Assault off a Blitz Beat stays the kit's (blitz() above): the Hawk
+ * Gem's 0.5% a refine is Patch 21's (the crawl still says 0.2%), and the
+ * Hrafnsmal pair's chance steps with its refine.
+ */
+const ownsAutocast = (a: Autocast) => a.trigger === 'skill' && a.onSkill === 'Blitz Beat' && a.skills.includes('Sky Assault');
 
 // ---- the dagger skills ------------------------------------------------------------------
 
@@ -533,8 +534,11 @@ const southernCross: Action = {
   id: 'Southern Cross',
   isSkill: true,
   offensive: true,
+  // Not as a filler under the owner's Definitive Dagger rotation (ddHold): each Southern Cross holds the next
+  // Definitive Dagger for its after-cast delay (~0.12 s past the 0.3 s cooldown) and costs ~50 SP -- only
+  // "applying night wound when it expires" (the project owner, 2026-10-02).
   ready: (fight) => learned('Southern Cross')(fight) && dual(fight.f)
-    && (fight.options.southernFiller === true
+    && ((fight.options.southernFiller === true && fight.options.ddHold !== true)
       || nightWoundLeft(fight) < (typeof fight.options.southernRefreshMs === 'number' ? fight.options.southernRefreshMs : 1000)),
   castMs: () => 0,
   delayMs: delay('Southern Cross'),
@@ -1053,6 +1057,14 @@ const DAMAGE_STEPS = new Set(['Attack', 'Dark Claw', 'Counter Slash', 'Typhoon E
  */
 function orderOf(fight: Fight): string[] {
   const order = Array.isArray(fight.options.order) ? fight.options.order as string[] : ORDER;
+  // The owner's Definitive Dagger rotation (ddHold): Dark Claw on, the Night Wound on, then Definitive
+  // Dagger spam (2026-10-02: "apply dark claw, night wound and spam dd while applying night wound when it
+  // expires") -- Dark Claw ahead of Southern Cross and Definitive Dagger, whatever the order search did.
+  if (fight.options.ddHold === true) {
+    const rest = order.filter((id) => id !== 'Dark Claw');
+    const i = rest.findIndex((id) => id === 'Southern Cross' || id === 'Definitive Dagger');
+    return i < 0 ? order : [...rest.slice(0, i), 'Dark Claw', ...rest.slice(i)];
+  }
   if (fight.options.counterHold !== true) return order;
   const rest = order.filter((id) => id !== 'Midnight Eye');
   const i = rest.findIndex((id) => DAMAGE_STEPS.has(id));
@@ -1164,7 +1176,7 @@ const ROLES: Record<string, string> = {
   'Definitive Dagger': 'Daggers', 'Northern Cross': 'Daggers', 'Southern Cross': 'Daggers', 'Soul Destroyer': 'Fillers',
   'Shadow Slash': 'Fillers', 'Back Stab': 'Fillers', 'Dark Claw': 'Fillers', 'Bloody Fangs': 'Fillers',
   'Counter Slash': 'Counter', 'Typhoon Edge': 'Counter', 'Typhoon Edge (Quarry Gem)': 'Counter', 'Midnight Eye': 'Counter',
-  'Blitz Beat': 'Raven', 'Blitz Beat (auto)': 'Raven', 'Blitz Beat (Crow of Destiny)': 'Raven', 'Soul Destroyer (autocast)': 'Fillers', 'Sky Assault': 'Raven', 'Sky Assault (autocast)': 'Raven',
+  'Blitz Beat': 'Raven', 'Blitz Beat (auto)': 'Raven', 'Blitz Beat (autocast)': 'Raven', 'Soul Destroyer (autocast)': 'Fillers', 'Sky Assault': 'Raven', 'Sky Assault (autocast)': 'Raven',
   Attack: 'Auto-attacks', 'Night Hunt': 'Auto-attacks',
 };
 
@@ -1195,6 +1207,9 @@ export const nightraven: Kit = {
   prepNotes,
   idleRegen,
   onBlock,
+  castAutocast,
+  ownsAutocast,
+  weaponElement: element,
   // Shadow Slash dashes in, Back Stab teleports behind: no walk back after a dodge.
   gapClosers: ['Shadow Slash', 'Back Stab'],
   // What the rotations run on, for the Rotation overlay's arrows.

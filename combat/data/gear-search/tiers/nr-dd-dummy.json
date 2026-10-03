@@ -1,0 +1,1287 @@
+{
+ "profile": "Tiers 2026-10-02: nr-dd-dummy",
+ "targets": [
+  "Training Dummy"
+ ],
+ "rules": {
+  "screenN": 30,
+  "confirmN": 150,
+  "timeS": 300,
+  "locked": [
+   "none"
+  ],
+  "penalty": 0,
+  "topStats": [
+   "agi",
+   "str",
+   "dex"
+  ],
+  "topRefine": true
+ },
+ "start": "http://localhost:5173/#b=cxVLBrtsgEPyVivMeYBeM-YkeerUsC9nERnViy5Dovb-vFkdJ3LxK7akXJHZnZ2YHGgTxPY5T_vbD38JFgCIJjavBOSADCJUFVC00jeaWM6AkNIqMQS6KbZlnJUCc_Uc3rQIabFvYyyhApLXrl5S7LQzXPgwCGiUfAOK5MIfQDf7sx3DsagGi32KOvZ-PAIaY4qYCV8zUFvisX8__ak8CKUTF9rQiBEWVrLmhwMiqhpKhRcclBOPwvklVE5CU6Gyxn7LPAoQfI3Pv1ATKkMNCjVS94-4rhrRctz68Lm9K5xxzHH2Oy0WAWKfPVFZ4RoC7TgXKaDJFxygOuLIHtZS3h1q4-bQTnubAQdhSTteUfeTytHZzCP3EExLuEhYQpZRFQkv6E3laAxsTPq3Dg7r3KcfLyOVTDlvH924Is__cIQyqQVWkiNPWmiQ8Dm66L5tkdXkmBKylLSm_2rrFvL8E2_oZ51mAGMIpXmKON_4o4xi253cwuw9FhU0_2f5-VJdR-t3Ins_RSFqueQrbpeu3JaV3KlOozD-6gHfNwlYB8v_j_L40VkAWUKv6LcYjSIGTJI0F17btLw",
+ "steps": [
+  {
+   "move": "order: leave out Shadow Slash",
+   "before": {
+    "win": 0,
+    "loss": 0,
+    "dps": 84989.49533333334,
+    "ttk": null,
+    "value": 1.5748424300000001,
+    "deaths": ""
+   },
+   "after": {
+    "win": 0,
+    "loss": 0,
+    "dps": 86209.54333333333,
+    "ttk": null,
+    "value": 1.59314315,
+    "deaths": ""
+   },
+   "tried": 164
+  },
+  {
+   "move": "stats: VIT 35->25, LUK 21->31",
+   "before": {
+    "win": 0,
+    "loss": 0,
+    "dps": 86187.74933333334,
+    "ttk": null,
+    "value": 1.59281624,
+    "deaths": ""
+   },
+   "after": {
+    "win": 0,
+    "loss": 0,
+    "dps": 87347.808,
+    "ttk": null,
+    "value": 1.6102171200000002,
+    "deaths": ""
+   },
+   "tried": 42
+  },
+  {
+   "move": "Valkyries card set",
+   "before": {
+    "win": 0,
+    "loss": 0,
+    "dps": 87356.26733333334,
+    "ttk": null,
+    "value": 1.61034401,
+    "deaths": ""
+   },
+   "after": {
+    "win": 0,
+    "loss": 0,
+    "dps": 90557.548,
+    "ttk": null,
+    "value": 1.6583632199999998,
+    "deaths": ""
+   },
+   "tried": 150
+  },
+  {
+   "move": "shadow: False God set +9",
+   "before": {
+    "win": 0,
+    "loss": 0,
+    "dps": 90572.83133333334,
+    "ttk": null,
+    "value": 1.65859247,
+    "deaths": ""
+   },
+   "after": {
+    "win": 0,
+    "loss": 0,
+    "dps": 107118.934,
+    "ttk": null,
+    "value": 1.90678401,
+    "deaths": ""
+   },
+   "tried": 89
+  },
+  {
+   "move": "Upper Headgear: Caelum of the Sun +9",
+   "before": {
+    "win": 0,
+    "loss": 0,
+    "dps": 107118.61266666667,
+    "ttk": null,
+    "value": 1.90677919,
+    "deaths": ""
+   },
+   "after": {
+    "win": 0,
+    "loss": 0,
+    "dps": 114630.86666666667,
+    "ttk": null,
+    "value": 2.019463,
+    "deaths": ""
+   },
+   "tried": 255
+  },
+  {
+   "move": "Upper Headgear: Goblin King Card in socket 1",
+   "before": {
+    "win": 0,
+    "loss": 0,
+    "dps": 114610.27533333334,
+    "ttk": null,
+    "value": 2.01915413,
+    "deaths": ""
+   },
+   "after": {
+    "win": 0,
+    "loss": 0,
+    "dps": 120410.35,
+    "ttk": null,
+    "value": 2.10615525,
+    "deaths": ""
+   },
+   "tried": 61
+  },
+  {
+   "move": "Middle Headgear: Crimson Booster +0",
+   "before": {
+    "win": 0,
+    "loss": 0,
+    "dps": 120429.40533333333,
+    "ttk": null,
+    "value": 2.1064410799999997,
+    "deaths": ""
+   },
+   "after": {
+    "win": 0,
+    "loss": 0,
+    "dps": 123607.34866666667,
+    "ttk": null,
+    "value": 2.15411023,
+    "deaths": ""
+   },
+   "tried": 34
+  },
+  {
+   "move": "Lower Headgear: Goblin King Card in socket 1",
+   "before": {
+    "win": 0,
+    "loss": 0,
+    "dps": 123609.37466666667,
+    "ttk": null,
+    "value": 2.15414062,
+    "deaths": ""
+   },
+   "after": {
+    "win": 0,
+    "loss": 0,
+    "dps": 126232.478,
+    "ttk": null,
+    "value": 2.1934871699999996,
+    "deaths": ""
+   },
+   "tried": 66
+  },
+  {
+   "move": "Armor: Black Acidus Card x1",
+   "before": {
+    "win": 0,
+    "loss": 0,
+    "dps": 126206.09733333334,
+    "ttk": null,
+    "value": 2.1930914599999998,
+    "deaths": ""
+   },
+   "after": {
+    "win": 0,
+    "loss": 0,
+    "dps": 131753.81733333334,
+    "ttk": null,
+    "value": 2.27630726,
+    "deaths": ""
+   },
+   "tried": 26
+  },
+  {
+   "move": "Weapon: Chocolate Bear Card x1",
+   "before": {
+    "win": 0,
+    "loss": 0,
+    "dps": 131777.90666666668,
+    "ttk": null,
+    "value": 2.2766686000000003,
+    "deaths": ""
+   },
+   "after": {
+    "win": 0,
+    "loss": 0,
+    "dps": 141454.678,
+    "ttk": null,
+    "value": 2.42182017,
+    "deaths": ""
+   },
+   "tried": 50
+  },
+  {
+   "move": "Weapon roll1: atk 3",
+   "before": {
+    "win": 0,
+    "loss": 0,
+    "dps": 141453.34533333333,
+    "ttk": null,
+    "value": 2.4218001799999995,
+    "deaths": ""
+   },
+   "after": {
+    "win": 0,
+    "loss": 0,
+    "dps": 145279.55733333333,
+    "ttk": null,
+    "value": 2.4791933599999996,
+    "deaths": ""
+   },
+   "tried": 19
+  },
+  {
+   "move": "Off-hand roll1: atk 3",
+   "before": {
+    "win": 0,
+    "loss": 0,
+    "dps": 145233.88,
+    "ttk": null,
+    "value": 2.4785082,
+    "deaths": ""
+   },
+   "after": {
+    "win": 0,
+    "loss": 0,
+    "dps": 149058.91,
+    "ttk": null,
+    "value": 2.5358836499999997,
+    "deaths": ""
+   },
+   "tried": 19
+  },
+  {
+   "move": "Garment: Vegvisir +9 (sp_regen)",
+   "before": {
+    "win": 0,
+    "loss": 0,
+    "dps": 149122.00266666667,
+    "ttk": null,
+    "value": 2.5368300399999995,
+    "deaths": ""
+   },
+   "after": {
+    "win": 0,
+    "loss": 0,
+    "dps": 152451.39266666668,
+    "ttk": null,
+    "value": 2.58677089,
+    "deaths": ""
+   },
+   "tried": 460
+  },
+  {
+   "move": "Accessory 2 (right): Ifrit Card x3",
+   "before": {
+    "win": 0,
+    "loss": 0,
+    "dps": 152431.07933333333,
+    "ttk": null,
+    "value": 2.5864661899999994,
+    "deaths": ""
+   },
+   "after": {
+    "win": 0,
+    "loss": 0,
+    "dps": 153341.55133333334,
+    "ttk": null,
+    "value": 2.6001232699999997,
+    "deaths": ""
+   },
+   "tried": 169
+  },
+  {
+   "move": "Shadow Armor stat: str 1",
+   "before": {
+    "win": 0,
+    "loss": 0,
+    "dps": 153335.41533333334,
+    "ttk": null,
+    "value": 2.60003123,
+    "deaths": ""
+   },
+   "after": {
+    "win": 0,
+    "loss": 0,
+    "dps": 154050.212,
+    "ttk": null,
+    "value": 2.6107531799999997,
+    "deaths": ""
+   },
+   "tried": 6
+  },
+  {
+   "move": "Shadow Shoes stat: str 1",
+   "before": {
+    "win": 0,
+    "loss": 0,
+    "dps": 154051.15266666666,
+    "ttk": null,
+    "value": 2.6107672899999996,
+    "deaths": ""
+   },
+   "after": {
+    "win": 0,
+    "loss": 0,
+    "dps": 154765.90466666667,
+    "ttk": null,
+    "value": 2.6214885699999995,
+    "deaths": ""
+   },
+   "tried": 6
+  },
+  {
+   "move": "Shadow Gloves stat: str 1",
+   "before": {
+    "win": 0,
+    "loss": 0,
+    "dps": 154783.342,
+    "ttk": null,
+    "value": 2.6217501299999997,
+    "deaths": ""
+   },
+   "after": {
+    "win": 0,
+    "loss": 0,
+    "dps": 155498.14066666667,
+    "ttk": null,
+    "value": 2.63247211,
+    "deaths": ""
+   },
+   "tried": 6
+  },
+  {
+   "move": "Shadow Accessory stat: str 1",
+   "before": {
+    "win": 0,
+    "loss": 0,
+    "dps": 155476.898,
+    "ttk": null,
+    "value": 2.6321534699999996,
+    "deaths": ""
+   },
+   "after": {
+    "win": 0,
+    "loss": 0,
+    "dps": 156191.64266666668,
+    "ttk": null,
+    "value": 2.64287464,
+    "deaths": ""
+   },
+   "tried": 6
+  },
+  {
+   "move": "Manual: Equilibrium Tome +0",
+   "before": {
+    "win": 0,
+    "loss": 0,
+    "dps": 156198.58266666665,
+    "ttk": null,
+    "value": 2.6429787399999998,
+    "deaths": ""
+   },
+   "after": {
+    "win": 0,
+    "loss": 0,
+    "dps": 157534.40733333334,
+    "ttk": null,
+    "value": 2.6630161099999996,
+    "deaths": ""
+   },
+   "tried": 11
+  },
+  {
+   "move": "Rune or Orb: Uruz Rune of Strength +9",
+   "before": {
+    "win": 0,
+    "loss": 0,
+    "dps": 157516.962,
+    "ttk": null,
+    "value": 2.6627544299999997,
+    "deaths": ""
+   },
+   "after": {
+    "win": 0,
+    "loss": 0,
+    "dps": 166729.71333333335,
+    "ttk": null,
+    "value": 2.8009457,
+    "deaths": ""
+   },
+   "tried": 31
+  },
+  {
+   "move": "stats: VIT 25->15, LUK 31->41",
+   "before": {
+    "win": 0,
+    "loss": 0,
+    "dps": 166753.006,
+    "ttk": null,
+    "value": 2.8012950899999995,
+    "deaths": ""
+   },
+   "after": {
+    "win": 0,
+    "loss": 0,
+    "dps": 168865.386,
+    "ttk": null,
+    "value": 2.83298079,
+    "deaths": ""
+   },
+   "tried": 42
+  },
+  {
+   "move": "Middle Headgear: Asgard Blessing +0 [Goblin King Card in the empty sockets]",
+   "before": {
+    "win": 0,
+    "loss": 0,
+    "dps": 168850.07266666667,
+    "ttk": null,
+    "value": 2.83275109,
+    "deaths": ""
+   },
+   "after": {
+    "win": 0,
+    "loss": 0,
+    "dps": 173349.764,
+    "ttk": null,
+    "value": 2.9002464599999995,
+    "deaths": ""
+   },
+   "tried": 48
+  },
+  {
+   "move": "Lower Headgear: Vesper Card in socket 2",
+   "before": {
+    "win": 0,
+    "loss": 0,
+    "dps": 173359.65466666667,
+    "ttk": null,
+    "value": 2.90039482,
+    "deaths": ""
+   },
+   "after": {
+    "win": 0,
+    "loss": 0,
+    "dps": 175650.07133333333,
+    "ttk": null,
+    "value": 2.9347510699999995,
+    "deaths": ""
+   },
+   "tried": 67
+  },
+  {
+   "move": "Armor stat: str 2",
+   "before": {
+    "win": 0,
+    "loss": 0,
+    "dps": 175646.028,
+    "ttk": null,
+    "value": 2.9346904199999995,
+    "deaths": ""
+   },
+   "after": {
+    "win": 0,
+    "loss": 0,
+    "dps": 177100.65466666667,
+    "ttk": null,
+    "value": 2.9565098199999995,
+    "deaths": ""
+   },
+   "tried": 9
+  },
+  {
+   "move": "stats: VIT 15->5, LUK 41->50",
+   "before": {
+    "win": 0,
+    "loss": 0,
+    "dps": 177095.432,
+    "ttk": null,
+    "value": 2.9564314799999996,
+    "deaths": ""
+   },
+   "after": {
+    "win": 0,
+    "loss": 0,
+    "dps": 179250.472,
+    "ttk": null,
+    "value": 2.98875708,
+    "deaths": ""
+   },
+   "tried": 42
+  }
+ ],
+ "final": {
+  "win": 0,
+  "loss": 0,
+  "dps": 179248.501,
+  "ttk": null,
+  "value": 2.988727515,
+  "deaths": ""
+ },
+ "options": {
+  "order": [
+   "Stay hidden",
+   "Morroc's Mark",
+   "Pull it off the ward",
+   "Heal",
+   "Bloody Fangs",
+   "Weapon Blocking",
+   "Rising Wings",
+   "Fury",
+   "Hallucination Walk",
+   "Attack",
+   "Definitive Dagger",
+   "Dark Claw",
+   "Southern Cross",
+   "Northern Cross",
+   "Typhoon Edge"
+  ],
+  "weaveMs": 0,
+  "southernRefreshMs": 1000,
+  "bloodyFangs": false,
+  "southernFiller": true,
+  "slashOpener": true,
+  "ddHold": true,
+  "tankShare": 0.4,
+  "enchantPoison": true
+ },
+ "link": "http://localhost:5173/#b=cxZLLjtswDEV_pdCaC4nUw_qJLroVDENwNI5QJzEsZdD5-4LSPDIo4m03Asx7cHlJOiCIn3k51x-_4mu6ClAkIfgBvAcDCNaBkSOEoFnxBjwETbqVxH5bVyVAxPpbQKBxhF5DAaJs03wrddrT6T6nk4Cg5CdAAsQlrSlNp3iJS_quagFi3nPNc1y_A4yYFsRyEEVmcMDv8Pj-v2wSSKEizkZSoudwVg4sKVCDMRLkh9RSlhorh1wyu3QTBOPRPnhocvopTaAMeex3ccMjV-ouIGDPnsrtvs-Jh4t_pvMmIJimXHLNS6z5dhUgtvNbaaN9rQZ7HwskFfX7G9UGc_ZZt_QaSzd8WdPDBsu91Jiv_QR7WviHC_i-PAeIUsrWQUt65l22xLlELBvHc604x1LzdeHyS037xN_TKa3xrSMMDaAsKeILaE0SPh8W_ZGoEHDwfcn_xno_hKIG6WNIN4iOIdMgcwxZQI3acuLnkAPUytljJwVekjQO_DiOfwE",
+ "perTarget": [],
+ "census": {
+  "shadow": {
+   "sh_armor": [
+    {
+     "name": "False God Armor",
+     "refine": 0,
+     "gain": 0
+    },
+    {
+     "name": "Hand of the Father Armor",
+     "refine": 0,
+     "gain": 0
+    },
+    {
+     "name": "Aggressive Orphan Armor",
+     "refine": 0,
+     "gain": 0
+    },
+    {
+     "name": "Endless Forest Armor",
+     "refine": 0,
+     "gain": 0
+    },
+    {
+     "name": "Lost Tech Armor",
+     "refine": 0,
+     "gain": 0
+    },
+    {
+     "name": "Heir to the King Armor",
+     "refine": 0,
+     "gain": 0
+    },
+    {
+     "name": "Legacy of Coins Armor",
+     "refine": 0,
+     "gain": 0
+    },
+    {
+     "name": "Dragon Claw Armor",
+     "refine": 0,
+     "gain": 0
+    }
+   ],
+   "sh_shoes": [
+    {
+     "name": "False God Shoes",
+     "refine": 0,
+     "gain": 0
+    },
+    {
+     "name": "Tower Shoes",
+     "refine": 0,
+     "gain": 0
+    },
+    {
+     "name": "Heir to the King Boots",
+     "refine": 0,
+     "gain": 0
+    },
+    {
+     "name": "Aggressive Orphan Boots",
+     "refine": 0,
+     "gain": 0
+    },
+    {
+     "name": "Land of Shadows Shoes",
+     "refine": 0,
+     "gain": 0
+    },
+    {
+     "name": "Riding Valkyries Shoes",
+     "refine": 0,
+     "gain": 0
+    },
+    {
+     "name": "Endless Forest Shoes",
+     "refine": 0,
+     "gain": 0
+    },
+    {
+     "name": "Lost Tech Shoes",
+     "refine": 0,
+     "gain": 0
+    }
+   ],
+   "sh_gloves": [
+    {
+     "name": "False God Gloves",
+     "refine": 0,
+     "gain": 0
+    },
+    {
+     "name": "King's Noble Gloves",
+     "refine": 0,
+     "gain": 0
+    },
+    {
+     "name": "Aggressive Orphan Gloves",
+     "refine": 0,
+     "gain": 0
+    },
+    {
+     "name": "First Einherjar Gloves",
+     "refine": 0,
+     "gain": 0
+    },
+    {
+     "name": "Hand of the Father Gloves",
+     "refine": 0,
+     "gain": 0
+    },
+    {
+     "name": "Limitless Legacy Gloves",
+     "refine": 0,
+     "gain": 0
+    },
+    {
+     "name": "Angelic Curse Gloves",
+     "refine": 0,
+     "gain": 0
+    },
+    {
+     "name": "First Orphan Gloves",
+     "refine": 0,
+     "gain": 0
+    }
+   ],
+   "sh_acc": [
+    {
+     "name": "False God Pendant",
+     "refine": 0,
+     "gain": 0
+    },
+    {
+     "name": "Heir to the King Pendant",
+     "refine": 0,
+     "gain": 0
+    },
+    {
+     "name": "Nightmare Hunter Pendant",
+     "refine": 0,
+     "gain": 0
+    },
+    {
+     "name": "True Goddess Pendant",
+     "refine": 0,
+     "gain": 0
+    },
+    {
+     "name": "Wayward Vow Pendant",
+     "refine": 0,
+     "gain": 0
+    },
+    {
+     "name": "Aria of Harmony Pendant",
+     "refine": 0,
+     "gain": 0
+    },
+    {
+     "name": "Corrupted Time Pendant",
+     "refine": 0,
+     "gain": 0
+    },
+    {
+     "name": "Aggressive Orphan Pendant",
+     "refine": 0,
+     "gain": 0
+    }
+   ],
+   "sh_manual": [
+    {
+     "name": "Celestial Tome",
+     "refine": 0,
+     "gain": 2.2881
+    },
+    {
+     "name": "Equilibrium Tome",
+     "refine": 0,
+     "gain": 0
+    },
+    {
+     "name": "Agility Manual X",
+     "refine": 0,
+     "gain": 0
+    },
+    {
+     "name": "Hammer Manual X",
+     "refine": 0,
+     "gain": 0
+    },
+    {
+     "name": "Unleashed Manual",
+     "refine": 0,
+     "gain": 0
+    },
+    {
+     "name": "Pickpocket Manual",
+     "refine": 0,
+     "gain": 0
+    },
+    {
+     "name": "Pickpocket Manual X",
+     "refine": 0,
+     "gain": 0
+    },
+    {
+     "name": "Vanish Manual X",
+     "refine": 0,
+     "gain": 0
+    }
+   ],
+   "runeorb": [
+    {
+     "name": "Ehwaz Rune of Horse",
+     "refine": 3,
+     "gain": 2.2734
+    },
+    {
+     "name": "Isaz Rune of Deception",
+     "refine": 0,
+     "gain": 0
+    },
+    {
+     "name": "Uruz Rune of Strength",
+     "refine": 0,
+     "gain": 0
+    },
+    {
+     "name": "Raidho Rune of Chariot",
+     "refine": 0,
+     "gain": 0
+    },
+    {
+     "name": "Soul Rune of Destiny",
+     "refine": 0,
+     "gain": 0
+    },
+    {
+     "name": "Soul Rune of Orphans",
+     "refine": 0,
+     "gain": 0
+    },
+    {
+     "name": "Sowilo Rune of Success",
+     "refine": 0,
+     "gain": 0
+    },
+    {
+     "name": "Dagaz Rune of Hope",
+     "refine": 0,
+     "gain": 0
+    }
+   ]
+  },
+  "sets": [
+   {
+    "name": "False God",
+    "refine": 9,
+    "gain": 0
+   },
+   {
+    "name": "Aggressive Orphan",
+    "refine": 9,
+    "gain": 0
+   },
+   {
+    "name": "Aggressive Orphan",
+    "refine": 6,
+    "gain": 0
+   },
+   {
+    "name": "Godslayer",
+    "refine": 9,
+    "gain": 0
+   },
+   {
+    "name": "Godslayer",
+    "refine": 6,
+    "gain": 0
+   },
+   {
+    "name": "Godslayer",
+    "refine": 3,
+    "gain": 0
+   },
+   {
+    "name": "False God",
+    "refine": 6,
+    "gain": 0
+   },
+   {
+    "name": "Godslayer",
+    "refine": 0,
+    "gain": 0
+   }
+  ],
+  "deadShadow": 406,
+  "deadCards": [
+   "Abyss Mimic Card",
+   "Ancient Mimic Card",
+   "Bigfoot Card",
+   "Bruised Drunkard Card",
+   "Buckethead Card",
+   "Cruiser Card",
+   "Depths Dollocaris Card",
+   "Dark Lord Card",
+   "Demon Pungus Card",
+   "Devoted Knight Card",
+   "Dollocaris Card",
+   "Driller Card",
+   "Fabre Card",
+   "Fanat Card",
+   "Gazeti Card",
+   "Golden Thief Bug Card",
+   "Googly Card",
+   "Hunter Fly Card",
+   "Isilla Card",
+   "Joker Card",
+   "Lost Codex Card",
+   "Lake Dragon Card",
+   "Laurell Weinder Card",
+   "Limacina Card",
+   "Living Crystal Card",
+   "Mad Drinker Card",
+   "Magetin Card",
+   "Mantis Card",
+   "Martin Card",
+   "Oracle Spirit Card",
+   "Pitaya Card",
+   "Prayer Card",
+   "Regret of Thanatos Card",
+   "Savage Bebe Card",
+   "Black Swordfish Card",
+   "Temple Watcher Card",
+   "Verus Eye Card",
+   "Vision of Surt Card",
+   "Remade Margaretha Card",
+   "Adult Molinet Card",
+   "Amdarais Card",
+   "Angry Wanderer Card",
+   "Ascended Follower Card",
+   "Broken Thanatos Card",
+   "Himelmez Card",
+   "Celine Kimi Card",
+   "Charleston Card",
+   "Corrupted Shinobi Card",
+   "Creamy Card",
+   "Emperor Morroc Card",
+   "Detardeurus Card",
+   "Dustiness Card",
+   "Enenra Card",
+   "Fake Angel Card",
+   "Free Samurai Card",
+   "Galapago Card",
+   "Goddess Freya Card",
+   "Hallucigenia Card",
+   "Horong Card",
+   "Kasa Card",
+   "Kobold Leader Card",
+   "Lord of The Dead Card",
+   "Master Loki Card",
+   "Queen Maya Card",
+   "MukaMuka Card",
+   "Osiris Card",
+   "Paradox Amdarais Card",
+   "Queen Scaraba Card",
+   "Rockullanux Card",
+   "Heart of the Serpent Card",
+   "Shining Plant Card",
+   "Soldier Andre Card",
+   "Star Scourge Card",
+   "Baroness of Blood Card",
+   "Mega Peco Card",
+   "Trainer Fenrir Card",
+   "Star Scourge Echo Card",
+   "Abyss Lord Card",
+   "Banshee Card",
+   "Baroness of Despair Card",
+   "Bijou Card",
+   "Burning Fury Card",
+   "Dark Rose Dragon Card",
+   "Demon of Apocalypse Card",
+   "Desperate Njord Card",
+   "Flame Skull Card",
+   "General Daehyon Card",
+   "Godly Seeker Card",
+   "Heartless Card",
+   "Juliette D Rachel Card",
+   "Mind Vessel Card",
+   "Opera Jitterbug Card",
+   "Pitman Card",
+   "Ragged Zombie Card",
+   "Returned Samurai Card",
+   "Thor Avatar Card",
+   "Tomb Skeleton Leader Card",
+   "Tortured Maiden Card",
+   "Zombie Slaughter Card",
+   "Jormungandr Avatar Card",
+   "Ymir Emperium Card",
+   "Alice Card",
+   "Alligator Card",
+   "Amistr Card",
+   "Ancient Mummy Card",
+   "Aspect of Lies Card",
+   "Automata Card",
+   "Beetle King Card",
+   "Carat Card",
+   "Chepet Card",
+   "Comodo Card",
+   "Dark Frame Card",
+   "Dry Goblin Card",
+   "Eggyra Card",
+   "Filir Card",
+   "Fulbuk Card",
+   "Giearth Card",
+   "Goat Card",
+   "Happiness Card",
+   "Holy Skogul Card",
+   "Hylozoist Card",
+   "Ice Titan Card",
+   "Incubus Card",
+   "Jewel Ungoliant Card",
+   "Lif Card",
+   "Marc Card",
+   "Mi Gao Card",
+   "Ms. Strangelove Card",
+   "Muka Card",
+   "Myst Case Card",
+   "Nepenthes Card",
+   "Noble Devourer Card",
+   "Obsidian Card",
+   "Parus Card",
+   "Picky Egg Card",
+   "Pom Spider Card",
+   "Rocker Card",
+   "Ruby Golem Card",
+   "Rudo Card",
+   "Sage Worm Card",
+   "Sasquatch Card",
+   "Save Assistant Card",
+   "Scylla Card",
+   "Serpens Card",
+   "Sky Petite Card",
+   "Snake Card",
+   "Soul Cage Azrael Card",
+   "Sropho Card",
+   "Black Tendrillion Card",
+   "Thorn of Death Card",
+   "Tower Manager Card",
+   "Tricked Follower Card",
+   "Tumblering Card",
+   "Vanilmirth Card",
+   "Yoyo Card",
+   "Zombie Guard Card",
+   "Zombie Noble Card",
+   "Remade Howard Card",
+   "Young Shinshoku Card",
+   "Abysmal Knight Card",
+   "Alicel Card",
+   "Aliot Card",
+   "Rafflesia Alnoldi Card",
+   "Andre Card",
+   "Angra Mantis Card",
+   "Archer Skeleton Card",
+   "Aspect of Torment Card",
+   "Bathory Card",
+   "Blackguard Captain Card",
+   "Bloody Murderer Card",
+   "Brinaranea Card",
+   "Broken Cruiser Card",
+   "Bubble Girl Card",
+   "Byorgue Card",
+   "Christmas Cookie Card",
+   "Combo Breaker Card",
+   "Consumed Kafra Card",
+   "DR815 Card",
+   "Dominated Follower Card",
+   "Draco Card",
+   "Dracula Card",
+   "Drosera Card",
+   "Earth Petite Card",
+   "Enchanted Peach Tree Card",
+   "Evil Essence Card",
+   "Executioner Card",
+   "Fallen Bishop Hibram Card",
+   "Familiar Card",
+   "Fire Fox Card",
+   "Firewind Card",
+   "Flame Stallion Card",
+   "Forest Creeper Card",
+   "Garden Boy Card",
+   "Goblin Archer Card",
+   "Goblin Card",
+   "Gwisin Warrior Card",
+   "Haunting Guise Card",
+   "High Orc Card",
+   "Hill Wind Mage Card",
+   "Hillslion Card",
+   "Hydrolancer Card",
+   "Jakk Card",
+   "Jejeling Card",
+   "Knocker Card",
+   "Lava Toad Card",
+   "Loli Ruri Card",
+   "Lost Swordsman Card",
+   "Mad Corsair Card",
+   "Mangkukulam Card",
+   "Marduk Card",
+   "Marina Card",
+   "Mark Bearer Card",
+   "Matyr Card",
+   "Mecha Spider Card",
+   "Medusa Card",
+   "Megalodon Card",
+   "Metaller Card",
+   "Miyabi Doll Card",
+   "Mummy Card",
+   "Mysteltainn Card",
+   "Necromancer Card",
+   "Noxious Card",
+   "Observation Card",
+   "Ogretooth Card",
+   "Orc Archer Card",
+   "Orc Baby Card",
+   "Orc Lady Card",
+   "Orc Skeleton Card",
+   "Orc Warrior Card",
+   "Penomena Card",
+   "Phantom Shaman Card",
+   "Pinguicula Card",
+   "Poison Spore Card",
+   "Rake Scaraba Card",
+   "Raydric Archer Card",
+   "Red Machina Card",
+   "Repair Robot Card",
+   "Ritual Priest Card",
+   "Rocky Boy Card",
+   "Sea-Otter Card",
+   "Seal Card",
+   "Side Winder Card",
+   "Skeleton General Card",
+   "Sky Draco Card",
+   "Sohee Card",
+   "Spectre Raydric Card",
+   "Spectre Raydric Archer Card",
+   "Stainer Card",
+   "Strange Man Card",
+   "Strouf Card",
+   "Tatacho Card",
+   "Time Holder Card",
+   "Tiyanak Card",
+   "Toxic Scorpion Card",
+   "Wanderer Card",
+   "Willow Card",
+   "Defense Protocard",
+   "Magic Protocard",
+   "Resource Protocard",
+   "Quick Protocard",
+   "Growth Protocard",
+   "Remade Cecil Card",
+   "Yellow Novus Card",
+   "Valhalla Sorcerer Card",
+   "Detector Card",
+   "Aliza Card",
+   "Angry Pyuriel Card",
+   "Antique Firelock Card",
+   "Antonio Card",
+   "Aqua Elemental Card",
+   "Aspect of Horror Card",
+   "Assassin Card",
+   "Bartender Card",
+   "Bloody Butterfly Card",
+   "Bone Acidus Card",
+   "Broken Homunculus Card",
+   "Bubble Spirit Card",
+   "Carbon Chonchon Card",
+   "Choco Card",
+   "Chonchon Card",
+   "Drowned Spirit Card",
+   "Depths Mermaid Card",
+   "Devilring Card",
+   "Deviruchi Card",
+   "Disguise Card",
+   "Dullahan Card",
+   "Dumpling Child Card",
+   "Evil Druid Card",
+   "Explosion Card",
+   "Failed Abomination Card",
+   "Fallen Lord Knight Card",
+   "Fallen White Knight Card",
+   "Galion Card",
+   "Gan Ceann Card",
+   "Gargoyle Card",
+   "Gemini-S58 Card",
+   "Gloom Under Night Card",
+   "Grafted Zenorc Card",
+   "Gryphon Card",
+   "Guillotine Card",
+   "Guillotine Cross Card",
+   "Harpy Card",
+   "Hermit Spirit Card",
+   "Hinoenma Card",
+   "Holy Frus Card",
+   "Horror of Thanatos Card",
+   "Rachel Kidnapper Card",
+   "Living Storm Card",
+   "Luciola Vespa Card",
+   "Marse Card",
+   "Merman Card",
+   "Missing Body Card",
+   "Model MCH Card",
+   "Moldy Man Card",
+   "Moon Guardian Card",
+   "Mutant Dragonoid Card",
+   "Naga Card",
+   "Nine Tails Card",
+   "Orphan Hunter Card",
+   "Red Novus Card",
+   "Red Terminus Card",
+   "Shadow Chaser Card",
+   "Sif Avatar Card",
+   "Skeggiold Card",
+   "Smile Card",
+   "Storage Assistant Card",
+   "Tengu Card",
+   "Tomb Skeleton Card",
+   "Violy Card",
+   "Weird Alchemist Card",
+   "Whisper Card",
+   "Wild Rider Card",
+   "Wooden Golem Card",
+   "Remade Keyron Card",
+   "Guild Chamberlain Card",
+   "Ash Toad Card",
+   "Aster Card",
+   "Baby Molinet Card",
+   "Bone Ferus Card",
+   "Calmaring Card",
+   "Cat O' Nine Tails Card",
+   "Coyote Card",
+   "Death Ruri Card",
+   "Fairy Les Card",
+   "Fallen Rune Knight Card",
+   "Hode Card",
+   "Hornet Card",
+   "Injustice Card",
+   "Isis Card",
+   "Magma Terror Card",
+   "Menblatt Card",
+   "Miming Card",
+   "Mobster Card",
+   "Moonlight Flower Card",
+   "Myst Card",
+   "Nightmare Card",
+   "Nymph Spirit Card",
+   "Phendark Card",
+   "Picky Card",
+   "Red Hover Card",
+   "Magma Kaho Card",
+   "Roween Card",
+   "Rybio Card",
+   "Sedora Card",
+   "Sleipnir Avatar Card",
+   "Stormy Knight Card",
+   "Strange Thief Card",
+   "Verporte Card",
+   "Vine Willow Card",
+   "Warp Assistant Card",
+   "Wild Rose Card",
+   "Zealotus Card",
+   "Zombie Prisoner Card",
+   "Remade Eremes Card",
+   "Frigg Avatar Card",
+   "Guild Master Card",
+   "Agav Card",
+   "Ashring Card",
+   "Aunoe Card",
+   "Bar Maids Card",
+   "Bone Detardeurus Card",
+   "Buzzer Card",
+   "Clock Card",
+   "Corruption Root Card",
+   "Drainliar Card",
+   "Dryad Card",
+   "Elder Willow Card",
+   "Frost Fairy Card",
+   "Ghost Tree Card",
+   "Gibbet Card",
+   "Great Shadow Card",
+   "Scaraba Card",
+   "Holden Card",
+   "King Poring Card",
+   "Kobold Archer Card",
+   "Lavaring Card",
+   "Leaf Cat Card",
+   "Minion Amdarais Card",
+   "Maya Purple Card",
+   "Mime Monkey Card",
+   "Navigator Card",
+   "Obeaune Card",
+   "Old Blue Bag Card",
+   "Old Cookie Card",
+   "Pirate Skeleton Card",
+   "RSX-0806 Card",
+   "Recon Robot Card",
+   "Remover Card",
+   "Retribution Card",
+   "Roadie Card",
+   "Silent Ronin Card",
+   "Siren Card",
+   "Sleeper Card",
+   "Smokie Card",
+   "Spring Rabbit Card",
+   "Stone Shooter Card",
+   "Strange Wizard Card",
+   "Tao Gunka Card",
+   "Vitata Card",
+   "Wootan Shooter Card",
+   "Zenorc Card",
+   "Phen Card",
+   "Surtr Avatar Card",
+   "Guild Support Card",
+   "Guild Magician Card"
+  ]
+ }
+}

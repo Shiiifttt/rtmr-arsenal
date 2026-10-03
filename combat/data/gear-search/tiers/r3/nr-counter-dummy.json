@@ -1,0 +1,98 @@
+{
+ "profile": "Tiers 2026-10-02: nr-counter-dummy (top-up)",
+ "targets": [
+  "Training Dummy"
+ ],
+ "rules": {
+  "screenN": 30,
+  "confirmN": 150,
+  "timeS": 300,
+  "locked": [
+   "none"
+  ],
+  "penalty": 0,
+  "topStats": [
+   "str",
+   "agi",
+   "luk"
+  ],
+  "topRefine": true
+ },
+ "start": "http://localhost:5173/#b=czZHNiuMwDIBfZfFZLJbkn_ol9rBXE4JJ1DZsmobYHWbefnBShg5Dct6LDtJn6ZMcCdSf4XItv_6mN5kUIGuIIUAIQAGIgBxY20CMBlijsRAgGjYavodKqOU-jqhApfJPQeSmgS1HClSe2-6eS7tI_-ikVxBRfwGsQN1kFGn7dEsX-V41ClQvZ5mytLNMUpZUhvv0hCpmn27uP3TTQGTNpuZNzSDYwFQzyJ7CqpdLKtWkLPXp9pLABnLbwb0BZM9-F2ZAywGf9OknR5uz5Ptj6aQuld7b66wg2rVyG8pwecqr-fqRhy6NLyfhbY4DdKxPm711AV7i3lB5S3nrex7l5YD5kUsa1vzwLn3bpVwURP2btlke0Br0dSdkj26vf56lKqqU52rq12RtNkyXmj4XWdbmbS9j-tiQCp3qMsigIRrDGr5CLYajIiIEzdppqFsjAZ1CoGq6-0PIK2SOIbNCfAzZFbLHkAMyZFz134c8kEGvDzo1zSc",
+ "steps": [
+  {
+   "move": "top-refine: offhand +6->+9, upper +6->+9, middle +6->+9, garment +6->+9",
+   "before": {
+    "win": 0,
+    "loss": 0,
+    "dps": 236407.19866666666,
+    "ttk": null,
+    "value": 3.8461079799999998,
+    "deaths": ""
+   },
+   "after": {
+    "win": 0,
+    "loss": 0,
+    "dps": 236407.19866666666,
+    "ttk": null,
+    "value": 3.8461079799999998,
+    "deaths": ""
+   },
+   "tried": 1
+  }
+ ],
+ "final": {
+  "win": 0,
+  "loss": 0,
+  "dps": 236399.90433333334,
+  "ttk": null,
+  "value": 3.845998565,
+  "deaths": ""
+ },
+ "options": {
+  "order": [
+   "Stay hidden",
+   "Morroc's Mark",
+   "Pull it off the ward",
+   "Heal",
+   "Bloody Fangs",
+   "Weapon Blocking",
+   "Rising Wings",
+   "Fury",
+   "Hallucination Walk",
+   "Attack",
+   "Counter Slash",
+   "Dark Claw",
+   "Northern Cross",
+   "Typhoon Edge",
+   "Definitive Dagger",
+   "Southern Cross",
+   "Midnight Eye",
+   "Back Stab",
+   "Shadow Slash",
+   "Soul Destroyer"
+  ],
+  "weaveMs": 0,
+  "southernFiller": true,
+  "typhoonAt": 3,
+  "bloodyFangs": false,
+  "slashOpener": true,
+  "counterHold": true,
+  "typhoonAfterCounter": true,
+  "eyeForCounter": true,
+  "tankShare": 0.6,
+  "cycleAnchor": "Midnight Eye",
+  "counterCommit": true,
+  "counterBait": true,
+  "weaponBlock": false,
+  "enchantPoison": true
+ },
+ "link": "http://localhost:5173/#b=czZFBjtswDEWvUmj9UYiUZEeX6GK2gmEINpMYdRzDUgYzty9kp4MMCnvdDRefj-QnGRjq13C55h9v8V0mBTIawXt4D_ZgBldwrkEIFkaTdfAI1liN76EQarmPIymomH8rBNM02DRWUGluu3vK7SL9o5NeIZD-AoyCusko0vbxFi_yPWsVVC9nmZK0s0ySl5iH-_SECub-Y28azM5u1mpbFILzhotCpma_2ks55uIkL6V0q2Q4z9XfSpCpTb0LG5Aznp706V-ON8-S7o-lk7JU_Givs0Jwa-Y25OHyNK_m62cauji-nMRscypQZfRpc-8qj5e4N1TeY9r6nkd5OWB6pByHVR8-pG-7mLJC0D95m1WDnKX6eSmq9vqnWYpFFdNcnNarWJoN06XI5yzL2rztZYyfG1KgU1mGDDSCtUbjK5SkP0oSwWujK42yNTH45P36090PkVkhewzZFTLHkFshdwxVYMu2Kv73oRpsqdYHnZrmDw",
+ "perTarget": [],
+ "census": {
+  "shadow": {},
+  "sets": [],
+  "deadShadow": 0,
+  "deadCards": []
+ }
+}

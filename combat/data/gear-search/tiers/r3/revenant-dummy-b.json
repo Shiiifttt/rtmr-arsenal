@@ -1,0 +1,88 @@
+{
+ "profile": "Tiers 2026-10-02: revenant-dummy-b (top-up)",
+ "targets": [
+  "Training Dummy"
+ ],
+ "rules": {
+  "screenN": 30,
+  "confirmN": 150,
+  "timeS": 300,
+  "locked": [
+   "none"
+  ],
+  "penalty": 0,
+  "topStats": [
+   "str",
+   "luk",
+   "dex"
+  ],
+  "topRefine": true
+ },
+ "start": "http://localhost:5173/#b=cfVJBbuMwDPyLznMQKVmyvrFXwTAER02MdRLDUoL29wWtwu1ikV4G8AyH5NCKDPUnP_Mt3aoCGY0YAghGg9BrhDAgRg1DTAYB0RpvITAMiAQKbLsBkdEFdlJAxrkeO4pVlZqqgnrOVSHSMIjPgDqrGU7KPf1TWOqmEFnK1JbL_bFNWUFd0_t4WRVityvXuc7nVOf7TUGtl48yT2kZt3x6TPmkEE0bZEHG69AWdwEH7BO3-7KQgkr1b7OgcXxw3cEZ2SEvOY-ndE3nLGH0oVoFld_XL1JoB3JG-30y9w4HvMqan6m0OG9L_tG-PEpNs_CXdVxyni5i0eA2x4NZe2qX9_SyfVmzHEalsp6-m0-p1Pl2Fv6t5m2U7_GUl_TxI0ovUYigEdnT_nO9NQ1FD996U_Y3csjE4D4EhhydDLjX3sq-_6_69TzIgq3l0BwdOAQTfnc4sGXrZIfXRR5sybtfOg3DJw",
+ "steps": [
+  {
+   "move": "top-refine: armor +6->+9",
+   "before": {
+    "win": 0,
+    "loss": 0,
+    "dps": 79280.59133333333,
+    "ttk": null,
+    "value": 1.48920887,
+    "deaths": ""
+   },
+   "after": {
+    "win": 0,
+    "loss": 0,
+    "dps": 79280.59133333333,
+    "ttk": null,
+    "value": 1.48920887,
+    "deaths": ""
+   },
+   "tried": 1
+  }
+ ],
+ "final": {
+  "win": 0,
+  "loss": 0,
+  "dps": 79277.89866666666,
+  "ttk": null,
+  "value": 1.48916848,
+  "deaths": ""
+ },
+ "options": {
+  "defense": "auto",
+  "rainAt": 5,
+  "order": [
+   "Stay hidden",
+   "Morroc's Mark",
+   "Pull it off the ward",
+   "Final Orchestra",
+   "Heal",
+   "Darkside Shadow",
+   "True Sight",
+   "Vampire Mark",
+   "Shadow Parry",
+   "Mirror Break",
+   "Roaring Overslash",
+   "Reaping Slash",
+   "Hellraiser",
+   "Underworld Rainstorm",
+   "Scythe Reap",
+   "Sweeping Slash",
+   "Haunting Slice",
+   "Dark Message",
+   "Phantom Slice",
+   "Dark Messenger",
+   "Flaming Wave",
+   "Attack"
+  ]
+ },
+ "link": "http://localhost:5173/#b=cfVJBbuMwDPwLz3MQKVmyvrFXwTAER02MdRLDUoL29wtZXbeLRXoZwDMckkMrCOhXeqZbvBUCa4XgPRhagdEreD8gBAXNwhoewWhnUGEYEBjsxXQDgqDzYmsBa2t77FitlEssBHrOhRB4GKpPgzujpJU7_qcwl40QpJbRlvL9sU2JQNf4Pl5WQuh25TqX-RzLfL8RaL185HmKy7il02NKJ0LQbZABa6d8W9x6HLBP3O7LwgSK5XezoHFycN3B6bpDWlIaT_Eaz6mGUYdqCJTe10-y0hZstXL7ZOktDniVNT1jbnHelvStfX7kEufKX9ZxSWm6VIuCtDkOIsrx31O-bJ_XVA9DMa-nr-ZTzGW-nSv_VtI21u_xlJb48S1KX6MwQyGI4_3nOqMbVt1_6U3Z38ghs0B67wX16KwhvXKm7vv_qp_Pgw3EGPHN0UG81_5nh4UYMbbu8LrIQQw7-0OnYfgD",
+ "perTarget": [],
+ "census": {
+  "shadow": {},
+  "sets": [],
+  "deadShadow": 0,
+  "deadCards": []
+ }
+}

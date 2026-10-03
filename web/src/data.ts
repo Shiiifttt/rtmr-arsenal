@@ -1,6 +1,6 @@
 import {
   bindBaseStatIds, readSpawns,
-  type ClassGoals, type ClassRules, type Dataset, type Item, type JobTables, type MobInfo, type RollData,
+  type ClassGoals, type ClassRules, type ClassTiers, type Dataset, type Item, type JobTables, type MobInfo, type RollData,
   type SetRecord, type SpawnFile, type StatDef,
 } from '@sim';
 
@@ -13,7 +13,7 @@ import {
  */
 export async function loadDataset(base = './data'): Promise<Dataset> {
   const [itemList, sets, stats, classes, classRules, rolls, armorTargets, effort, classGoals,
-    levelReach, jobs] =
+    levelReach, jobs, classTiers] =
     await Promise.all([
       getJSON<Item[]>(`${base}/items/all.json`),
       getJSON<SetRecord[]>(`${base}/sets/all.json`),
@@ -44,6 +44,11 @@ export async function loadDataset(base = './data'): Promise<Dataset> {
       // Each class's job HP / SP table. Missing it costs Max HP and Max SP
       // in the derived totals, nothing else.
       getJSON<JobTables>(`${base}/jobs.json`).catch(() => null),
+      // The combat sim's budget / baseline / maxed builds per playstyle
+      // (combat/tools/build-tiers.ts). Missing it means goals start where
+      // the build is, as before.
+      getJSON<{ classes: ClassTiers }>(`${base}/class-tiers.json`)
+        .then((f) => f.classes).catch(() => null),
     ]);
 
   bindBaseStatIds(stats);
@@ -63,6 +68,7 @@ export async function loadDataset(base = './data'): Promise<Dataset> {
         .map(([id, [e, kill, via]]) => [Number(id), { effort: e, kill, via }]))
       : null,
     classGoals,
+    classTiers,
     levelReach: levelReach
       ? new Map(Object.entries(levelReach)
         .map(([level, [e, kill]]) => [Number(level), { effort: e, kill }]))

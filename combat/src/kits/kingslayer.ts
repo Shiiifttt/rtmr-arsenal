@@ -26,13 +26,14 @@
  *     server's 0.1 units) in place of weapon ATK, +10 per shield refine after
  *     DEF (2023 code); element as the tooltip, the weapon's.
  */
+import { fireAutocast } from '../autocast.ts';
 import type { Passives } from '../character.ts';
 import { defMultiplier, effectivePierce } from '../../../sim/src/derived.ts';
 import { attrFix, countsAsBoss, magicDamage, physicalCardFix, physicalDamage, refineAtk, TUNE } from '../formulas.ts';
 import type { Fighter, MobSkill, Monster } from '../model.ts';
 import { playbookPlan } from '../playbook.ts';
 import {
-  canUse, dot, followUpComing, grant, has, mobCloaked, noteProc, readMarks, readyAt, say, stacks, strike,
+  canUse, dot, followUpComing, grant, has, mobCloaked, readMarks, readyAt, say, stacks, strike,
   type Action, type Fight, type Kit,
 } from '../engine.ts';
 import {
@@ -112,7 +113,7 @@ function setCounters(fight: Fight, n: number) {
  * magic or a blocked hit). A rollout weighs the chance in.
  */
 function onHurt(fight: Fight, hit: { physical: boolean }) {
-  gemAutocast(fight);
+  gemFirstHit(fight);
   if (!hit.physical || !has(fight, 'duelStance')) return;
   const p = Math.min(1, (25 + 15 * lv(fight.f, 'Duel Stance')) / 100);
   if (fight.rng.expect) setCounters(fight, counters(fight) + p);
@@ -122,27 +123,17 @@ function onHurt(fight: Fight, hit: { physical: boolean }) {
 /**
  * Bulwark Gem of the Weak: "1% chance to Autocast Shield Boomerang and
  * King's Chains when hit", under "Per Refine:" -- so +1% a refine (the
- * project owner, 2026-09-27). Both, free, the chain lifted by the combo; a
- * rollout (expected-value mode) skips it.
+ * project owner, 2026-09-27). autocast.ts rolls it on weapon hits (the
+ * server's when-hit default) and casts both through the actions below, the
+ * chain lifted by the combo. Option gemFirstHit: the first hit taken always
+ * procs it -- a test of what one proc is worth (the project owner, 2026-09-30).
  */
-const autocastChance = new WeakMap<Fighter, number>();
-function gemAutocast(fight: Fight) {
-  let p = autocastChance.get(fight.f);
-  if (p === undefined) {
-    // character.ts reads it off the gear, per refine where the text says so.
-    const hits = (fight.f.autocastWhenHit ?? []).filter((a) => a.skills.includes('Shield Boomerang') && a.skills.includes("King's Chains"));
-    autocastChance.set(fight.f, p = Math.min(1, hits.reduce((n, a) => n + a.chance, 0)));
-  }
-  // Option gemFirstHit: the first hit taken always procs it -- a test of what
-  // one proc is worth (the project owner, 2026-09-30).
-  const forced = fight.options.gemFirstHit === true && !fight.me.spent.gemFirstHit && !fight.rng.expect && hasShield(fight);
-  if (forced) fight.me.spent.gemFirstHit = true;
-  if (!forced && (!p || fight.rng.expect || !hasShield(fight) || !fight.rng.chance(p))) return;
-  fight.me.buffs.gemProcs = { until: 1e12, stacks: (fight.me.buffs.gemProcs?.stacks ?? 0) + 1 };
-  fight.log && say(fight, "Bulwark Gem autocasts Shield Boomerang and King's Chains");
-  noteProc(fight, 'Shield Boomerang'); noteProc(fight, "King's Chains");
-  shieldBoomerang.resolve(fight);
-  kingsChains.resolve(fight);
+function gemFirstHit(fight: Fight) {
+  if (fight.options.gemFirstHit !== true || fight.me.spent.gemFirstHit || fight.rng.expect || !hasShield(fight)) return;
+  const gem = fight.f.autocasts?.find((a) => a.trigger === 'hit' && a.skills.includes("King's Chains"));
+  if (!gem) return;
+  fight.me.spent.gemFirstHit = true;
+  fireAutocast(fight, gem);
 }
 
 // ---- damage helpers -----------------------------------------------------------------
@@ -167,7 +158,10 @@ const weaponHit = (fight: Fight, name: string, ratio: number, o: { ranged?: bool
  * #ifndef RENEWAL) -- the readings win.
  */
 function shieldHit(fight: Fight, name: string, ratio: number, mult = 1) {
-  const f = fight.f; const s = f.shield!;
+  const f = fight.f; const s = f.shield;
+  // No shield, no shield skill: a gear autocast (the Bulwark Gem's Shield Boomerang, autocast.ts) skips the
+  // action's own shield check, and a build searched without a shield crashed here (2026-10-03).
+  if (!s) return () => 0;
   // No weapon mastery: the 2023 code gives the shield skills no mastery ATK
   // (battle.cpp:3580, the damage parts are never filled in), and the owner's
   // readings of 2026-09-28 (no weapon 5,669; Abandoned Guardian 7,155) fit

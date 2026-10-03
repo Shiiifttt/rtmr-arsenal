@@ -103,7 +103,8 @@ test('each row carries the icon of what it puts on', () => {
   assert.ok(icons >= moves.length, `${icons} icons for ${moves.length} rows`);
   assert.equal(/src=""/.test(html), false);
   for (const src of html.match(/<img class="icon" src="([^"]+)"/g) ?? []) {
-    assert.match(src, /images\/(icons|art)\/\d+\.png/);
+    // Numbered art, or the shared card art 242 cards use (images/art/card.png).
+    assert.match(src, /images\/(icons|art)\/(\d+|card)\.png/);
   }
   // A move that only changes cards shows the cards, not the piece that is
   // staying on: four of one card is one icon, not four.

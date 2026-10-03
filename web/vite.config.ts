@@ -68,6 +68,9 @@ const COMBAT_ARGS: Record<string, RegExp> = {
   items: /^[A-Za-z0-9 ',-]{1,300}$/,
   healing: /^(true|false)$/,
   swap: /^(true|false)$/,
+  // A profile in combat/profiles by name, for its rotation and ASPD model (the at-a-glance window's
+  // rotation pick: a Night Raven build plays its own build's rotation). Checked to exist below.
+  profile: /^[a-z0-9-]{1,60}$/,
 };
 
 /** A small JSON body, or null. */
@@ -264,6 +267,12 @@ function combatPlugin(): Plugin {
             const v = body[key];
             if (v === undefined || v === null || v === '') continue;
             if (!shape.test(String(v))) return reply(400, { error: `bad ${key}` });
+            if (key === 'profile') {
+              const file = `profiles/${v}.json`;
+              if (!existsSync(resolve(dir, file))) return reply(400, { error: `no profile ${v}` });
+              argv.push('--profile', file);
+              continue;
+            }
             argv.push(`--${key}`, String(v));
           }
           if (body.log) argv.push('--log');

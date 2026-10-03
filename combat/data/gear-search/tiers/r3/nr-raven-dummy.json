@@ -1,0 +1,78 @@
+{
+ "profile": "Tiers 2026-10-02: nr-raven-dummy (top-up)",
+ "targets": [
+  "Training Dummy"
+ ],
+ "rules": {
+  "screenN": 30,
+  "confirmN": 150,
+  "timeS": 300,
+  "locked": [
+   "none"
+  ],
+  "penalty": 0,
+  "topStats": [
+   "luk",
+   "agi",
+   "dex"
+  ],
+  "topRefine": true
+ },
+ "start": "http://localhost:5173/#b=cdVLLjtwgEPyViHMd6OZh-IkcckWWhTzs2IpnbBlmtPv3EWY3O1HkC6Lp6q6qbgJD_JyvU_nxKz7TXYCURCCCNzAgeIb3PULQIHYKHoE7coyXs6bFvi4LCYhbfB-mTSBw36M9s4DI2zCuuQx7ujzGdBEI5m9e1bK0pDRc4i1e0z9JLSDGfS7zGJfvPMm-rxAJco47VIkEcsZISARtJR2qcolFQCyP37Wo1TCMZ1OdkJTaWwWtlT-FK5DRkmERNJP7H_dpNOX1sY_pdQTNxW0u8zWWeb0LiG36yIeV70GoxmOhJKlDlyYrUY8zsvSMufV7W9LXPBBEfuQS5_o-bcOS0jjVEgluFB2YZbPSrNszgrylqk3c1mcaPoMvkjHmMt-vAiK-lbQPNR4uaYkfL4txYGv8sQup9OlwPdgpwweO7dG__j2ppPFtqQz2nl3VfNqFVAWpOi7S9So9qjUyYEedaoEFa1a2cp136sBakq9bOAH1_R8",
+ "steps": [
+  {
+   "move": "top-refine: armor +6->+9, shoes +6->+9, sh_armor +6->+9, sh_shoes +0->+9, sh_gloves +6->+9, sh_acc +6->+9",
+   "before": {
+    "win": 0,
+    "loss": 0,
+    "dps": 59830.083333333336,
+    "ttk": null,
+    "value": 1.1974512499999999,
+    "deaths": ""
+   },
+   "after": {
+    "win": 0,
+    "loss": 0,
+    "dps": 59830.083333333336,
+    "ttk": null,
+    "value": 1.1974512499999999,
+    "deaths": ""
+   },
+   "tried": 1
+  }
+ ],
+ "final": {
+  "win": 0,
+  "loss": 0,
+  "dps": 59568.364,
+  "ttk": null,
+  "value": 1.19352546,
+  "deaths": ""
+ },
+ "options": {
+  "order": [
+   "Stay hidden",
+   "Morroc's Mark",
+   "Pull it off the ward",
+   "Heal",
+   "Bloody Fangs",
+   "Weapon Blocking",
+   "Rising Wings",
+   "Fury",
+   "Hallucination Walk",
+   "Sky Assault",
+   "Attack"
+  ],
+  "weaveMs": 0,
+  "autoOnly": true,
+  "enchantPoison": true
+ },
+ "link": "http://localhost:5173/#b=cfVJBjtswDPxKofMcSEqypU_00KthGIKjjY06iWEpQff3hazsbhaFexFAcobDIdUJ1M_5POUfv8IjXhVYEzpmeAsLhhd436PrDFichkcnLTvBy1vKarstCyuoS_gzTKtCJ32PmhYFldZhvKU8bPF0H-NJobOfdV1ocYlxOIVLOMdvRaOgxm3O8xiWrzpT3xcIgZ2TFmVEBjtrCYTONMT7VCmHrKCW--9CqhyB9WKLEyYyvtEwRvtDuAZbQ1LwRtj9i3sajel238b4uoLq4jLn-RzyfLsqqHV6T7uVr0XoqtNAE-t9LsMNoTxHYvERUu33tsSPfaBT6Z5ymEt-WoclxnEqFIJUiRYiVK1U682RQFpjmU1dbo84PIMPkTGkPF_PCiq85bgNJR5OcQnvL4dxkMb6_RakzeFyPcRpKztOmr1_-Xukyfp6VIF4L67MfNiFdQFpqgxTAnrSLcRxq2vQQIzopqgd92ohhtj_R7Dv_wI",
+ "perTarget": [],
+ "census": {
+  "shadow": {},
+  "sets": [],
+  "deadShadow": 0,
+  "deadCards": []
+ }
+}

@@ -3,6 +3,8 @@ import {
   rollTableFor, SLOT_BY_KEY, SLOTS, socketsOf, swapHands, tableForSlot,
   type Build, type Dataset, type RollPick, type SlotDef,
 } from '@sim';
+import { useState } from 'react';
+import { EquipWindow } from './EquipWindow';
 import { Icon } from './Icon';
 import { tooltipProps } from './ItemTooltip';
 import { RollEditor } from './RollEditor';
@@ -44,6 +46,8 @@ export function SlotGrid(props: Props) {
   // as the character faces you, so which weapon is in which hand is the one
   // thing about a dual-wielded pair that is easy to get backwards.
   const canSwap = swapHands(build, dataset) !== null;
+  // The whole build on one small screen: gear, shadow gear, stats, dummy damage.
+  const [glance, setGlance] = useState(false);
 
   return (
     <>
@@ -51,6 +55,18 @@ export function SlotGrid(props: Props) {
         <div className="panel" key={group.key}>
           <div className="panel-head">
             <h2>{group.label}</h2>
+            {group.key === 'gear' && (
+              <button
+                className="glance"
+                onClick={() => setGlance(true)}
+                title="The whole build on one small screen: gear and shadow gear with their cards, stats, and damage on the training dummy"
+                aria-label="Show the build at a glance"
+              >
+                <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true">
+                  <path fill="currentColor" d="M2 2h5v5H2V2Zm7 0h5v5H9V2ZM2 9h5v5H2V9Zm7 0h5v5H9V9Z" />
+                </svg>
+              </button>
+            )}
             {group.key === 'gear' && (
               <button
                 className="swap-hands"
@@ -77,6 +93,7 @@ export function SlotGrid(props: Props) {
           </div>
         </div>
       ))}
+      {glance && <EquipWindow dataset={dataset} build={build} onClose={() => setGlance(false)} />}
     </>
   );
 }

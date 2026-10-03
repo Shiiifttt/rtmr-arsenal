@@ -41,6 +41,14 @@ function args(argv: string[]) {
 }
 
 
+/** Each class's farm profile: what a build from a link borrows its ASPD model, consumables and (rotation) its options from. */
+const CLASS_PROFILE: Record<string, { path: string; rotation: boolean }> = {
+  Satsujin: { path: 'profiles/satsujin-farm-maxed-a.json', rotation: true },
+  Revenant: { path: 'profiles/revenant-maxed-final.json', rotation: true },
+  Kingslayer: { path: 'profiles/kingslayer-endgame-farm.json', rotation: true },
+  'Night Raven': { path: 'profiles/nightraven-counter-commit.json', rotation: false },
+};
+
 async function main() {
   const a = args(process.argv.slice(2));
   const profilePath = typeof a.profile === 'string'
@@ -62,7 +70,19 @@ async function main() {
   };
 
   // The kit is the build's class; Satsujin for a class that has none yet.
-  const k = kitFor((await resolveBuild(profile.build, plannerDataset())).className);
+  const buildClass = (await resolveBuild(profile.build, plannerDataset())).className;
+  const k = kitFor(buildClass);
+  // A build from a link fights with its own class's settings, not the example profile's -- a Night Raven
+  // build used to play Satsujin's rotation order and ASPD model (2026-10-02, the build-at-a-glance window).
+  if (typeof a.build === 'string' && typeof a.profile !== 'string') {
+    const own = CLASS_PROFILE[buildClass ?? ''];
+    const p = own ? readJSON<Profile>(resolve(REPO, 'combat', own.path)) : null;
+    profile.aspdModel = p?.aspdModel;
+    profile.consumables = p?.consumables ?? profile.consumables;
+    // A class with one build plays that build's rotation; one with several (Night Raven), the kit's own.
+    profile.options = own?.rotation ? p?.options : undefined;
+    delete profile.baseLevel;
+  }
   const f = await buildFighter(profile, {
     passives: k.passives, aliases: k.aliases, maxLevels: k.maxLevels(),
   });

@@ -1,0 +1,88 @@
+{
+ "profile": "Tiers 2026-10-02: nr-dd-dummy-b (top-up)",
+ "targets": [
+  "Training Dummy"
+ ],
+ "rules": {
+  "screenN": 30,
+  "confirmN": 150,
+  "timeS": 300,
+  "locked": [
+   "none"
+  ],
+  "penalty": 0,
+  "topStats": [
+   "agi",
+   "str",
+   "dex"
+  ],
+  "topRefine": true
+ },
+ "start": "http://localhost:5173/#b=crZLNitwwDIBfpfisgy35J36JHno1IZiMN2OamQmxZ-m-fZET0inLppdeDJE-pE9SAoL4nqdr_fYjvqe7AEUSgu_AezCAYB0Y2UMImjPegIegSbeQWB_zrASIWH8KCNT3sMXwiJkjRgLELc0pDZd4i1MSEJQ8slqAGNdc8xjnvwFGTOttubci0zngt3t9_6lTlmF8lDqs6fIc0-W_qUkghYo2NStZx8qOMwqMtbqHgGA87vLWMuHINeFSY2XfKXPFrSCBMloiWN6z6z5zuJml8niuY2L1-Gu4LsdEt1zzFGt-3AWI5fpRmvifuWnrY4Gkov2ejq9rnf2qW3qPZSv4NqeX_ZRnqTHft_2uaeIfKOC-GgeIUsrWQUt6rV3qetQuS2IvEcvCeq4Fx1hqvk8cfqtpHfh7uKQ5fmwIQx0oS0qB3Cc4Hk76s6RCwM57ZLXPWvshFDVIn0O6QXQOmQaZc8gCatSWjb-GHKBWzp5XUuAlSePA933_Gw",
+ "steps": [
+  {
+   "move": "top-refine: armor +6->+9",
+   "before": {
+    "win": 0,
+    "loss": 0,
+    "dps": 168403.53333333333,
+    "ttk": null,
+    "value": 2.8260529999999995,
+    "deaths": ""
+   },
+   "after": {
+    "win": 0,
+    "loss": 0,
+    "dps": 168403.53333333333,
+    "ttk": null,
+    "value": 2.8260529999999995,
+    "deaths": ""
+   },
+   "tried": 1
+  }
+ ],
+ "final": {
+  "win": 0,
+  "loss": 0,
+  "dps": 168411.805,
+  "ttk": null,
+  "value": 2.826177075,
+  "deaths": ""
+ },
+ "options": {
+  "order": [
+   "Stay hidden",
+   "Morroc's Mark",
+   "Pull it off the ward",
+   "Heal",
+   "Bloody Fangs",
+   "Weapon Blocking",
+   "Rising Wings",
+   "Fury",
+   "Hallucination Walk",
+   "Attack",
+   "Definitive Dagger",
+   "Southern Cross",
+   "Dark Claw",
+   "Northern Cross",
+   "Typhoon Edge",
+   "Shadow Slash"
+  ],
+  "weaveMs": 0,
+  "southernRefreshMs": 1000,
+  "bloodyFangs": false,
+  "southernFiller": true,
+  "slashOpener": true,
+  "ddHold": true,
+  "tankShare": 0.6,
+  "enchantPoison": true
+ },
+ "link": "http://localhost:5173/#b=crZLNjuMgDIBfZcXZB8D8hJeYw15RFKGUSdGkbRToaOftV4Yo01HV7GUvSLE_2Z_teAnsLU3n8ut3-IxXBgI5eNeBc6BBgrGgeQ_eK8o4DQ68QlVDbL3Ns2DAQvlg4LHvocXkHtN7DBmwS5xjHE7hEqbIwAu-ZxUDNq6ppDHMPwFCdO1tqLdA3Vmgt3t8_6mTl2G85TKs8XQf4-m_qXFAIQU2NcNJx_COMgK0MaoHL0E7uckbQ4RFW4VzCYV8p0QVW0EEoRWXbc-2e-ZkM4v5dl_HSOrhz3Be9okuqaQplHS7MmDL-StX8e-5sfUxgFzgdk9L1zXWvOoWP0NuBd_n-LCffM8lpGvb7xon-oG83FZjQUrOee2gOD7WzmXda-clkhcLeSE9W4NjyCVdJwq_l7gO9D2c4hy-GkJQB8KgEMC3CfaHku4oKSTIzrm65Get7RACK6SOIVUhPIZ0hfQxZEAqqQwZv4YsSCWsOa4kwHHk2oLr-_4v",
+ "perTarget": [],
+ "census": {
+  "shadow": {},
+  "sets": [],
+  "deadShadow": 0,
+  "deadCards": []
+ }
+}

@@ -1,0 +1,61 @@
+{
+  "name": "Tiers 2026-10-02: kingslayer-budget",
+  "build": "http://localhost:5173/#b=cfVTBbtswDP2VQpdeHgZRkiWrx_Y47LCzYRiCrSRGHMewlKLFtn8fJCdt3Da9EDD5yMdHka4E2M9-3IbBvfqZgSRHpTkkwVoYDkOgGlXFQWUpDHSNilBYKaBRkSxMDrMQXWRgz31kqKiu6xqVQGGFXnBGlCBppLmJlqBCKX6GU_klEBWbfTie5tYzsIN7aXbTW-TQx37rYn8cGdi0ew1964Zm9t2p9d07kQKR1bColLQCa5NZ5-MwEANzcf9OexwGwcDC1LTHENdlz3HJwGY3bn3XdO7gtn4VVQys8xs_Bt9MfvRxPvdaEV86KyCI8mCVFHzVymoC51Y6v_lE_yZ7aeCzep3GLPOrKNIcydwatX92YZnmZvBJTJHd4RSi68dlGIP37S5rwJnBgLSk_JBKc4tsiHNltb7FFCafmmQuTN0bT-tC7Mdtcm-in5v03XR-cK8LJIHKJIdL8DQzo7A213Qu7pupvVo4C6HJ5kwlefIQwXLJVbmsuYAoqchCrgt1_uW9CEmIkhv1EbRabVIQSgn7ERTifAUqIEph6ftKGkIJqVPXt0EGQlEpvqHL7sv5EGQaQzrkpZC4cpz3Oez7YWgOpyEmPBn-ozQXSOc3aaEZOESRnDA8P2rKefh98n68D3ePsxu7v5e7IPBL-gJLf6H7cPe0c_0YrmCFWOOedr7d3_1y0X9VK58EvyTVSf-fi84HKgq-_DTCxB5K_a_-Dw",
+  "skills": {
+    "Rook's Smash": 1,
+    "King's Chains": 1,
+    "King's Gambit": 10,
+    "Delta Skyfall": 1,
+    "Retribution": 10,
+    "Reflect Shield": 10,
+    "Bishop's Tax": 5,
+    "Queen's Gambit": 8,
+    "Blade Mastery": 1
+  },
+  "consumables": [
+    "Green Potion",
+    "Kafra Elixir",
+    "Yggdrasil Berry"
+  ],
+  "options": {
+    "fortress": 3,
+    "rooksWall": true,
+    "keepRange": true,
+    "heal": true,
+    "startCounters": 10,
+    "queensBrand": false,
+    "queensGambit": false,
+    "sneakAttack": false,
+    "bishopsTax": false,
+    "rogueFillers": false,
+    "windSlash": false,
+    "deltaFiller": false,
+    "autoAttack": false,
+    "order": [
+      "Queen's Gambit",
+      "Stay hidden",
+      "Morroc's Mark",
+      "Pre-cast King's Gambit",
+      "Step back",
+      "Heal",
+      "Pawn's Cure",
+      "Pull it off the ward",
+      "Bishop's Tax",
+      "King's Chains",
+      "Shield Boomerang"
+    ],
+    "defense": "auto",
+    "healBelow": 0.75,
+    "spendCounters": true,
+    "retributionAt": 6,
+    "openerGambit": false
+  },
+  "measured": {
+    "aspd": 142
+  },
+  "aspdModel": {
+    "base": 64,
+    "mastery": 1,
+    "offset": 2
+  }
+}

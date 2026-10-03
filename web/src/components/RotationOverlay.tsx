@@ -46,7 +46,8 @@ interface ClassRotations {
   className?: string;
   build: string; note: string; profileName: string;
   allround: Rotation & { vs: string };
-  dummy: Rotation & { seconds: number };
+  /** `build`: its own build, searched for the most damage on the dummy; absent, the farm build. */
+  dummy: Rotation & { seconds: number; build?: string };
   /**
    * `optional`: up or not by choice (Rook's Wall). `vsGain`: worth nothing on
    * the dummy but this much in the all-round fight (Magic Pierce: the dummy has no DEF).
@@ -144,9 +145,11 @@ export function RotationOverlay({
               <p className="rot-note">
                 {tab === 'allround'
                   ? <>Played by the {data.note}{data.className ? '' : ' over the ten endgame areas'}; the loop is read off a long fight against {data.allround.vs}.</>
-                  : <>The most damage on the training dummy over {data.dummy.seconds} s, on the same build.</>}
+                  : data.dummy.build
+                    ? <>The most damage on the training dummy over {data.dummy.seconds} s, with a build of its own searched for exactly that: no limits, nothing to survive.</>
+                    : <>The most damage on the training dummy over {data.dummy.seconds} s, on the same build.</>}
                 {' '}{Math.round(rot.dps).toLocaleString('en-US')} DPS there.{' '}
-                <a href={data.build} target="_blank" rel="noreferrer">Open that build</a>
+                <a href={tab === 'dummy' && data.dummy.build ? data.dummy.build : data.build} target="_blank" rel="noreferrer">Open that build</a>
               </p>
 
               <Section title="Before the pull">

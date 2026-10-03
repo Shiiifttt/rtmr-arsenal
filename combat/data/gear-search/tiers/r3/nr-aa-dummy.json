@@ -1,0 +1,79 @@
+{
+ "profile": "Tiers 2026-10-02: nr-aa-dummy (top-up)",
+ "targets": [
+  "Training Dummy"
+ ],
+ "rules": {
+  "screenN": 30,
+  "confirmN": 150,
+  "timeS": 300,
+  "locked": [
+   "none"
+  ],
+  "penalty": 0,
+  "topStats": [
+   "luk",
+   "agi",
+   "str"
+  ],
+  "topRefine": true
+ },
+ "start": "http://localhost:5173/#b=cvVLLjtswDPyVQuc5iHrZ-okeehUMQ7AZ26iTGJYSdP--kJXdTVDk2guBIYePIRkUxM9lmvOPX_HOFwHSEqGR8AbKgqAtvO8QgoGWZAw8gtFG4tUUhtiv60oCIubfAkF3HapPCYhhX7JAIPnl1QLizCtzP8ZznPg1ah45yxDXV0KhSFjTGrgOgWB9Q5AIxjk65kg5ZgGx3soYVDMUrFcWDoG0cy0O-8xOef9ma5CUxhfxJaGhF2qcFoGg6qycrrd94CIm_unnTSDYI3Je8jLFvFwvAmKbP9IhZefxNvBY91N4ruy1NjLkJIr5V0VtxveYar3Tyk8LS7eU41L889avzMNcUiRUbdFUNYY-1bh3DdLGZTZxvt65f4DPJkNMeblMRf8p894X3I-8xo-nw7RQTpcreChH_jiLbkwJkYJqvVco70T6AKYCA-W99BVYqJYaXYGDMkq7UuftaamBMpJ8Uff2ovZ4X_s_33fkE18S9xtfOO-PT3hsquv-Ag",
+ "steps": [
+  {
+   "move": "top-refine: upper +6->+9, lower +6->+9",
+   "before": {
+    "win": 0,
+    "loss": 0,
+    "dps": 57490.15666666667,
+    "ttk": null,
+    "value": 1.16235235,
+    "deaths": ""
+   },
+   "after": {
+    "win": 0,
+    "loss": 0,
+    "dps": 57490.15666666667,
+    "ttk": null,
+    "value": 1.16235235,
+    "deaths": ""
+   },
+   "tried": 1
+  }
+ ],
+ "final": {
+  "win": 0,
+  "loss": 0,
+  "dps": 57778.235,
+  "ttk": null,
+  "value": 1.166673525,
+  "deaths": ""
+ },
+ "options": {
+  "order": [
+   "Stay hidden",
+   "Morroc's Mark",
+   "Pull it off the ward",
+   "Heal",
+   "Bloody Fangs",
+   "Weapon Blocking",
+   "Rising Wings",
+   "Fury",
+   "Hallucination Walk",
+   "Attack"
+  ],
+  "weaveMs": 0,
+  "autoOnly": true,
+  "enchantPoison": true,
+  "tankShare": 0.25,
+  "fury": false
+ },
+ "link": "http://localhost:5173/#b=cvVLLjtswDPyVQuc56G3rJ3roVTAMwWZsoY5jWErQ_ftClnc3QZFrLwJIDsUZDr0E-xmnOf_4FR60MgjF4RsOpyENBJSBcx2811BcaA0Hr5XmeH0Kgu23ZREMLOTfDF51HWpOMrBhj5nBC_6VVQzsSgtRP4ZrmOi1qs-eOITlFVAgHEa3GoWYgHGNAIfX1oqDR8ohM7DlXmiI2iFhnDSFvVDWtjjeZ3TK-zdaQXCunTobGvECDVNk8LJypXS77wMVMeFPP28M3hyVa8xxCjneVga2zR_pkLLTeB9orPspOFv2WgdpYTnK86-KOoweIdX_Lgs9LSzdUw6x5OetX4iGubRwyDqiqWq0-FRj3w1IGxVu7Hp7UH8Gn0OGkHJcp6L_kmnvS9yPtISPJ2NaSKuKCw7SCnfYohpdSkJCts7J6po6gtNCDekcdzUwkK1oVA0spJbKln_eWisaSM2FK-reOmqO8zX_83xHutCaqN9opbyfl3Buquv-Ag",
+ "perTarget": [],
+ "census": {
+  "shadow": {},
+  "sets": [],
+  "deadShadow": 0,
+  "deadCards": []
+ }
+}

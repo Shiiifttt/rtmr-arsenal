@@ -42,24 +42,42 @@ const one = (k: string) => { const i = argv.indexOf(`--${k}`); return i >= 0 ? a
  */
 const CLASSES: {
   className: string; build?: string; profile: string; buffs: string[]; optional?: string[]; note: string; vs?: string;
+  /**
+   * The build the dummy tab shows: a gear search for the most damage on the dummy (10 s, no limits), not the
+   * farm build (the project owner, 2026-10-02: "the whole point of the dummy build was to deal as much damage
+   * to the dummy as possible"). A gear-search result (--vs dummy): its build and rotation on the farm
+   * profile's settings (ASPD model, consumables). Absent: the farm build on the dummy.
+   */
+  dummyProfile?: string;
+  /**
+   * The tier searches' build id (data/gear-search/tiers/<id>-maxed.json): the farm rotation is played on
+   * the maxed tier's build -- the one the planner aims at (data/class-tiers.json, tools/build-tiers.ts) --
+   * with its searched options, over `profile` (which still gives consumables and the rest).
+   */
+  tier?: string;
   /** A buff the sim grants by an option, not by its skill's level: these options turn it off to measure it. */
   measure?: Record<string, Record<string, unknown>>;
 }[] = [
-  { className: 'Revenant', profile: 'profiles/revenant-maxed-final.json', note: 'maxed-out farm tier',
+  { className: 'Revenant', profile: 'profiles/revenant-maxed-final.json', tier: 'revenant', dummyProfile: 'data/gear-search/tiers/revenant-dummy.json', note: 'maxed-out farm tier',
     buffs: ['Darkside Shadow', 'True Sight', 'Vampire Mark', 'Shadow Parry', 'Burning Scythe', 'Ominous Presence'] },
-  { className: 'Satsujin', profile: 'profiles/satsujin-farm-maxed-a.json', note: 'maxed-out farm tier',
+  { className: 'Satsujin', profile: 'profiles/satsujin-farm-maxed-a.json', tier: 'satsujin', dummyProfile: 'data/gear-search/tiers/satsujin-dummy.json', note: 'maxed-out farm tier',
     buffs: ['Moonlight Stance', 'Seven Winds', 'Hallucination Walk', 'Magic Pierce', 'Wind Blade', 'Flaming Petals', 'Freezing Spear'],
     // Elemental Focus: two casts of the bolt for the Seven Winds element, 10 stacks at the pull (satsujin.ts prep,
     // option prepFocus); optional, one of the three (the project owner, 2026-10-02).
     optional: ['Wind Blade', 'Flaming Petals', 'Freezing Spear'],
     measure: { 'Wind Blade': { prepFocus: false }, 'Flaming Petals': { prepFocus: false }, 'Freezing Spear': { prepFocus: false } } },
-  { className: 'Kingslayer', profile: 'profiles/kingslayer-endgame-farm.json', note: 'endgame farm build',
+  { className: 'Kingslayer', profile: 'profiles/kingslayer-endgame-farm.json', tier: 'kingslayer', dummyProfile: 'data/gear-search/tiers/kingslayer-dummy.json', note: 'endgame farm build',
     buffs: ['Duel Stance', "King's Fortress", "Knight's Regen", "Bishop's Guard", 'Reflect Shield', 'Magic Pierce', "Rook's Wall"], optional: ["Rook's Wall"] },
   // Night Raven (2026-10-01): the endgame farm builds (10 areas, rhythm search).
-  { className: 'Night Raven', build: 'Counter Slash', profile: 'profiles/nightraven-counter-commit.json', note: "Counter Slash endgame farm build (the owner's commit rotation: Shadow Slash, Midnight Eye, Counter Slash until Counter state ends, Typhoon Edge)",
+  { className: 'Night Raven', build: 'Counter Slash', profile: 'profiles/nightraven-counter-commit.json', tier: 'nr-counter', dummyProfile: 'data/gear-search/tiers/nr-counter-dummy.json', note: "Counter Slash endgame farm build (the owner's commit rotation: Shadow Slash, Midnight Eye, Counter Slash until Counter state ends, Typhoon Edge)",
     buffs: ['Weapon Blocking', 'Rising Wings', 'Fury', 'Hallucination Walk', 'Enchant Poison', 'Magic Pierce'] },
-  { className: 'Night Raven', build: 'Definitive Dagger', profile: 'profiles/nightraven-dd-final.json', note: "Definitive Dagger endgame farm build (the owner's rotation)",
+  { className: 'Night Raven', build: 'Definitive Dagger', profile: 'profiles/nightraven-dd-final.json', tier: 'nr-dd', dummyProfile: 'data/gear-search/tiers/nr-dd-dummy.json', note: "Definitive Dagger endgame farm build (the owner's rotation)",
     buffs: ['Weapon Blocking', 'Rising Wings', 'Fury', 'Hallucination Walk', 'Enchant Poison', 'Magic Pierce'] },
+  // The two auto-attack builds (2026-10-02): swings and the Raven's procs only (option autoOnly).
+  { className: 'Night Raven', build: 'Pure auto-attack', profile: 'profiles/nightraven-aa-endgame.json', tier: 'nr-aa', dummyProfile: 'data/gear-search/tiers/nr-aa-dummy.json', note: 'pure auto-attack endgame farm build (crit, racials)',
+    buffs: ['Rising Wings', 'Fury', 'Hallucination Walk', 'Enchant Poison', 'Magic Pierce'] },
+  { className: 'Night Raven', build: 'Raven auto-attack', profile: 'profiles/nightraven-raven-endgame.json', tier: 'nr-raven', dummyProfile: 'data/gear-search/tiers/nr-raven-dummy.json', note: 'Raven auto-attack endgame farm build (LUK/DEX, long range)',
+    buffs: ['Rising Wings', 'Fury', 'Hallucination Walk', 'Magic Pierce'] },
 ];
 const ALLROUND_VS = 'Heartless';
 /** The dummy is a 10 s fight (the project owner, 2026-10-01; was 60 here). */
@@ -249,10 +267,32 @@ function dummySearch(profilePath: string, key: string): Record<string, unknown> 
 
 const result: Record<string, unknown> = {};
 for (const c of CLASSES.filter((x) => !one('only') || x.className === one('only'))) {
-  const profile = readJSON<Profile>(resolve(REPO, 'combat', c.profile));
+  const own = readJSON<Profile>(resolve(REPO, 'combat', c.profile));
+  // The maxed tier's build: the best by kills an hour of its searches and the stricter tiers' (as build-tiers picks).
+  type TierResult = { link: string; options: Record<string, unknown>; final: { rhythm?: { killsPerHour: number } } };
+  const tiered = c.tier
+    ? ['maxed', 'maxed-b', 'baseline', 'budget'].map((t) => resolve(REPO, 'combat/data/gear-search/tiers', `${c.tier}-${t}.json`))
+      .filter((p) => existsSync(p)).map((p) => readJSON<TierResult>(p))
+      .reduce<TierResult | null>((x, y) => (!x || (y.final.rhythm?.killsPerHour ?? 0) > (x.final.rhythm?.killsPerHour ?? 0) ? y : x), null)
+    : null;
+  const profile: Profile = tiered
+    ? { ...own, name: `${own.name ?? c.className}: maxed tier (${Math.round(tiered.final.rhythm?.killsPerHour ?? 0)} kills/h)`, build: `./#b=${tiered.link.split('#b=')[1]}`, options: tiered.options }
+    : own;
   const k = kitFor(c.className);
   const opts = { passives: k.passives, aliases: k.aliases, maxLevels: k.maxLevels() };
   const f = await buildFighter(profile, opts);
+  // The dummy search ran twice (<name>.json and its second start <name>-b.json): the one that does more damage.
+  type DummyResult = { link: string; options: Record<string, unknown>; final: { dps: number } };
+  const dResult = c.dummyProfile
+    ? [c.dummyProfile, c.dummyProfile.replace(/.json$/, '-b.json')]
+      .filter((p) => existsSync(resolve(REPO, 'combat', p)))
+      .map((p) => readJSON<DummyResult>(resolve(REPO, 'combat', p)))
+      .reduce((x, y) => (y.final.dps > x.final.dps ? y : x))
+    : null;
+  const dProfile: Profile = dResult
+    ? { ...profile, name: `${profile.name ?? c.className}: dummy build (${Math.round(dResult.final.dps).toLocaleString('en-US')} dps)`, build: `./#b=${dResult.link.split('#b=')[1]}`, options: dResult.options }
+    : profile;
+  const fd = c.dummyProfile ? await buildFighter(dProfile, opts) : f;
   const fight = (fi: typeof f, m: Monster, options: Record<string, unknown>, limitS: number, n: number) => simulate(fi, m, k.kit, {
     iterations: n, seed: 7, policy: priorityPolicy, options, limitMs: limitS * 1000,
     items: loadout({ carried: profile.consumables ?? DEFAULT_CONSUMABLES, healing: !!profile.healing, boss: m.boss, elixirs: fi.kafraElixirs }),
@@ -265,11 +305,12 @@ for (const c of CLASSES.filter((x) => !one('only') || x.className === one('only'
   const vs = c.vs ?? ALLROUND_VS;
   const allround = fight(f, buildMonster(findMobs(vs)[0]), farmOpts, 300, 100);
   const key = c.build ? `${c.className}: ${c.build}` : c.className;
-  const dummyOpts = { ...farmOpts, ...dummySearch(c.profile, key) };
-  const dummyRun = fight(f, dummy, dummyOpts, DUMMY_S, 200);
+  // A dummy build brings the rotation its search found; the farm build gets the dummy rotation search's.
+  const dummyOpts = c.dummyProfile ? { ...(dProfile.options ?? {}) } : { ...farmOpts, ...dummySearch(c.profile, key) };
+  const dummyRun = fight(fd, dummy, dummyOpts, DUMMY_S, 200);
   // Traced fights for the per-step states: a few seeds, so a loop shows up in one of them.
-  const traces = (m: Monster, options: Record<string, unknown>, limitS: number) => Array.from({ length: 30 }, (_, i) => {
-    const fi = newFight(f, m, k.kit, priorityPolicy, { seed: 1000 + i, limitMs: limitS * 1000, options, trace: true,
+  const traces = (m: Monster, options: Record<string, unknown>, limitS: number, fi0 = f) => Array.from({ length: 30 }, (_, i) => {
+    const fi = newFight(fi0, m, k.kit, priorityPolicy, { seed: 1000 + i, limitMs: limitS * 1000, options, trace: true,
       items: loadout({ carried: profile.consumables ?? DEFAULT_CONSUMABLES, healing: !!profile.healing, boss: m.boss, elixirs: f.kafraElixirs }) });
     run(fi);
     return fi.trace ?? [];
@@ -281,7 +322,8 @@ for (const c of CLASSES.filter((x) => !one('only') || x.className === one('only'
     const offOpts = c.measure?.[b];
     if (!offOpts && !(b in opts.maxLevels)) continue;
     const off = offOpts ? f : await buildFighter({ ...profile, skills: { ...(profile.skills ?? {}), [b]: 0 } }, opts);
-    const without = fight(off, dummy, { ...dummyOpts, ...offOpts }, DUMMY_S, 200).dps;
+    const offD = !c.dummyProfile ? off : offOpts ? fd : await buildFighter({ ...dProfile, skills: { ...(dProfile.skills ?? {}), [b]: 0 } }, opts);
+    const without = fight(offD, dummy, { ...dummyOpts, ...offOpts }, DUMMY_S, 200).dps;
     const gain = without > 0 ? dummyRun.dps / without - 1 : Infinity;
     // Nothing on the dummy (Magic Pierce: the dummy has no DEF): what it is worth in the all-round fight instead.
     let vsGain: number | undefined;
@@ -299,7 +341,7 @@ for (const c of CLASSES.filter((x) => !one('only') || x.className === one('only'
   const rots = [
     // A profile may cut its loops elsewhere than the kit (option cycleAnchor: the Counter Slash build at Midnight Eye).
     traced(anchored, traces(buildMonster(findMobs(vs)[0]), farmOpts, 300), rotationOf(allround)),
-    traced(anchored, traces(dummy, dummyOpts, DUMMY_S), rotationOf(dummyRun)),
+    traced(anchored, traces(dummy, dummyOpts, DUMMY_S, fd), rotationOf(dummyRun)),
   ];
   for (const r of rots) {
     for (const id of [...r.opener, ...r.cycles.flatMap((x) => x.steps), ...r.fillers.map((x) => x.id)]) if (!NOT_SKILLS.has(id)) ids.add(id);
@@ -321,7 +363,8 @@ for (const c of CLASSES.filter((x) => !one('only') || x.className === one('only'
   result[key] = {
     className: c.className, build: profile.build, note: c.note, profileName: profile.name,
     allround: { vs, ...rotations(rots[0]) },
-    dummy: { seconds: DUMMY_S, options: dummyOpts, ...rotations(rots[1]) },
+    // Its own build when it has one (the overlay links it on the dummy tab).
+    dummy: { seconds: DUMMY_S, options: dummyOpts, ...(c.dummyProfile ? { build: dProfile.build, profileName: dProfile.name } : {}), ...rotations(rots[1]) },
     buffs, skills,
   };
   console.log(`${key}: allround ${rots[0].opener.join(' > ')}; dummy ${Math.round(dummyRun.dps)} dps; buffs ${buffs.map((b) => `${b.skill} ${b.required ? 'required' : `${(100 * (b.dpsGain ?? 0)).toFixed(1)}%`}`).join(', ')}`);

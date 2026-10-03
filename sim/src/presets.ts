@@ -9,10 +9,11 @@
  * the one offered first.
  */
 
+import { aggregate } from './aggregate.ts';
 import { goalMetrics, measure, priorityWeight } from './suggest.ts';
 import {
-  BASE_STAT_KEYS, BASE_STAT_MIN,
-  type BaseStats, type Build, type Dataset, type Goal, type Totals,
+  BASE_STAT_KEYS, BASE_STAT_MIN, TIER_NAMES,
+  type BaseStats, type Build, type Dataset, type Goal, type TierName, type Totals,
 } from './types.ts';
 
 export interface Playstyle {
@@ -128,6 +129,68 @@ export function goalsFromPlaystyle(
       goal.target = g.target === undefined ? now : g.target;
       return goal;
     });
+}
+
+/**
+ * A playstyle's goals aimed at one of its tiers: each target is what the
+ * combat sim's build for that tier has (data/class-tiers.json) -- the
+ * project owner, 2026-10-02: start a class at the budget build's values and
+ * build up to baseline, then maxed. A goal the tier build has nothing of
+ * (no skill-damage gear on a budget build) is left out rather than shown as
+ * met at 0; a cap from the file stays.
+ */
+export function tierGoals(style: Playstyle, tierBuild: Build, data: Dataset): Goal[] {
+  const offered = new Set(goalMetrics(data).map((m) => `${m.key}:${m.column}`));
+  const totals = aggregate(tierBuild, data);
+  const out: Goal[] = [];
+  for (const g of style.goals) {
+    if (!offered.has(`${g.key}:${g.column}`)) continue;
+    const goal: Goal = { ...g, target: 0, open: true };
+    const value = measure(goal, totals, tierBuild, data);
+    if (value === 0 && !g.atMost) continue;
+    goal.target = (g.atMost ? Math.ceil(value * 100 - 1e-9) : Math.floor(value * 100 + 1e-9)) / 100;
+    out.push(goal);
+  }
+  return out;
+}
+
+/**
+ * How far a build is along to a set of goals, 0 to 1: each goal's share of
+ * its target, weighed by priority as the planner weighs them. A ceiling
+ * (`atMost`: SP cost, cooldowns) counts in reverse.
+ */
+export function goalProgress(goals: Goal[], totals: Totals, build: Build, data: Dataset): number {
+  let sum = 0; let weight = 0;
+  goals.forEach((g, i) => {
+    const v = measure(g, totals, build, data);
+    const t = g.target;
+    const clamp = (x: number) => Math.max(0, Math.min(1, x));
+    let r: number;
+    if (g.atMost) r = v <= t ? 1 : t < 0 ? (v < 0 ? clamp(v / t) : 0) : t > 0 ? clamp(t / v) : 0;
+    else r = v >= t ? 1 : t > 0 ? clamp(v / t) : 0;
+    const w = priorityWeight(i);
+    sum += w * r; weight += w;
+  });
+  return weight ? sum / weight : 1;
+}
+
+/** A tier counts as reached at this much of its goals' way (goalProgress). */
+export const TIER_REACHED = 0.95;
+
+/**
+ * Where a build stands on a playstyle's tiers: each tier's goals and how far
+ * along the build is, and the tier to aim at next -- the first not yet
+ * reached, or the last once all are.
+ */
+export function tierStanding(
+  style: Playstyle, tierBuilds: Partial<Record<TierName, Build>>, build: Build, totals: Totals, data: Dataset,
+): { tiers: { tier: TierName; goals: Goal[]; progress: number }[]; next: TierName | null } {
+  const tiers = TIER_NAMES.filter((t) => tierBuilds[t]).map((tier) => {
+    const goals = tierGoals(style, tierBuilds[tier]!, data);
+    return { tier, goals, progress: goalProgress(goals, totals, build, data) };
+  });
+  const next = tiers.find((t) => t.progress < TIER_REACHED)?.tier ?? tiers[tiers.length - 1]?.tier ?? null;
+  return { tiers, next };
 }
 
 /**

@@ -372,6 +372,18 @@ export function skillDelayMs(acdMs: number, f: Pick<Fighter, 'aspd' | 'afterCast
   return Math.max(TUNE.delayFloorMs, acd, attackMotionMs(f.aspd));
 }
 
+/**
+ * Heal (AL_HEAL) on yourself, before healing power and healing received.
+ * RTM's Heal is Lv1 max, "formula updated to scale better with base level"
+ * (tooltip, no numbers). The owner's Kingslayer reads 3,136 (Lv130, INT 27,
+ * 2026-09-29): the renewal formula at Lv10 gives ~2,950 -- the 2023 code's
+ * Lv1 (~430) is far off, so Lv1 is read as Lv10.
+ */
+export function healAmount(f: Pick<Fighter, 'level' | 'stats' | 'matk'>, level: number): number {
+  return Math.floor((35 + 2 * f.level + f.stats.int) / 4) * 35 * Math.max(10, level) / 10
+    + statusMatk(f.stats) + f.matk.weapon;
+}
+
 // ---- hitting a monster -----------------------------------------------------
 
 /** Your chance to hit, 0..1: HIT - FLEE on a roll that starts at 0 (codex), never under 10% (RTM battle.cpp:3064). */
