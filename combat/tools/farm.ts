@@ -56,7 +56,12 @@
  *          No sitting. Scored in zeny and relics an hour too: a kill pays level..2*level-1 zeny
  *          (mob.cpp ~2726) and 1..(the gear's zeny limit) (bAddGetZenyNum, data/server-loot.json), and
  *          drops a relic at --relic-rate per 10000 (Rate 10 = 0.1%, the "<Name>MVP" relics) scaled by the
- *          drop-rate gear. --skip "Gioia": monsters left off the map (the owner kills Gioia by hand).
+ *          drop-rate gear -- only with --drop-bonus: the live server removed drop-rate bonuses (the project
+ *          owner, 2026-10-04: "all droprate effects got removed, replaced with ... Shadow Ore"), so by
+ *          default a relic is a flat --relic-rate. The live tooltip wins over the 2023 script where it
+ *          says "Zeny Limit +N per refine" (Treasure Soutane: flat 15 in the code, 15 a refine live), and
+ *          "x% chance of dropping Shadow Ore [per refine]" is counted as ores an hour.
+ *          --skip "Gioia": monsters left off the map (the owner kills Gioia by hand).
  *
  * --rest lotus: rest with Lotus Pact instead of sitting whenever it is off
  * cooldown and affordable -- its cast (3 s variable, gear cast cuts), then
@@ -163,7 +168,7 @@ interface RunResult {
   deaths: number; deathsBy: Record<string, number>;
   spUsed: number; fokCasts: number; fokHits: number; stalemates: number;
   /** Expected zeny and relics from the kills (afk scoring; every mode fills them). */
-  zeny: number; relics: number; zenyLimit: number;
+  zeny: number; relics: number; zenyLimit: number; ores: number;
   /** Damage you dealt by action (reflects, autocasts) and took by source, and potions drunk, over the run. */
   dealt: Record<string, number>; taken: Record<string, number>; drunk: Record<string, number>; hits: number; avoided: number;
 }
@@ -172,25 +177,33 @@ type Mode = 'combo' | 'fok' | 'afk';
 
 interface ServerLoot { id: number; name: string; zeny?: number[]; drop?: { race: string; byRefine: number[] }[] }
 /** What the build's gear adds to a kill's loot: the zeny limit, and drop rate by race (RC_All for all). */
-function lootOf(build: Build): { zenyLimit: number; drop: Record<string, number> } {
+function lootOf(build: Build): { zenyLimit: number; drop: Record<string, number>; ore: number } {
   const rows = new Map(readJSON<{ items: ServerLoot[] }>(resolve(REPO, 'combat/data/server-loot.json')).items.map((x) => [x.id, x]));
   const data = plannerDataset();
-  let zenyLimit = 0; const drop: Record<string, number> = {};
+  const dropBonus = argv.includes('--drop-bonus');
+  let zenyLimit = 0; let ore = 0; const drop: Record<string, number> = {};
   let pirate = 0; let pirateRefine = 0;
   for (const st of Object.values(build.slots)) {
     if (!st?.itemId) continue;
     const r = Math.min(15, st.refine ?? 0);
     if (/^Pirate King (Armor|Gloves|Shoes|Pendant)$/.test(data.items.get(st.itemId)?.name ?? '')) { pirate++; pirateRefine += st.refine ?? 0; }
     for (const id of [st.itemId, ...(st.cards ?? [])]) {
-      const row = id ? rows.get(id) : undefined;
-      if (!row) continue;
-      zenyLimit += row.zeny?.[r] ?? 0;
-      for (const d of row.drop ?? []) drop[d.race] = (drop[d.race] ?? 0) + d.byRefine[r];
+      if (!id) continue;
+      const text = (data.items.get(id)?.description ?? '').replace(/\s+/g, ' ');
+      // Shadow Ore on a kill (the live drop-rate replacement): "+1% chance ...", "+0.1% chance ... per Refine Level".
+      const o = /\+?([\d.]+)% chance of dropping Shadow Ore( per Refine Level)?/i.exec(text);
+      if (o) ore += Number(o[1]) / 100 * (o[2] ? st.refine ?? 0 : 1);
+      // A live "Zeny Limit +N per refine" over the 2023 script's number (a card's refine is its host's: Myst Case).
+      const live = /Zeny Limit(?: on kill)? \+(\d+) per refine/i.exec(text);
+      const row = rows.get(id);
+      if (live) zenyLimit += Number(live[1]) * (st.refine ?? 0);
+      else zenyLimit += row?.zeny?.[r] ?? 0;
+      if (dropBonus) for (const d of row?.drop ?? []) drop[d.race] = (drop[d.race] ?? 0) + d.byRefine[r];
     }
   }
   // Pirate King's four pieces: a further 10 + their refines (db/re/item_combo_db.txt:260, not on the tooltip).
   if (pirate >= 4) zenyLimit += 10 + pirateRefine;
-  return { zenyLimit, drop };
+  return { zenyLimit, drop, ore };
 }
 
 async function farmRun(profile: Profile, map: string, mode: Mode, seed: number, trace: boolean): Promise<RunResult> {
@@ -242,7 +255,7 @@ async function farmRun(profile: Profile, map: string, mode: Mode, seed: number, 
   const r: RunResult = {
     map, seed, minutes: num('minutes', 20), kills: 0, byMonster: {},
     ms: { fight: 0, walk: 0, sit: 0, wait: 0, dead: 0 }, deaths: 0, deathsBy: {}, spUsed: 0, fokCasts: 0, fokHits: 0, stalemates: 0,
-    zeny: 0, relics: 0, zenyLimit: loot.zenyLimit, dealt: {}, taken: {}, drunk: {}, hits: 0, avoided: 0,
+    zeny: 0, relics: 0, zenyLimit: loot.zenyLimit, ores: 0, dealt: {}, taken: {}, drunk: {}, hits: 0, avoided: 0,
   };
   const endAt = r.minutes * 60_000;
   let t = 0; let sitting = false;
@@ -280,6 +293,7 @@ async function farmRun(profile: Profile, map: string, mode: Mode, seed: number, 
     r.zeny += lvl + (lvl - 1) / 2 + (loot.zenyLimit > 0 ? (loot.zenyLimit + 1) / 2 : 0);
     const bonus = (loot.drop.RC_All ?? 0) + (loot.drop[`RC_${m.kind.m.race.replace(/[^A-Za-z]/g, '')}`] ?? 0);
     r.relics += Math.min(9000, Math.floor(0.5 + relicBase * (100 + bonus) / 100)) / 10000;
+    r.ores += loot.ore;
     m.deadUntil = t + num('respawn', 5000); m.aggro = false; m.hp = m.kind.m.hp; m.st = undefined;
   };
   const step = (from: { x: number; y: number }, to: { x: number; y: number }, cells: number) => {
@@ -512,7 +526,7 @@ if (one('child')) {
 
   const rows: Record<string, unknown>[] = [];
   console.log(`\n${one('mode') ?? 'combo'} farming, ${num('minutes', 20)} min x ${seeds} seeds, pack ${num('pack', 4)}, sit below ${num('sit-below', 0.2) * 100}% SP`);
-  console.log(`${'variant'.padEnd(22)}${'map'.padEnd(12)}${'kills/h'.padStart(8)}${'fight'.padStart(7)}${'walk'.padStart(6)}${'wait'.padStart(6)}${'sit'.padStart(6)}${'dead'.padStart(6)}${'sit s/kill'.padStart(11)}${'SP/kill'.padStart(8)}${'deaths/h'.padStart(9)}${'FoK hits/cast'.padStart(14)}${'zeny/h'.padStart(10)}${'relics/h'.padStart(9)}${'limit'.padStart(6)}`);
+  console.log(`${'variant'.padEnd(22)}${'map'.padEnd(12)}${'kills/h'.padStart(8)}${'fight'.padStart(7)}${'walk'.padStart(6)}${'wait'.padStart(6)}${'sit'.padStart(6)}${'dead'.padStart(6)}${'sit s/kill'.padStart(11)}${'SP/kill'.padStart(8)}${'deaths/h'.padStart(9)}${'FoK hits/cast'.padStart(14)}${'zeny/h'.padStart(10)}${'relics/h'.padStart(9)}${'ores/h'.padStart(7)}${'limit'.padStart(6)}`);
   for (const v of variants) for (const map of maps) {
     const rs = out.filter((x) => x.variant === v.name && x.map === map);
     if (!rs.length) continue;
@@ -524,7 +538,7 @@ if (one('child')) {
       variant: v.name, map, killsPerHour: kills / (total / 3_600_000),
       fight: share('fight'), walk: share('walk'), wait: share('wait'), sit: share('sit'), dead: share('dead'),
       sitPerKill: kills ? S((x) => x.ms.sit) / 1000 / kills : null, spPerKill: kills ? S((x) => x.spUsed) / kills : null,
-      zenyPerHour: S((x) => x.zeny) / (total / 3_600_000), relicsPerHour: S((x) => x.relics) / (total / 3_600_000), zenyLimit: rs[0].zenyLimit,
+      zenyPerHour: S((x) => x.zeny) / (total / 3_600_000), relicsPerHour: S((x) => x.relics) / (total / 3_600_000), oresPerHour: S((x) => x.ores ?? 0) / (total / 3_600_000), zenyLimit: rs[0].zenyLimit,
       deathsPerHour: S((x) => x.deaths) / (total / 3_600_000), fokPerCast: S((x) => x.fokCasts) ? S((x) => x.fokHits) / S((x) => x.fokCasts) : null,
       deathsBy: rs.reduce<Record<string, number>>((a, x) => { for (const [k, n] of Object.entries(x.deathsBy)) a[k] = (a[k] ?? 0) + n; return a; }, {}),
       byMonster: rs.reduce<Record<string, number>>((a, x) => { for (const [k, n] of Object.entries(x.byMonster)) a[k] = (a[k] ?? 0) + n; return a; }, {}),
@@ -532,7 +546,7 @@ if (one('child')) {
     rows.push(row);
     const p = (x: number) => `${Math.round(x * 100)}%`;
     console.log(`${v.name.slice(0, 21).padEnd(22)}${map.padEnd(12)}${Math.round(row.killsPerHour).toString().padStart(8)}${p(row.fight).padStart(7)}${p(row.walk).padStart(6)}${p(row.wait).padStart(6)}${p(row.sit).padStart(6)}${p(row.dead).padStart(6)}`
-      + `${(row.sitPerKill?.toFixed(1) ?? '-').padStart(11)}${Math.round(row.spPerKill ?? 0).toString().padStart(8)}${row.deathsPerHour.toFixed(1).padStart(9)}${(row.fokPerCast?.toFixed(1) ?? '-').padStart(14)}${Math.round(row.zenyPerHour).toLocaleString('en-US').padStart(10)}${row.relicsPerHour.toFixed(2).padStart(9)}${String(row.zenyLimit).padStart(6)}`);
+      + `${(row.sitPerKill?.toFixed(1) ?? '-').padStart(11)}${Math.round(row.spPerKill ?? 0).toString().padStart(8)}${row.deathsPerHour.toFixed(1).padStart(9)}${(row.fokPerCast?.toFixed(1) ?? '-').padStart(14)}${Math.round(row.zenyPerHour).toLocaleString('en-US').padStart(10)}${row.relicsPerHour.toFixed(2).padStart(9)}${row.oresPerHour.toFixed(1).padStart(7)}${String(row.zenyLimit).padStart(6)}`);
     const d = Object.entries(row.deathsBy).sort((a, b) => b[1] - a[1]).slice(0, 3).map(([k, n]) => `${k} x${n}`).join(', ');
     if (d) console.log(`${''.padEnd(34)}died to ${d}`);
     // Where the damage came from and went (afk: what is doing the killing, and what hurts).

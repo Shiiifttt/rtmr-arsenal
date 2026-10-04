@@ -292,6 +292,14 @@ const safeScore = one('score') === 'safe';
 /** --min-hp N: builds under N Max HP score nothing (a safety floor). */
 const minHp = one('min-hp') ? Number(one('min-hp')) : 0;
 const rhythmScore = one('score') === 'rhythm';
+/**
+ * --score clear: speed is kills a second -- the targets' mean fight time, not mean DPS -- so a change that
+ * pulls a kill under one more rotation (the Tomb knights' Boomerang -> Chains thresholds) counts in full and
+ * DPS past the threshold counts nothing (the project owner, 2026-10-04: clear speed in the Tomb).
+ * CLEAR_REF s a kill scores 0.3, like DPS_REF.
+ */
+const clearScore = one('score') === 'clear';
+const CLEAR_REF = Number(one('clear-ref') ?? 10);
 const deathWeight = Number(one('death-weight') ?? 0.1);
 /** --stall-weight: a fight given up (the monster outlived --time) an hour costs this, like --death-weight (default the same). */
 const stallWeight = Number(one('stall-weight') ?? deathWeight);
@@ -623,78 +631,112 @@ function cardMoves(build: Build, slot: SlotDef): Move[] {
 }
 
 /**
- * A whole set at once: shadow sets, armour sets, weapon pairs -- each piece
- * where it fits, at +6 and at +9, with the cards worn there kept where they
- * fit and (2026-10-01) the census's best card in the sockets left empty, as a
- * single new piece gets: a pair judged half-carded against carded singles
- * never won (the Sin Daggers, Hugin + Muninn for a Night Raven). Card sets
- * are cardSetMoves. Shadow sets are the shadow group's once the census has
- * run (shadowMoves).
+ * A whole set at once, whatever it is made of (the project owner, 2026-10-04: "consider set effects as full
+ * swaps -- replace any slot / card required"): shadow sets, armour sets, weapon pairs, card sets and the
+ * mixed ones (Drake Card + Drake Coat, Mistress Card + Mistress Crown), up to 8 pieces. Each piece goes
+ * where it fits, at +6 and at +9, with the cards worn there kept where they fit and the census's best card
+ * in the sockets left empty -- a pair judged half-carded against carded singles never won (the Sin
+ * Daggers, Hugin + Muninn for a Night Raven, 2026-10-01). Then each card goes into a socket: this move's
+ * new pieces first, then what is worn, over the card the census rates lowest there; where nothing worn
+ * has a socket it fits, the slot gets a socketed piece for it -- one move per candidate host (the three
+ * highest-level that fit), so a card set is never stuck behind a slotless piece (before 2026-10-04 card
+ * sets went only into the last socket of what was worn, and mixed sets were never tried). Shadow sets are
+ * the shadow group's once the census has run (shadowMoves).
  */
+const SET_HOSTS = 3;
 function setMoves(build: Build): Move[] {
-  const out: Move[] = [...cardSetMoves(build)];
+  const out: Move[] = [];
+  const cardValue = (id: number | null | undefined) => (id ? cardEstimate.get(id) ?? 0 : -Infinity);
   for (const set of data.sets) {
-    if (set.member_count < 2 || set.member_count > 5) continue;
+    if (set.member_count < 2 || set.member_count > 8) continue;
     if (shadowTop && set.member_ids.some((id) => data.items.get(id)?.kind === 'Shadow gear')) continue;
     const members = set.member_ids.map((id) => data.items.get(id)).filter((i): i is Item => !!i);
-    if (members.length !== set.member_count || members.some((i) => i.kind === 'Card')) continue;
-    // New pieces at +6 and +9 as elsewhere -- within --max-refine (the set moves ignored it before 2026-10-01).
-    for (const refine of [...new Set([6, 9].map((r) => Math.min(r, maxNewRefine)))]) {
-      const slots: Record<string, SlotState> = {};
+    if (members.length !== set.member_count) continue;
+    const pieces = members.filter((i) => i.kind !== 'Card');
+    const setCards = members.filter((i) => i.kind === 'Card');
+    if (setCards.some((c) => !cards.includes(c))) continue;
+    const refineTiers = pieces.length ? [...new Set([6, 9].map((r) => Math.min(r, maxNewRefine)))] : [0];
+    for (const refine of refineTiers) {
+      // The pieces.
+      const base: Record<string, SlotState> = {};
       let ok = true;
-      for (const item of members) {
-        const slot = SLOTS.find((s) => !slots[s.key] && !skipSlot(s, build) && !locked.has(s.key)
-          && fitsSlot(item, s) && allowed(item, s.key));
+      for (const item of pieces) {
+        const slot = SLOTS.find((sl) => !base[sl.key] && !skipSlot(sl, build) && !locked.has(sl.key)
+          && fitsSlot(item, sl) && allowed(item, sl.key));
         if (!slot) { ok = false; break; }
         const cur = build.slots[slot.key];
         const keep = keepCards(cur, slot, item);
         const fill = keep.length < item.card_slots ? bestCards(slot, item, 1) : [];
-        slots[slot.key] = cur?.itemId === item.id ? cur
+        base[slot.key] = cur?.itemId === item.id ? cur
           : { itemId: item.id, refine: item.refineable ? Math.min(refine, maxRefine(item), refineCap.get(slot.key) ?? 99) : 0,
             cards: fill.length ? fillSockets(keep, item, fill) : keep,
             ...(() => { const r = rollVariants(item, slot.key)[0].rolls; return Object.keys(r).length ? { rolls: r } : {}; })() };
       }
-      if (!ok || Object.entries(slots).every(([k, s]) => build.slots[k]?.itemId === s.itemId)) continue;
-      out.push({ label: `${set.name} set +${refine}`, slots });
+      // A two-handed piece frees the off hand (as itemMoves): emptied, or the set is out with the off hand locked.
+      const twoHand = base.weapon?.itemId ? isTwoHanded(data.items.get(base.weapon.itemId)) : false;
+      if (ok && twoHand && !base.offhand && build.slots.offhand?.itemId) {
+        if (locked.has('offhand')) ok = false;
+        else base.offhand = { itemId: null, refine: 0, cards: [] };
+      }
+      if (!ok) continue;
+      // The cards: every way of hosting them, branching where a slot needs a new socketed piece.
+      let plans: { slots: Record<string, SlotState>; set: Map<string, number[]>; hosts: string[] }[] = [{ slots: { ...base }, set: new Map(), hosts: [] }];
+      for (const card of setCards) {
+        const next: typeof plans = [];
+        for (const p of plans) {
+          const stateOf = (k: string) => p.slots[k] ?? build.slots[k];
+          // A socket in this move's pieces or in what is worn.
+          const ordered = [...SLOTS].sort((a, b) => Number(!!p.slots[b.key]) - Number(!!p.slots[a.key]));
+          const hostSlot = ordered.find((sl) => {
+            const st = stateOf(sl.key);
+            const host = st?.itemId ? data.items.get(st.itemId) : null;
+            return !!host && !skipSlot(sl, build) && !cardLocked.has(sl.key) && cardFits(card, sl, host)
+              && (p.set.get(sl.key)?.length ?? 0) < host.card_slots;
+          });
+          if (hostSlot) {
+            const st = stateOf(hostSlot.key)!;
+            const host = data.items.get(st.itemId!)!;
+            const sockets = Array.from({ length: host.card_slots }, (_, i) => (st.cards ?? [])[i] ?? null);
+            const taken = p.set.get(hostSlot.key) ?? [];
+            // Over the weakest card not already a set card (an empty socket first).
+            const free = sockets.map((c, i) => i).filter((i) => !taken.includes(i));
+            const at = free.sort((a, b) => cardValue(sockets[a]) - cardValue(sockets[b]))[0];
+            sockets[at] = card.id;
+            const set2 = new Map(p.set); set2.set(hostSlot.key, [...taken, at]);
+            next.push({ slots: { ...p.slots, [hostSlot.key]: { ...st, cards: sockets as number[] } }, set: set2, hosts: p.hosts });
+            continue;
+          }
+          // No socket for it: a socketed piece in a slot it fits, the best few by level.
+          for (const sl of SLOTS) {
+            if (p.slots[sl.key] || locked.has(sl.key) || cardLocked.has(sl.key) || skipSlot(sl, build)) continue;
+            const hosts = data.itemList.filter((it) => it.kind !== 'Card' && it.card_slots > 0 && fitsSlot(it, sl) && allowed(it, sl.key)
+              && cardFits(card, sl, it) && !(it.equip_slots.length > 1 && sl.group === 'gear' && sl.key !== 'weapon'))
+              .sort((a, b) => b.required_level - a.required_level).slice(0, SET_HOSTS);
+            for (const it of hosts) {
+              const cur = build.slots[sl.key];
+              const keep = keepCards(cur, sl, it).slice(0, it.card_slots - 1);
+              const sockets = [...keep]; while (sockets.length < it.card_slots - 1) sockets.push(bestCards(sl, it, 1)[0] ?? null as unknown as number);
+              sockets.push(card.id);
+              const set2 = new Map(p.set); set2.set(sl.key, [it.card_slots - 1]);
+              next.push({
+                slots: { ...p.slots, [sl.key]: { itemId: it.id, refine: it.refineable ? Math.min(refine || 6, maxRefine(it), refineCap.get(sl.key) ?? 99) : 0,
+                  cards: sockets.map((c) => c ?? null) as number[],
+                  ...(() => { const r = rollVariants(it, sl.key)[0].rolls; return Object.keys(r).length ? { rolls: r } : {}; })() } },
+                set: set2, hosts: [...p.hosts, it.name],
+              });
+            }
+            break; // the first slot the card fits is enough (accessories: the left one)
+          }
+        }
+        plans = next;
+        if (!plans.length) break;
+      }
+      for (const p of plans) {
+        if (Object.entries(p.slots).every(([k, st]) => JSON.stringify(build.slots[k]) === JSON.stringify(st))) continue;
+        const what = pieces.length ? `set +${refine}` : 'card set';
+        out.push({ label: `${set.name} ${what}${p.hosts.length ? ` (in ${p.hosts.join(', ')})` : ''}`, slots: p.slots });
+      }
     }
-  }
-  return out;
-}
-
-/**
- * A card set (Elegant Crow: Gentleman + Cavalier Card) into the pieces worn:
- * each card in the last socket of the first worn piece it fits that this
- * move has not used up, the other cards kept. One card at a time never
- * finds a bonus that needs both.
- */
-function cardSetMoves(build: Build): Move[] {
-  const out: Move[] = [];
-  for (const set of data.sets) {
-    if (set.member_count < 2 || set.member_count > 5) continue;
-    const members = set.member_ids.map((id) => data.items.get(id)).filter((i): i is Item => !!i);
-    if (members.length !== set.member_count || members.some((i) => i.kind !== 'Card')) continue;
-    if (members.some((c) => !cards.includes(c))) continue;
-    const slots: Record<string, SlotState> = {};
-    const used = new Map<string, number>();
-    let ok = true;
-    for (const card of members) {
-      const slot = SLOTS.find((sl) => {
-        const st = slots[sl.key] ?? build.slots[sl.key];
-        const host = st?.itemId ? data.items.get(st.itemId) : null;
-        return !!host && !skipSlot(sl, build) && !cardLocked.has(sl.key) && cardFits(card, sl, host)
-          && (used.get(sl.key) ?? 0) < host.card_slots;
-      });
-      if (!slot) { ok = false; break; }
-      const st = slots[slot.key] ?? build.slots[slot.key]!;
-      const host = data.items.get(st.itemId!)!;
-      const n = used.get(slot.key) ?? 0;
-      const next = Array.from({ length: host.card_slots }, (_, i) => (st.cards ?? [])[i] ?? null);
-      next[host.card_slots - 1 - n] = card.id;
-      slots[slot.key] = { ...st, cards: next as number[] };
-      used.set(slot.key, n + 1);
-    }
-    if (!ok || Object.entries(slots).every(([k, st]) => JSON.stringify(build.slots[k]?.cards) === JSON.stringify(st.cards))) continue;
-    out.push({ label: `${set.name} card set`, slots });
   }
   return out;
 }
@@ -1077,7 +1119,7 @@ async function fight(s: State, n: number, seed: number, per: number[] | null = n
     const fs = farmScore(f, kit.kit, s.options, targets.map((m, i) => ({ m, weight: farmWeights[i] })));
     return { win: fs.qg, loss: 1 - fs.sbkc, dps: 0, ttk: null, value: fs.value, deaths: '', farm: { sb: fs.sb, sbkc: fs.sbkc, qg: fs.qg } };
   }
-  let win = 0; let loss = 0; let dps = 0; let ttk = 0; let ttkN = 0;
+  let win = 0; let loss = 0; let dps = 0; let ttk = 0; let ttkN = 0; let secs = 0;
   const deaths: Record<string, number> = {};
   const idx = s.only ?? targets.map((_, i) => i);
   const fought = idx.map((i) => targets[i]);
@@ -1095,6 +1137,8 @@ async function fight(s: State, n: number, seed: number, per: number[] | null = n
     marks.fought(iterations);
     sums.push({ s: r, weight: rhythmWeights.get(m.name) ?? 1 });
     win += r.winRate; loss += r.losses / iterations; dps += r.dps;
+    // Seconds a kill: a fight not won costs the whole time limit (a build that cannot fight ends its fights at once).
+    secs += r.winRate > 0.01 ? r.seconds / r.winRate : limitFor(m) / 1000;
     if (r.ttk) { ttk += r.ttk.p50; ttkN++; }
     for (const [k, v] of Object.entries(r.deaths)) deaths[k] = (deaths[k] ?? 0) + v;
   }
@@ -1127,7 +1171,7 @@ async function fight(s: State, n: number, seed: number, per: number[] | null = n
   }
   // --min-hp N: a build under N Max HP is out, whatever it deals.
   if (minHp && f.maxHp < minHp) return { win, loss, dps, ttk: ttkN ? ttk / ttkN : null, value: -1, deaths: top, spread };
-  const speed = safeScore ? 0.1 * Math.log2(1 + dps / DPS_REF) : 0.3 * (dps / DPS_REF);
+  const speed = clearScore ? 0.3 * (k * CLEAR_REF / Math.max(0.1, secs)) : safeScore ? 0.1 * Math.log2(1 + dps / DPS_REF) : 0.3 * (dps / DPS_REF);
   const value = win + (safeScore ? 0.5 : 0.3) * (1 - loss) + speed + hpWeight * Math.min(1, f.maxHp / 50_000) - limitsCharge(f, sums) - overLimits;
   return { win, loss, dps, ttk: ttkN ? ttk / ttkN : null, value, deaths: top, spread };
 }
