@@ -1314,23 +1314,62 @@ function afterHit(fight: Fight, a: Actor, s: MobSkill, normal: boolean, took: nu
   if (took <= 0 || fight.result) return;
   const physical = s.type === 'physical';
   const ranged = a.m.reach > 3;
-  // Gear autocasts when hit (skill_counter_additional_effect): matched on the hit's mask.
+  // Gear autocasts when hit (skill_counter_additional_effect): matched on the hit's mask, aimed at who hit you.
   if (fight.f.autocasts?.length && (physical || s.type === 'magic')) {
-    procWhenHit(fight, (physical ? BF.WEAPON : BF.MAGIC) | (ranged || s.type === 'magic' ? BF.LONG : BF.SHORT) | (normal ? BF.NORMAL : BF.SKILL));
+    withTarget(fight, a, () => procWhenHit(fight, (physical ? BF.WEAPON : BF.MAGIC) | (ranged || s.type === 'magic' ? BF.LONG : BF.SHORT) | (normal ? BF.NORMAL : BF.SKILL)));
     if (fight.result) return;
   }
   fight.kit.onHurt?.(fight, { physical, normal, ranged, dmg: took });
+  if (!physical || !a.st.hp || a.st.hp <= 0) return;
+  // Two reflects off one weapon hit, each its own (RTM battle.cpp): the gear's (bShort/LongWeaponDamageReturn,
+  // 5830, ranged hits too) and Reflect Shield's (battle_do_reflect, 6096, short range only). Each is sent as a
+  // short-range normal weapon hit of yours -- its "when attacking" autocasts roll on it -- and drains
+  // (battle_drain); never more than your Max HP (7900).
+  const gear = ranged ? fight.f.reflectRanged ?? 0 : fight.f.reflectMelee ?? 0;
+  if (gear > 0) reflectBack(fight, a, took, gear, 'Reflect (gear)');
   const rs = fight.me.buffs.reflectshield;
-  if (physical && !ranged && rs && rs.until > fight.t && !a.add) {
-    const back = Math.floor(took * (rs.value ?? 0) / 100);
-    if (back > 0) {
-      if (fight.meter) {
-        const row = (fight.meter.actions['Reflect Shield'] ??= { uses: 0, hits: 0, misses: 0, crits: 0, damage: 0 });
-        row.hits++; row.damage += back;
-      }
-      fight.log && say(fight, `Reflect Shield → ${fmt(back)}`);
-      hurtMob(fight, back);
-    }
+  if (!ranged && rs && rs.until > fight.t && !fight.result) reflectBack(fight, a, took, rs.value ?? 0, 'Reflect Shield');
+}
+
+/** A reflect landing on who hit you (an add too): its damage, your leech, and your attack autocasts on it. */
+function reflectBack(fight: Fight, a: Actor, took: number, pct: number, id: string) {
+  const back = Math.min(fight.f.maxHp, Math.max(1, Math.floor(took * pct / 100)));
+  if (a.st.hp <= 0) return;
+  if (fight.meter) {
+    const row = (fight.meter.actions[id] ??= { uses: 0, hits: 0, misses: 0, crits: 0, damage: 0 });
+    row.hits++; row.damage += back;
+  }
+  fight.log && say(fight, `${id} → ${fmt(back)}${a.add ? ` (${a.m.name})` : ''}`);
+  withTarget(fight, a, () => {
+    hurtMob(fight, back);
+    leech(fight, back);
+    if (!fight.result) procOnAttack(fight, BF.WEAPON | BF.SHORT | BF.NORMAL, 1);
+  });
+}
+
+/**
+ * Run `fn` with `a` as the target: what lands in it (hurtMob, a kit's strike, an autocast) lands on that
+ * monster, and the rest of the fight -- the target included -- stands in as its adds (an area autocast
+ * reaches them). An add that dies there leaves the fight (`fight.killed`); the target dying in an area hit
+ * is the fight won. With `a` the target already, just `fn`.
+ */
+export function withTarget(fight: Fight, a: Actor, fn: () => void) {
+  if (!a.add || a.st === fight.mob) { fn(); return; }
+  const m0 = fight.m; const st0 = fight.mob; const result0 = fight.result;
+  const main: Actor = { m: m0, st: st0, add: true };
+  const others = st0.adds.filter((x) => x !== a);
+  fight.m = a.m; fight.mob = a.st; a.st.adds = [main, ...others];
+  try { fn(); } finally {
+    const died = fight.result === 'win' || a.st.hp <= 0;
+    const rest = a.st.adds; a.st.adds = [];
+    fight.m = m0; fight.mob = st0;
+    st0.adds = rest.filter((x) => x !== main);
+    const killed = fight.killed ?? [];
+    const mainDied = killed.includes(main);
+    if (mainDied) fight.killed = killed.filter((x) => x !== main);
+    fight.result = mainDied ? 'win' : result0;
+    if (died) { (fight.killed ??= []).push(a); fight.log && say(fight, `${a.m.name} dies`); }
+    else st0.adds.push(a);
   }
 }
 
@@ -1712,6 +1751,23 @@ export function say(fight: Fight, text: string) {
 }
 
 // ---- copying for the planner -----------------------------------------------
+
+/**
+ * A monster's state with every time in it moved by `dt` ms (a fight's clock starts at 0: tools/farm.ts
+ * carries a monster from one fight into the next): its swing, cast, waves, skill delays, buffs, ticks.
+ */
+export function shiftMobState(st: MobState, dt: number): MobState {
+  const c = cloneMob(st);
+  const sb = <T extends Buff>(b: Record<string, T>) => { for (const k in b) b[k] = { ...b[k], until: b[k].until + dt }; return b; };
+  c.nextAttackAt += dt;
+  if (c.cast) c.cast.endsAt += dt;
+  for (const ch of c.channels) { ch.nextAt += dt; if (ch.exitAt !== undefined) ch.exitAt += dt; }
+  for (const k in c.cds) c.cds[k] += dt;
+  sb(c.debuffs); sb(c.buffs);
+  for (const d of c.dots) d.nextAt += dt;
+  c.adds = [];
+  return c;
+}
 
 function cloneMob(st: MobState): MobState {
   return {

@@ -89,12 +89,14 @@ export function passives(
     // Magic Pierce (AB_EXPIATIO): the target's DEF 1% a level lower, a buff
     // kept up (RTM battle.cpp:5489) -- as DEF penetration.
     defPen: L('Magic Pierce'),
+    // Bishop's Guard (AL_ANGELUS, renewal): soft DEF + VIT x 10% a level (status.cpp:7624; Refuge Patch 18 raised it from 3%).
+    softDefVit: 10 * L("Bishop's Guard"),
     // Duel Stance "Increase Max HP by 2% per level", held all fight.
     hpPercent: 2 * L('Duel Stance'),
     spRegen: { flat: 2 * L('Increase SP Recovery'), maxShare: 0.001 * L('Increase SP Recovery') },
     notes: [
       'passives: Blade Mastery (ATK), Improve Dodge (flee), Improve Defense + Shield Mastery + Bishop\'s Guard (HP), '
-        + 'Duel Stance (Max HP %), Improve Wisdom (SP); Bishop\'s Guard\'s VIT DEF bonus not modelled',
+        + 'Duel Stance (Max HP %), Improve Wisdom (SP), Bishop\'s Guard (soft DEF from VIT)',
     ],
   };
 }
@@ -1136,7 +1138,9 @@ export const kingslayer: Kit = {
   cycleAnchor: 'Shield Boomerang',
   coreRoles: ['Shield', 'Counters'],
   magicActions: [],
-  priority: priorityWith(() => PREEMPTS, priority, rule('Stay ready')),
+  // Option noCast: buffs up before the pull, then nothing cast by hand -- the kills are the reflects' and
+  // the autocasts' (the project owner's juperos_03 walk, 2026-10-04: "without manually casting anything").
+  priority: (fight) => (fight.options.noCast === true ? rule('Wait') : priorityWith(() => PREEMPTS, priority, rule('Stay ready'))(fight)),
   holding: (fight) => !!snapThreatDue(fight, TOOLS),
   react: reactWith(TOOLS, react),
   prep,

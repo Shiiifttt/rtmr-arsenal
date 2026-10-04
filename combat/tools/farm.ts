@@ -47,6 +47,17 @@
  * somewhere safe first, fight-sit-fight (the project owner, 2026-09-29).
  * Without it an aggressive monster may walk into you half empty.
  *
+ *   afk    walk around and let them hit you, casting nothing (option noCast): the kills are the reflects'
+ *          and the autocasts' (the project owner's Kingslayer on juperos_03, 2026-10-04). You walk toward the
+ *          next monster at a pace the slowest chaser keeps up with until --pack are on you, then on to
+ *          a random spot (you never stop -- the owner: "you keep walking at a pace for the monsters to keep
+ *          up"; standing still, six Dimiks that never land a hit held a run for good, 2026-10-04);
+ *          a fight is run in --slice ms pieces (default 3000) so you keep walking and new monsters join.
+ *          No sitting. Scored in zeny and relics an hour too: a kill pays level..2*level-1 zeny
+ *          (mob.cpp ~2726) and 1..(the gear's zeny limit) (bAddGetZenyNum, data/server-loot.json), and
+ *          drops a relic at --relic-rate per 10000 (Rate 10 = 0.1%, the "<Name>MVP" relics) scaled by the
+ *          drop-rate gear. --skip "Gioia": monsters left off the map (the owner kills Gioia by hand).
+ *
  * --rest lotus: rest with Lotus Pact instead of sitting whenever it is off
  * cooldown and affordable -- its cast (3 s variable, gear cast cuts), then
  * 10 s kneeling at 1% HP and SP per level a second (tooltip) with standing
@@ -61,12 +72,13 @@ import { inflateSync } from 'node:zlib';
 
 import { buildFighter, resolveBuild, type Profile } from '../src/character.ts';
 import { findMobs, plannerDataset, readJSON, REPO } from '../src/data.ts';
-import { newFight, newMobState, run, type Actor, type Buff } from '../src/engine.ts';
+import { newFight, newMobState, run, shiftMobState, type Actor, type Buff, type MobState } from '../src/engine.ts';
 import { spawnCounts } from '../src/farm.ts';
 import { leaveFirstCore, workCores } from '../src/cpu.ts';
 import { TUNE, walkCellMs } from '../src/formulas.ts';
 import { DEFAULT_CONSUMABLES, loadout } from '../src/items.ts';
 import type { Fighter, Monster } from '../src/model.ts';
+import type { Build } from '../../sim/src/types.ts';
 import { buildMonster } from '../src/monster.ts';
 import { Rng } from '../src/rng.ts';
 import { priorityPolicy } from '../src/tas.ts';
@@ -141,7 +153,8 @@ function kindsOn(map: string): Kind[] {
 
 // ---- one run -------------------------------------------------------------------
 
-interface Mob { kind: Kind; x: number; y: number; hp: number; aggro: boolean; deadUntil: number }
+/** `st` (afk): its fight state between slices -- swing timer, skill delays -- in farm time. */
+interface Mob { kind: Kind; x: number; y: number; hp: number; aggro: boolean; deadUntil: number; st?: MobState }
 
 interface RunResult {
   map: string; seed: number; minutes: number;
@@ -149,14 +162,47 @@ interface RunResult {
   ms: { fight: number; walk: number; sit: number; wait: number; dead: number };
   deaths: number; deathsBy: Record<string, number>;
   spUsed: number; fokCasts: number; fokHits: number; stalemates: number;
+  /** Expected zeny and relics from the kills (afk scoring; every mode fills them). */
+  zeny: number; relics: number; zenyLimit: number;
+  /** Damage you dealt by action (reflects, autocasts) and took by source, and potions drunk, over the run. */
+  dealt: Record<string, number>; taken: Record<string, number>; drunk: Record<string, number>; hits: number; avoided: number;
 }
 
-async function farmRun(profile: Profile, map: string, mode: 'combo' | 'fok', seed: number, trace: boolean): Promise<RunResult> {
-  const kit = kitFor((await resolveBuild(profile.build, plannerDataset())).className);
+type Mode = 'combo' | 'fok' | 'afk';
+
+interface ServerLoot { id: number; name: string; zeny?: number[]; drop?: { race: string; byRefine: number[] }[] }
+/** What the build's gear adds to a kill's loot: the zeny limit, and drop rate by race (RC_All for all). */
+function lootOf(build: Build): { zenyLimit: number; drop: Record<string, number> } {
+  const rows = new Map(readJSON<{ items: ServerLoot[] }>(resolve(REPO, 'combat/data/server-loot.json')).items.map((x) => [x.id, x]));
+  const data = plannerDataset();
+  let zenyLimit = 0; const drop: Record<string, number> = {};
+  let pirate = 0; let pirateRefine = 0;
+  for (const st of Object.values(build.slots)) {
+    if (!st?.itemId) continue;
+    const r = Math.min(15, st.refine ?? 0);
+    if (/^Pirate King (Armor|Gloves|Shoes|Pendant)$/.test(data.items.get(st.itemId)?.name ?? '')) { pirate++; pirateRefine += st.refine ?? 0; }
+    for (const id of [st.itemId, ...(st.cards ?? [])]) {
+      const row = id ? rows.get(id) : undefined;
+      if (!row) continue;
+      zenyLimit += row.zeny?.[r] ?? 0;
+      for (const d of row.drop ?? []) drop[d.race] = (drop[d.race] ?? 0) + d.byRefine[r];
+    }
+  }
+  // Pirate King's four pieces: a further 10 + their refines (db/re/item_combo_db.txt:260, not on the tooltip).
+  if (pirate >= 4) zenyLimit += 10 + pirateRefine;
+  return { zenyLimit, drop };
+}
+
+async function farmRun(profile: Profile, map: string, mode: Mode, seed: number, trace: boolean): Promise<RunResult> {
+  const build = await resolveBuild(profile.build, plannerDataset());
+  const kit = kitFor(build.className);
   const f: Fighter = await buildFighter(profile, { passives: kit.passives, aliases: kit.aliases, maxLevels: kit.maxLevels() });
   const rng = new Rng(seed * 7919 + 17);
   const side = Math.sqrt(walkableCells(map));
-  const kinds = kindsOn(map);
+  const skip = new Set((one('skip') ?? '').split(',').map((x) => x.trim().toLowerCase()).filter(Boolean));
+  const kinds = kindsOn(map).filter((k) => !skip.has(k.m.name.toLowerCase()));
+  const loot = lootOf(build);
+  const relicBase = num('relic-rate', 10);
   const wrap = (d: number) => { const a = Math.abs(d) % side; return Math.min(a, side - a); };
   const sd = (d: number) => { let v = d % side; if (v > side / 2) v -= side; if (v < -side / 2) v += side; return v; };
   const cheb = (a: { x: number; y: number }, b: { x: number; y: number }) => Math.max(wrap(a.x - b.x), wrap(a.y - b.y));
@@ -171,6 +217,7 @@ async function farmRun(profile: Profile, map: string, mode: 'combo' | 'fok', see
   const order = Array.isArray(profile.options?.order) ? profile.options!.order as string[] : undefined;
   const options: Record<string, unknown> = {
     ...(profile.options ?? {}), pace: true,
+    ...(mode === 'afk' ? { noCast: true, earlyStall: false } : {}),
     ...(mode === 'fok' ? {
       fanOfKnives: true, fanPack: pack,
       // Fan of Knives the only damage skill; the dodges and buffs stay.
@@ -186,6 +233,8 @@ async function farmRun(profile: Profile, map: string, mode: 'combo' | 'fok', see
   const me = {
     x: side / 2, y: side / 2, hp: f.maxHp, sp: f.maxSp,
     cds: {} as Record<string, number>, buffs: {} as Record<string, Buff>, focus: [] as number[], fresh: true,
+    // afk: your ticking regens (Knight's Regen) carry between slices, in farm time.
+    dots: [] as ReturnType<typeof newFight>['me']['dots'],
   };
   const acc = { hp: 0, sp: 0, skill: 0 };
   // The class's out-of-combat regen (Knight's Regen, King's Fortress), per second.
@@ -193,6 +242,7 @@ async function farmRun(profile: Profile, map: string, mode: 'combo' | 'fok', see
   const r: RunResult = {
     map, seed, minutes: num('minutes', 20), kills: 0, byMonster: {},
     ms: { fight: 0, walk: 0, sit: 0, wait: 0, dead: 0 }, deaths: 0, deathsBy: {}, spUsed: 0, fokCasts: 0, fokHits: 0, stalemates: 0,
+    zeny: 0, relics: 0, zenyLimit: loot.zenyLimit, dealt: {}, taken: {}, drunk: {}, hits: 0, avoided: 0,
   };
   const endAt = r.minutes * 60_000;
   let t = 0; let sitting = false;
@@ -203,6 +253,8 @@ async function farmRun(profile: Profile, map: string, mode: 'combo' | 'fok', see
     ? { castMs: lotusKit.castMs(probe), sp: lotusKit.spCost(probe), cdMs: lotusKit.cooldownMs(probe), perSec: (f.skillLevels['Lotus Pact'] ?? 0) / 100 }
     : null;
   let kneelUntil = -1;
+  // afk: where you are walking when the pack is full.
+  let wander = { x: rng.next() * side, y: rng.next() * side };
   (r as RunResult & { lotusCasts?: number }).lotusCasts = 0;
   const say = (s: string) => { if (trace) console.log(`[${(t / 1000).toFixed(1).padStart(7)}s] HP ${Math.round(me.hp)} SP ${Math.round(me.sp)} | ${s}`); };
 
@@ -223,7 +275,12 @@ async function farmRun(profile: Profile, map: string, mode: 'combo' | 'fok', see
   const alive = (m: Mob) => m.deadUntil <= t;
   const kill = (m: Mob) => {
     r.kills++; r.byMonster[m.kind.m.name] = (r.byMonster[m.kind.m.name] ?? 0) + 1;
-    m.deadUntil = t + num('respawn', 5000); m.aggro = false; m.hp = m.kind.m.hp;
+    // Expected loot: level..2*level-1 base zeny, 1..limit from the gear, a relic at the boosted rate.
+    const lvl = m.kind.m.level;
+    r.zeny += lvl + (lvl - 1) / 2 + (loot.zenyLimit > 0 ? (loot.zenyLimit + 1) / 2 : 0);
+    const bonus = (loot.drop.RC_All ?? 0) + (loot.drop[`RC_${m.kind.m.race.replace(/[^A-Za-z]/g, '')}`] ?? 0);
+    r.relics += Math.min(9000, Math.floor(0.5 + relicBase * (100 + bonus) / 100)) / 10000;
+    m.deadUntil = t + num('respawn', 5000); m.aggro = false; m.hp = m.kind.m.hp; m.st = undefined;
   };
   const step = (from: { x: number; y: number }, to: { x: number; y: number }, cells: number) => {
     const dx = sd(to.x - from.x); const dy = sd(to.y - from.y); const d = Math.hypot(dx, dy);
@@ -242,6 +299,8 @@ async function farmRun(profile: Profile, map: string, mode: 'combo' | 'fok', see
     for (const m of mobs) {
       if (!alive(m) || (solo && m !== soloGoal && !m.aggro) || (resting && !m.aggro)) continue;
       const d = cheb(m, me);
+      // A monster that cannot move (Photon Cannon) shoots whoever walks into its reach, and stops when they leave it.
+      if (!m.kind.canMove) { m.aggro = m.kind.aggressive && d <= m.kind.reach; continue; }
       if (!m.aggro && m.kind.aggressive && m.kind.canMove && d <= m.kind.view) m.aggro = true;
       else if (m.aggro && d > m.kind.chase) m.aggro = false;
     }
@@ -253,13 +312,13 @@ async function farmRun(profile: Profile, map: string, mode: 'combo' | 'fok', see
     const reached = goal && cheb(goal, me) <= close + 0.01 ? goal : null;
 
     // ---- a fight -----------------------------------------------------------------
-    if (onMe.length || reached || (mode === 'fok' && chasing.length >= pack && chasing.every((m) => cheb(m, me) <= Math.max(m.kind.reach, FOK_RADIUS) + 0.01))) {
+    if (onMe.length || (mode !== 'afk' && reached) || (mode === 'fok' && chasing.length >= pack && chasing.every((m) => cheb(m, me) <= Math.max(m.kind.reach, FOK_RADIUS) + 0.01))) {
       sitting = false;
       const target = nearest(onMe.length ? onMe : reached ? [reached] : chasing)!;
       target.aggro = true;
       const others = mobs.filter((m) => alive(m) && m.aggro && m !== target);
       const fight = newFight(f, target.kind.m, kit.kit, priorityPolicy, {
-        seed: Math.floor(rng.next() * 2 ** 32), limitMs: FIGHT_LIMIT_MS, options, items, log: trace,
+        seed: Math.floor(rng.next() * 2 ** 32), limitMs: mode === 'afk' ? num('slice', 3000) : FIGHT_LIMIT_MS, options, items, log: trace,
       });
       if (!me.fresh) {
         fight.me.hp = me.hp; fight.me.sp = me.sp;
@@ -271,14 +330,21 @@ async function farmRun(profile: Profile, map: string, mode: 'combo' | 'fok', see
           ...prepped,
         ]);
         fight.me.focus = me.focus.map((v) => v - t);
+        // afk: a regen already ticking keeps its own clock (a 3 s slice would never reach a 5 s tick).
+        if (mode === 'afk' && me.dots.length) {
+          const carried = me.dots.filter((d) => d.until > t).map((d) => ({ ...d, nextAt: d.nextAt - t, until: d.until - t }));
+          fight.me.dots = [...fight.me.dots.filter((d) => !carried.some((c) => c.name === d.name)), ...carried];
+        }
       }
+      // afk: the target picks up where the last slice left it (swing timer, skill delays).
+      if (mode === 'afk' && target.st) fight.mob = { ...shiftMobState(target.st, -t), adds: [] };
       fight.mob.hp = target.hp;
-      if (trace && process.env.FARM_DBG) say(`start vs ${target.kind.m.name}: buffs ${JSON.stringify(Object.fromEntries(Object.entries(fight.me.buffs).filter(([, v]) => v.until > 0 && v.until < 1e11).map(([k, v]) => [k, Math.round(v.until)])))} cds ${JSON.stringify(Object.fromEntries(Object.entries(fight.me.cds).filter(([, v]) => v > 0).map(([k, v]) => [k, Math.round(v)])))} adds ${others.length}`);
+      if (trace && process.env.FARM_DBG) say(`start vs ${target.kind.m.name}: buffs ${JSON.stringify(Object.fromEntries(Object.entries(fight.me.buffs).filter(([, v]) => v.until > 0 && v.until < 1e11).map(([k, v]) => [k, Math.round(v.until)])))} cds ${JSON.stringify(Object.fromEntries(Object.entries(fight.me.cds).filter(([, v]) => v > 0).map(([k, v]) => [k, Math.round(v)])))} adds ${others.length} [${others.map((m) => `${m.kind.m.name}@${cheb(m, me).toFixed(1)}${m.kind.canMove ? '' : '(fixed)'}`).join(', ')}]`);
       for (const m of others) {
         const d = cheb(m, me);
-        const st = newMobState(m.kind.m);
+        const st = mode === 'afk' && m.st ? shiftMobState(m.st, -t) : newMobState(m.kind.m);
         st.hp = m.hp;
-        st.nextAttackAt = Math.max(0, d - m.kind.reach) * m.kind.walkMs;
+        if (!(mode === 'afk' && m.st)) st.nextAttackAt = Math.max(0, d - m.kind.reach) * m.kind.walkMs;
         const reachAt = d <= FOK_RADIUS ? 0 : m.kind.reach <= FOK_RADIUS ? (d - FOK_RADIUS) * m.kind.walkMs : Infinity;
         const a: Actor & { farm?: Mob } = { m: m.kind.m, st, add: true, reachAt, farm: m };
         fight.mob.adds.push(a);
@@ -288,6 +354,11 @@ async function farmRun(profile: Profile, map: string, mode: 'combo' | 'fok', see
       if (trace && fight.log) for (const line of fight.log.slice(fight.result === 'loss' ? -40 : -3)) console.log(`      ${line}`);
       const dur = Math.max(1, fight.t);
       r.spUsed += Math.max(0, spBefore - fight.me.sp);
+      for (const [k, v] of Object.entries(fight.meter?.actions ?? {})) {
+        if (v.damage) r.dealt[k] = (r.dealt[k] ?? 0) + v.damage;
+        if (items.some((x) => x.id === k)) r.drunk[k] = (r.drunk[k] ?? 0) + v.uses;
+      }
+      for (const [k, v] of Object.entries(fight.meter?.taken ?? {})) { if (v.damage) r.taken[k] = (r.taken[k] ?? 0) + v.damage; r.hits += v.hits; r.avoided += v.avoided; }
       const fok = fight.meter?.actions['Fan of Knives'];
       if (fok) { r.fokCasts += fok.uses; r.fokHits += fok.hits; }
       t += dur; r.ms.fight += dur;
@@ -296,7 +367,24 @@ async function farmRun(profile: Profile, map: string, mode: 'combo' | 'fok', see
       me.cds = Object.fromEntries(Object.entries(fight.me.cds).map(([k, v]) => [k, v + t - dur]));
       me.buffs = Object.fromEntries(Object.entries(fight.me.buffs).map(([k, b]) => [k, { ...b, until: b.until >= 1e11 ? b.until : b.until + t - dur }]));
       me.focus = fight.me.focus.map((v) => v + t - dur);
+      if (mode === 'afk') {
+        me.dots = fight.me.dots.map((d) => ({ ...d, nextAt: d.nextAt + t - dur, until: d.until + t - dur }));
+        // Each monster's fight state, in farm time, for the next slice.
+        target.st = shiftMobState(fight.mob, t - dur);
+        for (const a of fight.mob.adds as (Actor & { farm?: Mob })[]) if (a.farm) a.farm.st = shiftMobState(a.st, t - dur);
+      }
       for (const a of fight.killed ?? []) kill((a as Actor & { farm: Mob }).farm);
+      // afk: you walked on through the slice, at a pace the chasers keep up with.
+      if (mode === 'afk' && fight.result !== 'loss') {
+        const chasers = mobs.filter((m) => alive(m) && m.aggro && m.kind.canMove);
+        if (cheb(wander, me) < 2) wander = { x: rng.next() * side, y: rng.next() * side };
+        const to = (chasers.length < pack ? nearest(mobs.filter((m) => alive(m) && !m.aggro && m.kind.aggressive)) : null) ?? wander;
+        {
+          const pace = Math.max(cellMs, ...chasers.map((m) => m.kind.walkMs));
+          step(me, to, dur / pace);
+          for (const m of chasers) { const d = cheb(m, me); if (d > m.kind.reach) step(m, me, d - m.kind.reach); }
+        }
+      }
       for (const a of fight.mob.adds as (Actor & { farm?: Mob })[]) {
         if (!a.farm) continue;
         a.farm.hp = a.st.hp;
@@ -312,8 +400,12 @@ async function farmRun(profile: Profile, map: string, mode: 'combo' | 'fok', see
         for (const m of mobs) m.aggro = false;
         const back = num('death-ms', 30_000);
         t += back; r.ms.dead += back;
-        me.hp = f.maxHp; me.sp = f.maxSp; me.cds = {}; me.focus = []; me.fresh = true; me.buffs = {};
+        me.hp = f.maxHp; me.sp = f.maxSp; me.cds = {}; me.focus = []; me.fresh = true; me.buffs = {}; me.dots = [];
+        for (const m of mobs) m.st = undefined;
         me.x = rng.next() * side; me.y = rng.next() * side;
+      } else if (mode === 'afk' && fight.cause === 'time limit') {
+        // A slice, not a stalemate: the fight goes on with whoever is on you next.
+        target.hp = fight.mob.hp;
       } else {
         r.stalemates++; target.hp = fight.mob.hp;
         say(`fight with ${target.kind.m.name} ran out the clock`);
@@ -324,7 +416,7 @@ async function farmRun(profile: Profile, map: string, mode: 'combo' | 'fok', see
     // ---- between fights ---------------------------------------------------------
     const needSit = me.sp < num('sit-below', 0.2) * f.maxSp || me.hp < num('hp-sit', 0.5) * f.maxHp;
     const rested = me.sp >= num('sit-to', 0.95) * f.maxSp && me.hp >= 0.95 * f.maxHp;
-    if (!chasing.length && (needSit || ((sitting || kneelUntil > t) && !rested))) {
+    if (mode !== 'afk' && !chasing.length && (needSit || ((sitting || kneelUntil > t) && !rested))) {
       if (lotus && kneelUntil <= t && (me.cds['Lotus Pact'] ?? -1) <= t && me.sp >= lotus.sp) {
         // Cast, then kneel. Standing regen through both; the cast is idle time too.
         me.sp -= lotus.sp; r.spUsed += lotus.sp;
@@ -359,6 +451,13 @@ async function farmRun(profile: Profile, map: string, mode: 'combo' | 'fok', see
     }
     // Stand and let them come: a full pack, or a chaser falling out of range.
     const lagging = mode === 'fok' && chasing.some((m) => cheb(m, me) > m.kind.chase - 3);
+    if (mode === 'afk') {
+      if (cheb(wander, me) < 2) wander = { x: rng.next() * side, y: rng.next() * side };
+      const pull = (chasing.length < pack ? nearest(mobs.filter((m) => alive(m) && !m.aggro && m.kind.aggressive)) : null) ?? wander;
+      step(me, pull, TICK_MS / Math.max(cellMs, ...chasing.filter((m) => m.kind.canMove).map((m) => m.kind.walkMs)));
+      regen(TICK_MS, 'walk'); t += TICK_MS; r.ms.walk += TICK_MS;
+      continue;
+    }
     if (!goal || (mode === 'fok' && chasing.length >= pack) || lagging) {
       regen(TICK_MS, 'stand'); t += TICK_MS; r.ms.wait += TICK_MS;
       continue;
@@ -379,7 +478,7 @@ if (one('child')) {
   const profile = readJSON<Profile>(resolve(process.cwd(), one('profile')!));
   const base = await resolveBuild(profile.build, data);
   const v = job.spec ? applyVariant(profile, base, data, job.spec).profile : profile;
-  const res = await farmRun(v, job.map, (one('mode') ?? 'combo') as 'combo' | 'fok', job.seed, argv.includes('--trace'));
+  const res = await farmRun(v, job.map, (one('mode') ?? 'combo') as Mode, job.seed, argv.includes('--trace'));
   process.stdout.write(`${JSON.stringify({ ...job, ...res })}\n`);
 } else {
   leaveFirstCore();
@@ -413,7 +512,7 @@ if (one('child')) {
 
   const rows: Record<string, unknown>[] = [];
   console.log(`\n${one('mode') ?? 'combo'} farming, ${num('minutes', 20)} min x ${seeds} seeds, pack ${num('pack', 4)}, sit below ${num('sit-below', 0.2) * 100}% SP`);
-  console.log(`${'variant'.padEnd(22)}${'map'.padEnd(12)}${'kills/h'.padStart(8)}${'fight'.padStart(7)}${'walk'.padStart(6)}${'wait'.padStart(6)}${'sit'.padStart(6)}${'dead'.padStart(6)}${'sit s/kill'.padStart(11)}${'SP/kill'.padStart(8)}${'deaths/h'.padStart(9)}${'FoK hits/cast'.padStart(14)}`);
+  console.log(`${'variant'.padEnd(22)}${'map'.padEnd(12)}${'kills/h'.padStart(8)}${'fight'.padStart(7)}${'walk'.padStart(6)}${'wait'.padStart(6)}${'sit'.padStart(6)}${'dead'.padStart(6)}${'sit s/kill'.padStart(11)}${'SP/kill'.padStart(8)}${'deaths/h'.padStart(9)}${'FoK hits/cast'.padStart(14)}${'zeny/h'.padStart(10)}${'relics/h'.padStart(9)}${'limit'.padStart(6)}`);
   for (const v of variants) for (const map of maps) {
     const rs = out.filter((x) => x.variant === v.name && x.map === map);
     if (!rs.length) continue;
@@ -425,6 +524,7 @@ if (one('child')) {
       variant: v.name, map, killsPerHour: kills / (total / 3_600_000),
       fight: share('fight'), walk: share('walk'), wait: share('wait'), sit: share('sit'), dead: share('dead'),
       sitPerKill: kills ? S((x) => x.ms.sit) / 1000 / kills : null, spPerKill: kills ? S((x) => x.spUsed) / kills : null,
+      zenyPerHour: S((x) => x.zeny) / (total / 3_600_000), relicsPerHour: S((x) => x.relics) / (total / 3_600_000), zenyLimit: rs[0].zenyLimit,
       deathsPerHour: S((x) => x.deaths) / (total / 3_600_000), fokPerCast: S((x) => x.fokCasts) ? S((x) => x.fokHits) / S((x) => x.fokCasts) : null,
       deathsBy: rs.reduce<Record<string, number>>((a, x) => { for (const [k, n] of Object.entries(x.deathsBy)) a[k] = (a[k] ?? 0) + n; return a; }, {}),
       byMonster: rs.reduce<Record<string, number>>((a, x) => { for (const [k, n] of Object.entries(x.byMonster)) a[k] = (a[k] ?? 0) + n; return a; }, {}),
@@ -432,9 +532,21 @@ if (one('child')) {
     rows.push(row);
     const p = (x: number) => `${Math.round(x * 100)}%`;
     console.log(`${v.name.slice(0, 21).padEnd(22)}${map.padEnd(12)}${Math.round(row.killsPerHour).toString().padStart(8)}${p(row.fight).padStart(7)}${p(row.walk).padStart(6)}${p(row.wait).padStart(6)}${p(row.sit).padStart(6)}${p(row.dead).padStart(6)}`
-      + `${(row.sitPerKill?.toFixed(1) ?? '-').padStart(11)}${Math.round(row.spPerKill ?? 0).toString().padStart(8)}${row.deathsPerHour.toFixed(1).padStart(9)}${(row.fokPerCast?.toFixed(1) ?? '-').padStart(14)}`);
+      + `${(row.sitPerKill?.toFixed(1) ?? '-').padStart(11)}${Math.round(row.spPerKill ?? 0).toString().padStart(8)}${row.deathsPerHour.toFixed(1).padStart(9)}${(row.fokPerCast?.toFixed(1) ?? '-').padStart(14)}${Math.round(row.zenyPerHour).toLocaleString('en-US').padStart(10)}${row.relicsPerHour.toFixed(2).padStart(9)}${String(row.zenyLimit).padStart(6)}`);
     const d = Object.entries(row.deathsBy).sort((a, b) => b[1] - a[1]).slice(0, 3).map(([k, n]) => `${k} x${n}`).join(', ');
     if (d) console.log(`${''.padEnd(34)}died to ${d}`);
+    // Where the damage came from and went (afk: what is doing the killing, and what hurts).
+    const sum = (key: 'dealt' | 'taken' | 'drunk') => rs.reduce<Record<string, number>>((a, x) => { for (const [k, n] of Object.entries(x[key] ?? {})) a[k] = (a[k] ?? 0) + n; return a; }, {});
+    const top = (o: Record<string, number>, n: number, per = true) => {
+      const all = Object.values(o).reduce((a, b) => a + b, 0) || 1;
+      return Object.entries(o).sort((a, b) => b[1] - a[1]).slice(0, n)
+        .map(([k, v]) => (per ? `${k} ${Math.round((100 * v) / all)}%` : `${k} ${Math.round(v / (total / 3_600_000))}/h`)).join(', ');
+    };
+    const dealt = sum('dealt'); const taken = sum('taken'); const drunk = sum('drunk');
+    if (Object.keys(dealt).length) console.log(`${''.padEnd(34)}damage from: ${top(dealt, 6)}`);
+    if (Object.keys(taken).length) console.log(`${''.padEnd(34)}hurt by: ${top(taken, 6)}; hits taken ${Math.round(S((x) => x.hits ?? 0) / (total / 3_600_000))}/h, avoided ${Math.round(S((x) => x.avoided ?? 0) / (total / 3_600_000))}/h`);
+    if (Object.keys(drunk).length) console.log(`${''.padEnd(34)}drinks: ${top(drunk, 4, false)}`);
+    Object.assign(row, { dealt, taken, drunk });
   }
   const json = one('json');
   if (json) writeFileSync(resolve(process.cwd(), json), `${JSON.stringify({ args: argv, rows, runs: out }, null, 1)}\n`);

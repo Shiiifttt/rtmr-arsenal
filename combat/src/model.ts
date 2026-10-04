@@ -112,6 +112,12 @@ export interface Fighter {
   cast: { variable: number; fixed: number; all: number; fixedFlatMs?: number };
   afterCastDelay: number;
   spCost: number;
+  /**
+   * Gear reflect (bShortWeaponDamageReturn / bLongWeaponDamageReturn), percent of a weapon hit you take
+   * sent back to who hit you: melee hits, ranged hits. Not Reflect Shield (a buff, kits/kingslayer.ts).
+   */
+  reflectMelee?: number;
+  reflectRanged?: number;
   /** Percent leech (a chance and a share), and a flat HP / SP on every hit. */
   leech: { hpRate: number; hpPower: number; spRate: number; spPower: number; hpPerHit: number; spPerHit: number };
   /**

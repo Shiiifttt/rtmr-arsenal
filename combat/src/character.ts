@@ -108,6 +108,8 @@ export interface Passives {
   stats?: Partial<Record<keyof Stats, number>>;
   /** Defense Penetration % from a buff kept up all fight (Magic Pierce). */
   defPen?: number;
+  /** Soft DEF from a buff kept up all fight, a percent of VIT (Bishop's Guard, renewal Angelus: status.cpp:7624). */
+  softDefVit?: number;
   /** Crit rate and Perfect Dodge from passives (Scythe Mastery, Advanced Scythe Mastery). */
   crit?: number;
   perfectDodge?: number;
@@ -246,7 +248,7 @@ export async function buildFighter(profile: Profile, opts: FighterOptions): Prom
   // +1% a set refine, then ATK from its total DEF -- hard + soft, the status
   // window's 'a + b' (a reading would settle which); Heir to the King's DEF
   // from total ATK -- the window's ATK: status + weapon (with refine) + equip.
-  const softDef = Math.floor(playerSoftDef(stats, build.baseLevel) * (1 + extras.defPct / 100));
+  const softDef = Math.floor((playerSoftDef(stats, build.baseLevel) + Math.floor((stats.vit * (passives.softDefVit ?? 0)) / 100)) * (1 + extras.defPct / 100));
   const hardDef = Math.floor(Math.floor(flat('def') * (1 + pct('def') / 100)) * (1 + extras.defPct / 100));
   const equipAtk = gearEquipAtk + Math.floor(extras.atkFromDef * (hardDef + softDef));
   const windowAtk = statusAtk(stats, build.baseLevel) + (weapon ? weapon.atk + refineAtk(weapon.level, weapon.refine) : 0) + equipAtk;
@@ -387,6 +389,7 @@ export async function buildFighter(profile: Profile, opts: FighterOptions): Prom
       fixedFlatMs: Math.round(flat('fixed_cast') * 1000) },
     afterCastDelay: pct('after_cast_delay'),
     spCost: pct('sp_cost'),
+    ...gearReflect(build, data, either('reflect_melee')),
     leech: {
       hpRate: either('leech_hp_rate'), hpPower: either('leech_hp_power'),
       spRate: either('leech_sp_rate'), spPower: either('leech_sp_power'),
@@ -622,6 +625,33 @@ function trueGoddessPart(complete: boolean, _build: Build, _data: Dataset, notes
   if (!complete || process.env.TRUE_GODDESS !== '1') return {};
   notes.push(`True Goddess: 10 s cooldown on every skill, Kaupe 2 s after each cast (experimental)`);
   return { trueGoddess: true };
+}
+
+/**
+ * Gear reflect: the parsed "Reflect Melee Damage" lines (reflect_melee), and the lines the crawl leaves
+ * unparsed -- Lost Cause's piece and set bonus ("Reflect 10% Melee Damage", the set's once with all four),
+ * the runes' "Reflects all melee/ranged damage by 2% per Upgrade" (refine), Muka / Calmaring's "Reflects
+ * 5% damage from short range attacks" -- read from the item text. RTM battle.cpp:7826 (short) / 7871 (long).
+ */
+function gearReflect(build: Build, data: Dataset, parsedMelee: number): { reflectMelee?: number; reflectRanged?: number } {
+  let melee = parsedMelee; let ranged = 0; let lostCause = 0;
+  for (const st of Object.values(build.slots)) {
+    if (!st?.itemId) continue;
+    for (const id of [st.itemId, ...(st.cards ?? [])]) {
+      const it = id ? data.items.get(id) : null;
+      if (!it) continue;
+      if ((it.effects ?? []).some((e) => (e.stat_keys ?? []).includes('reflect_melee'))) continue;
+      const d = it.description ?? '';
+      const refine = id === st.itemId ? st.refine : 0;
+      let m: RegExpMatchArray | null;
+      if ((m = d.match(/Reflects all melee damage by (d+)% per Upgrade/i))) melee += Number(m[1]) * refine;
+      if ((m = d.match(/Reflects all ranged damage by (d+)% per Upgrade/i))) ranged += Number(m[1]) * refine;
+      if ((m = d.match(/Reflects (d+)% damage (?:taken )?from (?:melee|short range)/i))) melee += Number(m[1]);
+      if (/^Lost Cause /.test(it.name) && (m = d.match(/Reflect (d+)% Melee Damage/i))) { melee += Number(m[1]); lostCause++; }
+    }
+  }
+  if (lostCause >= 4) melee += 10;
+  return { ...(melee ? { reflectMelee: melee } : {}), ...(ranged ? { reflectRanged: ranged } : {}) };
 }
 
 function itemIn(build: Build, data: Dataset, slot: string) {
