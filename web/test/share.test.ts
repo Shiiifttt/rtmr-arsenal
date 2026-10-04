@@ -11,7 +11,9 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import type { Build } from '@sim';
 import { SLOTS } from '@sim';
+import { createHash } from 'node:crypto';
 import { decodeBuild, encodeBuild, payloadIn } from '../src/share.ts';
+import { SHARE_WORDS } from '../src/share-words.ts';
 
 const BUILD: Build = {
   className: 'Assassin',
@@ -76,7 +78,7 @@ test('the payload uses only characters a URL carries unescaped', async () => {
 
 test('the payload is a good deal shorter than the build it carries', async () => {
   const payload = await encodeBuild(BUILD);
-  assert.equal(payload[0], 'c', 'expected the compact deflated tag');
+  assert.match(payload[0], /^[ef]$/, 'expected the binary tag');
   const raw = JSON.stringify(BUILD).length;
   assert.ok(payload.length < raw / 2,
     `payload ${payload.length} should be well under half of raw JSON ${raw}`);
@@ -182,4 +184,51 @@ test('a goal from an older link that dropped a target of 0 reads back as 0', asy
     { key: 'atk', column: 'percent', target: 0 },
     { key: 'sp_cost', column: 'percent', target: 0, atMost: true },
   ]);
+});
+
+/**
+ * The binary format (tags 'e' / 'f') writes roll keys, options and stat keys
+ * as their place in SHARE_WORDS. That makes the list part of the link format,
+ * as SLOTS' order is: reorder, rename or remove an entry and every saved link
+ * reads the wrong word. Appending is safe -- this pins the first 406 entries,
+ * the list as it was written on 2026-10-04.
+ */
+test('the word list the binary links depend on only ever grows', () => {
+  assert.ok(SHARE_WORDS.length >= 406);
+  assert.equal(new Set(SHARE_WORDS).size, SHARE_WORDS.length, 'no word twice');
+  const pinned = createHash('sha256').update(SHARE_WORDS.slice(0, 406).join('\n')).digest('hex');
+  assert.equal(pinned, 'dff63e5770c2f6f9b19160c6771bd8e28dadbd5c6e5febe53154dc3ccfb4009a');
+});
+
+test('numbers come back exactly: whole, hundredths, negative, and anything else', async () => {
+  const build: Build = {
+    ...BUILD,
+    slots: {
+      weapon: {
+        itemId: 1229, refine: 9, cards: [4144, 4144, 4144, 4144],
+        rolls: {
+          roll1: { option: 'fixed_cast_time_reduced_', values: [0.2] },
+          roll2: { option: 'sp_cost_reduced', values: [-5] },
+          roll3: { option: 'not a known word %d', values: [0.001, 123456] },
+        },
+      },
+    },
+    goals: [{ key: 'max_hp', column: 'flat', target: 40000, cap: 1.25 }],
+    manual: { hit: -12.5, a_brand_new_stat: 3 },
+  };
+  const back = await decodeBuild(await encodeBuild(build));
+  assert.deepEqual(back?.slots.weapon, build.slots.weapon);
+  assert.deepEqual(back?.goals, build.goals);
+  assert.deepEqual(back?.manual, build.manual);
+});
+
+test('a full build fits in about half the characters of the old format', async () => {
+  // The owner's Tomb build (2026-10-04): 291 characters as a 'c' link.
+  const old = 'cdVDNSoQxDHyXnueQpEna-go-QijLh4gu_rC4H4sivru0vazIXgZmMmEyCUG6P74_nV-3r8ePBM6EqARGa5AykDsiCKZcQQhVp94RDCOfCmcrPCSBNXH4kLxVTBzb6bxve0K6HPeE4N6HO0Nyto5QMDdHQyh5wV8YToMwCypCs8xwB5tmnxI7YcD_IFlBBSJEuu4qLDeNFeJ5jBvY2fKqS3q9sO0vh9PDVQ0WSG1NMJpynkQX0UnyIjaJLeIQJRsnc4Eou8EQN17V54S94zu9bZ-H51O6o5_-Cw';
+  const build = await decodeBuild(old);
+  assert.ok(build, 'the old link still decodes');
+  const now = await encodeBuild(build!);
+  assert.ok(now.length <= old.length * 0.6, `binary ${now.length} vs old ${old.length}`);
+  // And it is the same build.
+  assert.deepEqual(await decodeBuild(now), { ...build, goals: build!.goals ?? [], locked: build!.locked ?? [] });
 });
