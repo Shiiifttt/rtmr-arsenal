@@ -69,7 +69,7 @@ export interface PlayerState {
   /** Uses left of limited actions, by id. */
   left: Record<string, number>;
   /** Damage over time on you: bleeding, burning, burnt. */
-  dots: { name: string; nextAt: number; every: number; until: number; dmg: number; lethal: boolean; heal?: boolean; sp?: boolean }[];
+  dots: { name: string; nextAt: number; every: number; until: number; dmg: number; lethal: boolean; heal?: boolean; sp?: boolean; raw?: boolean }[];
 }
 
 /**
@@ -186,6 +186,12 @@ export interface Kit {
    * fights, where a fight's own ticks do not run.
    */
   idleRegen?(f: Fighter, options: Record<string, unknown>): { hpPerSec: number; spPerSec: number };
+  /**
+   * Seconds between fights to win back `sp` and `hp`, when the class has a better way than sitting
+   * (Satsujin's Lotus Pact); `sitS` is the plain sit at `regen` (rhythm.ts sitFor), `cycleS` the
+   * rest of the cycle (fight and walk) -- for a recovery skill's cooldown.
+   */
+  recoverFor?(f: Fighter, options: Record<string, unknown>, need: { sp: number; hp: number }, regen: { sp: number; hp: number }, sitS: number, cycleS: number): number;
   /** What `prep` put up, in words: "Seven Winds: Holy". */
   prepNotes?(fight: Fight): string[];
   /** The rotation as the player would write it: the rollout policy. */
@@ -361,6 +367,8 @@ const actors = (fight: Fight): Actor[] => [{ m: fight.m, st: fight.mob, add: fal
 
 // ---- buffs -----------------------------------------------------------------
 
+/** Lotus Pact's chance that a hit does nothing (RTM battle.cpp:1306). */
+export const LOTUS_BLOCK = 0.4;
 export const has = (fight: Fight, buff: string) => (fight.me.buffs[buff]?.until ?? -1) > fight.t;
 export const stacks = (fight: Fight, buff: string) => (has(fight, buff) ? fight.me.buffs[buff].stacks : 0);
 export function grant(
@@ -1260,11 +1268,13 @@ function landMobHit(fight: Fight, a: Actor, s: MobSkill, normal: boolean, ch?: C
   // cancels the hit and the kit hears of it (Counter state, kits/nightraven.ts).
   const blockable = s.type === 'physical' || (s.type === 'magic' && s.targets === 'single' && m.reach <= 3);
   const block = blockable && has(fight, 'weaponBlock') ? Math.min(1, (me.buffs.weaponBlock.value ?? 0) / 100) : 0;
+  // Lotus Pact (KO_MEIKYOUSISUI, buff 'lotus'): any hit does nothing 40% of the time (RTM battle.cpp:1306, "custom value").
+  const lotus = has(fight, 'lotus') ? LOTUS_BLOCK : 0;
   if (rng.expect) {
     // A rollout: Kaupe takes the hit whole (it would take the first that lands).
     if (kaupeBlocks(fight, s)) return;
     if (block > 0) fight.kit.onBlock?.(fight, p * block);
-    const took = hurtMe(fight, p * (1 - guardChance) * (1 - block) * wall * mobDamage(m, target, s, rng, ranged), src);
+    const took = hurtMe(fight, p * (1 - guardChance) * (1 - block) * (1 - lotus) * wall * mobDamage(m, target, s, rng, ranged), src);
     drained(fight, a, s, took);
     afterHit(fight, a, s, normal, took);
     return;
@@ -1275,6 +1285,7 @@ function landMobHit(fight: Fight, a: Actor, s: MobSkill, normal: boolean, ch?: C
     fight.kit.onBlock?.(fight, 1);
     return avoided(fight, src, 'Weapon Blocking');
   }
+  if (lotus > 0 && rng.chance(lotus)) return avoided(fight, src, 'Lotus Pact');
   const dmg = mobDamage(m, target, s, rng, ranged) * vulnerability(fight, s.element) * wall;
   const took = hurtMe(fight, dmg, src);
   drained(fight, a, s, took);
@@ -1454,11 +1465,14 @@ function applyStatus(fight: Fight, a: Actor, s: MobSkill, e: StatusEffect) {
   fight.log && say(fight, `gets ${sc}${ms ? ` for ${(ms / 1000).toFixed(1)}s` : ''} (${s.name})`);
 }
 
-/** Something ticking on you: damage, or with `heal` a regen (Knight's Regen). */
-export function dot(fight: Fight, name: string, every: number, ms: number, dmg: number, lethal: boolean, heal = false, sp = false) {
+/**
+ * Something ticking on you: damage, or with `heal` a regen (Knight's Regen). `raw`: a heal that is
+ * not a heal skill (status_heal: Lotus Pact), so healing received does not scale it.
+ */
+export function dot(fight: Fight, name: string, every: number, ms: number, dmg: number, lethal: boolean, heal = false, sp = false, raw = false) {
   if (ms <= 0) return;
   fight.me.dots = fight.me.dots.filter((d) => d.name !== name);
-  fight.me.dots.push({ name, nextAt: fight.t + every, every, until: fight.t + ms, dmg, lethal, ...(heal ? { heal } : {}), ...(sp ? { sp } : {}) });
+  fight.me.dots.push({ name, nextAt: fight.t + every, every, until: fight.t + ms, dmg, lethal, ...(heal ? { heal } : {}), ...(sp ? { sp } : {}), ...(raw ? { raw } : {}) });
 }
 
 /**
@@ -1584,7 +1598,7 @@ export function run(fight: Fight): Fight {
       // Skill heals over time (Knight's Regen, King's Fortress): healing received applies.
       // An SP regen skill (King's Fortress Lv2) restores SP instead.
       if (d.sp) me.sp = Math.max(0, Math.min(fight.f.maxSp, me.sp + d.dmg));
-      else if (d.heal) heal_(fight, d.dmg * Math.max(0, 1 + (fight.f.healReceived ?? 0) / 100));
+      else if (d.heal) heal_(fight, d.dmg * (d.raw ? 1 : Math.max(0, 1 + (fight.f.healReceived ?? 0) / 100)));
       else hurtMe(fight, d.dmg, d.name, d.lethal);
       d.nextAt += d.every;
       if (d.nextAt > d.until) me.dots = me.dots.filter((x) => x !== d);

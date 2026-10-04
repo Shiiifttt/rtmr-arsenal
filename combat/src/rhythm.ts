@@ -75,7 +75,8 @@ export function rhythm(f: Fighter, kit: Kit, options: Record<string, unknown>, f
   const per: Rhythm['per'] = [];
   for (const { s, weight } of fights) {
     const fightS = s.seconds;
-    const sitS = sitFor(s.spUsed, s.hpUsed, regen);
+    const plain = sitFor(s.spUsed, s.hpUsed, regen);
+    const sitS = kit.recoverFor ? kit.recoverFor(f, options, { sp: s.spUsed, hp: s.hpUsed }, regen, plain, fightS + walk) : plain;
     const loss = s.losses / Math.max(1, s.iterations);
     // A cycle ends in a kill (win), a death, or a fight given up (stalemate).
     const c = fightS + s.winRate * (sitS + walk) + loss * DEATH_S + (1 - s.winRate - loss) * (sitS + walk);

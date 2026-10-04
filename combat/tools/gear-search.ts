@@ -472,17 +472,19 @@ interface Move { label: string; slots?: Record<string, SlotState>; options?: Rec
 /**
  * A new piece's refines: +6 and +9 within --max-refine -- and +10 under
  * --max-refine 10 (the maxed tier, 2026-10-02: "no limitations at all").
- * A weapon is held only by --refine-cap (budget: weapon +9, armour +6).
+ * A weapon is held only by --refine-cap (budget: weapon +9, armour +6) -- a weapon in the off-hand too
+ * (a +9 Laevateinn's -27% SP cost is a budget build's, the project owner 2026-10-03), not a shield.
  */
+const weaponIn = (item: Item, slotKey: string) => slotKey === 'weapon' || (slotKey === 'offhand' && item.kind === 'Weapon');
 const refines = (item: Item, slotKey = '') => {
   if (!isRefineable(item)) return [0];
-  const cap = slotKey === 'weapon' ? (refineCap.get('weapon') ?? 99) : maxNewRefine;
+  const cap = weaponIn(item, slotKey) ? (refineCap.get(slotKey) ?? refineCap.get('weapon') ?? 99) : maxNewRefine;
   return [...new Set([6, 9, ...(cap >= 10 ? [10] : [])].map((r) => Math.min(r, cap, maxRefine(item))))];
 };
 /** The refines a piece is ever tried at: +0, +3, +6, +9, never +10 (the project owner, 2026-09-29) -- weapons +10 too (2026-09-30); all +10 under --max-refine 10. */
 const TIERS = [0, 3, 6, 9, ...(maxNewRefine >= 10 ? [10] : [])];
 const tiersFor = (item: Item, slotKey: string) => (isRefineable(item)
-  ? [...new Set((slotKey === 'weapon' ? [...new Set([...TIERS, 10])] : TIERS).map((r) => Math.min(r, maxRefine(item), slotKey === 'weapon' ? 99 : maxNewRefine, refineCap.get(slotKey) ?? 99)))] : [0]);
+  ? [...new Set((weaponIn(item, slotKey) ? [...new Set([...TIERS, 10])] : TIERS).map((r) => Math.min(r, maxRefine(item), weaponIn(item, slotKey) ? 99 : maxNewRefine, refineCap.get(slotKey) ?? (weaponIn(item, slotKey) ? refineCap.get('weapon') : undefined) ?? 99)))] : [0]);
 /** The cards worn in a slot that still fit a new piece there, in the sockets it has. */
 const keepCards = (cur: SlotState | undefined, slot: SlotDef, item: Item) => (cur?.cards ?? []).filter((id): id is number => !!id)
   .filter((id) => { const c = data.items.get(id); return c && cardFits(c, slot, item); }).slice(0, item.card_slots);
@@ -1366,8 +1368,10 @@ function cheapen(b: Build): Build {
     const item = data.items.get(st.itemId);
     if (banned(item)) { out.slots[k] = { itemId: null, refine: 0, cards: [] }; console.log(`cheap: ${k} ${item!.name} off`); continue; }
     // Weapons are exempt from the refine cap (the project owner, 2026-09-29: "+8 except weapons").
-    if (one('max-refine') && st.refine > maxNewRefine && k !== 'weapon') { console.log(`cheap: ${k} ${item?.name} +${st.refine} -> +${maxNewRefine}`); st.refine = maxNewRefine; }
-    const cap = refineCap.get(k);
+    // An off-hand weapon is a weapon here too (weaponIn).
+    const isWeapon = !!item && weaponIn(item, k);
+    if (one('max-refine') && st.refine > maxNewRefine && !isWeapon) { console.log(`cheap: ${k} ${item?.name} +${st.refine} -> +${maxNewRefine}`); st.refine = maxNewRefine; }
+    const cap = refineCap.get(k) ?? (isWeapon ? refineCap.get('weapon') : undefined);
     if (strict && cap !== undefined && st.refine > cap) { console.log(`cheap: ${k} ${item?.name} +${st.refine} -> +${cap}`); st.refine = cap; }
     st.cards = st.cards.map((c) => {
       const card = c ? data.items.get(c) : null;

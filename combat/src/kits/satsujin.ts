@@ -26,13 +26,14 @@
  *   - Million Stab is melee despite its 7-cell reach (the planner's Moon
  *     preset scores it on melee%); Dragon Omamori (7-11 cells) is ranged.
  */
-import { attrFix, castTimeMs, magicDamage, physicalDamage, statusAtk, TUNE, type DotName } from '../formulas.ts';
-import type { MobSkill, Monster } from '../model.ts';
+import { attrFix, castTimeMs, magicDamage, mobDamage, mobHitChance, perfectDodgeChance, physicalDamage, statusAtk, TUNE, type DotName } from '../formulas.ts';
+import { Rng } from '../rng.ts';
+import type { Fighter, MobSkill, Monster } from '../model.ts';
 import { playbookPlan } from '../playbook.ts';
 import { ratioAt } from '../skilltext.ts';
 import type { Passives } from '../character.ts';
 import {
-  canUse, dotOnMob, enterManhole, focusStacks, followUpComing, grant, has, heal_, MANHOLE_MS, mobHas, readMarks, readyAt, say, stacks, strike, strikeAdds,
+  canUse, dot, dotOnMob, enterManhole, LOTUS_BLOCK, NORMAL, focusStacks, followUpComing, grant, has, heal_, MANHOLE_MS, mobHas, readMarks, readyAt, say, stacks, strike, strikeAdds,
   targetNow,
   type Action, type Fight, type Kit,
 } from '../engine.ts';
@@ -548,22 +549,87 @@ const slashOut: Action = {
   cooldownMs: () => 0,
 };
 
-/** Lotus Pact: 10s kneeling, 1% HP and SP per level per second. */
+/**
+ * Lotus Pact (KO_MEIKYOUSISUI): 3 s variable cast, 100 SP, 30 s cooldown (RTM skill_db); then 10 s
+ * rooted, 1% Max HP and SP a level each second (status.cpp:15075, ten ticks), and any hit does nothing
+ * 40% of the time (LOTUS_BLOCK). The project owner (2026-10-03): it cannot be cancelled, and skills
+ * and movement skills still go off while rooted -- so it is a buff to fight in, not a kneel -- used
+ * "if the monster doesn't cast any must-walk-out-of abilities" (Rachel's maidens: Vampire Gift).
+ * Option lotus: false never in a fight; lotusAt: SP share it goes up below (default 0.5, or HP under half).
+ */
+export const LOTUS = { castMs: 3000, sp: 100, cooldownMs: 30_000, ms: 10_000 };
+/** A skill only walking (or a diagonal, or breaking sight) gets out of: no good rooted. */
+const mustWalk = (sk: MobSkill) => sk.avoid.length > 0 && sk.avoid.every((a) => a === 'walk' || a === 'diag' || a === 'los');
+/**
+ * Safe to tank through Lotus Pact (the project owner, 2026-10-03: "I cast it and tank the monster ...
+ * when the monster can't one-shot me and I can sustain via the regen/leech/heal"): no hit it has that
+ * cannot be dodged rooted (Kawarimi, Hiding still go) takes the HP you have, and its swings over the
+ * cast and the 10 s -- through flee, Perfect Dodge and the 40% block -- leave you above 30% with
+ * Lotus Pact's own ticks.
+ */
+function lotusSafe(fight: Fight): boolean {
+  const f = fight.f; const sure = new Rng(0, true);
+  const windowS = castTimeMs(LOTUS.castMs, 0, f) / 1000 + LOTUS.ms / 1000;
+  const hp = fight.me.hp;
+  let swings = 0;
+  for (const m of [fight.m, ...fight.mob.adds.map((a) => a.m)]) {
+    for (const k of m.skills) {
+      if (k.type === 'none' || k.type === 'status' || k.targets === 'self') continue;
+      if (k.avoid.includes('kawarimi') || k.avoid.includes('hide')) continue;
+      if (mobDamage(m, f, k, sure) * Math.max(1, k.ticks) >= hp) return false;
+    }
+    const hit = mobDamage(m, f, NORMAL, sure);
+    if (hit >= hp) return false;
+    const land = mobHitChance(m.hit, f.flee) * (1 - perfectDodgeChance(f.perfectDodge)) * (1 - LOTUS_BLOCK);
+    swings += (hit * land * windowS * 1000) / Math.max(100, m.adelay);
+  }
+  const ticks = (lv(f, 'Lotus Pact') / 100) * f.maxHp * (LOTUS.ms / 1000);
+  return hp + ticks - swings >= 0.3 * f.maxHp;
+}
 const lotusPact: Action = {
   id: 'Lotus Pact',
   isSkill: true,
   offensive: false,
-  ready: (fight) => learned('Lotus Pact')(fight) && fight.me.sp < 0.15 * fight.f.maxSp && !fight.mob.cast,
-  castMs: cast('Lotus Pact'),
-  delayMs: () => 10_000,
-  cooldownMs: () => 10_000,
-  spCost: () => 0,
+  ready: (fight) => learned('Lotus Pact')(fight) && fight.options.lotus !== false && !fight.mob.cast && fight.me.sp >= LOTUS.sp
+    && (fight.me.sp < Number(fight.options.lotusAt ?? 0.5) * fight.f.maxSp || fight.me.hp < 0.5 * fight.f.maxHp)
+    && ![fight.m, ...fight.mob.adds.map((a) => a.m)].some((m) => m.skills.some(mustWalk)) && lotusSafe(fight),
+  castMs: (fight) => castTimeMs(LOTUS.castMs, 0, fight.f),
+  cooldownMs: () => LOTUS.cooldownMs,
+  spCost: () => LOTUS.sp,
   resolve(fight) {
-    const pct = lv(fight.f, 'Lotus Pact') * 10 / 100; // 10 seconds' worth, up front
-    heal_(fight, pct * fight.f.maxHp);
-    fight.me.sp = Math.min(fight.f.maxSp, fight.me.sp + pct * fight.f.maxSp);
+    const pct = lv(fight.f, 'Lotus Pact') / 100;
+    grant(fight, 'lotus', LOTUS.ms);
+    grant(fight, 'rooted', LOTUS.ms);
+    dot(fight, 'Lotus Pact (HP)', 1000, LOTUS.ms, pct * fight.f.maxHp, false, true, false, true);
+    dot(fight, 'Lotus Pact (SP)', 1000, LOTUS.ms, pct * fight.f.maxSp, false, false, true);
   },
 };
+
+/**
+ * Between fights: Lotus Pact when it wins the SP and HP back sooner than sitting (the project owner,
+ * 2026-10-03: "benchmark how much faster it is to Lotus Pact between fights when necessary vs
+ * sitting"). Standing through the cast and the 10 s (natural regen not doubled, heals still go), its
+ * ticks on top, then sitting for the rest; its 30 s cooldown lets it go every cycle only when a cycle
+ * is that long. Option lotusSit: false sits only.
+ */
+function recoverFor(f: Fighter, options: Record<string, unknown>, need: { sp: number; hp: number }, regen: { sp: number; hp: number }, sitS: number, cycleS: number): number {
+  const l = lv(f, 'Lotus Pact');
+  if (!l || options.lotusSit === false || sitS <= 0) return sitS;
+  const standSp = f.regen.sp / (TUNE.spRegenMs / 1000) + (f.regen.spSkill ?? 0) / (TUNE.skillRegenMs / 1000);
+  const castS = castTimeMs(LOTUS.castMs, 0, f) / 1000;
+  let sp = need.sp + LOTUS.sp; let hp = need.hp; let t = 0;
+  const step = 0.05; let ticks = 0;
+  while ((sp > 0 || hp > 0) && t < sitS) {
+    const rooted = t < castS + LOTUS.ms / 1000;
+    sp -= (rooted ? standSp : regen.sp) * step; hp -= regen.hp * step;
+    t += step;
+    // A tick each whole second after the cast, ten in all.
+    if (ticks < LOTUS.ms / 1000 && t >= castS + ticks + 1) { ticks++; sp -= (l / 100) * f.maxSp; hp -= (l / 100) * f.maxHp; }
+  }
+  const lotusS = Math.min(t, sitS);
+  const p = Math.min(1, (cycleS + lotusS) / (LOTUS.cooldownMs / 1000));
+  return p * lotusS + (1 - p) * sitS;
+}
 
 /**
  * Hallucination Walk (Assassin signature): "a duration of 25+5s per level",
@@ -750,6 +816,8 @@ export const SATSUJIN_SEARCH = {
     // strictCombo is not here: Million Stab and Dragon Omamori only under Combo Ready is the
     // project owner's hard rule (2026-09-26), not a setting to search.
     hallucinationWalk: [true, false], refocus: [true, false],
+    // Lotus Pact in a fight (and below what SP share), and between fights when it beats sitting.
+    lotus: [true, false], lotusAt: [0.5, 0.3, 0.7], lotusSit: [true, false],
   } as Record<string, unknown[]>,
   pinned: ['Stay hidden', 'Pull it off the ward', "Morroc's Mark", 'Lotus Pact', 'Wait for swing'],
   droppable: ['Thousand Arms', 'Shadow Slash', 'Back Stab', 'Hallucination Walk', 'Dragon Omamori', 'Million Stab'],
@@ -892,6 +960,7 @@ export const satsujin: Kit = {
   cycleAnchor: 'New Moon',
   coreRoles: ['Moon combo', 'Omamori'],
   magicActions: ['Refocus'],
+  recoverFor,
   priority: priorityWith(() => PREEMPTS, priority, rule('Stay ready')),
   holding: (fight) => !!snapThreatDue(fight, TOOLS),
   react: reactWith(TOOLS, react),
